@@ -365,6 +365,40 @@
             "column": 65
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {undefined | RegExp} separator \n * @param \n * {number} limit \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 187,
+            "end": 348,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Divides a string into an ordered list of substrings, puts these substrings into an array, and returns the array.\n *  The division is done by searching for a pattern; where the pattern is provided as the first parameter in the method's call.\n *\n * @param {Answerable<string | RegExp>} separator\n *  The pattern describing where each split should occur.  The separator can be a simple string or it can be a regular expression.\n *\n * @param {Answerable<number>} [limit]\n *  A non-negative integer specifying a limit on the number of substrings to be included in the array.\n *  If provided, splits the string at each occurrence of the specified separator, but stops when limit entries have been placed in the array.\n *  Any leftover text is not included in the array at all.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split\n ",
+            "start": 351,
+            "end": 1302,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 0
+              },
+              "end": {
+                "line": 34,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -436,8 +470,23 @@
             "raw": "'../AnswerMappingFunction'"
           },
           "value": "../AnswerMappingFunction"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1303,
+        "end": 1864,
+        "loc": {
+          "start": {
+            "line": 35,
+            "column": 0
+          },
+          "end": {
+            "line": 49,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {undefined | RegExp} separator \n * @param \n * {number} limit \n * @return \n * {AnswerMappingFunction} \n ",
@@ -470,22 +519,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1303,
-        "end": 1864,
-        "loc": {
-          "start": {
-            "line": 35,
-            "column": 0
-          },
-          "end": {
-            "line": 49,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1209,6 +1243,7 @@
                                     },
                                     "name": "Promise"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1586,
@@ -1225,8 +1260,7 @@
                                       "identifierName": "all"
                                     },
                                     "name": "all"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -1292,6 +1326,7 @@
                                             },
                                             "name": "actor"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1614,
@@ -1308,8 +1343,7 @@
                                               "identifierName": "answer"
                                             },
                                             "name": "answer"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1376,6 +1410,7 @@
                                             },
                                             "name": "actor"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1655,
@@ -1392,8 +1427,7 @@
                                               "identifierName": "answer"
                                             },
                                             "name": "answer"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1419,6 +1453,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1685,
@@ -1435,8 +1470,7 @@
                                   "identifierName": "then"
                                 },
                                 "name": "then"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1768,6 +1802,7 @@
                                             },
                                             "name": "value"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1823,
@@ -1784,8 +1819,7 @@
                                               "identifierName": "split"
                                             },
                                             "name": "split"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1876,41 +1910,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {undefined | RegExp} separator \n * @param \n * {number} limit \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 187,
-            "end": 348,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Divides a string into an ordered list of substrings, puts these substrings into an array, and returns the array.\n *  The division is done by searching for a pattern; where the pattern is provided as the first parameter in the method's call.\n *\n * @param {Answerable<string | RegExp>} separator\n *  The pattern describing where each split should occur.  The separator can be a simple string or it can be a regular expression.\n *\n * @param {Answerable<number>} [limit]\n *  A non-negative integer specifying a limit on the number of substrings to be included in the array.\n *  If provided, splits the string at each occurrence of the specified separator, but stops when limit entries have been placed in the array.\n *  Any leftover text is not included in the array at all.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split\n ",
-            "start": 351,
-            "end": 1302,
-            "loc": {
-              "start": {
-                "line": 18,
-                "column": 0
-              },
-              "end": {
-                "line": 34,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

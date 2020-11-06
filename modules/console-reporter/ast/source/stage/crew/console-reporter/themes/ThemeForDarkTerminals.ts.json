@@ -44,6 +44,24 @@
             "column": 30
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file ",
+            "start": 0,
+            "end": 26,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -115,25 +133,7 @@
             "raw": "'chalk'"
           },
           "value": "chalk"
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " istanbul ignore file ",
-            "start": 0,
-            "end": 26,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 26
-              }
-            }
-          }
-        ]
+        }
       },
       {
         "type": "ImportDeclaration",
@@ -149,6 +149,40 @@
             "column": 68
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n ",
+            "start": 128,
+            "end": 173,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A simple colour theme for terminals with dark backgrounds.\n *\n * @extends {ThemeForColourTerminals}\n *\n * @public\n ",
+            "start": 176,
+            "end": 310,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 20,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -220,8 +254,23 @@
             "raw": "'./ThemeForColourTerminals'"
           },
           "value": "./ThemeForColourTerminals"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 311,
+        "end": 1866,
+        "loc": {
+          "start": {
+            "line": 21,
+            "column": 0
+          },
+          "end": {
+            "line": 108,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n ",
@@ -254,22 +303,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 311,
-        "end": 1866,
-        "loc": {
-          "start": {
-            "line": 21,
-            "column": 0
-          },
-          "end": {
-            "line": 108,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -350,6 +384,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {chalk~Chalk} chalk\n     *\n     * @see https://www.npmjs.com/package/chalk\n     ",
+                    "start": 385,
+                    "end": 485,
+                    "loc": {
+                      "start": {
+                        "line": 23,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 27,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 34 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 546,
+                    "end": 669,
+                    "loc": {
+                      "start": {
+                        "line": 31,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 42,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Formats the heading\n     *\n     * @param {...any[]} parts\n     *  `parts` to be converted to string, joined together, and formatted as a heading\n     *\n     * @returns {string}\n     ",
+                    "start": 676,
+                    "end": 885,
+                    "loc": {
+                      "start": {
+                        "line": 45,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 53,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -520,26 +606,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 890,
+                "end": 988,
+                "loc": {
+                  "start": {
+                    "line": 54,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 56,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {chalk~Chalk} chalk\n     *\n     * @see https://www.npmjs.com/package/chalk\n     ",
-                    "start": 385,
-                    "end": 485,
-                    "loc": {
-                      "start": {
-                        "line": 23,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 27,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 34 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -572,22 +655,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 890,
-                "end": 988,
-                "loc": {
-                  "start": {
-                    "line": 54,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @param \n * {string} pattern \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 989,
+                    "end": 1113,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 68,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 56,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Decorates the heading with theme colours.\n     *\n     * @param {string} pattern\n     *  The pattern to be repeated to create a separator, for example `-`, `✂ - - `, etc.\n     *\n     * @returns {string}\n     ",
+                    "start": 1120,
+                    "end": 1354,
+                    "loc": {
+                      "start": {
+                        "line": 71,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 79,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -820,6 +922,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 945,
@@ -836,9 +939,9 @@
                                   "identifierName": "chalk"
                                 },
                                 "name": "chalk"
-                              },
-                              "computed": false
+                              }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 951,
@@ -855,9 +958,9 @@
                                 "identifierName": "bold"
                               },
                               "name": "bold"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 956,
@@ -874,8 +977,7 @@
                               "identifierName": "white"
                             },
                             "name": "white"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -921,6 +1023,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 967,
@@ -937,8 +1040,7 @@
                                   "identifierName": "joined"
                                 },
                                 "name": "joined"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -965,42 +1067,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1359,
+                "end": 1457,
+                "loc": {
+                  "start": {
+                    "line": 80,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 82,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 34 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 546,
-                    "end": 669,
-                    "loc": {
-                      "start": {
-                        "line": 31,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 42,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Formats the heading\n     *\n     * @param {...any[]} parts\n     *  `parts` to be converted to string, joined together, and formatted as a heading\n     *\n     * @returns {string}\n     ",
-                    "start": 676,
-                    "end": 885,
-                    "loc": {
-                      "start": {
-                        "line": 45,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 53,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @param \n * {string} pattern \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1033,22 +1116,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1359,
-                "end": 1457,
-                "loc": {
-                  "start": {
-                    "line": 80,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 59 \n * @param \n * {undefined} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1458,
+                    "end": 1583,
+                    "loc": {
+                      "start": {
+                        "line": 83,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 94,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 82,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Decorates the log entries that the developer wanted to have captured in the output.\n     *\n     * @param {...any[]} parts\n     *\n     * @returns {string}\n     ",
+                    "start": 1590,
+                    "end": 1776,
+                    "loc": {
+                      "start": {
+                        "line": 97,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 104,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1237,6 +1339,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1416,
@@ -1253,9 +1356,9 @@
                                 "identifierName": "chalk"
                               },
                               "name": "chalk"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1422,
@@ -1272,8 +1375,7 @@
                               "identifierName": "yellow"
                             },
                             "name": "yellow"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1319,6 +1421,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1434,
@@ -1335,8 +1438,7 @@
                                   "identifierName": "repeat"
                                 },
                                 "name": "repeat"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1363,42 +1465,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1781,
+                "end": 1864,
+                "loc": {
+                  "start": {
+                    "line": 105,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 107,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @param \n * {string} pattern \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 989,
-                    "end": 1113,
-                    "loc": {
-                      "start": {
-                        "line": 57,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 68,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Decorates the heading with theme colours.\n     *\n     * @param {string} pattern\n     *  The pattern to be repeated to create a separator, for example `-`, `✂ - - `, etc.\n     *\n     * @returns {string}\n     ",
-                    "start": 1120,
-                    "end": 1354,
-                    "loc": {
-                      "start": {
-                        "line": 71,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 79,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 59 \n * @param \n * {undefined} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1431,22 +1514,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1781,
-                "end": 1864,
-                "loc": {
-                  "start": {
-                    "line": 105,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 107,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1620,6 +1688,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1825,
@@ -1636,9 +1705,9 @@
                                 "identifierName": "chalk"
                               },
                               "name": "chalk"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1831,
@@ -1655,8 +1724,7 @@
                               "identifierName": "yellow"
                             },
                             "name": "yellow"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1702,6 +1770,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1843,
@@ -1718,8 +1787,7 @@
                                   "identifierName": "joined"
                                 },
                                 "name": "joined"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1746,41 +1814,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 59 \n * @param \n * {undefined} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1458,
-                    "end": 1583,
-                    "loc": {
-                      "start": {
-                        "line": 83,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 94,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Decorates the log entries that the developer wanted to have captured in the output.\n     *\n     * @param {...any[]} parts\n     *\n     * @returns {string}\n     ",
-                    "start": 1590,
-                    "end": 1776,
-                    "loc": {
-                      "start": {
-                        "line": 97,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 104,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1819,41 +1853,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n ",
-            "start": 128,
-            "end": 173,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A simple colour theme for terminals with dark backgrounds.\n *\n * @extends {ThemeForColourTerminals}\n *\n * @public\n ",
-            "start": 176,
-            "end": 310,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 20,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

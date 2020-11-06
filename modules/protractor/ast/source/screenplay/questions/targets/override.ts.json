@@ -44,6 +44,40 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {T} obj \n * @param \n * {K} name \n * @param \n * {UNKNOWN} implementation \n ",
+            "start": 1,
+            "end": 132,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n * @param obj\n * @param name - name of the method or field to override\n * @param implementation\n ",
+            "start": 133,
+            "end": 248,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 19,
+                "column": 3
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -574,6 +608,9 @@
                           "column": 5
                         }
                       },
+                      "extra": {
+                        "trailingComma": 663
+                      },
                       "properties": [
                         {
                           "type": "ObjectMethod",
@@ -589,6 +626,24 @@
                               "column": 9
                             }
                           },
+                          "leadingComments": [
+                            {
+                              "type": "CommentBlock",
+                              "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {T} o \n * @param \n * {undefined | undefined} prop \n * @public \n * \\TRUE \n ",
+                              "start": 383,
+                              "end": 514,
+                              "loc": {
+                                "start": {
+                                  "line": 22,
+                                  "column": 0
+                                },
+                                "end": {
+                                  "line": 33,
+                                  "column": 3
+                                }
+                              }
+                            }
+                          ],
                           "method": true,
                           "key": {
                             "type": "Identifier",
@@ -898,6 +953,7 @@
                                       },
                                       "name": "obj"
                                     },
+                                    "computed": true,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 647,
@@ -914,37 +970,15 @@
                                         "identifierName": "prop"
                                       },
                                       "name": "prop"
-                                    },
-                                    "computed": true
+                                    }
                                   }
                                 }
                               }
                             ],
                             "directives": []
-                          },
-                          "leadingComments": [
-                            {
-                              "type": "CommentBlock",
-                              "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {T} o \n * @param \n * {undefined | undefined} prop \n * @public \n * \\TRUE \n ",
-                              "start": 383,
-                              "end": 514,
-                              "loc": {
-                                "start": {
-                                  "line": 22,
-                                  "column": 0
-                                },
-                                "end": {
-                                  "line": 33,
-                                  "column": 3
-                                }
-                              }
-                            }
-                          ]
+                          }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 663
-                      }
+                      ]
                     }
                   ]
                 }
@@ -987,41 +1021,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {T} obj \n * @param \n * {K} name \n * @param \n * {UNKNOWN} implementation \n ",
-            "start": 1,
-            "end": 132,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n * @param obj\n * @param name - name of the method or field to override\n * @param implementation\n ",
-            "start": 133,
-            "end": 248,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 19,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

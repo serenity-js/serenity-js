@@ -180,6 +180,40 @@
             "column": 60
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n ",
+            "start": 142,
+            "end": 187,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when\n *  the the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight\n *  performs any {@link @serenity-js/core/lib/screenplay~Interaction}.\n *\n *  This strategy works best when you want the results of your automated tests\n *  to become comprehensive living documentation of your system.\n *\n *  *Please note* that taking screenshots affects the performance of your tests.\n *\n * @implements {PhotoTakingStrategy}\n ",
+            "start": 190,
+            "end": 711,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 23,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -251,8 +285,23 @@
             "raw": "'./PhotoTakingStrategy'"
           },
           "value": "./PhotoTakingStrategy"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 712,
+        "end": 1290,
+        "loc": {
+          "start": {
+            "line": 24,
+            "column": 0
+          },
+          "end": {
+            "line": 58,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n ",
@@ -285,22 +334,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 712,
-        "end": 1290,
-        "loc": {
-          "start": {
-            "line": 24,
-            "column": 0
-          },
-          "end": {
-            "line": 58,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -381,6 +415,42 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {DomainEvent} event \n * @return \n * {boolean} \n * @protected \n * \\TRUE \n ",
+                    "start": 780,
+                    "end": 911,
+                    "loc": {
+                      "start": {
+                        "line": 25,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 36,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {InteractionFinished} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
+                    "start": 1036,
+                    "end": 1174,
+                    "loc": {
+                      "start": {
+                        "line": 41,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 52,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -583,26 +653,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1181,
+                "end": 1288,
+                "loc": {
+                  "start": {
+                    "line": 55,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 57,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {DomainEvent} event \n * @return \n * {boolean} \n * @protected \n * \\TRUE \n ",
-                    "start": 780,
-                    "end": 911,
-                    "loc": {
-                      "start": {
-                        "line": 25,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 36,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {InteractionFinished} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
@@ -619,22 +686,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1181,
-                "end": 1288,
-                "loc": {
-                  "start": {
-                    "line": 55,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 57,
-                    "column": 5
-                  }
-                },
+                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -843,6 +895,7 @@
                               },
                               "name": "event"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1263,
@@ -859,9 +912,9 @@
                                 "identifierName": "details"
                               },
                               "name": "details"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1271,
@@ -878,9 +931,9 @@
                               "identifierName": "name"
                             },
                             "name": "name"
-                          },
-                          "computed": false
+                          }
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 1276,
@@ -897,31 +950,12 @@
                             "identifierName": "value"
                           },
                           "name": "value"
-                        },
-                        "computed": false
+                        }
                       }
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {InteractionFinished} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
-                    "start": 1036,
-                    "end": 1174,
-                    "loc": {
-                      "start": {
-                        "line": 41,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 52,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -960,41 +994,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n ",
-            "start": 142,
-            "end": 187,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when\n *  the the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight\n *  performs any {@link @serenity-js/core/lib/screenplay~Interaction}.\n *\n *  This strategy works best when you want the results of your automated tests\n *  to become comprehensive living documentation of your system.\n *\n *  *Please note* that taking screenshots affects the performance of your tests.\n *\n * @implements {PhotoTakingStrategy}\n ",
-            "start": 190,
-            "end": 711,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 23,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

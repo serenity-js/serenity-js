@@ -316,6 +316,40 @@
             "column": 72
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
+            "start": 203,
+            "end": 248,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @public\n *\n * @typedef {function(actual: A, expected: E) => boolean} Predicate<A,E>\n ",
+            "start": 251,
+            "end": 345,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -485,8 +519,23 @@
             "raw": "'./outcomes'"
           },
           "value": "./outcomes"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 346,
+        "end": 412,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 17,
+            "column": 66
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
@@ -519,22 +568,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 346,
-        "end": 412,
-        "loc": {
-          "start": {
-            "line": 17,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n ",
+            "start": 413,
+            "end": 458,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 0
+              },
+              "end": {
+                "line": 23,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 17,
-            "column": 66
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Defines an expectation to be used with:\n *  - {@link Ensure} - to perform a verification\n *  - {@link Check} - to control the execution flow\n *\n * @implements {@serenity-js/core/lib/screenplay~Question}\n *\n * @see {@link Ensure}\n * @see {@link Check}\n ",
+            "start": 461,
+            "end": 732,
+            "loc": {
+              "start": {
+                "line": 26,
+                "column": 0
+              },
+              "end": {
+                "line": 36,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "type",
         "specifiers": [],
         "source": null,
@@ -861,42 +929,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 733,
+        "end": 4217,
+        "loc": {
+          "start": {
+            "line": 37,
+            "column": 0
+          },
+          "end": {
+            "line": 178,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
-            "start": 203,
-            "end": 248,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @public\n *\n * @typedef {function(actual: A, expected: E) => boolean} Predicate<A,E>\n ",
-            "start": 251,
-            "end": 345,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n ",
@@ -929,22 +978,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 733,
-        "end": 4217,
-        "loc": {
-          "start": {
-            "line": 37,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n ",
+            "start": 4218,
+            "end": 4264,
+            "loc": {
+              "start": {
+                "line": 179,
+                "column": 0
+              },
+              "end": {
+                "line": 184,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 178,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 4267,
+            "end": 4286,
+            "loc": {
+              "start": {
+                "line": 187,
+                "column": 0
+              },
+              "end": {
+                "line": 189,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1382,6 +1450,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @param \n * {string} relationshipName \n * @param \n * {Answerable} expectedValue \n * @return \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 875,
+                    "end": 1073,
+                    "loc": {
+                      "start": {
+                        "line": 40,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 55,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Used to define a simple {@link Expectation}\n     *\n     * @example\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Expectation, Ensure } from '@serenity-js/assertions';\n     *\n     *  function isDivisibleBy(expected: Answerable<number>): Expectation<number> {\n     *      return Expectation.thatActualShould<number, number>('have value divisible by', expected)\n     *          .soThat((actualValue, expectedValue) => actualValue % expectedValue === 0);\n     *  }\n     *\n     *  actorCalled('Erica').attemptsTo(\n     *      Ensure.that(4, isDivisibleBy(2)),\n     *  );\n     *\n     * @param {string} relationshipName\n     * @param {@serenity-js/core/lib/screenplay~Answerable<E>} expectedValue\n     *\n     * @returns {\"soThat\": function(predicate: Predicate<A,E>): Expectation<E, A>}\n     ",
+                    "start": 1080,
+                    "end": 1920,
+                    "loc": {
+                      "start": {
+                        "line": 58,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 79,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 84 \n * @param \n * {string} relationshipName \n * @return \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2417,
+                    "end": 2573,
+                    "loc": {
+                      "start": {
+                        "line": 100,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 113,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Used to compose {@link Expectation}s.\n     *\n     * @example\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } from '@serenity-js/assertions';\n     *\n     *  function isWithin(lowerBound: number, upperBound: number) {\n     *      return Expectation\n     *          .to(`have value within ${ lowerBound } and ${ upperBound }`)\n     *          .soThatActual(and(\n     *              or(isGreaterThan(lowerBound), equals(lowerBound)),\n     *              or(isLessThan(upperBound), equals(upperBound)),\n     *          ));\n     *  }\n     *\n     *  actorCalled('Erica').attemptsTo(\n     *      Ensure.that(5, isWithin(3, 6)),\n     *  );\n     *\n     * @param {string} relationshipName\n     *\n     * @returns {\"soThat\": function(...expectations: Array<Expectation<any, A>>): Expectation<any, A>}\n     ",
+                    "start": 2580,
+                    "end": 3493,
+                    "loc": {
+                      "start": {
+                        "line": 116,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 140,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1659,6 +1795,24 @@
                             "column": 66
                           }
                         },
+                        "leadingComments": [
+                          {
+                            "type": "CommentBlock",
+                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                            "start": 2014,
+                            "end": 2106,
+                            "loc": {
+                              "start": {
+                                "line": 81,
+                                "column": 0
+                              },
+                              "end": {
+                                "line": 90,
+                                "column": 3
+                              }
+                            }
+                          }
+                        ],
                         "key": {
                           "type": "Identifier",
                           "start": 2116,
@@ -1981,25 +2135,7 @@
                               }
                             }
                           }
-                        },
-                        "leadingComments": [
-                          {
-                            "type": "CommentBlock",
-                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                            "start": 2014,
-                            "end": 2106,
-                            "loc": {
-                              "start": {
-                                "line": 81,
-                                "column": 0
-                              },
-                              "end": {
-                                "line": 90,
-                                "column": 3
-                              }
-                            }
-                          }
-                        ]
+                        }
                       }
                     ]
                   }
@@ -2046,6 +2182,11 @@
                             "line": 98,
                             "column": 9
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 2397,
+                          "parenthesized": true,
+                          "parenStart": 2198
                         },
                         "properties": [
                           {
@@ -2575,52 +2716,28 @@
                               }
                             }
                           }
-                        ],
-                        "extra": {
-                          "trailingComma": 2397,
-                          "parenthesized": true,
-                          "parenStart": 2198
-                        }
+                        ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3498,
+                "end": 3948,
+                "loc": {
+                  "start": {
+                    "line": 141,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 160,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @param \n * {string} relationshipName \n * @param \n * {Answerable} expectedValue \n * @return \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 875,
-                    "end": 1073,
-                    "loc": {
-                      "start": {
-                        "line": 40,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 55,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Used to define a simple {@link Expectation}\n     *\n     * @example\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Expectation, Ensure } from '@serenity-js/assertions';\n     *\n     *  function isDivisibleBy(expected: Answerable<number>): Expectation<number> {\n     *      return Expectation.thatActualShould<number, number>('have value divisible by', expected)\n     *          .soThat((actualValue, expectedValue) => actualValue % expectedValue === 0);\n     *  }\n     *\n     *  actorCalled('Erica').attemptsTo(\n     *      Ensure.that(4, isDivisibleBy(2)),\n     *  );\n     *\n     * @param {string} relationshipName\n     * @param {@serenity-js/core/lib/screenplay~Answerable<E>} expectedValue\n     *\n     * @returns {\"soThat\": function(predicate: Predicate<A,E>): Expectation<E, A>}\n     ",
-                    "start": 1080,
-                    "end": 1920,
-                    "loc": {
-                      "start": {
-                        "line": 58,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 79,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 84 \n * @param \n * {string} relationshipName \n * @return \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2653,22 +2770,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3498,
-                "end": 3948,
-                "loc": {
-                  "start": {
-                    "line": 141,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 160,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3949,
+                    "end": 4107,
+                    "loc": {
+                      "start": {
+                        "line": 161,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 174,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2817,6 +2937,24 @@
                             "column": 91
                           }
                         },
+                        "leadingComments": [
+                          {
+                            "type": "CommentBlock",
+                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 85 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                            "start": 3540,
+                            "end": 3632,
+                            "loc": {
+                              "start": {
+                                "line": 142,
+                                "column": 0
+                              },
+                              "end": {
+                                "line": 151,
+                                "column": 3
+                              }
+                            }
+                          }
+                        ],
                         "key": {
                           "type": "Identifier",
                           "start": 3642,
@@ -3169,25 +3307,7 @@
                               }
                             }
                           }
-                        },
-                        "leadingComments": [
-                          {
-                            "type": "CommentBlock",
-                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 85 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                            "start": 3540,
-                            "end": 3632,
-                            "loc": {
-                              "start": {
-                                "line": 142,
-                                "column": 0
-                              },
-                              "end": {
-                                "line": 151,
-                                "column": 3
-                              }
-                            }
-                          }
-                        ]
+                        }
                       }
                     ]
                   }
@@ -3234,6 +3354,9 @@
                             "line": 159,
                             "column": 9
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 3930
                         },
                         "properties": [
                           {
@@ -3680,50 +3803,28 @@
                               }
                             }
                           }
-                        ],
-                        "extra": {
-                          "trailingComma": 3930
-                        }
+                        ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 4114,
+                "end": 4215,
+                "loc": {
+                  "start": {
+                    "line": 177,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 177,
+                    "column": 105
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 84 \n * @param \n * {string} relationshipName \n * @return \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2417,
-                    "end": 2573,
-                    "loc": {
-                      "start": {
-                        "line": 100,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 113,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Used to compose {@link Expectation}s.\n     *\n     * @example\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } from '@serenity-js/assertions';\n     *\n     *  function isWithin(lowerBound: number, upperBound: number) {\n     *      return Expectation\n     *          .to(`have value within ${ lowerBound } and ${ upperBound }`)\n     *          .soThatActual(and(\n     *              or(isGreaterThan(lowerBound), equals(lowerBound)),\n     *              or(isLessThan(upperBound), equals(upperBound)),\n     *          ));\n     *  }\n     *\n     *  actorCalled('Erica').attemptsTo(\n     *      Ensure.that(5, isWithin(3, 6)),\n     *  );\n     *\n     * @param {string} relationshipName\n     *\n     * @returns {\"soThat\": function(...expectations: Array<Expectation<any, A>>): Expectation<any, A>}\n     ",
-                    "start": 2580,
-                    "end": 3493,
-                    "loc": {
-                      "start": {
-                        "line": 116,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 140,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -3740,22 +3841,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 4114,
-                "end": 4215,
-                "loc": {
-                  "start": {
-                    "line": 177,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 177,
-                    "column": 105
-                  }
-                },
+                ],
                 "abstract": true,
                 "static": false,
                 "key": {
@@ -4118,25 +4204,7 @@
                       }
                     }
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3949,
-                    "end": 4107,
-                    "loc": {
-                      "start": {
-                        "line": 161,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 174,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -4208,42 +4276,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 4287,
+        "end": 5231,
+        "loc": {
+          "start": {
+            "line": 190,
+            "column": 0
+          },
+          "end": {
+            "line": 222,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n ",
-            "start": 413,
-            "end": 458,
-            "loc": {
-              "start": {
-                "line": 18,
-                "column": 0
-              },
-              "end": {
-                "line": 23,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Defines an expectation to be used with:\n *  - {@link Ensure} - to perform a verification\n *  - {@link Check} - to control the execution flow\n *\n * @implements {@serenity-js/core/lib/screenplay~Question}\n *\n * @see {@link Ensure}\n * @see {@link Check}\n ",
-            "start": 461,
-            "end": 732,
-            "loc": {
-              "start": {
-                "line": 26,
-                "column": 0
-              },
-              "end": {
-                "line": 36,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n ",
@@ -4276,22 +4325,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 4287,
-        "end": 5231,
-        "loc": {
-          "start": {
-            "line": 190,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n ",
+            "start": 5232,
+            "end": 5278,
+            "loc": {
+              "start": {
+                "line": 223,
+                "column": 0
+              },
+              "end": {
+                "line": 228,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 222,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 5281,
+            "end": 5300,
+            "loc": {
+              "start": {
+                "line": 231,
+                "column": 0
+              },
+              "end": {
+                "line": 233,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4293,
@@ -4485,6 +4553,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 110 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @public \n * \\TRUE \n ",
+                  "start": 4659,
+                  "end": 4794,
+                  "loc": {
+                    "start": {
+                      "line": 199,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 210,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -5134,8 +5220,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 4801,
+              "end": 5229,
+              "loc": {
+                "start": {
+                  "line": 213,
+                  "column": 4
+                },
+                "end": {
+                  "line": 221,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 110 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @public \n * \\TRUE \n ",
@@ -5152,22 +5253,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 4801,
-              "end": 5229,
-              "loc": {
-                "start": {
-                  "line": 213,
-                  "column": 4
-                },
-                "end": {
-                  "line": 221,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -5715,6 +5801,7 @@
                                 },
                                 "name": "actor"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4937,
@@ -5731,8 +5818,7 @@
                                   "identifierName": "answer"
                                 },
                                 "name": "answer"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -5764,6 +5850,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4949,
@@ -5780,11 +5867,11 @@
                                     "identifierName": "expectedValue"
                                   },
                                   "name": "expectedValue"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4977,
@@ -5801,8 +5888,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -5927,6 +6013,7 @@
                                             }
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 5024,
@@ -5943,8 +6030,7 @@
                                             "identifierName": "predicate"
                                           },
                                           "name": "predicate"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -6058,6 +6144,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 5098,
@@ -6074,8 +6161,7 @@
                                                 "identifierName": "toString"
                                               },
                                               "name": "toString"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": []
                                         },
@@ -6190,6 +6276,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 5177,
@@ -6206,8 +6293,7 @@
                                                 "identifierName": "toString"
                                               },
                                               "name": "toString"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": []
                                         },
@@ -6259,63 +6345,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 110 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @public \n * \\TRUE \n ",
-                  "start": 4659,
-                  "end": 4794,
-                  "loc": {
-                    "start": {
-                      "line": 199,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 210,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 5301,
+        "end": 6027,
+        "loc": {
+          "start": {
+            "line": 234,
+            "column": 0
+          },
+          "end": {
+            "line": 263,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n ",
-            "start": 4218,
-            "end": 4264,
-            "loc": {
-              "start": {
-                "line": 179,
-                "column": 0
-              },
-              "end": {
-                "line": 184,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 4267,
-            "end": 4286,
-            "loc": {
-              "start": {
-                "line": 187,
-                "column": 0
-              },
-              "end": {
-                "line": 189,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n ",
@@ -6348,22 +6397,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 5301,
-        "end": 6027,
-        "loc": {
-          "start": {
-            "line": 234,
-            "column": 0
-          },
-          "end": {
-            "line": 263,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 5307,
@@ -6524,6 +6558,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 133 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @public \n * \\TRUE \n ",
+                  "start": 5512,
+                  "end": 5647,
+                  "loc": {
+                    "start": {
+                      "line": 242,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 253,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6822,8 +6874,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 5654,
+              "end": 6025,
+              "loc": {
+                "start": {
+                  "line": 256,
+                  "column": 4
+                },
+                "end": {
+                  "line": 262,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 133 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @public \n * \\TRUE \n ",
@@ -6840,22 +6907,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 5654,
-              "end": 6025,
-              "loc": {
-                "start": {
-                  "line": 256,
-                  "column": 4
-                },
-                "end": {
-                  "line": 262,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -7412,6 +7464,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 5796,
@@ -7428,9 +7481,9 @@
                                       "identifierName": "expectation"
                                     },
                                     "name": "expectation"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 5808,
@@ -7447,8 +7500,7 @@
                                     "identifierName": "answeredBy"
                                   },
                                   "name": "answeredBy"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -7490,6 +7542,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 5834,
@@ -7506,8 +7559,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -7671,6 +7723,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 5914,
@@ -7687,8 +7740,7 @@
                                         "identifierName": "subject"
                                       },
                                       "name": "subject"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   {
                                     "type": "MemberExpression",
@@ -7721,6 +7773,7 @@
                                       },
                                       "name": "_"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 5925,
@@ -7737,8 +7790,7 @@
                                         "identifierName": "expected"
                                       },
                                       "name": "expected"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   {
                                     "type": "MemberExpression",
@@ -7771,6 +7823,7 @@
                                       },
                                       "name": "_"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 5937,
@@ -7787,8 +7840,7 @@
                                         "identifierName": "actual"
                                       },
                                       "name": "actual"
-                                    },
-                                    "computed": false
+                                    }
                                   }
                                 ]
                               },
@@ -7855,6 +7907,7 @@
                                       },
                                       "name": "_"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 5987,
@@ -7871,8 +7924,7 @@
                                         "identifierName": "message"
                                       },
                                       "name": "message"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   {
                                     "type": "MemberExpression",
@@ -7905,6 +7957,7 @@
                                       },
                                       "name": "_"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 5998,
@@ -7921,8 +7974,7 @@
                                         "identifierName": "expected"
                                       },
                                       "name": "expected"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   {
                                     "type": "MemberExpression",
@@ -7955,6 +8007,7 @@
                                       },
                                       "name": "_"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 6010,
@@ -7971,8 +8024,7 @@
                                         "identifierName": "actual"
                                       },
                                       "name": "actual"
-                                    },
-                                    "computed": false
+                                    }
                                   }
                                 ]
                               }
@@ -7984,62 +8036,10 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 133 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @public \n * \\TRUE \n ",
-                  "start": 5512,
-                  "end": 5647,
-                  "loc": {
-                    "start": {
-                      "line": 242,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 253,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n ",
-            "start": 5232,
-            "end": 5278,
-            "loc": {
-              "start": {
-                "line": 223,
-                "column": 0
-              },
-              "end": {
-                "line": 228,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 5281,
-            "end": 5300,
-            "loc": {
-              "start": {
-                "line": 231,
-                "column": 0
-              },
-              "end": {
-                "line": 233,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

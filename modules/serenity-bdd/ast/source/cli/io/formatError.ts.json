@@ -44,6 +44,24 @@
             "column": 49
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n * @param \n * {RuntimeError | Error} error \n ",
+            "start": 50,
+            "end": 138,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -115,8 +133,23 @@
             "raw": "'@serenity-js/core'"
           },
           "value": "@serenity-js/core"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 141,
+        "end": 1217,
+        "loc": {
+          "start": {
+            "line": 12,
+            "column": 0
+          },
+          "end": {
+            "line": 45,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n * @param \n * {RuntimeError | Error} error \n ",
@@ -133,22 +166,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 141,
-        "end": 1217,
-        "loc": {
-          "start": {
-            "line": 12,
-            "column": 0
-          },
-          "end": {
-            "line": 45,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 38 \n * @param \n * {RuntimeError | Error} error \n * @param \n * {UNKNOWN} acc \n * @return \n * {UNKNOWN} \n ",
+            "start": 1218,
+            "end": 1362,
+            "loc": {
+              "start": {
+                "line": 46,
+                "column": 0
+              },
+              "end": {
+                "line": 57,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -477,6 +513,9 @@
                               "column": 13
                             }
                           },
+                          "extra": {
+                            "trailingComma": 544
+                          },
                           "callee": {
                             "type": "Identifier",
                             "start": 371,
@@ -493,9 +532,6 @@
                               "identifierName": "lines"
                             },
                             "name": "lines"
-                          },
-                          "extra": {
-                            "trailingComma": 544
                           },
                           "arguments": [
                             {
@@ -691,6 +727,7 @@
                           "pattern": "ETIMEDOUT",
                           "flags": ""
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 331,
@@ -707,8 +744,7 @@
                             "identifierName": "test"
                           },
                           "name": "test"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -742,6 +778,7 @@
                             },
                             "name": "error"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 342,
@@ -758,8 +795,7 @@
                               "identifierName": "message"
                             },
                             "name": "message"
-                          },
-                          "computed": false
+                          }
                         }
                       ]
                     }
@@ -807,6 +843,9 @@
                               "column": 13
                             }
                           },
+                          "extra": {
+                            "trailingComma": 848
+                          },
                           "callee": {
                             "type": "Identifier",
                             "start": 662,
@@ -823,9 +862,6 @@
                               "identifierName": "lines"
                             },
                             "name": "lines"
-                          },
-                          "extra": {
-                            "trailingComma": 848
                           },
                           "arguments": [
                             {
@@ -955,6 +991,7 @@
                           "pattern": "self signed certificate in certificate chain",
                           "flags": ""
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 622,
@@ -971,8 +1008,7 @@
                             "identifierName": "test"
                           },
                           "name": "test"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -1006,6 +1042,7 @@
                             },
                             "name": "error"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 633,
@@ -1022,8 +1059,7 @@
                               "identifierName": "message"
                             },
                             "name": "message"
-                          },
-                          "computed": false
+                          }
                         }
                       ]
                     }
@@ -1290,6 +1326,9 @@
                               "column": 13
                             }
                           },
+                          "extra": {
+                            "trailingComma": 1193
+                          },
                           "callee": {
                             "type": "Identifier",
                             "start": 1070,
@@ -1306,9 +1345,6 @@
                               "identifierName": "lines"
                             },
                             "name": "lines"
-                          },
-                          "extra": {
-                            "trailingComma": 1193
                           },
                           "arguments": [
                             {
@@ -1462,26 +1498,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 1365,
+        "end": 1633,
+        "loc": {
+          "start": {
+            "line": 60,
+            "column": 0
+          },
+          "end": {
+            "line": 64,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n * @param \n * {RuntimeError | Error} error \n ",
-            "start": 50,
-            "end": 138,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 38 \n * @param \n * {RuntimeError | Error} error \n * @param \n * {UNKNOWN} acc \n * @return \n * {UNKNOWN} \n ",
@@ -1498,22 +1531,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 1365,
-        "end": 1633,
-        "loc": {
-          "start": {
-            "line": 60,
-            "column": 0
-          },
-          "end": {
-            "line": 64,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @param \n * {UNKNOWN} entries \n ",
+            "start": 1634,
+            "end": 1712,
+            "loc": {
+              "start": {
+                "line": 65,
+                "column": 0
+              },
+              "end": {
+                "line": 72,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 1374,
@@ -1874,6 +1910,7 @@
                       },
                       "name": "error"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 1461,
@@ -1890,8 +1927,7 @@
                         "identifierName": "message"
                       },
                       "name": "message"
-                    },
-                    "computed": false
+                    }
                   },
                   "operator": "&&",
                   "right": {
@@ -1921,6 +1957,10 @@
                           "line": 61,
                           "column": 50
                         }
+                      },
+                      "extra": {
+                        "parenthesized": true,
+                        "parenStart": 1472
                       },
                       "expression": {
                         "type": "Identifier",
@@ -1970,12 +2010,9 @@
                           },
                           "name": "RuntimeError"
                         }
-                      },
-                      "extra": {
-                        "parenthesized": true,
-                        "parenStart": 1472
                       }
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 1496,
@@ -1992,8 +2029,7 @@
                         "identifierName": "cause"
                       },
                       "name": "cause"
-                    },
-                    "computed": false
+                    }
                   }
                 },
                 "consequent": {
@@ -2056,6 +2092,10 @@
                             "column": 41
                           }
                         },
+                        "extra": {
+                          "parenthesized": true,
+                          "parenStart": 1521
+                        },
                         "expression": {
                           "type": "Identifier",
                           "start": 1522,
@@ -2104,12 +2144,9 @@
                             },
                             "name": "RuntimeError"
                           }
-                        },
-                        "extra": {
-                          "parenthesized": true,
-                          "parenStart": 1521
                         }
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 1545,
@@ -2126,8 +2163,7 @@
                           "identifierName": "cause"
                         },
                         "name": "cause"
-                      },
-                      "computed": false
+                      }
                     },
                     {
                       "type": "CallExpression",
@@ -2174,6 +2210,7 @@
                           },
                           "name": "acc"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 1556,
@@ -2190,8 +2227,7 @@
                             "identifierName": "concat"
                           },
                           "name": "concat"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -2225,6 +2261,7 @@
                             },
                             "name": "error"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1569,
@@ -2241,8 +2278,7 @@
                               "identifierName": "message"
                             },
                             "name": "message"
-                          },
-                          "computed": false
+                          }
                         }
                       ]
                     }
@@ -2293,6 +2329,7 @@
                       },
                       "name": "acc"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 1593,
@@ -2309,8 +2346,7 @@
                         "identifierName": "concat"
                       },
                       "name": "concat"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -2358,6 +2394,7 @@
                           },
                           "name": "error"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 1606,
@@ -2374,8 +2411,7 @@
                             "identifierName": "message"
                           },
                           "name": "message"
-                        },
-                        "computed": false
+                        }
                       },
                       "operator": "||",
                       "right": {
@@ -2461,26 +2497,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 1715,
+        "end": 1818,
+        "loc": {
+          "start": {
+            "line": 75,
+            "column": 0
+          },
+          "end": {
+            "line": 77,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 38 \n * @param \n * {RuntimeError | Error} error \n * @param \n * {UNKNOWN} acc \n * @return \n * {UNKNOWN} \n ",
-            "start": 1218,
-            "end": 1362,
-            "loc": {
-              "start": {
-                "line": 46,
-                "column": 0
-              },
-              "end": {
-                "line": 57,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @param \n * {UNKNOWN} entries \n ",
@@ -2497,22 +2530,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 1715,
-        "end": 1818,
-        "loc": {
-          "start": {
-            "line": 75,
-            "column": 0
-          },
-          "end": {
-            "line": 77,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 1724,
@@ -2713,6 +2731,7 @@
                         },
                         "name": "entries"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 1773,
@@ -2729,8 +2748,7 @@
                           "identifierName": "filter"
                         },
                         "name": "filter"
-                      },
-                      "computed": false
+                      }
                     },
                     "arguments": [
                       {
@@ -2842,6 +2860,7 @@
                       }
                     ]
                   },
+                  "computed": false,
                   "property": {
                     "type": "Identifier",
                     "start": 1805,
@@ -2858,8 +2877,7 @@
                       "identifierName": "join"
                     },
                     "name": "join"
-                  },
-                  "computed": false
+                  }
                 },
                 "arguments": [
                   {
@@ -2887,25 +2905,7 @@
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @param \n * {UNKNOWN} entries \n ",
-            "start": 1634,
-            "end": 1712,
-            "loc": {
-              "start": {
-                "line": 65,
-                "column": 0
-              },
-              "end": {
-                "line": 72,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

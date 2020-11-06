@@ -512,6 +512,40 @@
             "column": 41
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n ",
+            "start": 199,
+            "end": 244,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.\n *\n * @example <caption>Changing API URL</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { Navigate, Target, Text } from '@serenity-js/protractor';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { protractor, by } from 'protractor';\n *\n *  import axios  from 'axios';\n *\n *  const actor = Actor.named('Apisit').whoCan(\n *      BrowseTheWeb.using(protractor.browser),\n *\n *      // Note: no default base URL is given when the axios instance is created\n *      CallAnApi.using(axios.create()),\n *  );\n *\n *  // Let's imagine that the website under test displays\n *  // a dynamically generated API URL we'd like to use\n *  const ApiDetailsWidget = {\n *      Url: Target.the('API URL').located(by.id('api-url')),\n *  }\n *\n *  actor.attemptsTo(\n *      Navigate.to('/profile'),\n *\n *      // We change the API URL based on the text displayed in the widget\n *      // (although we could change it to some arbitrary string too).\n *      ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n *\n *      // Any subsequent request will be sent to the newly set URL\n *      Send.a(GetRequest.to('/projects')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @example <caption>Changing API port</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *\n *  const actor = Actor.named('Apisit').whoCan(\n *      ManageALocalServer.runningAHttpListener(someServer),\n *      CallAnApi.at(http://localhost),\n *  );\n *\n *  actor.attemptsTo(\n *     StartALocalServer.onRandomPort(),\n *     ChangeApiConfig.setPortTo(LocalServer.port()),\n *     Send.a(GetRequest.to('/api')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n *  );\n ",
+            "start": 247,
+            "end": 2448,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 67,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -583,8 +617,23 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2449,
+        "end": 3797,
+        "loc": {
+          "start": {
+            "line": 68,
+            "column": 0
+          },
+          "end": {
+            "line": 123,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n ",
@@ -617,22 +666,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 2449,
-        "end": 3797,
-        "loc": {
-          "start": {
-            "line": 68,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n ",
+            "start": 3798,
+            "end": 3843,
+            "loc": {
+              "start": {
+                "line": 124,
+                "column": 0
+              },
+              "end": {
+                "line": 129,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 123,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 3846,
+            "end": 3865,
+            "loc": {
+              "start": {
+                "line": 132,
+                "column": 0
+              },
+              "end": {
+                "line": 134,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -697,6 +765,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 71 \n * @param \n * {Answerable} newApiUrl \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2480,
+                    "end": 2637,
+                    "loc": {
+                      "start": {
+                        "line": 69,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 82,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
+                    "start": 2644,
+                    "end": 2998,
+                    "loc": {
+                      "start": {
+                        "line": 85,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 92,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @param \n * {Answerable} newApiPort \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3124,
+                    "end": 3282,
+                    "loc": {
+                      "start": {
+                        "line": 96,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 109,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiPort\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
+                    "start": 3289,
+                    "end": 3667,
+                    "loc": {
+                      "start": {
+                        "line": 112,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 119,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -948,42 +1084,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3672,
+                "end": 3795,
+                "loc": {
+                  "start": {
+                    "line": 120,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 122,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 71 \n * @param \n * {Answerable} newApiUrl \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2480,
-                    "end": 2637,
-                    "loc": {
-                      "start": {
-                        "line": 69,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 82,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
-                    "start": 2644,
-                    "end": 2998,
-                    "loc": {
-                      "start": {
-                        "line": 85,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 92,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @param \n * {Answerable} newApiPort \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1016,22 +1133,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3672,
-                "end": 3795,
-                "loc": {
-                  "start": {
-                    "line": 120,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 122,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1283,41 +1385,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @param \n * {Answerable} newApiPort \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3124,
-                    "end": 3282,
-                    "loc": {
-                      "start": {
-                        "line": 96,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 109,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiPort\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
-                    "start": 3289,
-                    "end": 3667,
-                    "loc": {
-                      "start": {
-                        "line": 112,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 119,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1389,42 +1457,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 3866,
+        "end": 4596,
+        "loc": {
+          "start": {
+            "line": 135,
+            "column": 0
+          },
+          "end": {
+            "line": 170,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n ",
-            "start": 199,
-            "end": 244,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.\n *\n * @example <caption>Changing API URL</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { Navigate, Target, Text } from '@serenity-js/protractor';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { protractor, by } from 'protractor';\n *\n *  import axios  from 'axios';\n *\n *  const actor = Actor.named('Apisit').whoCan(\n *      BrowseTheWeb.using(protractor.browser),\n *\n *      // Note: no default base URL is given when the axios instance is created\n *      CallAnApi.using(axios.create()),\n *  );\n *\n *  // Let's imagine that the website under test displays\n *  // a dynamically generated API URL we'd like to use\n *  const ApiDetailsWidget = {\n *      Url: Target.the('API URL').located(by.id('api-url')),\n *  }\n *\n *  actor.attemptsTo(\n *      Navigate.to('/profile'),\n *\n *      // We change the API URL based on the text displayed in the widget\n *      // (although we could change it to some arbitrary string too).\n *      ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n *\n *      // Any subsequent request will be sent to the newly set URL\n *      Send.a(GetRequest.to('/projects')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @example <caption>Changing API port</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *\n *  const actor = Actor.named('Apisit').whoCan(\n *      ManageALocalServer.runningAHttpListener(someServer),\n *      CallAnApi.at(http://localhost),\n *  );\n *\n *  actor.attemptsTo(\n *     StartALocalServer.onRandomPort(),\n *     ChangeApiConfig.setPortTo(LocalServer.port()),\n *     Send.a(GetRequest.to('/api')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n *  );\n ",
-            "start": 247,
-            "end": 2448,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 67,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n ",
@@ -1457,22 +1506,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 3866,
-        "end": 4596,
-        "loc": {
-          "start": {
-            "line": 135,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n ",
+            "start": 4597,
+            "end": 4643,
+            "loc": {
+              "start": {
+                "line": 171,
+                "column": 0
+              },
+              "end": {
+                "line": 176,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 170,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 4646,
+            "end": 4665,
+            "loc": {
+              "start": {
+                "line": 179,
+                "column": 0
+              },
+              "end": {
+                "line": 181,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 3872,
@@ -1536,6 +1604,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 96 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 4005,
+                  "end": 4174,
+                  "loc": {
+                    "start": {
+                      "line": 139,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 150,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -1737,8 +1823,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 4181,
+              "end": 4422,
+              "loc": {
+                "start": {
+                  "line": 153,
+                  "column": 4
+                },
+                "end": {
+                  "line": 156,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 96 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -1755,22 +1856,25 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 4181,
-              "end": 4422,
-              "loc": {
-                "start": {
-                  "line": 153,
-                  "column": 4
-                },
-                "end": {
-                  "line": 156,
-                  "column": 5
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 101 \n * @public \n * \\TRUE \n ",
+                  "start": 4423,
+                  "end": 4491,
+                  "loc": {
+                    "start": {
+                      "line": 157,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 164,
+                      "column": 3
+                    }
+                  }
                 }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -2122,6 +2226,7 @@
                               },
                               "name": "actor"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 4290,
@@ -2138,8 +2243,7 @@
                                 "identifierName": "answer"
                               },
                               "name": "answer"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -2171,6 +2275,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4302,
@@ -2187,11 +2292,11 @@
                                   "identifierName": "newApiUrl"
                                 },
                                 "name": "newApiUrl"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 4326,
@@ -2208,8 +2313,7 @@
                             "identifierName": "then"
                           },
                           "name": "then"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -2321,6 +2425,7 @@
                                     },
                                     "name": "CallAnApi"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 4354,
@@ -2337,8 +2442,7 @@
                                       "identifierName": "as"
                                     },
                                     "name": "as"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2360,6 +2464,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4364,
@@ -2376,8 +2481,7 @@
                                   "identifierName": "modifyConfig"
                                 },
                                 "name": "modifyConfig"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -2462,6 +2566,7 @@
                                       },
                                       "name": "config"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 4394,
@@ -2478,8 +2583,7 @@
                                         "identifierName": "baseURL"
                                       },
                                       "name": "baseURL"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "right": {
                                     "type": "Identifier",
@@ -2508,26 +2612,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 4498,
+              "end": 4594,
+              "loc": {
+                "start": {
+                  "line": 167,
+                  "column": 4
+                },
+                "end": {
+                  "line": 169,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 96 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 4005,
-                  "end": 4174,
-                  "loc": {
-                    "start": {
-                      "line": 139,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 150,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 101 \n * @public \n * \\TRUE \n ",
@@ -2544,22 +2645,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 4498,
-              "end": 4594,
-              "loc": {
-                "start": {
-                  "line": 167,
-                  "column": 4
-                },
-                "end": {
-                  "line": 169,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -2657,6 +2743,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4575,
@@ -2673,8 +2760,7 @@
                               "identifierName": "newApiUrl"
                             },
                             "name": "newApiUrl"
-                          },
-                          "computed": false
+                          }
                         }
                       ],
                       "quasis": [
@@ -2723,63 +2809,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 101 \n * @public \n * \\TRUE \n ",
-                  "start": 4423,
-                  "end": 4491,
-                  "loc": {
-                    "start": {
-                      "line": 157,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 164,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 4666,
+        "end": 5881,
+        "loc": {
+          "start": {
+            "line": 182,
+            "column": 0
+          },
+          "end": {
+            "line": 230,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n ",
-            "start": 3798,
-            "end": 3843,
-            "loc": {
-              "start": {
-                "line": 124,
-                "column": 0
-              },
-              "end": {
-                "line": 129,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 3846,
-            "end": 3865,
-            "loc": {
-              "start": {
-                "line": 132,
-                "column": 0
-              },
-              "end": {
-                "line": 134,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n ",
@@ -2812,22 +2861,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 4666,
-        "end": 5881,
-        "loc": {
-          "start": {
-            "line": 182,
-            "column": 0
-          },
-          "end": {
-            "line": 230,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4672,
@@ -2891,6 +2925,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 4814,
+                  "end": 4984,
+                  "loc": {
+                    "start": {
+                      "line": 186,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 197,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -3124,8 +3176,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 4991,
+              "end": 5708,
+              "loc": {
+                "start": {
+                  "line": 200,
+                  "column": 4
+                },
+                "end": {
+                  "line": 216,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -3142,22 +3209,25 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 4991,
-              "end": 5708,
-              "loc": {
-                "start": {
-                  "line": 200,
-                  "column": 4
-                },
-                "end": {
-                  "line": 216,
-                  "column": 5
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 132 \n * @public \n * \\TRUE \n ",
+                  "start": 5709,
+                  "end": 5777,
+                  "loc": {
+                    "start": {
+                      "line": 217,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 224,
+                      "column": 3
+                    }
+                  }
                 }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -3509,6 +3579,7 @@
                               },
                               "name": "actor"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 5100,
@@ -3525,8 +3596,7 @@
                                 "identifierName": "answer"
                               },
                               "name": "answer"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -3558,6 +3628,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 5112,
@@ -3574,11 +3645,11 @@
                                   "identifierName": "newPort"
                                 },
                                 "name": "newPort"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 5134,
@@ -3595,8 +3666,7 @@
                             "identifierName": "then"
                           },
                           "name": "then"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -3708,6 +3778,7 @@
                                     },
                                     "name": "CallAnApi"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 5160,
@@ -3724,8 +3795,7 @@
                                       "identifierName": "as"
                                     },
                                     "name": "as"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -3747,6 +3817,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 5170,
@@ -3763,8 +3834,7 @@
                                   "identifierName": "modifyConfig"
                                 },
                                 "name": "modifyConfig"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -3879,6 +3949,7 @@
                                             },
                                             "name": "config"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 5224,
@@ -3895,8 +3966,7 @@
                                               "identifierName": "baseURL"
                                             },
                                             "name": "baseURL"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       },
                                       "consequent": {
@@ -4144,6 +4214,7 @@
                                                         },
                                                         "name": "config"
                                                       },
+                                                      "computed": false,
                                                       "property": {
                                                         "type": "Identifier",
                                                         "start": 5428,
@@ -4160,8 +4231,7 @@
                                                           "identifierName": "baseURL"
                                                         },
                                                         "name": "baseURL"
-                                                      },
-                                                      "computed": false
+                                                      }
                                                     }
                                                   ]
                                                 }
@@ -4229,6 +4299,7 @@
                                                   },
                                                   "name": "newUrl"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 5465,
@@ -4245,8 +4316,7 @@
                                                     "identifierName": "port"
                                                   },
                                                   "name": "port"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "right": {
                                                 "type": "TemplateLiteral",
@@ -4386,6 +4456,7 @@
                                                   },
                                                   "name": "config"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 5515,
@@ -4402,8 +4473,7 @@
                                                     "identifierName": "baseURL"
                                                   },
                                                   "name": "baseURL"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "right": {
                                                 "type": "CallExpression",
@@ -4450,6 +4520,7 @@
                                                     },
                                                     "name": "newUrl"
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 5532,
@@ -4466,8 +4537,7 @@
                                                       "identifierName": "toString"
                                                     },
                                                     "name": "toString"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
                                                 "arguments": []
                                               }
@@ -4644,26 +4714,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 5784,
+              "end": 5879,
+              "loc": {
+                "start": {
+                  "line": 227,
+                  "column": 4
+                },
+                "end": {
+                  "line": 229,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 4814,
-                  "end": 4984,
-                  "loc": {
-                    "start": {
-                      "line": 186,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 197,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 132 \n * @public \n * \\TRUE \n ",
@@ -4680,22 +4747,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 5784,
-              "end": 5879,
-              "loc": {
-                "start": {
-                  "line": 227,
-                  "column": 4
-                },
-                "end": {
-                  "line": 229,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -4793,6 +4845,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 5862,
@@ -4809,8 +4862,7 @@
                               "identifierName": "newPort"
                             },
                             "name": "newPort"
-                          },
-                          "computed": false
+                          }
                         }
                       ],
                       "quasis": [
@@ -4859,62 +4911,10 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 132 \n * @public \n * \\TRUE \n ",
-                  "start": 5709,
-                  "end": 5777,
-                  "loc": {
-                    "start": {
-                      "line": 217,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 224,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n ",
-            "start": 4597,
-            "end": 4643,
-            "loc": {
-              "start": {
-                "line": 171,
-                "column": 0
-              },
-              "end": {
-                "line": 176,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 4646,
-            "end": 4665,
-            "loc": {
-              "start": {
-                "line": 179,
-                "column": 0
-              },
-              "end": {
-                "line": 181,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

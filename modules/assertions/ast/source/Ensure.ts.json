@@ -1007,6 +1007,40 @@
             "column": 72
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n ",
+            "start": 507,
+            "end": 552,
+            "loc": {
+              "start": {
+                "line": 9,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Used to perform verification of the system under test.\n *\n *  Resolves any `Answerable` describing the actual\n *  state and ensures that its value meets the {@link Expectation}s provided.\n *\n * @example <caption>Usage with static values</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = actorCalled('Erica');\n *\n *  actor.attemptsTo(\n *    Ensure.that('Hello world!', equals('Hello world!'))\n *  );\n *\n * @example <caption>Composing expectations with `and`</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';\n *\n *  const actor = actorCalled('Erica');\n *\n *  actor.attemptsTo(\n *    Ensure.that('Hello world!', and(startsWith('Hello'), endsWith('!'))\n *  );\n *\n * @example <caption>Overriding the type of Error thrown upon assertion failure</caption>\n *  import { actorCalled, TestCompromisedError } from '@serenity-js/core';\n *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';\n *\n *  const actor = actorCalled('Erica')\n *      .whoCan(CallAnApi.at('https://example.com'));\n *\n *  actor.attemptsTo(\n *    Send.a(GetRequest.to('/api/health')),\n *    Ensure.that(LastResponse.status(), equals(200))\n *      .otherwiseFailWith(TestCompromisedError, 'The server is down, please cheer it up!')\n *  );\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
+            "start": 555,
+            "end": 2133,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 59,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -1176,8 +1210,23 @@
             "raw": "'./outcomes'"
           },
           "value": "./outcomes"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2134,
+        "end": 7461,
+        "loc": {
+          "start": {
+            "line": 60,
+            "column": 0
+          },
+          "end": {
+            "line": 277,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n ",
@@ -1210,22 +1259,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 2134,
-        "end": 7461,
-        "loc": {
-          "start": {
-            "line": 60,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 178 \n ",
+            "start": 7462,
+            "end": 7508,
+            "loc": {
+              "start": {
+                "line": 278,
+                "column": 0
+              },
+              "end": {
+                "line": 283,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 277,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 7511,
+            "end": 7530,
+            "loc": {
+              "start": {
+                "line": 286,
+                "column": 0
+              },
+              "end": {
+                "line": 288,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1339,6 +1407,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n * @param \n * {Answerable} actual \n * @param \n * {Expectation} expectation \n * @return \n * {Ensure} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2184,
+                    "end": 2374,
+                    "loc": {
+                      "start": {
+                        "line": 61,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 76,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<T>} actual\n     * @param {Expectation<any, A>} expectation\n     *\n     * @returns {Ensure<A>}\n     ",
+                    "start": 2380,
+                    "end": 2551,
+                    "loc": {
+                      "start": {
+                        "line": 78,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 84,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {Answera@serenity-js/core/lib/screenplay~Answerable<T>} actual\n     * @param {Expectation<T>} expectation\n     ",
+                    "start": 2700,
+                    "end": 2831,
+                    "loc": {
+                      "start": {
+                        "line": 89,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 92,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1834,42 +1954,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2836,
+                "end": 2995,
+                "loc": {
+                  "start": {
+                    "line": 93,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 98,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n * @param \n * {Answerable} actual \n * @param \n * {Expectation} expectation \n * @return \n * {Ensure} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2184,
-                    "end": 2374,
-                    "loc": {
-                      "start": {
-                        "line": 61,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 76,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<T>} actual\n     * @param {Expectation<any, A>} expectation\n     *\n     * @returns {Ensure<A>}\n     ",
-                    "start": 2380,
-                    "end": 2551,
-                    "loc": {
-                      "start": {
-                        "line": 78,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 84,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {Answera@serenity-js/core/lib/screenplay~Answerable<T>} actual\n     * @param {Expectation<T>} expectation\n     ",
@@ -1886,22 +1987,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2836,
-                "end": 2995,
-                "loc": {
-                  "start": {
-                    "line": 93,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 2996,
+                    "end": 3165,
+                    "loc": {
+                      "start": {
+                        "line": 99,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 110,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 98,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                    "start": 3172,
+                    "end": 3763,
+                    "loc": {
+                      "start": {
+                        "line": 113,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 125,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2250,26 +2370,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3768,
+                "end": 4647,
+                "loc": {
+                  "start": {
+                    "line": 126,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 145,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Answera@serenity-js/core/lib/screenplay~Answerable<T>} actual\n     * @param {Expectation<T>} expectation\n     ",
-                    "start": 2700,
-                    "end": 2831,
-                    "loc": {
-                      "start": {
-                        "line": 89,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 92,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2302,22 +2419,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3768,
-                "end": 4647,
-                "loc": {
-                  "start": {
-                    "line": 126,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 116 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 4648,
+                    "end": 4741,
+                    "loc": {
+                      "start": {
+                        "line": 146,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 155,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 145,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 4748,
+                    "end": 4918,
+                    "loc": {
+                      "start": {
+                        "line": 158,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 163,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2610,6 +2746,9 @@
                             "column": 13
                           }
                         },
+                        "extra": {
+                          "trailingComma": 4625
+                        },
                         "callee": {
                           "type": "MemberExpression",
                           "start": 3871,
@@ -2669,6 +2808,7 @@
                                 },
                                 "name": "Promise"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3879,
@@ -2685,8 +2825,7 @@
                                   "identifierName": "all"
                                 },
                                 "name": "all"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -2752,6 +2891,7 @@
                                         },
                                         "name": "actor"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3903,
@@ -2768,8 +2908,7 @@
                                           "identifierName": "answer"
                                         },
                                         "name": "answer"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2801,6 +2940,7 @@
                                             }
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3915,
@@ -2817,8 +2957,7 @@
                                             "identifierName": "actual"
                                           },
                                           "name": "actual"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     ]
                                   },
@@ -2867,6 +3006,7 @@
                                         },
                                         "name": "actor"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3942,
@@ -2883,8 +3023,7 @@
                                           "identifierName": "answer"
                                         },
                                         "name": "answer"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2916,6 +3055,7 @@
                                             }
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3954,
@@ -2932,8 +3072,7 @@
                                             "identifierName": "expectation"
                                           },
                                           "name": "expectation"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     ]
                                   }
@@ -2941,6 +3080,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3988,
@@ -2957,11 +3097,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
-                        },
-                        "extra": {
-                          "trailingComma": 4625
+                          }
                         },
                         "arguments": [
                           {
@@ -3048,6 +3184,9 @@
                                   "column": 17
                                 }
                               },
+                              "extra": {
+                                "trailingComma": 4606
+                              },
                               "callee": {
                                 "type": "MemberExpression",
                                 "start": 4034,
@@ -3113,6 +3252,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4054,
@@ -3129,11 +3269,7 @@
                                     "identifierName": "then"
                                   },
                                   "name": "then"
-                                },
-                                "computed": false
-                              },
-                              "extra": {
-                                "trailingComma": 4606
+                                }
                               },
                               "arguments": [
                                 {
@@ -3435,6 +3571,7 @@
                                                   ]
                                                 }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 4150,
@@ -3451,8 +3588,7 @@
                                                   "identifierName": "when"
                                                 },
                                                 "name": "when"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": [
                                               {
@@ -3582,6 +3718,7 @@
                                                             },
                                                             "name": "actor"
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 4211,
@@ -3598,8 +3735,7 @@
                                                               "identifierName": "collect"
                                                             },
                                                             "name": "collect"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         },
                                                         "arguments": [
                                                           {
@@ -3645,6 +3781,7 @@
                                                                   }
                                                                 }
                                                               },
+                                                              "computed": false,
                                                               "property": {
                                                                 "type": "Identifier",
                                                                 "start": 4224,
@@ -3661,8 +3798,7 @@
                                                                   "identifierName": "artifactFrom"
                                                                 },
                                                                 "name": "artifactFrom"
-                                                              },
-                                                              "computed": false
+                                                              }
                                                             },
                                                             "arguments": [
                                                               {
@@ -3696,6 +3832,7 @@
                                                                   },
                                                                   "name": "o"
                                                                 },
+                                                                "computed": false,
                                                                 "property": {
                                                                   "type": "Identifier",
                                                                   "start": 4239,
@@ -3712,8 +3849,7 @@
                                                                     "identifierName": "expected"
                                                                   },
                                                                   "name": "expected"
-                                                                },
-                                                                "computed": false
+                                                                }
                                                               },
                                                               {
                                                                 "type": "MemberExpression",
@@ -3746,6 +3882,7 @@
                                                                   },
                                                                   "name": "o"
                                                                 },
+                                                                "computed": false,
                                                                 "property": {
                                                                   "type": "Identifier",
                                                                   "start": 4251,
@@ -3762,8 +3899,7 @@
                                                                     "identifierName": "actual"
                                                                   },
                                                                   "name": "actual"
-                                                                },
-                                                                "computed": false
+                                                                }
                                                               }
                                                             ]
                                                           },
@@ -3899,6 +4035,7 @@
                                                               }
                                                             }
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 4327,
@@ -3915,8 +4052,7 @@
                                                               "identifierName": "errorForOutcome"
                                                             },
                                                             "name": "errorForOutcome"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         },
                                                         "arguments": [
                                                           {
@@ -3945,6 +4081,7 @@
                                               }
                                             ]
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 4391,
@@ -3961,8 +4098,7 @@
                                               "identifierName": "when"
                                             },
                                             "name": "when"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -4058,6 +4194,7 @@
                                           }
                                         ]
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 4446,
@@ -4074,8 +4211,7 @@
                                           "identifierName": "else"
                                         },
                                         "name": "else"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -4301,42 +4437,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4923,
+                "end": 5041,
+                "loc": {
+                  "start": {
+                    "line": 164,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 166,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 2996,
-                    "end": 3165,
-                    "loc": {
-                      "start": {
-                        "line": 99,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 110,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                    "start": 3172,
-                    "end": 3763,
-                    "loc": {
-                      "start": {
-                        "line": 113,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 125,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 116 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -4369,22 +4486,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4923,
-                "end": 5041,
-                "loc": {
-                  "start": {
-                    "line": 164,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 133 \n * @param \n * {UNKNOWN} typeOfRuntimeError \n * @param \n * {string} message \n * @return \n * {Interaction} \n * @public \n * \\TRUE \n ",
+                    "start": 5042,
+                    "end": 5216,
+                    "loc": {
+                      "start": {
+                        "line": 167,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 180,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 166,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Overrides the default {@link @serenity-js/core/lib/errors~AssertionError} thrown when\n     *  the actual value does not meet the expectations set.\n     *\n     * @param {Function} typeOfRuntimeError\n     *  The type of RuntimeError to throw, i.e. TestCompromisedError\n     *\n     * @param {string} message\n     *  The message explaining the failure\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
+                    "start": 5223,
+                    "end": 5673,
+                    "loc": {
+                      "start": {
+                        "line": 183,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 195,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4543,6 +4679,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4998,
@@ -4559,8 +4696,7 @@
                                   "identifierName": "actual"
                                 },
                                 "name": "actual"
-                              },
-                              "computed": false
+                              }
                             },
                             {
                               "type": "MemberExpression",
@@ -4591,6 +4727,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 5020,
@@ -4607,8 +4744,7 @@
                                   "identifierName": "expectation"
                                 },
                                 "name": "expectation"
-                              },
-                              "computed": false
+                              }
                             }
                           ],
                           "quasis": [
@@ -4678,42 +4814,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5678,
+                "end": 5916,
+                "loc": {
+                  "start": {
+                    "line": 196,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 198,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 116 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 4648,
-                    "end": 4741,
-                    "loc": {
-                      "start": {
-                        "line": 146,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 155,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 4748,
-                    "end": 4918,
-                    "loc": {
-                      "start": {
-                        "line": 158,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 163,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 133 \n * @param \n * {UNKNOWN} typeOfRuntimeError \n * @param \n * {string} message \n * @return \n * {Interaction} \n * @public \n * \\TRUE \n ",
@@ -4746,22 +4863,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5678,
-                "end": 5916,
-                "loc": {
-                  "start": {
-                    "line": 196,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @param \n * {Outcome} outcome \n * @return \n * {RuntimeError} \n * @protected \n * \\TRUE \n ",
+                    "start": 5917,
+                    "end": 6052,
+                    "loc": {
+                      "start": {
+                        "line": 199,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 210,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 198,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Maps an {@link Outcome} to appropriate {@link @serenity-js/core/lib/errors~RuntimeError}.\n     *\n     * @param {Outcome} outcome\n     * @returns {@serenity-js/core/lib/errors~RuntimeError}\n     *\n     * @protected\n     ",
+                    "start": 6059,
+                    "end": 6305,
+                    "loc": {
+                      "start": {
+                        "line": 213,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 221,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -5180,6 +5316,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 5855,
@@ -5196,8 +5333,7 @@
                                 "identifierName": "actual"
                               },
                               "name": "actual"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -5228,6 +5364,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 5868,
@@ -5244,8 +5381,7 @@
                                 "identifierName": "expectation"
                               },
                               "name": "expectation"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "Identifier",
@@ -5286,42 +5422,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6310,
+                "end": 6435,
+                "loc": {
+                  "start": {
+                    "line": 222,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 224,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 133 \n * @param \n * {UNKNOWN} typeOfRuntimeError \n * @param \n * {string} message \n * @return \n * {Interaction} \n * @public \n * \\TRUE \n ",
-                    "start": 5042,
-                    "end": 5216,
-                    "loc": {
-                      "start": {
-                        "line": 167,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 180,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Overrides the default {@link @serenity-js/core/lib/errors~AssertionError} thrown when\n     *  the actual value does not meet the expectations set.\n     *\n     * @param {Function} typeOfRuntimeError\n     *  The type of RuntimeError to throw, i.e. TestCompromisedError\n     *\n     * @param {string} message\n     *  The message explaining the failure\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
-                    "start": 5223,
-                    "end": 5673,
-                    "loc": {
-                      "start": {
-                        "line": 183,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 195,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @param \n * {Outcome} outcome \n * @return \n * {RuntimeError} \n * @protected \n * \\TRUE \n ",
@@ -5354,22 +5471,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6310,
-                "end": 6435,
-                "loc": {
-                  "start": {
-                    "line": 222,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 159 \n * @param \n * {Outcome} outcome \n * @return \n * {AssertionError} \n * @protected \n * \\TRUE \n ",
+                    "start": 6436,
+                    "end": 6573,
+                    "loc": {
+                      "start": {
+                        "line": 225,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 236,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 224,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Maps an {@link Outcome} to {@link @serenity-js/core/lib/errors~AssertionError}.\n     *\n     * @param {Outcome} outcome\n     * @returns {@serenity-js/core/lib/errors~AssertionError}\n     *\n     * @protected\n     ",
+                    "start": 6580,
+                    "end": 6818,
+                    "loc": {
+                      "start": {
+                        "line": 239,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 247,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -5643,6 +5779,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 6403,
@@ -5659,8 +5796,7 @@
                               "identifierName": "asAssertionError"
                             },
                             "name": "asAssertionError"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -5685,42 +5821,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6823,
+                "end": 7089,
+                "loc": {
+                  "start": {
+                    "line": 248,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 254,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @param \n * {Outcome} outcome \n * @return \n * {RuntimeError} \n * @protected \n * \\TRUE \n ",
-                    "start": 5917,
-                    "end": 6052,
-                    "loc": {
-                      "start": {
-                        "line": 199,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 210,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Maps an {@link Outcome} to appropriate {@link @serenity-js/core/lib/errors~RuntimeError}.\n     *\n     * @param {Outcome} outcome\n     * @returns {@serenity-js/core/lib/errors~RuntimeError}\n     *\n     * @protected\n     ",
-                    "start": 6059,
-                    "end": 6305,
-                    "loc": {
-                      "start": {
-                        "line": 213,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 221,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 159 \n * @param \n * {Outcome} outcome \n * @return \n * {AssertionError} \n * @protected \n * \\TRUE \n ",
@@ -5753,22 +5870,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6823,
-                "end": 7089,
-                "loc": {
-                  "start": {
-                    "line": 248,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 254,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 167 \n * @param \n * {any} expected \n * @param \n * {Actual} actual \n * @return \n * {Artifact} \n * @private \n * \\TRUE \n ",
+                    "start": 7090,
+                    "end": 7247,
+                    "loc": {
+                      "start": {
+                        "line": 255,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 268,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -6121,6 +6241,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 6977,
@@ -6137,8 +6258,7 @@
                                           "identifierName": "actual"
                                         },
                                         "name": "actual"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   ],
                                   "quasis": [
@@ -6216,6 +6336,7 @@
                                   },
                                   "name": "outcome"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 7003,
@@ -6232,8 +6353,7 @@
                                     "identifierName": "message"
                                   },
                                   "name": "message"
-                                },
-                                "computed": false
+                                }
                               }
                             ],
                             "quasis": [
@@ -6330,6 +6450,7 @@
                               },
                               "name": "outcome"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 7035,
@@ -6346,8 +6467,7 @@
                                 "identifierName": "expected"
                               },
                               "name": "expected"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -6380,6 +6500,7 @@
                               },
                               "name": "outcome"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 7065,
@@ -6396,50 +6517,30 @@
                                 "identifierName": "actual"
                               },
                               "name": "actual"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7254,
+                "end": 7459,
+                "loc": {
+                  "start": {
+                    "line": 271,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 276,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 159 \n * @param \n * {Outcome} outcome \n * @return \n * {AssertionError} \n * @protected \n * \\TRUE \n ",
-                    "start": 6436,
-                    "end": 6573,
-                    "loc": {
-                      "start": {
-                        "line": 225,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 236,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Maps an {@link Outcome} to {@link @serenity-js/core/lib/errors~AssertionError}.\n     *\n     * @param {Outcome} outcome\n     * @returns {@serenity-js/core/lib/errors~AssertionError}\n     *\n     * @protected\n     ",
-                    "start": 6580,
-                    "end": 6818,
-                    "loc": {
-                      "start": {
-                        "line": 239,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 247,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 167 \n * @param \n * {any} expected \n * @param \n * {Actual} actual \n * @return \n * {Artifact} \n * @private \n * \\TRUE \n ",
@@ -6456,22 +6557,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7254,
-                "end": 7459,
-                "loc": {
-                  "start": {
-                    "line": 271,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 276,
-                    "column": 5
-                  }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -6730,6 +6816,7 @@
                             },
                             "name": "AssertionReport"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 7349,
@@ -6746,8 +6833,7 @@
                               "identifierName": "fromJSON"
                             },
                             "name": "fromJSON"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -6763,6 +6849,9 @@
                                 "line": 275,
                                 "column": 9
                               }
+                            },
+                            "extra": {
+                              "trailingComma": 7440
                             },
                             "properties": [
                               {
@@ -6937,35 +7026,14 @@
                                   ]
                                 }
                               }
-                            ],
-                            "extra": {
-                              "trailingComma": 7440
-                            }
+                            ]
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 167 \n * @param \n * {any} expected \n * @param \n * {Actual} actual \n * @return \n * {Artifact} \n * @private \n * \\TRUE \n ",
-                    "start": 7090,
-                    "end": 7247,
-                    "loc": {
-                      "start": {
-                        "line": 255,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 268,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -7037,42 +7105,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 7531,
+        "end": 8271,
+        "loc": {
+          "start": {
+            "line": 289,
+            "column": 0
+          },
+          "end": {
+            "line": 317,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n ",
-            "start": 507,
-            "end": 552,
-            "loc": {
-              "start": {
-                "line": 9,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Used to perform verification of the system under test.\n *\n *  Resolves any `Answerable` describing the actual\n *  state and ensures that its value meets the {@link Expectation}s provided.\n *\n * @example <caption>Usage with static values</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = actorCalled('Erica');\n *\n *  actor.attemptsTo(\n *    Ensure.that('Hello world!', equals('Hello world!'))\n *  );\n *\n * @example <caption>Composing expectations with `and`</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';\n *\n *  const actor = actorCalled('Erica');\n *\n *  actor.attemptsTo(\n *    Ensure.that('Hello world!', and(startsWith('Hello'), endsWith('!'))\n *  );\n *\n * @example <caption>Overriding the type of Error thrown upon assertion failure</caption>\n *  import { actorCalled, TestCompromisedError } from '@serenity-js/core';\n *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';\n *\n *  const actor = actorCalled('Erica')\n *      .whoCan(CallAnApi.at('https://example.com'));\n *\n *  actor.attemptsTo(\n *    Send.a(GetRequest.to('/api/health')),\n *    Ensure.that(LastResponse.status(), equals(200))\n *      .otherwiseFailWith(TestCompromisedError, 'The server is down, please cheer it up!')\n *  );\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
-            "start": 555,
-            "end": 2133,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 59,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 178 \n ",
@@ -7105,22 +7154,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 7531,
-        "end": 8271,
-        "loc": {
-          "start": {
-            "line": 289,
-            "column": 0
-          },
-          "end": {
-            "line": 317,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 7537,
@@ -7266,6 +7300,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 188 \n * @param \n * {Outcome} outcome \n * @return \n * {RuntimeError} \n * @protected \n * \\TRUE \n ",
+                  "start": 7885,
+                  "end": 8020,
+                  "loc": {
+                    "start": {
+                      "line": 298,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 309,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -7905,8 +7957,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 8027,
+              "end": 8269,
+              "loc": {
+                "start": {
+                  "line": 312,
+                  "column": 4
+                },
+                "end": {
+                  "line": 316,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 188 \n * @param \n * {Outcome} outcome \n * @return \n * {RuntimeError} \n * @protected \n * \\TRUE \n ",
@@ -7923,22 +7990,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 8027,
-              "end": 8269,
-              "loc": {
-                "start": {
-                  "line": 312,
-                  "column": 4
-                },
-                "end": {
-                  "line": 316,
-                  "column": 5
-                }
-              },
+              ],
               "accessibility": "protected",
               "static": false,
               "key": {
@@ -8244,6 +8296,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 8136,
@@ -8260,8 +8313,7 @@
                                 "identifierName": "asAssertionError"
                               },
                               "name": "asAssertionError"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -8344,6 +8396,7 @@
                             }
                           }
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 8188,
@@ -8360,8 +8413,7 @@
                             "identifierName": "typeOfRuntimeError"
                           },
                           "name": "typeOfRuntimeError"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -8407,6 +8459,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 8212,
@@ -8423,8 +8476,7 @@
                                 "identifierName": "message"
                               },
                               "name": "message"
-                            },
-                            "computed": false
+                            }
                           },
                           "operator": "||",
                           "right": {
@@ -8458,6 +8510,7 @@
                               },
                               "name": "assertionError"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 8238,
@@ -8474,8 +8527,7 @@
                                 "identifierName": "message"
                               },
                               "name": "message"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -8500,62 +8552,10 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 188 \n * @param \n * {Outcome} outcome \n * @return \n * {RuntimeError} \n * @protected \n * \\TRUE \n ",
-                  "start": 7885,
-                  "end": 8020,
-                  "loc": {
-                    "start": {
-                      "line": 298,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 309,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 178 \n ",
-            "start": 7462,
-            "end": 7508,
-            "loc": {
-              "start": {
-                "line": 278,
-                "column": 0
-              },
-              "end": {
-                "line": 283,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 7511,
-            "end": 7530,
-            "loc": {
-              "start": {
-                "line": 286,
-                "column": 0
-              },
-              "end": {
-                "line": 288,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -131,6 +131,40 @@
             "column": 41
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n ",
+            "start": 88,
+            "end": 133,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Provides access to the properties of the last {@link AxiosResponse} object,\n *  cached on the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}.\n *\n * @example <caption>Verify response to a GET request</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  interface Book {\n *      title: string;\n *      author: string\n *  }\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(GetRequest.to('/books/0-688-00230-7')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),\n *      Ensure.that(LastResponse.body<Book>(), equals({\n *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n *          author: 'Robert M. Pirsig',\n *      })),\n *  );\n ",
+            "start": 136,
+            "end": 1169,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 37,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +236,23 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1170,
+        "end": 4189,
+        "loc": {
+          "start": {
+            "line": 38,
+            "column": 0
+          },
+          "end": {
+            "line": 164,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n ",
@@ -236,22 +285,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1170,
-        "end": 4189,
-        "loc": {
-          "start": {
-            "line": 38,
-            "column": 0
-          },
-          "end": {
-            "line": 164,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -316,6 +350,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 39 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1198,
+                    "end": 1314,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 50,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Enables asserting on the {@link LastResponse} status\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<number>}\n     ",
+                    "start": 1321,
+                    "end": 1481,
+                    "loc": {
+                      "start": {
+                        "line": 53,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 58,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1709,
+                    "end": 1825,
+                    "loc": {
+                      "start": {
+                        "line": 64,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 75,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Enables asserting on the {@link LastResponse} body\n     *\n     * @example <caption>A type-safe approach using generics</caption>\n     *  interface Book {\n     *      title: string;\n     *      author: string\n     *  }\n     *\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<Book>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @example <caption>A non-type-safe approach using `any`</caption>\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<any>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<any>}\n     ",
+                    "start": 1832,
+                    "end": 2777,
+                    "loc": {
+                      "start": {
+                        "line": 78,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 106,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -493,6 +595,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1546,
@@ -509,8 +612,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -689,6 +791,7 @@
                                             },
                                             "name": "CallAnApi"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1635,
@@ -705,8 +808,7 @@
                                               "identifierName": "as"
                                             },
                                             "name": "as"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -728,6 +830,7 @@
                                           }
                                         ]
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1645,
@@ -744,8 +847,7 @@
                                           "identifierName": "mapLastResponse"
                                         },
                                         "name": "mapLastResponse"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -815,6 +917,7 @@
                                             },
                                             "name": "response"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1682,
@@ -831,8 +934,7 @@
                                               "identifierName": "status"
                                             },
                                             "name": "status"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       }
                                     ]
@@ -879,42 +981,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2782,
+                "end": 3005,
+                "loc": {
+                  "start": {
+                    "line": 107,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 111,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 39 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1198,
-                    "end": 1314,
-                    "loc": {
-                      "start": {
-                        "line": 39,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 50,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enables asserting on the {@link LastResponse} status\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<number>}\n     ",
-                    "start": 1321,
-                    "end": 1481,
-                    "loc": {
-                      "start": {
-                        "line": 53,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 58,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -947,22 +1030,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2782,
-                "end": 3005,
-                "loc": {
-                  "start": {
-                    "line": 107,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @param \n * {string} name \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3006,
+                    "end": 3151,
+                    "loc": {
+                      "start": {
+                        "line": 112,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 125,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 111,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Enables asserting on one of the {@link LastResponse}'s headers\n     *\n     * @param {string} name\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>}\n     ",
+                    "start": 3158,
+                    "end": 3356,
+                    "loc": {
+                      "start": {
+                        "line": 128,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 134,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1205,6 +1307,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2844,
@@ -1221,8 +1324,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1401,6 +1503,7 @@
                                             },
                                             "name": "CallAnApi"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2926,
@@ -1417,8 +1520,7 @@
                                               "identifierName": "as"
                                             },
                                             "name": "as"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1440,6 +1542,7 @@
                                           }
                                         ]
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2936,
@@ -1456,8 +1559,7 @@
                                           "identifierName": "mapLastResponse"
                                         },
                                         "name": "mapLastResponse"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -1541,6 +1643,7 @@
                                               },
                                               "name": "response"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 2976,
@@ -1557,8 +1660,7 @@
                                                 "identifierName": "data"
                                               },
                                               "name": "data"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "typeAnnotation": {
                                             "type": "TSTypeReference",
@@ -1704,42 +1806,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3361,
+                "end": 3614,
+                "loc": {
+                  "start": {
+                    "line": 135,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 139,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1709,
-                    "end": 1825,
-                    "loc": {
-                      "start": {
-                        "line": 64,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 75,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enables asserting on the {@link LastResponse} body\n     *\n     * @example <caption>A type-safe approach using generics</caption>\n     *  interface Book {\n     *      title: string;\n     *      author: string\n     *  }\n     *\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<Book>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @example <caption>A non-type-safe approach using `any`</caption>\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<any>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<any>}\n     ",
-                    "start": 1832,
-                    "end": 2777,
-                    "loc": {
-                      "start": {
-                        "line": 78,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 106,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @param \n * {string} name \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1772,22 +1855,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3361,
-                "end": 3614,
-                "loc": {
-                  "start": {
-                    "line": 135,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3615,
+                    "end": 3705,
+                    "loc": {
+                      "start": {
+                        "line": 140,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 149,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 139,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Enables asserting on all of the {@link LastResponse}'s headers,\n     *  returned as an object where the keys represent header names.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<object>}\n     ",
+                    "start": 3712,
+                    "end": 3952,
+                    "loc": {
+                      "start": {
+                        "line": 152,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 158,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2013,6 +2115,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3433,
@@ -2029,8 +2132,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2247,6 +2349,7 @@
                                             },
                                             "name": "CallAnApi"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 3534,
@@ -2263,8 +2366,7 @@
                                               "identifierName": "as"
                                             },
                                             "name": "as"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -2286,6 +2388,7 @@
                                           }
                                         ]
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3544,
@@ -2302,8 +2405,7 @@
                                           "identifierName": "mapLastResponse"
                                         },
                                         "name": "mapLastResponse"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2387,6 +2489,7 @@
                                               },
                                               "name": "response"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 3581,
@@ -2403,9 +2506,9 @@
                                                 "identifierName": "headers"
                                               },
                                               "name": "headers"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": true,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 3589,
@@ -2422,8 +2525,7 @@
                                               "identifierName": "name"
                                             },
                                             "name": "name"
-                                          },
-                                          "computed": true
+                                          }
                                         }
                                       }
                                     ]
@@ -2470,42 +2572,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3957,
+                "end": 4187,
+                "loc": {
+                  "start": {
+                    "line": 159,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 163,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @param \n * {string} name \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3006,
-                    "end": 3151,
-                    "loc": {
-                      "start": {
-                        "line": 112,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 125,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enables asserting on one of the {@link LastResponse}'s headers\n     *\n     * @param {string} name\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>}\n     ",
-                    "start": 3158,
-                    "end": 3356,
-                    "loc": {
-                      "start": {
-                        "line": 128,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 134,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2538,22 +2621,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3957,
-                "end": 4187,
-                "loc": {
-                  "start": {
-                    "line": 159,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 163,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2652,6 +2720,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4000,
@@ -2668,8 +2737,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2848,6 +2916,7 @@
                                             },
                                             "name": "CallAnApi"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 4113,
@@ -2864,8 +2933,7 @@
                                               "identifierName": "as"
                                             },
                                             "name": "as"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -2887,6 +2955,7 @@
                                           }
                                         ]
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 4123,
@@ -2903,8 +2972,7 @@
                                           "identifierName": "mapLastResponse"
                                         },
                                         "name": "mapLastResponse"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2974,6 +3042,7 @@
                                             },
                                             "name": "response"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 4160,
@@ -2990,8 +3059,7 @@
                                               "identifierName": "headers"
                                             },
                                             "name": "headers"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       }
                                     ]
@@ -3134,41 +3202,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3615,
-                    "end": 3705,
-                    "loc": {
-                      "start": {
-                        "line": 140,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 149,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enables asserting on all of the {@link LastResponse}'s headers,\n     *  returned as an object where the keys represent header names.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<object>}\n     ",
-                    "start": 3712,
-                    "end": 3952,
-                    "loc": {
-                      "start": {
-                        "line": 152,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 158,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -3207,41 +3241,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n ",
-            "start": 88,
-            "end": 133,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Provides access to the properties of the last {@link AxiosResponse} object,\n *  cached on the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}.\n *\n * @example <caption>Verify response to a GET request</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  interface Book {\n *      title: string;\n *      author: string\n *  }\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(GetRequest.to('/books/0-688-00230-7')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),\n *      Ensure.that(LastResponse.body<Book>(), equals({\n *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n *          author: 'Robert M. Pirsig',\n *      })),\n *  );\n ",
-            "start": 136,
-            "end": 1169,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 37,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

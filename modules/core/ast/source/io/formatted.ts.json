@@ -131,6 +131,40 @@
             "column": 40
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {TemplateStringsArray} templates \n * @param \n * {Array} placeholders \n ",
+            "start": 96,
+            "end": 225,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A tag function returning a human-readable description of a template containing one or more {@link Answerable}s.\n *\n * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals\n *\n * @param {TemplateStringsArray} templates\n * @param {Array<Answerable<any>>} placeholders\n * @returns {string}\n ",
+            "start": 228,
+            "end": 596,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +236,23 @@
             "raw": "'./inspected'"
           },
           "value": "./inspected"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 597,
+        "end": 1040,
+        "loc": {
+          "start": {
+            "line": 25,
+            "column": 0
+          },
+          "end": {
+            "line": 34,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {TemplateStringsArray} templates \n * @param \n * {Array} placeholders \n ",
@@ -236,22 +285,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 597,
-        "end": 1040,
-        "loc": {
-          "start": {
-            "line": 25,
-            "column": 0
-          },
-          "end": {
-            "line": 34,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -714,6 +748,7 @@
                                 },
                                 "name": "multiline"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 754,
@@ -730,8 +765,7 @@
                                   "identifierName": "replace"
                                 },
                                 "name": "replace"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -776,6 +810,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 777,
@@ -792,8 +827,7 @@
                               "identifierName": "replace"
                             },
                             "name": "replace"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -958,6 +992,7 @@
                               },
                               "name": "templates"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 830,
@@ -974,8 +1009,7 @@
                                 "identifierName": "map"
                               },
                               "name": "map"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -1108,6 +1142,7 @@
                                       },
                                       "name": "placeholders"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 868,
@@ -1124,8 +1159,7 @@
                                         "identifierName": "length"
                                       },
                                       "name": "length"
-                                    },
-                                    "computed": false
+                                    }
                                   }
                                 },
                                 "consequent": {
@@ -1255,6 +1289,7 @@
                                                 },
                                                 "name": "placeholders"
                                               },
+                                              "computed": true,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 934,
@@ -1271,8 +1306,7 @@
                                                   "identifierName": "i"
                                                 },
                                                 "name": "i"
-                                              },
-                                              "computed": true
+                                              }
                                             }
                                           ]
                                         }
@@ -1318,6 +1352,7 @@
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 978,
@@ -1334,8 +1369,7 @@
                             "identifierName": "reduce"
                           },
                           "name": "reduce"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -1436,6 +1470,7 @@
                                 },
                                 "name": "acc"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1005,
@@ -1452,8 +1487,7 @@
                                   "identifierName": "concat"
                                 },
                                 "name": "concat"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1478,6 +1512,7 @@
                         }
                       ]
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 1029,
@@ -1494,8 +1529,7 @@
                         "identifierName": "join"
                       },
                       "name": "join"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -1559,41 +1593,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {TemplateStringsArray} templates \n * @param \n * {Array} placeholders \n ",
-            "start": 96,
-            "end": 225,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A tag function returning a human-readable description of a template containing one or more {@link Answerable}s.\n *\n * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals\n *\n * @param {TemplateStringsArray} templates\n * @param {Array<Answerable<any>>} placeholders\n * @returns {string}\n ",
-            "start": 228,
-            "end": 596,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 24,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

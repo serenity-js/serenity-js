@@ -199,6 +199,40 @@
             "column": 48
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
+            "start": 145,
+            "end": 190,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Allows for programmatic execution of Jasmine test scenarios,\n *  using {@link SerenityReporterForJasmine} to report progress.\n ",
+            "start": 193,
+            "end": 339,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -270,8 +304,23 @@
             "raw": "'./JasmineConfig'"
           },
           "value": "./JasmineConfig"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 340,
+        "end": 2605,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 89,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
@@ -304,22 +353,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 340,
-        "end": 2605,
-        "loc": {
-          "start": {
-            "line": 17,
-            "column": 0
-          },
-          "end": {
-            "line": 89,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -384,6 +418,40 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 497,
+                    "end": 632,
+                    "loc": {
+                      "start": {
+                        "line": 24,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {string[]} pathsToScenarios\n     * @returns {Promise<void>}\n     ",
+                    "start": 639,
+                    "end": 724,
+                    "loc": {
+                      "start": {
+                        "line": 38,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 41,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -587,8 +655,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 729,
+                "end": 2603,
+                "loc": {
+                  "start": {
+                    "line": 42,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 88,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -621,22 +704,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 729,
-                "end": 2603,
-                "loc": {
-                  "start": {
-                    "line": 42,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 88,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -946,6 +1014,24 @@
                                       "column": 58
                                     }
                                   },
+                                  "trailingComments": [
+                                    {
+                                      "type": "CommentLine",
+                                      "value": " ... of registering a global jasmine instance",
+                                      "start": 1156,
+                                      "end": 1203,
+                                      "loc": {
+                                        "start": {
+                                          "line": 49,
+                                          "column": 64
+                                        },
+                                        "end": {
+                                          "line": 49,
+                                          "column": 111
+                                        }
+                                      }
+                                    }
+                                  ],
                                   "declarations": [
                                     {
                                       "type": "VariableDeclarator",
@@ -1035,6 +1121,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 885,
@@ -1051,9 +1138,9 @@
                                                 "identifierName": "loader"
                                               },
                                               "name": "loader"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 892,
@@ -1070,8 +1157,7 @@
                                               "identifierName": "require"
                                             },
                                             "name": "require"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1174,6 +1260,9 @@
                                                 "column": 17
                                               }
                                             },
+                                            "extra": {
+                                              "trailingComma": 1070
+                                            },
                                             "properties": [
                                               {
                                                 "type": "ObjectProperty",
@@ -1189,6 +1278,24 @@
                                                     "column": 38
                                                   }
                                                 },
+                                                "leadingComments": [
+                                                  {
+                                                    "type": "CommentLine",
+                                                    "value": " instantiating the JasmineRunner has a side-effect...",
+                                                    "start": 976,
+                                                    "end": 1031,
+                                                    "loc": {
+                                                      "start": {
+                                                        "line": 46,
+                                                        "column": 64
+                                                      },
+                                                      "end": {
+                                                        "line": 46,
+                                                        "column": 119
+                                                      }
+                                                    }
+                                                  }
+                                                ],
                                                 "method": false,
                                                 "key": {
                                                   "type": "Identifier",
@@ -1228,30 +1335,9 @@
                                                     "raw": "''"
                                                   },
                                                   "value": ""
-                                                },
-                                                "leadingComments": [
-                                                  {
-                                                    "type": "CommentLine",
-                                                    "value": " instantiating the JasmineRunner has a side-effect...",
-                                                    "start": 976,
-                                                    "end": 1031,
-                                                    "loc": {
-                                                      "start": {
-                                                        "line": 46,
-                                                        "column": 64
-                                                      },
-                                                      "end": {
-                                                        "line": 46,
-                                                        "column": 119
-                                                      }
-                                                    }
-                                                  }
-                                                ]
+                                                }
                                               }
-                                            ],
-                                            "extra": {
-                                              "trailingComma": 1070
-                                            }
+                                            ]
                                           }
                                         ]
                                       }
@@ -1315,6 +1401,10 @@
                                               "column": 48
                                             }
                                           },
+                                          "extra": {
+                                            "parenthesized": true,
+                                            "parenStart": 1126
+                                          },
                                           "expression": {
                                             "type": "Identifier",
                                             "start": 1127,
@@ -1346,12 +1436,9 @@
                                                 "column": 48
                                               }
                                             }
-                                          },
-                                          "extra": {
-                                            "parenthesized": true,
-                                            "parenStart": 1126
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 1142,
@@ -1368,13 +1455,27 @@
                                             "identifierName": "jasmine"
                                           },
                                           "name": "jasmine"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     }
                                   ],
-                                  "kind": "const",
-                                  "trailingComments": [
+                                  "kind": "const"
+                                },
+                                {
+                                  "type": "IfStatement",
+                                  "start": 1217,
+                                  "end": 1359,
+                                  "loc": {
+                                    "start": {
+                                      "line": 51,
+                                      "column": 12
+                                    },
+                                    "end": {
+                                      "line": 53,
+                                      "column": 13
+                                    }
+                                  },
+                                  "leadingComments": [
                                     {
                                       "type": "CommentLine",
                                       "value": " ... of registering a global jasmine instance",
@@ -1391,22 +1492,7 @@
                                         }
                                       }
                                     }
-                                  ]
-                                },
-                                {
-                                  "type": "IfStatement",
-                                  "start": 1217,
-                                  "end": 1359,
-                                  "loc": {
-                                    "start": {
-                                      "line": 51,
-                                      "column": 12
-                                    },
-                                    "end": {
-                                      "line": 53,
-                                      "column": 13
-                                    }
-                                  },
+                                  ],
                                   "test": {
                                     "type": "MemberExpression",
                                     "start": 1221,
@@ -1450,6 +1536,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1226,
@@ -1466,9 +1553,9 @@
                                           "identifierName": "config"
                                         },
                                         "name": "config"
-                                      },
-                                      "computed": false
+                                      }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1233,
@@ -1485,8 +1572,7 @@
                                         "identifierName": "defaultTimeoutInterval"
                                       },
                                       "name": "defaultTimeoutInterval"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "consequent": {
                                     "type": "BlockStatement",
@@ -1563,6 +1649,7 @@
                                               },
                                               "name": "jasmine"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1283,
@@ -1579,8 +1666,7 @@
                                                 "identifierName": "DEFAULT_TIMEOUT_INTERVAL"
                                               },
                                               "name": "DEFAULT_TIMEOUT_INTERVAL"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "right": {
                                             "type": "MemberExpression",
@@ -1625,6 +1711,7 @@
                                                   }
                                                 }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 1315,
@@ -1641,9 +1728,9 @@
                                                   "identifierName": "config"
                                                 },
                                                 "name": "config"
-                                              },
-                                              "computed": false
+                                              }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1322,
@@ -1660,33 +1747,14 @@
                                                 "identifierName": "defaultTimeoutInterval"
                                               },
                                               "name": "defaultTimeoutInterval"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         }
                                       }
                                     ],
                                     "directives": []
                                   },
-                                  "alternate": null,
-                                  "leadingComments": [
-                                    {
-                                      "type": "CommentLine",
-                                      "value": " ... of registering a global jasmine instance",
-                                      "start": 1156,
-                                      "end": 1203,
-                                      "loc": {
-                                        "start": {
-                                          "line": 49,
-                                          "column": 64
-                                        },
-                                        "end": {
-                                          "line": 49,
-                                          "column": 111
-                                        }
-                                      }
-                                    }
-                                  ]
+                                  "alternate": null
                                 },
                                 {
                                   "type": "ExpressionStatement",
@@ -1702,6 +1770,24 @@
                                       "column": 36
                                     }
                                   },
+                                  "trailingComments": [
+                                    {
+                                      "type": "CommentLine",
+                                      "value": " tslint:disable-next-line:prefer-object-spread",
+                                      "start": 1411,
+                                      "end": 1459,
+                                      "loc": {
+                                        "start": {
+                                          "line": 57,
+                                          "column": 12
+                                        },
+                                        "end": {
+                                          "line": 57,
+                                          "column": 60
+                                        }
+                                      }
+                                    }
+                                  ],
                                   "expression": {
                                     "type": "CallExpression",
                                     "start": 1373,
@@ -1747,6 +1833,7 @@
                                         },
                                         "name": "runner"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1380,
@@ -1763,12 +1850,26 @@
                                           "identifierName": "clearReporters"
                                         },
                                         "name": "clearReporters"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": []
+                                  }
+                                },
+                                {
+                                  "type": "ExpressionStatement",
+                                  "start": 1472,
+                                  "end": 2345,
+                                  "loc": {
+                                    "start": {
+                                      "line": 58,
+                                      "column": 12
+                                    },
+                                    "end": {
+                                      "line": 78,
+                                      "column": 15
+                                    }
                                   },
-                                  "trailingComments": [
+                                  "leadingComments": [
                                     {
                                       "type": "CommentLine",
                                       "value": " tslint:disable-next-line:prefer-object-spread",
@@ -1785,22 +1886,7 @@
                                         }
                                       }
                                     }
-                                  ]
-                                },
-                                {
-                                  "type": "ExpressionStatement",
-                                  "start": 1472,
-                                  "end": 2345,
-                                  "loc": {
-                                    "start": {
-                                      "line": 58,
-                                      "column": 12
-                                    },
-                                    "end": {
-                                      "line": 78,
-                                      "column": 15
-                                    }
-                                  },
+                                  ],
                                   "expression": {
                                     "type": "CallExpression",
                                     "start": 1472,
@@ -1846,6 +1932,7 @@
                                         },
                                         "name": "runner"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1479,
@@ -1862,8 +1949,7 @@
                                           "identifierName": "loadConfig"
                                         },
                                         "name": "loadConfig"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -1879,6 +1965,9 @@
                                             "line": 78,
                                             "column": 13
                                           }
+                                        },
+                                        "extra": {
+                                          "trailingComma": 2328
                                         },
                                         "callee": {
                                           "type": "MemberExpression",
@@ -1911,6 +2000,7 @@
                                             },
                                             "name": "Object"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1497,
@@ -1927,11 +2017,7 @@
                                               "identifierName": "assign"
                                             },
                                             "name": "assign"
-                                          },
-                                          "computed": false
-                                        },
-                                        "extra": {
-                                          "trailingComma": 2328
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1948,6 +2034,9 @@
                                                 "column": 17
                                               }
                                             },
+                                            "extra": {
+                                              "trailingComma": 2280
+                                            },
                                             "properties": [
                                               {
                                                 "type": "ObjectProperty",
@@ -1963,6 +2052,24 @@
                                                     "column": 43
                                                   }
                                                 },
+                                                "leadingComments": [
+                                                  {
+                                                    "type": "CommentBlock",
+                                                    "value": "\n                     * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled\n                     ",
+                                                    "start": 1543,
+                                                    "end": 1672,
+                                                    "loc": {
+                                                      "start": {
+                                                        "line": 60,
+                                                        "column": 20
+                                                      },
+                                                      "end": {
+                                                        "line": 62,
+                                                        "column": 23
+                                                      }
+                                                    }
+                                                  }
+                                                ],
                                                 "method": false,
                                                 "key": {
                                                   "type": "Identifier",
@@ -1998,25 +2105,7 @@
                                                     }
                                                   },
                                                   "value": true
-                                                },
-                                                "leadingComments": [
-                                                  {
-                                                    "type": "CommentBlock",
-                                                    "value": "\n                     * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled\n                     ",
-                                                    "start": 1543,
-                                                    "end": 1672,
-                                                    "loc": {
-                                                      "start": {
-                                                        "line": 60,
-                                                        "column": 20
-                                                      },
-                                                      "end": {
-                                                        "line": 62,
-                                                        "column": 23
-                                                      }
-                                                    }
-                                                  }
-                                                ]
+                                                }
                                               },
                                               {
                                                 "type": "ObjectProperty",
@@ -2032,6 +2121,24 @@
                                                     "column": 54
                                                   }
                                                 },
+                                                "leadingComments": [
+                                                  {
+                                                    "type": "CommentBlock",
+                                                    "value": "\n                     * A spec should stop execution as soon as there's a hook or spec failure\n                     * See https://github.com/angular/protractor/issues/3234\n                     ",
+                                                    "start": 1739,
+                                                    "end": 1936,
+                                                    "loc": {
+                                                      "start": {
+                                                        "line": 65,
+                                                        "column": 20
+                                                      },
+                                                      "end": {
+                                                        "line": 68,
+                                                        "column": 23
+                                                      }
+                                                    }
+                                                  }
+                                                ],
                                                 "method": false,
                                                 "key": {
                                                   "type": "Identifier",
@@ -2067,25 +2174,7 @@
                                                     }
                                                   },
                                                   "value": true
-                                                },
-                                                "leadingComments": [
-                                                  {
-                                                    "type": "CommentBlock",
-                                                    "value": "\n                     * A spec should stop execution as soon as there's a hook or spec failure\n                     * See https://github.com/angular/protractor/issues/3234\n                     ",
-                                                    "start": 1739,
-                                                    "end": 1936,
-                                                    "loc": {
-                                                      "start": {
-                                                        "line": 65,
-                                                        "column": 20
-                                                      },
-                                                      "end": {
-                                                        "line": 68,
-                                                        "column": 23
-                                                      }
-                                                    }
-                                                  }
-                                                ]
+                                                }
                                               },
                                               {
                                                 "type": "ObjectProperty",
@@ -2101,6 +2190,24 @@
                                                     "column": 33
                                                   }
                                                 },
+                                                "leadingComments": [
+                                                  {
+                                                    "type": "CommentBlock",
+                                                    "value": "\n                     * Default to not executing tests at random.\n                     * See https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L76\n                     ",
+                                                    "start": 2014,
+                                                    "end": 2246,
+                                                    "loc": {
+                                                      "start": {
+                                                        "line": 71,
+                                                        "column": 20
+                                                      },
+                                                      "end": {
+                                                        "line": 74,
+                                                        "column": 23
+                                                      }
+                                                    }
+                                                  }
+                                                ],
                                                 "method": false,
                                                 "key": {
                                                   "type": "Identifier",
@@ -2136,30 +2243,9 @@
                                                     }
                                                   },
                                                   "value": false
-                                                },
-                                                "leadingComments": [
-                                                  {
-                                                    "type": "CommentBlock",
-                                                    "value": "\n                     * Default to not executing tests at random.\n                     * See https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L76\n                     ",
-                                                    "start": 2014,
-                                                    "end": 2246,
-                                                    "loc": {
-                                                      "start": {
-                                                        "line": 71,
-                                                        "column": 20
-                                                      },
-                                                      "end": {
-                                                        "line": 74,
-                                                        "column": 23
-                                                      }
-                                                    }
-                                                  }
-                                                ]
+                                                }
                                               }
-                                            ],
-                                            "extra": {
-                                              "trailingComma": 2280
-                                            }
+                                            ]
                                           },
                                           {
                                             "type": "MemberExpression",
@@ -2190,6 +2276,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 2322,
@@ -2206,31 +2293,12 @@
                                                 "identifierName": "config"
                                               },
                                               "name": "config"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         ]
                                       }
                                     ]
-                                  },
-                                  "leadingComments": [
-                                    {
-                                      "type": "CommentLine",
-                                      "value": " tslint:disable-next-line:prefer-object-spread",
-                                      "start": 1411,
-                                      "end": 1459,
-                                      "loc": {
-                                        "start": {
-                                          "line": 57,
-                                          "column": 12
-                                        },
-                                        "end": {
-                                          "line": 57,
-                                          "column": 60
-                                        }
-                                      }
-                                    }
-                                  ]
+                                  }
                                 },
                                 {
                                   "type": "ExpressionStatement",
@@ -2291,6 +2359,7 @@
                                         },
                                         "name": "runner"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2366,
@@ -2307,8 +2376,7 @@
                                           "identifierName": "addReporter"
                                         },
                                         "name": "addReporter"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2424,6 +2492,7 @@
                                         },
                                         "name": "runner"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2418,
@@ -2440,8 +2509,7 @@
                                           "identifierName": "onComplete"
                                         },
                                         "name": "onComplete"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2606,6 +2674,7 @@
                                         },
                                         "name": "runner"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2482,
@@ -2622,8 +2691,7 @@
                                           "identifierName": "configureDefaultReporter"
                                         },
                                         "name": "configureDefaultReporter"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2655,6 +2723,7 @@
                                             }
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2512,
@@ -2671,8 +2740,7 @@
                                             "identifierName": "config"
                                           },
                                           "name": "config"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     ]
                                   }
@@ -2736,6 +2804,7 @@
                                         },
                                         "name": "runner"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2541,
@@ -2752,8 +2821,7 @@
                                           "identifierName": "execute"
                                         },
                                         "name": "execute"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2816,6 +2884,7 @@
                                               }
                                             }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2572,
@@ -2832,9 +2901,9 @@
                                               "identifierName": "config"
                                             },
                                             "name": "config"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2579,
@@ -2851,8 +2920,7 @@
                                             "identifierName": "grep"
                                           },
                                           "name": "grep"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     ]
                                   }
@@ -2866,41 +2934,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 497,
-                    "end": 632,
-                    "loc": {
-                      "start": {
-                        "line": 24,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 35,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {string[]} pathsToScenarios\n     * @returns {Promise<void>}\n     ",
-                    "start": 639,
-                    "end": 724,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 41,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -2939,41 +2973,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
-            "start": 145,
-            "end": 190,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Allows for programmatic execution of Jasmine test scenarios,\n *  using {@link SerenityReporterForJasmine} to report progress.\n ",
-            "start": 193,
-            "end": 339,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

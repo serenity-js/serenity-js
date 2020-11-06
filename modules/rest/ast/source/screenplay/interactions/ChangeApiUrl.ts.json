@@ -327,6 +327,40 @@
             "column": 41
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
+            "start": 155,
+            "end": 200,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Changes the base URL the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n *  has been configured with. Useful when we don't know the URL before the test is started,\n *  for example when the URL is dynamically generated and needs to be read from the website under test.\n *\n * @example <caption>Changing the API URL</caption>\n * import { Actor } from '@serenity-js/core';\n * import { Navigate, Target, Text } from '@serenity-js/protractor';\n * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n * import { protractor, by } from 'protractor';\n *\n * import axios  from 'axios';\n *\n * const actor = Actor.named('Apisit').whoCan(\n *     BrowseTheWeb.using(protractor.browser),\n *\n *     // Note: no default base URL is given when the axios instance is created\n *     CallAnApi.using(axios.create()),\n * );\n *\n * // Let's imagine that the website under test displays\n * // a dynamically generated API URL we'd like to use\n * const ApiDetailsWidget = {\n *     Url: Target.the('API URL').located(by.id('api-url')),\n * }\n *\n * actor.attemptsTo(\n *     Navigate.to('/profile'),\n *\n *     // We change the API URL based on the text displayed in the widget\n *     // (although we could change it to some arbitrary string too).\n *     ChangeApiUrl.to(Text.of(ApiDetailsWidget.Url)),\n *\n *     // Any subsequent request will be sent to the newly set URL\n *     Send.a(GetRequest.to('/projects')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n * );\n *\n * @deprecated Use ChangeApiConfig.setUrlTo(newUrl) instead\n *\n * @see {@link ChangeApiConfig}\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
+            "start": 203,
+            "end": 1874,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 55,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -398,8 +432,23 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1875,
+        "end": 4018,
+        "loc": {
+          "start": {
+            "line": 56,
+            "column": 0
+          },
+          "end": {
+            "line": 140,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
@@ -432,22 +481,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1875,
-        "end": 4018,
-        "loc": {
-          "start": {
-            "line": 56,
-            "column": 0
-          },
-          "end": {
-            "line": 140,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -528,6 +562,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 58 \n * @param \n * {Answerable} newApiUrl \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1923,
+                    "end": 2080,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 70,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates a new {@link ChangeApiUrl} {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
+                    "start": 2087,
+                    "end": 2361,
+                    "loc": {
+                      "start": {
+                        "line": 73,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 79,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     ",
+                    "start": 2477,
+                    "end": 2566,
+                    "loc": {
+                      "start": {
+                        "line": 84,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 86,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -779,42 +865,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2571,
+                "end": 2655,
+                "loc": {
+                  "start": {
+                    "line": 87,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 89,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 58 \n * @param \n * {Answerable} newApiUrl \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1923,
-                    "end": 2080,
-                    "loc": {
-                      "start": {
-                        "line": 57,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 70,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates a new {@link ChangeApiUrl} {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
-                    "start": 2087,
-                    "end": 2361,
-                    "loc": {
-                      "start": {
-                        "line": 73,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 79,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     ",
@@ -831,22 +898,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2571,
-                "end": 2655,
-                "loc": {
-                  "start": {
-                    "line": 87,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 82 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 2656,
+                    "end": 2825,
+                    "loc": {
+                      "start": {
+                        "line": 90,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 101,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 89,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                    "start": 2832,
+                    "end": 3423,
+                    "loc": {
+                      "start": {
+                        "line": 104,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 116,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1048,26 +1134,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3428,
+                "end": 3669,
+                "loc": {
+                  "start": {
+                    "line": 117,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 120,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     ",
-                    "start": 2477,
-                    "end": 2566,
-                    "loc": {
-                      "start": {
-                        "line": 84,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 86,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 82 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -1100,22 +1183,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3428,
-                "end": 3669,
-                "loc": {
-                  "start": {
-                    "line": 117,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @public \n * \\TRUE \n ",
+                    "start": 3670,
+                    "end": 3737,
+                    "loc": {
+                      "start": {
+                        "line": 121,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 128,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 120,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 3744,
+                    "end": 3914,
+                    "loc": {
+                      "start": {
+                        "line": 131,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 136,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1467,6 +1569,7 @@
                                 },
                                 "name": "actor"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3537,
@@ -1483,8 +1586,7 @@
                                   "identifierName": "answer"
                                 },
                                 "name": "answer"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1516,6 +1618,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3549,
@@ -1532,11 +1635,11 @@
                                     "identifierName": "newApiUrl"
                                   },
                                   "name": "newApiUrl"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3573,
@@ -1553,8 +1656,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1666,6 +1768,7 @@
                                       },
                                       "name": "CallAnApi"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 3601,
@@ -1682,8 +1785,7 @@
                                         "identifierName": "as"
                                       },
                                       "name": "as"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1705,6 +1807,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3611,
@@ -1721,8 +1824,7 @@
                                     "identifierName": "modifyConfig"
                                   },
                                   "name": "modifyConfig"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -1807,6 +1909,7 @@
                                         },
                                         "name": "config"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3641,
@@ -1823,8 +1926,7 @@
                                           "identifierName": "baseURL"
                                         },
                                         "name": "baseURL"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "right": {
                                       "type": "Identifier",
@@ -1853,42 +1955,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3919,
+                "end": 4016,
+                "loc": {
+                  "start": {
+                    "line": 137,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 139,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 82 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 2656,
-                    "end": 2825,
-                    "loc": {
-                      "start": {
-                        "line": 90,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 101,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                    "start": 2832,
-                    "end": 3423,
-                    "loc": {
-                      "start": {
-                        "line": 104,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 116,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @public \n * \\TRUE \n ",
@@ -1921,22 +2004,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3919,
-                "end": 4016,
-                "loc": {
-                  "start": {
-                    "line": 137,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 139,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2062,6 +2130,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3986,
@@ -2078,9 +2147,9 @@
                                     "identifierName": "newApiUrl"
                                   },
                                   "name": "newApiUrl"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3996,
@@ -2097,8 +2166,7 @@
                                   "identifierName": "toString"
                                 },
                                 "name": "toString"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
                           }
@@ -2149,41 +2217,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @public \n * \\TRUE \n ",
-                    "start": 3670,
-                    "end": 3737,
-                    "loc": {
-                      "start": {
-                        "line": 121,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 128,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 3744,
-                    "end": 3914,
-                    "loc": {
-                      "start": {
-                        "line": 131,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 136,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -2222,41 +2256,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
-            "start": 155,
-            "end": 200,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Changes the base URL the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n *  has been configured with. Useful when we don't know the URL before the test is started,\n *  for example when the URL is dynamically generated and needs to be read from the website under test.\n *\n * @example <caption>Changing the API URL</caption>\n * import { Actor } from '@serenity-js/core';\n * import { Navigate, Target, Text } from '@serenity-js/protractor';\n * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n * import { protractor, by } from 'protractor';\n *\n * import axios  from 'axios';\n *\n * const actor = Actor.named('Apisit').whoCan(\n *     BrowseTheWeb.using(protractor.browser),\n *\n *     // Note: no default base URL is given when the axios instance is created\n *     CallAnApi.using(axios.create()),\n * );\n *\n * // Let's imagine that the website under test displays\n * // a dynamically generated API URL we'd like to use\n * const ApiDetailsWidget = {\n *     Url: Target.the('API URL').located(by.id('api-url')),\n * }\n *\n * actor.attemptsTo(\n *     Navigate.to('/profile'),\n *\n *     // We change the API URL based on the text displayed in the widget\n *     // (although we could change it to some arbitrary string too).\n *     ChangeApiUrl.to(Text.of(ApiDetailsWidget.Url)),\n *\n *     // Any subsequent request will be sent to the newly set URL\n *     Send.a(GetRequest.to('/projects')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n * );\n *\n * @deprecated Use ChangeApiConfig.setUrlTo(newUrl) instead\n *\n * @see {@link ChangeApiConfig}\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
-            "start": 203,
-            "end": 1874,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 55,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

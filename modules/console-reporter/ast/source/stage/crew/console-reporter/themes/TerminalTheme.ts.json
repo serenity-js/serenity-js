@@ -131,6 +131,40 @@
             "column": 54
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 121,
+            "end": 166,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Decorates text with control characters to make the terminal\n *  print output in colour.\n *\n * @public\n * @abstract\n ",
+            "start": 169,
+            "end": 304,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +236,23 @@
             "raw": "'@serenity-js/core/lib/model'"
           },
           "value": "@serenity-js/core/lib/model"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 305,
+        "end": 2683,
+        "loc": {
+          "start": {
+            "line": 19,
+            "column": 0
+          },
+          "end": {
+            "line": 172,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
@@ -236,22 +285,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 305,
-        "end": 2683,
-        "loc": {
-          "start": {
-            "line": 19,
-            "column": 0
-          },
-          "end": {
-            "line": 172,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -317,6 +351,42 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {@serenity-js/core/lib/io~AssertionReportDiffer} differ\n     ",
+                    "start": 347,
+                    "end": 428,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 22,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 503,
+                    "end": 650,
+                    "loc": {
+                      "start": {
+                        "line": 25,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 38,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -439,26 +509,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 657,
+                "end": 699,
+                "loc": {
+                  "start": {
+                    "line": 41,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 41,
+                    "column": 46
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {@serenity-js/core/lib/io~AssertionReportDiffer} differ\n     ",
-                    "start": 347,
-                    "end": 428,
-                    "loc": {
-                      "start": {
-                        "line": 20,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 22,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -475,22 +542,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 657,
-                "end": 699,
-                "loc": {
-                  "start": {
-                    "line": 41,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 41,
-                    "column": 46
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n * @param \n * {Outcome | undefined} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 700,
+                    "end": 892,
+                    "loc": {
+                      "start": {
+                        "line": 42,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 57,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "abstract": true,
                 "static": false,
                 "key": {
@@ -623,26 +693,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 898,
+                "end": 967,
+                "loc": {
+                  "start": {
+                    "line": 59,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 59,
+                    "column": 73
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 503,
-                    "end": 650,
-                    "loc": {
-                      "start": {
-                        "line": 25,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 38,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n * @param \n * {Outcome | undefined} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -659,22 +726,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 898,
-                "end": 967,
-                "loc": {
-                  "start": {
-                    "line": 59,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 59,
-                    "column": 73
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {string} pattern \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 968,
+                    "end": 1116,
+                    "loc": {
+                      "start": {
+                        "line": 60,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 73,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "abstract": true,
                 "static": false,
                 "key": {
@@ -903,26 +973,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 1122,
+                "end": 1166,
+                "loc": {
+                  "start": {
+                    "line": 75,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 75,
+                    "column": 48
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n * @param \n * {Outcome | undefined} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 700,
-                    "end": 892,
-                    "loc": {
-                      "start": {
-                        "line": 42,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 57,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {string} pattern \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -939,22 +1006,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 1122,
-                "end": 1166,
-                "loc": {
-                  "start": {
-                    "line": 75,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 75,
-                    "column": 48
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {string} expected \n * @param \n * {string} actual \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1167,
+                    "end": 1347,
+                    "loc": {
+                      "start": {
+                        "line": 76,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 91,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "abstract": true,
                 "static": false,
                 "key": {
@@ -1057,26 +1127,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 1353,
+                "end": 1409,
+                "loc": {
+                  "start": {
+                    "line": 93,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 93,
+                    "column": 60
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {string} pattern \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 968,
-                    "end": 1116,
-                    "loc": {
-                      "start": {
-                        "line": 60,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 73,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {string} expected \n * @param \n * {string} actual \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1093,22 +1160,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 1353,
-                "end": 1409,
-                "loc": {
-                  "start": {
-                    "line": 93,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 93,
-                    "column": 60
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1410,
+                    "end": 1557,
+                    "loc": {
+                      "start": {
+                        "line": 94,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 107,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "abstract": true,
                 "static": false,
                 "key": {
@@ -1258,26 +1328,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 1563,
+                "end": 1601,
+                "loc": {
+                  "start": {
+                    "line": 109,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 109,
+                    "column": 42
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {string} expected \n * @param \n * {string} actual \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1167,
-                    "end": 1347,
-                    "loc": {
-                      "start": {
-                        "line": 76,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 91,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1294,22 +1361,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 1563,
-                "end": 1601,
-                "loc": {
-                  "start": {
-                    "line": 109,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
+                    "start": 1602,
+                    "end": 1728,
+                    "loc": {
+                      "start": {
+                        "line": 110,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 121,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 109,
-                    "column": 42
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Converts the `parts` to `string` and joins them together.\n     *\n     * @protected\n     *\n     * @param {any[]} parts\n     *\n     * @returns {string}\n     ",
+                    "start": 1735,
+                    "end": 1917,
+                    "loc": {
+                      "start": {
+                        "line": 124,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 133,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "abstract": true,
                 "static": false,
                 "key": {
@@ -1442,26 +1528,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1922,
+                "end": 2011,
+                "loc": {
+                  "start": {
+                    "line": 134,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 136,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1410,
-                    "end": 1557,
-                    "loc": {
-                      "start": {
-                        "line": 94,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 107,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
@@ -1494,22 +1577,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1922,
-                "end": 2011,
-                "loc": {
-                  "start": {
-                    "line": 134,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @param \n * {string} pattern \n * @param \n * {undefined} maxLength \n * @protected \n * \\TRUE \n ",
+                    "start": 2012,
+                    "end": 2151,
+                    "loc": {
+                      "start": {
+                        "line": 137,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 148,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 136,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Repeats a given `pattern` so that it takes up to `maxLength` characters.\n     *  Used to produce separator lines.\n     *\n     * @protected\n     *\n     * @param {string} pattern\n     * @param {number} [maxLength=80] maxLength\n     *\n     * @returns {string}\n     ",
+                    "start": 2158,
+                    "end": 2447,
+                    "loc": {
+                      "start": {
+                        "line": 151,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 162,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -1730,6 +1832,7 @@
                                 },
                                 "name": "parts"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1984,
@@ -1746,8 +1849,7 @@
                                   "identifierName": "map"
                                 },
                                 "name": "map"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1769,6 +1871,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1996,
@@ -1785,8 +1888,7 @@
                               "identifierName": "join"
                             },
                             "name": "join"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1814,42 +1916,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2452,
+                "end": 2681,
+                "loc": {
+                  "start": {
+                    "line": 163,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 171,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
-                    "start": 1602,
-                    "end": 1728,
-                    "loc": {
-                      "start": {
-                        "line": 110,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 121,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Converts the `parts` to `string` and joins them together.\n     *\n     * @protected\n     *\n     * @param {any[]} parts\n     *\n     * @returns {string}\n     ",
-                    "start": 1735,
-                    "end": 1917,
-                    "loc": {
-                      "start": {
-                        "line": 124,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 133,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @param \n * {string} pattern \n * @param \n * {undefined} maxLength \n * @protected \n * \\TRUE \n ",
@@ -1882,22 +1965,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2452,
-                "end": 2681,
-                "loc": {
-                  "start": {
-                    "line": 163,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 171,
-                    "column": 5
-                  }
-                },
+                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -2232,6 +2300,7 @@
                                 },
                                 "name": "Math"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2596,
@@ -2248,8 +2317,7 @@
                                   "identifierName": "floor"
                                 },
                                 "name": "floor"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -2315,6 +2383,7 @@
                                     },
                                     "name": "pattern"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2622,
@@ -2331,8 +2400,7 @@
                                       "identifierName": "length"
                                     },
                                     "name": "length"
-                                  },
-                                  "computed": false
+                                  }
                                 }
                               }
                             ]
@@ -2400,6 +2468,7 @@
                             },
                             "name": "pattern"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2655,
@@ -2416,8 +2485,7 @@
                               "identifierName": "repeat"
                             },
                             "name": "repeat"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2442,41 +2510,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @param \n * {string} pattern \n * @param \n * {undefined} maxLength \n * @protected \n * \\TRUE \n ",
-                    "start": 2012,
-                    "end": 2151,
-                    "loc": {
-                      "start": {
-                        "line": 137,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 148,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Repeats a given `pattern` so that it takes up to `maxLength` characters.\n     *  Used to produce separator lines.\n     *\n     * @protected\n     *\n     * @param {string} pattern\n     * @param {number} [maxLength=80] maxLength\n     *\n     * @returns {string}\n     ",
-                    "start": 2158,
-                    "end": 2447,
-                    "loc": {
-                      "start": {
-                        "line": 151,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 162,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -2515,41 +2549,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
-            "start": 121,
-            "end": 166,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Decorates text with control characters to make the terminal\n *  print output in colour.\n *\n * @public\n * @abstract\n ",
-            "start": 169,
-            "end": 304,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 18,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

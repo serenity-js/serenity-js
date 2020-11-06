@@ -2341,13 +2341,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber26",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber14",
     "Photographer",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts.html#lineNumber14",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber13",
     "Photographer",
     "test"
   ],
@@ -2359,7 +2359,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber13",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber26",
     "Photographer",
     "test"
   ],
@@ -2383,13 +2383,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber54",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber118",
     "Photographer when instructed to take a photo of all interactions ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber118",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts.html#lineNumber54",
     "Photographer when instructed to take a photo of all interactions ",
     "test"
   ],
@@ -2431,13 +2431,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber49",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber81",
     "Photographer when instructed to take a photo of failed interactions, ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber81",
+    "test-file/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts.html#lineNumber49",
     "Photographer when instructed to take a photo of failed interactions, ",
     "test"
   ],
@@ -3001,13 +3001,13 @@ window.esdocSearchIndex = [
   ],
   [
     "protractorreporter protractorreporter,protractorreporter",
-    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber36",
+    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber47",
     "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context ",
     "test"
   ],
   [
     "protractorreporter protractorreporter,protractorreporter",
-    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber47",
+    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber36",
     "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context ",
     "test"
   ],
@@ -3822,14 +3822,14 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "text.of src/screenplay/questions/text/text.ts~text.of,text.of",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber16",
+    "text#of text#of,text#of",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber32",
     "Value of allows the actor to read the \"value\" attribute of a DOM element matching the locator",
     "test"
   ],
   [
-    "text#of text#of,text#of",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber32",
+    "text.of src/screenplay/questions/text/text.ts~text.of,text.of",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber16",
     "Value of allows the actor to read the \"value\" attribute of a DOM element matching the locator",
     "test"
   ],

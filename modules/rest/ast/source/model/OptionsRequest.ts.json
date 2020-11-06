@@ -218,6 +218,40 @@
             "column": 44
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
+            "start": 137,
+            "end": 182,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  The OPTIONS method requests information about the communication\n *  options available for the target resource, at either the origin\n *  server or an intervening intermediary.  This method allows a client\n *  to determine the options and/or requirements associated with a\n *  resource, or the capabilities of a server, without implying a\n *  resource action.\n *\n * @example <caption>File download test</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, OptionsRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(OptionsRequest.to('/downloads/my-test-document.pdf')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Allow'), equals('OPTIONS, GET, HEAD')),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.7\n *\n * @extends {HTTPRequest}\n ",
+            "start": 185,
+            "end": 1305,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 38,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -289,8 +323,23 @@
             "raw": "'./HTTPRequest'"
           },
           "value": "./HTTPRequest"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1306,
+        "end": 2910,
+        "loc": {
+          "start": {
+            "line": 39,
+            "column": 0
+          },
+          "end": {
+            "line": 100,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
@@ -323,22 +372,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1306,
-        "end": 2910,
-        "loc": {
-          "start": {
-            "line": 39,
-            "column": 0
-          },
-          "end": {
-            "line": 100,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -419,6 +453,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n * @param \n * {Answerable} resourceUri \n * @return \n * {OptionsRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1356,
+                    "end": 1518,
+                    "loc": {
+                      "start": {
+                        "line": 40,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 53,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {OptionsRequest}\n     ",
+                    "start": 1525,
+                    "end": 2131,
+                    "loc": {
+                      "start": {
+                        "line": 56,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 69,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {Answerable} config \n * @return \n * {OptionsRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 2251,
+                    "end": 2386,
+                    "loc": {
+                      "start": {
+                        "line": 73,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 84,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {OptionsRequest}\n     ",
+                    "start": 2393,
+                    "end": 2762,
+                    "loc": {
+                      "start": {
+                        "line": 87,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 96,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -670,42 +772,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2767,
+                "end": 2908,
+                "loc": {
+                  "start": {
+                    "line": 97,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 99,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n * @param \n * {Answerable} resourceUri \n * @return \n * {OptionsRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1356,
-                    "end": 1518,
-                    "loc": {
-                      "start": {
-                        "line": 40,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 53,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {OptionsRequest}\n     ",
-                    "start": 1525,
-                    "end": 2131,
-                    "loc": {
-                      "start": {
-                        "line": 56,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 69,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {Answerable} config \n * @return \n * {OptionsRequest} \n * @public \n * \\TRUE \n ",
@@ -738,22 +821,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2767,
-                "end": 2908,
-                "loc": {
-                  "start": {
-                    "line": 97,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 99,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1029,6 +1097,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2870,
@@ -1045,8 +1114,7 @@
                                 "identifierName": "resourceUri"
                               },
                               "name": "resourceUri"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "Identifier",
@@ -1087,41 +1155,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {Answerable} config \n * @return \n * {OptionsRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 2251,
-                    "end": 2386,
-                    "loc": {
-                      "start": {
-                        "line": 73,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 84,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {OptionsRequest}\n     ",
-                    "start": 2393,
-                    "end": 2762,
-                    "loc": {
-                      "start": {
-                        "line": 87,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 96,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1160,41 +1194,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
-            "start": 137,
-            "end": 182,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  The OPTIONS method requests information about the communication\n *  options available for the target resource, at either the origin\n *  server or an intervening intermediary.  This method allows a client\n *  to determine the options and/or requirements associated with a\n *  resource, or the capabilities of a server, without implying a\n *  resource action.\n *\n * @example <caption>File download test</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, OptionsRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(OptionsRequest.to('/downloads/my-test-document.pdf')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Allow'), equals('OPTIONS, GET, HEAD')),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.7\n *\n * @extends {HTTPRequest}\n ",
-            "start": 185,
-            "end": 1305,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 38,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -131,6 +131,40 @@
             "column": 44
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n ",
+            "start": 94,
+            "end": 139,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  enable or disable automated synchronisation between Protractor and Angular.\n *\n *  Useful when a test scenario needs to interact with both Angular-based\n *  and non-Angular web apps (i.e. use an external sign on form).\n *\n *  More examples in [Cross-application testing with Serenity/JS](https://janmolak.com/cross-application-testing-with-serenity-js-4103a272b75b).\n *\n *  **Please note** if your tests interact with a non-Angular app you can disable\n *  synchronisation altogether in [`protractor.conf.js`](https://github.com/angular/protractor/blob/master/lib/config.ts).\n *\n * @example <caption>Disabling synchronisation temporarily</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, UseAngular, Navigate } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Angie')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          UseAngular.disableSynchronisation(),\n *          Navigate.to('https://mycompany.com/login'),\n *          // navigate to a non-Angular app, perform some activities...\n *\n *          UseAngular.disableSynchronisation(),\n *          Navigate.to('https://myapp.com'),\n *          // navigate to an Angular app, perform some more activities...\n *      );\n *\n * @example <caption>Disabling synchronisation in protractor.conf.js</caption>\n *  exports.config = {\n *      onPrepare: function () {\n *          return browser.waitForAngularEnabled(false);\n *      },\n *      // ... other config\n *  };\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
+            "start": 142,
+            "end": 1833,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 50,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +236,23 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1834,
+        "end": 3061,
+        "loc": {
+          "start": {
+            "line": 51,
+            "column": 0
+          },
+          "end": {
+            "line": 102,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n ",
@@ -236,22 +285,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1834,
-        "end": 3061,
-        "loc": {
-          "start": {
-            "line": 51,
-            "column": 0
-          },
-          "end": {
-            "line": 102,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -316,6 +350,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1860,
+                    "end": 1979,
+                    "loc": {
+                      "start": {
+                        "line": 52,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 63,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  disable synchronisation between Protractor and Angular.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
+                    "start": 1986,
+                    "end": 2222,
+                    "loc": {
+                      "start": {
+                        "line": 66,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 72,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2462,
+                    "end": 2581,
+                    "loc": {
+                      "start": {
+                        "line": 77,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 88,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  enable synchronisation between Protractor and Angular.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
+                    "start": 2588,
+                    "end": 2823,
+                    "loc": {
+                      "start": {
+                        "line": 91,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 97,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -461,6 +563,7 @@
                             },
                             "name": "Interaction"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2301,
@@ -477,8 +580,7 @@
                               "identifierName": "where"
                             },
                             "name": "where"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -656,6 +758,7 @@
                                           },
                                           "name": "BrowseTheWeb"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2389,
@@ -672,8 +775,7 @@
                                             "identifierName": "as"
                                           },
                                           "name": "as"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -695,6 +797,7 @@
                                         }
                                       ]
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2399,
@@ -711,8 +814,7 @@
                                         "identifierName": "enableAngularSynchronisation"
                                       },
                                       "name": "enableAngularSynchronisation"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -733,6 +835,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2435,
@@ -749,8 +852,7 @@
                                     "identifierName": "then"
                                   },
                                   "name": "then"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -817,42 +919,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2828,
+                "end": 3059,
+                "loc": {
+                  "start": {
+                    "line": 98,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 101,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1860,
-                    "end": 1979,
-                    "loc": {
-                      "start": {
-                        "line": 52,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 63,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  disable synchronisation between Protractor and Angular.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
-                    "start": 1986,
-                    "end": 2222,
-                    "loc": {
-                      "start": {
-                        "line": 66,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 72,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -885,22 +968,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2828,
-                "end": 3059,
-                "loc": {
-                  "start": {
-                    "line": 98,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 101,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1046,6 +1114,7 @@
                             },
                             "name": "Interaction"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2901,
@@ -1062,8 +1131,7 @@
                               "identifierName": "where"
                             },
                             "name": "where"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1241,6 +1309,7 @@
                                           },
                                           "name": "BrowseTheWeb"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2988,
@@ -1257,8 +1326,7 @@
                                             "identifierName": "as"
                                           },
                                           "name": "as"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -1280,6 +1348,7 @@
                                         }
                                       ]
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2998,
@@ -1296,8 +1365,7 @@
                                         "identifierName": "enableAngularSynchronisation"
                                       },
                                       "name": "enableAngularSynchronisation"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1318,6 +1386,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3033,
@@ -1334,8 +1403,7 @@
                                     "identifierName": "then"
                                   },
                                   "name": "then"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -1402,41 +1470,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2462,
-                    "end": 2581,
-                    "loc": {
-                      "start": {
-                        "line": 77,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 88,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  enable synchronisation between Protractor and Angular.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
-                    "start": 2588,
-                    "end": 2823,
-                    "loc": {
-                      "start": {
-                        "line": 91,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 97,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1475,41 +1509,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n ",
-            "start": 94,
-            "end": 139,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  enable or disable automated synchronisation between Protractor and Angular.\n *\n *  Useful when a test scenario needs to interact with both Angular-based\n *  and non-Angular web apps (i.e. use an external sign on form).\n *\n *  More examples in [Cross-application testing with Serenity/JS](https://janmolak.com/cross-application-testing-with-serenity-js-4103a272b75b).\n *\n *  **Please note** if your tests interact with a non-Angular app you can disable\n *  synchronisation altogether in [`protractor.conf.js`](https://github.com/angular/protractor/blob/master/lib/config.ts).\n *\n * @example <caption>Disabling synchronisation temporarily</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, UseAngular, Navigate } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Angie')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          UseAngular.disableSynchronisation(),\n *          Navigate.to('https://mycompany.com/login'),\n *          // navigate to a non-Angular app, perform some activities...\n *\n *          UseAngular.disableSynchronisation(),\n *          Navigate.to('https://myapp.com'),\n *          // navigate to an Angular app, perform some more activities...\n *      );\n *\n * @example <caption>Disabling synchronisation in protractor.conf.js</caption>\n *  exports.config = {\n *      onPrepare: function () {\n *          return browser.waitForAngularEnabled(false);\n *      },\n *      // ... other config\n *  };\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
-            "start": 142,
-            "end": 1833,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 50,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

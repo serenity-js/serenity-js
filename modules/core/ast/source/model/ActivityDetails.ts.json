@@ -267,6 +267,24 @@
             "column": 30
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
+            "start": 132,
+            "end": 176,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -338,8 +356,23 @@
             "raw": "'./Name'"
           },
           "value": "./Name"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 179,
+        "end": 721,
+        "loc": {
+          "start": {
+            "line": 13,
+            "column": 0
+          },
+          "end": {
+            "line": 53,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
@@ -356,22 +389,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 179,
-        "end": 721,
-        "loc": {
-          "start": {
-            "line": 13,
-            "column": 0
-          },
-          "end": {
-            "line": 53,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -452,6 +470,24 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {JSONObject} o \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 227,
+                    "end": 345,
+                    "loc": {
+                      "start": {
+                        "line": 14,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 25,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -647,6 +683,7 @@
                                 },
                                 "name": "Name"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 437,
@@ -663,8 +700,7 @@
                                   "identifierName": "fromJSON"
                                 },
                                 "name": "fromJSON"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -712,6 +748,7 @@
                                     },
                                     "name": "o"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 448,
@@ -728,8 +765,7 @@
                                       "identifierName": "name"
                                     },
                                     "name": "name"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "typeAnnotation": {
                                   "type": "TSStringKeyword",
@@ -754,25 +790,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {JSONObject} o \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 227,
-                    "end": 345,
-                    "loc": {
-                      "start": {
-                        "line": 14,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 25,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -788,6 +806,24 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @public \n * \\TRUE \n ",
+                    "start": 567,
+                    "end": 634,
+                    "loc": {
+                      "start": {
+                        "line": 38,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 45,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -957,8 +993,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 641,
+                "end": 719,
+                "loc": {
+                  "start": {
+                    "line": 48,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 52,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @public \n * \\TRUE \n ",
@@ -975,22 +1026,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 641,
-                "end": 719,
-                "loc": {
-                  "start": {
-                    "line": 48,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 52,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1057,6 +1093,9 @@
                             "line": 51,
                             "column": 9
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 702
                         },
                         "properties": [
                           {
@@ -1136,6 +1175,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 692,
@@ -1152,9 +1192,9 @@
                                     "identifierName": "name"
                                   },
                                   "name": "name"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 697,
@@ -1171,37 +1211,15 @@
                                   "identifierName": "value"
                                 },
                                 "name": "value"
-                              },
-                              "computed": false
+                              }
                             }
                           }
-                        ],
-                        "extra": {
-                          "trailingComma": 702
-                        }
+                        ]
                       }
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @public \n * \\TRUE \n ",
-                    "start": 567,
-                    "end": 634,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 45,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1224,25 +1242,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
-            "start": 132,
-            "end": 176,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

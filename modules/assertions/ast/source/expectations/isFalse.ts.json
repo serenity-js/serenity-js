@@ -131,6 +131,24 @@
             "column": 34
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @return \n * {Expectation} \n ",
+            "start": 81,
+            "end": 155,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +220,23 @@
             "raw": "'./equals'"
           },
           "value": "./equals"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 158,
+        "end": 286,
+        "loc": {
+          "start": {
+            "line": 13,
+            "column": 0
+          },
+          "end": {
+            "line": 15,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @return \n * {Expectation} \n ",
@@ -220,22 +253,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 158,
-        "end": 286,
-        "loc": {
-          "start": {
-            "line": 13,
-            "column": 0
-          },
-          "end": {
-            "line": 15,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -454,6 +472,7 @@
                           },
                           "name": "Expectation"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 229,
@@ -470,8 +489,7 @@
                             "identifierName": "to"
                           },
                           "name": "to"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -546,6 +564,7 @@
                         ]
                       }
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 256,
@@ -562,8 +581,7 @@
                         "identifierName": "soThatActual"
                       },
                       "name": "soThatActual"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -641,25 +659,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @return \n * {Expectation} \n ",
-            "start": 81,
-            "end": 155,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

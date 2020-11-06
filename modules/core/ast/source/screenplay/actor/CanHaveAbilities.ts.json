@@ -218,6 +218,40 @@
             "column": 48
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 127,
+            "end": 172,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Enables the {@link Actor} to have an {@link Ability} or Abilities to perform some {@link Activity}.\n *\n * @public\n * @interface ",
+            "start": 175,
+            "end": 322,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 16
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -289,8 +323,23 @@
             "raw": "'./UsesAbilities'"
           },
           "value": "./UsesAbilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 323,
+        "end": 660,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 37,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
@@ -323,22 +372,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 323,
-        "end": 660,
-        "loc": {
-          "start": {
-            "line": 18,
-            "column": 0
-          },
-          "end": {
-            "line": 37,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -469,6 +503,40 @@
                     "column": 51
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @param \n * {UNKNOWN} abilities \n * @return \n * {Returned_Type} \n * @public \n * \\TRUE \n ",
+                    "start": 395,
+                    "end": 529,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 30,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {Ability[]} abilities\n     * @returns {Actor}\n     ",
+                    "start": 535,
+                    "end": 606,
+                    "loc": {
+                      "start": {
+                        "line": 32,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -634,41 +702,7 @@
                       "name": "Returned_Type"
                     }
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @param \n * {UNKNOWN} abilities \n * @return \n * {Returned_Type} \n * @public \n * \\TRUE \n ",
-                    "start": 395,
-                    "end": 529,
-                    "loc": {
-                      "start": {
-                        "line": 19,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 30,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Ability[]} abilities\n     * @returns {Actor}\n     ",
-                    "start": 535,
-                    "end": 606,
-                    "loc": {
-                      "start": {
-                        "line": 32,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 35,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -707,41 +741,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 127,
-            "end": 172,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Enables the {@link Actor} to have an {@link Ability} or Abilities to perform some {@link Activity}.\n *\n * @public\n * @interface ",
-            "start": 175,
-            "end": 322,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

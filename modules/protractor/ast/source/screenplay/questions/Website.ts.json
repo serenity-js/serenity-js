@@ -131,6 +131,24 @@
             "column": 44
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
+            "start": 91,
+            "end": 135,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +220,23 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 138,
+        "end": 856,
+        "loc": {
+          "start": {
+            "line": 11,
+            "column": 0
+          },
+          "end": {
+            "line": 51,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
@@ -220,22 +253,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 138,
-        "end": 856,
-        "loc": {
-          "start": {
-            "line": 11,
-            "column": 0
-          },
-          "end": {
-            "line": 51,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -300,6 +318,42 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * Retrieves the title of the current page. \n * @lineNumber \n * 10 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 161,
+                    "end": 317,
+                    "loc": {
+                      "start": {
+                        "line": 12,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 23,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * Retrieves the url of the current page. \n * @lineNumber \n * 21 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 508,
+                    "end": 662,
+                    "loc": {
+                      "start": {
+                        "line": 31,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 42,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -495,6 +549,9 @@
                             "column": 9
                           }
                         },
+                        "extra": {
+                          "trailingComma": 489
+                        },
                         "callee": {
                           "type": "MemberExpression",
                           "start": 387,
@@ -526,6 +583,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 396,
@@ -542,11 +600,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
-                        },
-                        "extra": {
-                          "trailingComma": 489
+                          }
                         },
                         "arguments": [
                           {
@@ -696,6 +750,7 @@
                                       },
                                       "name": "BrowseTheWeb"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 469,
@@ -712,8 +767,7 @@
                                         "identifierName": "as"
                                       },
                                       "name": "as"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -735,6 +789,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 479,
@@ -751,8 +806,7 @@
                                     "identifierName": "getTitle"
                                   },
                                   "name": "getTitle"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             }
@@ -762,26 +816,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 674,
+                "end": 854,
+                "loc": {
+                  "start": {
+                    "line": 46,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 50,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * Retrieves the title of the current page. \n * @lineNumber \n * 10 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 161,
-                    "end": 317,
-                    "loc": {
-                      "start": {
-                        "line": 12,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 23,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * Retrieves the url of the current page. \n * @lineNumber \n * 21 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -798,22 +849,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 674,
-                "end": 854,
-                "loc": {
-                  "start": {
-                    "line": 46,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 50,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1009,6 +1045,9 @@
                             "column": 9
                           }
                         },
+                        "extra": {
+                          "trailingComma": 836
+                        },
                         "callee": {
                           "type": "MemberExpression",
                           "start": 731,
@@ -1040,6 +1079,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 740,
@@ -1056,11 +1096,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
-                        },
-                        "extra": {
-                          "trailingComma": 836
+                          }
                         },
                         "arguments": [
                           {
@@ -1210,6 +1246,7 @@
                                       },
                                       "name": "BrowseTheWeb"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 811,
@@ -1226,8 +1263,7 @@
                                         "identifierName": "as"
                                       },
                                       "name": "as"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1249,6 +1285,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 821,
@@ -1265,8 +1302,7 @@
                                     "identifierName": "getCurrentUrl"
                                   },
                                   "name": "getCurrentUrl"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             }
@@ -1276,25 +1312,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * Retrieves the url of the current page. \n * @lineNumber \n * 21 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 508,
-                    "end": 662,
-                    "loc": {
-                      "start": {
-                        "line": 31,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 42,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1317,25 +1335,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
-            "start": 91,
-            "end": 135,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

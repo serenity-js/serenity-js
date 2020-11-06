@@ -267,6 +267,40 @@
             "column": 52
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 170,
+            "end": 214,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n ",
+            "start": 217,
+            "end": 236,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -338,8 +372,23 @@
             "raw": "'./CucumberOptions'"
           },
           "value": "./CucumberOptions"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 237,
+        "end": 1868,
+        "loc": {
+          "start": {
+            "line": 15,
+            "column": 0
+          },
+          "end": {
+            "line": 77,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
@@ -372,22 +421,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 237,
-        "end": 1868,
-        "loc": {
-          "start": {
-            "line": 15,
-            "column": 0
-          },
-          "end": {
-            "line": 77,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -452,6 +486,24 @@
                     "column": 46
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n * @type \n * {CucumberOptions} \n * @private \n * \\TRUE \n ",
+                    "start": 271,
+                    "end": 371,
+                    "loc": {
+                      "start": {
+                        "line": 16,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 25,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -520,25 +572,7 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n * @type \n * {CucumberOptions} \n * @private \n * \\TRUE \n ",
-                    "start": 271,
-                    "end": 371,
-                    "loc": {
-                      "start": {
-                        "line": 16,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 25,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                "value": null
               },
               {
                 "type": "ClassMethod",
@@ -554,6 +588,24 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 584,
+                    "end": 719,
+                    "loc": {
+                      "start": {
+                        "line": 36,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 47,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -797,6 +849,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 539,
@@ -813,8 +866,7 @@
                               "identifierName": "options"
                             },
                             "name": "options"
-                          },
-                          "computed": false
+                          }
                         },
                         "right": {
                           "type": "NewExpression",
@@ -871,8 +923,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 726,
+                "end": 1866,
+                "loc": {
+                  "start": {
+                    "line": 50,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 76,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -889,22 +956,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 726,
-                "end": 1866,
-                "loc": {
-                  "start": {
-                    "line": 50,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 76,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1333,6 +1385,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 883,
@@ -1349,9 +1402,9 @@
                                                 "identifierName": "loader"
                                               },
                                               "name": "loader"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 890,
@@ -1368,8 +1421,7 @@
                                               "identifierName": "require"
                                             },
                                             "name": "require"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1483,6 +1535,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 950,
@@ -1499,9 +1552,9 @@
                                                 "identifierName": "loader"
                                               },
                                               "name": "loader"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 957,
@@ -1518,8 +1571,7 @@
                                               "identifierName": "versionOf"
                                             },
                                             "name": "versionOf"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1633,6 +1685,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1019,
@@ -1649,9 +1702,9 @@
                                                 "identifierName": "options"
                                               },
                                               "name": "options"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1027,
@@ -1668,8 +1721,7 @@
                                               "identifierName": "asArgumentsForCucumber"
                                             },
                                             "name": "asArgumentsForCucumber"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1780,6 +1832,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1101,
@@ -1796,9 +1849,9 @@
                                                 "identifierName": "loader"
                                               },
                                               "name": "loader"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1108,
@@ -1815,8 +1868,7 @@
                                               "identifierName": "resolve"
                                             },
                                             "name": "resolve"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1904,6 +1956,7 @@
                                         },
                                         "name": "version"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1167,
@@ -1920,8 +1973,7 @@
                                           "identifierName": "isAtLeast"
                                         },
                                         "name": "isAtLeast"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2110,6 +2162,7 @@
                                                       },
                                                       "name": "cucumber"
                                                     },
+                                                    "computed": false,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 1238,
@@ -2126,8 +2179,7 @@
                                                         "identifierName": "Cli"
                                                       },
                                                       "name": "Cli"
-                                                    },
-                                                    "computed": false
+                                                    }
                                                   },
                                                   "arguments": [
                                                     {
@@ -2143,6 +2195,9 @@
                                                           "line": 65,
                                                           "column": 17
                                                         }
+                                                      },
+                                                      "extra": {
+                                                        "trailingComma": 1423
                                                       },
                                                       "properties": [
                                                         {
@@ -2224,6 +2279,7 @@
                                                                 },
                                                                 "name": "argv"
                                                               },
+                                                              "computed": false,
                                                               "property": {
                                                                 "type": "Identifier",
                                                                 "start": 1277,
@@ -2240,8 +2296,7 @@
                                                                   "identifierName": "concat"
                                                                 },
                                                                 "name": "concat"
-                                                              },
-                                                              "computed": false
+                                                              }
                                                             },
                                                             "arguments": [
                                                               {
@@ -2393,6 +2448,7 @@
                                                                   }
                                                                 }
                                                               },
+                                                              "computed": false,
                                                               "property": {
                                                                 "type": "Identifier",
                                                                 "start": 1369,
@@ -2409,9 +2465,9 @@
                                                                   "identifierName": "loader"
                                                                 },
                                                                 "name": "loader"
-                                                              },
-                                                              "computed": false
+                                                              }
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 1376,
@@ -2428,8 +2484,7 @@
                                                                 "identifierName": "cwd"
                                                               },
                                                               "name": "cwd"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           }
                                                         },
                                                         {
@@ -2497,6 +2552,7 @@
                                                               },
                                                               "name": "process"
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 1417,
@@ -2513,17 +2569,14 @@
                                                                 "identifierName": "stdout"
                                                               },
                                                               "name": "stdout"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           }
                                                         }
-                                                      ],
-                                                      "extra": {
-                                                        "trailingComma": 1423
-                                                      }
+                                                      ]
                                                     }
                                                   ]
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 1444,
@@ -2540,11 +2593,11 @@
                                                     "identifierName": "run"
                                                   },
                                                   "name": "run"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "arguments": []
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1450,
@@ -2561,8 +2614,7 @@
                                                 "identifierName": "then"
                                               },
                                               "name": "then"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -2648,6 +2700,9 @@
                                               "column": 21
                                             }
                                           },
+                                          "extra": {
+                                            "trailingComma": 1810
+                                          },
                                           "callee": {
                                             "type": "MemberExpression",
                                             "start": 1522,
@@ -2707,6 +2762,7 @@
                                                   },
                                                   "name": "cucumber"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 1531,
@@ -2723,8 +2779,7 @@
                                                     "identifierName": "Cli"
                                                   },
                                                   "name": "Cli"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "arguments": [
                                                 {
@@ -2772,6 +2827,7 @@
                                                       },
                                                       "name": "argv"
                                                     },
+                                                    "computed": false,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 1540,
@@ -2788,8 +2844,7 @@
                                                         "identifierName": "concat"
                                                       },
                                                       "name": "concat"
-                                                    },
-                                                    "computed": false
+                                                    }
                                                   },
                                                   "arguments": [
                                                     {
@@ -2865,6 +2920,7 @@
                                                 }
                                               ]
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1621,
@@ -2881,11 +2937,7 @@
                                                 "identifierName": "run"
                                               },
                                               "name": "run"
-                                            },
-                                            "computed": false
-                                          },
-                                          "extra": {
-                                            "trailingComma": 1810
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -3124,25 +3176,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 584,
-                    "end": 719,
-                    "loc": {
-                      "start": {
-                        "line": 36,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 47,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -3181,41 +3215,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
-            "start": 170,
-            "end": 214,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @private\n ",
-            "start": 217,
-            "end": 236,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

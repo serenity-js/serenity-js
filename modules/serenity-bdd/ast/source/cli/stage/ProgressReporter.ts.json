@@ -473,6 +473,40 @@
             "column": 37
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+            "start": 269,
+            "end": 314,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Notifies the user of the progress of the Serenity BDD CLI jar download.\n *\n * @package\n ",
+            "start": 317,
+            "end": 424,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 19,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -544,8 +578,23 @@
             "raw": "'../Printer'"
           },
           "value": "../Printer"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 425,
+        "end": 2094,
+        "loc": {
+          "start": {
+            "line": 20,
+            "column": 0
+          },
+          "end": {
+            "line": 108,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
@@ -578,22 +627,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 425,
-        "end": 2094,
-        "loc": {
-          "start": {
-            "line": 20,
-            "column": 0
-          },
-          "end": {
-            "line": 108,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -692,6 +726,24 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
+                    "start": 653,
+                    "end": 783,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 38,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1035,8 +1087,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 790,
+                "end": 915,
+                "loc": {
+                  "start": {
+                    "line": 41,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 43,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
@@ -1053,22 +1120,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 790,
-                "end": 915,
-                "loc": {
-                  "start": {
-                    "line": 41,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 43,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 916,
+                    "end": 1041,
+                    "loc": {
+                      "start": {
+                        "line": 44,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 55,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1295,6 +1365,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 875,
@@ -1311,8 +1382,7 @@
                                 "identifierName": "printer"
                               },
                               "name": "printer"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "Identifier",
@@ -1360,6 +1430,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 896,
@@ -1376,34 +1447,30 @@
                                 "identifierName": "progressBar"
                               },
                               "name": "progressBar"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1048,
+                "end": 2092,
+                "loc": {
+                  "start": {
+                    "line": 58,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 107,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
-                    "start": 653,
-                    "end": 783,
-                    "loc": {
-                      "start": {
-                        "line": 27,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 38,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -1420,22 +1487,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1048,
-                "end": 2092,
-                "loc": {
-                  "start": {
-                    "line": 58,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 107,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1694,6 +1746,7 @@
                               },
                               "name": "event"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1141,
@@ -1710,8 +1763,7 @@
                                 "identifierName": "artifact"
                               },
                               "name": "artifact"
-                            },
-                            "computed": false
+                            }
                           },
                           "operator": "instanceof",
                           "right": {
@@ -1806,6 +1858,9 @@
                                           "column": 35
                                         }
                                       },
+                                      "extra": {
+                                        "shorthand": true
+                                      },
                                       "method": false,
                                       "key": {
                                         "type": "Identifier",
@@ -1842,9 +1897,6 @@
                                           "identifierName": "downloadedBytes"
                                         },
                                         "name": "downloadedBytes"
-                                      },
-                                      "extra": {
-                                        "shorthand": true
                                       }
                                     },
                                     {
@@ -1861,6 +1913,9 @@
                                           "column": 47
                                         }
                                       },
+                                      "extra": {
+                                        "shorthand": true
+                                      },
                                       "method": false,
                                       "key": {
                                         "type": "Identifier",
@@ -1897,9 +1952,6 @@
                                           "identifierName": "totalBytes"
                                         },
                                         "name": "totalBytes"
-                                      },
-                                      "extra": {
-                                        "shorthand": true
                                       }
                                     }
                                   ]
@@ -1977,6 +2029,7 @@
                                           },
                                           "name": "event"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 1245,
@@ -1993,9 +2046,9 @@
                                             "identifierName": "artifact"
                                           },
                                           "name": "artifact"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1254,
@@ -2012,8 +2065,7 @@
                                           "identifierName": "map"
                                         },
                                         "name": "map"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2101,6 +2153,42 @@
                                             "column": 25
                                           }
                                         },
+                                        "leadingComments": [
+                                          {
+                                            "type": "CommentBlock",
+                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                                            "start": 1281,
+                                            "end": 1371,
+                                            "loc": {
+                                              "start": {
+                                                "line": 61,
+                                                "column": 0
+                                              },
+                                              "end": {
+                                                "line": 70,
+                                                "column": 3
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "trailingComments": [
+                                          {
+                                            "type": "CommentBlock",
+                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                                            "start": 1398,
+                                            "end": 1488,
+                                            "loc": {
+                                              "start": {
+                                                "line": 72,
+                                                "column": 0
+                                              },
+                                              "end": {
+                                                "line": 81,
+                                                "column": 3
+                                              }
+                                            }
+                                          }
+                                        ],
                                         "key": {
                                           "type": "Identifier",
                                           "start": 1373,
@@ -2148,26 +2236,23 @@
                                               }
                                             }
                                           }
+                                        }
+                                      },
+                                      {
+                                        "type": "TSPropertySignature",
+                                        "start": 1490,
+                                        "end": 1519,
+                                        "loc": {
+                                          "start": {
+                                            "line": 82,
+                                            "column": 1
+                                          },
+                                          "end": {
+                                            "line": 82,
+                                            "column": 30
+                                          }
                                         },
                                         "leadingComments": [
-                                          {
-                                            "type": "CommentBlock",
-                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                                            "start": 1281,
-                                            "end": 1371,
-                                            "loc": {
-                                              "start": {
-                                                "line": 61,
-                                                "column": 0
-                                              },
-                                              "end": {
-                                                "line": 70,
-                                                "column": 3
-                                              }
-                                            }
-                                          }
-                                        ],
-                                        "trailingComments": [
                                           {
                                             "type": "CommentBlock",
                                             "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
@@ -2184,22 +2269,25 @@
                                               }
                                             }
                                           }
-                                        ]
-                                      },
-                                      {
-                                        "type": "TSPropertySignature",
-                                        "start": 1490,
-                                        "end": 1519,
-                                        "loc": {
-                                          "start": {
-                                            "line": 82,
-                                            "column": 1
-                                          },
-                                          "end": {
-                                            "line": 82,
-                                            "column": 30
+                                        ],
+                                        "trailingComments": [
+                                          {
+                                            "type": "CommentBlock",
+                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                                            "start": 1520,
+                                            "end": 1610,
+                                            "loc": {
+                                              "start": {
+                                                "line": 83,
+                                                "column": 0
+                                              },
+                                              "end": {
+                                                "line": 92,
+                                                "column": 3
+                                              }
+                                            }
                                           }
-                                        },
+                                        ],
                                         "key": {
                                           "type": "Identifier",
                                           "start": 1490,
@@ -2247,26 +2335,23 @@
                                               }
                                             }
                                           }
+                                        }
+                                      },
+                                      {
+                                        "type": "TSPropertySignature",
+                                        "start": 1612,
+                                        "end": 1630,
+                                        "loc": {
+                                          "start": {
+                                            "line": 93,
+                                            "column": 1
+                                          },
+                                          "end": {
+                                            "line": 93,
+                                            "column": 19
+                                          }
                                         },
                                         "leadingComments": [
-                                          {
-                                            "type": "CommentBlock",
-                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                                            "start": 1398,
-                                            "end": 1488,
-                                            "loc": {
-                                              "start": {
-                                                "line": 72,
-                                                "column": 0
-                                              },
-                                              "end": {
-                                                "line": 81,
-                                                "column": 3
-                                              }
-                                            }
-                                          }
-                                        ],
-                                        "trailingComments": [
                                           {
                                             "type": "CommentBlock",
                                             "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
@@ -2283,22 +2368,7 @@
                                               }
                                             }
                                           }
-                                        ]
-                                      },
-                                      {
-                                        "type": "TSPropertySignature",
-                                        "start": 1612,
-                                        "end": 1630,
-                                        "loc": {
-                                          "start": {
-                                            "line": 93,
-                                            "column": 1
-                                          },
-                                          "end": {
-                                            "line": 93,
-                                            "column": 19
-                                          }
-                                        },
+                                        ],
                                         "key": {
                                           "type": "Identifier",
                                           "start": 1612,
@@ -2346,25 +2416,7 @@
                                               }
                                             }
                                           }
-                                        },
-                                        "leadingComments": [
-                                          {
-                                            "type": "CommentBlock",
-                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                                            "start": 1520,
-                                            "end": 1610,
-                                            "loc": {
-                                              "start": {
-                                                "line": 83,
-                                                "column": 0
-                                              },
-                                              "end": {
-                                                "line": 92,
-                                                "column": 3
-                                              }
-                                            }
-                                          }
-                                        ]
+                                        }
                                       }
                                     ]
                                   }
@@ -2432,6 +2484,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1658,
@@ -2448,8 +2501,7 @@
                                     "identifierName": "progressBar"
                                   },
                                   "name": "progressBar"
-                                },
-                                "computed": false
+                                }
                               }
                             },
                             "consequent": {
@@ -2525,6 +2577,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1694,
@@ -2541,8 +2594,7 @@
                                           "identifierName": "progressBar"
                                         },
                                         "name": "progressBar"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "right": {
                                       "type": "NewExpression",
@@ -2627,6 +2679,9 @@
                                               "line": 102,
                                               "column": 17
                                             }
+                                          },
+                                          "extra": {
+                                            "trailingComma": 1988
                                           },
                                           "properties": [
                                             {
@@ -2923,6 +2978,7 @@
                                                       }
                                                     }
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 1977,
@@ -2939,9 +2995,9 @@
                                                       "identifierName": "printer"
                                                     },
                                                     "name": "printer"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 1985,
@@ -2958,14 +3014,10 @@
                                                     "identifierName": "out"
                                                   },
                                                   "name": "out"
-                                                },
-                                                "computed": false
+                                                }
                                               }
                                             }
-                                          ],
-                                          "extra": {
-                                            "trailingComma": 1988
-                                          }
+                                          ]
                                         }
                                       ]
                                     }
@@ -3047,6 +3099,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2042,
@@ -3063,9 +3116,9 @@
                                       "identifierName": "progressBar"
                                     },
                                     "name": "progressBar"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2054,
@@ -3082,8 +3135,7 @@
                                     "identifierName": "tick"
                                   },
                                   "name": "tick"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -3113,25 +3165,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 916,
-                    "end": 1041,
-                    "loc": {
-                      "start": {
-                        "line": 44,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 55,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -3170,41 +3204,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
-            "start": 269,
-            "end": 314,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Notifies the user of the progress of the Serenity BDD CLI jar download.\n *\n * @package\n ",
-            "start": 317,
-            "end": 424,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 19,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

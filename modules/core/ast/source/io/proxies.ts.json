@@ -44,6 +44,58 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 1 \n ",
+            "start": 1,
+            "end": 45,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n * @param \n * {T} dictionary \n * @return \n * {T & Dictionary} \n ",
+            "start": 102,
+            "end": 209,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 20,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n ",
+            "start": 212,
+            "end": 231,
+            "loc": {
+              "start": {
+                "line": 23,
+                "column": 0
+              },
+              "end": {
+                "line": 25,
+                "column": 3
+              }
+            }
+          }
+        ],
         "exportKind": "type",
         "specifiers": [],
         "source": null,
@@ -241,26 +293,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 232,
+        "end": 613,
+        "loc": {
+          "start": {
+            "line": 26,
+            "column": 0
+          },
+          "end": {
+            "line": 35,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 1 \n ",
-            "start": 1,
-            "end": 45,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n * @param \n * {T} dictionary \n * @return \n * {T & Dictionary} \n ",
@@ -293,22 +342,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 232,
-        "end": 613,
-        "loc": {
-          "start": {
-            "line": 26,
-            "column": 0
-          },
-          "end": {
-            "line": 35,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentLine",
+            "value": " todo: would this work for optional fields? parent.child.child.child -> undefined ?",
+            "start": 615,
+            "end": 700,
+            "loc": {
+              "start": {
+                "line": 37,
+                "column": 0
+              },
+              "end": {
+                "line": 37,
+                "column": 85
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -663,6 +715,9 @@
                           "line": 34,
                           "column": 5
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 602
                       },
                       "properties": [
                         {
@@ -1029,6 +1084,7 @@
                                                 },
                                                 "name": "Object"
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 463,
@@ -1045,8 +1101,7 @@
                                                   "identifierName": "keys"
                                                 },
                                                 "name": "keys"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": [
                                               {
@@ -1068,6 +1123,7 @@
                                               }
                                             ]
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 490,
@@ -1084,8 +1140,7 @@
                                               "identifierName": "find"
                                             },
                                             "name": "find"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1183,6 +1238,7 @@
                                                     },
                                                     "name": "k"
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 502,
@@ -1199,8 +1255,7 @@
                                                       "identifierName": "toLocaleLowerCase"
                                                     },
                                                     "name": "toLocaleLowerCase"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
                                                 "arguments": []
                                               },
@@ -1250,6 +1305,7 @@
                                                     },
                                                     "name": "key"
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 530,
@@ -1266,8 +1322,7 @@
                                                       "identifierName": "toLocaleLowerCase"
                                                     },
                                                     "name": "toLocaleLowerCase"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
                                                 "arguments": []
                                               }
@@ -1356,6 +1411,7 @@
                                         },
                                         "name": "obj"
                                       },
+                                      "computed": true,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 585,
@@ -1372,8 +1428,7 @@
                                           "identifierName": "found"
                                         },
                                         "name": "found"
-                                      },
-                                      "computed": true
+                                      }
                                     }
                                   }
                                 }
@@ -1495,10 +1550,7 @@
                             }
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 602
-                      }
+                      ]
                     }
                   ]
                 }
@@ -1558,59 +1610,7 @@
               }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n * @param \n * {T} dictionary \n * @return \n * {T & Dictionary} \n ",
-            "start": 102,
-            "end": 209,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 20,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @private\n ",
-            "start": 212,
-            "end": 231,
-            "loc": {
-              "start": {
-                "line": 23,
-                "column": 0
-              },
-              "end": {
-                "line": 25,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " todo: would this work for optional fields? parent.child.child.child -> undefined ?",
-            "start": 615,
-            "end": 700,
-            "loc": {
-              "start": {
-                "line": 37,
-                "column": 0
-              },
-              "end": {
-                "line": 37,
-                "column": 85
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

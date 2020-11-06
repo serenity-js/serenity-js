@@ -44,6 +44,106 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {any} value \n * @param \n * {Function} replacer \n * @param \n * {undefined | undefined} space \n * @return \n * {string} \n ",
+            "start": 1,
+            "end": 178,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentLine",
+            "value": " Based on work of Douglas Crockford",
+            "start": 179,
+            "end": 216,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 37
+              }
+            }
+          },
+          {
+            "type": "CommentLine",
+            "value": "  https://github.com/jan-molak/JSON-js/blob/master/cycle.js",
+            "start": 217,
+            "end": 278,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 61
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Converts a JavaScript value to a JavaScript Object Notation (JSON) string.\n *  Supports objects with cyclic references.\n *\n * @param {any} value\n *  A JavaScript value, usually an object or array, to be converted.\n *\n * @param {function(this: any, key: string, value: any): any} [replacer]\n *  A function that transforms the results.\n *\n * @param {string | number} [space]\n *  Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.\n ",
+            "start": 280,
+            "end": 791,
+            "loc": {
+              "start": {
+                "line": 19,
+                "column": 0
+              },
+              "end": {
+                "line": 32,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @param \n * {string} text \n * @param \n * {Function} reviver \n ",
+            "start": 986,
+            "end": 1094,
+            "loc": {
+              "start": {
+                "line": 36,
+                "column": 0
+              },
+              "end": {
+                "line": 45,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Converts a JavaScript Object Notation (JSON) string into an object.\n *  Supports objects with cyclic references.\n *\n * @param text A valid JSON string.\n * @param reviver A function that transforms the results. This function is called for each member of the object.\n *   If a member contains nested objects, the nested objects are transformed before the parent object is.\n ",
+            "start": 1097,
+            "end": 1488,
+            "loc": {
+              "start": {
+                "line": 48,
+                "column": 0
+              },
+              "end": {
+                "line": 56,
+                "column": 3
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -567,6 +667,7 @@
                       },
                       "name": "JSON"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 940,
@@ -583,8 +684,7 @@
                         "identifierName": "stringify"
                       },
                       "name": "stringify"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -778,74 +878,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1489,
+        "end": 1633,
+        "loc": {
+          "start": {
+            "line": 57,
+            "column": 0
+          },
+          "end": {
+            "line": 59,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {any} value \n * @param \n * {Function} replacer \n * @param \n * {undefined | undefined} space \n * @return \n * {string} \n ",
-            "start": 1,
-            "end": 178,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentLine",
-            "value": " Based on work of Douglas Crockford",
-            "start": 179,
-            "end": 216,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 37
-              }
-            }
-          },
-          {
-            "type": "CommentLine",
-            "value": "  https://github.com/jan-molak/JSON-js/blob/master/cycle.js",
-            "start": 217,
-            "end": 278,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 61
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Converts a JavaScript value to a JavaScript Object Notation (JSON) string.\n *  Supports objects with cyclic references.\n *\n * @param {any} value\n *  A JavaScript value, usually an object or array, to be converted.\n *\n * @param {function(this: any, key: string, value: any): any} [replacer]\n *  A function that transforms the results.\n *\n * @param {string | number} [space]\n *  Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.\n ",
-            "start": 280,
-            "end": 791,
-            "loc": {
-              "start": {
-                "line": 19,
-                "column": 0
-              },
-              "end": {
-                "line": 32,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @param \n * {string} text \n * @param \n * {Function} reviver \n ",
@@ -878,22 +927,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1489,
-        "end": 1633,
-        "loc": {
-          "start": {
-            "line": 57,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 67 \n * @param \n * {any} object \n ",
+            "start": 1634,
+            "end": 1707,
+            "loc": {
+              "start": {
+                "line": 60,
+                "column": 0
+              },
+              "end": {
+                "line": 67,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 59,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Makes a deep copy of an object or array, assuring that there is at most\n *  one instance of each object or array in the resulting structure. The\n *  duplicate references (which might be forming cycles) are replaced with\n *  an object of the form:\n *\n *  ```\n *      {\"$ref\": PATH}\n *  ```\n *\n *  where the PATH is a JSONPath string that locates the first occurrence.\n *\n *  So,\n *  ```\n *      var a = [];\n *      a[0] = a;\n *      return JSON.stringify(decycle(a));\n *  ```\n *\n *  produces the string `[{\"$ref\":\"$\"}]`.\n *\n *  JSONPath is used to locate the unique object. $ indicates the top level of\n *  the object or array. [NUMBER] or [STRING] indicates a child element or property.\n *\n *  Based on work by Douglas Crockford\n *   https://github.com/jan-molak/JSON-js/blob/master/cycle.js\n *\n * @param {any} object\n *\n * @package\n ",
+            "start": 1710,
+            "end": 2563,
+            "loc": {
+              "start": {
+                "line": 70,
+                "column": 0
+              },
+              "end": {
+                "line": 101,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1306,6 +1374,7 @@
                           },
                           "name": "JSON"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 1609,
@@ -1322,8 +1391,7 @@
                             "identifierName": "parse"
                           },
                           "name": "parse"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -1436,42 +1504,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 2564,
+        "end": 4321,
+        "loc": {
+          "start": {
+            "line": 102,
+            "column": 0
+          },
+          "end": {
+            "line": 154,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @param \n * {string} text \n * @param \n * {Function} reviver \n ",
-            "start": 986,
-            "end": 1094,
-            "loc": {
-              "start": {
-                "line": 36,
-                "column": 0
-              },
-              "end": {
-                "line": 45,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Converts a JavaScript Object Notation (JSON) string into an object.\n *  Supports objects with cyclic references.\n *\n * @param text A valid JSON string.\n * @param reviver A function that transforms the results. This function is called for each member of the object.\n *   If a member contains nested objects, the nested objects are transformed before the parent object is.\n ",
-            "start": 1097,
-            "end": 1488,
-            "loc": {
-              "start": {
-                "line": 48,
-                "column": 0
-              },
-              "end": {
-                "line": 56,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 67 \n * @param \n * {any} object \n ",
@@ -1504,22 +1553,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 2564,
-        "end": 4321,
-        "loc": {
-          "start": {
-            "line": 102,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 153 \n * @param \n * {any} $ \n ",
+            "start": 4322,
+            "end": 4391,
+            "loc": {
+              "start": {
+                "line": 155,
+                "column": 0
+              },
+              "end": {
+                "line": 162,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 154,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Restore an object that was reduced by decycle. Members which values are\n *  objects of the form\n *  ```\n *       {$ref: PATH}\n *  ```\n *  are replaced with references to the value found by the PATH.\n *  This will restore cycles. The object will be MUTATED.\n *\n *  The eval function is used to locate the values described by a PATH. The\n *  root object is kept in a $ variable. A regular expression is used to\n *  assure that the PATH is extremely well formed. The regexp contains nested\n *  * quantifiers. That has been known to have extremely bad performance\n *  problems on some browsers for very long strings. A PATH is expected to be\n *  reasonably short. A PATH is allowed to belong to a very restricted subset of\n *  Goessner's JSONPath.\n *\n *  So,\n *  ```\n *       var s = '[{\"$ref\":\"$\"}]';\n *       return retrocycle(JSON.parse(s));\n *  ```\n *  produces an array containing a single element which is the array itself.\n *\n *  Based on work by Douglas Crockford\n *   https://github.com/jan-molak/JSON-js/blob/master/cycle.js\n *\n * @param {any} $\n *\n * @package\n ",
+            "start": 4394,
+            "end": 5481,
+            "loc": {
+              "start": {
+                "line": 165,
+                "column": 0
+              },
+              "end": {
+                "line": 196,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 2573,
@@ -1617,6 +1685,40 @@
                   "column": 47
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentLine",
+                  "value": " object to path mappings",
+                  "start": 2648,
+                  "end": 2674,
+                  "loc": {
+                    "start": {
+                      "line": 103,
+                      "column": 52
+                    },
+                    "end": {
+                      "line": 103,
+                      "column": 78
+                    }
+                  }
+                },
+                {
+                  "type": "CommentLine",
+                  "value": " The derez function recurses through the object, producing a deep copy",
+                  "start": 2680,
+                  "end": 2752,
+                  "loc": {
+                    "start": {
+                      "line": 105,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 105,
+                      "column": 76
+                    }
+                  }
+                }
+              ],
               "declarations": [
                 {
                   "type": "VariableDeclarator",
@@ -1731,8 +1833,23 @@
                   }
                 }
               ],
-              "kind": "const",
-              "trailingComments": [
+              "kind": "const"
+            },
+            {
+              "type": "ReturnStatement",
+              "start": 2757,
+              "end": 4319,
+              "loc": {
+                "start": {
+                  "line": 106,
+                  "column": 4
+                },
+                "end": {
+                  "line": 153,
+                  "column": 20
+                }
+              },
+              "leadingComments": [
                 {
                   "type": "CommentLine",
                   "value": " object to path mappings",
@@ -1765,22 +1882,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ReturnStatement",
-              "start": 2757,
-              "end": 4319,
-              "loc": {
-                "start": {
-                  "line": 106,
-                  "column": 4
-                },
-                "end": {
-                  "line": 153,
-                  "column": 20
-                }
-              },
+              ],
               "argument": {
                 "type": "CallExpression",
                 "start": 2765,
@@ -1794,6 +1896,10 @@
                     "line": 153,
                     "column": 18
                   }
+                },
+                "extra": {
+                  "parenthesized": true,
+                  "parenStart": 2764
                 },
                 "callee": {
                   "type": "FunctionExpression",
@@ -1893,6 +1999,24 @@
                             "column": 15
                           }
                         },
+                        "trailingComments": [
+                          {
+                            "type": "CommentLine",
+                            "value": " The new object or array",
+                            "start": 2889,
+                            "end": 2915,
+                            "loc": {
+                              "start": {
+                                "line": 109,
+                                "column": 24
+                              },
+                              "end": {
+                                "line": 109,
+                                "column": 50
+                              }
+                            }
+                          }
+                        ],
                         "declarations": [
                           {
                             "type": "VariableDeclarator",
@@ -1941,24 +2065,6 @@
                                 "column": 14
                               }
                             },
-                            "id": {
-                              "type": "Identifier",
-                              "start": 2877,
-                              "end": 2879,
-                              "loc": {
-                                "start": {
-                                  "line": 109,
-                                  "column": 12
-                                },
-                                "end": {
-                                  "line": 109,
-                                  "column": 14
-                                },
-                                "identifierName": "nu"
-                              },
-                              "name": "nu"
-                            },
-                            "init": null,
                             "leadingComments": [
                               {
                                 "type": "CommentLine",
@@ -1976,11 +2082,44 @@
                                   }
                                 }
                               }
-                            ]
+                            ],
+                            "id": {
+                              "type": "Identifier",
+                              "start": 2877,
+                              "end": 2879,
+                              "loc": {
+                                "start": {
+                                  "line": 109,
+                                  "column": 12
+                                },
+                                "end": {
+                                  "line": 109,
+                                  "column": 14
+                                },
+                                "identifierName": "nu"
+                              },
+                              "name": "nu"
+                            },
+                            "init": null
                           }
                         ],
-                        "kind": "let",
-                        "trailingComments": [
+                        "kind": "let"
+                      },
+                      {
+                        "type": "IfStatement",
+                        "start": 2925,
+                        "end": 4276,
+                        "loc": {
+                          "start": {
+                            "line": 111,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 151,
+                            "column": 9
+                          }
+                        },
+                        "leadingComments": [
                           {
                             "type": "CommentLine",
                             "value": " The new object or array",
@@ -1997,22 +2136,7 @@
                               }
                             }
                           }
-                        ]
-                      },
-                      {
-                        "type": "IfStatement",
-                        "start": 2925,
-                        "end": 4276,
-                        "loc": {
-                          "start": {
-                            "line": 111,
-                            "column": 8
-                          },
-                          "end": {
-                            "line": 151,
-                            "column": 9
-                          }
-                        },
+                        ],
                         "test": {
                           "type": "LogicalExpression",
                           "start": 2942,
@@ -2248,6 +2372,10 @@
                                           "column": 41
                                         }
                                       },
+                                      "extra": {
+                                        "parenthesized": true,
+                                        "parenStart": 3014
+                                      },
                                       "left": {
                                         "type": "Identifier",
                                         "start": 3015,
@@ -2282,10 +2410,6 @@
                                           "identifierName": "Boolean"
                                         },
                                         "name": "Boolean"
-                                      },
-                                      "extra": {
-                                        "parenthesized": true,
-                                        "parenStart": 3014
                                       }
                                     }
                                   }
@@ -2321,6 +2445,10 @@
                                         "column": 38
                                       }
                                     },
+                                    "extra": {
+                                      "parenthesized": true,
+                                      "parenStart": 3057
+                                    },
                                     "left": {
                                       "type": "Identifier",
                                       "start": 3058,
@@ -2355,10 +2483,6 @@
                                         "identifierName": "Date"
                                       },
                                       "name": "Date"
-                                    },
-                                    "extra": {
-                                      "parenthesized": true,
-                                      "parenStart": 3057
                                     }
                                   }
                                 }
@@ -2394,6 +2518,10 @@
                                       "column": 40
                                     }
                                   },
+                                  "extra": {
+                                    "parenthesized": true,
+                                    "parenStart": 3097
+                                  },
                                   "left": {
                                     "type": "Identifier",
                                     "start": 3098,
@@ -2428,10 +2556,6 @@
                                       "identifierName": "Number"
                                     },
                                     "name": "Number"
-                                  },
-                                  "extra": {
-                                    "parenthesized": true,
-                                    "parenStart": 3097
                                   }
                                 }
                               }
@@ -2467,6 +2591,10 @@
                                     "column": 40
                                   }
                                 },
+                                "extra": {
+                                  "parenthesized": true,
+                                  "parenStart": 3139
+                                },
                                 "left": {
                                   "type": "Identifier",
                                   "start": 3140,
@@ -2501,10 +2629,6 @@
                                     "identifierName": "RegExp"
                                   },
                                   "name": "RegExp"
-                                },
-                                "extra": {
-                                  "parenthesized": true,
-                                  "parenStart": 3139
                                 }
                               }
                             }
@@ -2540,6 +2664,10 @@
                                   "column": 40
                                 }
                               },
+                              "extra": {
+                                "parenthesized": true,
+                                "parenStart": 3181
+                              },
                               "left": {
                                 "type": "Identifier",
                                 "start": 3182,
@@ -2574,10 +2702,6 @@
                                   "identifierName": "String"
                                 },
                                 "name": "String"
-                              },
-                              "extra": {
-                                "parenthesized": true,
-                                "parenStart": 3181
                               }
                             }
                           }
@@ -2611,6 +2735,40 @@
                                   "column": 42
                                 }
                               },
+                              "leadingComments": [
+                                {
+                                  "type": "CommentLine",
+                                  "value": " If the value is an object or array, look to see if we have already",
+                                  "start": 3231,
+                                  "end": 3300,
+                                  "loc": {
+                                    "start": {
+                                      "line": 120,
+                                      "column": 12
+                                    },
+                                    "end": {
+                                      "line": 120,
+                                      "column": 81
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "CommentLine",
+                                  "value": " encountered it. If so, return a {\"$ref\":PATH} object.",
+                                  "start": 3313,
+                                  "end": 3369,
+                                  "loc": {
+                                    "start": {
+                                      "line": 121,
+                                      "column": 12
+                                    },
+                                    "end": {
+                                      "line": 121,
+                                      "column": 68
+                                    }
+                                  }
+                                }
+                              ],
                               "expression": {
                                 "type": "AssignmentExpression",
                                 "start": 3383,
@@ -2688,6 +2846,7 @@
                                       },
                                       "name": "objects"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 3402,
@@ -2704,8 +2863,7 @@
                                         "identifierName": "get"
                                       },
                                       "name": "get"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -2727,41 +2885,7 @@
                                     }
                                   ]
                                 }
-                              },
-                              "leadingComments": [
-                                {
-                                  "type": "CommentLine",
-                                  "value": " If the value is an object or array, look to see if we have already",
-                                  "start": 3231,
-                                  "end": 3300,
-                                  "loc": {
-                                    "start": {
-                                      "line": 120,
-                                      "column": 12
-                                    },
-                                    "end": {
-                                      "line": 120,
-                                      "column": 81
-                                    }
-                                  }
-                                },
-                                {
-                                  "type": "CommentLine",
-                                  "value": " encountered it. If so, return a {\"$ref\":PATH} object.",
-                                  "start": 3313,
-                                  "end": 3369,
-                                  "loc": {
-                                    "start": {
-                                      "line": 121,
-                                      "column": 12
-                                    },
-                                    "end": {
-                                      "line": 121,
-                                      "column": 68
-                                    }
-                                  }
-                                }
-                              ]
+                              }
                             },
                             {
                               "type": "IfStatement",
@@ -2777,6 +2901,24 @@
                                   "column": 13
                                 }
                               },
+                              "trailingComments": [
+                                {
+                                  "type": "CommentLine",
+                                  "value": " Otherwise, accumulate the unique value and its path.",
+                                  "start": 3525,
+                                  "end": 3580,
+                                  "loc": {
+                                    "start": {
+                                      "line": 127,
+                                      "column": 12
+                                    },
+                                    "end": {
+                                      "line": 127,
+                                      "column": 67
+                                    }
+                                  }
+                                }
+                              ],
                               "test": {
                                 "type": "BinaryExpression",
                                 "start": 3430,
@@ -2929,8 +3071,23 @@
                                 ],
                                 "directives": []
                               },
-                              "alternate": null,
-                              "trailingComments": [
+                              "alternate": null
+                            },
+                            {
+                              "type": "ExpressionStatement",
+                              "start": 3594,
+                              "end": 3619,
+                              "loc": {
+                                "start": {
+                                  "line": 129,
+                                  "column": 12
+                                },
+                                "end": {
+                                  "line": 129,
+                                  "column": 37
+                                }
+                              },
+                              "leadingComments": [
                                 {
                                   "type": "CommentLine",
                                   "value": " Otherwise, accumulate the unique value and its path.",
@@ -2947,22 +3104,25 @@
                                     }
                                   }
                                 }
-                              ]
-                            },
-                            {
-                              "type": "ExpressionStatement",
-                              "start": 3594,
-                              "end": 3619,
-                              "loc": {
-                                "start": {
-                                  "line": 129,
-                                  "column": 12
-                                },
-                                "end": {
-                                  "line": 129,
-                                  "column": 37
+                              ],
+                              "trailingComments": [
+                                {
+                                  "type": "CommentLine",
+                                  "value": " If it is an array, replicate the array.",
+                                  "start": 3633,
+                                  "end": 3675,
+                                  "loc": {
+                                    "start": {
+                                      "line": 131,
+                                      "column": 12
+                                    },
+                                    "end": {
+                                      "line": 131,
+                                      "column": 54
+                                    }
+                                  }
                                 }
-                              },
+                              ],
                               "expression": {
                                 "type": "CallExpression",
                                 "start": 3594,
@@ -3008,6 +3168,7 @@
                                     },
                                     "name": "objects"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 3602,
@@ -3024,8 +3185,7 @@
                                       "identifierName": "set"
                                     },
                                     "name": "set"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -3063,26 +3223,23 @@
                                     "name": "path"
                                   }
                                 ]
+                              }
+                            },
+                            {
+                              "type": "IfStatement",
+                              "start": 3689,
+                              "end": 4243,
+                              "loc": {
+                                "start": {
+                                  "line": 133,
+                                  "column": 12
+                                },
+                                "end": {
+                                  "line": 149,
+                                  "column": 13
+                                }
                               },
                               "leadingComments": [
-                                {
-                                  "type": "CommentLine",
-                                  "value": " Otherwise, accumulate the unique value and its path.",
-                                  "start": 3525,
-                                  "end": 3580,
-                                  "loc": {
-                                    "start": {
-                                      "line": 127,
-                                      "column": 12
-                                    },
-                                    "end": {
-                                      "line": 127,
-                                      "column": 67
-                                    }
-                                  }
-                                }
-                              ],
-                              "trailingComments": [
                                 {
                                   "type": "CommentLine",
                                   "value": " If it is an array, replicate the array.",
@@ -3099,22 +3256,7 @@
                                     }
                                   }
                                 }
-                              ]
-                            },
-                            {
-                              "type": "IfStatement",
-                              "start": 3689,
-                              "end": 4243,
-                              "loc": {
-                                "start": {
-                                  "line": 133,
-                                  "column": 12
-                                },
-                                "end": {
-                                  "line": 149,
-                                  "column": 13
-                                }
-                              },
+                              ],
                               "test": {
                                 "type": "CallExpression",
                                 "start": 3693,
@@ -3160,6 +3302,7 @@
                                     },
                                     "name": "Array"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 3699,
@@ -3176,8 +3319,7 @@
                                       "identifierName": "isArray"
                                     },
                                     "name": "isArray"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -3337,6 +3479,7 @@
                                           },
                                           "name": "value"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3764,
@@ -3353,8 +3496,7 @@
                                             "identifierName": "forEach"
                                           },
                                           "name": "forEach"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -3485,6 +3627,7 @@
                                                       },
                                                       "name": "nu"
                                                     },
+                                                    "computed": true,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 3819,
@@ -3501,8 +3644,7 @@
                                                         "identifierName": "i"
                                                       },
                                                       "name": "i"
-                                                    },
-                                                    "computed": true
+                                                    }
                                                   },
                                                   "right": {
                                                     "type": "CallExpression",
@@ -3718,6 +3860,24 @@
                                         "column": 24
                                       }
                                     },
+                                    "leadingComments": [
+                                      {
+                                        "type": "CommentLine",
+                                        "value": " If it is an object, replicate the object.",
+                                        "start": 3916,
+                                        "end": 3960,
+                                        "loc": {
+                                          "start": {
+                                            "line": 140,
+                                            "column": 12
+                                          },
+                                          "end": {
+                                            "line": 140,
+                                            "column": 56
+                                          }
+                                        }
+                                      }
+                                    ],
                                     "expression": {
                                       "type": "AssignmentExpression",
                                       "start": 3978,
@@ -3766,25 +3926,7 @@
                                         },
                                         "properties": []
                                       }
-                                    },
-                                    "leadingComments": [
-                                      {
-                                        "type": "CommentLine",
-                                        "value": " If it is an object, replicate the object.",
-                                        "start": 3916,
-                                        "end": 3960,
-                                        "loc": {
-                                          "start": {
-                                            "line": 140,
-                                            "column": 12
-                                          },
-                                          "end": {
-                                            "line": 140,
-                                            "column": 56
-                                          }
-                                        }
-                                      }
-                                    ]
+                                    }
                                   },
                                   {
                                     "type": "ExpressionStatement",
@@ -3873,6 +4015,7 @@
                                               },
                                               "name": "Object"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 4010,
@@ -3889,8 +4032,7 @@
                                                 "identifierName": "keys"
                                               },
                                               "name": "keys"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -3912,6 +4054,7 @@
                                             }
                                           ]
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 4022,
@@ -3928,8 +4071,7 @@
                                             "identifierName": "forEach"
                                           },
                                           "name": "forEach"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -4043,6 +4185,7 @@
                                                       },
                                                       "name": "nu"
                                                     },
+                                                    "computed": true,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 4071,
@@ -4059,8 +4202,7 @@
                                                         "identifierName": "name"
                                                       },
                                                       "name": "name"
-                                                    },
-                                                    "computed": true
+                                                    }
                                                   },
                                                   "right": {
                                                     "type": "CallExpression",
@@ -4125,6 +4267,7 @@
                                                           },
                                                           "name": "value"
                                                         },
+                                                        "computed": true,
                                                         "property": {
                                                           "type": "Identifier",
                                                           "start": 4116,
@@ -4141,8 +4284,7 @@
                                                             "identifierName": "name"
                                                           },
                                                           "name": "name"
-                                                        },
-                                                        "computed": true
+                                                        }
                                                       },
                                                       {
                                                         "type": "BinaryExpression",
@@ -4271,6 +4413,7 @@
                                                                 },
                                                                 "name": "JSON"
                                                               },
+                                                              "computed": false,
                                                               "property": {
                                                                 "type": "Identifier",
                                                                 "start": 4165,
@@ -4287,8 +4430,7 @@
                                                                   "identifierName": "stringify"
                                                                 },
                                                                 "name": "stringify"
-                                                              },
-                                                              "computed": false
+                                                              }
                                                             },
                                                             "arguments": [
                                                               {
@@ -4346,25 +4488,7 @@
                                   }
                                 ],
                                 "directives": []
-                              },
-                              "leadingComments": [
-                                {
-                                  "type": "CommentLine",
-                                  "value": " If it is an array, replicate the array.",
-                                  "start": 3633,
-                                  "end": 3675,
-                                  "loc": {
-                                    "start": {
-                                      "line": 131,
-                                      "column": 12
-                                    },
-                                    "end": {
-                                      "line": 131,
-                                      "column": 54
-                                    }
-                                  }
-                                }
-                              ]
+                              }
                             },
                             {
                               "type": "ReturnStatement",
@@ -4401,25 +4525,7 @@
                           ],
                           "directives": []
                         },
-                        "alternate": null,
-                        "leadingComments": [
-                          {
-                            "type": "CommentLine",
-                            "value": " The new object or array",
-                            "start": 2889,
-                            "end": 2915,
-                            "loc": {
-                              "start": {
-                                "line": 109,
-                                "column": 24
-                              },
-                              "end": {
-                                "line": 109,
-                                "column": 50
-                              }
-                            }
-                          }
-                        ]
+                        "alternate": null
                       },
                       {
                         "type": "ReturnStatement",
@@ -4495,85 +4601,28 @@
                     },
                     "value": "$"
                   }
-                ],
-                "extra": {
-                  "parenthesized": true,
-                  "parenStart": 2764
-                }
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentLine",
-                  "value": " object to path mappings",
-                  "start": 2648,
-                  "end": 2674,
-                  "loc": {
-                    "start": {
-                      "line": 103,
-                      "column": 52
-                    },
-                    "end": {
-                      "line": 103,
-                      "column": 78
-                    }
-                  }
-                },
-                {
-                  "type": "CommentLine",
-                  "value": " The derez function recurses through the object, producing a deep copy",
-                  "start": 2680,
-                  "end": 2752,
-                  "loc": {
-                    "start": {
-                      "line": 105,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 105,
-                      "column": 76
-                    }
-                  }
-                }
-              ]
+                ]
+              }
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 5482,
+        "end": 7080,
+        "loc": {
+          "start": {
+            "line": 197,
+            "column": 0
+          },
+          "end": {
+            "line": 236,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 67 \n * @param \n * {any} object \n ",
-            "start": 1634,
-            "end": 1707,
-            "loc": {
-              "start": {
-                "line": 60,
-                "column": 0
-              },
-              "end": {
-                "line": 67,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Makes a deep copy of an object or array, assuring that there is at most\n *  one instance of each object or array in the resulting structure. The\n *  duplicate references (which might be forming cycles) are replaced with\n *  an object of the form:\n *\n *  ```\n *      {\"$ref\": PATH}\n *  ```\n *\n *  where the PATH is a JSONPath string that locates the first occurrence.\n *\n *  So,\n *  ```\n *      var a = [];\n *      a[0] = a;\n *      return JSON.stringify(decycle(a));\n *  ```\n *\n *  produces the string `[{\"$ref\":\"$\"}]`.\n *\n *  JSONPath is used to locate the unique object. $ indicates the top level of\n *  the object or array. [NUMBER] or [STRING] indicates a child element or property.\n *\n *  Based on work by Douglas Crockford\n *   https://github.com/jan-molak/JSON-js/blob/master/cycle.js\n *\n * @param {any} object\n *\n * @package\n ",
-            "start": 1710,
-            "end": 2563,
-            "loc": {
-              "start": {
-                "line": 70,
-                "column": 0
-              },
-              "end": {
-                "line": 101,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 153 \n * @param \n * {any} $ \n ",
@@ -4606,22 +4655,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 5482,
-        "end": 7080,
-        "loc": {
-          "start": {
-            "line": 197,
-            "column": 0
-          },
-          "end": {
-            "line": 236,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 5491,
@@ -4803,6 +4837,10 @@
                     "column": 8
                   }
                 },
+                "extra": {
+                  "parenthesized": true,
+                  "parenStart": 5618
+                },
                 "callee": {
                   "type": "FunctionExpression",
                   "start": 5619,
@@ -4884,6 +4922,72 @@
                             "column": 9
                           }
                         },
+                        "leadingComments": [
+                          {
+                            "type": "CommentLine",
+                            "value": " The rez function walks recursively through the object looking for $ref",
+                            "start": 5650,
+                            "end": 5723,
+                            "loc": {
+                              "start": {
+                                "line": 202,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 202,
+                                "column": 81
+                              }
+                            }
+                          },
+                          {
+                            "type": "CommentLine",
+                            "value": " properties. When it finds one that has a value that is a path, then it",
+                            "start": 5732,
+                            "end": 5805,
+                            "loc": {
+                              "start": {
+                                "line": 203,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 203,
+                                "column": 81
+                              }
+                            }
+                          },
+                          {
+                            "type": "CommentLine",
+                            "value": " replaces the $ref object with a reference to the value that is found by",
+                            "start": 5814,
+                            "end": 5888,
+                            "loc": {
+                              "start": {
+                                "line": 204,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 204,
+                                "column": 82
+                              }
+                            }
+                          },
+                          {
+                            "type": "CommentLine",
+                            "value": " the path.",
+                            "start": 5897,
+                            "end": 5909,
+                            "loc": {
+                              "start": {
+                                "line": 205,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 205,
+                                "column": 20
+                              }
+                            }
+                          }
+                        ],
                         "test": {
                           "type": "LogicalExpression",
                           "start": 5923,
@@ -5061,6 +5165,7 @@
                                     },
                                     "name": "Array"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 5983,
@@ -5077,8 +5182,7 @@
                                       "identifierName": "isArray"
                                     },
                                     "name": "isArray"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -5174,6 +5278,7 @@
                                           },
                                           "name": "value"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 6023,
@@ -5190,8 +5295,7 @@
                                             "identifierName": "forEach"
                                           },
                                           "name": "forEach"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -5502,6 +5606,7 @@
                                                               },
                                                               "name": "element"
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 6175,
@@ -5518,8 +5623,7 @@
                                                                 "identifierName": "$ref"
                                                               },
                                                               "name": "$ref"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           }
                                                         }
                                                       ],
@@ -5669,6 +5773,7 @@
                                                               },
                                                               "name": "px"
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 6240,
@@ -5685,8 +5790,7 @@
                                                                 "identifierName": "test"
                                                               },
                                                               "name": "test"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           },
                                                           "arguments": [
                                                             {
@@ -5738,6 +5842,24 @@
                                                                 "column": 50
                                                               }
                                                             },
+                                                            "trailingComments": [
+                                                              {
+                                                                "type": "CommentLine",
+                                                                "value": " tslint:disable-line:no-eval",
+                                                                "start": 6310,
+                                                                "end": 6340,
+                                                                "loc": {
+                                                                  "start": {
+                                                                    "line": 213,
+                                                                    "column": 56
+                                                                  },
+                                                                  "end": {
+                                                                    "line": 213,
+                                                                    "column": 86
+                                                                  }
+                                                                }
+                                                              }
+                                                            ],
                                                             "expression": {
                                                               "type": "AssignmentExpression",
                                                               "start": 6282,
@@ -5784,6 +5906,7 @@
                                                                   },
                                                                   "name": "value"
                                                                 },
+                                                                "computed": true,
                                                                 "property": {
                                                                   "type": "Identifier",
                                                                   "start": 6288,
@@ -5800,8 +5923,7 @@
                                                                     "identifierName": "i"
                                                                   },
                                                                   "name": "i"
-                                                                },
-                                                                "computed": true
+                                                                }
                                                               },
                                                               "right": {
                                                                 "type": "CallExpression",
@@ -5854,25 +5976,7 @@
                                                                   }
                                                                 ]
                                                               }
-                                                            },
-                                                            "trailingComments": [
-                                                              {
-                                                                "type": "CommentLine",
-                                                                "value": " tslint:disable-line:no-eval",
-                                                                "start": 6310,
-                                                                "end": 6340,
-                                                                "loc": {
-                                                                  "start": {
-                                                                    "line": 213,
-                                                                    "column": 56
-                                                                  },
-                                                                  "end": {
-                                                                    "line": 213,
-                                                                    "column": 86
-                                                                  }
-                                                                }
-                                                              }
-                                                            ]
+                                                            }
                                                           }
                                                         ],
                                                         "directives": []
@@ -6079,6 +6183,7 @@
                                               },
                                               "name": "Object"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 6528,
@@ -6095,8 +6200,7 @@
                                                 "identifierName": "keys"
                                               },
                                               "name": "keys"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -6118,6 +6222,7 @@
                                             }
                                           ]
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 6540,
@@ -6134,8 +6239,7 @@
                                             "identifierName": "forEach"
                                           },
                                           "name": "forEach"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -6266,6 +6370,7 @@
                                                         },
                                                         "name": "value"
                                                       },
+                                                      "computed": true,
                                                       "property": {
                                                         "type": "Identifier",
                                                         "start": 6605,
@@ -6282,8 +6387,7 @@
                                                           "identifierName": "name"
                                                         },
                                                         "name": "name"
-                                                      },
-                                                      "computed": true
+                                                      }
                                                     }
                                                   }
                                                 ],
@@ -6529,6 +6633,7 @@
                                                               },
                                                               "name": "item"
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 6723,
@@ -6545,8 +6650,7 @@
                                                                 "identifierName": "$ref"
                                                               },
                                                               "name": "$ref"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           }
                                                         }
                                                       ],
@@ -6696,6 +6800,7 @@
                                                               },
                                                               "name": "px"
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 6788,
@@ -6712,8 +6817,7 @@
                                                                 "identifierName": "test"
                                                               },
                                                               "name": "test"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           },
                                                           "arguments": [
                                                             {
@@ -6765,6 +6869,24 @@
                                                                 "column": 53
                                                               }
                                                             },
+                                                            "trailingComments": [
+                                                              {
+                                                                "type": "CommentLine",
+                                                                "value": " tslint:disable-line:no-eval",
+                                                                "start": 6858,
+                                                                "end": 6888,
+                                                                "loc": {
+                                                                  "start": {
+                                                                    "line": 225,
+                                                                    "column": 56
+                                                                  },
+                                                                  "end": {
+                                                                    "line": 225,
+                                                                    "column": 86
+                                                                  }
+                                                                }
+                                                              }
+                                                            ],
                                                             "expression": {
                                                               "type": "AssignmentExpression",
                                                               "start": 6830,
@@ -6811,6 +6933,7 @@
                                                                   },
                                                                   "name": "value"
                                                                 },
+                                                                "computed": true,
                                                                 "property": {
                                                                   "type": "Identifier",
                                                                   "start": 6836,
@@ -6827,8 +6950,7 @@
                                                                     "identifierName": "name"
                                                                   },
                                                                   "name": "name"
-                                                                },
-                                                                "computed": true
+                                                                }
                                                               },
                                                               "right": {
                                                                 "type": "CallExpression",
@@ -6881,25 +7003,7 @@
                                                                   }
                                                                 ]
                                                               }
-                                                            },
-                                                            "trailingComments": [
-                                                              {
-                                                                "type": "CommentLine",
-                                                                "value": " tslint:disable-line:no-eval",
-                                                                "start": 6858,
-                                                                "end": 6888,
-                                                                "loc": {
-                                                                  "start": {
-                                                                    "line": 225,
-                                                                    "column": 56
-                                                                  },
-                                                                  "end": {
-                                                                    "line": 225,
-                                                                    "column": 86
-                                                                  }
-                                                                }
-                                                              }
-                                                            ]
+                                                            }
                                                           }
                                                         ],
                                                         "directives": []
@@ -7008,73 +7112,7 @@
                           ],
                           "directives": []
                         },
-                        "alternate": null,
-                        "leadingComments": [
-                          {
-                            "type": "CommentLine",
-                            "value": " The rez function walks recursively through the object looking for $ref",
-                            "start": 5650,
-                            "end": 5723,
-                            "loc": {
-                              "start": {
-                                "line": 202,
-                                "column": 8
-                              },
-                              "end": {
-                                "line": 202,
-                                "column": 81
-                              }
-                            }
-                          },
-                          {
-                            "type": "CommentLine",
-                            "value": " properties. When it finds one that has a value that is a path, then it",
-                            "start": 5732,
-                            "end": 5805,
-                            "loc": {
-                              "start": {
-                                "line": 203,
-                                "column": 8
-                              },
-                              "end": {
-                                "line": 203,
-                                "column": 81
-                              }
-                            }
-                          },
-                          {
-                            "type": "CommentLine",
-                            "value": " replaces the $ref object with a reference to the value that is found by",
-                            "start": 5814,
-                            "end": 5888,
-                            "loc": {
-                              "start": {
-                                "line": 204,
-                                "column": 8
-                              },
-                              "end": {
-                                "line": 204,
-                                "column": 82
-                              }
-                            }
-                          },
-                          {
-                            "type": "CommentLine",
-                            "value": " the path.",
-                            "start": 5897,
-                            "end": 5909,
-                            "loc": {
-                              "start": {
-                                "line": 205,
-                                "column": 8
-                              },
-                              "end": {
-                                "line": 205,
-                                "column": 20
-                              }
-                            }
-                          }
-                        ]
+                        "alternate": null
                       }
                     ],
                     "directives": []
@@ -7098,11 +7136,7 @@
                     },
                     "name": "$"
                   }
-                ],
-                "extra": {
-                  "parenthesized": true,
-                  "parenStart": 5618
-                }
+                ]
               }
             },
             {
@@ -7139,41 +7173,7 @@
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 153 \n * @param \n * {any} $ \n ",
-            "start": 4322,
-            "end": 4391,
-            "loc": {
-              "start": {
-                "line": 155,
-                "column": 0
-              },
-              "end": {
-                "line": 162,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Restore an object that was reduced by decycle. Members which values are\n *  objects of the form\n *  ```\n *       {$ref: PATH}\n *  ```\n *  are replaced with references to the value found by the PATH.\n *  This will restore cycles. The object will be MUTATED.\n *\n *  The eval function is used to locate the values described by a PATH. The\n *  root object is kept in a $ variable. A regular expression is used to\n *  assure that the PATH is extremely well formed. The regexp contains nested\n *  * quantifiers. That has been known to have extremely bad performance\n *  problems on some browsers for very long strings. A PATH is expected to be\n *  reasonably short. A PATH is allowed to belong to a very restricted subset of\n *  Goessner's JSONPath.\n *\n *  So,\n *  ```\n *       var s = '[{\"$ref\":\"$\"}]';\n *       return retrocycle(JSON.parse(s));\n *  ```\n *  produces an array containing a single element which is the array itself.\n *\n *  Based on work by Douglas Crockford\n *   https://github.com/jan-molak/JSON-js/blob/master/cycle.js\n *\n * @param {any} $\n *\n * @package\n ",
-            "start": 4394,
-            "end": 5481,
-            "loc": {
-              "start": {
-                "line": 165,
-                "column": 0
-              },
-              "end": {
-                "line": 196,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -44,6 +44,40 @@
             "column": 78
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
+            "start": 79,
+            "end": 124,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A command object representing an activity that an {@link Actor} can perform.\n *\n * @see {@link Actor}\n * @see https://en.wikipedia.org/wiki/Command_pattern\n * @interface ",
+            "start": 127,
+            "end": 316,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 16
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -213,8 +247,23 @@
             "raw": "'./actor'"
           },
           "value": "./actor"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 317,
+        "end": 1235,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 65,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
@@ -247,22 +296,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 317,
-        "end": 1235,
-        "loc": {
-          "start": {
-            "line": 17,
-            "column": 0
-          },
-          "end": {
-            "line": 65,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -328,6 +362,74 @@
                     "column": 94
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {PerformsActivities | UsesAbilities | AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 350,
+                    "end": 524,
+                    "loc": {
+                      "start": {
+                        "line": 18,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 29,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this Activity.\n     *\n     * @param {PerformsActivities | UsesAbilities | AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link PerformsActivities}\n     * @see {@link UsesAbilities}\n     * @see {@link AnswersQuestions}\n     ",
+                    "start": 531,
+                    "end": 885,
+                    "loc": {
+                      "start": {
+                        "line": 32,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 44,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 981,
+                    "end": 1073,
+                    "loc": {
+                      "start": {
+                        "line": 46,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 55,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this Activity.\n     *\n     * @returns {string}\n     ",
+                    "start": 1080,
+                    "end": 1209,
+                    "loc": {
+                      "start": {
+                        "line": 58,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 63,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -576,42 +678,23 @@
                       ]
                     }
                   }
+                }
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 1214,
+                "end": 1233,
+                "loc": {
+                  "start": {
+                    "line": 64,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 64,
+                    "column": 23
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {PerformsActivities | UsesAbilities | AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 350,
-                    "end": 524,
-                    "loc": {
-                      "start": {
-                        "line": 18,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 29,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this Activity.\n     *\n     * @param {PerformsActivities | UsesAbilities | AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link PerformsActivities}\n     * @see {@link UsesAbilities}\n     * @see {@link AnswersQuestions}\n     ",
-                    "start": 531,
-                    "end": 885,
-                    "loc": {
-                      "start": {
-                        "line": 32,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 44,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -644,22 +727,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 1214,
-                "end": 1233,
-                "loc": {
-                  "start": {
-                    "line": 64,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 64,
-                    "column": 23
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -713,41 +781,7 @@
                       }
                     }
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 981,
-                    "end": 1073,
-                    "loc": {
-                      "start": {
-                        "line": 46,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 55,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this Activity.\n     *\n     * @returns {string}\n     ",
-                    "start": 1080,
-                    "end": 1209,
-                    "loc": {
-                      "start": {
-                        "line": 58,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 63,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -786,41 +820,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
-            "start": 79,
-            "end": 124,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A command object representing an activity that an {@link Actor} can perform.\n *\n * @see {@link Actor}\n * @see https://en.wikipedia.org/wiki/Command_pattern\n * @interface ",
-            "start": 127,
-            "end": 316,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

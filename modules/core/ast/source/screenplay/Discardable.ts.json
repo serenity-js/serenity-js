@@ -44,6 +44,40 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 1,
+            "end": 45,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  any resources it's using when the test scenario finishes.\n *\n * @public\n * @interface ",
+            "start": 46,
+            "end": 231,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 16
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -109,6 +143,24 @@
                     "column": 36
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 268,
+                    "end": 372,
+                    "loc": {
+                      "start": {
+                        "line": 16,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 25,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -243,25 +295,7 @@
                       }
                     ]
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 268,
-                    "end": 372,
-                    "loc": {
-                      "start": {
-                        "line": 16,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 25,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -300,41 +334,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
-            "start": 1,
-            "end": 45,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  any resources it's using when the test scenario finishes.\n *\n * @public\n * @interface ",
-            "start": 46,
-            "end": 231,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

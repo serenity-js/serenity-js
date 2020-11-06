@@ -44,6 +44,40 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 1,
+            "end": 46,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Describes a collection providing\n *  a [`reduce`-like interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce).\n *\n * @interface\n *\n * @see {@link ElementArrayFinder}\n * @see {@link Loop}\n * @interface ",
+            "start": 47,
+            "end": 317,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 16
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -109,6 +143,40 @@
                     "column": 117
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 352,
+                    "end": 444,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @type {function<T,A>(callback: (accumulator: A, currentValue: T, index: number) => A, initialValue: A): PromiseLike<A> | A}\n     ",
+                    "start": 450,
+                    "end": 592,
+                    "loc": {
+                      "start": {
+                        "line": 30,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -689,41 +757,7 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 352,
-                    "end": 444,
-                    "loc": {
-                      "start": {
-                        "line": 19,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 28,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @type {function<T,A>(callback: (accumulator: A, currentValue: T, index: number) => A, initialValue: A): PromiseLike<A> | A}\n     ",
-                    "start": 450,
-                    "end": 592,
-                    "loc": {
-                      "start": {
-                        "line": 30,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 32,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                "value": null
               }
             ]
           },
@@ -762,41 +796,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 1,
-            "end": 46,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Describes a collection providing\n *  a [`reduce`-like interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce).\n *\n * @interface\n *\n * @see {@link ElementArrayFinder}\n * @see {@link Loop}\n * @interface ",
-            "start": 47,
-            "end": 317,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

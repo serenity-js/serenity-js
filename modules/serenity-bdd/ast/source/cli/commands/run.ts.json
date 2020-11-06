@@ -1142,6 +1142,24 @@
             "column": 31
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentLine",
+            "value": " tslint:disable-line:no-var-requires",
+            "start": 528,
+            "end": 566,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 32
+              },
+              "end": {
+                "line": 13,
+                "column": 70
+              }
+            }
+          }
+        ],
         "declarations": [
           {
             "type": "VariableDeclarator",
@@ -1230,8 +1248,23 @@
             }
           }
         ],
-        "kind": "const",
-        "trailingComments": [
+        "kind": "const"
+      },
+      {
+        "type": "TSExportAssignment",
+        "start": 568,
+        "end": 3798,
+        "loc": {
+          "start": {
+            "line": 15,
+            "column": 0
+          },
+          "end": {
+            "line": 95,
+            "column": 2
+          }
+        },
+        "leadingComments": [
           {
             "type": "CommentLine",
             "value": " tslint:disable-line:no-var-requires",
@@ -1248,22 +1281,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "TSExportAssignment",
-        "start": 568,
-        "end": 3798,
-        "loc": {
-          "start": {
-            "line": 15,
-            "column": 0
-          },
-          "end": {
-            "line": 95,
-            "column": 2
-          }
-        },
+        ],
         "expression": {
           "type": "ObjectExpression",
           "start": 577,
@@ -1277,6 +1295,9 @@
               "line": 95,
               "column": 1
             }
+          },
+          "extra": {
+            "trailingComma": 3794
           },
           "properties": [
             {
@@ -1437,6 +1458,9 @@
                     "column": 5
                   }
                 },
+                "extra": {
+                  "trailingComma": 2457
+                },
                 "properties": [
                   {
                     "type": "ObjectProperty",
@@ -1485,6 +1509,9 @@
                           "line": 22,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 882
                       },
                       "properties": [
                         {
@@ -1552,6 +1579,7 @@
                               },
                               "name": "defaults"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 784,
@@ -1568,8 +1596,7 @@
                                 "identifierName": "cacheDir"
                               },
                               "name": "cacheDir"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -1627,10 +1654,7 @@
                             "value": "A relative path to where the Serenity BDD CLI jar file is stored"
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 882
-                      }
+                      ]
                     }
                   },
                   {
@@ -1680,6 +1704,9 @@
                           "line": 26,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 1066
                       },
                       "properties": [
                         {
@@ -1747,6 +1774,7 @@
                               },
                               "name": "defaults"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 950,
@@ -1763,8 +1791,7 @@
                                 "identifierName": "reportDir"
                               },
                               "name": "reportDir"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -1822,10 +1849,7 @@
                             "value": "A relative path to the directory where the Serenity BDD report should be produced"
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 1066
-                      }
+                      ]
                     }
                   },
                   {
@@ -1875,6 +1899,9 @@
                           "line": 30,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 1241
                       },
                       "properties": [
                         {
@@ -1942,6 +1969,7 @@
                               },
                               "name": "defaults"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1131,
@@ -1958,8 +1986,7 @@
                                 "identifierName": "featuresDir"
                               },
                               "name": "featuresDir"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -2017,10 +2044,7 @@
                             "value": "A relative path to the directory containing the Cucumber.js feature files"
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 1241
-                      }
+                      ]
                     }
                   },
                   {
@@ -2070,6 +2094,9 @@
                           "line": 34,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 1470
                       },
                       "properties": [
                         {
@@ -2137,6 +2164,7 @@
                               },
                               "name": "defaults"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1306,
@@ -2153,8 +2181,7 @@
                                 "identifierName": "artifact"
                               },
                               "name": "artifact"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -2230,10 +2257,7 @@
                             ]
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 1470
-                      }
+                      ]
                     }
                   },
                   {
@@ -2283,6 +2307,9 @@
                           "line": 38,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 1640
                       },
                       "properties": [
                         {
@@ -2350,6 +2377,7 @@
                               },
                               "name": "defaults"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1533,
@@ -2366,8 +2394,7 @@
                                 "identifierName": "sourceDir"
                               },
                               "name": "sourceDir"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -2443,10 +2470,7 @@
                             ]
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 1640
-                      }
+                      ]
                     }
                   },
                   {
@@ -2496,6 +2520,9 @@
                           "line": 41,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 1747
                       },
                       "properties": [
                         {
@@ -2571,10 +2598,7 @@
                             ]
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 1747
-                      }
+                      ]
                     }
                   },
                   {
@@ -2624,6 +2648,9 @@
                           "line": 44,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 1830
                       },
                       "properties": [
                         {
@@ -2699,10 +2726,7 @@
                             ]
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 1830
-                      }
+                      ]
                     }
                   },
                   {
@@ -2752,6 +2776,9 @@
                           "line": 47,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 1914
                       },
                       "properties": [
                         {
@@ -2827,10 +2854,7 @@
                             ]
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 1914
-                      }
+                      ]
                     }
                   },
                   {
@@ -2880,6 +2904,9 @@
                           "line": 51,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 2067
                       },
                       "properties": [
                         {
@@ -2961,6 +2988,7 @@
                                 },
                                 "name": "path"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1972,
@@ -2977,8 +3005,7 @@
                                   "identifierName": "basename"
                                 },
                                 "name": "basename"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -3026,6 +3053,7 @@
                                     },
                                     "name": "process"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1989,
@@ -3042,8 +3070,7 @@
                                       "identifierName": "cwd"
                                     },
                                     "name": "cwd"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               }
@@ -3123,10 +3150,7 @@
                             ]
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 2067
-                      }
+                      ]
                     }
                   },
                   {
@@ -3176,6 +3200,9 @@
                           "line": 56,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 2254
                       },
                       "properties": [
                         {
@@ -3357,10 +3384,7 @@
                             ]
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 2254
-                      }
+                      ]
                     }
                   },
                   {
@@ -3410,6 +3434,9 @@
                           "line": 61,
                           "column": 9
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 2446
                       },
                       "properties": [
                         {
@@ -3477,6 +3504,7 @@
                               },
                               "name": "defaults"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2312,
@@ -3493,8 +3521,7 @@
                                 "identifierName": "log"
                               },
                               "name": "log"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -3682,16 +3709,10 @@
                             ]
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 2446
-                      }
+                      ]
                     }
                   }
-                ],
-                "extra": {
-                  "trailingComma": 2457
-                }
+                ]
               }
             },
             {
@@ -3935,6 +3956,7 @@
                                   },
                                   "name": "process"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2562,
@@ -3951,8 +3973,7 @@
                                     "identifierName": "stdout"
                                   },
                                   "name": "stdout"
-                                },
-                                "computed": false
+                                }
                               },
                               {
                                 "type": "MemberExpression",
@@ -3985,6 +4006,7 @@
                                   },
                                   "name": "process"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2578,
@@ -4001,8 +4023,7 @@
                                     "identifierName": "stderr"
                                   },
                                   "name": "stderr"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           }
@@ -4083,6 +4104,7 @@
                                 },
                                 "name": "GAV"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2621,
@@ -4099,8 +4121,7 @@
                                   "identifierName": "fromString"
                                 },
                                 "name": "fromString"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -4134,6 +4155,7 @@
                                   },
                                   "name": "argv"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2637,
@@ -4150,8 +4172,7 @@
                                     "identifierName": "artifact"
                                   },
                                   "name": "artifact"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           }
@@ -4278,6 +4299,7 @@
                                       },
                                       "name": "argv"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2692,
@@ -4294,11 +4316,11 @@
                                         "identifierName": "cacheDir"
                                       },
                                       "name": "cacheDir"
-                                    },
-                                    "computed": false
+                                    }
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2702,
@@ -4315,8 +4337,7 @@
                                   "identifierName": "join"
                                 },
                                 "name": "join"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -4364,6 +4385,7 @@
                                     },
                                     "name": "artifactGAV"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2719,
@@ -4380,8 +4402,7 @@
                                       "identifierName": "toPath"
                                     },
                                     "name": "toPath"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               }
@@ -4464,6 +4485,7 @@
                                 },
                                 "name": "path"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2765,
@@ -4480,8 +4502,7 @@
                                   "identifierName": "resolve"
                                 },
                                 "name": "resolve"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -4586,6 +4607,9 @@
                                 "line": 77,
                                 "column": 9
                               }
+                            },
+                            "extra": {
+                              "trailingComma": 3017
                             },
                             "properties": [
                               {
@@ -4731,6 +4755,7 @@
                                               },
                                               "name": "process"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 2877,
@@ -4747,8 +4772,7 @@
                                                 "identifierName": "cwd"
                                               },
                                               "name": "cwd"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": []
                                         }
@@ -4914,10 +4938,7 @@
                                   ]
                                 }
                               }
-                            ],
-                            "extra": {
-                              "trailingComma": 3017
-                            }
+                            ]
                           }
                         ]
                       }
@@ -5037,6 +5058,7 @@
                                     },
                                     "name": "Promise"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 3055,
@@ -5053,11 +5075,11 @@
                                       "identifierName": "resolve"
                                     },
                                     "name": "resolve"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3065,
@@ -5074,8 +5096,7 @@
                                   "identifierName": "then"
                                 },
                                 "name": "then"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -5109,6 +5130,9 @@
                                       "line": 88,
                                       "column": 17
                                     }
+                                  },
+                                  "extra": {
+                                    "trailingComma": 3612
                                   },
                                   "callee": {
                                     "type": "MemberExpression",
@@ -5178,6 +5202,7 @@
                                         }
                                       ]
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 3127,
@@ -5194,11 +5219,7 @@
                                         "identifierName": "attemptsTo"
                                       },
                                       "name": "attemptsTo"
-                                    },
-                                    "computed": false
-                                  },
-                                  "extra": {
-                                    "trailingComma": 3612
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -5302,6 +5323,7 @@
                                                   },
                                                   "name": "InvokeSerenityBDD"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 3177,
@@ -5318,8 +5340,7 @@
                                                     "identifierName": "at"
                                                   },
                                                   "name": "at"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "arguments": [
                                                 {
@@ -5341,6 +5362,7 @@
                                                 }
                                               ]
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 3221,
@@ -5357,8 +5379,7 @@
                                                 "identifierName": "withProperties"
                                               },
                                               "name": "withProperties"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -5406,6 +5427,7 @@
                                                   },
                                                   "name": "SystemProperties"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 3253,
@@ -5422,8 +5444,7 @@
                                                     "identifierName": "of"
                                                   },
                                                   "name": "of"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "arguments": [
                                                 {
@@ -5439,6 +5460,9 @@
                                                       "line": 86,
                                                       "column": 25
                                                     }
+                                                  },
+                                                  "extra": {
+                                                    "trailingComma": 3511
                                                   },
                                                   "properties": [
                                                     {
@@ -5524,6 +5548,7 @@
                                                               },
                                                               "name": "argv"
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 3326,
@@ -5540,8 +5565,7 @@
                                                                 "identifierName": "shortFilenames"
                                                               },
                                                               "name": "shortFilenames"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           }
                                                         ],
                                                         "quasis": [
@@ -5656,6 +5680,7 @@
                                                           },
                                                           "name": "argv"
                                                         },
+                                                        "computed": false,
                                                         "property": {
                                                           "type": "Identifier",
                                                           "start": 3391,
@@ -5672,8 +5697,7 @@
                                                             "identifierName": "log"
                                                           },
                                                           "name": "log"
-                                                        },
-                                                        "computed": false
+                                                        }
                                                       }
                                                     },
                                                     {
@@ -5758,6 +5782,7 @@
                                                             },
                                                             "name": "path"
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 3458,
@@ -5774,8 +5799,7 @@
                                                               "identifierName": "resolve"
                                                             },
                                                             "name": "resolve"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         },
                                                         "arguments": [
                                                           {
@@ -5818,15 +5842,13 @@
                                                         ]
                                                       }
                                                     }
-                                                  ],
-                                                  "extra": {
-                                                    "trailingComma": 3511
-                                                  }
+                                                  ]
                                                 }
                                               ]
                                             }
                                           ]
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3566,
@@ -5843,8 +5865,7 @@
                                             "identifierName": "withArguments"
                                           },
                                           "name": "withArguments"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -5892,6 +5913,7 @@
                                               },
                                               "name": "SerenityBDDArguments"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 3601,
@@ -5908,8 +5930,7 @@
                                                 "identifierName": "from"
                                               },
                                               "name": "from"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -5938,6 +5959,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3659,
@@ -5954,8 +5976,7 @@
                               "identifierName": "catch"
                             },
                             "name": "catch"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -6068,6 +6089,7 @@
                                         },
                                         "name": "printer"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3700,
@@ -6084,8 +6106,7 @@
                                           "identifierName": "error"
                                         },
                                         "name": "error"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -6201,6 +6222,7 @@
                                         },
                                         "name": "yargs"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3749,
@@ -6217,8 +6239,7 @@
                                           "identifierName": "exit"
                                         },
                                         "name": "exit"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -6272,6 +6293,7 @@
                                           },
                                           "name": "error"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3763,
@@ -6288,8 +6310,7 @@
                                             "identifierName": "message"
                                           },
                                           "name": "message"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     ]
                                   }
@@ -6306,29 +6327,8 @@
                 }
               }
             }
-          ],
-          "extra": {
-            "trailingComma": 3794
-          }
-        },
-        "leadingComments": [
-          {
-            "type": "CommentLine",
-            "value": " tslint:disable-line:no-var-requires",
-            "start": 528,
-            "end": 566,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 32
-              },
-              "end": {
-                "line": 13,
-                "column": 70
-              }
-            }
-          }
-        ]
+          ]
+        }
       }
     ],
     "directives": []

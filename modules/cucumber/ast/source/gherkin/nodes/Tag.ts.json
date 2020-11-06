@@ -44,6 +44,40 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 2 \n ",
+            "start": 1,
+            "end": 45,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file * @interface ",
+            "start": 46,
+            "end": 85,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 39
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -125,6 +159,42 @@
                     "column": 16
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 130,
+                    "end": 220,
+                    "loc": {
+                      "start": {
+                        "line": 10,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 239,
+                    "end": 328,
+                    "loc": {
+                      "start": {
+                        "line": 22,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 31,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -194,26 +264,23 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 130,
-                    "end": 220,
-                    "loc": {
-                      "start": {
-                        "line": 10,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 19,
-                        "column": 3
-                      }
-                    }
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 334,
+                "end": 347,
+                "loc": {
+                  "start": {
+                    "line": 33,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 33,
+                    "column": 17
                   }
-                ],
-                "trailingComments": [
+                },
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -230,22 +297,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 334,
-                "end": 347,
-                "loc": {
-                  "start": {
-                    "line": 33,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 33,
-                    "column": 17
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -295,25 +347,7 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 239,
-                    "end": 328,
-                    "loc": {
-                      "start": {
-                        "line": 22,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 31,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                "value": null
               }
             ]
           },
@@ -352,41 +386,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 2 \n ",
-            "start": 1,
-            "end": 45,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": " istanbul ignore file * @interface ",
-            "start": 46,
-            "end": 85,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 39
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

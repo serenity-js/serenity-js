@@ -44,6 +44,56 @@
             "column": 54
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 55,
+            "end": 100,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentLine",
+            "value": " tslint:disable-line:no-submodule-imports",
+            "start": 115,
+            "end": 158,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 14
+              },
+              "end": {
+                "line": 8,
+                "column": 57
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A JSON object which needs to be returned to Protractor when {@link ProtractorFrameworkAdapter}\n *  is done with executing the test scenarios.\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md\n *\n * @private\n * @interface ",
+            "start": 160,
+            "end": 436,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 16
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -115,8 +165,23 @@
             "raw": "'protractor/built/plugins'"
           },
           "value": "protractor/built/plugins"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 437,
+        "end": 1113,
+        "loc": {
+          "start": {
+            "line": 19,
+            "column": 0
+          },
+          "end": {
+            "line": 61,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
@@ -165,22 +230,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 437,
-        "end": 1113,
-        "loc": {
-          "start": {
-            "line": 19,
-            "column": 0
-          },
-          "end": {
-            "line": 61,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -246,6 +296,42 @@
                     "column": 24
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * Total number of failed scenarios \n * @lineNumber \n * 16 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                    "start": 478,
+                    "end": 600,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 29,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * Results per scenario\n * \n * Note: duration is not part of the SpecResult, but is being used by the Jasmine reporter\n * https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L32 \n * @lineNumber \n * 24 \n * @type \n * {Array} \n * @public \n * \\TRUE \n ",
+                    "start": 632,
+                    "end": 953,
+                    "loc": {
+                      "start": {
+                        "line": 33,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 45,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -295,26 +381,23 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * Total number of failed scenarios \n * @lineNumber \n * 16 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                    "start": 478,
-                    "end": 600,
-                    "loc": {
-                      "start": {
-                        "line": 20,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 29,
-                        "column": 3
-                      }
-                    }
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 965,
+                "end": 1111,
+                "loc": {
+                  "start": {
+                    "line": 49,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 60,
+                    "column": 21
                   }
-                ],
-                "trailingComments": [
+                },
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * Results per scenario\n * \n * Note: duration is not part of the SpecResult, but is being used by the Jasmine reporter\n * https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L32 \n * @lineNumber \n * 24 \n * @type \n * {Array} \n * @public \n * \\TRUE \n ",
@@ -331,22 +414,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 965,
-                "end": 1111,
-                "loc": {
-                  "start": {
-                    "line": 49,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 60,
-                    "column": 21
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -502,6 +570,24 @@
                                       "column": 17
                                     }
                                   },
+                                  "leadingComments": [
+                                    {
+                                      "type": "CommentBlock",
+                                      "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                                      "start": 999,
+                                      "end": 1089,
+                                      "loc": {
+                                        "start": {
+                                          "line": 50,
+                                          "column": 0
+                                        },
+                                        "end": {
+                                          "line": 59,
+                                          "column": 3
+                                        }
+                                      }
+                                    }
+                                  ],
                                   "key": {
                                     "type": "Identifier",
                                     "start": 1091,
@@ -549,25 +635,7 @@
                                         }
                                       }
                                     }
-                                  },
-                                  "leadingComments": [
-                                    {
-                                      "type": "CommentBlock",
-                                      "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                                      "start": 999,
-                                      "end": 1089,
-                                      "loc": {
-                                        "start": {
-                                          "line": 50,
-                                          "column": 0
-                                        },
-                                        "end": {
-                                          "line": 59,
-                                          "column": 3
-                                        }
-                                      }
-                                    }
-                                  ]
+                                  }
                                 }
                               ]
                             }
@@ -577,25 +645,7 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * Results per scenario\n * \n * Note: duration is not part of the SpecResult, but is being used by the Jasmine reporter\n * https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L32 \n * @lineNumber \n * 24 \n * @type \n * {Array} \n * @public \n * \\TRUE \n ",
-                    "start": 632,
-                    "end": 953,
-                    "loc": {
-                      "start": {
-                        "line": 33,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 45,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                "value": null
               }
             ]
           },
@@ -650,57 +700,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
-            "start": 55,
-            "end": 100,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentLine",
-            "value": " tslint:disable-line:no-submodule-imports",
-            "start": 115,
-            "end": 158,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 14
-              },
-              "end": {
-                "line": 8,
-                "column": 57
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A JSON object which needs to be returned to Protractor when {@link ProtractorFrameworkAdapter}\n *  is done with executing the test scenarios.\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md\n *\n * @private\n * @interface ",
-            "start": 160,
-            "end": 436,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 18,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

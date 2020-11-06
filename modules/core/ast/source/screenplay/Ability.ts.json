@@ -44,6 +44,40 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n ",
+            "start": 1,
+            "end": 46,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  An Ability enables the {@link Actor} to interact with an external interface of the system under test.\n *  Technically speaking, it's a wrapper around a client of said interface.\n *\n * @example\n * import { Ability, Actor, Interface } from '@serenity-js/core';\n *\n * class MakePhoneCalls implements Ability {\n *     static as(actor: UsesAbilities): MakesPhoneCalls {\n *         return actor.abilityTo(MakePhoneCalls);\n *     }\n *\n *     static using(phone: Phone) {\n *         return new MakePhoneCalls(phone);\n *     }\n *\n *     constructor(private readonly phone: Phone) {}\n *\n *     // some method that allows us to interact with the external interface of the system under test\n *     dial(phoneNumber: string) {\n *       // ...\n *     }\n * }\n *\n * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));\n *\n * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>\n *  MakePhoneCalls.as(actor).dial(phoneNumber);\n * );\n *\n * @access public\n * @interface ",
+            "start": 48,
+            "end": 1084,
+            "loc": {
+              "start": {
+                "line": 9,
+                "column": 0
+              },
+              "end": {
+                "line": 41,
+                "column": 16
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -94,7 +128,6 @@
                 "column": 1
               }
             },
-            "body": [],
             "innerComments": [
               {
                 "type": "CommentLine",
@@ -112,7 +145,8 @@
                   }
                 }
               }
-            ]
+            ],
+            "body": []
           },
           "leadingComments": [
             {
@@ -149,41 +183,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n ",
-            "start": 1,
-            "end": 46,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  An Ability enables the {@link Actor} to interact with an external interface of the system under test.\n *  Technically speaking, it's a wrapper around a client of said interface.\n *\n * @example\n * import { Ability, Actor, Interface } from '@serenity-js/core';\n *\n * class MakePhoneCalls implements Ability {\n *     static as(actor: UsesAbilities): MakesPhoneCalls {\n *         return actor.abilityTo(MakePhoneCalls);\n *     }\n *\n *     static using(phone: Phone) {\n *         return new MakePhoneCalls(phone);\n *     }\n *\n *     constructor(private readonly phone: Phone) {}\n *\n *     // some method that allows us to interact with the external interface of the system under test\n *     dial(phoneNumber: string) {\n *       // ...\n *     }\n * }\n *\n * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));\n *\n * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>\n *  MakePhoneCalls.as(actor).dial(phoneNumber);\n * );\n *\n * @access public\n * @interface ",
-            "start": 48,
-            "end": 1084,
-            "loc": {
-              "start": {
-                "line": 9,
-                "column": 0
-              },
-              "end": {
-                "line": 41,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

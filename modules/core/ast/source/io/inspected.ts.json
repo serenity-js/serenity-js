@@ -218,6 +218,40 @@
             "column": 50
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {Answerable} value \n * @return \n * {string} \n ",
+            "start": 138,
+            "end": 242,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Provides a human-readable description of the {@link Answerable<T>}.\n *  Similar to {@link util~inspect}.\n *\n * @public\n * @param {Answerable<any>} value\n * @return {string}\n ",
+            "start": 245,
+            "end": 438,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -289,8 +323,23 @@
             "raw": "'../screenplay/Question'"
           },
           "value": "../screenplay/Question"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 439,
+        "end": 1435,
+        "loc": {
+          "start": {
+            "line": 25,
+            "column": 0
+          },
+          "end": {
+            "line": 67,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {Answerable} value \n * @return \n * {string} \n ",
@@ -323,22 +372,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 439,
-        "end": 1435,
-        "loc": {
-          "start": {
-            "line": 25,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @param \n * {Answerable} v \n ",
+            "start": 1436,
+            "end": 1511,
+            "loc": {
+              "start": {
+                "line": 68,
+                "column": 0
+              },
+              "end": {
+                "line": 75,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 67,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n * Checks if the value is defined\n *\n * @private\n * @param {Answerable<any>} v\n ",
+            "start": 1514,
+            "end": 1609,
+            "loc": {
+              "start": {
+                "line": 78,
+                "column": 0
+              },
+              "end": {
+                "line": 84,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -745,6 +813,7 @@
                       },
                       "name": "Array"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 581,
@@ -761,8 +830,7 @@
                         "identifierName": "isArray"
                       },
                       "name": "isArray"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -952,6 +1020,7 @@
                                         },
                                         "name": "value"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 651,
@@ -968,8 +1037,7 @@
                                           "identifierName": "map"
                                         },
                                         "name": "map"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -1121,6 +1189,7 @@
                                       }
                                     ]
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 689,
@@ -1137,8 +1206,7 @@
                                       "identifierName": "join"
                                     },
                                     "name": "join"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -1185,6 +1253,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 729,
@@ -1201,8 +1270,7 @@
                               "identifierName": "join"
                             },
                             "name": "join"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1430,6 +1498,7 @@
                       },
                       "name": "Question"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 829,
@@ -1446,8 +1515,7 @@
                         "identifierName": "isAQuestion"
                       },
                       "name": "isAQuestion"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -1543,6 +1611,7 @@
                             },
                             "name": "value"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 872,
@@ -1559,8 +1628,7 @@
                               "identifierName": "toString"
                             },
                             "name": "toString"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": []
                       }
@@ -1709,6 +1777,7 @@
                             },
                             "name": "value"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 938,
@@ -1725,8 +1794,7 @@
                               "identifierName": "toISOString"
                             },
                             "name": "toISOString"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": []
                       }
@@ -1875,6 +1943,7 @@
                             },
                             "name": "value"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1017,
@@ -1891,8 +1960,7 @@
                               "identifierName": "toString"
                             },
                             "name": "toString"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": []
                       }
@@ -2041,6 +2109,7 @@
                             },
                             "name": "value"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1089,
@@ -2057,8 +2126,7 @@
                               "identifierName": "inspect"
                             },
                             "name": "inspect"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": []
                       }
@@ -2208,6 +2276,7 @@
                               },
                               "name": "value"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1167,
@@ -2224,8 +2293,7 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           }
                         ],
                         "quasis": [
@@ -2567,6 +2635,7 @@
                             },
                             "name": "JSON"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1315,
@@ -2583,8 +2652,7 @@
                               "identifierName": "stringify"
                             },
                             "name": "stringify"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2955,42 +3023,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 1610,
+        "end": 1669,
+        "loc": {
+          "start": {
+            "line": 85,
+            "column": 0
+          },
+          "end": {
+            "line": 87,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {Answerable} value \n * @return \n * {string} \n ",
-            "start": 138,
-            "end": 242,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Provides a human-readable description of the {@link Answerable<T>}.\n *  Similar to {@link util~inspect}.\n *\n * @public\n * @param {Answerable<any>} value\n * @return {string}\n ",
-            "start": 245,
-            "end": 438,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 24,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @param \n * {Answerable} v \n ",
@@ -3023,22 +3072,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 1610,
-        "end": 1669,
-        "loc": {
-          "start": {
-            "line": 85,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 76 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
+            "start": 1670,
+            "end": 1771,
+            "loc": {
+              "start": {
+                "line": 88,
+                "column": 0
+              },
+              "end": {
+                "line": 97,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 87,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n * Checks if the value defines its own `toString` method\n *\n * @private\n * @param {Answerable<any>} v\n ",
+            "start": 1774,
+            "end": 1892,
+            "loc": {
+              "start": {
+                "line": 100,
+                "column": 0
+              },
+              "end": {
+                "line": 106,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 1619,
@@ -3239,42 +3307,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 1893,
+        "end": 2234,
+        "loc": {
+          "start": {
+            "line": 107,
+            "column": 0
+          },
+          "end": {
+            "line": 123,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @param \n * {Answerable} v \n ",
-            "start": 1436,
-            "end": 1511,
-            "loc": {
-              "start": {
-                "line": 68,
-                "column": 0
-              },
-              "end": {
-                "line": 75,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n * Checks if the value is defined\n *\n * @private\n * @param {Answerable<any>} v\n ",
-            "start": 1514,
-            "end": 1609,
-            "loc": {
-              "start": {
-                "line": 78,
-                "column": 0
-              },
-              "end": {
-                "line": 84,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 76 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
@@ -3307,22 +3356,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 1893,
-        "end": 2234,
-        "loc": {
-          "start": {
-            "line": 107,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
+            "start": 2235,
+            "end": 2336,
+            "loc": {
+              "start": {
+                "line": 124,
+                "column": 0
+              },
+              "end": {
+                "line": 133,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 123,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n * Checks if the value defines its own `inspect` method\n *\n * @private\n * @param {Answerable<any>} v\n ",
+            "start": 2339,
+            "end": 2456,
+            "loc": {
+              "start": {
+                "line": 136,
+                "column": 0
+              },
+              "end": {
+                "line": 142,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 1902,
@@ -3528,6 +3596,24 @@
                         "column": 23
                       }
                     },
+                    "leadingComments": [
+                      {
+                        "type": "CommentBlock",
+                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 76 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                        "start": 1948,
+                        "end": 2040,
+                        "loc": {
+                          "start": {
+                            "line": 108,
+                            "column": 0
+                          },
+                          "end": {
+                            "line": 117,
+                            "column": 3
+                          }
+                        }
+                      }
+                    ],
                     "key": {
                       "type": "Identifier",
                       "start": 2042,
@@ -3606,29 +3692,12 @@
                           }
                         }
                       }
-                    },
-                    "leadingComments": [
-                      {
-                        "type": "CommentBlock",
-                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 76 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                        "start": 1948,
-                        "end": 2040,
-                        "loc": {
-                          "start": {
-                            "line": 108,
-                            "column": 0
-                          },
-                          "end": {
-                            "line": 117,
-                            "column": 3
-                          }
-                        }
-                      }
-                    ]
+                    }
                   }
                 ]
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -3833,6 +3902,10 @@
                                 "column": 23
                               }
                             },
+                            "extra": {
+                              "parenthesized": true,
+                              "parenStart": 2116
+                            },
                             "expression": {
                               "type": "Identifier",
                               "start": 2117,
@@ -3864,12 +3937,9 @@
                                   "column": 23
                                 }
                               }
-                            },
-                            "extra": {
-                              "parenthesized": true,
-                              "parenStart": 2116
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2127,
@@ -3886,8 +3956,7 @@
                               "identifierName": "toString"
                             },
                             "name": "toString"
-                          },
-                          "computed": false
+                          }
                         }
                       }
                     }
@@ -3951,6 +4020,10 @@
                               "column": 27
                             }
                           },
+                          "extra": {
+                            "parenthesized": true,
+                            "parenStart": 2154
+                          },
                           "expression": {
                             "type": "Identifier",
                             "start": 2155,
@@ -3982,12 +4055,9 @@
                                 "column": 27
                               }
                             }
-                          },
-                          "extra": {
-                            "parenthesized": true,
-                            "parenStart": 2154
                           }
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 2165,
@@ -4004,8 +4074,7 @@
                             "identifierName": "toString"
                           },
                           "name": "toString"
-                        },
-                        "computed": false
+                        }
                       }
                     },
                     "operator": "===",
@@ -4108,6 +4177,10 @@
                               "column": 31
                             }
                           },
+                          "extra": {
+                            "parenthesized": true,
+                            "parenStart": 2211
+                          },
                           "expression": {
                             "type": "Identifier",
                             "start": 2212,
@@ -4139,12 +4212,9 @@
                                 "column": 31
                               }
                             }
-                          },
-                          "extra": {
-                            "parenthesized": true,
-                            "parenStart": 2211
                           }
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 2222,
@@ -4161,8 +4231,7 @@
                             "identifierName": "toString"
                           },
                           "name": "toString"
-                        },
-                        "computed": false
+                        }
                       }
                     ]
                   }
@@ -4171,42 +4240,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 2457,
+        "end": 2707,
+        "loc": {
+          "start": {
+            "line": 143,
+            "column": 0
+          },
+          "end": {
+            "line": 156,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 76 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
-            "start": 1670,
-            "end": 1771,
-            "loc": {
-              "start": {
-                "line": 88,
-                "column": 0
-              },
-              "end": {
-                "line": 97,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n * Checks if the value defines its own `toString` method\n *\n * @private\n * @param {Answerable<any>} v\n ",
-            "start": 1774,
-            "end": 1892,
-            "loc": {
-              "start": {
-                "line": 100,
-                "column": 0
-              },
-              "end": {
-                "line": 106,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
@@ -4239,22 +4289,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 2457,
-        "end": 2707,
-        "loc": {
-          "start": {
-            "line": 143,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 101 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
+            "start": 2708,
+            "end": 2810,
+            "loc": {
+              "start": {
+                "line": 157,
+                "column": 0
+              },
+              "end": {
+                "line": 166,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 156,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n * Checks if the value is a {@link Date}\n *\n * @private\n * @param {Answerable<any>} v\n ",
+            "start": 2813,
+            "end": 2915,
+            "loc": {
+              "start": {
+                "line": 169,
+                "column": 0
+              },
+              "end": {
+                "line": 175,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 2466,
@@ -4460,6 +4529,24 @@
                         "column": 22
                       }
                     },
+                    "leadingComments": [
+                      {
+                        "type": "CommentBlock",
+                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                        "start": 2508,
+                        "end": 2600,
+                        "loc": {
+                          "start": {
+                            "line": 144,
+                            "column": 0
+                          },
+                          "end": {
+                            "line": 153,
+                            "column": 3
+                          }
+                        }
+                      }
+                    ],
                     "key": {
                       "type": "Identifier",
                       "start": 2602,
@@ -4538,29 +4625,12 @@
                           }
                         }
                       }
-                    },
-                    "leadingComments": [
-                      {
-                        "type": "CommentBlock",
-                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                        "start": 2508,
-                        "end": 2600,
-                        "loc": {
-                          "start": {
-                            "line": 144,
-                            "column": 0
-                          },
-                          "end": {
-                            "line": 153,
-                            "column": 3
-                          }
-                        }
-                      }
-                    ]
+                    }
                   }
                 ]
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -4666,6 +4736,10 @@
                             "column": 23
                           }
                         },
+                        "extra": {
+                          "parenthesized": true,
+                          "parenStart": 2642
+                        },
                         "expression": {
                           "type": "Identifier",
                           "start": 2643,
@@ -4697,12 +4771,9 @@
                               "column": 23
                             }
                           }
-                        },
-                        "extra": {
-                          "parenthesized": true,
-                          "parenStart": 2642
                         }
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 2653,
@@ -4719,8 +4790,7 @@
                           "identifierName": "inspect"
                         },
                         "name": "inspect"
-                      },
-                      "computed": false
+                      }
                     }
                   }
                 },
@@ -4783,6 +4853,10 @@
                             "column": 52
                           }
                         },
+                        "extra": {
+                          "parenthesized": true,
+                          "parenStart": 2671
+                        },
                         "expression": {
                           "type": "Identifier",
                           "start": 2672,
@@ -4814,12 +4888,9 @@
                               "column": 52
                             }
                           }
-                        },
-                        "extra": {
-                          "parenthesized": true,
-                          "parenStart": 2671
                         }
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 2682,
@@ -4836,8 +4907,7 @@
                           "identifierName": "inspect"
                         },
                         "name": "inspect"
-                      },
-                      "computed": false
+                      }
                     }
                   },
                   "operator": "===",
@@ -4866,42 +4936,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 2916,
+        "end": 2997,
+        "loc": {
+          "start": {
+            "line": 176,
+            "column": 0
+          },
+          "end": {
+            "line": 178,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
-            "start": 2235,
-            "end": 2336,
-            "loc": {
-              "start": {
-                "line": 124,
-                "column": 0
-              },
-              "end": {
-                "line": 133,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n * Checks if the value defines its own `inspect` method\n *\n * @private\n * @param {Answerable<any>} v\n ",
-            "start": 2339,
-            "end": 2456,
-            "loc": {
-              "start": {
-                "line": 136,
-                "column": 0
-              },
-              "end": {
-                "line": 142,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 101 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
@@ -4934,22 +4985,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 2916,
-        "end": 2997,
-        "loc": {
-          "start": {
-            "line": 176,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 112 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
+            "start": 2998,
+            "end": 3100,
+            "loc": {
+              "start": {
+                "line": 179,
+                "column": 0
+              },
+              "end": {
+                "line": 188,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 178,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n * Checks if the value is a {@link Promise}\n *\n * @private\n * @param {Answerable<any>} v\n ",
+            "start": 3103,
+            "end": 3208,
+            "loc": {
+              "start": {
+                "line": 191,
+                "column": 0
+              },
+              "end": {
+                "line": 197,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 2925,
@@ -5158,7 +5228,8 @@
                   "name": "Date"
                 }
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -5243,42 +5314,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 3209,
+        "end": 3301,
+        "loc": {
+          "start": {
+            "line": 198,
+            "column": 0
+          },
+          "end": {
+            "line": 200,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 101 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
-            "start": 2708,
-            "end": 2810,
-            "loc": {
-              "start": {
-                "line": 157,
-                "column": 0
-              },
-              "end": {
-                "line": 166,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n * Checks if the value is a {@link Date}\n *\n * @private\n * @param {Answerable<any>} v\n ",
-            "start": 2813,
-            "end": 2915,
-            "loc": {
-              "start": {
-                "line": 169,
-                "column": 0
-              },
-              "end": {
-                "line": 175,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 112 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
@@ -5311,22 +5363,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 3209,
-        "end": 3301,
-        "loc": {
-          "start": {
-            "line": 198,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {any} v \n * @return \n * {UNKNOWN} \n ",
+            "start": 3302,
+            "end": 3397,
+            "loc": {
+              "start": {
+                "line": 201,
+                "column": 0
+              },
+              "end": {
+                "line": 210,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 200,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n * Checks if the value is a named {@link Function}\n *\n * @private\n * @param {Answerable<any>} v\n ",
+            "start": 3400,
+            "end": 3512,
+            "loc": {
+              "start": {
+                "line": 213,
+                "column": 0
+              },
+              "end": {
+                "line": 219,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 3218,
@@ -5634,7 +5705,8 @@
                   ]
                 }
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -5726,6 +5798,10 @@
                           "column": 23
                         }
                       },
+                      "extra": {
+                        "parenthesized": true,
+                        "parenStart": 3283
+                      },
                       "expression": {
                         "type": "Identifier",
                         "start": 3284,
@@ -5757,12 +5833,9 @@
                             "column": 23
                           }
                         }
-                      },
-                      "extra": {
-                        "parenthesized": true,
-                        "parenStart": 3283
                       }
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 3294,
@@ -5779,50 +5852,30 @@
                         "identifierName": "then"
                       },
                       "name": "then"
-                    },
-                    "computed": false
+                    }
                   }
                 }
               }
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 3513,
+        "end": 3751,
+        "loc": {
+          "start": {
+            "line": 220,
+            "column": 0
+          },
+          "end": {
+            "line": 233,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 112 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
-            "start": 2998,
-            "end": 3100,
-            "loc": {
-              "start": {
-                "line": 179,
-                "column": 0
-              },
-              "end": {
-                "line": 188,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n * Checks if the value is a {@link Promise}\n *\n * @private\n * @param {Answerable<any>} v\n ",
-            "start": 3103,
-            "end": 3208,
-            "loc": {
-              "start": {
-                "line": 191,
-                "column": 0
-              },
-              "end": {
-                "line": 197,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {any} v \n * @return \n * {UNKNOWN} \n ",
@@ -5855,22 +5908,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 3513,
-        "end": 3751,
-        "loc": {
-          "start": {
-            "line": 220,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
+            "start": 3752,
+            "end": 3854,
+            "loc": {
+              "start": {
+                "line": 234,
+                "column": 0
+              },
+              "end": {
+                "line": 243,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 233,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n * Checks if the value defines its own `inspect` method\n * See: https://nodejs.org/api/util.html#util_util_inspect_custom\n *\n * @private\n * @param {Answerable<any>} v\n ",
+            "start": 3857,
+            "end": 4040,
+            "loc": {
+              "start": {
+                "line": 246,
+                "column": 0
+              },
+              "end": {
+                "line": 253,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 3522,
@@ -6060,6 +6132,24 @@
                         "column": 13
                       }
                     },
+                    "leadingComments": [
+                      {
+                        "type": "CommentBlock",
+                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                        "start": 3558,
+                        "end": 3649,
+                        "loc": {
+                          "start": {
+                            "line": 221,
+                            "column": 0
+                          },
+                          "end": {
+                            "line": 230,
+                            "column": 3
+                          }
+                        }
+                      }
+                    ],
                     "key": {
                       "type": "Identifier",
                       "start": 3651,
@@ -6107,29 +6197,12 @@
                           }
                         }
                       }
-                    },
-                    "leadingComments": [
-                      {
-                        "type": "CommentBlock",
-                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                        "start": 3558,
-                        "end": 3649,
-                        "loc": {
-                          "start": {
-                            "line": 221,
-                            "column": 0
-                          },
-                          "end": {
-                            "line": 230,
-                            "column": 3
-                          }
-                        }
-                      }
-                    ]
+                    }
                   }
                 ]
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -6247,6 +6320,7 @@
                           },
                           "properties": []
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 3682,
@@ -6263,9 +6337,9 @@
                             "identifierName": "toString"
                           },
                           "name": "toString"
-                        },
-                        "computed": false
+                        }
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 3691,
@@ -6282,8 +6356,7 @@
                           "identifierName": "call"
                         },
                         "name": "call"
-                      },
-                      "computed": false
+                      }
                     },
                     "arguments": [
                       {
@@ -6370,6 +6443,10 @@
                           "column": 67
                         }
                       },
+                      "extra": {
+                        "parenthesized": true,
+                        "parenStart": 3726
+                      },
                       "expression": {
                         "type": "Identifier",
                         "start": 3727,
@@ -6401,12 +6478,9 @@
                             "column": 67
                           }
                         }
-                      },
-                      "extra": {
-                        "parenthesized": true,
-                        "parenStart": 3726
                       }
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 3737,
@@ -6423,8 +6497,7 @@
                         "identifierName": "name"
                       },
                       "name": "name"
-                    },
-                    "computed": false
+                    }
                   },
                   "operator": "!==",
                   "right": {
@@ -6452,42 +6525,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 4041,
+        "end": 4175,
+        "loc": {
+          "start": {
+            "line": 254,
+            "column": 0
+          },
+          "end": {
+            "line": 256,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {any} v \n * @return \n * {UNKNOWN} \n ",
-            "start": 3302,
-            "end": 3397,
-            "loc": {
-              "start": {
-                "line": 201,
-                "column": 0
-              },
-              "end": {
-                "line": 210,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n * Checks if the value is a named {@link Function}\n *\n * @private\n * @param {Answerable<any>} v\n ",
-            "start": 3400,
-            "end": 3512,
-            "loc": {
-              "start": {
-                "line": 213,
-                "column": 0
-              },
-              "end": {
-                "line": 219,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
@@ -6520,22 +6574,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 4041,
-        "end": 4175,
-        "loc": {
-          "start": {
-            "line": 254,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
+            "start": 4176,
+            "end": 4278,
+            "loc": {
+              "start": {
+                "line": 257,
+                "column": 0
+              },
+              "end": {
+                "line": 266,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 256,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n * Checks if the value has a good chance of being a plain JavaScript object\n *\n * @private\n * @param {Answerable<any>} v\n ",
+            "start": 4281,
+            "end": 4418,
+            "loc": {
+              "start": {
+                "line": 269,
+                "column": 0
+              },
+              "end": {
+                "line": 275,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4050,
@@ -6727,7 +6800,8 @@
                   }
                 }
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -6822,6 +6896,7 @@
                     },
                     "name": "v"
                   },
+                  "computed": true,
                   "property": {
                     "type": "CallExpression",
                     "start": 4131,
@@ -6867,6 +6942,7 @@
                         },
                         "name": "Symbol"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 4138,
@@ -6883,8 +6959,7 @@
                           "identifierName": "for"
                         },
                         "name": "for"
-                      },
-                      "computed": false
+                      }
                     },
                     "arguments": [
                       {
@@ -6908,49 +6983,29 @@
                         "value": "nodejs.util.inspect.custom"
                       }
                     ]
-                  },
-                  "computed": true
+                  }
                 }
               }
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 4419,
+        "end": 5060,
+        "loc": {
+          "start": {
+            "line": 276,
+            "column": 0
+          },
+          "end": {
+            "line": 294,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
-            "start": 3752,
-            "end": 3854,
-            "loc": {
-              "start": {
-                "line": 234,
-                "column": 0
-              },
-              "end": {
-                "line": 243,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n * Checks if the value defines its own `inspect` method\n * See: https://nodejs.org/api/util.html#util_util_inspect_custom\n *\n * @private\n * @param {Answerable<any>} v\n ",
-            "start": 3857,
-            "end": 4040,
-            "loc": {
-              "start": {
-                "line": 246,
-                "column": 0
-              },
-              "end": {
-                "line": 253,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
@@ -6983,22 +7038,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 4419,
-        "end": 5060,
-        "loc": {
-          "start": {
-            "line": 276,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 173 \n * @param \n * {any} v \n * @return \n * {UNKNOWN} \n ",
+            "start": 5061,
+            "end": 5156,
+            "loc": {
+              "start": {
+                "line": 295,
+                "column": 0
+              },
+              "end": {
+                "line": 304,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 294,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n * Checks if the value is a JSON object that can be stringified\n *\n * @private\n * @param {Answerable<any>} v\n ",
+            "start": 5159,
+            "end": 5284,
+            "loc": {
+              "start": {
+                "line": 307,
+                "column": 0
+              },
+              "end": {
+                "line": 313,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4428,
@@ -7190,7 +7264,8 @@
                   }
                 }
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -7222,6 +7297,42 @@
                   "column": 5
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "CommentLine",
+                  "value": " Basic check for Type object that's not null",
+                  "start": 4482,
+                  "end": 4528,
+                  "loc": {
+                    "start": {
+                      "line": 278,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 278,
+                      "column": 50
+                    }
+                  }
+                }
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentLine",
+                  "value": " Not an object",
+                  "start": 5024,
+                  "end": 5040,
+                  "loc": {
+                    "start": {
+                      "line": 292,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 292,
+                      "column": 20
+                    }
+                  }
+                }
+              ],
               "test": {
                 "type": "LogicalExpression",
                 "start": 4537,
@@ -7385,6 +7496,58 @@
                         "column": 9
                       }
                     },
+                    "leadingComments": [
+                      {
+                        "type": "CommentLine",
+                        "value": " If Object.getPrototypeOf supported, use it",
+                        "start": 4585,
+                        "end": 4630,
+                        "loc": {
+                          "start": {
+                            "line": 281,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 281,
+                            "column": 53
+                          }
+                        }
+                      }
+                    ],
+                    "trailingComments": [
+                      {
+                        "type": "CommentLine",
+                        "value": " Otherwise, use internal class",
+                        "start": 4826,
+                        "end": 4858,
+                        "loc": {
+                          "start": {
+                            "line": 287,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 287,
+                            "column": 40
+                          }
+                        }
+                      },
+                      {
+                        "type": "CommentLine",
+                        "value": " This should be reliable as if getPrototypeOf not supported, is pre-ES5",
+                        "start": 4867,
+                        "end": 4940,
+                        "loc": {
+                          "start": {
+                            "line": 288,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 288,
+                            "column": 81
+                          }
+                        }
+                      }
+                    ],
                     "test": {
                       "type": "BinaryExpression",
                       "start": 4643,
@@ -7446,6 +7609,7 @@
                             },
                             "name": "Object"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4657,
@@ -7462,8 +7626,7 @@
                               "identifierName": "getPrototypeOf"
                             },
                             "name": "getPrototypeOf"
-                          },
-                          "computed": false
+                          }
                         }
                       },
                       "operator": "===",
@@ -7594,6 +7757,7 @@
                                     },
                                     "name": "Object"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 4723,
@@ -7610,8 +7774,7 @@
                                       "identifierName": "getPrototypeOf"
                                     },
                                     "name": "getPrototypeOf"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -7728,6 +7891,7 @@
                                   },
                                   "name": "Object"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4778,
@@ -7744,8 +7908,7 @@
                                     "identifierName": "prototype"
                                   },
                                   "name": "prototype"
-                                },
-                                "computed": false
+                                }
                               }
                             },
                             "operator": "||",
@@ -7802,26 +7965,23 @@
                       ],
                       "directives": []
                     },
-                    "alternate": null,
-                    "leadingComments": [
-                      {
-                        "type": "CommentLine",
-                        "value": " If Object.getPrototypeOf supported, use it",
-                        "start": 4585,
-                        "end": 4630,
-                        "loc": {
-                          "start": {
-                            "line": 281,
-                            "column": 8
-                          },
-                          "end": {
-                            "line": 281,
-                            "column": 53
-                          }
-                        }
+                    "alternate": null
+                  },
+                  {
+                    "type": "ReturnStatement",
+                    "start": 4949,
+                    "end": 5012,
+                    "loc": {
+                      "start": {
+                        "line": 289,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 289,
+                        "column": 71
                       }
-                    ],
-                    "trailingComments": [
+                    },
+                    "leadingComments": [
                       {
                         "type": "CommentLine",
                         "value": " Otherwise, use internal class",
@@ -7854,22 +8014,7 @@
                           }
                         }
                       }
-                    ]
-                  },
-                  {
-                    "type": "ReturnStatement",
-                    "start": 4949,
-                    "end": 5012,
-                    "loc": {
-                      "start": {
-                        "line": 289,
-                        "column": 8
-                      },
-                      "end": {
-                        "line": 289,
-                        "column": 71
-                      }
-                    },
+                    ],
                     "argument": {
                       "type": "BinaryExpression",
                       "start": 4956,
@@ -7957,6 +8102,7 @@
                                 },
                                 "name": "Object"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4963,
@@ -7973,9 +8119,9 @@
                                   "identifierName": "prototype"
                                 },
                                 "name": "prototype"
-                              },
-                              "computed": false
+                              }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 4973,
@@ -7992,9 +8138,9 @@
                                 "identifierName": "toString"
                               },
                               "name": "toString"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4982,
@@ -8011,8 +8157,7 @@
                               "identifierName": "call"
                             },
                             "name": "call"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -8055,82 +8200,12 @@
                         },
                         "value": "[object Object]"
                       }
-                    },
-                    "leadingComments": [
-                      {
-                        "type": "CommentLine",
-                        "value": " Otherwise, use internal class",
-                        "start": 4826,
-                        "end": 4858,
-                        "loc": {
-                          "start": {
-                            "line": 287,
-                            "column": 8
-                          },
-                          "end": {
-                            "line": 287,
-                            "column": 40
-                          }
-                        }
-                      },
-                      {
-                        "type": "CommentLine",
-                        "value": " This should be reliable as if getPrototypeOf not supported, is pre-ES5",
-                        "start": 4867,
-                        "end": 4940,
-                        "loc": {
-                          "start": {
-                            "line": 288,
-                            "column": 8
-                          },
-                          "end": {
-                            "line": 288,
-                            "column": 81
-                          }
-                        }
-                      }
-                    ]
+                    }
                   }
                 ],
                 "directives": []
               },
-              "alternate": null,
-              "leadingComments": [
-                {
-                  "type": "CommentLine",
-                  "value": " Basic check for Type object that's not null",
-                  "start": 4482,
-                  "end": 4528,
-                  "loc": {
-                    "start": {
-                      "line": 278,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 278,
-                      "column": 50
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
-                {
-                  "type": "CommentLine",
-                  "value": " Not an object",
-                  "start": 5024,
-                  "end": 5040,
-                  "loc": {
-                    "start": {
-                      "line": 292,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 292,
-                      "column": 20
-                    }
-                  }
-                }
-              ]
+              "alternate": null
             },
             {
               "type": "ReturnStatement",
@@ -8146,22 +8221,6 @@
                   "column": 17
                 }
               },
-              "argument": {
-                "type": "BooleanLiteral",
-                "start": 5052,
-                "end": 5057,
-                "loc": {
-                  "start": {
-                    "line": 293,
-                    "column": 11
-                  },
-                  "end": {
-                    "line": 293,
-                    "column": 16
-                  }
-                },
-                "value": false
-              },
               "leadingComments": [
                 {
                   "type": "CommentLine",
@@ -8179,46 +8238,43 @@
                     }
                   }
                 }
-              ]
+              ],
+              "argument": {
+                "type": "BooleanLiteral",
+                "start": 5052,
+                "end": 5057,
+                "loc": {
+                  "start": {
+                    "line": 293,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 293,
+                    "column": 16
+                  }
+                },
+                "value": false
+              }
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 5285,
+        "end": 5447,
+        "loc": {
+          "start": {
+            "line": 314,
+            "column": 0
+          },
+          "end": {
+            "line": 322,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @param \n * {Answerable} v \n * @return \n * {UNKNOWN} \n ",
-            "start": 4176,
-            "end": 4278,
-            "loc": {
-              "start": {
-                "line": 257,
-                "column": 0
-              },
-              "end": {
-                "line": 266,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n * Checks if the value has a good chance of being a plain JavaScript object\n *\n * @private\n * @param {Answerable<any>} v\n ",
-            "start": 4281,
-            "end": 4418,
-            "loc": {
-              "start": {
-                "line": 269,
-                "column": 0
-              },
-              "end": {
-                "line": 275,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 173 \n * @param \n * {any} v \n * @return \n * {UNKNOWN} \n ",
@@ -8251,22 +8307,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 5285,
-        "end": 5447,
-        "loc": {
-          "start": {
-            "line": 314,
-            "column": 0
-          },
-          "end": {
-            "line": 322,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n * https://davidwalsh.name/detect-native-function \n * @lineNumber \n * 187 \n * @param \n * {any} v \n * @return \n * {UNKNOWN} \n ",
+            "start": 5448,
+            "end": 5589,
+            "loc": {
+              "start": {
+                "line": 323,
+                "column": 0
+              },
+              "end": {
+                "line": 332,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 5294,
@@ -8442,7 +8501,8 @@
                   }
                 }
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -8548,6 +8608,7 @@
                           },
                           "name": "JSON"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 5364,
@@ -8564,8 +8625,7 @@
                             "identifierName": "stringify"
                           },
                           "name": "stringify"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -8707,42 +8767,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 5593,
+        "end": 7274,
+        "loc": {
+          "start": {
+            "line": 336,
+            "column": 0
+          },
+          "end": {
+            "line": 367,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 173 \n * @param \n * {any} v \n * @return \n * {UNKNOWN} \n ",
-            "start": 5061,
-            "end": 5156,
-            "loc": {
-              "start": {
-                "line": 295,
-                "column": 0
-              },
-              "end": {
-                "line": 304,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n * Checks if the value is a JSON object that can be stringified\n *\n * @private\n * @param {Answerable<any>} v\n ",
-            "start": 5159,
-            "end": 5284,
-            "loc": {
-              "start": {
-                "line": 307,
-                "column": 0
-              },
-              "end": {
-                "line": 313,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n * https://davidwalsh.name/detect-native-function \n * @lineNumber \n * 187 \n * @param \n * {any} v \n * @return \n * {UNKNOWN} \n ",
@@ -8759,22 +8800,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 5593,
-        "end": 7274,
-        "loc": {
-          "start": {
-            "line": 336,
-            "column": 0
-          },
-          "end": {
-            "line": 367,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 5602,
@@ -8934,7 +8960,8 @@
                   "name": "Function"
                 }
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -8966,6 +8993,74 @@
                   "column": 56
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "CommentLine",
+                  "value": " tslint:disable-line:ban-types",
+                  "start": 5641,
+                  "end": 5673,
+                  "loc": {
+                    "start": {
+                      "line": 336,
+                      "column": 48
+                    },
+                    "end": {
+                      "line": 336,
+                      "column": 80
+                    }
+                  }
+                }
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentLine",
+                  "value": " Used to detect host constructors (Safari > 4; really typed array specific)",
+                  "start": 5966,
+                  "end": 6043,
+                  "loc": {
+                    "start": {
+                      "line": 341,
+                      "column": 57
+                    },
+                    "end": {
+                      "line": 341,
+                      "column": 134
+                    }
+                  }
+                },
+                {
+                  "type": "CommentLine",
+                  "value": " Compile a regexp using a common native method as a template.",
+                  "start": 6049,
+                  "end": 6112,
+                  "loc": {
+                    "start": {
+                      "line": 343,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 343,
+                      "column": 67
+                    }
+                  }
+                },
+                {
+                  "type": "CommentLine",
+                  "value": " We chose `Object#toString` because there's a good chance it is not being mucked with.",
+                  "start": 6117,
+                  "end": 6205,
+                  "loc": {
+                    "start": {
+                      "line": 344,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 344,
+                      "column": 92
+                    }
+                  }
+                }
+              ],
               "declarations": [
                 {
                   "type": "VariableDeclarator",
@@ -9043,6 +9138,7 @@
                         },
                         "name": "Object"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 5718,
@@ -9059,9 +9155,9 @@
                           "identifierName": "prototype"
                         },
                         "name": "prototype"
-                      },
-                      "computed": false
+                      }
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 5728,
@@ -9078,8 +9174,7 @@
                         "identifierName": "toString"
                       },
                       "name": "toString"
-                    },
-                    "computed": false
+                    }
                   }
                 },
                 {
@@ -9096,6 +9191,24 @@
                       "column": 53
                     }
                   },
+                  "leadingComments": [
+                    {
+                      "type": "CommentLine",
+                      "value": " Used to resolve the internal `[[Class]]` of values",
+                      "start": 5744,
+                      "end": 5797,
+                      "loc": {
+                        "start": {
+                          "line": 339,
+                          "column": 59
+                        },
+                        "end": {
+                          "line": 339,
+                          "column": 112
+                        }
+                      }
+                    }
+                  ],
                   "id": {
                     "type": "Identifier",
                     "start": 5806,
@@ -9158,6 +9271,7 @@
                         },
                         "name": "Function"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 5833,
@@ -9174,9 +9288,9 @@
                           "identifierName": "prototype"
                         },
                         "name": "prototype"
-                      },
-                      "computed": false
+                      }
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 5843,
@@ -9193,27 +9307,8 @@
                         "identifierName": "toString"
                       },
                       "name": "toString"
-                    },
-                    "computed": false
-                  },
-                  "leadingComments": [
-                    {
-                      "type": "CommentLine",
-                      "value": " Used to resolve the internal `[[Class]]` of values",
-                      "start": 5744,
-                      "end": 5797,
-                      "loc": {
-                        "start": {
-                          "line": 339,
-                          "column": 59
-                        },
-                        "end": {
-                          "line": 339,
-                          "column": 112
-                        }
-                      }
                     }
-                  ]
+                  }
                 },
                 {
                   "type": "VariableDeclarator",
@@ -9229,6 +9324,24 @@
                       "column": 55
                     }
                   },
+                  "leadingComments": [
+                    {
+                      "type": "CommentLine",
+                      "value": " Used to resolve the decompiled source of functions",
+                      "start": 5855,
+                      "end": 5908,
+                      "loc": {
+                        "start": {
+                          "line": 340,
+                          "column": 57
+                        },
+                        "end": {
+                          "line": 340,
+                          "column": 110
+                        }
+                      }
+                    }
+                  ],
                   "id": {
                     "type": "Identifier",
                     "start": 5917,
@@ -9265,47 +9378,26 @@
                     },
                     "pattern": "^\\[object .+?Constructor\\]$",
                     "flags": ""
-                  },
-                  "leadingComments": [
-                    {
-                      "type": "CommentLine",
-                      "value": " Used to resolve the decompiled source of functions",
-                      "start": 5855,
-                      "end": 5908,
-                      "loc": {
-                        "start": {
-                          "line": 340,
-                          "column": 57
-                        },
-                        "end": {
-                          "line": 340,
-                          "column": 110
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-              "kind": "const",
-              "leadingComments": [
-                {
-                  "type": "CommentLine",
-                  "value": " tslint:disable-line:ban-types",
-                  "start": 5641,
-                  "end": 5673,
-                  "loc": {
-                    "start": {
-                      "line": 336,
-                      "column": 48
-                    },
-                    "end": {
-                      "line": 336,
-                      "column": 80
-                    }
                   }
                 }
               ],
-              "trailingComments": [
+              "kind": "const"
+            },
+            {
+              "type": "VariableDeclaration",
+              "start": 6210,
+              "end": 6759,
+              "loc": {
+                "start": {
+                  "line": 345,
+                  "column": 4
+                },
+                "end": {
+                  "line": 356,
+                  "column": 6
+                }
+              },
+              "leadingComments": [
                 {
                   "type": "CommentLine",
                   "value": " Used to detect host constructors (Safari > 4; really typed array specific)",
@@ -9354,22 +9446,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "VariableDeclaration",
-              "start": 6210,
-              "end": 6759,
-              "loc": {
-                "start": {
-                  "line": 345,
-                  "column": 4
-                },
-                "end": {
-                  "line": 356,
-                  "column": 6
-                }
-              },
+              ],
               "declarations": [
                 {
                   "type": "VariableDeclarator",
@@ -9416,6 +9493,9 @@
                         "column": 5
                       }
                     },
+                    "extra": {
+                      "trailingComma": 6751
+                    },
                     "callee": {
                       "type": "Identifier",
                       "start": 6235,
@@ -9432,9 +9512,6 @@
                         "identifierName": "RegExp"
                       },
                       "name": "RegExp"
-                    },
-                    "extra": {
-                      "trailingComma": 6751
                     },
                     "arguments": [
                       {
@@ -9500,6 +9577,24 @@
                                 "column": 81
                               }
                             },
+                            "leadingComments": [
+                              {
+                                "type": "CommentLine",
+                                "value": " Coerce `Object#toString` to a string",
+                                "start": 6265,
+                                "end": 6304,
+                                "loc": {
+                                  "start": {
+                                    "line": 347,
+                                    "column": 8
+                                  },
+                                  "end": {
+                                    "line": 347,
+                                    "column": 47
+                                  }
+                                }
+                              }
+                            ],
                             "callee": {
                               "type": "MemberExpression",
                               "start": 6313,
@@ -9528,168 +9623,6 @@
                                     "column": 53
                                   }
                                 },
-                                "callee": {
-                                  "type": "MemberExpression",
-                                  "start": 6313,
-                                  "end": 6398,
-                                  "loc": {
-                                    "start": {
-                                      "line": 348,
-                                      "column": 8
-                                    },
-                                    "end": {
-                                      "line": 350,
-                                      "column": 20
-                                    }
-                                  },
-                                  "object": {
-                                    "type": "CallExpression",
-                                    "start": 6313,
-                                    "end": 6329,
-                                    "loc": {
-                                      "start": {
-                                        "line": 348,
-                                        "column": 8
-                                      },
-                                      "end": {
-                                        "line": 348,
-                                        "column": 24
-                                      }
-                                    },
-                                    "callee": {
-                                      "type": "Identifier",
-                                      "start": 6313,
-                                      "end": 6319,
-                                      "loc": {
-                                        "start": {
-                                          "line": 348,
-                                          "column": 8
-                                        },
-                                        "end": {
-                                          "line": 348,
-                                          "column": 14
-                                        },
-                                        "identifierName": "String"
-                                      },
-                                      "name": "String"
-                                    },
-                                    "arguments": [
-                                      {
-                                        "type": "Identifier",
-                                        "start": 6320,
-                                        "end": 6328,
-                                        "loc": {
-                                          "start": {
-                                            "line": 348,
-                                            "column": 15
-                                          },
-                                          "end": {
-                                            "line": 348,
-                                            "column": 23
-                                          },
-                                          "identifierName": "toString"
-                                        },
-                                        "name": "toString"
-                                      }
-                                    ],
-                                    "trailingComments": [
-                                      {
-                                        "type": "CommentLine",
-                                        "value": " Escape any special regexp characters",
-                                        "start": 6338,
-                                        "end": 6377,
-                                        "loc": {
-                                          "start": {
-                                            "line": 349,
-                                            "column": 8
-                                          },
-                                          "end": {
-                                            "line": 349,
-                                            "column": 47
-                                          }
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  "property": {
-                                    "type": "Identifier",
-                                    "start": 6391,
-                                    "end": 6398,
-                                    "loc": {
-                                      "start": {
-                                        "line": 350,
-                                        "column": 13
-                                      },
-                                      "end": {
-                                        "line": 350,
-                                        "column": 20
-                                      },
-                                      "identifierName": "replace"
-                                    },
-                                    "name": "replace",
-                                    "leadingComments": [
-                                      {
-                                        "type": "CommentLine",
-                                        "value": " Escape any special regexp characters",
-                                        "start": 6338,
-                                        "end": 6377,
-                                        "loc": {
-                                          "start": {
-                                            "line": 349,
-                                            "column": 8
-                                          },
-                                          "end": {
-                                            "line": 349,
-                                            "column": 47
-                                          }
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  "computed": false
-                                },
-                                "arguments": [
-                                  {
-                                    "type": "RegExpLiteral",
-                                    "start": 6399,
-                                    "end": 6422,
-                                    "loc": {
-                                      "start": {
-                                        "line": 350,
-                                        "column": 21
-                                      },
-                                      "end": {
-                                        "line": 350,
-                                        "column": 44
-                                      }
-                                    },
-                                    "extra": {
-                                      "raw": "/[.*+?^${}()|[\\]\\/\\\\]/g"
-                                    },
-                                    "pattern": "[.*+?^${}()|[\\]\\/\\\\]",
-                                    "flags": "g"
-                                  },
-                                  {
-                                    "type": "StringLiteral",
-                                    "start": 6424,
-                                    "end": 6430,
-                                    "loc": {
-                                      "start": {
-                                        "line": 350,
-                                        "column": 46
-                                      },
-                                      "end": {
-                                        "line": 350,
-                                        "column": 52
-                                      }
-                                    },
-                                    "extra": {
-                                      "rawValue": "\\$&",
-                                      "raw": "'\\\\$&'"
-                                    },
-                                    "value": "\\$&"
-                                  }
-                                ],
                                 "trailingComments": [
                                   {
                                     "type": "CommentLine",
@@ -9739,8 +9672,171 @@
                                       }
                                     }
                                   }
+                                ],
+                                "callee": {
+                                  "type": "MemberExpression",
+                                  "start": 6313,
+                                  "end": 6398,
+                                  "loc": {
+                                    "start": {
+                                      "line": 348,
+                                      "column": 8
+                                    },
+                                    "end": {
+                                      "line": 350,
+                                      "column": 20
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "CallExpression",
+                                    "start": 6313,
+                                    "end": 6329,
+                                    "loc": {
+                                      "start": {
+                                        "line": 348,
+                                        "column": 8
+                                      },
+                                      "end": {
+                                        "line": 348,
+                                        "column": 24
+                                      }
+                                    },
+                                    "trailingComments": [
+                                      {
+                                        "type": "CommentLine",
+                                        "value": " Escape any special regexp characters",
+                                        "start": 6338,
+                                        "end": 6377,
+                                        "loc": {
+                                          "start": {
+                                            "line": 349,
+                                            "column": 8
+                                          },
+                                          "end": {
+                                            "line": 349,
+                                            "column": 47
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "callee": {
+                                      "type": "Identifier",
+                                      "start": 6313,
+                                      "end": 6319,
+                                      "loc": {
+                                        "start": {
+                                          "line": 348,
+                                          "column": 8
+                                        },
+                                        "end": {
+                                          "line": 348,
+                                          "column": 14
+                                        },
+                                        "identifierName": "String"
+                                      },
+                                      "name": "String"
+                                    },
+                                    "arguments": [
+                                      {
+                                        "type": "Identifier",
+                                        "start": 6320,
+                                        "end": 6328,
+                                        "loc": {
+                                          "start": {
+                                            "line": 348,
+                                            "column": 15
+                                          },
+                                          "end": {
+                                            "line": 348,
+                                            "column": 23
+                                          },
+                                          "identifierName": "toString"
+                                        },
+                                        "name": "toString"
+                                      }
+                                    ]
+                                  },
+                                  "computed": false,
+                                  "property": {
+                                    "type": "Identifier",
+                                    "start": 6391,
+                                    "end": 6398,
+                                    "loc": {
+                                      "start": {
+                                        "line": 350,
+                                        "column": 13
+                                      },
+                                      "end": {
+                                        "line": 350,
+                                        "column": 20
+                                      },
+                                      "identifierName": "replace"
+                                    },
+                                    "leadingComments": [
+                                      {
+                                        "type": "CommentLine",
+                                        "value": " Escape any special regexp characters",
+                                        "start": 6338,
+                                        "end": 6377,
+                                        "loc": {
+                                          "start": {
+                                            "line": 349,
+                                            "column": 8
+                                          },
+                                          "end": {
+                                            "line": 349,
+                                            "column": 47
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "name": "replace"
+                                  }
+                                },
+                                "arguments": [
+                                  {
+                                    "type": "RegExpLiteral",
+                                    "start": 6399,
+                                    "end": 6422,
+                                    "loc": {
+                                      "start": {
+                                        "line": 350,
+                                        "column": 21
+                                      },
+                                      "end": {
+                                        "line": 350,
+                                        "column": 44
+                                      }
+                                    },
+                                    "extra": {
+                                      "raw": "/[.*+?^${}()|[\\]\\/\\\\]/g"
+                                    },
+                                    "pattern": "[.*+?^${}()|[\\]\\/\\\\]",
+                                    "flags": "g"
+                                  },
+                                  {
+                                    "type": "StringLiteral",
+                                    "start": 6424,
+                                    "end": 6430,
+                                    "loc": {
+                                      "start": {
+                                        "line": 350,
+                                        "column": 46
+                                      },
+                                      "end": {
+                                        "line": 350,
+                                        "column": 52
+                                      }
+                                    },
+                                    "extra": {
+                                      "rawValue": "\\$&",
+                                      "raw": "'\\\\$&'"
+                                    },
+                                    "value": "\\$&"
+                                  }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 6669,
@@ -9756,7 +9852,6 @@
                                   },
                                   "identifierName": "replace"
                                 },
-                                "name": "replace",
                                 "leadingComments": [
                                   {
                                     "type": "CommentLine",
@@ -9806,9 +9901,9 @@
                                       }
                                     }
                                   }
-                                ]
-                              },
-                              "computed": false
+                                ],
+                                "name": "replace"
+                              }
                             },
                             "arguments": [
                               {
@@ -9851,24 +9946,6 @@
                                 },
                                 "value": "$1.*?"
                               }
-                            ],
-                            "leadingComments": [
-                              {
-                                "type": "CommentLine",
-                                "value": " Coerce `Object#toString` to a string",
-                                "start": 6265,
-                                "end": 6304,
-                                "loc": {
-                                  "start": {
-                                    "line": 347,
-                                    "column": 8
-                                  },
-                                  "end": {
-                                    "line": 347,
-                                    "column": 47
-                                  }
-                                }
-                              }
                             ]
                           }
                         },
@@ -9898,57 +9975,7 @@
                   }
                 }
               ],
-              "kind": "const",
-              "leadingComments": [
-                {
-                  "type": "CommentLine",
-                  "value": " Used to detect host constructors (Safari > 4; really typed array specific)",
-                  "start": 5966,
-                  "end": 6043,
-                  "loc": {
-                    "start": {
-                      "line": 341,
-                      "column": 57
-                    },
-                    "end": {
-                      "line": 341,
-                      "column": 134
-                    }
-                  }
-                },
-                {
-                  "type": "CommentLine",
-                  "value": " Compile a regexp using a common native method as a template.",
-                  "start": 6049,
-                  "end": 6112,
-                  "loc": {
-                    "start": {
-                      "line": 343,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 343,
-                      "column": 67
-                    }
-                  }
-                },
-                {
-                  "type": "CommentLine",
-                  "value": " We chose `Object#toString` because there's a good chance it is not being mucked with.",
-                  "start": 6117,
-                  "end": 6205,
-                  "loc": {
-                    "start": {
-                      "line": 344,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 344,
-                      "column": 92
-                    }
-                  }
-                }
-              ]
+              "kind": "const"
             },
             {
               "type": "VariableDeclaration",
@@ -10076,6 +10103,40 @@
                       "column": 30
                     }
                   },
+                  "trailingComments": [
+                    {
+                      "type": "CommentLine",
+                      "value": " Use `Function#toString` to bypass the value's own `toString` method",
+                      "start": 6827,
+                      "end": 6897,
+                      "loc": {
+                        "start": {
+                          "line": 360,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 360,
+                          "column": 78
+                        }
+                      }
+                    },
+                    {
+                      "type": "CommentLine",
+                      "value": " and avoid being faked out.",
+                      "start": 6906,
+                      "end": 6935,
+                      "loc": {
+                        "start": {
+                          "line": 361,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 361,
+                          "column": 37
+                        }
+                      }
+                    }
+                  ],
                   "left": {
                     "type": "Identifier",
                     "start": 6799,
@@ -10113,8 +10174,23 @@
                       "raw": "'function'"
                     },
                     "value": "function"
+                  }
+                },
+                "consequent": {
+                  "type": "CallExpression",
+                  "start": 6946,
+                  "end": 6987,
+                  "loc": {
+                    "start": {
+                      "line": 362,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 362,
+                      "column": 51
+                    }
                   },
-                  "trailingComments": [
+                  "leadingComments": [
                     {
                       "type": "CommentLine",
                       "value": " Use `Function#toString` to bypass the value's own `toString` method",
@@ -10146,157 +10222,6 @@
                           "column": 37
                         }
                       }
-                    }
-                  ]
-                },
-                "consequent": {
-                  "type": "CallExpression",
-                  "start": 6946,
-                  "end": 6987,
-                  "loc": {
-                    "start": {
-                      "line": 362,
-                      "column": 10
-                    },
-                    "end": {
-                      "line": 362,
-                      "column": 51
-                    }
-                  },
-                  "callee": {
-                    "type": "MemberExpression",
-                    "start": 6946,
-                    "end": 6967,
-                    "loc": {
-                      "start": {
-                        "line": 362,
-                        "column": 10
-                      },
-                      "end": {
-                        "line": 362,
-                        "column": 31
-                      }
-                    },
-                    "object": {
-                      "type": "Identifier",
-                      "start": 6946,
-                      "end": 6962,
-                      "loc": {
-                        "start": {
-                          "line": 362,
-                          "column": 10
-                        },
-                        "end": {
-                          "line": 362,
-                          "column": 26
-                        },
-                        "identifierName": "nativeFnTemplate"
-                      },
-                      "name": "nativeFnTemplate"
-                    },
-                    "property": {
-                      "type": "Identifier",
-                      "start": 6963,
-                      "end": 6967,
-                      "loc": {
-                        "start": {
-                          "line": 362,
-                          "column": 27
-                        },
-                        "end": {
-                          "line": 362,
-                          "column": 31
-                        },
-                        "identifierName": "test"
-                      },
-                      "name": "test"
-                    },
-                    "computed": false
-                  },
-                  "arguments": [
-                    {
-                      "type": "CallExpression",
-                      "start": 6968,
-                      "end": 6986,
-                      "loc": {
-                        "start": {
-                          "line": 362,
-                          "column": 32
-                        },
-                        "end": {
-                          "line": 362,
-                          "column": 50
-                        }
-                      },
-                      "callee": {
-                        "type": "MemberExpression",
-                        "start": 6968,
-                        "end": 6983,
-                        "loc": {
-                          "start": {
-                            "line": 362,
-                            "column": 32
-                          },
-                          "end": {
-                            "line": 362,
-                            "column": 47
-                          }
-                        },
-                        "object": {
-                          "type": "Identifier",
-                          "start": 6968,
-                          "end": 6978,
-                          "loc": {
-                            "start": {
-                              "line": 362,
-                              "column": 32
-                            },
-                            "end": {
-                              "line": 362,
-                              "column": 42
-                            },
-                            "identifierName": "fnToString"
-                          },
-                          "name": "fnToString"
-                        },
-                        "property": {
-                          "type": "Identifier",
-                          "start": 6979,
-                          "end": 6983,
-                          "loc": {
-                            "start": {
-                              "line": 362,
-                              "column": 43
-                            },
-                            "end": {
-                              "line": 362,
-                              "column": 47
-                            },
-                            "identifierName": "call"
-                          },
-                          "name": "call"
-                        },
-                        "computed": false
-                      },
-                      "arguments": [
-                        {
-                          "type": "Identifier",
-                          "start": 6984,
-                          "end": 6985,
-                          "loc": {
-                            "start": {
-                              "line": 362,
-                              "column": 48
-                            },
-                            "end": {
-                              "line": 362,
-                              "column": 49
-                            },
-                            "identifierName": "v"
-                          },
-                          "name": "v"
-                        }
-                      ]
                     }
                   ],
                   "trailingComments": [
@@ -10349,38 +10274,140 @@
                       }
                     }
                   ],
-                  "leadingComments": [
-                    {
-                      "type": "CommentLine",
-                      "value": " Use `Function#toString` to bypass the value's own `toString` method",
-                      "start": 6827,
-                      "end": 6897,
-                      "loc": {
-                        "start": {
-                          "line": 360,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 360,
-                          "column": 78
-                        }
+                  "callee": {
+                    "type": "MemberExpression",
+                    "start": 6946,
+                    "end": 6967,
+                    "loc": {
+                      "start": {
+                        "line": 362,
+                        "column": 10
+                      },
+                      "end": {
+                        "line": 362,
+                        "column": 31
                       }
                     },
-                    {
-                      "type": "CommentLine",
-                      "value": " and avoid being faked out.",
-                      "start": 6906,
-                      "end": 6935,
+                    "object": {
+                      "type": "Identifier",
+                      "start": 6946,
+                      "end": 6962,
                       "loc": {
                         "start": {
-                          "line": 361,
-                          "column": 8
+                          "line": 362,
+                          "column": 10
                         },
                         "end": {
-                          "line": 361,
-                          "column": 37
+                          "line": 362,
+                          "column": 26
+                        },
+                        "identifierName": "nativeFnTemplate"
+                      },
+                      "name": "nativeFnTemplate"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "start": 6963,
+                      "end": 6967,
+                      "loc": {
+                        "start": {
+                          "line": 362,
+                          "column": 27
+                        },
+                        "end": {
+                          "line": 362,
+                          "column": 31
+                        },
+                        "identifierName": "test"
+                      },
+                      "name": "test"
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "CallExpression",
+                      "start": 6968,
+                      "end": 6986,
+                      "loc": {
+                        "start": {
+                          "line": 362,
+                          "column": 32
+                        },
+                        "end": {
+                          "line": 362,
+                          "column": 50
                         }
-                      }
+                      },
+                      "callee": {
+                        "type": "MemberExpression",
+                        "start": 6968,
+                        "end": 6983,
+                        "loc": {
+                          "start": {
+                            "line": 362,
+                            "column": 32
+                          },
+                          "end": {
+                            "line": 362,
+                            "column": 47
+                          }
+                        },
+                        "object": {
+                          "type": "Identifier",
+                          "start": 6968,
+                          "end": 6978,
+                          "loc": {
+                            "start": {
+                              "line": 362,
+                              "column": 32
+                            },
+                            "end": {
+                              "line": 362,
+                              "column": 42
+                            },
+                            "identifierName": "fnToString"
+                          },
+                          "name": "fnToString"
+                        },
+                        "computed": false,
+                        "property": {
+                          "type": "Identifier",
+                          "start": 6979,
+                          "end": 6983,
+                          "loc": {
+                            "start": {
+                              "line": 362,
+                              "column": 43
+                            },
+                            "end": {
+                              "line": 362,
+                              "column": 47
+                            },
+                            "identifierName": "call"
+                          },
+                          "name": "call"
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "start": 6984,
+                          "end": 6985,
+                          "loc": {
+                            "start": {
+                              "line": 362,
+                              "column": 48
+                            },
+                            "end": {
+                              "line": 362,
+                              "column": 49
+                            },
+                            "identifierName": "v"
+                          },
+                          "name": "v"
+                        }
+                      ]
                     }
                   ]
                 },
@@ -10398,6 +10425,56 @@
                       "column": 85
                     }
                   },
+                  "leadingComments": [
+                    {
+                      "type": "CommentLine",
+                      "value": " Fallback to a host object check because some environments will represent",
+                      "start": 6996,
+                      "end": 7071,
+                      "loc": {
+                        "start": {
+                          "line": 363,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 363,
+                          "column": 83
+                        }
+                      }
+                    },
+                    {
+                      "type": "CommentLine",
+                      "value": " things like typed arrays as DOM methods which may not conform to the",
+                      "start": 7080,
+                      "end": 7151,
+                      "loc": {
+                        "start": {
+                          "line": 364,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 364,
+                          "column": 79
+                        }
+                      }
+                    },
+                    {
+                      "type": "CommentLine",
+                      "value": " normal native pattern.",
+                      "start": 7160,
+                      "end": 7185,
+                      "loc": {
+                        "start": {
+                          "line": 365,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 365,
+                          "column": 33
+                        }
+                      }
+                    }
+                  ],
                   "left": {
                     "type": "LogicalExpression",
                     "start": 7197,
@@ -10411,6 +10488,10 @@
                         "line": 366,
                         "column": 75
                       }
+                    },
+                    "extra": {
+                      "parenthesized": true,
+                      "parenStart": 7196
                     },
                     "left": {
                       "type": "LogicalExpression",
@@ -10544,6 +10625,7 @@
                           },
                           "name": "hostConstructor"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 7239,
@@ -10560,8 +10642,7 @@
                             "identifierName": "test"
                           },
                           "name": "test"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -10609,6 +10690,7 @@
                               },
                               "name": "toString"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 7253,
@@ -10625,8 +10707,7 @@
                                 "identifierName": "call"
                               },
                               "name": "call"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -10649,10 +10730,6 @@
                           ]
                         }
                       ]
-                    },
-                    "extra": {
-                      "parenthesized": true,
-                      "parenStart": 7196
                     }
                   },
                   "operator": "||",
@@ -10671,81 +10748,13 @@
                       }
                     },
                     "value": false
-                  },
-                  "leadingComments": [
-                    {
-                      "type": "CommentLine",
-                      "value": " Fallback to a host object check because some environments will represent",
-                      "start": 6996,
-                      "end": 7071,
-                      "loc": {
-                        "start": {
-                          "line": 363,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 363,
-                          "column": 83
-                        }
-                      }
-                    },
-                    {
-                      "type": "CommentLine",
-                      "value": " things like typed arrays as DOM methods which may not conform to the",
-                      "start": 7080,
-                      "end": 7151,
-                      "loc": {
-                        "start": {
-                          "line": 364,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 364,
-                          "column": 79
-                        }
-                      }
-                    },
-                    {
-                      "type": "CommentLine",
-                      "value": " normal native pattern.",
-                      "start": 7160,
-                      "end": 7185,
-                      "loc": {
-                        "start": {
-                          "line": 365,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 365,
-                          "column": 33
-                        }
-                      }
-                    }
-                  ]
+                  }
                 }
               }
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n * https://davidwalsh.name/detect-native-function \n * @lineNumber \n * 187 \n * @param \n * {any} v \n * @return \n * {UNKNOWN} \n ",
-            "start": 5448,
-            "end": 5589,
-            "loc": {
-              "start": {
-                "line": 323,
-                "column": 0
-              },
-              "end": {
-                "line": 332,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -44,6 +44,74 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {Array} list \n * @param \n * {undefined} map \n * @param \n * {string} acc \n * @return \n * {string} \n ",
+            "start": 1,
+            "end": 158,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Produces a comma-separated list based on the list provided.\n *\n * @param {Array<string>} list\n * @param {function(item: string): string} map\n * @param {string} [acc=''] acc\n *\n * @returns {string}\n ",
+            "start": 159,
+            "end": 376,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 25,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {UNKNOWN} list \n * @return \n * {T} \n ",
+            "start": 979,
+            "end": 1074,
+            "loc": {
+              "start": {
+                "line": 49,
+                "column": 0
+              },
+              "end": {
+                "line": 58,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "* @package ",
+            "start": 1077,
+            "end": 1092,
+            "loc": {
+              "start": {
+                "line": 61,
+                "column": 0
+              },
+              "end": {
+                "line": 61,
+                "column": 15
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -216,6 +284,24 @@
                                     "column": 23
                                   }
                                 },
+                                "leadingComments": [
+                                  {
+                                    "type": "CommentBlock",
+                                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                                    "start": 436,
+                                    "end": 528,
+                                    "loc": {
+                                      "start": {
+                                        "line": 28,
+                                        "column": 0
+                                      },
+                                      "end": {
+                                        "line": 37,
+                                        "column": 3
+                                      }
+                                    }
+                                  }
+                                ],
                                 "key": {
                                   "type": "Identifier",
                                   "start": 530,
@@ -294,25 +380,7 @@
                                       }
                                     }
                                   }
-                                },
-                                "leadingComments": [
-                                  {
-                                    "type": "CommentBlock",
-                                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                                    "start": 436,
-                                    "end": 528,
-                                    "loc": {
-                                      "start": {
-                                        "line": 28,
-                                        "column": 0
-                                      },
-                                      "end": {
-                                        "line": 37,
-                                        "column": 3
-                                      }
-                                    }
-                                  }
-                                ]
+                                }
                               }
                             ]
                           }
@@ -494,6 +562,7 @@
                         }
                       ]
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 587,
@@ -510,8 +579,7 @@
                         "identifierName": "trim"
                       },
                       "name": "trim"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": []
                 }
@@ -690,6 +758,7 @@
                     },
                     "name": "list"
                   },
+                  "computed": false,
                   "property": {
                     "type": "Identifier",
                     "start": 646,
@@ -706,8 +775,7 @@
                       "identifierName": "length"
                     },
                     "name": "length"
-                  },
-                  "computed": false
+                  }
                 },
                 "cases": [
                   {
@@ -1838,42 +1906,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 1093,
+        "end": 1147,
+        "loc": {
+          "start": {
+            "line": 62,
+            "column": 0
+          },
+          "end": {
+            "line": 64,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {Array} list \n * @param \n * {undefined} map \n * @param \n * {string} acc \n * @return \n * {string} \n ",
-            "start": 1,
-            "end": 158,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Produces a comma-separated list based on the list provided.\n *\n * @param {Array<string>} list\n * @param {function(item: string): string} map\n * @param {string} [acc=''] acc\n *\n * @returns {string}\n ",
-            "start": 159,
-            "end": 376,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 25,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {UNKNOWN} list \n * @return \n * {T} \n ",
@@ -1906,22 +1955,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 1093,
-        "end": 1147,
-        "loc": {
-          "start": {
-            "line": 62,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @param \n * {UNKNOWN} list \n * @return \n * {UNKNOWN} \n ",
+            "start": 1148,
+            "end": 1249,
+            "loc": {
+              "start": {
+                "line": 65,
+                "column": 0
+              },
+              "end": {
+                "line": 74,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 64,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "* @package ",
+            "start": 1252,
+            "end": 1267,
+            "loc": {
+              "start": {
+                "line": 77,
+                "column": 0
+              },
+              "end": {
+                "line": 77,
+                "column": 15
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 1102,
@@ -2162,6 +2230,7 @@
                   },
                   "name": "list"
                 },
+                "computed": true,
                 "property": {
                   "type": "NumericLiteral",
                   "start": 1142,
@@ -2181,48 +2250,28 @@
                     "raw": "0"
                   },
                   "value": 0
-                },
-                "computed": true
+                }
               }
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 1268,
+        "end": 1330,
+        "loc": {
+          "start": {
+            "line": 78,
+            "column": 0
+          },
+          "end": {
+            "line": 80,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {UNKNOWN} list \n * @return \n * {T} \n ",
-            "start": 979,
-            "end": 1074,
-            "loc": {
-              "start": {
-                "line": 49,
-                "column": 0
-              },
-              "end": {
-                "line": 58,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "* @package ",
-            "start": 1077,
-            "end": 1092,
-            "loc": {
-              "start": {
-                "line": 61,
-                "column": 0
-              },
-              "end": {
-                "line": 61,
-                "column": 15
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @param \n * {UNKNOWN} list \n * @return \n * {UNKNOWN} \n ",
@@ -2255,22 +2304,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 1268,
-        "end": 1330,
-        "loc": {
-          "start": {
-            "line": 78,
-            "column": 0
-          },
-          "end": {
-            "line": 80,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 1277,
@@ -2540,6 +2574,7 @@
                     },
                     "name": "list"
                   },
+                  "computed": false,
                   "property": {
                     "type": "Identifier",
                     "start": 1319,
@@ -2556,8 +2591,7 @@
                       "identifierName": "slice"
                     },
                     "name": "slice"
-                  },
-                  "computed": false
+                  }
                 },
                 "arguments": [
                   {
@@ -2585,41 +2619,7 @@
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @param \n * {UNKNOWN} list \n * @return \n * {UNKNOWN} \n ",
-            "start": 1148,
-            "end": 1249,
-            "loc": {
-              "start": {
-                "line": 65,
-                "column": 0
-              },
-              "end": {
-                "line": 74,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "* @package ",
-            "start": 1252,
-            "end": 1267,
-            "loc": {
-              "start": {
-                "line": 77,
-                "column": 0
-              },
-              "end": {
-                "line": 77,
-                "column": 15
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

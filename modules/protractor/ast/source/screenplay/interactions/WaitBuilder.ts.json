@@ -218,6 +218,40 @@
             "column": 63
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+            "start": 167,
+            "end": 212,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Fluent interface to make the instantiation of\n *  the {@link @serenity-js/core/lib/screenplay~Interaction}\n *  to {@link Wait} more readable.\n *\n * @see {@link Wait}\n *\n * @interface\n * @interface ",
+            "start": 215,
+            "end": 431,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 16
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -289,8 +323,23 @@
             "raw": "'@serenity-js/core/lib/screenplay'"
           },
           "value": "@serenity-js/core/lib/screenplay"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 432,
+        "end": 1303,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 54,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
@@ -323,22 +372,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 432,
-        "end": 1303,
-        "loc": {
-          "start": {
-            "line": 22,
-            "column": 0
-          },
-          "end": {
-            "line": 54,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -404,6 +438,40 @@
                     "column": 102
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 468,
+                    "end": 560,
+                    "loc": {
+                      "start": {
+                        "line": 23,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  to {@link Wait}.\n     *\n     * @param {Answerable<Actual>} actual\n     *  A {@link @serenity-js/core/lib/screenplay~Question}\n     *  that the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  will keep asking until the answer meets\n     *  the {@link @serenity-js/assertions~Expectation} provided\n     *\n     * @param {Expectation<any,Actual>} expectation\n     *  An {@link @serenity-js/assertions~Expectation} to be met before proceeding\n     *\n     * @returns {Interaction}\n     *\n     * @see {@link Target}\n     ",
+                    "start": 567,
+                    "end": 1198,
+                    "loc": {
+                      "start": {
+                        "line": 35,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 52,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -776,41 +844,7 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 468,
-                    "end": 560,
-                    "loc": {
-                      "start": {
-                        "line": 23,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 32,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  to {@link Wait}.\n     *\n     * @param {Answerable<Actual>} actual\n     *  A {@link @serenity-js/core/lib/screenplay~Question}\n     *  that the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  will keep asking until the answer meets\n     *  the {@link @serenity-js/assertions~Expectation} provided\n     *\n     * @param {Expectation<any,Actual>} expectation\n     *  An {@link @serenity-js/assertions~Expectation} to be met before proceeding\n     *\n     * @returns {Interaction}\n     *\n     * @see {@link Target}\n     ",
-                    "start": 567,
-                    "end": 1198,
-                    "loc": {
-                      "start": {
-                        "line": 35,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 52,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                "value": null
               }
             ]
           },
@@ -849,41 +883,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
-            "start": 167,
-            "end": 212,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Fluent interface to make the instantiation of\n *  the {@link @serenity-js/core/lib/screenplay~Interaction}\n *  to {@link Wait} more readable.\n *\n * @see {@link Wait}\n *\n * @interface\n * @interface ",
-            "start": 215,
-            "end": 431,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

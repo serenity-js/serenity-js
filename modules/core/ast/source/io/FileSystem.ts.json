@@ -271,6 +271,24 @@
             "column": 30
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n ",
+            "start": 139,
+            "end": 183,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -342,8 +360,23 @@
             "raw": "'./Path'"
           },
           "value": "./Path"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 186,
+        "end": 5115,
+        "loc": {
+          "start": {
+            "line": 14,
+            "column": 0
+          },
+          "end": {
+            "line": 206,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n ",
@@ -360,22 +393,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 186,
-        "end": 5115,
-        "loc": {
-          "start": {
-            "line": 14,
-            "column": 0
-          },
-          "end": {
-            "line": 206,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -440,6 +458,24 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @param \n * {Path} relativeOrAbsolutePathToFile \n * @param \n * {any} data \n * @param \n * {string} encoding \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 421,
+                    "end": 624,
+                    "loc": {
+                      "start": {
+                        "line": 22,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 37,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -808,6 +844,10 @@
                               "column": 80
                             }
                           },
+                          "extra": {
+                            "parenthesized": true,
+                            "parenStart": 387
+                          },
                           "operator": "~",
                           "prefix": true,
                           "argument": {
@@ -855,6 +895,7 @@
                                 },
                                 "name": "process"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 397,
@@ -871,14 +912,9 @@
                                   "identifierName": "umask"
                                 },
                                 "name": "umask"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
-                          },
-                          "extra": {
-                            "parenthesized": true,
-                            "parenStart": 387
                           }
                         }
                       }
@@ -901,8 +937,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 631,
+                "end": 963,
+                "loc": {
+                  "start": {
+                    "line": 40,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 44,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @param \n * {Path} relativeOrAbsolutePathToFile \n * @param \n * {any} data \n * @param \n * {string} encoding \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -919,22 +970,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 631,
-                "end": 963,
-                "loc": {
-                  "start": {
-                    "line": 40,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 44,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {Path} relativeOrAbsolutePathToFile \n * @public \n * \\TRUE \n ",
+                    "start": 964,
+                    "end": 1082,
+                    "loc": {
+                      "start": {
+                        "line": 45,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 54,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "public",
                 "static": false,
                 "key": {
@@ -1346,6 +1400,7 @@
                                     },
                                     "name": "Promise"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 750,
@@ -1362,11 +1417,11 @@
                                       "identifierName": "resolve"
                                     },
                                     "name": "resolve"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 773,
@@ -1383,8 +1438,7 @@
                                   "identifierName": "then"
                                 },
                                 "name": "then"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1448,6 +1502,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 789,
@@ -1464,8 +1519,7 @@
                                         "identifierName": "ensureDirectoryExistsAt"
                                       },
                                       "name": "ensureDirectoryExistsAt"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1513,6 +1567,7 @@
                                           },
                                           "name": "relativeOrAbsolutePathToFile"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 842,
@@ -1529,8 +1584,7 @@
                                             "identifierName": "directory"
                                           },
                                           "name": "directory"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": []
                                     }
@@ -1539,6 +1593,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 869,
@@ -1555,8 +1610,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1620,6 +1674,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 885,
@@ -1636,8 +1691,7 @@
                                     "identifierName": "write"
                                   },
                                   "name": "write"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -1697,6 +1751,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 896,
@@ -1713,9 +1768,9 @@
                                           "identifierName": "root"
                                         },
                                         "name": "root"
-                                      },
-                                      "computed": false
+                                      }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 901,
@@ -1732,8 +1787,7 @@
                                         "identifierName": "resolve"
                                       },
                                       "name": "resolve"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1797,26 +1851,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1089,
+                "end": 1276,
+                "loc": {
+                  "start": {
+                    "line": 57,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 59,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @param \n * {Path} relativeOrAbsolutePathToFile \n * @param \n * {any} data \n * @param \n * {string} encoding \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 421,
-                    "end": 624,
-                    "loc": {
-                      "start": {
-                        "line": 22,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 37,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {Path} relativeOrAbsolutePathToFile \n * @public \n * \\TRUE \n ",
@@ -1833,22 +1884,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1089,
-                "end": 1276,
-                "loc": {
-                  "start": {
-                    "line": 57,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 59,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 26 \n * @param \n * {Path} relativeOrAbsolutePathToFile \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 1277,
+                    "end": 1421,
+                    "loc": {
+                      "start": {
+                        "line": 60,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 71,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "public",
                 "static": false,
                 "key": {
@@ -2104,6 +2158,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1194,
@@ -2120,9 +2175,9 @@
                                 "identifierName": "fs"
                               },
                               "name": "fs"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1197,
@@ -2139,8 +2194,7 @@
                               "identifierName": "createWriteStream"
                             },
                             "name": "createWriteStream"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2214,6 +2268,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1220,
@@ -2230,9 +2285,9 @@
                                       "identifierName": "root"
                                     },
                                     "name": "root"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1225,
@@ -2249,8 +2304,7 @@
                                     "identifierName": "resolve"
                                   },
                                   "name": "resolve"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -2272,6 +2326,7 @@
                                 }
                               ]
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1263,
@@ -2288,34 +2343,30 @@
                                 "identifierName": "value"
                               },
                               "name": "value"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1428,
+                "end": 1629,
+                "loc": {
+                  "start": {
+                    "line": 74,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 78,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {Path} relativeOrAbsolutePathToFile \n * @public \n * \\TRUE \n ",
-                    "start": 964,
-                    "end": 1082,
-                    "loc": {
-                      "start": {
-                        "line": 45,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 54,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 26 \n * @param \n * {Path} relativeOrAbsolutePathToFile \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2332,22 +2383,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1428,
-                "end": 1629,
-                "loc": {
-                  "start": {
-                    "line": 74,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 78,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n * @param \n * {Path} relativeOrAbsolutePathToFileOrDirectory \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 1630,
+                    "end": 1785,
+                    "loc": {
+                      "start": {
+                        "line": 79,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 90,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "public",
                 "static": false,
                 "key": {
@@ -2702,6 +2756,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1537,
@@ -2718,9 +2773,9 @@
                                       "identifierName": "fs"
                                     },
                                     "name": "fs"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1540,
@@ -2737,8 +2792,7 @@
                                     "identifierName": "stat"
                                   },
                                   "name": "stat"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           }
@@ -2863,6 +2917,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1573,
@@ -2879,9 +2934,9 @@
                                       "identifierName": "root"
                                     },
                                     "name": "root"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1578,
@@ -2898,8 +2953,7 @@
                                     "identifierName": "resolve"
                                   },
                                   "name": "resolve"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -2921,6 +2975,7 @@
                                 }
                               ]
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1616,
@@ -2937,34 +2992,30 @@
                                 "identifierName": "value"
                               },
                               "name": "value"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1792,
+                "end": 2673,
+                "loc": {
+                  "start": {
+                    "line": 93,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 112,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 26 \n * @param \n * {Path} relativeOrAbsolutePathToFile \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 1277,
-                    "end": 1421,
-                    "loc": {
-                      "start": {
-                        "line": 60,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 71,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n * @param \n * {Path} relativeOrAbsolutePathToFileOrDirectory \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2981,22 +3032,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1792,
-                "end": 2673,
-                "loc": {
-                  "start": {
-                    "line": 93,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 112,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @param \n * {Path} relativeOrAbsolutePathToDirectory \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 2674,
+                    "end": 2823,
+                    "loc": {
+                      "start": {
+                        "line": 113,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 124,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "public",
                 "static": false,
                 "key": {
@@ -3302,6 +3356,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1906,
@@ -3318,9 +3373,9 @@
                                       "identifierName": "fs"
                                     },
                                     "name": "fs"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1909,
@@ -3337,8 +3392,7 @@
                                     "identifierName": "stat"
                                   },
                                   "name": "stat"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           }
@@ -3449,6 +3503,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1952,
@@ -3465,9 +3520,9 @@
                                       "identifierName": "fs"
                                     },
                                     "name": "fs"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1955,
@@ -3484,8 +3539,7 @@
                                     "identifierName": "unlink"
                                   },
                                   "name": "unlink"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           }
@@ -3596,6 +3650,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2001,
@@ -3612,9 +3667,9 @@
                                       "identifierName": "fs"
                                     },
                                     "name": "fs"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2004,
@@ -3631,8 +3686,7 @@
                                     "identifierName": "readdir"
                                   },
                                   "name": "readdir"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           }
@@ -3743,6 +3797,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2049,
@@ -3759,9 +3814,9 @@
                                       "identifierName": "fs"
                                     },
                                     "name": "fs"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2052,
@@ -3778,8 +3833,7 @@
                                     "identifierName": "rmdir"
                                   },
                                   "name": "rmdir"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           }
@@ -3890,6 +3944,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2095,
@@ -3906,9 +3961,9 @@
                                     "identifierName": "root"
                                   },
                                   "name": "root"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2100,
@@ -3925,8 +3980,7 @@
                                   "identifierName": "resolve"
                                 },
                                 "name": "resolve"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -4008,6 +4062,9 @@
                                 "column": 17
                               }
                             },
+                            "extra": {
+                              "trailingComma": 2615
+                            },
                             "callee": {
                               "type": "MemberExpression",
                               "start": 2166,
@@ -4085,6 +4142,7 @@
                                       },
                                       "name": "absolutePath"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2184,
@@ -4101,11 +4159,11 @@
                                         "identifierName": "value"
                                       },
                                       "name": "value"
-                                    },
-                                    "computed": false
+                                    }
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2204,
@@ -4122,11 +4180,7 @@
                                   "identifierName": "then"
                                 },
                                 "name": "then"
-                              },
-                              "computed": false
-                            },
-                            "extra": {
-                              "trailingComma": 2615
+                              }
                             },
                             "arguments": [
                               {
@@ -4224,6 +4278,7 @@
                                         },
                                         "name": "result"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2246,
@@ -4240,8 +4295,7 @@
                                           "identifierName": "isFile"
                                         },
                                         "name": "isFile"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": []
                                   },
@@ -4308,6 +4362,7 @@
                                           },
                                           "name": "absolutePath"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2301,
@@ -4324,8 +4379,7 @@
                                             "identifierName": "value"
                                           },
                                           "name": "value"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     ]
                                   },
@@ -4342,6 +4396,9 @@
                                         "line": 109,
                                         "column": 25
                                       }
+                                    },
+                                    "extra": {
+                                      "trailingComma": 2588
                                     },
                                     "callee": {
                                       "type": "MemberExpression",
@@ -4420,6 +4477,7 @@
                                               },
                                               "name": "absolutePath"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 2355,
@@ -4436,11 +4494,11 @@
                                                 "identifierName": "value"
                                               },
                                               "name": "value"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         ]
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2362,
@@ -4457,11 +4515,7 @@
                                           "identifierName": "then"
                                         },
                                         "name": "then"
-                                      },
-                                      "computed": false
-                                    },
-                                    "extra": {
-                                      "trailingComma": 2588
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -4542,6 +4596,9 @@
                                                   "column": 29
                                                 }
                                               },
+                                              "extra": {
+                                                "trailingComma": 2519
+                                              },
                                               "callee": {
                                                 "type": "MemberExpression",
                                                 "start": 2406,
@@ -4573,6 +4630,7 @@
                                                   },
                                                   "name": "Promise"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 2414,
@@ -4589,11 +4647,7 @@
                                                     "identifierName": "all"
                                                   },
                                                   "name": "all"
-                                                },
-                                                "computed": false
-                                              },
-                                              "extra": {
-                                                "trailingComma": 2519
+                                                }
                                               },
                                               "arguments": [
                                                 {
@@ -4641,6 +4695,7 @@
                                                       },
                                                       "name": "entries"
                                                     },
+                                                    "computed": false,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 2426,
@@ -4657,8 +4712,7 @@
                                                         "identifierName": "map"
                                                       },
                                                       "name": "map"
-                                                    },
-                                                    "computed": false
+                                                    }
                                                   },
                                                   "arguments": [
                                                     {
@@ -4740,6 +4794,7 @@
                                                               }
                                                             }
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 2476,
@@ -4756,8 +4811,7 @@
                                                               "identifierName": "remove"
                                                             },
                                                             "name": "remove"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         },
                                                         "arguments": [
                                                           {
@@ -4805,6 +4859,7 @@
                                                                 },
                                                                 "name": "absolutePath"
                                                               },
+                                                              "computed": false,
                                                               "property": {
                                                                 "type": "Identifier",
                                                                 "start": 2496,
@@ -4821,8 +4876,7 @@
                                                                   "identifierName": "join"
                                                                 },
                                                                 "name": "join"
-                                                              },
-                                                              "computed": false
+                                                              }
                                                             },
                                                             "arguments": [
                                                               {
@@ -4885,6 +4939,7 @@
                                                 }
                                               ]
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 2551,
@@ -4901,8 +4956,7 @@
                                                 "identifierName": "then"
                                               },
                                               "name": "then"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -4986,6 +5040,7 @@
                                                       },
                                                       "name": "absolutePath"
                                                     },
+                                                    "computed": false,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 2581,
@@ -5002,8 +5057,7 @@
                                                         "identifierName": "value"
                                                       },
                                                       "name": "value"
-                                                    },
-                                                    "computed": false
+                                                    }
                                                   }
                                                 ]
                                               }
@@ -5017,6 +5071,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2648,
@@ -5033,8 +5088,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -5098,26 +5152,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2830,
+                "end": 4219,
+                "loc": {
+                  "start": {
+                    "line": 127,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 154,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n * @param \n * {Path} relativeOrAbsolutePathToFileOrDirectory \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 1630,
-                    "end": 1785,
-                    "loc": {
-                      "start": {
-                        "line": 79,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 90,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @param \n * {Path} relativeOrAbsolutePathToDirectory \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -5134,22 +5185,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2830,
-                "end": 4219,
-                "loc": {
-                  "start": {
-                    "line": 127,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 154,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 82 \n * @param \n * {Path} source \n * @param \n * {Path} destination \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 4220,
+                    "end": 4376,
+                    "loc": {
+                      "start": {
+                        "line": 155,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 168,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "public",
                 "static": false,
                 "key": {
@@ -5454,6 +5508,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2954,
@@ -5470,9 +5525,9 @@
                                     "identifierName": "root"
                                   },
                                   "name": "root"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2959,
@@ -5489,8 +5544,7 @@
                                   "identifierName": "resolve"
                                 },
                                 "name": "resolve"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -5603,6 +5657,7 @@
                                 },
                                 "name": "absolutePath"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3032,
@@ -5619,11 +5674,11 @@
                                   "identifierName": "split"
                                 },
                                 "name": "split"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3040,
@@ -5640,8 +5695,7 @@
                               "identifierName": "reduce"
                             },
                             "name": "reduce"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -5771,6 +5825,7 @@
                                         },
                                         "name": "promisedParent"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3110,
@@ -5787,8 +5842,7 @@
                                           "identifierName": "then"
                                         },
                                         "name": "then"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -6018,6 +6072,7 @@
                                                               },
                                                               "name": "parent"
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 3199,
@@ -6034,8 +6089,7 @@
                                                                 "identifierName": "resolve"
                                                               },
                                                               "name": "resolve"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           },
                                                           "arguments": [
                                                             {
@@ -6166,6 +6220,7 @@
                                                               }
                                                             }
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 3247,
@@ -6182,9 +6237,9 @@
                                                               "identifierName": "fs"
                                                             },
                                                             "name": "fs"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         },
+                                                        "computed": false,
                                                         "property": {
                                                           "type": "Identifier",
                                                           "start": 3250,
@@ -6201,8 +6256,7 @@
                                                             "identifierName": "mkdir"
                                                           },
                                                           "name": "mkdir"
-                                                        },
-                                                        "computed": false
+                                                        }
                                                       },
                                                       "arguments": [
                                                         {
@@ -6236,6 +6290,7 @@
                                                             },
                                                             "name": "current"
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 3264,
@@ -6252,8 +6307,7 @@
                                                               "identifierName": "value"
                                                             },
                                                             "name": "value"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         },
                                                         {
                                                           "type": "MemberExpression",
@@ -6284,6 +6338,7 @@
                                                               }
                                                             }
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 3276,
@@ -6300,8 +6355,7 @@
                                                               "identifierName": "directoryMode"
                                                             },
                                                             "name": "directoryMode"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         },
                                                         {
                                                           "type": "ArrowFunctionExpression",
@@ -6368,6 +6422,24 @@
                                                                     "column": 21
                                                                   }
                                                                 },
+                                                                "trailingComments": [
+                                                                  {
+                                                                    "type": "CommentLine",
+                                                                    "value": " To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.",
+                                                                    "start": 3456,
+                                                                    "end": 3537,
+                                                                    "loc": {
+                                                                      "start": {
+                                                                        "line": 140,
+                                                                        "column": 20
+                                                                      },
+                                                                      "end": {
+                                                                        "line": 140,
+                                                                        "column": 101
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                ],
                                                                 "test": {
                                                                   "type": "LogicalExpression",
                                                                   "start": 3326,
@@ -6462,6 +6534,7 @@
                                                                         },
                                                                         "name": "error"
                                                                       },
+                                                                      "computed": false,
                                                                       "property": {
                                                                         "type": "Identifier",
                                                                         "start": 3343,
@@ -6478,8 +6551,7 @@
                                                                           "identifierName": "code"
                                                                         },
                                                                         "name": "code"
-                                                                      },
-                                                                      "computed": false
+                                                                      }
                                                                     },
                                                                     "operator": "===",
                                                                     "right": {
@@ -6588,8 +6660,23 @@
                                                                   ],
                                                                   "directives": []
                                                                 },
-                                                                "alternate": null,
-                                                                "trailingComments": [
+                                                                "alternate": null
+                                                              },
+                                                              {
+                                                                "type": "IfStatement",
+                                                                "start": 3558,
+                                                                "end": 3776,
+                                                                "loc": {
+                                                                  "start": {
+                                                                    "line": 141,
+                                                                    "column": 20
+                                                                  },
+                                                                  "end": {
+                                                                    "line": 143,
+                                                                    "column": 21
+                                                                  }
+                                                                },
+                                                                "leadingComments": [
                                                                   {
                                                                     "type": "CommentLine",
                                                                     "value": " To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.",
@@ -6606,22 +6693,7 @@
                                                                       }
                                                                     }
                                                                   }
-                                                                ]
-                                                              },
-                                                              {
-                                                                "type": "IfStatement",
-                                                                "start": 3558,
-                                                                "end": 3776,
-                                                                "loc": {
-                                                                  "start": {
-                                                                    "line": 141,
-                                                                    "column": 20
-                                                                  },
-                                                                  "end": {
-                                                                    "line": 143,
-                                                                    "column": 21
-                                                                  }
-                                                                },
+                                                                ],
                                                                 "test": {
                                                                   "type": "BinaryExpression",
                                                                   "start": 3562,
@@ -6667,6 +6739,7 @@
                                                                       },
                                                                       "name": "error"
                                                                     },
+                                                                    "computed": false,
                                                                     "property": {
                                                                       "type": "Identifier",
                                                                       "start": 3568,
@@ -6683,8 +6756,7 @@
                                                                         "identifierName": "code"
                                                                       },
                                                                       "name": "code"
-                                                                    },
-                                                                    "computed": false
+                                                                    }
                                                                   },
                                                                   "operator": "===",
                                                                   "right": {
@@ -6737,6 +6809,24 @@
                                                                           "column": 96
                                                                         }
                                                                       },
+                                                                      "leadingComments": [
+                                                                        {
+                                                                          "type": "CommentLine",
+                                                                          "value": " Throw the original parentDir error on `current` `ENOENT` failure.",
+                                                                          "start": 3589,
+                                                                          "end": 3657,
+                                                                          "loc": {
+                                                                            "start": {
+                                                                              "line": 141,
+                                                                              "column": 51
+                                                                            },
+                                                                            "end": {
+                                                                              "line": 141,
+                                                                              "column": 119
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      ],
                                                                       "argument": {
                                                                         "type": "NewExpression",
                                                                         "start": 3688,
@@ -6815,6 +6905,7 @@
                                                                                   },
                                                                                   "name": "parent"
                                                                                 },
+                                                                                "computed": false,
                                                                                 "property": {
                                                                                   "type": "Identifier",
                                                                                   "start": 3743,
@@ -6831,8 +6922,7 @@
                                                                                     "identifierName": "value"
                                                                                   },
                                                                                   "name": "value"
-                                                                                },
-                                                                                "computed": false
+                                                                                }
                                                                               }
                                                                             ],
                                                                             "quasis": [
@@ -6879,48 +6969,12 @@
                                                                             ]
                                                                           }
                                                                         ]
-                                                                      },
-                                                                      "leadingComments": [
-                                                                        {
-                                                                          "type": "CommentLine",
-                                                                          "value": " Throw the original parentDir error on `current` `ENOENT` failure.",
-                                                                          "start": 3589,
-                                                                          "end": 3657,
-                                                                          "loc": {
-                                                                            "start": {
-                                                                              "line": 141,
-                                                                              "column": 51
-                                                                            },
-                                                                            "end": {
-                                                                              "line": 141,
-                                                                              "column": 119
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      ]
+                                                                      }
                                                                     }
                                                                   ],
                                                                   "directives": []
                                                                 },
-                                                                "alternate": null,
-                                                                "leadingComments": [
-                                                                  {
-                                                                    "type": "CommentLine",
-                                                                    "value": " To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.",
-                                                                    "start": 3456,
-                                                                    "end": 3537,
-                                                                    "loc": {
-                                                                      "start": {
-                                                                        "line": 140,
-                                                                        "column": 20
-                                                                      },
-                                                                      "end": {
-                                                                        "line": 140,
-                                                                        "column": 101
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                ]
+                                                                "alternate": null
                                                               },
                                                               {
                                                                 "type": "VariableDeclaration",
@@ -7121,6 +7175,7 @@
                                                                                   }
                                                                                 ]
                                                                               },
+                                                                              "computed": false,
                                                                               "property": {
                                                                                 "type": "Identifier",
                                                                                 "start": 3850,
@@ -7137,8 +7192,7 @@
                                                                                   "identifierName": "indexOf"
                                                                                 },
                                                                                 "name": "indexOf"
-                                                                              },
-                                                                              "computed": false
+                                                                              }
                                                                             },
                                                                             "arguments": [
                                                                               {
@@ -7172,6 +7226,7 @@
                                                                                   },
                                                                                   "name": "error"
                                                                                 },
+                                                                                "computed": false,
                                                                                 "property": {
                                                                                   "type": "Identifier",
                                                                                   "start": 3864,
@@ -7188,8 +7243,7 @@
                                                                                     "identifierName": "code"
                                                                                   },
                                                                                   "name": "code"
-                                                                                },
-                                                                                "computed": false
+                                                                                }
                                                                               }
                                                                             ]
                                                                           }
@@ -7277,6 +7331,10 @@
                                                                         "column": 102
                                                                       }
                                                                     },
+                                                                    "extra": {
+                                                                      "parenthesized": true,
+                                                                      "parenStart": 3910
+                                                                    },
                                                                     "left": {
                                                                       "type": "Identifier",
                                                                       "start": 3911,
@@ -7340,6 +7398,7 @@
                                                                           },
                                                                           "name": "current"
                                                                         },
+                                                                        "computed": false,
                                                                         "property": {
                                                                           "type": "Identifier",
                                                                           "start": 3932,
@@ -7356,8 +7415,7 @@
                                                                             "identifierName": "equals"
                                                                           },
                                                                           "name": "equals"
-                                                                        },
-                                                                        "computed": false
+                                                                        }
                                                                       },
                                                                       "arguments": [
                                                                         {
@@ -7378,10 +7436,6 @@
                                                                           "name": "relativeOrAbsolutePathToDirectory"
                                                                         }
                                                                       ]
-                                                                    },
-                                                                    "extra": {
-                                                                      "parenthesized": true,
-                                                                      "parenStart": 3910
                                                                     }
                                                                   }
                                                                 },
@@ -7414,23 +7468,6 @@
                                                                           "column": 36
                                                                         }
                                                                       },
-                                                                      "argument": {
-                                                                        "type": "Identifier",
-                                                                        "start": 4008,
-                                                                        "end": 4013,
-                                                                        "loc": {
-                                                                          "start": {
-                                                                            "line": 147,
-                                                                            "column": 30
-                                                                          },
-                                                                          "end": {
-                                                                            "line": 147,
-                                                                            "column": 35
-                                                                          },
-                                                                          "identifierName": "error"
-                                                                        },
-                                                                        "name": "error"
-                                                                      },
                                                                       "trailingComments": [
                                                                         {
                                                                           "type": "CommentLine",
@@ -7448,7 +7485,24 @@
                                                                             }
                                                                           }
                                                                         }
-                                                                      ]
+                                                                      ],
+                                                                      "argument": {
+                                                                        "type": "Identifier",
+                                                                        "start": 4008,
+                                                                        "end": 4013,
+                                                                        "loc": {
+                                                                          "start": {
+                                                                            "line": 147,
+                                                                            "column": 30
+                                                                          },
+                                                                          "end": {
+                                                                            "line": 147,
+                                                                            "column": 35
+                                                                          },
+                                                                          "identifierName": "error"
+                                                                        },
+                                                                        "name": "error"
+                                                                      }
                                                                     }
                                                                   ],
                                                                   "directives": []
@@ -7587,6 +7641,7 @@
                                 },
                                 "name": "Promise"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4183,
@@ -7603,8 +7658,7 @@
                                   "identifierName": "resolve"
                                 },
                                 "name": "resolve"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -7652,6 +7706,7 @@
                                     },
                                     "name": "absolutePath"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 4204,
@@ -7668,8 +7723,7 @@
                                       "identifierName": "root"
                                     },
                                     "name": "root"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               }
@@ -7680,26 +7734,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4383,
+                "end": 4559,
+                "loc": {
+                  "start": {
+                    "line": 171,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 175,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @param \n * {Path} relativeOrAbsolutePathToDirectory \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 2674,
-                    "end": 2823,
-                    "loc": {
-                      "start": {
-                        "line": 113,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 124,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 82 \n * @param \n * {Path} source \n * @param \n * {Path} destination \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -7716,22 +7767,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4383,
-                "end": 4559,
-                "loc": {
-                  "start": {
-                    "line": 171,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 175,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 88 \n * @param \n * {Path} path \n * @param \n * {any} data \n * @param \n * {string} encoding \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
+                    "start": 4560,
+                    "end": 4740,
+                    "loc": {
+                      "start": {
+                        "line": 176,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 191,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "public",
                 "static": false,
                 "key": {
@@ -8101,6 +8155,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 4485,
@@ -8117,9 +8172,9 @@
                                       "identifierName": "fs"
                                     },
                                     "name": "fs"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4488,
@@ -8136,8 +8191,7 @@
                                     "identifierName": "rename"
                                   },
                                   "name": "rename"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           }
@@ -8222,6 +8276,7 @@
                               },
                               "name": "source"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 4527,
@@ -8238,8 +8293,7 @@
                                 "identifierName": "value"
                               },
                               "name": "value"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -8272,6 +8326,7 @@
                               },
                               "name": "destination"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 4546,
@@ -8288,34 +8343,30 @@
                                 "identifierName": "value"
                               },
                               "name": "value"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4747,
+                "end": 5113,
+                "loc": {
+                  "start": {
+                    "line": 194,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 205,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 82 \n * @param \n * {Path} source \n * @param \n * {Path} destination \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 4220,
-                    "end": 4376,
-                    "loc": {
-                      "start": {
-                        "line": 155,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 168,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 88 \n * @param \n * {Path} path \n * @param \n * {any} data \n * @param \n * {string} encoding \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
@@ -8332,22 +8383,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4747,
-                "end": 5113,
-                "loc": {
-                  "start": {
-                    "line": 194,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 205,
-                    "column": 5
-                  }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -8786,6 +8822,9 @@
                                         "column": 13
                                       }
                                     },
+                                    "extra": {
+                                      "trailingComma": 5079
+                                    },
                                     "callee": {
                                       "type": "MemberExpression",
                                       "start": 4882,
@@ -8829,6 +8868,7 @@
                                             }
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 4887,
@@ -8845,9 +8885,9 @@
                                             "identifierName": "fs"
                                           },
                                           "name": "fs"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 4890,
@@ -8864,11 +8904,7 @@
                                           "identifierName": "writeFile"
                                         },
                                         "name": "writeFile"
-                                      },
-                                      "computed": false
-                                    },
-                                    "extra": {
-                                      "trailingComma": 5079
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -8902,6 +8938,7 @@
                                           },
                                           "name": "path"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 4922,
@@ -8918,8 +8955,7 @@
                                             "identifierName": "value"
                                           },
                                           "name": "value"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       {
                                         "type": "Identifier",
@@ -9138,25 +9174,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 88 \n * @param \n * {Path} path \n * @param \n * {any} data \n * @param \n * {string} encoding \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
-                    "start": 4560,
-                    "end": 4740,
-                    "loc": {
-                      "start": {
-                        "line": 176,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 191,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -9179,25 +9197,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n ",
-            "start": 139,
-            "end": 183,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -316,6 +316,40 @@
             "column": 65
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n * @param \n * {undefined | undefined} locales \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 175,
+            "end": 307,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Returns a string where all alphabetic characters have been converted to uppercase,\n *  taking into account the host environment's current locale.\n *\n * @param {Answerable<string | string[]>} [locales]\n *  The `locale` parameter indicates the locale to be used to convert to lower case according to any\n *  locale-specific case mappings. If multiple locales are given in an `Array`,\n *  the [best available locale](https://tc39.es/ecma402/#sec-bestavailablelocale) is used.\n *  The default locale is the host environment’s current locale.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLocaleUpperCase\n ",
+            "start": 310,
+            "end": 1040,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 30,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -387,8 +421,23 @@
             "raw": "'../AnswerMappingFunction'"
           },
           "value": "../AnswerMappingFunction"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1041,
+        "end": 1401,
+        "loc": {
+          "start": {
+            "line": 31,
+            "column": 0
+          },
+          "end": {
+            "line": 39,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n * @param \n * {undefined | undefined} locales \n * @return \n * {AnswerMappingFunction} \n ",
@@ -421,22 +470,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1041,
-        "end": 1401,
-        "loc": {
-          "start": {
-            "line": 31,
-            "column": 0
-          },
-          "end": {
-            "line": 39,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1096,6 +1130,7 @@
                                     },
                                     "name": "actor"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1318,
@@ -1112,8 +1147,7 @@
                                       "identifierName": "answer"
                                     },
                                     "name": "answer"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -1135,6 +1169,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1351,
@@ -1151,8 +1186,7 @@
                                   "identifierName": "then"
                                 },
                                 "name": "then"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1236,6 +1270,7 @@
                                       },
                                       "name": "value"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1367,
@@ -1252,8 +1287,7 @@
                                         "identifierName": "toLocaleUpperCase"
                                       },
                                       "name": "toLocaleUpperCase"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1323,41 +1357,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n * @param \n * {undefined | undefined} locales \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 175,
-            "end": 307,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Returns a string where all alphabetic characters have been converted to uppercase,\n *  taking into account the host environment's current locale.\n *\n * @param {Answerable<string | string[]>} [locales]\n *  The `locale` parameter indicates the locale to be used to convert to lower case according to any\n *  locale-specific case mappings. If multiple locales are given in an `Array`,\n *  the [best available locale](https://tc39.es/ecma402/#sec-bestavailablelocale) is used.\n *  The default locale is the host environment’s current locale.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLocaleUpperCase\n ",
-            "start": 310,
-            "end": 1040,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 30,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

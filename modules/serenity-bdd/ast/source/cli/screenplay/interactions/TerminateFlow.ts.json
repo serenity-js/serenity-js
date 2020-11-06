@@ -131,6 +131,24 @@
             "column": 45
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 96,
+            "end": 115,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 6,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +220,23 @@
             "raw": "'../../model'"
           },
           "value": "../../model"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 116,
+        "end": 338,
+        "loc": {
+          "start": {
+            "line": 7,
+            "column": 0
+          },
+          "end": {
+            "line": 11,
+            "column": 2
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @package\n ",
@@ -220,22 +253,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 116,
-        "end": 338,
-        "loc": {
-          "start": {
-            "line": 7,
-            "column": 0
-          },
-          "end": {
-            "line": 11,
-            "column": 2
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -298,6 +316,9 @@
                     "line": 11,
                     "column": 1
                   }
+                },
+                "extra": {
+                  "trailingComma": 334
                 },
                 "properties": [
                   {
@@ -510,6 +531,7 @@
                             },
                             "name": "Interaction"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 208,
@@ -526,8 +548,7 @@
                               "identifierName": "where"
                             },
                             "name": "where"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -748,10 +769,7 @@
                       }
                     }
                   }
-                ],
-                "extra": {
-                  "trailingComma": 334
-                }
+                ]
               }
             }
           ],
@@ -775,25 +793,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 96,
-            "end": 115,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 6,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

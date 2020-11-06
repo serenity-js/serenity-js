@@ -969,6 +969,40 @@
             "column": 54
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 498,
+            "end": 543,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n ",
+            "start": 546,
+            "end": 565,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -1040,8 +1074,23 @@
             "raw": "'./ProtractorReport'"
           },
           "value": "./ProtractorReport"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 566,
+        "end": 4892,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 211,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
@@ -1074,22 +1123,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 566,
-        "end": 4892,
-        "loc": {
-          "start": {
-            "line": 18,
-            "column": 0
-          },
-          "end": {
-            "line": 211,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1188,6 +1222,24 @@
                     "column": 67
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @type \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
+                    "start": 627,
+                    "end": 719,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -1367,25 +1419,7 @@
                     }
                   },
                   "properties": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @type \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
-                    "start": 627,
-                    "end": 719,
-                    "loc": {
-                      "start": {
-                        "line": 19,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 28,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -1401,6 +1435,24 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
+                    "start": 999,
+                    "end": 1129,
+                    "loc": {
+                      "start": {
+                        "line": 38,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 49,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1853,8 +1905,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1136,
+                "end": 1259,
+                "loc": {
+                  "start": {
+                    "line": 52,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 54,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
@@ -1871,22 +1938,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1136,
-                "end": 1259,
-                "loc": {
-                  "start": {
-                    "line": 52,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 54,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 1260,
+                    "end": 1385,
+                    "loc": {
+                      "start": {
+                        "line": 55,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 66,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2113,6 +2183,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1223,
@@ -2129,8 +2200,7 @@
                                 "identifierName": "runner"
                               },
                               "name": "runner"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -2161,6 +2231,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1236,
@@ -2177,8 +2248,7 @@
                                 "identifierName": "reported"
                               },
                               "name": "reported"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "Identifier",
@@ -2202,26 +2272,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1392,
+                "end": 2257,
+                "loc": {
+                  "start": {
+                    "line": 69,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 95,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
-                    "start": 999,
-                    "end": 1129,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 49,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -2238,22 +2305,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1392,
-                "end": 2257,
-                "loc": {
-                  "start": {
-                    "line": 69,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 95,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @return \n * {ProtractorReport} \n * @public \n * \\TRUE \n ",
+                    "start": 2258,
+                    "end": 2360,
+                    "loc": {
+                      "start": {
+                        "line": 96,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 105,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2524,6 +2594,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1490,
@@ -2540,8 +2611,7 @@
                                     "identifierName": "recordStart"
                                   },
                                   "name": "recordStart"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -2703,6 +2773,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1589,
@@ -2719,8 +2790,7 @@
                                       "identifierName": "afterEach"
                                     },
                                     "name": "afterEach"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               }
@@ -2852,6 +2922,7 @@
                                   },
                                   "name": "event"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1670,
@@ -2868,8 +2939,7 @@
                                     "identifierName": "outcome"
                                   },
                                   "name": "outcome"
-                                },
-                                "computed": false
+                                }
                               },
                               "operator": "instanceof",
                               "right": {
@@ -2963,6 +3033,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1729,
@@ -2979,8 +3050,7 @@
                                         "identifierName": "recordSuccess"
                                       },
                                       "name": "recordSuccess"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -3074,6 +3144,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1769,
@@ -3090,9 +3161,9 @@
                                           "identifierName": "runner"
                                         },
                                         "name": "runner"
-                                      },
-                                      "computed": false
+                                      }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1776,
@@ -3109,8 +3180,7 @@
                                         "identifierName": "emit"
                                       },
                                       "name": "emit"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -3146,6 +3216,9 @@
                                           "line": 84,
                                           "column": 13
                                         }
+                                      },
+                                      "extra": {
+                                        "trailingComma": 1905
                                       },
                                       "properties": [
                                         {
@@ -3241,6 +3314,7 @@
                                                   },
                                                   "name": "event"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 1829,
@@ -3257,9 +3331,9 @@
                                                     "identifierName": "details"
                                                   },
                                                   "name": "details"
-                                                },
-                                                "computed": false
+                                                }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 1837,
@@ -3276,9 +3350,9 @@
                                                   "identifierName": "name"
                                                 },
                                                 "name": "name"
-                                              },
-                                              "computed": false
+                                              }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1842,
@@ -3295,8 +3369,7 @@
                                                 "identifierName": "value"
                                               },
                                               "name": "value"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         },
                                         {
@@ -3392,6 +3465,7 @@
                                                   },
                                                   "name": "event"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 1883,
@@ -3408,9 +3482,9 @@
                                                     "identifierName": "details"
                                                   },
                                                   "name": "details"
-                                                },
-                                                "computed": false
+                                                }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 1891,
@@ -3427,9 +3501,9 @@
                                                   "identifierName": "category"
                                                 },
                                                 "name": "category"
-                                              },
-                                              "computed": false
+                                              }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1900,
@@ -3446,14 +3520,10 @@
                                                 "identifierName": "value"
                                               },
                                               "name": "value"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         }
-                                      ],
-                                      "extra": {
-                                        "trailingComma": 1905
-                                      }
+                                      ]
                                     }
                                   ]
                                 }
@@ -3585,6 +3655,7 @@
                                     },
                                     "name": "event"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1991,
@@ -3601,8 +3672,7 @@
                                       "identifierName": "outcome"
                                     },
                                     "name": "outcome"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "operator": "instanceof",
                                 "right": {
@@ -3696,6 +3766,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2048,
@@ -3712,8 +3783,7 @@
                                           "identifierName": "recordFailure"
                                         },
                                         "name": "recordFailure"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -3807,6 +3877,7 @@
                                             }
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2088,
@@ -3823,9 +3894,9 @@
                                             "identifierName": "runner"
                                           },
                                           "name": "runner"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2095,
@@ -3842,8 +3913,7 @@
                                           "identifierName": "emit"
                                         },
                                         "name": "emit"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -3879,6 +3949,9 @@
                                             "line": 93,
                                             "column": 13
                                           }
+                                        },
+                                        "extra": {
+                                          "trailingComma": 2224
                                         },
                                         "properties": [
                                           {
@@ -3974,6 +4047,7 @@
                                                     },
                                                     "name": "event"
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 2148,
@@ -3990,9 +4064,9 @@
                                                       "identifierName": "details"
                                                     },
                                                     "name": "details"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 2156,
@@ -4009,9 +4083,9 @@
                                                     "identifierName": "name"
                                                   },
                                                   "name": "name"
-                                                },
-                                                "computed": false
+                                                }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 2161,
@@ -4028,8 +4102,7 @@
                                                   "identifierName": "value"
                                                 },
                                                 "name": "value"
-                                              },
-                                              "computed": false
+                                              }
                                             }
                                           },
                                           {
@@ -4125,6 +4198,7 @@
                                                     },
                                                     "name": "event"
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 2202,
@@ -4141,9 +4215,9 @@
                                                       "identifierName": "details"
                                                     },
                                                     "name": "details"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 2210,
@@ -4160,9 +4234,9 @@
                                                     "identifierName": "category"
                                                   },
                                                   "name": "category"
-                                                },
-                                                "computed": false
+                                                }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 2219,
@@ -4179,14 +4253,10 @@
                                                   "identifierName": "value"
                                                 },
                                                 "name": "value"
-                                              },
-                                              "computed": false
+                                              }
                                             }
                                           }
-                                        ],
-                                        "extra": {
-                                          "trailingComma": 2224
-                                        }
+                                        ]
                                       }
                                     ]
                                   }
@@ -4201,26 +4271,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2367,
+                "end": 2431,
+                "loc": {
+                  "start": {
+                    "line": 108,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 110,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 1260,
-                    "end": 1385,
-                    "loc": {
-                      "start": {
-                        "line": 55,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 66,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @return \n * {ProtractorReport} \n * @public \n * \\TRUE \n ",
@@ -4237,22 +4304,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2367,
-                "end": 2431,
-                "loc": {
-                  "start": {
-                    "line": 108,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 110,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {SceneFinished} event \n * @private \n * \\TRUE \n ",
+                    "start": 2432,
+                    "end": 2537,
+                    "loc": {
+                      "start": {
+                        "line": 111,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 120,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4382,6 +4452,7 @@
                             }
                           }
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 2416,
@@ -4398,32 +4469,28 @@
                             "identifierName": "reported"
                           },
                           "name": "reported"
-                        },
-                        "computed": false
+                        }
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2544,
+                "end": 3116,
+                "loc": {
+                  "start": {
+                    "line": 123,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 137,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @return \n * {ProtractorReport} \n * @public \n * \\TRUE \n ",
-                    "start": 2258,
-                    "end": 2360,
-                    "loc": {
-                      "start": {
-                        "line": 96,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 105,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {SceneFinished} event \n * @private \n * \\TRUE \n ",
@@ -4440,22 +4507,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2544,
-                "end": 3116,
-                "loc": {
-                  "start": {
-                    "line": 123,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 137,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {SceneStarts} event \n * @private \n * \\TRUE \n ",
+                    "start": 3117,
+                    "end": 3220,
+                    "loc": {
+                      "start": {
+                        "line": 138,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 147,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -4621,6 +4691,10 @@
                                 "column": 59
                               }
                             },
+                            "extra": {
+                              "parenthesized": true,
+                              "parenStart": 2614
+                            },
                             "expression": {
                               "type": "MemberExpression",
                               "start": 2615,
@@ -4652,6 +4726,7 @@
                                 },
                                 "name": "event"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2621,
@@ -4668,8 +4743,7 @@
                                   "identifierName": "outcome"
                                 },
                                 "name": "outcome"
-                              },
-                              "computed": false
+                              }
                             },
                             "typeAnnotation": {
                               "type": "TSTypeReference",
@@ -4702,10 +4776,6 @@
                                 },
                                 "name": "ProblemIndication"
                               }
-                            },
-                            "extra": {
-                              "parenthesized": true,
-                              "parenStart": 2614
                             }
                           }
                         }
@@ -4785,6 +4855,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2666,
@@ -4801,9 +4872,9 @@
                                 "identifierName": "reported"
                               },
                               "name": "reported"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2675,
@@ -4820,8 +4891,7 @@
                               "identifierName": "failedCount"
                             },
                             "name": "failedCount"
-                          },
-                          "computed": false
+                          }
                         }
                       }
                     },
@@ -4910,6 +4980,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2704,
@@ -4926,9 +4997,9 @@
                                   "identifierName": "reported"
                                 },
                                 "name": "reported"
-                              },
-                              "computed": false
+                              }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2713,
@@ -4945,9 +5016,9 @@
                                 "identifierName": "specResults"
                               },
                               "name": "specResults"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2725,
@@ -4964,8 +5035,7 @@
                               "identifierName": "push"
                             },
                             "name": "push"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -4981,6 +5051,9 @@
                                 "line": 136,
                                 "column": 9
                               }
+                            },
+                            "extra": {
+                              "trailingComma": 3097
                             },
                             "properties": [
                               {
@@ -5091,6 +5164,7 @@
                                             },
                                             "name": "event"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2767,
@@ -5107,9 +5181,9 @@
                                               "identifierName": "details"
                                             },
                                             "name": "details"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2775,
@@ -5126,9 +5200,9 @@
                                             "identifierName": "category"
                                           },
                                           "name": "category"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2784,
@@ -5145,8 +5219,7 @@
                                           "identifierName": "value"
                                         },
                                         "name": "value"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     {
                                       "type": "MemberExpression",
@@ -5207,6 +5280,7 @@
                                             },
                                             "name": "event"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2801,
@@ -5223,9 +5297,9 @@
                                               "identifierName": "details"
                                             },
                                             "name": "details"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2809,
@@ -5242,9 +5316,9 @@
                                             "identifierName": "name"
                                           },
                                           "name": "name"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2814,
@@ -5261,8 +5335,7 @@
                                           "identifierName": "value"
                                         },
                                         "name": "value"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   ],
                                   "quasis": [
@@ -5450,6 +5523,7 @@
                                             },
                                             "name": "event"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2852,
@@ -5466,9 +5540,9 @@
                                               "identifierName": "timestamp"
                                             },
                                             "name": "timestamp"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2862,
@@ -5485,8 +5559,7 @@
                                             "identifierName": "diff"
                                           },
                                           "name": "diff"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -5532,6 +5605,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 2872,
@@ -5548,9 +5622,9 @@
                                                 "identifierName": "startTime"
                                               },
                                               "name": "startTime"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": true,
                                           "property": {
                                             "type": "CallExpression",
                                             "start": 2882,
@@ -5610,6 +5684,7 @@
                                                   },
                                                   "name": "event"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 2888,
@@ -5626,9 +5701,9 @@
                                                     "identifierName": "details"
                                                   },
                                                   "name": "details"
-                                                },
-                                                "computed": false
+                                                }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 2896,
@@ -5645,15 +5720,14 @@
                                                   "identifierName": "toString"
                                                 },
                                                 "name": "toString"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": []
-                                          },
-                                          "computed": true
+                                          }
                                         }
                                       ]
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2909,
@@ -5670,8 +5744,7 @@
                                         "identifierName": "inMilliseconds"
                                       },
                                       "name": "inMilliseconds"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": []
                                 }
@@ -5738,6 +5811,9 @@
                                           "line": 135,
                                           "column": 13
                                         }
+                                      },
+                                      "extra": {
+                                        "trailingComma": 3081
                                       },
                                       "properties": [
                                         {
@@ -5870,6 +5946,7 @@
                                                 },
                                                 "name": "outcome"
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 3019,
@@ -5886,9 +5963,9 @@
                                                   "identifierName": "error"
                                                 },
                                                 "name": "error"
-                                              },
-                                              "computed": false
+                                              }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 3025,
@@ -5905,8 +5982,7 @@
                                                 "identifierName": "message"
                                               },
                                               "name": "message"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         },
                                         {
@@ -5988,6 +6064,7 @@
                                                 },
                                                 "name": "outcome"
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 3070,
@@ -6004,9 +6081,9 @@
                                                   "identifierName": "error"
                                                 },
                                                 "name": "error"
-                                              },
-                                              "computed": false
+                                              }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 3076,
@@ -6023,48 +6100,38 @@
                                                 "identifierName": "stack"
                                               },
                                               "name": "stack"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         }
-                                      ],
-                                      "extra": {
-                                        "trailingComma": 3081
-                                      }
+                                      ]
                                     }
                                   ]
                                 }
                               }
-                            ],
-                            "extra": {
-                              "trailingComma": 3097
-                            }
+                            ]
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3227,
+                "end": 3342,
+                "loc": {
+                  "start": {
+                    "line": 150,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 152,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {SceneFinished} event \n * @private \n * \\TRUE \n ",
-                    "start": 2432,
-                    "end": 2537,
-                    "loc": {
-                      "start": {
-                        "line": 111,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 120,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {SceneStarts} event \n * @private \n * \\TRUE \n ",
@@ -6081,22 +6148,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3227,
-                "end": 3342,
-                "loc": {
-                  "start": {
-                    "line": 150,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 152,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 77 \n * @param \n * {SceneFinished} event \n * @private \n * \\TRUE \n ",
+                    "start": 3343,
+                    "end": 3448,
+                    "loc": {
+                      "start": {
+                        "line": 153,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 162,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -6274,6 +6344,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 3282,
@@ -6290,9 +6361,9 @@
                                 "identifierName": "startTime"
                               },
                               "name": "startTime"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": true,
                           "property": {
                             "type": "CallExpression",
                             "start": 3292,
@@ -6352,6 +6423,7 @@
                                   },
                                   "name": "event"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3298,
@@ -6368,9 +6440,9 @@
                                     "identifierName": "details"
                                   },
                                   "name": "details"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3306,
@@ -6387,12 +6459,10 @@
                                   "identifierName": "toString"
                                 },
                                 "name": "toString"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
-                          },
-                          "computed": true
+                          }
                         },
                         "right": {
                           "type": "MemberExpression",
@@ -6425,6 +6495,7 @@
                             },
                             "name": "event"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3326,
@@ -6441,33 +6512,29 @@
                               "identifierName": "timestamp"
                             },
                             "name": "timestamp"
-                          },
-                          "computed": false
+                          }
                         }
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3455,
+                "end": 3827,
+                "loc": {
+                  "start": {
+                    "line": 165,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 173,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {SceneStarts} event \n * @private \n * \\TRUE \n ",
-                    "start": 3117,
-                    "end": 3220,
-                    "loc": {
-                      "start": {
-                        "line": 138,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 147,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 77 \n * @param \n * {SceneFinished} event \n * @private \n * \\TRUE \n ",
@@ -6484,22 +6551,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3455,
-                "end": 3827,
-                "loc": {
-                  "start": {
-                    "line": 165,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 173,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @return \n * {PromiseLike} \n * @private \n * \\TRUE \n ",
+                    "start": 3828,
+                    "end": 3926,
+                    "loc": {
+                      "start": {
+                        "line": 174,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 183,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -6690,6 +6760,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3514,
@@ -6706,9 +6777,9 @@
                                   "identifierName": "reported"
                                 },
                                 "name": "reported"
-                              },
-                              "computed": false
+                              }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 3523,
@@ -6725,9 +6796,9 @@
                                 "identifierName": "specResults"
                               },
                               "name": "specResults"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3535,
@@ -6744,8 +6815,7 @@
                               "identifierName": "push"
                             },
                             "name": "push"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -6761,6 +6831,9 @@
                                 "line": 172,
                                 "column": 9
                               }
+                            },
+                            "extra": {
+                              "trailingComma": 3808
                             },
                             "properties": [
                               {
@@ -6871,6 +6944,7 @@
                                             },
                                             "name": "event"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 3577,
@@ -6887,9 +6961,9 @@
                                               "identifierName": "details"
                                             },
                                             "name": "details"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3585,
@@ -6906,9 +6980,9 @@
                                             "identifierName": "category"
                                           },
                                           "name": "category"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3594,
@@ -6925,8 +6999,7 @@
                                           "identifierName": "value"
                                         },
                                         "name": "value"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     {
                                       "type": "MemberExpression",
@@ -6987,6 +7060,7 @@
                                             },
                                             "name": "event"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 3611,
@@ -7003,9 +7077,9 @@
                                               "identifierName": "details"
                                             },
                                             "name": "details"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3619,
@@ -7022,9 +7096,9 @@
                                             "identifierName": "name"
                                           },
                                           "name": "name"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3624,
@@ -7041,8 +7115,7 @@
                                           "identifierName": "value"
                                         },
                                         "name": "value"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   ],
                                   "quasis": [
@@ -7230,6 +7303,7 @@
                                             },
                                             "name": "event"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 3662,
@@ -7246,9 +7320,9 @@
                                               "identifierName": "timestamp"
                                             },
                                             "name": "timestamp"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3672,
@@ -7265,8 +7339,7 @@
                                             "identifierName": "diff"
                                           },
                                           "name": "diff"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -7312,6 +7385,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 3682,
@@ -7328,9 +7402,9 @@
                                                 "identifierName": "startTime"
                                               },
                                               "name": "startTime"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": true,
                                           "property": {
                                             "type": "CallExpression",
                                             "start": 3692,
@@ -7390,6 +7464,7 @@
                                                   },
                                                   "name": "event"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 3698,
@@ -7406,9 +7481,9 @@
                                                     "identifierName": "details"
                                                   },
                                                   "name": "details"
-                                                },
-                                                "computed": false
+                                                }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 3706,
@@ -7425,15 +7500,14 @@
                                                   "identifierName": "toString"
                                                 },
                                                 "name": "toString"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": []
-                                          },
-                                          "computed": true
+                                          }
                                         }
                                       ]
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 3719,
@@ -7450,8 +7524,7 @@
                                         "identifierName": "inMilliseconds"
                                       },
                                       "name": "inMilliseconds"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": []
                                 }
@@ -7519,6 +7592,9 @@
                                           "column": 13
                                         }
                                       },
+                                      "extra": {
+                                        "trailingComma": 3792
+                                      },
                                       "properties": [
                                         {
                                           "type": "ObjectProperty",
@@ -7571,44 +7647,35 @@
                                             "value": true
                                           }
                                         }
-                                      ],
-                                      "extra": {
-                                        "trailingComma": 3792
-                                      }
+                                      ]
                                     }
                                   ]
                                 }
                               }
-                            ],
-                            "extra": {
-                              "trailingComma": 3808
-                            }
+                            ]
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3933,
+                "end": 4890,
+                "loc": {
+                  "start": {
+                    "line": 186,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 210,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 77 \n * @param \n * {SceneFinished} event \n * @private \n * \\TRUE \n ",
-                    "start": 3343,
-                    "end": 3448,
-                    "loc": {
-                      "start": {
-                        "line": 153,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 162,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @return \n * {PromiseLike} \n * @private \n * \\TRUE \n ",
@@ -7625,22 +7692,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3933,
-                "end": 4890,
-                "loc": {
-                  "start": {
-                    "line": 186,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 210,
-                    "column": 5
-                  }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -7833,6 +7885,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 3993,
@@ -7849,9 +7902,9 @@
                                 "identifierName": "runner"
                               },
                               "name": "runner"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4000,
@@ -7868,8 +7921,7 @@
                               "identifierName": "afterEach"
                             },
                             "name": "afterEach"
-                          },
-                          "computed": false
+                          }
                         }
                       },
                       "consequent": {
@@ -7946,6 +7998,7 @@
                                   },
                                   "name": "Promise"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4040,
@@ -7962,8 +8015,7 @@
                                     "identifierName": "resolve"
                                   },
                                   "name": "resolve"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             }
@@ -8064,6 +8116,7 @@
                                 },
                                 "name": "CorrelationId"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4095,
@@ -8080,8 +8133,7 @@
                                   "identifierName": "create"
                                 },
                                 "name": "create"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
                           }
@@ -8160,6 +8212,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 4119,
@@ -8176,9 +8229,9 @@
                                 "identifierName": "stage"
                               },
                               "name": "stage"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4125,
@@ -8195,8 +8248,7 @@
                               "identifierName": "announce"
                             },
                             "name": "announce"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -8321,6 +8373,7 @@
                                               }
                                             }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 4201,
@@ -8337,9 +8390,9 @@
                                               "identifierName": "constructor"
                                             },
                                             "name": "constructor"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 4213,
@@ -8356,8 +8409,7 @@
                                             "identifierName": "name"
                                           },
                                           "name": "name"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     ],
                                     "quasis": [
@@ -8479,6 +8531,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 4296,
@@ -8495,9 +8548,9 @@
                                         "identifierName": "stage"
                                       },
                                       "name": "stage"
-                                    },
-                                    "computed": false
+                                    }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 4302,
@@ -8514,8 +8567,7 @@
                                       "identifierName": "currentTime"
                                     },
                                     "name": "currentTime"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               }
@@ -8551,6 +8603,9 @@
                             "line": 209,
                             "column": 13
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 4868
                         },
                         "callee": {
                           "type": "MemberExpression",
@@ -8611,6 +8666,7 @@
                                 },
                                 "name": "Promise"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4353,
@@ -8627,8 +8683,7 @@
                                   "identifierName": "resolve"
                                 },
                                 "name": "resolve"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -8702,6 +8757,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 4366,
@@ -8718,9 +8774,9 @@
                                           "identifierName": "runner"
                                         },
                                         "name": "runner"
-                                      },
-                                      "computed": false
+                                      }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 4373,
@@ -8737,8 +8793,7 @@
                                         "identifierName": "afterEach"
                                       },
                                       "name": "afterEach"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": []
                                 },
@@ -8841,6 +8896,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4432,
@@ -8857,11 +8913,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
-                        },
-                        "extra": {
-                          "trailingComma": 4868
+                          }
                         },
                         "arguments": [
                           {
@@ -8939,6 +8991,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 4485,
@@ -8955,9 +9008,9 @@
                                       "identifierName": "stage"
                                     },
                                     "name": "stage"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4491,
@@ -8974,8 +9027,7 @@
                                     "identifierName": "announce"
                                   },
                                   "name": "announce"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -9100,6 +9152,7 @@
                                                     }
                                                   }
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 4579,
@@ -9116,9 +9169,9 @@
                                                     "identifierName": "constructor"
                                                   },
                                                   "name": "constructor"
-                                                },
-                                                "computed": false
+                                                }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 4591,
@@ -9135,8 +9188,7 @@
                                                   "identifierName": "name"
                                                 },
                                                 "name": "name"
-                                              },
-                                              "computed": false
+                                              }
                                             }
                                           ],
                                           "quasis": [
@@ -9258,6 +9310,7 @@
                                               }
                                             }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 4696,
@@ -9274,9 +9327,9 @@
                                               "identifierName": "stage"
                                             },
                                             "name": "stage"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 4702,
@@ -9293,8 +9346,7 @@
                                             "identifierName": "currentTime"
                                           },
                                           "name": "currentTime"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": []
                                     }
@@ -9396,6 +9448,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 4791,
@@ -9412,9 +9465,9 @@
                                       "identifierName": "stage"
                                     },
                                     "name": "stage"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4797,
@@ -9431,8 +9484,7 @@
                                     "identifierName": "announce"
                                   },
                                   "name": "announce"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -9558,6 +9610,7 @@
                                               }
                                             }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 4847,
@@ -9574,9 +9627,9 @@
                                               "identifierName": "stage"
                                             },
                                             "name": "stage"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 4853,
@@ -9593,8 +9646,7 @@
                                             "identifierName": "currentTime"
                                           },
                                           "name": "currentTime"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": []
                                     }
@@ -9608,25 +9660,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @return \n * {PromiseLike} \n * @private \n * \\TRUE \n ",
-                    "start": 3828,
-                    "end": 3926,
-                    "loc": {
-                      "start": {
-                        "line": 174,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 183,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -9665,41 +9699,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 498,
-            "end": 543,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @private\n ",
-            "start": 546,
-            "end": 565,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

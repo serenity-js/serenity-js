@@ -180,6 +180,24 @@
             "column": 30
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
+            "start": 82,
+            "end": 126,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -251,8 +269,23 @@
             "raw": "'./Path'"
           },
           "value": "./Path"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 129,
+        "end": 602,
+        "loc": {
+          "start": {
+            "line": 11,
+            "column": 0
+          },
+          "end": {
+            "line": 36,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
@@ -269,22 +302,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 129,
-        "end": 602,
-        "loc": {
-          "start": {
-            "line": 11,
-            "column": 0
-          },
-          "end": {
-            "line": 36,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -365,6 +383,24 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 180,
+                    "end": 268,
+                    "loc": {
+                      "start": {
+                        "line": 12,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 21,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -544,6 +580,7 @@
                             },
                             "name": "Path"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 348,
@@ -560,8 +597,7 @@
                               "identifierName": "fromJSON"
                             },
                             "name": "fromJSON"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -609,6 +645,7 @@
                                 },
                                 "name": "o"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 359,
@@ -625,8 +662,7 @@
                                   "identifierName": "path"
                                 },
                                 "name": "path"
-                              },
-                              "computed": false
+                              }
                             },
                             "typeAnnotation": {
                               "type": "TSStringKeyword",
@@ -691,6 +727,7 @@
                             },
                             "name": "o"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 386,
@@ -707,8 +744,7 @@
                               "identifierName": "line"
                             },
                             "name": "line"
-                          },
-                          "computed": false
+                          }
                         },
                         "typeAnnotation": {
                           "type": "TSNumberKeyword",
@@ -771,6 +807,7 @@
                             },
                             "name": "o"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 412,
@@ -787,8 +824,7 @@
                               "identifierName": "column"
                             },
                             "name": "column"
-                          },
-                          "computed": false
+                          }
                         },
                         "typeAnnotation": {
                           "type": "TSNumberKeyword",
@@ -808,25 +844,7 @@
                       }
                     ]
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 180,
-                    "end": 268,
-                    "loc": {
-                      "start": {
-                        "line": 12,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 21,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -1164,25 +1182,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
-            "start": 82,
-            "end": 126,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

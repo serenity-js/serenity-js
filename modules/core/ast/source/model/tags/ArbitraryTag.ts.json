@@ -44,6 +44,40 @@
             "column": 28
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
+            "start": 29,
+            "end": 74,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Tagged with an arbitrary tag that doesn't have any special interpretation\n *  such as @regression, @wip, etc.\n *\n * @access public\n ",
+            "start": 77,
+            "end": 228,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -115,8 +149,23 @@
             "raw": "'./Tag'"
           },
           "value": "./Tag"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 229,
+        "end": 476,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 34,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
@@ -149,22 +198,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 229,
-        "end": 476,
-        "loc": {
-          "start": {
-            "line": 17,
-            "column": 0
-          },
-          "end": {
-            "line": 34,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -245,6 +279,24 @@
                     "column": 33
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 269,
+                    "end": 358,
+                    "loc": {
+                      "start": {
+                        "line": 18,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 27,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "readonly": true,
                 "static": true,
                 "key": {
@@ -284,25 +336,7 @@
                     "raw": "'tag'"
                   },
                   "value": "tag"
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 269,
-                    "end": 358,
-                    "loc": {
-                      "start": {
-                        "line": 18,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 27,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -497,6 +531,7 @@
                               },
                               "name": "ArbitraryTag"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 462,
@@ -513,8 +548,7 @@
                                 "identifierName": "Type"
                               },
                               "name": "Type"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
@@ -560,41 +594,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
-            "start": 29,
-            "end": 74,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Tagged with an arbitrary tag that doesn't have any special interpretation\n *  such as @regression, @wip, etc.\n *\n * @access public\n ",
-            "start": 77,
-            "end": 228,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

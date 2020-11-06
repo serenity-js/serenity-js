@@ -354,6 +354,24 @@
             "column": 28
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n ",
+            "start": 174,
+            "end": 218,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -425,8 +443,23 @@
             "raw": "'url'"
           },
           "value": "url"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 221,
+        "end": 2578,
+        "loc": {
+          "start": {
+            "line": 14,
+            "column": 0
+          },
+          "end": {
+            "line": 97,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n ",
@@ -443,22 +476,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 221,
-        "end": 2578,
-        "loc": {
-          "start": {
-            "line": 14,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {AddressInfo | undefined} maybeAddressInfo \n * @return \n * {UNKNOWN} \n ",
+            "start": 2579,
+            "end": 2708,
+            "loc": {
+              "start": {
+                "line": 98,
+                "column": 0
+              },
+              "end": {
+                "line": 107,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 97,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @param maybeAddressInfo\n * @private\n ",
+            "start": 2711,
+            "end": 2757,
+            "loc": {
+              "start": {
+                "line": 110,
+                "column": 0
+              },
+              "end": {
+                "line": 113,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -523,6 +575,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 248,
+                    "end": 364,
+                    "loc": {
+                      "start": {
+                        "line": 15,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 26,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Retrieves the URL of the local server started\n     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>} Url of the locally running Node.js server\n     *\n     * @see {@link StartLocalServer}\n     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>}\n     ",
+                    "start": 371,
+                    "end": 861,
+                    "loc": {
+                      "start": {
+                        "line": 29,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 40,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1710,
+                    "end": 1826,
+                    "loc": {
+                      "start": {
+                        "line": 64,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 75,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Retrieves the port number of the local server started\n     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>} port number of the locally running Node.js server\n     *\n     * @see {@link StartLocalServer}\n     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<number>}\n     ",
+                    "start": 1833,
+                    "end": 2339,
+                    "loc": {
+                      "start": {
+                        "line": 78,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 89,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -700,6 +820,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 923,
@@ -716,8 +837,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -878,6 +998,7 @@
                                             },
                                             "name": "ManageALocalServer"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1017,
@@ -894,8 +1015,7 @@
                                               "identifierName": "as"
                                             },
                                             "name": "as"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -917,6 +1037,7 @@
                                           }
                                         ]
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1027,
@@ -933,8 +1054,7 @@
                                           "identifierName": "mapInstance"
                                         },
                                         "name": "mapInstance"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -1096,6 +1216,7 @@
                                                         },
                                                         "name": "server"
                                                       },
+                                                      "computed": false,
                                                       "property": {
                                                         "type": "Identifier",
                                                         "start": 1099,
@@ -1112,8 +1233,7 @@
                                                           "identifierName": "address"
                                                         },
                                                         "name": "address"
-                                                      },
-                                                      "computed": false
+                                                      }
                                                     },
                                                     "arguments": []
                                                   }
@@ -1664,6 +1784,7 @@
                                                                       },
                                                                       "name": "info"
                                                                     },
+                                                                    "computed": false,
                                                                     "property": {
                                                                       "type": "Identifier",
                                                                       "start": 1517,
@@ -1680,8 +1801,7 @@
                                                                         "identifierName": "family"
                                                                       },
                                                                       "name": "family"
-                                                                    },
-                                                                    "computed": false
+                                                                    }
                                                                   }
                                                                 ],
                                                                 "quasis": [
@@ -1727,6 +1847,7 @@
                                                                   }
                                                                 ]
                                                               },
+                                                              "computed": false,
                                                               "property": {
                                                                 "type": "Identifier",
                                                                 "start": 1527,
@@ -1743,8 +1864,7 @@
                                                                   "identifierName": "toLowerCase"
                                                                 },
                                                                 "name": "toLowerCase"
-                                                              },
-                                                              "computed": false
+                                                              }
                                                             },
                                                             "arguments": []
                                                           },
@@ -1816,6 +1936,7 @@
                                                                 },
                                                                 "name": "info"
                                                               },
+                                                              "computed": false,
                                                               "property": {
                                                                 "type": "Identifier",
                                                                 "start": 1564,
@@ -1832,8 +1953,7 @@
                                                                   "identifierName": "address"
                                                                 },
                                                                 "name": "address"
-                                                              },
-                                                              "computed": false
+                                                              }
                                                             }
                                                           ],
                                                           "quasis": [
@@ -1910,6 +2030,7 @@
                                                             },
                                                             "name": "info"
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 1583,
@@ -1926,8 +2047,7 @@
                                                               "identifierName": "address"
                                                             },
                                                             "name": "address"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         }
                                                       },
                                                       {
@@ -1981,6 +2101,7 @@
                                                           },
                                                           "name": "info"
                                                         },
+                                                        "computed": false,
                                                         "property": {
                                                           "type": "Identifier",
                                                           "start": 1642,
@@ -1997,11 +2118,11 @@
                                                             "identifierName": "port"
                                                           },
                                                           "name": "port"
-                                                        },
-                                                        "computed": false
+                                                        }
                                                       }
                                                     ]
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 1666,
@@ -2018,8 +2139,7 @@
                                                       "identifierName": "join"
                                                     },
                                                     "name": "join"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
                                                 "arguments": [
                                                   {
@@ -2093,42 +2213,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2344,
+                "end": 2576,
+                "loc": {
+                  "start": {
+                    "line": 90,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 96,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 248,
-                    "end": 364,
-                    "loc": {
-                      "start": {
-                        "line": 15,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 26,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves the URL of the local server started\n     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>} Url of the locally running Node.js server\n     *\n     * @see {@link StartLocalServer}\n     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>}\n     ",
-                    "start": 371,
-                    "end": 861,
-                    "loc": {
-                      "start": {
-                        "line": 29,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 40,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2161,22 +2262,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2344,
-                "end": 2576,
-                "loc": {
-                  "start": {
-                    "line": 90,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 96,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2354,6 +2440,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2402,
@@ -2370,8 +2457,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2582,6 +2668,7 @@
                                                 },
                                                 "name": "LocalServer"
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 2483,
@@ -2598,11 +2685,11 @@
                                                   "identifierName": "url"
                                                 },
                                                 "name": "url"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": []
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2489,
@@ -2619,8 +2706,7 @@
                                               "identifierName": "answeredBy"
                                             },
                                             "name": "answeredBy"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -2757,6 +2843,7 @@
                                             }
                                           ]
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2548,
@@ -2773,8 +2860,7 @@
                                             "identifierName": "port"
                                           },
                                           "name": "port"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       {
                                         "type": "NumericLiteral",
@@ -2808,41 +2894,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1710,
-                    "end": 1826,
-                    "loc": {
-                      "start": {
-                        "line": 64,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 75,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves the port number of the local server started\n     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>} port number of the locally running Node.js server\n     *\n     * @see {@link StartLocalServer}\n     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<number>}\n     ",
-                    "start": 1833,
-                    "end": 2339,
-                    "loc": {
-                      "start": {
-                        "line": 78,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 89,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -2898,26 +2950,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 2758,
+        "end": 3019,
+        "loc": {
+          "start": {
+            "line": 114,
+            "column": 0
+          },
+          "end": {
+            "line": 119,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n ",
-            "start": 174,
-            "end": 218,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {AddressInfo | undefined} maybeAddressInfo \n * @return \n * {UNKNOWN} \n ",
@@ -2950,22 +2999,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 2758,
-        "end": 3019,
-        "loc": {
-          "start": {
-            "line": 114,
-            "column": 0
-          },
-          "end": {
-            "line": 119,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 2767,
@@ -3174,7 +3208,8 @@
                   "name": "AddressInfo"
                 }
               }
-            }
+            },
+            "asserts": false
           }
         },
         "body": {
@@ -3382,6 +3417,7 @@
                             },
                             "name": "maybeAddressInfo"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2935,
@@ -3398,8 +3434,7 @@
                               "identifierName": "address"
                             },
                             "name": "address"
-                          },
-                          "computed": false
+                          }
                         }
                       }
                     }
@@ -3468,6 +3503,7 @@
                           },
                           "name": "maybeAddressInfo"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 2974,
@@ -3484,8 +3520,7 @@
                             "identifierName": "family"
                           },
                           "name": "family"
-                        },
-                        "computed": false
+                        }
                       }
                     }
                   }
@@ -3554,6 +3589,7 @@
                         },
                         "name": "maybeAddressInfo"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 3012,
@@ -3570,8 +3606,7 @@
                           "identifierName": "port"
                         },
                         "name": "port"
-                      },
-                      "computed": false
+                      }
                     }
                   }
                 }
@@ -3579,41 +3614,7 @@
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {AddressInfo | undefined} maybeAddressInfo \n * @return \n * {UNKNOWN} \n ",
-            "start": 2579,
-            "end": 2708,
-            "loc": {
-              "start": {
-                "line": 98,
-                "column": 0
-              },
-              "end": {
-                "line": 107,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @param maybeAddressInfo\n * @private\n ",
-            "start": 2711,
-            "end": 2757,
-            "loc": {
-              "start": {
-                "line": 110,
-                "column": 0
-              },
-              "end": {
-                "line": 113,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

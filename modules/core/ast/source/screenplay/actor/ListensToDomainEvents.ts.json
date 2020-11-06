@@ -44,6 +44,40 @@
             "column": 43
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 44,
+            "end": 88,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A {@link StageCrewMember} or an {@link Actor} that can listen and react to\n *  {@link DomainEvent}s\n * @interface ",
+            "start": 91,
+            "end": 224,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 16
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -115,8 +149,23 @@
             "raw": "'../../events'"
           },
           "value": "../../events"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 225,
+        "end": 657,
+        "loc": {
+          "start": {
+            "line": 15,
+            "column": 0
+          },
+          "end": {
+            "line": 39,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
@@ -149,22 +198,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 225,
-        "end": 657,
-        "loc": {
-          "start": {
-            "line": 15,
-            "column": 0
-          },
-          "end": {
-            "line": 39,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -230,6 +264,40 @@
                     "column": 39
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 271,
+                    "end": 396,
+                    "loc": {
+                      "start": {
+                        "line": 16,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 27,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  this {@link StageCrewMember} is assigned to.\n     *\n     * @param {DomainEvent} event\n     * @returns void\n     ",
+                    "start": 403,
+                    "end": 615,
+                    "loc": {
+                      "start": {
+                        "line": 30,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 37,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -348,41 +416,7 @@
                       }
                     }
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 271,
-                    "end": 396,
-                    "loc": {
-                      "start": {
-                        "line": 16,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 27,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  this {@link StageCrewMember} is assigned to.\n     *\n     * @param {DomainEvent} event\n     * @returns void\n     ",
-                    "start": 403,
-                    "end": 615,
-                    "loc": {
-                      "start": {
-                        "line": 30,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 37,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -421,41 +455,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
-            "start": 44,
-            "end": 88,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A {@link StageCrewMember} or an {@link Actor} that can listen and react to\n *  {@link DomainEvent}s\n * @interface ",
-            "start": 91,
-            "end": 224,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

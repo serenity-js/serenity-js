@@ -218,6 +218,40 @@
             "column": 48
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+            "start": 170,
+            "end": 215,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A simple colour theme for terminals with no colour support.\n *\n * @extends {TerminalTheme}\n *\n * @public\n ",
+            "start": 218,
+            "end": 343,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 19,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -289,8 +323,23 @@
             "raw": "'./TerminalTheme'"
           },
           "value": "./TerminalTheme"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 344,
+        "end": 3276,
+        "loc": {
+          "start": {
+            "line": 20,
+            "column": 0
+          },
+          "end": {
+            "line": 169,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
@@ -323,22 +372,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 344,
-        "end": 3276,
-        "loc": {
-          "start": {
-            "line": 20,
-            "column": 0
-          },
-          "end": {
-            "line": 169,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -419,6 +453,40 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 628,
+                    "end": 751,
+                    "loc": {
+                      "start": {
+                        "line": 28,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 39,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Formats the heading\n     *\n     * @param {...any[]} parts\n     *  `parts` to be converted to string, joined together, and formatted as a heading\n     *\n     * @returns {string}\n     ",
+                    "start": 758,
+                    "end": 967,
+                    "loc": {
+                      "start": {
+                        "line": 42,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 50,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -547,6 +615,9 @@
                                     "line": 26,
                                     "column": 9
                                   }
+                                },
+                                "extra": {
+                                  "trailingComma": 607
                                 },
                                 "properties": [
                                   {
@@ -993,10 +1064,7 @@
                                       }
                                     }
                                   }
-                                ],
-                                "extra": {
-                                  "trailingComma": 607
-                                }
+                                ]
                               }
                             ]
                           }
@@ -1005,8 +1073,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 972,
+                "end": 1047,
+                "loc": {
+                  "start": {
+                    "line": 51,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 53,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1039,22 +1122,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 972,
-                "end": 1047,
-                "loc": {
-                  "start": {
-                    "line": 51,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Outcome} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1048,
+                    "end": 1204,
+                    "loc": {
+                      "start": {
+                        "line": 54,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 67,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 53,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Joins the `parts` into a single string.\n     *  Since this class represents a theme for monochromatic terminals,\n     *  no decoration of the text is performed.\n     *\n     * @param {@serenity-js/core/lib/model~Outcome | string} outcome\n     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}\n     *  or a string class name of one of its implementations.\n     *\n     * @param {...any[]} parts\n     *  the parts of the message\n     *\n     * @returns {string}\n     ",
+                    "start": 1211,
+                    "end": 1715,
+                    "loc": {
+                      "start": {
+                        "line": 70,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 84,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1259,6 +1361,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1027,
@@ -1275,8 +1378,7 @@
                               "identifierName": "joined"
                             },
                             "name": "joined"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1301,42 +1403,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1720,
+                "end": 1813,
+                "loc": {
+                  "start": {
+                    "line": 85,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 87,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 628,
-                    "end": 751,
-                    "loc": {
-                      "start": {
-                        "line": 28,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 39,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Formats the heading\n     *\n     * @param {...any[]} parts\n     *  `parts` to be converted to string, joined together, and formatted as a heading\n     *\n     * @returns {string}\n     ",
-                    "start": 758,
-                    "end": 967,
-                    "loc": {
-                      "start": {
-                        "line": 42,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 50,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Outcome} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1369,22 +1452,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1720,
-                "end": 1813,
-                "loc": {
-                  "start": {
-                    "line": 85,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {string} pattern \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1814,
+                    "end": 1938,
+                    "loc": {
+                      "start": {
+                        "line": 88,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 99,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 87,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Decorates the heading with theme colours.\n     *\n     * @param {string} pattern\n     *  The pattern to be repeated to create a separator, for example `-`, `✂ - - `, etc.\n     *\n     * @returns {string}\n     ",
+                    "start": 1945,
+                    "end": 2179,
+                    "loc": {
+                      "start": {
+                        "line": 102,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 110,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1653,6 +1755,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1793,
@@ -1669,8 +1772,7 @@
                               "identifierName": "joined"
                             },
                             "name": "joined"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1695,42 +1797,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2184,
+                "end": 2263,
+                "loc": {
+                  "start": {
+                    "line": 111,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 113,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Outcome} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1048,
-                    "end": 1204,
-                    "loc": {
-                      "start": {
-                        "line": 54,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 67,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Joins the `parts` into a single string.\n     *  Since this class represents a theme for monochromatic terminals,\n     *  no decoration of the text is performed.\n     *\n     * @param {@serenity-js/core/lib/model~Outcome | string} outcome\n     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}\n     *  or a string class name of one of its implementations.\n     *\n     * @param {...any[]} parts\n     *  the parts of the message\n     *\n     * @returns {string}\n     ",
-                    "start": 1211,
-                    "end": 1715,
-                    "loc": {
-                      "start": {
-                        "line": 70,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 84,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {string} pattern \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1763,22 +1846,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2184,
-                "end": 2263,
-                "loc": {
-                  "start": {
-                    "line": 111,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {string} expectedValue \n * @param \n * {string} actualValue \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 2264,
+                    "end": 2430,
+                    "loc": {
+                      "start": {
+                        "line": 114,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 127,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 113,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Turns the serialised `expectedValue` and `actualValue` into\n     *  a visual diff, so that it's easier for the developer to spot\n     *  the difference between the two values.\n     *\n     * @param {string} expectedValue\n     * @param {string} actualValue\n     *\n     * @returns {string}\n     ",
+                    "start": 2437,
+                    "end": 2756,
+                    "loc": {
+                      "start": {
+                        "line": 130,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 140,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1953,6 +2055,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2241,
@@ -1969,8 +2072,7 @@
                               "identifierName": "repeat"
                             },
                             "name": "repeat"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1995,42 +2097,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2761,
+                "end": 2886,
+                "loc": {
+                  "start": {
+                    "line": 141,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 143,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {string} pattern \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1814,
-                    "end": 1938,
-                    "loc": {
-                      "start": {
-                        "line": 88,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 99,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Decorates the heading with theme colours.\n     *\n     * @param {string} pattern\n     *  The pattern to be repeated to create a separator, for example `-`, `✂ - - `, etc.\n     *\n     * @returns {string}\n     ",
-                    "start": 1945,
-                    "end": 2179,
-                    "loc": {
-                      "start": {
-                        "line": 102,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 110,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {string} expectedValue \n * @param \n * {string} actualValue \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -2063,22 +2146,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2761,
-                "end": 2886,
-                "loc": {
-                  "start": {
-                    "line": 141,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {undefined} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 2887,
+                    "end": 3012,
+                    "loc": {
+                      "start": {
+                        "line": 144,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 155,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 143,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Decorates the log entries that the developer wanted to have captured in the output.\n     *\n     * @param {...any[]} parts\n     *\n     * @returns {string}\n     ",
+                    "start": 3019,
+                    "end": 3205,
+                    "loc": {
+                      "start": {
+                        "line": 158,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 165,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2314,6 +2416,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2840,
@@ -2330,9 +2433,9 @@
                                 "identifierName": "differ"
                               },
                               "name": "differ"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2847,
@@ -2349,8 +2452,7 @@
                               "identifierName": "diff"
                             },
                             "name": "diff"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2392,42 +2494,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3210,
+                "end": 3274,
+                "loc": {
+                  "start": {
+                    "line": 166,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 168,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {string} expectedValue \n * @param \n * {string} actualValue \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 2264,
-                    "end": 2430,
-                    "loc": {
-                      "start": {
-                        "line": 114,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 127,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Turns the serialised `expectedValue` and `actualValue` into\n     *  a visual diff, so that it's easier for the developer to spot\n     *  the difference between the two values.\n     *\n     * @param {string} expectedValue\n     * @param {string} actualValue\n     *\n     * @returns {string}\n     ",
-                    "start": 2437,
-                    "end": 2756,
-                    "loc": {
-                      "start": {
-                        "line": 130,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 140,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {undefined} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -2460,22 +2543,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3210,
-                "end": 3274,
-                "loc": {
-                  "start": {
-                    "line": 166,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 168,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2635,6 +2703,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3254,
@@ -2651,8 +2720,7 @@
                               "identifierName": "joined"
                             },
                             "name": "joined"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2677,41 +2745,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {undefined} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 2887,
-                    "end": 3012,
-                    "loc": {
-                      "start": {
-                        "line": 144,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 155,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Decorates the log entries that the developer wanted to have captured in the output.\n     *\n     * @param {...any[]} parts\n     *\n     * @returns {string}\n     ",
-                    "start": 3019,
-                    "end": 3205,
-                    "loc": {
-                      "start": {
-                        "line": 158,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 165,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -2750,41 +2784,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
-            "start": 170,
-            "end": 215,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A simple colour theme for terminals with no colour support.\n *\n * @extends {TerminalTheme}\n *\n * @public\n ",
-            "start": 218,
-            "end": 343,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 19,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

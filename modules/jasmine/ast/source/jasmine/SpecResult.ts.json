@@ -131,6 +131,24 @@
             "column": 38
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
+            "start": 84,
+            "end": 128,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +220,23 @@
             "raw": "'./Location'"
           },
           "value": "./Location"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 131,
+        "end": 1995,
+        "loc": {
+          "start": {
+            "line": 11,
+            "column": 0
+          },
+          "end": {
+            "line": 150,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
@@ -220,22 +253,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 131,
-        "end": 1995,
-        "loc": {
-          "start": {
-            "line": 11,
-            "column": 0
-          },
-          "end": {
-            "line": 150,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "type",
         "specifiers": [],
         "source": null,
@@ -299,6 +317,42 @@
                     "column": 15
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The unique id of this spec. \n * @lineNumber \n * 6 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 161,
+                    "end": 277,
+                    "loc": {
+                      "start": {
+                        "line": 12,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 21,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The description passed to the 'it' that created this spec. \n * @lineNumber \n * 9 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 300,
+                    "end": 447,
+                    "loc": {
+                      "start": {
+                        "line": 25,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 34,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 288,
@@ -346,26 +400,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSPropertySignature",
+                "start": 459,
+                "end": 479,
+                "loc": {
+                  "start": {
+                    "line": 38,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 38,
+                    "column": 24
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The unique id of this spec. \n * @lineNumber \n * 6 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 161,
-                    "end": 277,
-                    "loc": {
-                      "start": {
-                        "line": 12,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 21,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The description passed to the 'it' that created this spec. \n * @lineNumber \n * 9 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -382,22 +433,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSPropertySignature",
-                "start": 459,
-                "end": 479,
-                "loc": {
-                  "start": {
-                    "line": 38,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 38,
-                    "column": 24
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The full description including all ancestors of this spec. \n * @lineNumber \n * 12 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 480,
+                    "end": 628,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 48,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 459,
@@ -445,26 +499,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSPropertySignature",
+                "start": 640,
+                "end": 657,
+                "loc": {
+                  "start": {
+                    "line": 52,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 52,
+                    "column": 21
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The description passed to the 'it' that created this spec. \n * @lineNumber \n * 9 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 300,
-                    "end": 447,
-                    "loc": {
-                      "start": {
-                        "line": 25,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 34,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The full description including all ancestors of this spec. \n * @lineNumber \n * 12 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -481,22 +532,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSPropertySignature",
-                "start": 640,
-                "end": 657,
-                "loc": {
-                  "start": {
-                    "line": 52,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 52,
-                    "column": 21
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The list of expectations that failed during execution of this spec. \n * @lineNumber \n * 15 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 658,
+                    "end": 816,
+                    "loc": {
+                      "start": {
+                        "line": 53,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 62,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 640,
@@ -544,26 +598,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSPropertySignature",
+                "start": 828,
+                "end": 862,
+                "loc": {
+                  "start": {
+                    "line": 66,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 66,
+                    "column": 38
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The full description including all ancestors of this spec. \n * @lineNumber \n * 12 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 480,
-                    "end": 628,
-                    "loc": {
-                      "start": {
-                        "line": 39,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 48,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The list of expectations that failed during execution of this spec. \n * @lineNumber \n * 15 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -580,22 +631,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSPropertySignature",
-                "start": 828,
-                "end": 862,
-                "loc": {
-                  "start": {
-                    "line": 66,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 66,
-                    "column": 38
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The list of expectations that passed during execution of this spec. \n * @lineNumber \n * 18 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 863,
+                    "end": 1021,
+                    "loc": {
+                      "start": {
+                        "line": 67,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 76,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 828,
@@ -675,26 +729,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSPropertySignature",
+                "start": 1033,
+                "end": 1067,
+                "loc": {
+                  "start": {
+                    "line": 80,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 80,
+                    "column": 38
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The list of expectations that failed during execution of this spec. \n * @lineNumber \n * 15 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 658,
-                    "end": 816,
-                    "loc": {
-                      "start": {
-                        "line": 53,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 62,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The list of expectations that passed during execution of this spec. \n * @lineNumber \n * 18 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -711,22 +762,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSPropertySignature",
-                "start": 1033,
-                "end": 1067,
-                "loc": {
-                  "start": {
-                    "line": 80,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 80,
-                    "column": 38
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The list of deprecation warnings that occurred during execution this spec. \n * @lineNumber \n * 21 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 1068,
+                    "end": 1233,
+                    "loc": {
+                      "start": {
+                        "line": 81,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 90,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 1033,
@@ -806,26 +860,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSPropertySignature",
+                "start": 1245,
+                "end": 1280,
+                "loc": {
+                  "start": {
+                    "line": 94,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 94,
+                    "column": 39
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The list of expectations that passed during execution of this spec. \n * @lineNumber \n * 18 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 863,
-                    "end": 1021,
-                    "loc": {
-                      "start": {
-                        "line": 67,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 76,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The list of deprecation warnings that occurred during execution this spec. \n * @lineNumber \n * 21 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -842,22 +893,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSPropertySignature",
-                "start": 1245,
-                "end": 1280,
-                "loc": {
-                  "start": {
-                    "line": 94,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 94,
-                    "column": 39
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * If the spec is pending, this will be the reason. \n * @lineNumber \n * 24 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1281,
+                    "end": 1419,
+                    "loc": {
+                      "start": {
+                        "line": 95,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 104,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 1245,
@@ -937,26 +991,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSPropertySignature",
+                "start": 1431,
+                "end": 1453,
+                "loc": {
+                  "start": {
+                    "line": 108,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 108,
+                    "column": 26
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The list of deprecation warnings that occurred during execution this spec. \n * @lineNumber \n * 21 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 1068,
-                    "end": 1233,
-                    "loc": {
-                      "start": {
-                        "line": 81,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 90,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * If the spec is pending, this will be the reason. \n * @lineNumber \n * 24 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -973,22 +1024,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSPropertySignature",
-                "start": 1431,
-                "end": 1453,
-                "loc": {
-                  "start": {
-                    "line": 108,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 108,
-                    "column": 26
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * Once the spec has completed, this string represents the pass/fail status of this spec. \n * @lineNumber \n * 27 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1454,
+                    "end": 1630,
+                    "loc": {
+                      "start": {
+                        "line": 109,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 118,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 1431,
@@ -1036,26 +1090,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSPropertySignature",
+                "start": 1642,
+                "end": 1658,
+                "loc": {
+                  "start": {
+                    "line": 122,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 122,
+                    "column": 20
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * If the spec is pending, this will be the reason. \n * @lineNumber \n * 24 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1281,
-                    "end": 1419,
-                    "loc": {
-                      "start": {
-                        "line": 95,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 104,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * Once the spec has completed, this string represents the pass/fail status of this spec. \n * @lineNumber \n * 27 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1072,22 +1123,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSPropertySignature",
-                "start": 1642,
-                "end": 1658,
-                "loc": {
-                  "start": {
-                    "line": 122,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 122,
-                    "column": 20
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The time in ms used by the spec execution, including any before/afterEach. \n * @lineNumber \n * 30 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 1659,
+                    "end": 1838,
+                    "loc": {
+                      "start": {
+                        "line": 123,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 132,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 1642,
@@ -1136,26 +1190,23 @@
                       }
                     }
                   }
+                }
+              },
+              {
+                "type": "TSPropertySignature",
+                "start": 1850,
+                "end": 1874,
+                "loc": {
+                  "start": {
+                    "line": 136,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 136,
+                    "column": 28
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * Once the spec has completed, this string represents the pass/fail status of this spec. \n * @lineNumber \n * 27 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1454,
-                    "end": 1630,
-                    "loc": {
-                      "start": {
-                        "line": 109,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 118,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The time in ms used by the spec execution, including any before/afterEach. \n * @lineNumber \n * 30 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
@@ -1172,22 +1223,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSPropertySignature",
-                "start": 1850,
-                "end": 1874,
-                "loc": {
-                  "start": {
-                    "line": 136,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 136,
-                    "column": 28
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
+                    "start": 1875,
+                    "end": 1967,
+                    "loc": {
+                      "start": {
+                        "line": 137,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 146,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 1850,
@@ -1267,26 +1321,23 @@
                       }
                     ]
                   }
+                }
+              },
+              {
+                "type": "TSPropertySignature",
+                "start": 1974,
+                "end": 1993,
+                "loc": {
+                  "start": {
+                    "line": 149,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 149,
+                    "column": 23
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The time in ms used by the spec execution, including any before/afterEach. \n * @lineNumber \n * 30 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 1659,
-                    "end": 1838,
-                    "loc": {
-                      "start": {
-                        "line": 123,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 132,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
@@ -1303,22 +1354,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSPropertySignature",
-                "start": 1974,
-                "end": 1993,
-                "loc": {
-                  "start": {
-                    "line": 149,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 149,
-                    "column": 23
-                  }
-                },
+                ],
                 "key": {
                   "type": "Identifier",
                   "start": 1974,
@@ -1383,25 +1419,7 @@
                       "name": "Location"
                     }
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
-                    "start": 1875,
-                    "end": 1967,
-                    "loc": {
-                      "start": {
-                        "line": 137,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 146,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1424,25 +1442,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
-            "start": 84,
-            "end": 128,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

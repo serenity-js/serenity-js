@@ -218,6 +218,24 @@
             "column": 45
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 145,
+            "end": 164,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -289,8 +307,23 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 165,
+        "end": 424,
+        "loc": {
+          "start": {
+            "line": 8,
+            "column": 0
+          },
+          "end": {
+            "line": 13,
+            "column": 2
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @package\n ",
@@ -307,22 +340,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 165,
-        "end": 424,
-        "loc": {
-          "start": {
-            "line": 8,
-            "column": 0
-          },
-          "end": {
-            "line": 13,
-            "column": 2
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -385,6 +403,9 @@
                     "line": 13,
                     "column": 1
                   }
+                },
+                "extra": {
+                  "trailingComma": 420
                 },
                 "properties": [
                   {
@@ -517,6 +538,11 @@
                             "line": 12,
                             "column": 5
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 412,
+                          "parenthesized": true,
+                          "parenStart": 221
                         },
                         "properties": [
                           {
@@ -681,6 +707,7 @@
                                     },
                                     "name": "Interaction"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 271,
@@ -697,8 +724,7 @@
                                       "identifierName": "where"
                                     },
                                     "name": "where"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -747,6 +773,7 @@
                                           },
                                           "name": "source"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 303,
@@ -763,8 +790,7 @@
                                             "identifierName": "value"
                                           },
                                           "name": "value"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       {
                                         "type": "MemberExpression",
@@ -797,6 +823,7 @@
                                           },
                                           "name": "destination"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 329,
@@ -813,8 +840,7 @@
                                             "identifierName": "value"
                                           },
                                           "name": "value"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     ],
                                     "quasis": [
@@ -989,6 +1015,7 @@
                                               },
                                               "name": "UseFileSystem"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 374,
@@ -1005,8 +1032,7 @@
                                                 "identifierName": "as"
                                               },
                                               "name": "as"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -1028,6 +1054,7 @@
                                             }
                                           ]
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 384,
@@ -1044,8 +1071,7 @@
                                             "identifierName": "rename"
                                           },
                                           "name": "rename"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -1089,19 +1115,11 @@
                               }
                             }
                           }
-                        ],
-                        "extra": {
-                          "trailingComma": 412,
-                          "parenthesized": true,
-                          "parenStart": 221
-                        }
+                        ]
                       }
                     }
                   }
-                ],
-                "extra": {
-                  "trailingComma": 420
-                }
+                ]
               }
             }
           ],
@@ -1125,25 +1143,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 145,
-            "end": 164,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

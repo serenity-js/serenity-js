@@ -44,6 +44,40 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n ",
+            "start": 1,
+            "end": 46,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Base class for custom errors that may occur during execution of a test scenario.\n *\n * @example <caption>Custom Error definition</caption>\n * import { RuntimeError } from '@serenity-js/core';\n *\n * export class CustomError extends RuntimeError {\n *   constructor(message: string, cause?: Error) {\n *       super(CustomError, message, cause);\n *   }\n * }\n *\n * @example <caption>Sync error handling</caption>\n * try {\n *     operationThatMightThrowAnError();\n * } catch(error) {\n *     // catch and re-throw\n *     throw new CustomError('operationThatMightThrowAnError has failed', error);\n * }\n *\n * @example <caption>Async error handling</caption>\n * operationThatMightRejectAPromise().catch(error => {\n *     // catch and re-throw\n *     throw new CustomError('operationThatMightThrowAnError has failed', error);\n * });\n *\n * @extends {Error}\n ",
+            "start": 47,
+            "end": 912,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 36,
+                "column": 3
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -125,6 +159,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {Function} type - Constructor function used to instantiate a subclass of a RuntimeError\n     * @param {string} message - Human-readable description of the error\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
+                    "start": 969,
+                    "end": 1239,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 43,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @public \n * \\TRUE \n ",
+                    "start": 1671,
+                    "end": 1738,
+                    "loc": {
+                      "start": {
+                        "line": 59,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 66,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Human-readable description\n     ",
+                    "start": 1745,
+                    "end": 1804,
+                    "loc": {
+                      "start": {
+                        "line": 69,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 72,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -591,6 +677,7 @@
                             },
                             "name": "Object"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1430,
@@ -607,8 +694,7 @@
                               "identifierName": "setPrototypeOf"
                             },
                             "name": "setPrototypeOf"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -657,6 +743,7 @@
                               },
                               "name": "type"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1456,
@@ -673,8 +760,7 @@
                                 "identifierName": "prototype"
                               },
                               "name": "prototype"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
@@ -737,6 +823,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1481,
@@ -753,8 +840,7 @@
                               "identifierName": "name"
                             },
                             "name": "name"
-                          },
-                          "computed": false
+                          }
                         },
                         "right": {
                           "type": "MemberExpression",
@@ -799,6 +885,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1493,
@@ -815,9 +902,9 @@
                                 "identifierName": "constructor"
                               },
                               "name": "constructor"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1505,
@@ -834,8 +921,7 @@
                               "identifierName": "name"
                             },
                             "name": "name"
-                          },
-                          "computed": false
+                          }
                         }
                       }
                     },
@@ -898,6 +984,7 @@
                             },
                             "name": "Error"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1526,
@@ -914,8 +1001,7 @@
                               "identifierName": "captureStackTrace"
                             },
                             "name": "captureStackTrace"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1091,6 +1177,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1599,
@@ -1107,8 +1194,7 @@
                                     "identifierName": "stack"
                                   },
                                   "name": "stack"
-                                },
-                                "computed": false
+                                }
                               },
                               "right": {
                                 "type": "TemplateLiteral",
@@ -1154,6 +1240,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1616,
@@ -1170,8 +1257,7 @@
                                         "identifierName": "stack"
                                       },
                                       "name": "stack"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   {
                                     "type": "MemberExpression",
@@ -1204,6 +1290,7 @@
                                       },
                                       "name": "cause"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1645,
@@ -1220,8 +1307,7 @@
                                         "identifierName": "stack"
                                       },
                                       "name": "stack"
-                                    },
-                                    "computed": false
+                                    }
                                   }
                                 ],
                                 "quasis": [
@@ -1296,26 +1382,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1809,
+                "end": 1891,
+                "loc": {
+                  "start": {
+                    "line": 73,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 75,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Function} type - Constructor function used to instantiate a subclass of a RuntimeError\n     * @param {string} message - Human-readable description of the error\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
-                    "start": 969,
-                    "end": 1239,
-                    "loc": {
-                      "start": {
-                        "line": 39,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 43,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @public \n * \\TRUE \n ",
@@ -1348,22 +1431,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1809,
-                "end": 1891,
-                "loc": {
-                  "start": {
-                    "line": 73,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 75,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1475,6 +1543,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1846,
@@ -1491,9 +1560,9 @@
                                   "identifierName": "constructor"
                                 },
                                 "name": "constructor"
-                              },
-                              "computed": false
+                              }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1858,
@@ -1510,8 +1579,7 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -1542,6 +1610,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1874,
@@ -1558,8 +1627,7 @@
                                 "identifierName": "message"
                               },
                               "name": "message"
-                            },
-                            "computed": false
+                            }
                           }
                         ],
                         "quasis": [
@@ -1628,41 +1696,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @public \n * \\TRUE \n ",
-                    "start": 1671,
-                    "end": 1738,
-                    "loc": {
-                      "start": {
-                        "line": 59,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 66,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Human-readable description\n     ",
-                    "start": 1745,
-                    "end": 1804,
-                    "loc": {
-                      "start": {
-                        "line": 69,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 72,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1701,41 +1735,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n ",
-            "start": 1,
-            "end": 46,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Base class for custom errors that may occur during execution of a test scenario.\n *\n * @example <caption>Custom Error definition</caption>\n * import { RuntimeError } from '@serenity-js/core';\n *\n * export class CustomError extends RuntimeError {\n *   constructor(message: string, cause?: Error) {\n *       super(CustomError, message, cause);\n *   }\n * }\n *\n * @example <caption>Sync error handling</caption>\n * try {\n *     operationThatMightThrowAnError();\n * } catch(error) {\n *     // catch and re-throw\n *     throw new CustomError('operationThatMightThrowAnError has failed', error);\n * }\n *\n * @example <caption>Async error handling</caption>\n * operationThatMightRejectAPromise().catch(error => {\n *     // catch and re-throw\n *     throw new CustomError('operationThatMightThrowAnError has failed', error);\n * });\n *\n * @extends {Error}\n ",
-            "start": 47,
-            "end": 912,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 36,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

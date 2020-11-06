@@ -354,6 +354,40 @@
             "column": 40
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @return \n * {Expectation} \n ",
+            "start": 216,
+            "end": 291,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that the element is present and selected\n *\n * @returns {Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
+            "start": 294,
+            "end": 537,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -425,8 +459,23 @@
             "raw": "'./isPresent'"
           },
           "value": "./isPresent"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 538,
+        "end": 807,
+        "loc": {
+          "start": {
+            "line": 25,
+            "column": 0
+          },
+          "end": {
+            "line": 30,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @return \n * {Expectation} \n ",
@@ -459,22 +508,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 538,
-        "end": 807,
-        "loc": {
-          "start": {
-            "line": 25,
-            "column": 0
-          },
-          "end": {
-            "line": 30,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -725,6 +759,7 @@
                           },
                           "name": "Expectation"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 625,
@@ -741,8 +776,7 @@
                             "identifierName": "to"
                           },
                           "name": "to"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -816,6 +850,7 @@
                         ]
                       }
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 662,
@@ -832,8 +867,7 @@
                         "identifierName": "soThatActual"
                       },
                       "name": "soThatActual"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -849,6 +883,9 @@
                           "line": 29,
                           "column": 5
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 796
                       },
                       "callee": {
                         "type": "Identifier",
@@ -866,9 +903,6 @@
                           "identifierName": "and"
                         },
                         "name": "and"
-                      },
-                      "extra": {
-                        "trailingComma": 796
                       },
                       "arguments": [
                         {
@@ -949,6 +983,7 @@
                               },
                               "name": "ElementFinderExpectation"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 734,
@@ -965,8 +1000,7 @@
                                 "identifierName": "forElementTo"
                               },
                               "name": "forElementTo"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -1070,6 +1104,7 @@
                                     },
                                     "name": "actual"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 783,
@@ -1086,8 +1121,7 @@
                                       "identifierName": "isSelected"
                                     },
                                     "name": "isSelected"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               }
@@ -1137,41 +1171,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @return \n * {Expectation} \n ",
-            "start": 216,
-            "end": 291,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Expectation that the element is present and selected\n *\n * @returns {Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
-            "start": 294,
-            "end": 537,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 24,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

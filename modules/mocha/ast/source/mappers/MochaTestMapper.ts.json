@@ -365,6 +365,40 @@
             "column": 36
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 185,
+            "end": 229,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 232,
+            "end": 251,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -485,8 +519,23 @@
             "raw": "'mocha'"
           },
           "value": "mocha"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 252,
+        "end": 2307,
+        "loc": {
+          "start": {
+            "line": 15,
+            "column": 0
+          },
+          "end": {
+            "line": 120,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
@@ -519,22 +568,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 252,
-        "end": 2307,
-        "loc": {
-          "start": {
-            "line": 15,
-            "column": 0
-          },
-          "end": {
-            "line": 120,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -599,6 +633,42 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {Test} test \n * @return \n * {ScenarioDetails} \n * @public \n * \\TRUE \n ",
+                    "start": 283,
+                    "end": 410,
+                    "loc": {
+                      "start": {
+                        "line": 16,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 27,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @param \n * {Test | Suite} scenario \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1241,
+                    "end": 1372,
+                    "loc": {
+                      "start": {
+                        "line": 61,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 72,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "accessibility": "public",
                 "static": false,
                 "key": {
@@ -765,6 +835,24 @@
                           "column": 9
                         }
                       },
+                      "leadingComments": [
+                        {
+                          "type": "CommentBlock",
+                          "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {undefined} t \n ",
+                          "start": 464,
+                          "end": 538,
+                          "loc": {
+                            "start": {
+                              "line": 30,
+                              "column": 0
+                            },
+                            "end": {
+                              "line": 37,
+                              "column": 3
+                            }
+                          }
+                        }
+                      ],
                       "id": {
                         "type": "Identifier",
                         "start": 558,
@@ -937,6 +1025,7 @@
                                             },
                                             "name": "t"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 711,
@@ -953,9 +1042,9 @@
                                               "identifierName": "ctx"
                                             },
                                             "name": "ctx"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 715,
@@ -972,9 +1061,9 @@
                                             "identifierName": "currentTest"
                                           },
                                           "name": "currentTest"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 727,
@@ -991,8 +1080,7 @@
                                           "identifierName": "file"
                                         },
                                         "name": "file"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   }
                                 ],
@@ -1087,6 +1175,7 @@
                                             },
                                             "name": "t"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 624,
@@ -1103,8 +1192,7 @@
                                               "identifierName": "ctx"
                                             },
                                             "name": "ctx"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       }
                                     },
@@ -1186,6 +1274,7 @@
                                               },
                                               "name": "t"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 636,
@@ -1202,9 +1291,9 @@
                                                 "identifierName": "ctx"
                                               },
                                               "name": "ctx"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 640,
@@ -1221,8 +1310,7 @@
                                               "identifierName": "currentTest"
                                             },
                                             "name": "currentTest"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       }
                                     }
@@ -1319,6 +1407,7 @@
                                               },
                                               "name": "t"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 660,
@@ -1335,9 +1424,9 @@
                                                 "identifierName": "ctx"
                                               },
                                               "name": "ctx"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 664,
@@ -1354,9 +1443,9 @@
                                               "identifierName": "currentTest"
                                             },
                                             "name": "currentTest"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 676,
@@ -1373,8 +1462,7 @@
                                             "identifierName": "file"
                                           },
                                           "name": "file"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     }
                                   }
@@ -1440,6 +1528,7 @@
                                         },
                                         "name": "t"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 794,
@@ -1456,8 +1545,7 @@
                                           "identifierName": "file"
                                         },
                                         "name": "file"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   }
                                 ],
@@ -1524,6 +1612,7 @@
                                         },
                                         "name": "t"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 759,
@@ -1540,8 +1629,7 @@
                                           "identifierName": "file"
                                         },
                                         "name": "file"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   }
                                 }
@@ -1638,6 +1726,7 @@
                                             },
                                             "name": "t"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 870,
@@ -1654,8 +1743,7 @@
                                               "identifierName": "parent"
                                             },
                                             "name": "parent"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       ]
                                     }
@@ -1724,6 +1812,7 @@
                                         },
                                         "name": "t"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 826,
@@ -1740,8 +1829,7 @@
                                           "identifierName": "parent"
                                         },
                                         "name": "parent"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   }
                                 }
@@ -1893,25 +1981,7 @@
                           }
                         ],
                         "directives": []
-                      },
-                      "leadingComments": [
-                        {
-                          "type": "CommentBlock",
-                          "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {undefined} t \n ",
-                          "start": 464,
-                          "end": 538,
-                          "loc": {
-                            "start": {
-                              "line": 30,
-                              "column": 0
-                            },
-                            "end": {
-                              "line": 37,
-                              "column": 3
-                            }
-                          }
-                        }
-                      ]
+                      }
                     },
                     {
                       "type": "ReturnStatement",
@@ -2034,6 +2104,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1065,
@@ -2050,8 +2121,7 @@
                                       "identifierName": "nameOf"
                                     },
                                     "name": "nameOf"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2150,6 +2220,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1110,
@@ -2166,8 +2237,7 @@
                                       "identifierName": "featureNameFor"
                                     },
                                     "name": "featureNameFor"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2315,26 +2385,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1379,
+                "end": 1645,
+                "loc": {
+                  "start": {
+                    "line": 75,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 81,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {Test} test \n * @return \n * {ScenarioDetails} \n * @public \n * \\TRUE \n ",
-                    "start": 283,
-                    "end": 410,
-                    "loc": {
-                      "start": {
-                        "line": 16,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 27,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @param \n * {Test | Suite} scenario \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -2351,22 +2418,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1379,
-                "end": 1645,
-                "loc": {
-                  "start": {
-                    "line": 75,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 81,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @param \n * {Test | Suite} scenario \n * @return \n * {string} \n * @private \n * \\TRUE \n ",
+                    "start": 1646,
+                    "end": 1778,
+                    "loc": {
+                      "start": {
+                        "line": 82,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 93,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "public",
                 "static": false,
                 "key": {
@@ -2642,6 +2712,7 @@
                                 },
                                 "name": "scenario"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1473,
@@ -2659,9 +2730,9 @@
                                 },
                                 "name": "parent"
                               },
-                              "computed": false,
                               "optional": true
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1481,
@@ -2679,7 +2750,6 @@
                               },
                               "name": "title"
                             },
-                            "computed": false,
                             "optional": true
                           }
                         }
@@ -2838,6 +2908,7 @@
                                   },
                                   "name": "parentTitle"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1545,
@@ -2854,8 +2925,7 @@
                                     "identifierName": "trim"
                                   },
                                   "name": "trim"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             },
@@ -2925,6 +2995,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1578,
@@ -2941,8 +3012,7 @@
                                 "identifierName": "featureNameFor"
                               },
                               "name": "featureNameFor"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -2976,6 +3046,7 @@
                                 },
                                 "name": "scenario"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1602,
@@ -2992,8 +3063,7 @@
                                   "identifierName": "parent"
                                 },
                                 "name": "parent"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         },
@@ -3028,6 +3098,7 @@
                             },
                             "name": "scenario"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1633,
@@ -3044,33 +3115,29 @@
                               "identifierName": "title"
                             },
                             "name": "title"
-                          },
-                          "computed": false
+                          }
                         }
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1785,
+                "end": 1988,
+                "loc": {
+                  "start": {
+                    "line": 96,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 100,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @param \n * {Test | Suite} scenario \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1241,
-                    "end": 1372,
-                    "loc": {
-                      "start": {
-                        "line": 61,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 72,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @param \n * {Test | Suite} scenario \n * @return \n * {string} \n * @private \n * \\TRUE \n ",
@@ -3087,22 +3154,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1785,
-                "end": 1988,
-                "loc": {
-                  "start": {
-                    "line": 96,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 100,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @param \n * {Test | Suite} scenario \n * @return \n * {string} \n * @private \n * \\TRUE \n ",
+                    "start": 1989,
+                    "end": 2121,
+                    "loc": {
+                      "start": {
+                        "line": 101,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 112,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -3378,6 +3448,7 @@
                                 },
                                 "name": "scenario"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1865,
@@ -3394,8 +3465,7 @@
                                   "identifierName": "parent"
                                 },
                                 "name": "parent"
-                              },
-                              "computed": false
+                              }
                             }
                           }
                         },
@@ -3485,6 +3555,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1895,
@@ -3501,8 +3572,7 @@
                                         "identifierName": "fullNameOf"
                                       },
                                       "name": "fullNameOf"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -3536,6 +3606,7 @@
                                         },
                                         "name": "scenario"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1915,
@@ -3552,8 +3623,7 @@
                                           "identifierName": "parent"
                                         },
                                         "name": "parent"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   ]
                                 },
@@ -3588,6 +3658,7 @@
                                     },
                                     "name": "scenario"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1937,
@@ -3604,8 +3675,7 @@
                                       "identifierName": "title"
                                     },
                                     "name": "title"
-                                  },
-                                  "computed": false
+                                  }
                                 }
                               ],
                               "quasis": [
@@ -3671,6 +3741,7 @@
                                 }
                               ]
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1946,
@@ -3687,8 +3758,7 @@
                                 "identifierName": "trim"
                               },
                               "name": "trim"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": []
                         },
@@ -3723,6 +3793,7 @@
                             },
                             "name": "scenario"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1976,
@@ -3739,33 +3810,29 @@
                               "identifierName": "title"
                             },
                             "name": "title"
-                          },
-                          "computed": false
+                          }
                         }
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2128,
+                "end": 2305,
+                "loc": {
+                  "start": {
+                    "line": 115,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 119,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @param \n * {Test | Suite} scenario \n * @return \n * {string} \n * @private \n * \\TRUE \n ",
-                    "start": 1646,
-                    "end": 1778,
-                    "loc": {
-                      "start": {
-                        "line": 82,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 93,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @param \n * {Test | Suite} scenario \n * @return \n * {string} \n * @private \n * \\TRUE \n ",
@@ -3782,22 +3849,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2128,
-                "end": 2305,
-                "loc": {
-                  "start": {
-                    "line": 115,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 119,
-                    "column": 5
-                  }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -4095,6 +4147,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2197,
@@ -4111,8 +4164,7 @@
                                       "identifierName": "fullNameOf"
                                     },
                                     "name": "fullNameOf"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -4134,6 +4186,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2231,
@@ -4150,8 +4203,7 @@
                                   "identifierName": "substring"
                                 },
                                 "name": "substring"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -4211,6 +4263,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2246,
@@ -4227,8 +4280,7 @@
                                         "identifierName": "featureNameFor"
                                       },
                                       "name": "featureNameFor"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -4250,6 +4302,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2271,
@@ -4266,11 +4319,11 @@
                                     "identifierName": "length"
                                   },
                                   "name": "length"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2292,
@@ -4287,33 +4340,14 @@
                               "identifierName": "trim"
                             },
                             "name": "trim"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": []
                       }
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @param \n * {Test | Suite} scenario \n * @return \n * {string} \n * @private \n * \\TRUE \n ",
-                    "start": 1989,
-                    "end": 2121,
-                    "loc": {
-                      "start": {
-                        "line": 101,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 112,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -4352,41 +4386,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
-            "start": 185,
-            "end": 229,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 232,
-            "end": 251,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

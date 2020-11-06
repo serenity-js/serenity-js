@@ -365,6 +365,40 @@
             "column": 50
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n ",
+            "start": 197,
+            "end": 242,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to accept\n *  a {@link ModalDialog}.\n *\n * @example <caption>Example widget</caption>\n *  <button\n *      data-test=\"trigger\"\n *      onclick=\"alert('hello!')\">Trigger Alert</button>\n *\n * @example <caption>Lean Page Object</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { by } from 'protractor';\n *\n *  class Widget {\n *      static trigger = Target.the('trigger button')\n *          .located(by.css('[data-test=\"trigger\"]'));\n *  }\n *\n * @example <caption>Accepting a modal dialog window</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Accept, BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Nick')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Click.on(Widget.trigger),\n *          Accept.the(ModalDialog.window()),\n *      );\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n *\n * @see {@link BrowseTheWeb}\n * @see {@link Click}\n * @see {@link Dismiss}\n * @see {@link ModalDialog}\n ",
+            "start": 245,
+            "end": 1413,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 49,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -436,8 +470,23 @@
             "raw": "'selenium-webdriver'"
           },
           "value": "selenium-webdriver"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1414,
+        "end": 3837,
+        "loc": {
+          "start": {
+            "line": 50,
+            "column": 0
+          },
+          "end": {
+            "line": 141,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n ",
@@ -470,22 +519,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1414,
-        "end": 3837,
-        "loc": {
-          "start": {
-            "line": 50,
-            "column": 0
-          },
-          "end": {
-            "line": 141,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -566,6 +600,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Question | AlertPromise} modalDialogWindow \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1456,
+                    "end": 1634,
+                    "loc": {
+                      "start": {
+                        "line": 51,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 64,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with a {@link ModalDialog.window} the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  will accept.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Question<AlertPromise> | AlertPromise} modalDialogWindow\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay~Question}\n     ",
+                    "start": 1641,
+                    "end": 2108,
+                    "loc": {
+                      "start": {
+                        "line": 67,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 77,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {@serenity-js/core/lib/screenplay~Question<AlertPromise> | AlertPromise} modalDialogWindow\n     ",
+                    "start": 2254,
+                    "end": 2370,
+                    "loc": {
+                      "start": {
+                        "line": 82,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 84,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -883,42 +969,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2375,
+                "end": 2486,
+                "loc": {
+                  "start": {
+                    "line": 85,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 87,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Question | AlertPromise} modalDialogWindow \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1456,
-                    "end": 1634,
-                    "loc": {
-                      "start": {
-                        "line": 51,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 64,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with a {@link ModalDialog.window} the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  will accept.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Question<AlertPromise> | AlertPromise} modalDialogWindow\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay~Question}\n     ",
-                    "start": 1641,
-                    "end": 2108,
-                    "loc": {
-                      "start": {
-                        "line": 67,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 77,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {@serenity-js/core/lib/screenplay~Question<AlertPromise> | AlertPromise} modalDialogWindow\n     ",
@@ -935,22 +1002,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2375,
-                "end": 2486,
-                "loc": {
-                  "start": {
-                    "line": 85,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 2487,
+                    "end": 2640,
+                    "loc": {
+                      "start": {
+                        "line": 88,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 99,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 87,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                    "start": 2647,
+                    "end": 3285,
+                    "loc": {
+                      "start": {
+                        "line": 102,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 115,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1218,26 +1304,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3290,
+                "end": 3463,
+                "loc": {
+                  "start": {
+                    "line": 116,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 119,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {@serenity-js/core/lib/screenplay~Question<AlertPromise> | AlertPromise} modalDialogWindow\n     ",
-                    "start": 2254,
-                    "end": 2370,
-                    "loc": {
-                      "start": {
-                        "line": 82,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 84,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -1270,22 +1353,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3290,
-                "end": 3463,
-                "loc": {
-                  "start": {
-                    "line": 116,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 92 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 3464,
+                    "end": 3556,
+                    "loc": {
+                      "start": {
+                        "line": 120,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 129,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 119,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 3563,
+                    "end": 3733,
+                    "loc": {
+                      "start": {
+                        "line": 132,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 137,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1605,6 +1707,7 @@
                                 },
                                 "name": "actor"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3383,
@@ -1621,8 +1724,7 @@
                                   "identifierName": "answer"
                                 },
                                 "name": "answer"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1654,6 +1756,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3395,
@@ -1670,11 +1773,11 @@
                                     "identifierName": "modalDialogWindow"
                                   },
                                   "name": "modalDialogWindow"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3427,
@@ -1691,8 +1794,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1776,6 +1878,7 @@
                                   },
                                   "name": "alert"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3447,
@@ -1792,8 +1895,7 @@
                                     "identifierName": "accept"
                                   },
                                   "name": "accept"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             }
@@ -1803,42 +1905,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3738,
+                "end": 3835,
+                "loc": {
+                  "start": {
+                    "line": 138,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 140,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 2487,
-                    "end": 2640,
-                    "loc": {
-                      "start": {
-                        "line": 88,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 99,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                    "start": 2647,
-                    "end": 3285,
-                    "loc": {
-                      "start": {
-                        "line": 102,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 115,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 92 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1871,22 +1954,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3738,
-                "end": 3835,
-                "loc": {
-                  "start": {
-                    "line": 138,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 140,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2045,6 +2113,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3808,
@@ -2061,8 +2130,7 @@
                                   "identifierName": "modalDialogWindow"
                                 },
                                 "name": "modalDialogWindow"
-                              },
-                              "computed": false
+                              }
                             }
                           ],
                           "quasis": [
@@ -2112,41 +2180,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 92 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 3464,
-                    "end": 3556,
-                    "loc": {
-                      "start": {
-                        "line": 120,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 129,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 3563,
-                    "end": 3733,
-                    "loc": {
-                      "start": {
-                        "line": 132,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 137,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -2185,41 +2219,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n ",
-            "start": 197,
-            "end": 242,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to accept\n *  a {@link ModalDialog}.\n *\n * @example <caption>Example widget</caption>\n *  <button\n *      data-test=\"trigger\"\n *      onclick=\"alert('hello!')\">Trigger Alert</button>\n *\n * @example <caption>Lean Page Object</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { by } from 'protractor';\n *\n *  class Widget {\n *      static trigger = Target.the('trigger button')\n *          .located(by.css('[data-test=\"trigger\"]'));\n *  }\n *\n * @example <caption>Accepting a modal dialog window</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Accept, BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Nick')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Click.on(Widget.trigger),\n *          Accept.the(ModalDialog.window()),\n *      );\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n *\n * @see {@link BrowseTheWeb}\n * @see {@link Click}\n * @see {@link Dismiss}\n * @see {@link ModalDialog}\n ",
-            "start": 245,
-            "end": 1413,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 49,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

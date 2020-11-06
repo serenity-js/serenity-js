@@ -218,6 +218,24 @@
             "column": 73
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n * @param \n * {Array} assertions \n * @return \n * {Expectation} \n ",
+            "start": 175,
+            "end": 283,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -387,8 +405,23 @@
             "raw": "'../outcomes'"
           },
           "value": "../outcomes"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 286,
+        "end": 421,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 19,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n * @param \n * {Array} assertions \n * @return \n * {Expectation} \n ",
@@ -405,22 +438,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 286,
-        "end": 421,
-        "loc": {
-          "start": {
-            "line": 17,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+            "start": 422,
+            "end": 467,
+            "loc": {
+              "start": {
+                "line": 20,
+                "column": 0
+              },
+              "end": {
+                "line": 25,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 19,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 470,
+            "end": 489,
+            "loc": {
+              "start": {
+                "line": 28,
+                "column": 0
+              },
+              "end": {
+                "line": 30,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -931,26 +983,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 490,
+        "end": 2148,
+        "loc": {
+          "start": {
+            "line": 31,
+            "column": 0
+          },
+          "end": {
+            "line": 86,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n * @param \n * {Array} assertions \n * @return \n * {Expectation} \n ",
-            "start": 175,
-            "end": 283,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
@@ -983,22 +1032,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 490,
-        "end": 2148,
-        "loc": {
-          "start": {
-            "line": 31,
-            "column": 0
-          },
-          "end": {
-            "line": 86,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 496,
@@ -1159,6 +1193,24 @@
                   "column": 47
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
+                  "start": 542,
+                  "end": 632,
+                  "loc": {
+                    "start": {
+                      "line": 32,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 41,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "accessibility": "private",
               "readonly": true,
               "static": true,
@@ -1199,25 +1251,7 @@
                   "raw": "' or '"
                 },
                 "value": " or "
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
-                  "start": 542,
-                  "end": 632,
-                  "loc": {
-                    "start": {
-                      "line": 32,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 41,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             },
             {
               "type": "ClassMethod",
@@ -1233,6 +1267,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @public \n * \\TRUE \n ",
+                  "start": 884,
+                  "end": 1018,
+                  "loc": {
+                    "start": {
+                      "line": 50,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 61,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -1584,6 +1636,7 @@
                                   },
                                   "name": "expectations"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 805,
@@ -1600,8 +1653,7 @@
                                     "identifierName": "map"
                                   },
                                   "name": "map"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -1685,6 +1737,7 @@
                                         },
                                         "name": "assertion"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 832,
@@ -1701,14 +1754,14 @@
                                           "identifierName": "toString"
                                         },
                                         "name": "toString"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": []
                                   }
                                 }
                               ]
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 857,
@@ -1725,8 +1778,7 @@
                                 "identifierName": "join"
                               },
                               "name": "join"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -1760,6 +1812,7 @@
                                 },
                                 "name": "Or"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 865,
@@ -1776,8 +1829,7 @@
                                   "identifierName": "Separator"
                                 },
                                 "name": "Separator"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         }
@@ -1786,8 +1838,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 1025,
+              "end": 2146,
+              "loc": {
+                "start": {
+                  "line": 64,
+                  "column": 4
+                },
+                "end": {
+                  "line": 85,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @public \n * \\TRUE \n ",
@@ -1804,22 +1871,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 1025,
-              "end": 2146,
-              "loc": {
-                "start": {
-                  "line": 64,
-                  "column": 4
-                },
-                "end": {
-                  "line": 85,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -2302,6 +2354,9 @@
                                 "column": 13
                               }
                             },
+                            "extra": {
+                              "trailingComma": 1560
+                            },
                             "callee": {
                               "type": "MemberExpression",
                               "start": 1159,
@@ -2345,6 +2400,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1164,
@@ -2361,9 +2417,9 @@
                                     "identifierName": "expectations"
                                   },
                                   "name": "expectations"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1177,
@@ -2380,11 +2436,7 @@
                                   "identifierName": "reduce"
                                 },
                                 "name": "reduce"
-                              },
-                              "computed": false
-                            },
-                            "extra": {
-                              "trailingComma": 1560
+                              }
                             },
                             "arguments": [
                               {
@@ -2454,6 +2506,9 @@
                                       "column": 25
                                     }
                                   },
+                                  "extra": {
+                                    "trailingComma": 1439
+                                  },
                                   "callee": {
                                     "type": "MemberExpression",
                                     "start": 1244,
@@ -2485,6 +2540,7 @@
                                       },
                                       "name": "previous"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1253,
@@ -2501,11 +2557,7 @@
                                         "identifierName": "then"
                                       },
                                       "name": "then"
-                                    },
-                                    "computed": false
-                                  },
-                                  "extra": {
-                                    "trailingComma": 1439
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -2522,6 +2574,24 @@
                                           "column": 75
                                         }
                                       },
+                                      "trailingComments": [
+                                        {
+                                          "type": "CommentLine",
+                                          "value": " todo: should stop on the first met expectation",
+                                          "start": 1448,
+                                          "end": 1497,
+                                          "loc": {
+                                            "start": {
+                                              "line": 71,
+                                              "column": 84
+                                            },
+                                            "end": {
+                                              "line": 71,
+                                              "column": 133
+                                            }
+                                          }
+                                        }
+                                      ],
                                       "id": null,
                                       "generator": false,
                                       "async": false,
@@ -2791,6 +2861,7 @@
                                                   },
                                                   "name": "current"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 1338,
@@ -2807,8 +2878,7 @@
                                                     "identifierName": "answeredBy"
                                                   },
                                                   "name": "answeredBy"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "arguments": [
                                                 {
@@ -2850,6 +2920,7 @@
                                               }
                                             ]
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1393,
@@ -2866,8 +2937,7 @@
                                               "identifierName": "then"
                                             },
                                             "name": "then"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -2951,6 +3021,7 @@
                                                   },
                                                   "name": "outcomesSoFar"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 1423,
@@ -2967,8 +3038,7 @@
                                                     "identifierName": "concat"
                                                   },
                                                   "name": "concat"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "arguments": [
                                                 {
@@ -2992,25 +3062,7 @@
                                             }
                                           }
                                         ]
-                                      },
-                                      "trailingComments": [
-                                        {
-                                          "type": "CommentLine",
-                                          "value": " todo: should stop on the first met expectation",
-                                          "start": 1448,
-                                          "end": 1497,
-                                          "loc": {
-                                            "start": {
-                                              "line": 71,
-                                              "column": 84
-                                            },
-                                            "end": {
-                                              "line": 71,
-                                              "column": 133
-                                            }
-                                          }
-                                        }
-                                      ]
+                                      }
                                     }
                                   ]
                                 }
@@ -3060,6 +3112,7 @@
                                     },
                                     "name": "Promise"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1549,
@@ -3076,8 +3129,7 @@
                                       "identifierName": "resolve"
                                     },
                                     "name": "resolve"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -3100,6 +3152,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1589,
@@ -3116,8 +3169,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -3422,6 +3474,7 @@
                                             },
                                             "name": "outcomes"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1711,
@@ -3438,8 +3491,7 @@
                                               "identifierName": "filter"
                                             },
                                             "name": "filter"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -3636,6 +3688,7 @@
                                                 },
                                                 "name": "outcomes"
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 1807,
@@ -3652,8 +3705,7 @@
                                                   "identifierName": "map"
                                                 },
                                                 "name": "map"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": [
                                               {
@@ -3723,6 +3775,7 @@
                                                     },
                                                     "name": "outcome"
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 1830,
@@ -3739,12 +3792,12 @@
                                                       "identifierName": "message"
                                                     },
                                                     "name": "message"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 }
                                               }
                                             ]
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1839,
@@ -3761,8 +3814,7 @@
                                               "identifierName": "join"
                                             },
                                             "name": "join"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -3796,6 +3848,7 @@
                                               },
                                               "name": "Or"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1847,
@@ -3812,8 +3865,7 @@
                                                 "identifierName": "Separator"
                                               },
                                               "name": "Separator"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         ]
                                       }
@@ -3894,6 +3946,7 @@
                                           },
                                           "name": "unmetExpectations"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 1901,
@@ -3910,8 +3963,7 @@
                                             "identifierName": "length"
                                           },
                                           "name": "length"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "operator": "===",
                                       "right": {
@@ -3957,6 +4009,7 @@
                                               }
                                             }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1917,
@@ -3973,9 +4026,9 @@
                                               "identifierName": "expectations"
                                             },
                                             "name": "expectations"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 1930,
@@ -3992,8 +4045,7 @@
                                             "identifierName": "length"
                                           },
                                           "name": "length"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     },
                                     "consequent": {
@@ -4090,6 +4142,7 @@
                                               },
                                               "name": "outcomes"
                                             },
+                                            "computed": true,
                                             "property": {
                                               "type": "NumericLiteral",
                                               "start": 1999,
@@ -4109,9 +4162,9 @@
                                                 "raw": "0"
                                               },
                                               "value": 0
-                                            },
-                                            "computed": true
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2002,
@@ -4128,8 +4181,7 @@
                                               "identifierName": "expected"
                                             },
                                             "name": "expected"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         {
                                           "type": "MemberExpression",
@@ -4176,6 +4228,7 @@
                                               },
                                               "name": "outcomes"
                                             },
+                                            "computed": true,
                                             "property": {
                                               "type": "NumericLiteral",
                                               "start": 2021,
@@ -4195,9 +4248,9 @@
                                                 "raw": "0"
                                               },
                                               "value": 0
-                                            },
-                                            "computed": true
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2024,
@@ -4214,8 +4267,7 @@
                                               "identifierName": "actual"
                                             },
                                             "name": "actual"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       ]
                                     },
@@ -4313,6 +4365,7 @@
                                               },
                                               "name": "outcomes"
                                             },
+                                            "computed": true,
                                             "property": {
                                               "type": "NumericLiteral",
                                               "start": 2091,
@@ -4332,9 +4385,9 @@
                                                 "raw": "0"
                                               },
                                               "value": 0
-                                            },
-                                            "computed": true
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2094,
@@ -4351,8 +4404,7 @@
                                               "identifierName": "expected"
                                             },
                                             "name": "expected"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         {
                                           "type": "MemberExpression",
@@ -4399,6 +4451,7 @@
                                               },
                                               "name": "outcomes"
                                             },
+                                            "computed": true,
                                             "property": {
                                               "type": "NumericLiteral",
                                               "start": 2113,
@@ -4418,9 +4471,9 @@
                                                 "raw": "0"
                                               },
                                               "value": 0
-                                            },
-                                            "computed": true
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2116,
@@ -4437,8 +4490,7 @@
                                               "identifierName": "actual"
                                             },
                                             "name": "actual"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       ]
                                     }
@@ -4454,62 +4506,10 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {Function} \n * @public \n * \\TRUE \n ",
-                  "start": 884,
-                  "end": 1018,
-                  "loc": {
-                    "start": {
-                      "line": 50,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 61,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
-            "start": 422,
-            "end": 467,
-            "loc": {
-              "start": {
-                "line": 20,
-                "column": 0
-              },
-              "end": {
-                "line": 25,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 470,
-            "end": 489,
-            "loc": {
-              "start": {
-                "line": 28,
-                "column": 0
-              },
-              "end": {
-                "line": 30,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

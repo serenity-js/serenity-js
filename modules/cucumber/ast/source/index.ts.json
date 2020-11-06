@@ -44,6 +44,24 @@
             "column": 45
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file ",
+            "start": 0,
+            "end": 26,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -115,25 +133,7 @@
             "raw": "'@serenity-js/core'"
           },
           "value": "@serenity-js/core"
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " istanbul ignore file ",
-            "start": 0,
-            "end": 26,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 26
-              }
-            }
-          }
-        ]
+        }
       },
       {
         "type": "ImportDeclaration",
@@ -432,6 +432,7 @@
                       },
                       "name": "process"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 223,
@@ -448,8 +449,7 @@
                         "identifierName": "cwd"
                       },
                       "name": "cwd"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": []
                 }
@@ -550,6 +550,7 @@
                   },
                   "name": "loader"
                 },
+                "computed": false,
                 "property": {
                   "type": "Identifier",
                   "start": 255,
@@ -566,8 +567,7 @@
                     "identifierName": "versionOf"
                   },
                   "name": "versionOf"
-                },
-                "computed": false
+                }
               },
               "arguments": [
                 {
@@ -687,6 +687,7 @@
                   },
                   "name": "loader"
                 },
+                "computed": false,
                 "property": {
                   "type": "Identifier",
                   "start": 302,
@@ -703,8 +704,7 @@
                     "identifierName": "require"
                   },
                   "name": "require"
-                },
-                "computed": false
+                }
               },
               "arguments": [
                 {

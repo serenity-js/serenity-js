@@ -131,6 +131,40 @@
             "column": 32
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 78,
+            "end": 123,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Information passed to the Reporter#jasmineDone event.\n *\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#JasmineDoneInfo\n * @interface ",
+            "start": 126,
+            "end": 299,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 16
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +236,23 @@
             "raw": "'./Order'"
           },
           "value": "./Order"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 300,
+        "end": 1335,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 89,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
@@ -236,22 +285,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 300,
-        "end": 1335,
-        "loc": {
-          "start": {
-            "line": 18,
-            "column": 0
-          },
-          "end": {
-            "line": 89,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -317,6 +351,42 @@
                     "column": 26
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The overall result of the suite: 'passed', 'failed', or 'incomplete'. \n * @lineNumber \n * 14 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 340,
+                    "end": 499,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * Explanation of why the suite was incomplete. \n * @lineNumber \n * 17 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 534,
+                    "end": 683,
+                    "loc": {
+                      "start": {
+                        "line": 33,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 42,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -366,26 +436,23 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The overall result of the suite: 'passed', 'failed', or 'incomplete'. \n * @lineNumber \n * 14 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 340,
-                    "end": 499,
-                    "loc": {
-                      "start": {
-                        "line": 19,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 28,
-                        "column": 3
-                      }
-                    }
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 695,
+                "end": 732,
+                "loc": {
+                  "start": {
+                    "line": 46,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 46,
+                    "column": 41
                   }
-                ],
-                "trailingComments": [
+                },
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * Explanation of why the suite was incomplete. \n * @lineNumber \n * 17 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
@@ -402,22 +469,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 695,
-                "end": 732,
-                "loc": {
-                  "start": {
-                    "line": 46,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 46,
-                    "column": 41
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * Information about the ordering (random or not) of this execution of the suite. \n * @lineNumber \n * 20 \n * @type \n * {Order} \n * @public \n * \\TRUE \n ",
+                    "start": 733,
+                    "end": 900,
+                    "loc": {
+                      "start": {
+                        "line": 47,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 56,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -499,26 +569,23 @@
                     ]
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * Explanation of why the suite was incomplete. \n * @lineNumber \n * 17 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 534,
-                    "end": 683,
-                    "loc": {
-                      "start": {
-                        "line": 33,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 42,
-                        "column": 3
-                      }
-                    }
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 912,
+                "end": 925,
+                "loc": {
+                  "start": {
+                    "line": 60,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 60,
+                    "column": 17
                   }
-                ],
-                "trailingComments": [
+                },
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * Information about the ordering (random or not) of this execution of the suite. \n * @lineNumber \n * 20 \n * @type \n * {Order} \n * @public \n * \\TRUE \n ",
@@ -535,22 +602,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 912,
-                "end": 925,
-                "loc": {
-                  "start": {
-                    "line": 60,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 60,
-                    "column": 17
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * List of expectations that failed in an afterAll at the global level. \n * @lineNumber \n * 23 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 926,
+                    "end": 1085,
+                    "loc": {
+                      "start": {
+                        "line": 61,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 70,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -617,26 +687,23 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * Information about the ordering (random or not) of this execution of the suite. \n * @lineNumber \n * 20 \n * @type \n * {Order} \n * @public \n * \\TRUE \n ",
-                    "start": 733,
-                    "end": 900,
-                    "loc": {
-                      "start": {
-                        "line": 47,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 56,
-                        "column": 3
-                      }
-                    }
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1097,
+                "end": 1131,
+                "loc": {
+                  "start": {
+                    "line": 74,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 74,
+                    "column": 38
                   }
-                ],
-                "trailingComments": [
+                },
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * List of expectations that failed in an afterAll at the global level. \n * @lineNumber \n * 23 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -653,22 +720,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1097,
-                "end": 1131,
-                "loc": {
-                  "start": {
-                    "line": 74,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 74,
-                    "column": 38
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * List of deprecation warnings that occurred at the global level. \n * @lineNumber \n * 26 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 1132,
+                    "end": 1286,
+                    "loc": {
+                      "start": {
+                        "line": 75,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 84,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -750,26 +820,23 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * List of expectations that failed in an afterAll at the global level. \n * @lineNumber \n * 23 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 926,
-                    "end": 1085,
-                    "loc": {
-                      "start": {
-                        "line": 61,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 70,
-                        "column": 3
-                      }
-                    }
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1298,
+                "end": 1333,
+                "loc": {
+                  "start": {
+                    "line": 88,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 88,
+                    "column": 39
                   }
-                ],
-                "trailingComments": [
+                },
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * List of deprecation warnings that occurred at the global level. \n * @lineNumber \n * 26 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -786,22 +853,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1298,
-                "end": 1333,
-                "loc": {
-                  "start": {
-                    "line": 88,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 88,
-                    "column": 39
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -883,25 +935,7 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * List of deprecation warnings that occurred at the global level. \n * @lineNumber \n * 26 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 1132,
-                    "end": 1286,
-                    "loc": {
-                      "start": {
-                        "line": 75,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 84,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                "value": null
               }
             ]
           },
@@ -940,41 +974,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 78,
-            "end": 123,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Information passed to the Reporter#jasmineDone event.\n *\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#JasmineDoneInfo\n * @interface ",
-            "start": 126,
-            "end": 299,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -490,6 +490,40 @@
             "column": 47
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n ",
+            "start": 270,
+            "end": 315,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Represents options and values selected in a\n *  [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).\n *\n * @see {@link Select}\n ",
+            "start": 318,
+            "end": 505,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 20,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -561,8 +595,23 @@
             "raw": "'../withAnswerOf'"
           },
           "value": "../withAnswerOf"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 506,
+        "end": 8578,
+        "loc": {
+          "start": {
+            "line": 21,
+            "column": 0
+          },
+          "end": {
+            "line": 268,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n ",
@@ -595,22 +644,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 506,
-        "end": 8578,
-        "loc": {
-          "start": {
-            "line": 21,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 206 \n ",
+            "start": 8579,
+            "end": 8625,
+            "loc": {
+              "start": {
+                "line": 269,
+                "column": 0
+              },
+              "end": {
+                "line": 274,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 268,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 8628,
+            "end": 8647,
+            "loc": {
+              "start": {
+                "line": 277,
+                "column": 0
+              },
+              "end": {
+                "line": 279,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -675,6 +743,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 530,
+                    "end": 695,
+                    "loc": {
+                      "start": {
+                        "line": 22,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Represents the value of a single option selected in a\n     *  [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).\n     *\n     * @example <caption>Example widget</caption>\n     *  <select data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.value('UK').from(Countries.dropdown),\n     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),\n     *      );\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  A {@link Target} identifying the `<select>` element of interest\n     *\n     * @returns {Question<Promise<string>>}\n     *\n     * @see {@link Select.value}\n     ",
+                    "start": 702,
+                    "end": 2337,
+                    "loc": {
+                      "start": {
+                        "line": 38,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 78,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2483,
+                    "end": 2649,
+                    "loc": {
+                      "start": {
+                        "line": 82,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 95,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Represents values of options selected in a\n     *  [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)\n     *\n     * @example <caption>Example widget</caption>\n     *  <select multiple data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.values('UK').from(Countries.dropdown),\n     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),\n     *      );\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  A {@link Target} identifying the `<select>` element of interest\n     *\n     * @returns {Question<Promise<string[]>>}\n     *\n     * @see {@link Select.values}\n     ",
+                    "start": 2656,
+                    "end": 4320,
+                    "loc": {
+                      "start": {
+                        "line": 98,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 138,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1073,42 +1209,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4325,
+                "end": 4469,
+                "loc": {
+                  "start": {
+                    "line": 139,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 141,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 530,
-                    "end": 695,
-                    "loc": {
-                      "start": {
-                        "line": 22,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 35,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Represents the value of a single option selected in a\n     *  [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).\n     *\n     * @example <caption>Example widget</caption>\n     *  <select data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.value('UK').from(Countries.dropdown),\n     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),\n     *      );\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  A {@link Target} identifying the `<select>` element of interest\n     *\n     * @returns {Question<Promise<string>>}\n     *\n     * @see {@link Select.value}\n     ",
-                    "start": 702,
-                    "end": 2337,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 78,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1141,22 +1258,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4325,
-                "end": 4469,
-                "loc": {
-                  "start": {
-                    "line": 139,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 150 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 4470,
+                    "end": 4636,
+                    "loc": {
+                      "start": {
+                        "line": 142,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 155,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 141,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Represents a single option selected in a\n     *  [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)\n     *\n     * @example <caption>Example widget</caption>\n     *  <select data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.option('Poland').from(Countries.dropdown),\n     *          Ensure.that(\n     *              Selected.optionIn(Countries.dropdown),\n     *              equals('Poland')\n     *          ),\n     *      );\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  A {@link Target} identifying the `<select>` element of interest\n     *\n     * @returns {Question<Promise<string>>}\n     *\n     * @see {@link Select.option}\n     ",
+                    "start": 4643,
+                    "end": 6347,
+                    "loc": {
+                      "start": {
+                        "line": 158,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 201,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1570,42 +1706,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6352,
+                "end": 6494,
+                "loc": {
+                  "start": {
+                    "line": 202,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 204,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2483,
-                    "end": 2649,
-                    "loc": {
-                      "start": {
-                        "line": 82,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 95,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Represents values of options selected in a\n     *  [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)\n     *\n     * @example <caption>Example widget</caption>\n     *  <select multiple data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.values('UK').from(Countries.dropdown),\n     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),\n     *      );\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  A {@link Target} identifying the `<select>` element of interest\n     *\n     * @returns {Question<Promise<string[]>>}\n     *\n     * @see {@link Select.values}\n     ",
-                    "start": 2656,
-                    "end": 4320,
-                    "loc": {
-                      "start": {
-                        "line": 98,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 138,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 150 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1638,22 +1755,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6352,
-                "end": 6494,
-                "loc": {
-                  "start": {
-                    "line": 202,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 198 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 6495,
+                    "end": 6661,
+                    "loc": {
+                      "start": {
+                        "line": 205,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 218,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 204,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Represents options selected in a\n     *  [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)\n     *\n     * @example <caption>Example widget</caption>\n     *  <select multiple data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.options('Poland', 'United States').from(Countries.dropdown),\n     *          Ensure.that(\n     *              Selected.optionsIn(Countries.dropdown),\n     *              equals([ 'Poland', 'United States' ])\n     *          ),\n     *      );\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  A {@link Target} identifying the `<select>` element of interest\n     *\n     * @returns {Question<Promise<string[]>>}\n     *\n     * @see {@link Select.options}\n     ",
+                    "start": 6668,
+                    "end": 8425,
+                    "loc": {
+                      "start": {
+                        "line": 221,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 264,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2052,42 +2188,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 8430,
+                "end": 8576,
+                "loc": {
+                  "start": {
+                    "line": 265,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 267,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 150 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 4470,
-                    "end": 4636,
-                    "loc": {
-                      "start": {
-                        "line": 142,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 155,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Represents a single option selected in a\n     *  [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)\n     *\n     * @example <caption>Example widget</caption>\n     *  <select data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.option('Poland').from(Countries.dropdown),\n     *          Ensure.that(\n     *              Selected.optionIn(Countries.dropdown),\n     *              equals('Poland')\n     *          ),\n     *      );\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  A {@link Target} identifying the `<select>` element of interest\n     *\n     * @returns {Question<Promise<string>>}\n     *\n     * @see {@link Select.option}\n     ",
-                    "start": 4643,
-                    "end": 6347,
-                    "loc": {
-                      "start": {
-                        "line": 158,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 201,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 198 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2120,22 +2237,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 8430,
-                "end": 8576,
-                "loc": {
-                  "start": {
-                    "line": 265,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 267,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2549,41 +2651,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 198 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 6495,
-                    "end": 6661,
-                    "loc": {
-                      "start": {
-                        "line": 205,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 218,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Represents options selected in a\n     *  [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)\n     *\n     * @example <caption>Example widget</caption>\n     *  <select multiple data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.options('Poland', 'United States').from(Countries.dropdown),\n     *          Ensure.that(\n     *              Selected.optionsIn(Countries.dropdown),\n     *              equals([ 'Poland', 'United States' ])\n     *          ),\n     *      );\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  A {@link Target} identifying the `<select>` element of interest\n     *\n     * @returns {Question<Promise<string[]>>}\n     *\n     * @see {@link Select.options}\n     ",
-                    "start": 6668,
-                    "end": 8425,
-                    "loc": {
-                      "start": {
-                        "line": 221,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 264,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -2655,42 +2723,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 8648,
+        "end": 9278,
+        "loc": {
+          "start": {
+            "line": 280,
+            "column": 0
+          },
+          "end": {
+            "line": 306,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n ",
-            "start": 270,
-            "end": 315,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Represents options and values selected in a\n *  [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).\n *\n * @see {@link Select}\n ",
-            "start": 318,
-            "end": 505,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 20,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 206 \n ",
@@ -2723,22 +2772,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 8648,
-        "end": 9278,
-        "loc": {
-          "start": {
-            "line": 280,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 224 \n ",
+            "start": 9279,
+            "end": 9325,
+            "loc": {
+              "start": {
+                "line": 307,
+                "column": 0
+              },
+              "end": {
+                "line": 312,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 306,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 9328,
+            "end": 9347,
+            "loc": {
+              "start": {
+                "line": 315,
+                "column": 0
+              },
+              "end": {
+                "line": 317,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 8654,
@@ -2883,6 +2951,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 212 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 8853,
+                  "end": 9003,
+                  "loc": {
+                    "start": {
+                      "line": 285,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 296,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -3259,8 +3345,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 9010,
+              "end": 9276,
+              "loc": {
+                "start": {
+                  "line": 299,
+                  "column": 4
+                },
+                "end": {
+                  "line": 305,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 212 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -3277,22 +3378,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 9010,
-              "end": 9276,
-              "loc": {
-                "start": {
-                  "line": 299,
-                  "column": 4
-                },
-                "end": {
-                  "line": 305,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -3649,6 +3735,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 9128,
@@ -3665,8 +3752,7 @@
                                   "identifierName": "target"
                                 },
                                 "name": "target"
-                              },
-                              "computed": false
+                              }
                             },
                             {
                               "type": "ArrowFunctionExpression",
@@ -3824,6 +3910,7 @@
                                         },
                                         "name": "element"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 9184,
@@ -3840,8 +3927,7 @@
                                           "identifierName": "$"
                                         },
                                         "name": "$"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -3866,6 +3952,7 @@
                                       }
                                     ]
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 9204,
@@ -3882,8 +3969,7 @@
                                       "identifierName": "getAttribute"
                                     },
                                     "name": "getAttribute"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -3983,63 +4069,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 212 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 8853,
-                  "end": 9003,
-                  "loc": {
-                    "start": {
-                      "line": 285,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 296,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 9348,
+        "end": 10033,
+        "loc": {
+          "start": {
+            "line": 318,
+            "column": 0
+          },
+          "end": {
+            "line": 343,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 206 \n ",
-            "start": 8579,
-            "end": 8625,
-            "loc": {
-              "start": {
-                "line": 269,
-                "column": 0
-              },
-              "end": {
-                "line": 274,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 8628,
-            "end": 8647,
-            "loc": {
-              "start": {
-                "line": 277,
-                "column": 0
-              },
-              "end": {
-                "line": 279,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 224 \n ",
@@ -4072,22 +4121,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 9348,
-        "end": 10033,
-        "loc": {
-          "start": {
-            "line": 318,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 241 \n ",
+            "start": 10034,
+            "end": 10080,
+            "loc": {
+              "start": {
+                "line": 344,
+                "column": 0
+              },
+              "end": {
+                "line": 349,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 343,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 10083,
+            "end": 10102,
+            "loc": {
+              "start": {
+                "line": 352,
+                "column": 0
+              },
+              "end": {
+                "line": 354,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 9354,
@@ -4247,6 +4315,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 230 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 9557,
+                  "end": 9707,
+                  "loc": {
+                    "start": {
+                      "line": 323,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 334,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -4623,8 +4709,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 9714,
+              "end": 10031,
+              "loc": {
+                "start": {
+                  "line": 337,
+                  "column": 4
+                },
+                "end": {
+                  "line": 342,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 230 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -4641,22 +4742,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 9714,
-              "end": 10031,
-              "loc": {
-                "start": {
-                  "line": 337,
-                  "column": 4
-                },
-                "end": {
-                  "line": 342,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -5028,6 +5114,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 9836,
@@ -5044,8 +5131,7 @@
                                   "identifierName": "target"
                                 },
                                 "name": "target"
-                              },
-                              "computed": false
+                              }
                             },
                             {
                               "type": "ArrowFunctionExpression",
@@ -5203,6 +5289,7 @@
                                         },
                                         "name": "element"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 9880,
@@ -5219,8 +5306,7 @@
                                           "identifierName": "$$"
                                         },
                                         "name": "$$"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -5245,6 +5331,7 @@
                                       }
                                     ]
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 9906,
@@ -5261,8 +5348,7 @@
                                       "identifierName": "filter"
                                     },
                                     "name": "filter"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -5346,6 +5432,7 @@
                                           },
                                           "name": "option"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 9930,
@@ -5362,8 +5449,7 @@
                                             "identifierName": "isSelected"
                                           },
                                           "name": "isSelected"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": []
                                     }
@@ -5468,6 +5554,7 @@
                               },
                               "name": "options"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 9980,
@@ -5484,8 +5571,7 @@
                                 "identifierName": "map"
                               },
                               "name": "map"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -5569,6 +5655,7 @@
                                     },
                                     "name": "option"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 10001,
@@ -5585,8 +5672,7 @@
                                       "identifierName": "getAttribute"
                                     },
                                     "name": "getAttribute"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -5619,63 +5705,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 230 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 9557,
-                  "end": 9707,
-                  "loc": {
-                    "start": {
-                      "line": 323,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 334,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 10103,
+        "end": 10646,
+        "loc": {
+          "start": {
+            "line": 355,
+            "column": 0
+          },
+          "end": {
+            "line": 377,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 224 \n ",
-            "start": 9279,
-            "end": 9325,
-            "loc": {
-              "start": {
-                "line": 307,
-                "column": 0
-              },
-              "end": {
-                "line": 312,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 9328,
-            "end": 9347,
-            "loc": {
-              "start": {
-                "line": 315,
-                "column": 0
-              },
-              "end": {
-                "line": 317,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 241 \n ",
@@ -5708,22 +5757,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 10103,
-        "end": 10646,
-        "loc": {
-          "start": {
-            "line": 355,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 255 \n ",
+            "start": 10647,
+            "end": 10693,
+            "loc": {
+              "start": {
+                "line": 378,
+                "column": 0
+              },
+              "end": {
+                "line": 383,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 377,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 10696,
+            "end": 10715,
+            "loc": {
+              "start": {
+                "line": 386,
+                "column": 0
+              },
+              "end": {
+                "line": 388,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 10109,
@@ -5868,6 +5936,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 247 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 10301,
+                  "end": 10451,
+                  "loc": {
+                    "start": {
+                      "line": 360,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 371,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6243,8 +6329,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 10458,
+              "end": 10644,
+              "loc": {
+                "start": {
+                  "line": 374,
+                  "column": 4
+                },
+                "end": {
+                  "line": 376,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 247 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -6261,22 +6362,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 10458,
-              "end": 10644,
-              "loc": {
-                "start": {
-                  "line": 374,
-                  "column": 4
-                },
-                "end": {
-                  "line": 376,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6633,6 +6719,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 10579,
@@ -6649,8 +6736,7 @@
                                   "identifierName": "target"
                                 },
                                 "name": "target"
-                              },
-                              "computed": false
+                              }
                             },
                             {
                               "type": "ArrowFunctionExpression",
@@ -6761,6 +6847,7 @@
                                         },
                                         "name": "element"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 10606,
@@ -6777,8 +6864,7 @@
                                           "identifierName": "$"
                                         },
                                         "name": "$"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -6803,6 +6889,7 @@
                                       }
                                     ]
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 10626,
@@ -6819,8 +6906,7 @@
                                       "identifierName": "getText"
                                     },
                                     "name": "getText"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               }
@@ -6832,63 +6918,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 247 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 10301,
-                  "end": 10451,
-                  "loc": {
-                    "start": {
-                      "line": 360,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 371,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 10716,
+        "end": 11348,
+        "loc": {
+          "start": {
+            "line": 389,
+            "column": 0
+          },
+          "end": {
+            "line": 413,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 241 \n ",
-            "start": 10034,
-            "end": 10080,
-            "loc": {
-              "start": {
-                "line": 344,
-                "column": 0
-              },
-              "end": {
-                "line": 349,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 10083,
-            "end": 10102,
-            "loc": {
-              "start": {
-                "line": 352,
-                "column": 0
-              },
-              "end": {
-                "line": 354,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 255 \n ",
@@ -6921,22 +6970,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 10716,
-        "end": 11348,
-        "loc": {
-          "start": {
-            "line": 389,
-            "column": 0
-          },
-          "end": {
-            "line": 413,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 10722,
@@ -7096,6 +7130,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 261 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 10918,
+                  "end": 11068,
+                  "loc": {
+                    "start": {
+                      "line": 394,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 405,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -7471,8 +7523,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 11075,
+              "end": 11346,
+              "loc": {
+                "start": {
+                  "line": 408,
+                  "column": 4
+                },
+                "end": {
+                  "line": 412,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 261 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -7489,22 +7556,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 11075,
-              "end": 11346,
-              "loc": {
-                "start": {
-                  "line": 408,
-                  "column": 4
-                },
-                "end": {
-                  "line": 412,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -7876,6 +7928,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 11198,
@@ -7892,8 +7945,7 @@
                                   "identifierName": "target"
                                 },
                                 "name": "target"
-                              },
-                              "computed": false
+                              }
                             },
                             {
                               "type": "ArrowFunctionExpression",
@@ -8032,6 +8084,7 @@
                                             },
                                             "name": "element"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 11225,
@@ -8048,8 +8101,7 @@
                                               "identifierName": "$$"
                                             },
                                             "name": "$$"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -8074,6 +8126,7 @@
                                           }
                                         ]
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 11251,
@@ -8090,8 +8143,7 @@
                                           "identifierName": "filter"
                                         },
                                         "name": "filter"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -8175,6 +8227,7 @@
                                               },
                                               "name": "option"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 11275,
@@ -8191,14 +8244,14 @@
                                                 "identifierName": "isSelected"
                                               },
                                               "name": "isSelected"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": []
                                         }
                                       }
                                     ]
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 11302,
@@ -8215,8 +8268,7 @@
                                       "identifierName": "map"
                                     },
                                     "name": "map"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -8300,6 +8352,7 @@
                                           },
                                           "name": "elements"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 11327,
@@ -8316,8 +8369,7 @@
                                             "identifierName": "getText"
                                           },
                                           "name": "getText"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": []
                                     }
@@ -8332,62 +8384,10 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 261 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 10918,
-                  "end": 11068,
-                  "loc": {
-                    "start": {
-                      "line": 394,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 405,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 255 \n ",
-            "start": 10647,
-            "end": 10693,
-            "loc": {
-              "start": {
-                "line": 378,
-                "column": 0
-              },
-              "end": {
-                "line": 383,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 10696,
-            "end": 10715,
-            "loc": {
-              "start": {
-                "line": 386,
-                "column": 0
-              },
-              "end": {
-                "line": 388,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

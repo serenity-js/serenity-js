@@ -218,6 +218,24 @@
             "column": 45
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 142,
+            "end": 161,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -289,8 +307,23 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 162,
+        "end": 546,
+        "loc": {
+          "start": {
+            "line": 8,
+            "column": 0
+          },
+          "end": {
+            "line": 20,
+            "column": 2
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @package\n ",
@@ -307,22 +340,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 162,
-        "end": 546,
-        "loc": {
-          "start": {
-            "line": 8,
-            "column": 0
-          },
-          "end": {
-            "line": 20,
-            "column": 2
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -385,6 +403,9 @@
                     "line": 20,
                     "column": 1
                   }
+                },
+                "extra": {
+                  "trailingComma": 542
                 },
                 "properties": [
                   {
@@ -549,6 +570,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 223,
@@ -565,8 +587,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -615,6 +636,7 @@
                                   },
                                   "name": "path"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 256,
@@ -631,8 +653,7 @@
                                     "identifierName": "value"
                                   },
                                   "name": "value"
-                                },
-                                "computed": false
+                                }
                               }
                             ],
                             "quasis": [
@@ -843,6 +864,7 @@
                                               },
                                               "name": "UseFileSystem"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 304,
@@ -859,8 +881,7 @@
                                                 "identifierName": "as"
                                               },
                                               "name": "as"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -882,6 +903,7 @@
                                             }
                                           ]
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 314,
@@ -898,8 +920,7 @@
                                             "identifierName": "attributesOf"
                                           },
                                           "name": "attributesOf"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -921,6 +942,7 @@
                                         }
                                       ]
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 346,
@@ -937,8 +959,7 @@
                                         "identifierName": "then"
                                       },
                                       "name": "then"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -996,6 +1017,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 375,
@@ -1012,8 +1034,7 @@
                                     "identifierName": "catch"
                                   },
                                   "name": "catch"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -1126,6 +1147,7 @@
                                               },
                                               "name": "error"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 418,
@@ -1142,8 +1164,7 @@
                                                 "identifierName": "code"
                                               },
                                               "name": "code"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "operator": "!==",
                                           "right": {
@@ -1342,10 +1363,7 @@
                       }
                     }
                   }
-                ],
-                "extra": {
-                  "trailingComma": 542
-                }
+                ]
               }
             }
           ],
@@ -1369,25 +1387,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 142,
-            "end": 161,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

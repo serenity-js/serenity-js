@@ -403,6 +403,40 @@
             "column": 65
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {Answerable} form \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 225,
+            "end": 343,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Returns the String value result of normalizing the string into the normalization form\n *  named by form as specified in Unicode Standard Annex #15, Unicode Normalization Forms.\n *\n * @param {Answerable<string>} [form]\n *  One of \"NFC\", \"NFD\", \"NFKC\", or \"NFKD\", specifying the Unicode Normalization Form. If omitted or undefined, \"NFC\" is used.\n *  These values have the following meanings:\n *   \"NFC\" - Canonical Decomposition, followed by Canonical Composition.\n *   \"NFD\" - Canonical Decomposition.\n *   \"NFKC\" - Compatibility Decomposition, followed by Canonical Composition.\n *   \"NFKD\" - Compatibility Decomposition.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize\n ",
+            "start": 346,
+            "end": 1153,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 33,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -474,8 +508,23 @@
             "raw": "'../AnswerMappingFunction'"
           },
           "value": "../AnswerMappingFunction"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1154,
+        "end": 1486,
+        "loc": {
+          "start": {
+            "line": 34,
+            "column": 0
+          },
+          "end": {
+            "line": 42,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {Answerable} form \n * @return \n * {AnswerMappingFunction} \n ",
@@ -508,22 +557,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1154,
-        "end": 1486,
-        "loc": {
-          "start": {
-            "line": 34,
-            "column": 0
-          },
-          "end": {
-            "line": 42,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1185,6 +1219,7 @@
                                     },
                                     "name": "actor"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1421,
@@ -1201,8 +1236,7 @@
                                       "identifierName": "answer"
                                     },
                                     "name": "answer"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -1224,6 +1258,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1434,
@@ -1240,8 +1275,7 @@
                                   "identifierName": "then"
                                 },
                                 "name": "then"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1325,6 +1359,7 @@
                                       },
                                       "name": "value"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1455,
@@ -1341,8 +1376,7 @@
                                         "identifierName": "normalize"
                                       },
                                       "name": "normalize"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1412,41 +1446,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {Answerable} form \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 225,
-            "end": 343,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Returns the String value result of normalizing the string into the normalization form\n *  named by form as specified in Unicode Standard Annex #15, Unicode Normalization Forms.\n *\n * @param {Answerable<string>} [form]\n *  One of \"NFC\", \"NFD\", \"NFKC\", or \"NFKD\", specifying the Unicode Normalization Form. If omitted or undefined, \"NFC\" is used.\n *  These values have the following meanings:\n *   \"NFC\" - Canonical Decomposition, followed by Canonical Composition.\n *   \"NFD\" - Canonical Decomposition.\n *   \"NFKC\" - Compatibility Decomposition, followed by Canonical Composition.\n *   \"NFKD\" - Compatibility Decomposition.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize\n ",
-            "start": 346,
-            "end": 1153,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 33,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

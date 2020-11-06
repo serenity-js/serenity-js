@@ -452,6 +452,40 @@
             "column": 65
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n ",
+            "start": 284,
+            "end": 329,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports\n *  that [Serenity BDD CLI Reporter](https://github.com/serenity-bdd/serenity-cli)\n *  can parse to produce HTML reports and living documentation.\n *\n * @example <caption>Registering the reporter programmatically</caption>\n *  import { ArtifactArchiver, serenity } from '@serenity-js/core';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  serenity.configure({\n *    crew: [\n *      ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *      new SerenityBDDReporter()\n *    ],\n *  });\n *\n * @example <caption>Registering the reporter using Protractor configuration</caption>\n *  // protractor.conf.js\n *  const\n *    { ArtifactArchiver }    = require('@serenity-js/core'),\n *    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');\n *\n *  exports.config = {\n *    framework:     'custom',\n *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),\n *\n *    serenity: {\n *      crew: [\n *        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        new SerenityBDDReporter(),\n *      ],\n *      // other Serenity/JS config\n *    },\n *\n *    // other Protractor config\n *  };\n *\n * @public\n * @implements {@serenity-js/core/lib/stage~StageCrewMember}\n ",
+            "start": 332,
+            "end": 1658,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 54,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -572,8 +606,23 @@
             "raw": "'./processors'"
           },
           "value": "./processors"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1659,
+        "end": 4697,
+        "loc": {
+          "start": {
+            "line": 55,
+            "column": 0
+          },
+          "end": {
+            "line": 198,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n ",
@@ -606,22 +655,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1659,
-        "end": 4697,
-        "loc": {
-          "start": {
-            "line": 55,
-            "column": 0
-          },
-          "end": {
-            "line": 198,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -720,6 +754,42 @@
                     "column": 53
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @private \n * \\TRUE \n ",
+                    "start": 1721,
+                    "end": 1789,
+                    "loc": {
+                      "start": {
+                        "line": 56,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 63,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @private \n * \\TRUE \n ",
+                    "start": 1845,
+                    "end": 1913,
+                    "loc": {
+                      "start": {
+                        "line": 66,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 73,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -773,26 +843,23 @@
                     "name": "EventQueues"
                   },
                   "arguments": []
+                }
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1919,
+                "end": 1976,
+                "loc": {
+                  "start": {
+                    "line": 75,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 75,
+                    "column": 61
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @private \n * \\TRUE \n ",
-                    "start": 1721,
-                    "end": 1789,
-                    "loc": {
-                      "start": {
-                        "line": 56,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 63,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @private \n * \\TRUE \n ",
@@ -809,22 +876,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1919,
-                "end": 1976,
-                "loc": {
-                  "start": {
-                    "line": 75,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 75,
-                    "column": 61
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * A queue for domain events that took place before the SceneStarts event,\n * for example in Mocha's `before` hook. \n * @lineNumber \n * 56 \n * @type \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
+                    "start": 1977,
+                    "end": 2181,
+                    "loc": {
+                      "start": {
+                        "line": 76,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 86,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -878,26 +948,23 @@
                     "name": "EventQueueProcessors"
                   },
                   "arguments": []
+                }
+              },
+              {
+                "type": "ClassProperty",
+                "start": 2193,
+                "end": 2241,
+                "loc": {
+                  "start": {
+                    "line": 90,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 90,
+                    "column": 52
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @private \n * \\TRUE \n ",
-                    "start": 1845,
-                    "end": 1913,
-                    "loc": {
-                      "start": {
-                        "line": 66,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 73,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * A queue for domain events that took place before the SceneStarts event,\n * for example in Mocha's `before` hook. \n * @lineNumber \n * 56 \n * @type \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
@@ -914,22 +981,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 2193,
-                "end": 2241,
-                "loc": {
-                  "start": {
-                    "line": 90,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 90,
-                    "column": 52
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {@serenity-js/core/lib/stage~Stage} [stage=null] stage\n     ",
+                    "start": 2247,
+                    "end": 2327,
+                    "loc": {
+                      "start": {
+                        "line": 92,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 94,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -1028,26 +1098,23 @@
                     }
                   },
                   "elements": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2332,
+                "end": 2389,
+                "loc": {
+                  "start": {
+                    "line": 95,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 96,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * A queue for domain events that took place before the SceneStarts event,\n * for example in Mocha's `before` hook. \n * @lineNumber \n * 56 \n * @type \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
-                    "start": 1977,
-                    "end": 2181,
-                    "loc": {
-                      "start": {
-                        "line": 76,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 86,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {@serenity-js/core/lib/stage~Stage} [stage=null] stage\n     ",
@@ -1064,22 +1131,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2332,
-                "end": 2389,
-                "loc": {
-                  "start": {
-                    "line": 95,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 77 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
+                    "start": 2390,
+                    "end": 2520,
+                    "loc": {
+                      "start": {
+                        "line": 97,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 108,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 96,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Creates a new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}\n     *  and assigns it to a given {@link @serenity-js/core/lib/stage~Stage}.\n     *\n     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}\n     *\n     * @param {@serenity-js/core/lib/stage~Stage} stage\n     *  An instance of a {@link @serenity-js/core/lib/stage~Stage} this {@link @serenity-js/core/lib/stage~StageCrewMember} will be assigned to\n     *\n     * @returns {@serenity-js/core/lib/stage~StageCrewMember}\n     *  A new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}\n     ",
+                    "start": 2527,
+                    "end": 3149,
+                    "loc": {
+                      "start": {
+                        "line": 111,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 123,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1232,26 +1318,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3154,
+                "end": 3250,
+                "loc": {
+                  "start": {
+                    "line": 124,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 126,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {@serenity-js/core/lib/stage~Stage} [stage=null] stage\n     ",
-                    "start": 2247,
-                    "end": 2327,
-                    "loc": {
-                      "start": {
-                        "line": 92,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 94,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 77 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
@@ -1284,22 +1367,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3154,
-                "end": 3250,
-                "loc": {
-                  "start": {
-                    "line": 124,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 3251,
+                    "end": 3376,
+                    "loc": {
+                      "start": {
+                        "line": 127,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 138,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 126,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Handles {@link @serenity-js/core/lib/events~DomainEvent} objects emitted by the {@link @serenity-js/core/lib/stage~StageCrewMember}.\n     *\n     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}\n     *\n     * @param {@serenity-js/core/lib/events~DomainEvent} event\n     * @returns {void}\n     ",
+                    "start": 3383,
+                    "end": 3712,
+                    "loc": {
+                      "start": {
+                        "line": 141,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 149,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1519,42 +1621,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3717,
+                "end": 4307,
+                "loc": {
+                  "start": {
+                    "line": 150,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 169,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 77 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
-                    "start": 2390,
-                    "end": 2520,
-                    "loc": {
-                      "start": {
-                        "line": 97,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 108,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Creates a new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}\n     *  and assigns it to a given {@link @serenity-js/core/lib/stage~Stage}.\n     *\n     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}\n     *\n     * @param {@serenity-js/core/lib/stage~Stage} stage\n     *  An instance of a {@link @serenity-js/core/lib/stage~Stage} this {@link @serenity-js/core/lib/stage~StageCrewMember} will be assigned to\n     *\n     * @returns {@serenity-js/core/lib/stage~StageCrewMember}\n     *  A new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}\n     ",
-                    "start": 2527,
-                    "end": 3149,
-                    "loc": {
-                      "start": {
-                        "line": 111,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 123,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -1587,22 +1670,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3717,
-                "end": 4307,
-                "loc": {
-                  "start": {
-                    "line": 150,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 169,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @param \n * {DomainEvent} event \n * @return \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
+                    "start": 4308,
+                    "end": 4438,
+                    "loc": {
+                      "start": {
+                        "line": 170,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 181,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1794,6 +1880,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3773,
@@ -1810,8 +1897,7 @@
                               "identifierName": "isSceneSpecific"
                             },
                             "name": "isSceneSpecific"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1919,6 +2005,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 3816,
@@ -1935,9 +2022,9 @@
                                       "identifierName": "eventQueues"
                                     },
                                     "name": "eventQueues"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3828,
@@ -1954,8 +2041,7 @@
                                     "identifierName": "enqueue"
                                   },
                                   "name": "enqueue"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -2159,6 +2245,7 @@
                                             }
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3926,
@@ -2175,9 +2262,9 @@
                                             "identifierName": "processors"
                                           },
                                           "name": "processors"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 3954,
@@ -2194,8 +2281,7 @@
                                           "identifierName": "process"
                                         },
                                         "name": "process"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2227,6 +2313,7 @@
                                             }
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 3967,
@@ -2243,11 +2330,11 @@
                                             "identifierName": "eventQueues"
                                           },
                                           "name": "eventQueues"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     ]
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 3997,
@@ -2264,8 +2351,7 @@
                                       "identifierName": "forEach"
                                     },
                                     "name": "forEach"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2390,6 +2476,7 @@
                                                     }
                                                   }
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 4042,
@@ -2406,9 +2493,9 @@
                                                     "identifierName": "stage"
                                                   },
                                                   "name": "stage"
-                                                },
-                                                "computed": false
+                                                }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 4048,
@@ -2425,8 +2512,7 @@
                                                   "identifierName": "announce"
                                                 },
                                                 "name": "announce"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": [
                                               {
@@ -2492,6 +2578,7 @@
                                                       },
                                                       "name": "result"
                                                     },
+                                                    "computed": false,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 4111,
@@ -2508,8 +2595,7 @@
                                                         "identifierName": "sceneId"
                                                       },
                                                       "name": "sceneId"
-                                                    },
-                                                    "computed": false
+                                                    }
                                                   },
                                                   {
                                                     "type": "MemberExpression",
@@ -2542,6 +2628,7 @@
                                                       },
                                                       "name": "result"
                                                     },
+                                                    "computed": false,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 4151,
@@ -2558,8 +2645,7 @@
                                                         "identifierName": "name"
                                                       },
                                                       "name": "name"
-                                                    },
-                                                    "computed": false
+                                                    }
                                                   },
                                                   {
                                                     "type": "MemberExpression",
@@ -2592,6 +2678,7 @@
                                                       },
                                                       "name": "result"
                                                     },
+                                                    "computed": false,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 4188,
@@ -2608,8 +2695,7 @@
                                                         "identifierName": "artifact"
                                                       },
                                                       "name": "artifact"
-                                                    },
-                                                    "computed": false
+                                                    }
                                                   },
                                                   {
                                                     "type": "CallExpression",
@@ -2668,6 +2754,7 @@
                                                             }
                                                           }
                                                         },
+                                                        "computed": false,
                                                         "property": {
                                                           "type": "Identifier",
                                                           "start": 4227,
@@ -2684,9 +2771,9 @@
                                                             "identifierName": "stage"
                                                           },
                                                           "name": "stage"
-                                                        },
-                                                        "computed": false
+                                                        }
                                                       },
+                                                      "computed": false,
                                                       "property": {
                                                         "type": "Identifier",
                                                         "start": 4233,
@@ -2703,8 +2790,7 @@
                                                           "identifierName": "currentTime"
                                                         },
                                                         "name": "currentTime"
-                                                      },
-                                                      "computed": false
+                                                      }
                                                     },
                                                     "arguments": []
                                                   }
@@ -2728,42 +2814,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4445,
+                "end": 4695,
+                "loc": {
+                  "start": {
+                    "line": 184,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 197,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 3251,
-                    "end": 3376,
-                    "loc": {
-                      "start": {
-                        "line": 127,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 138,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Handles {@link @serenity-js/core/lib/events~DomainEvent} objects emitted by the {@link @serenity-js/core/lib/stage~StageCrewMember}.\n     *\n     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}\n     *\n     * @param {@serenity-js/core/lib/events~DomainEvent} event\n     * @returns {void}\n     ",
-                    "start": 3383,
-                    "end": 3712,
-                    "loc": {
-                      "start": {
-                        "line": 141,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 149,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @param \n * {DomainEvent} event \n * @return \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
@@ -2780,22 +2847,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4445,
-                "end": 4695,
-                "loc": {
-                  "start": {
-                    "line": 184,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 197,
-                    "column": 5
-                  }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -3021,6 +3073,24 @@
                                     "column": 23
                                   }
                                 },
+                                "leadingComments": [
+                                  {
+                                    "type": "CommentBlock",
+                                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @type \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
+                                    "start": 4515,
+                                    "end": 4613,
+                                    "loc": {
+                                      "start": {
+                                        "line": 185,
+                                        "column": 0
+                                      },
+                                      "end": {
+                                        "line": 194,
+                                        "column": 3
+                                      }
+                                    }
+                                  }
+                                ],
                                 "key": {
                                   "type": "Identifier",
                                   "start": 4615,
@@ -3085,31 +3155,14 @@
                                       "name": "CorrelationId"
                                     }
                                   }
-                                },
-                                "leadingComments": [
-                                  {
-                                    "type": "CommentBlock",
-                                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @type \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
-                                    "start": 4515,
-                                    "end": 4613,
-                                    "loc": {
-                                      "start": {
-                                        "line": 185,
-                                        "column": 0
-                                      },
-                                      "end": {
-                                        "line": 194,
-                                        "column": 3
-                                      }
-                                    }
-                                  }
-                                ]
+                                }
                               }
                             ]
                           }
                         ]
                       }
-                    }
+                    },
+                    "asserts": false
                   }
                 },
                 "body": {
@@ -3186,6 +3239,7 @@
                             },
                             "name": "event"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4663,
@@ -3202,8 +3256,7 @@
                               "identifierName": "hasOwnProperty"
                             },
                             "name": "hasOwnProperty"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -3231,25 +3284,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @param \n * {DomainEvent} event \n * @return \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
-                    "start": 4308,
-                    "end": 4438,
-                    "loc": {
-                      "start": {
-                        "line": 170,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 181,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -3288,41 +3323,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n ",
-            "start": 284,
-            "end": 329,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports\n *  that [Serenity BDD CLI Reporter](https://github.com/serenity-bdd/serenity-cli)\n *  can parse to produce HTML reports and living documentation.\n *\n * @example <caption>Registering the reporter programmatically</caption>\n *  import { ArtifactArchiver, serenity } from '@serenity-js/core';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  serenity.configure({\n *    crew: [\n *      ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *      new SerenityBDDReporter()\n *    ],\n *  });\n *\n * @example <caption>Registering the reporter using Protractor configuration</caption>\n *  // protractor.conf.js\n *  const\n *    { ArtifactArchiver }    = require('@serenity-js/core'),\n *    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');\n *\n *  exports.config = {\n *    framework:     'custom',\n *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),\n *\n *    serenity: {\n *      crew: [\n *        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        new SerenityBDDReporter(),\n *      ],\n *      // other Serenity/JS config\n *    },\n *\n *    // other Protractor config\n *  };\n *\n * @public\n * @implements {@serenity-js/core/lib/stage~StageCrewMember}\n ",
-            "start": 332,
-            "end": 1658,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 54,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

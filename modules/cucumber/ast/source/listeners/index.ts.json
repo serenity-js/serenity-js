@@ -667,6 +667,24 @@
             "column": 39
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {Version} version \n * @param \n * {any} cucumber \n * @param \n * {Serenity} serenity \n ",
+            "start": 312,
+            "end": 454,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 19,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -738,8 +756,23 @@
             "raw": "'../notifier'"
           },
           "value": "../notifier"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 457,
+        "end": 1237,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 47,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {Version} version \n * @param \n * {any} cucumber \n * @param \n * {Serenity} serenity \n ",
@@ -756,22 +789,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 457,
-        "end": 1237,
-        "loc": {
-          "start": {
-            "line": 22,
-            "column": 0
-          },
-          "end": {
-            "line": 47,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1478,6 +1496,7 @@
                                         },
                                         "name": "Gherkin"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 822,
@@ -1494,8 +1513,7 @@
                                           "identifierName": "Parser"
                                         },
                                         "name": "Parser"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": []
                                   }
@@ -1661,6 +1679,7 @@
                                       },
                                       "name": "version"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 942,
@@ -1677,8 +1696,7 @@
                                         "identifierName": "major"
                                       },
                                       "name": "major"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": []
                                 }
@@ -1743,6 +1761,9 @@
                                 "column": 9
                               }
                             },
+                            "extra": {
+                              "trailingComma": 1079
+                            },
                             "properties": [
                               {
                                 "type": "ObjectProperty",
@@ -1757,6 +1778,9 @@
                                     "line": 36,
                                     "column": 20
                                   }
+                                },
+                                "extra": {
+                                  "shorthand": true
                                 },
                                 "method": false,
                                 "key": {
@@ -1794,9 +1818,6 @@
                                     "identifierName": "serenity"
                                   },
                                   "name": "serenity"
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 }
                               },
                               {
@@ -1813,6 +1834,9 @@
                                     "column": 20
                                   }
                                 },
+                                "extra": {
+                                  "shorthand": true
+                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -1849,9 +1873,6 @@
                                     "identifierName": "notifier"
                                   },
                                   "name": "notifier"
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 }
                               },
                               {
@@ -1868,6 +1889,9 @@
                                     "column": 18
                                   }
                                 },
+                                "extra": {
+                                  "shorthand": true
+                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -1904,9 +1928,6 @@
                                     "identifierName": "mapper"
                                   },
                                   "name": "mapper"
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 }
                               },
                               {
@@ -1923,6 +1944,9 @@
                                     "column": 17
                                   }
                                 },
+                                "extra": {
+                                  "shorthand": true
+                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -1959,9 +1983,6 @@
                                     "identifierName": "cache"
                                   },
                                   "name": "cache"
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 }
                               },
                               {
@@ -1978,6 +1999,9 @@
                                     "column": 18
                                   }
                                 },
+                                "extra": {
+                                  "shorthand": true
+                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -2014,9 +2038,6 @@
                                     "identifierName": "loader"
                                   },
                                   "name": "loader"
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 }
                               },
                               {
@@ -2033,6 +2054,9 @@
                                     "column": 20
                                   }
                                 },
+                                "extra": {
+                                  "shorthand": true
+                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -2069,15 +2093,9 @@
                                     "identifierName": "cucumber"
                                   },
                                   "name": "cucumber"
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 }
                               }
-                            ],
-                            "extra": {
-                              "trailingComma": 1079
-                            }
+                            ]
                           }
                         ]
                       }
@@ -2237,6 +2255,7 @@
                                       },
                                       "name": "version"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1185,
@@ -2253,8 +2272,7 @@
                                         "identifierName": "toString"
                                       },
                                       "name": "toString"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": []
                                 }
@@ -2350,25 +2368,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {Version} version \n * @param \n * {any} cucumber \n * @param \n * {Serenity} serenity \n ",
-            "start": 312,
-            "end": 454,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 19,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

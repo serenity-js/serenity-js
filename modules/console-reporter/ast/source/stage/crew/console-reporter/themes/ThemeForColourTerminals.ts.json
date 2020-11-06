@@ -44,6 +44,24 @@
             "column": 65
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file ",
+            "start": 0,
+            "end": 26,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -115,25 +133,7 @@
             "raw": "'@serenity-js/core/lib/io'"
           },
           "value": "@serenity-js/core/lib/io"
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " istanbul ignore file ",
-            "start": 0,
-            "end": 26,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 26
-              }
-            }
-          }
-        ]
+        }
       },
       {
         "type": "ImportDeclaration",
@@ -666,6 +666,40 @@
             "column": 48
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n ",
+            "start": 425,
+            "end": 470,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Base class for {@link TerminalTheme} implementations intended\n *  to print to terminals that support colour output.\n *\n * @extends {TerminalTheme}\n *\n * @public\n * @abstract\n ",
+            "start": 473,
+            "end": 667,
+            "loc": {
+              "start": {
+                "line": 24,
+                "column": 0
+              },
+              "end": {
+                "line": 33,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -737,8 +771,23 @@
             "raw": "'./TerminalTheme'"
           },
           "value": "./TerminalTheme"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 668,
+        "end": 3292,
+        "loc": {
+          "start": {
+            "line": 34,
+            "column": 0
+          },
+          "end": {
+            "line": 128,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n ",
@@ -771,22 +820,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 668,
-        "end": 3292,
-        "loc": {
-          "start": {
-            "line": 34,
-            "column": 0
-          },
-          "end": {
-            "line": 128,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -868,6 +902,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {chalk~Chalk} chalk\n     *\n     * @see https://www.npmjs.com/package/chalk\n     ",
+                    "start": 743,
+                    "end": 843,
+                    "loc": {
+                      "start": {
+                        "line": 36,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 40,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Outcome | undefined} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1125,
+                    "end": 1293,
+                    "loc": {
+                      "start": {
+                        "line": 48,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 61,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Joins the `parts` into a single string and decorates it\n     *  using a colour appropriate for a given {@link @serenity-js/core/lib/model~Outcome}.\n     *\n     * @param {@serenity-js/core/lib/model~Outcome | string} outcome\n     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}\n     *  or a string class name of one of its implementations.\n     *\n     * @param {...any[]} parts\n     *  the parts of the message to be decorated\n     *\n     * @returns {string}\n     ",
+                    "start": 1300,
+                    "end": 1807,
+                    "loc": {
+                      "start": {
+                        "line": 64,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 77,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1079,6 +1165,9 @@
                                     "column": 9
                                   }
                                 },
+                                "extra": {
+                                  "trailingComma": 1104
+                                },
                                 "properties": [
                                   {
                                     "type": "ObjectProperty",
@@ -1207,6 +1296,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 972,
@@ -1223,9 +1313,9 @@
                                                 "identifierName": "chalk"
                                               },
                                               "name": "chalk"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 978,
@@ -1242,8 +1332,7 @@
                                               "identifierName": "green"
                                             },
                                             "name": "green"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1453,6 +1542,7 @@
                                                 }
                                               }
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1035,
@@ -1469,9 +1559,9 @@
                                                 "identifierName": "chalk"
                                               },
                                               "name": "chalk"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1041,
@@ -1488,8 +1578,7 @@
                                               "identifierName": "red"
                                             },
                                             "name": "red"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1720,10 +1809,7 @@
                                       }
                                     }
                                   }
-                                ],
-                                "extra": {
-                                  "trailingComma": 1104
-                                }
+                                ]
                               }
                             ]
                           }
@@ -1732,26 +1818,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1812,
+                "end": 2667,
+                "loc": {
+                  "start": {
+                    "line": 78,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 97,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {chalk~Chalk} chalk\n     *\n     * @see https://www.npmjs.com/package/chalk\n     ",
-                    "start": 743,
-                    "end": 843,
-                    "loc": {
-                      "start": {
-                        "line": 36,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 40,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Outcome | undefined} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1784,22 +1867,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1812,
-                "end": 2667,
-                "loc": {
-                  "start": {
-                    "line": 78,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 88 \n * @param \n * {string} expectedValue \n * @param \n * {string} actualValue \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 2668,
+                    "end": 2834,
+                    "loc": {
+                      "start": {
+                        "line": 98,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 111,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 97,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Turns the serialised `expectedValue` and `actualValue` into\n     *  a visual diff, so that it's easier for the developer to spot\n     *  the difference between the two values.\n     *\n     * @param {string} expectedValue\n     * @param {string} actualValue\n     *\n     * @returns {string}\n     ",
+                    "start": 2841,
+                    "end": 3160,
+                    "loc": {
+                      "start": {
+                        "line": 114,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 124,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2117,6 +2219,10 @@
                                   "column": 55
                                 }
                               },
+                              "extra": {
+                                "parenthesized": true,
+                                "parenStart": 1902
+                              },
                               "left": {
                                 "type": "Identifier",
                                 "start": 1903,
@@ -2151,10 +2257,6 @@
                                   "identifierName": "Outcome"
                                 },
                                 "name": "Outcome"
-                              },
-                              "extra": {
-                                "parenthesized": true,
-                                "parenStart": 1902
                               }
                             },
                             "consequent": {
@@ -2202,6 +2304,7 @@
                                   },
                                   "name": "outcome"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1953,
@@ -2218,9 +2321,9 @@
                                     "identifierName": "constructor"
                                   },
                                   "name": "constructor"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1965,
@@ -2237,8 +2340,7 @@
                                   "identifierName": "name"
                                 },
                                 "name": "name"
-                              },
-                              "computed": false
+                              }
                             },
                             "alternate": {
                               "type": "Identifier",
@@ -2380,6 +2482,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2097,
@@ -2396,9 +2499,9 @@
                                         "identifierName": "chalk"
                                       },
                                       "name": "chalk"
-                                    },
-                                    "computed": false
+                                    }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2103,
@@ -2415,8 +2518,7 @@
                                       "identifierName": "magenta"
                                     },
                                     "name": "magenta"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2462,6 +2564,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2116,
@@ -2478,8 +2581,7 @@
                                           "identifierName": "joined"
                                         },
                                         "name": "joined"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2536,6 +2638,7 @@
                               },
                               "name": "ExecutionCompromised"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2063,
@@ -2552,8 +2655,7 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -2602,6 +2704,7 @@
                               },
                               "name": "ExecutionFailedWithError"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2174,
@@ -2618,8 +2721,7 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -2708,6 +2810,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2265,
@@ -2724,9 +2827,9 @@
                                         "identifierName": "chalk"
                                       },
                                       "name": "chalk"
-                                    },
-                                    "computed": false
+                                    }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2271,
@@ -2743,8 +2846,7 @@
                                       "identifierName": "red"
                                     },
                                     "name": "red"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2790,6 +2892,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2280,
@@ -2806,8 +2909,7 @@
                                           "identifierName": "joined"
                                         },
                                         "name": "joined"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -2864,6 +2966,7 @@
                               },
                               "name": "ExecutionFailedWithAssertionError"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2231,
@@ -2880,8 +2983,7 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -2970,6 +3072,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2369,
@@ -2986,9 +3089,9 @@
                                         "identifierName": "chalk"
                                       },
                                       "name": "chalk"
-                                    },
-                                    "computed": false
+                                    }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2375,
@@ -3005,8 +3108,7 @@
                                       "identifierName": "blue"
                                     },
                                     "name": "blue"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -3052,6 +3154,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2385,
@@ -3068,8 +3171,7 @@
                                           "identifierName": "joined"
                                         },
                                         "name": "joined"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -3126,6 +3228,7 @@
                               },
                               "name": "ImplementationPending"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2335,
@@ -3142,8 +3245,7 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -3192,6 +3294,7 @@
                               },
                               "name": "ExecutionSkipped"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2435,
@@ -3208,8 +3311,7 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -3298,6 +3400,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2509,
@@ -3314,9 +3417,9 @@
                                         "identifierName": "chalk"
                                       },
                                       "name": "chalk"
-                                    },
-                                    "computed": false
+                                    }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2515,
@@ -3333,8 +3436,7 @@
                                       "identifierName": "blackBright"
                                     },
                                     "name": "blackBright"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -3380,6 +3482,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2532,
@@ -3396,8 +3499,7 @@
                                           "identifierName": "joined"
                                         },
                                         "name": "joined"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -3454,6 +3556,7 @@
                               },
                               "name": "ExecutionIgnored"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2475,
@@ -3470,8 +3573,7 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           }
                         },
                         {
@@ -3560,6 +3662,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2619,
@@ -3576,9 +3679,9 @@
                                         "identifierName": "chalk"
                                       },
                                       "name": "chalk"
-                                    },
-                                    "computed": false
+                                    }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 2625,
@@ -3595,8 +3698,7 @@
                                       "identifierName": "green"
                                     },
                                     "name": "green"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -3642,6 +3744,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2636,
@@ -3658,8 +3761,7 @@
                                           "identifierName": "joined"
                                         },
                                         "name": "joined"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -3716,6 +3818,7 @@
                               },
                               "name": "ExecutionSuccessful"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2585,
@@ -3732,50 +3835,30 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           }
                         }
                       ]
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3165,
+                "end": 3290,
+                "loc": {
+                  "start": {
+                    "line": 125,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 127,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Outcome | undefined} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1125,
-                    "end": 1293,
-                    "loc": {
-                      "start": {
-                        "line": 48,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 61,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Joins the `parts` into a single string and decorates it\n     *  using a colour appropriate for a given {@link @serenity-js/core/lib/model~Outcome}.\n     *\n     * @param {@serenity-js/core/lib/model~Outcome | string} outcome\n     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}\n     *  or a string class name of one of its implementations.\n     *\n     * @param {...any[]} parts\n     *  the parts of the message to be decorated\n     *\n     * @returns {string}\n     ",
-                    "start": 1300,
-                    "end": 1807,
-                    "loc": {
-                      "start": {
-                        "line": 64,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 77,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 88 \n * @param \n * {string} expectedValue \n * @param \n * {string} actualValue \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -3808,22 +3891,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3165,
-                "end": 3290,
-                "loc": {
-                  "start": {
-                    "line": 125,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 127,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4059,6 +4127,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 3244,
@@ -4075,9 +4144,9 @@
                                 "identifierName": "differ"
                               },
                               "name": "differ"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3251,
@@ -4094,8 +4163,7 @@
                               "identifierName": "diff"
                             },
                             "name": "diff"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -4137,41 +4205,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 88 \n * @param \n * {string} expectedValue \n * @param \n * {string} actualValue \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 2668,
-                    "end": 2834,
-                    "loc": {
-                      "start": {
-                        "line": 98,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 111,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Turns the serialised `expectedValue` and `actualValue` into\n     *  a visual diff, so that it's easier for the developer to spot\n     *  the difference between the two values.\n     *\n     * @param {string} expectedValue\n     * @param {string} actualValue\n     *\n     * @returns {string}\n     ",
-                    "start": 2841,
-                    "end": 3160,
-                    "loc": {
-                      "start": {
-                        "line": 114,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 124,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -4210,41 +4244,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n ",
-            "start": 425,
-            "end": 470,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Base class for {@link TerminalTheme} implementations intended\n *  to print to terminals that support colour output.\n *\n * @extends {TerminalTheme}\n *\n * @public\n * @abstract\n ",
-            "start": 473,
-            "end": 667,
-            "loc": {
-              "start": {
-                "line": 24,
-                "column": 0
-              },
-              "end": {
-                "line": 33,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

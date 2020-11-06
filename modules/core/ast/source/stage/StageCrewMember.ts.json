@@ -305,6 +305,40 @@
             "column": 46
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
+            "start": 176,
+            "end": 221,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  You can think of the {@link StageCrewMember} as an in-memory micro-service that reacts to {@link DomainEvent}s\n *  from the {@link StageManager}. Every {@link StageCrewMember} receives a reference to the {@link Stage},\n *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.\n *\n *  Useful when you're interested in implementing custom reporters.\n *\n * @extends {ListensToDomainEvents}\n * @interface ",
+            "start": 224,
+            "end": 688,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 22,
+                "column": 16
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -376,8 +410,23 @@
             "raw": "'./StageManager'"
           },
           "value": "./StageManager"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 689,
+        "end": 1273,
+        "loc": {
+          "start": {
+            "line": 23,
+            "column": 0
+          },
+          "end": {
+            "line": 46,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
@@ -410,22 +459,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 689,
-        "end": 1273,
-        "loc": {
-          "start": {
-            "line": 23,
-            "column": 0
-          },
-          "end": {
-            "line": 46,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -507,6 +541,40 @@
                     "column": 46
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
+                    "start": 759,
+                    "end": 889,
+                    "loc": {
+                      "start": {
+                        "line": 24,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     ",
+                    "start": 896,
+                    "end": 1224,
+                    "loc": {
+                      "start": {
+                        "line": 38,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 44,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -642,41 +710,7 @@
                       "name": "StageCrewMember"
                     }
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
-                    "start": 759,
-                    "end": 889,
-                    "loc": {
-                      "start": {
-                        "line": 24,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 35,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     ",
-                    "start": 896,
-                    "end": 1224,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 44,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -715,41 +749,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
-            "start": 176,
-            "end": 221,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  You can think of the {@link StageCrewMember} as an in-memory micro-service that reacts to {@link DomainEvent}s\n *  from the {@link StageManager}. Every {@link StageCrewMember} receives a reference to the {@link Stage},\n *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.\n *\n *  Useful when you're interested in implementing custom reporters.\n *\n * @extends {ListensToDomainEvents}\n * @interface ",
-            "start": 224,
-            "end": 688,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 22,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

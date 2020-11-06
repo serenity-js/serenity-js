@@ -44,6 +44,40 @@
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
+            "start": 1,
+            "end": 45,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @public\n * @interface ",
+            "start": 46,
+            "end": 77,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 16
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -109,57 +143,6 @@
                     "column": 22
                   }
                 },
-                "static": false,
-                "key": {
-                  "type": "Identifier",
-                  "start": 784,
-                  "end": 792,
-                  "loc": {
-                    "start": {
-                      "line": 37,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 37,
-                      "column": 12
-                    },
-                    "identifierName": "compiler"
-                  },
-                  "name": "compiler"
-                },
-                "computed": false,
-                "optional": true,
-                "typeAnnotation": {
-                  "type": "TSTypeAnnotation",
-                  "start": 793,
-                  "end": 801,
-                  "loc": {
-                    "start": {
-                      "line": 37,
-                      "column": 13
-                    },
-                    "end": {
-                      "line": 37,
-                      "column": 21
-                    }
-                  },
-                  "typeAnnotation": {
-                    "type": "TSStringKeyword",
-                    "start": 795,
-                    "end": 801,
-                    "loc": {
-                      "start": {
-                        "line": 37,
-                        "column": 15
-                      },
-                      "end": {
-                        "line": 37,
-                        "column": 21
-                      }
-                    }
-                  }
-                },
-                "value": null,
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
@@ -227,7 +210,58 @@
                       }
                     }
                   }
-                ]
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 784,
+                  "end": 792,
+                  "loc": {
+                    "start": {
+                      "line": 37,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 37,
+                      "column": 12
+                    },
+                    "identifierName": "compiler"
+                  },
+                  "name": "compiler"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 793,
+                  "end": 801,
+                  "loc": {
+                    "start": {
+                      "line": 37,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 37,
+                      "column": 21
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSStringKeyword",
+                    "start": 795,
+                    "end": 801,
+                    "loc": {
+                      "start": {
+                        "line": 37,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 37,
+                        "column": 21
+                      }
+                    }
+                  }
+                },
+                "value": null
               },
               {
                 "type": "ClassProperty",
@@ -243,57 +277,6 @@
                     "column": 20
                   }
                 },
-                "static": false,
-                "key": {
-                  "type": "Identifier",
-                  "start": 1137,
-                  "end": 1143,
-                  "loc": {
-                    "start": {
-                      "line": 57,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 57,
-                      "column": 10
-                    },
-                    "identifierName": "format"
-                  },
-                  "name": "format"
-                },
-                "computed": false,
-                "optional": true,
-                "typeAnnotation": {
-                  "type": "TSTypeAnnotation",
-                  "start": 1144,
-                  "end": 1152,
-                  "loc": {
-                    "start": {
-                      "line": 57,
-                      "column": 11
-                    },
-                    "end": {
-                      "line": 57,
-                      "column": 19
-                    }
-                  },
-                  "typeAnnotation": {
-                    "type": "TSStringKeyword",
-                    "start": 1146,
-                    "end": 1152,
-                    "loc": {
-                      "start": {
-                        "line": 57,
-                        "column": 13
-                      },
-                      "end": {
-                        "line": 57,
-                        "column": 19
-                      }
-                    }
-                  }
-                },
-                "value": null,
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
@@ -361,7 +344,58 @@
                       }
                     }
                   }
-                ]
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1137,
+                  "end": 1143,
+                  "loc": {
+                    "start": {
+                      "line": 57,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 57,
+                      "column": 10
+                    },
+                    "identifierName": "format"
+                  },
+                  "name": "format"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 1144,
+                  "end": 1152,
+                  "loc": {
+                    "start": {
+                      "line": 57,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 57,
+                      "column": 19
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSStringKeyword",
+                    "start": 1146,
+                    "end": 1152,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 13
+                      },
+                      "end": {
+                        "line": 57,
+                        "column": 19
+                      }
+                    }
+                  }
+                },
+                "value": null
               },
               {
                 "type": "ClassProperty",
@@ -377,57 +411,6 @@
                     "column": 27
                   }
                 },
-                "static": false,
-                "key": {
-                  "type": "Identifier",
-                  "start": 1553,
-                  "end": 1566,
-                  "loc": {
-                    "start": {
-                      "line": 80,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 80,
-                      "column": 17
-                    },
-                    "identifierName": "formatOptions"
-                  },
-                  "name": "formatOptions"
-                },
-                "computed": false,
-                "optional": true,
-                "typeAnnotation": {
-                  "type": "TSTypeAnnotation",
-                  "start": 1567,
-                  "end": 1575,
-                  "loc": {
-                    "start": {
-                      "line": 80,
-                      "column": 18
-                    },
-                    "end": {
-                      "line": 80,
-                      "column": 26
-                    }
-                  },
-                  "typeAnnotation": {
-                    "type": "TSStringKeyword",
-                    "start": 1569,
-                    "end": 1575,
-                    "loc": {
-                      "start": {
-                        "line": 80,
-                        "column": 20
-                      },
-                      "end": {
-                        "line": 80,
-                        "column": 26
-                      }
-                    }
-                  }
-                },
-                "value": null,
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
@@ -495,7 +478,58 @@
                       }
                     }
                   }
-                ]
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1553,
+                  "end": 1566,
+                  "loc": {
+                    "start": {
+                      "line": 80,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 80,
+                      "column": 17
+                    },
+                    "identifierName": "formatOptions"
+                  },
+                  "name": "formatOptions"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 1567,
+                  "end": 1575,
+                  "loc": {
+                    "start": {
+                      "line": 80,
+                      "column": 18
+                    },
+                    "end": {
+                      "line": 80,
+                      "column": 26
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSStringKeyword",
+                    "start": 1569,
+                    "end": 1575,
+                    "loc": {
+                      "start": {
+                        "line": 80,
+                        "column": 20
+                      },
+                      "end": {
+                        "line": 80,
+                        "column": 26
+                      }
+                    }
+                  }
+                },
+                "value": null
               },
               {
                 "type": "ClassProperty",
@@ -511,72 +545,6 @@
                     "column": 20
                   }
                 },
-                "static": false,
-                "key": {
-                  "type": "Identifier",
-                  "start": 1905,
-                  "end": 1909,
-                  "loc": {
-                    "start": {
-                      "line": 100,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 100,
-                      "column": 8
-                    },
-                    "identifierName": "name"
-                  },
-                  "name": "name"
-                },
-                "computed": false,
-                "optional": true,
-                "typeAnnotation": {
-                  "type": "TSTypeAnnotation",
-                  "start": 1910,
-                  "end": 1920,
-                  "loc": {
-                    "start": {
-                      "line": 100,
-                      "column": 9
-                    },
-                    "end": {
-                      "line": 100,
-                      "column": 19
-                    }
-                  },
-                  "typeAnnotation": {
-                    "type": "TSArrayType",
-                    "start": 1912,
-                    "end": 1920,
-                    "loc": {
-                      "start": {
-                        "line": 100,
-                        "column": 11
-                      },
-                      "end": {
-                        "line": 100,
-                        "column": 19
-                      }
-                    },
-                    "elementType": {
-                      "type": "TSStringKeyword",
-                      "start": 1912,
-                      "end": 1918,
-                      "loc": {
-                        "start": {
-                          "line": 100,
-                          "column": 11
-                        },
-                        "end": {
-                          "line": 100,
-                          "column": 17
-                        }
-                      }
-                    }
-                  }
-                },
-                "value": null,
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
@@ -644,7 +612,73 @@
                       }
                     }
                   }
-                ]
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1905,
+                  "end": 1909,
+                  "loc": {
+                    "start": {
+                      "line": 100,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 100,
+                      "column": 8
+                    },
+                    "identifierName": "name"
+                  },
+                  "name": "name"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 1910,
+                  "end": 1920,
+                  "loc": {
+                    "start": {
+                      "line": 100,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 100,
+                      "column": 19
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSArrayType",
+                    "start": 1912,
+                    "end": 1920,
+                    "loc": {
+                      "start": {
+                        "line": 100,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 100,
+                        "column": 19
+                      }
+                    },
+                    "elementType": {
+                      "type": "TSStringKeyword",
+                      "start": 1912,
+                      "end": 1918,
+                      "loc": {
+                        "start": {
+                          "line": 100,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 100,
+                          "column": 17
+                        }
+                      }
+                    }
+                  }
+                },
+                "value": null
               },
               {
                 "type": "ClassProperty",
@@ -660,72 +694,6 @@
                     "column": 23
                   }
                 },
-                "static": false,
-                "key": {
-                  "type": "Identifier",
-                  "start": 2756,
-                  "end": 2763,
-                  "loc": {
-                    "start": {
-                      "line": 130,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 130,
-                      "column": 11
-                    },
-                    "identifierName": "profile"
-                  },
-                  "name": "profile"
-                },
-                "computed": false,
-                "optional": true,
-                "typeAnnotation": {
-                  "type": "TSTypeAnnotation",
-                  "start": 2764,
-                  "end": 2774,
-                  "loc": {
-                    "start": {
-                      "line": 130,
-                      "column": 12
-                    },
-                    "end": {
-                      "line": 130,
-                      "column": 22
-                    }
-                  },
-                  "typeAnnotation": {
-                    "type": "TSArrayType",
-                    "start": 2766,
-                    "end": 2774,
-                    "loc": {
-                      "start": {
-                        "line": 130,
-                        "column": 14
-                      },
-                      "end": {
-                        "line": 130,
-                        "column": 22
-                      }
-                    },
-                    "elementType": {
-                      "type": "TSStringKeyword",
-                      "start": 2766,
-                      "end": 2772,
-                      "loc": {
-                        "start": {
-                          "line": 130,
-                          "column": 14
-                        },
-                        "end": {
-                          "line": 130,
-                          "column": 20
-                        }
-                      }
-                    }
-                  }
-                },
-                "value": null,
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
@@ -793,7 +761,73 @@
                       }
                     }
                   }
-                ]
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 2756,
+                  "end": 2763,
+                  "loc": {
+                    "start": {
+                      "line": 130,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 130,
+                      "column": 11
+                    },
+                    "identifierName": "profile"
+                  },
+                  "name": "profile"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 2764,
+                  "end": 2774,
+                  "loc": {
+                    "start": {
+                      "line": 130,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 130,
+                      "column": 22
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSArrayType",
+                    "start": 2766,
+                    "end": 2774,
+                    "loc": {
+                      "start": {
+                        "line": 130,
+                        "column": 14
+                      },
+                      "end": {
+                        "line": 130,
+                        "column": 22
+                      }
+                    },
+                    "elementType": {
+                      "type": "TSStringKeyword",
+                      "start": 2766,
+                      "end": 2772,
+                      "loc": {
+                        "start": {
+                          "line": 130,
+                          "column": 14
+                        },
+                        "end": {
+                          "line": 130,
+                          "column": 20
+                        }
+                      }
+                    }
+                  }
+                },
+                "value": null
               },
               {
                 "type": "ClassProperty",
@@ -809,72 +843,6 @@
                     "column": 23
                   }
                 },
-                "static": false,
-                "key": {
-                  "type": "Identifier",
-                  "start": 3080,
-                  "end": 3087,
-                  "loc": {
-                    "start": {
-                      "line": 150,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 150,
-                      "column": 11
-                    },
-                    "identifierName": "require"
-                  },
-                  "name": "require"
-                },
-                "computed": false,
-                "optional": true,
-                "typeAnnotation": {
-                  "type": "TSTypeAnnotation",
-                  "start": 3088,
-                  "end": 3098,
-                  "loc": {
-                    "start": {
-                      "line": 150,
-                      "column": 12
-                    },
-                    "end": {
-                      "line": 150,
-                      "column": 22
-                    }
-                  },
-                  "typeAnnotation": {
-                    "type": "TSArrayType",
-                    "start": 3090,
-                    "end": 3098,
-                    "loc": {
-                      "start": {
-                        "line": 150,
-                        "column": 14
-                      },
-                      "end": {
-                        "line": 150,
-                        "column": 22
-                      }
-                    },
-                    "elementType": {
-                      "type": "TSStringKeyword",
-                      "start": 3090,
-                      "end": 3096,
-                      "loc": {
-                        "start": {
-                          "line": 150,
-                          "column": 14
-                        },
-                        "end": {
-                          "line": 150,
-                          "column": 20
-                        }
-                      }
-                    }
-                  }
-                },
-                "value": null,
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
@@ -942,7 +910,73 @@
                       }
                     }
                   }
-                ]
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 3080,
+                  "end": 3087,
+                  "loc": {
+                    "start": {
+                      "line": 150,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 150,
+                      "column": 11
+                    },
+                    "identifierName": "require"
+                  },
+                  "name": "require"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 3088,
+                  "end": 3098,
+                  "loc": {
+                    "start": {
+                      "line": 150,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 150,
+                      "column": 22
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSArrayType",
+                    "start": 3090,
+                    "end": 3098,
+                    "loc": {
+                      "start": {
+                        "line": 150,
+                        "column": 14
+                      },
+                      "end": {
+                        "line": 150,
+                        "column": 22
+                      }
+                    },
+                    "elementType": {
+                      "type": "TSStringKeyword",
+                      "start": 3090,
+                      "end": 3096,
+                      "loc": {
+                        "start": {
+                          "line": 150,
+                          "column": 14
+                        },
+                        "end": {
+                          "line": 150,
+                          "column": 20
+                        }
+                      }
+                    }
+                  }
+                },
+                "value": null
               },
               {
                 "type": "ClassProperty",
@@ -958,6 +992,74 @@
                     "column": 29
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 3100,
+                    "end": 3205,
+                    "loc": {
+                      "start": {
+                        "line": 151,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 160,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Cucumber 1.x requires the `tags` option to be an array of Cucumber tags.\n     *  For example, to run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * tag: [ '@smoketest', '~@wip' ]\n     *\n     * @example <caption>Cucumber >= 2.x</caption>\n     * tag: '@smoketest and not @wip'\n     *\n     * @type {string[]|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags\n     ",
+                    "start": 3212,
+                    "end": 3789,
+                    "loc": {
+                      "start": {
+                        "line": 163,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 177,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 103 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 3820,
+                    "end": 3912,
+                    "loc": {
+                      "start": {
+                        "line": 179,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 188,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Fail if there are any undefined or pending steps\n     *\n     * @type {boolean}\n     * @see https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber\n     ",
+                    "start": 3919,
+                    "end": 4160,
+                    "loc": {
+                      "start": {
+                        "line": 191,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 197,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1055,42 +1157,23 @@
                     ]
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 3100,
-                    "end": 3205,
-                    "loc": {
-                      "start": {
-                        "line": 151,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 160,
-                        "column": 3
-                      }
-                    }
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 4165,
+                "end": 4182,
+                "loc": {
+                  "start": {
+                    "line": 198,
+                    "column": 4
                   },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Cucumber 1.x requires the `tags` option to be an array of Cucumber tags.\n     *  For example, to run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * tag: [ '@smoketest', '~@wip' ]\n     *\n     * @example <caption>Cucumber >= 2.x</caption>\n     * tag: '@smoketest and not @wip'\n     *\n     * @type {string[]|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags\n     ",
-                    "start": 3212,
-                    "end": 3789,
-                    "loc": {
-                      "start": {
-                        "line": 163,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 177,
-                        "column": 7
-                      }
-                    }
+                  "end": {
+                    "line": 198,
+                    "column": 21
                   }
-                ],
-                "trailingComments": [
+                },
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 103 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
@@ -1123,22 +1206,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 4165,
-                "end": 4182,
-                "loc": {
-                  "start": {
-                    "line": 198,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 4183,
+                    "end": 4274,
+                    "loc": {
+                      "start": {
+                        "line": 199,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 208,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 198,
-                    "column": 21
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
+                    "start": 4281,
+                    "end": 4643,
+                    "loc": {
+                      "start": {
+                        "line": 211,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 220,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1189,42 +1291,23 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 103 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
-                    "start": 3820,
-                    "end": 3912,
-                    "loc": {
-                      "start": {
-                        "line": 179,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 188,
-                        "column": 3
-                      }
-                    }
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 4648,
+                "end": 4673,
+                "loc": {
+                  "start": {
+                    "line": 221,
+                    "column": 4
                   },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Fail if there are any undefined or pending steps\n     *\n     * @type {boolean}\n     * @see https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber\n     ",
-                    "start": 3919,
-                    "end": 4160,
-                    "loc": {
-                      "start": {
-                        "line": 191,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 197,
-                        "column": 7
-                      }
-                    }
+                  "end": {
+                    "line": 221,
+                    "column": 29
                   }
-                ],
-                "trailingComments": [
+                },
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1257,22 +1340,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 4648,
-                "end": 4673,
-                "loc": {
-                  "start": {
-                    "line": 221,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 221,
-                    "column": 29
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1323,41 +1391,7 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 4183,
-                    "end": 4274,
-                    "loc": {
-                      "start": {
-                        "line": 199,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 208,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
-                    "start": 4281,
-                    "end": 4643,
-                    "loc": {
-                      "start": {
-                        "line": 211,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 220,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                "value": null
               }
             ]
           },
@@ -1396,41 +1430,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 4 \n ",
-            "start": 1,
-            "end": 45,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @public\n * @interface ",
-            "start": 46,
-            "end": 77,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -44,6 +44,24 @@
             "column": 31
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentLine",
+            "value": " tslint:disable-line:no-var-requires",
+            "start": 44,
+            "end": 82,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 44
+              },
+              "end": {
+                "line": 1,
+                "column": 82
+              }
+            }
+          }
+        ],
         "declarations": [
           {
             "type": "VariableDeclarator",
@@ -132,8 +150,23 @@
             }
           }
         ],
-        "kind": "const",
-        "trailingComments": [
+        "kind": "const"
+      },
+      {
+        "type": "VariableDeclaration",
+        "start": 84,
+        "end": 126,
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 42
+          }
+        },
+        "leadingComments": [
           {
             "type": "CommentLine",
             "value": " tslint:disable-line:no-var-requires",
@@ -150,22 +183,57 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "VariableDeclaration",
-        "start": 84,
-        "end": 126,
-        "loc": {
-          "start": {
-            "line": 3,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+            "start": 127,
+            "end": 172,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 3,
-            "column": 42
+          {
+            "type": "CommentLine",
+            "value": " tslint:disable-line:no-var-requires",
+            "start": 175,
+            "end": 213,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 2
+              },
+              "end": {
+                "line": 10,
+                "column": 40
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Allows for the serenity-bdd command line interface output to be intercepted for testing purposes.\n *\n * @typedef {function(error: Error, parsed: object, output: string): void} Interceptor\n *\n * @package\n ",
+            "start": 215,
+            "end": 438,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 19,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "declarations": [
           {
             "type": "VariableDeclarator",
@@ -254,26 +322,23 @@
             }
           }
         ],
-        "kind": "const",
-        "leadingComments": [
-          {
-            "type": "CommentLine",
-            "value": " tslint:disable-line:no-var-requires",
-            "start": 44,
-            "end": 82,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 44
-              },
-              "end": {
-                "line": 1,
-                "column": 82
-              }
-            }
+        "kind": "const"
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 439,
+        "end": 548,
+        "loc": {
+          "start": {
+            "line": 20,
+            "column": 0
+          },
+          "end": {
+            "line": 20,
+            "column": 109
           }
-        ],
-        "trailingComments": [
+        },
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
@@ -322,22 +387,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 439,
-        "end": 548,
-        "loc": {
-          "start": {
-            "line": 20,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {UNKNOWN} argv \n * @param \n * {Interceptor} interceptor \n ",
+            "start": 549,
+            "end": 665,
+            "loc": {
+              "start": {
+                "line": 21,
+                "column": 0
+              },
+              "end": {
+                "line": 30,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 20,
-            "column": 109
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Invokes the serenity-bdd command line interface, responsible for downloading and running\n *  the [Serenity BDD CLI](https://github.com/serenity-bdd/serenity-cli)\n *\n * @param {string[]} argv\n * @param {Interceptor} interceptor\n *\n * @package\n ",
+            "start": 668,
+            "end": 930,
+            "loc": {
+              "start": {
+                "line": 33,
+                "column": 0
+              },
+              "end": {
+                "line": 42,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "type",
         "specifiers": [],
         "source": null,
@@ -789,58 +873,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 931,
+        "end": 1609,
+        "loc": {
+          "start": {
+            "line": 43,
+            "column": 0
+          },
+          "end": {
+            "line": 55,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
-            "start": 127,
-            "end": 172,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentLine",
-            "value": " tslint:disable-line:no-var-requires",
-            "start": 175,
-            "end": 213,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 2
-              },
-              "end": {
-                "line": 10,
-                "column": 40
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Allows for the serenity-bdd command line interface output to be intercepted for testing purposes.\n *\n * @typedef {function(error: Error, parsed: object, output: string): void} Interceptor\n *\n * @package\n ",
-            "start": 215,
-            "end": 438,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 19,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {UNKNOWN} argv \n * @param \n * {Interceptor} interceptor \n ",
@@ -873,22 +922,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 931,
-        "end": 1609,
-        "loc": {
-          "start": {
-            "line": 43,
-            "column": 0
-          },
-          "end": {
-            "line": 55,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1424,6 +1458,7 @@
                                                               },
                                                               "arguments": []
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 1023,
@@ -1440,8 +1475,7 @@
                                                                 "identifierName": "version"
                                                               },
                                                               "name": "version"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           },
                                                           "arguments": [
                                                             {
@@ -1475,6 +1509,7 @@
                                                                 },
                                                                 "name": "pkg"
                                                               },
+                                                              "computed": false,
                                                               "property": {
                                                                 "type": "Identifier",
                                                                 "start": 1035,
@@ -1491,11 +1526,11 @@
                                                                   "identifierName": "version"
                                                                 },
                                                                 "name": "version"
-                                                              },
-                                                              "computed": false
+                                                              }
                                                             }
                                                           ]
                                                         },
+                                                        "computed": false,
                                                         "property": {
                                                           "type": "Identifier",
                                                           "start": 1053,
@@ -1512,8 +1547,7 @@
                                                             "identifierName": "demand"
                                                           },
                                                           "name": "demand"
-                                                        },
-                                                        "computed": false
+                                                        }
                                                       },
                                                       "arguments": [
                                                         {
@@ -1538,6 +1572,7 @@
                                                         }
                                                       ]
                                                     },
+                                                    "computed": false,
                                                     "property": {
                                                       "type": "Identifier",
                                                       "start": 1072,
@@ -1554,8 +1589,7 @@
                                                         "identifierName": "usage"
                                                       },
                                                       "name": "usage"
-                                                    },
-                                                    "computed": false
+                                                    }
                                                   },
                                                   "arguments": [
                                                     {
@@ -1580,6 +1614,7 @@
                                                     }
                                                   ]
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 1120,
@@ -1596,8 +1631,7 @@
                                                     "identifierName": "example"
                                                   },
                                                   "name": "example"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "arguments": [
                                                 {
@@ -1642,6 +1676,7 @@
                                                 }
                                               ]
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1210,
@@ -1658,8 +1693,7 @@
                                                 "identifierName": "example"
                                               },
                                               "name": "example"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -1704,6 +1738,7 @@
                                             }
                                           ]
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 1321,
@@ -1720,8 +1755,7 @@
                                             "identifierName": "example"
                                           },
                                           "name": "example"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -1766,6 +1800,7 @@
                                         }
                                       ]
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1395,
@@ -1782,8 +1817,7 @@
                                         "identifierName": "epilog"
                                       },
                                       "name": "epilog"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1862,6 +1896,7 @@
                                               },
                                               "arguments": []
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1436,
@@ -1878,8 +1913,7 @@
                                                 "identifierName": "getFullYear"
                                               },
                                               "name": "getFullYear"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": []
                                         },
@@ -1928,6 +1962,7 @@
                                               },
                                               "name": "pkg"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1459,
@@ -1944,9 +1979,9 @@
                                                 "identifierName": "author"
                                               },
                                               "name": "author"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1466,
@@ -1963,8 +1998,7 @@
                                               "identifierName": "name"
                                             },
                                             "name": "name"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         {
                                           "type": "MemberExpression",
@@ -2011,6 +2045,7 @@
                                               },
                                               "name": "pkg"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 1481,
@@ -2027,9 +2062,9 @@
                                                 "identifierName": "author"
                                               },
                                               "name": "author"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1488,
@@ -2046,8 +2081,7 @@
                                               "identifierName": "email"
                                             },
                                             "name": "email"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       ],
                                       "quasis": [
@@ -2135,6 +2169,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1508,
@@ -2151,8 +2186,7 @@
                                     "identifierName": "commandDir"
                                   },
                                   "name": "commandDir"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -2177,6 +2211,7 @@
                                 }
                               ]
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1542,
@@ -2193,8 +2228,7 @@
                                 "identifierName": "alias"
                               },
                               "name": "alias"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -2239,6 +2273,7 @@
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 1561,
@@ -2255,11 +2290,11 @@
                             "identifierName": "help"
                           },
                           "name": "help"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": []
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 1577,
@@ -2276,8 +2311,7 @@
                         "identifierName": "parse"
                       },
                       "name": "parse"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -2371,41 +2405,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @param \n * {UNKNOWN} argv \n * @param \n * {Interceptor} interceptor \n ",
-            "start": 549,
-            "end": 665,
-            "loc": {
-              "start": {
-                "line": 21,
-                "column": 0
-              },
-              "end": {
-                "line": 30,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Invokes the serenity-bdd command line interface, responsible for downloading and running\n *  the [Serenity BDD CLI](https://github.com/serenity-bdd/serenity-cli)\n *\n * @param {string[]} argv\n * @param {Interceptor} interceptor\n *\n * @package\n ",
-            "start": 668,
-            "end": 930,
-            "loc": {
-              "start": {
-                "line": 33,
-                "column": 0
-              },
-              "end": {
-                "line": 42,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

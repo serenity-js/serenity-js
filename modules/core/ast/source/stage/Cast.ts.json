@@ -44,6 +44,40 @@
             "column": 47
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n ",
+            "start": 48,
+            "end": 93,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Describes the {@link Actor}s available to take part in the performance.\n *\n * @example <caption>Define a cast of actors interacting with a Web UI</caption>\n *\n *  import { engage, Actor, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  class UIActors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *      }\n *  }\n *\n *  beforeEach(() => engage(new UIActors()));\n *\n * @example <caption>Using a generic cast</caption>\n *\n *  import { engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  beforeEach(() => engage(BrowseTheWeb.using(protractor.browser)));\n *\n * @example <caption>Preparing actors differently based on their name</caption>\n *\n *  import { actorCalled, engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { CallAnApi } from '@serenity-js/rest';\n *  import { protractor } from 'protractor';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          switch (actor.name) {\n *              case 'James':\n *                  return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *              default:\n *                  return actor.whoCan(CallAnApi.at(protractor.browser.baseUrl));\n *          }\n *      }\n *  }\n *\n *  beforeEach(() => engage(new Actors()));\n *\n *  actorCalled('James') // returns an actor using a browser\n *  actorCalled('Alice') // returns an actor interacting with an API\n *\n * @see {@link Stage}\n * @interface\n ",
+            "start": 96,
+            "end": 1822,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 61,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -164,8 +198,23 @@
             "raw": "'../screenplay'"
           },
           "value": "../screenplay"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1823,
+        "end": 2536,
+        "loc": {
+          "start": {
+            "line": 62,
+            "column": 0
+          },
+          "end": {
+            "line": 106,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n ",
@@ -198,22 +247,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1823,
-        "end": 2536,
-        "loc": {
-          "start": {
-            "line": 62,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
+            "start": 2537,
+            "end": 2582,
+            "loc": {
+              "start": {
+                "line": 107,
+                "column": 0
+              },
+              "end": {
+                "line": 112,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 106,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 2585,
+            "end": 2604,
+            "loc": {
+              "start": {
+                "line": 115,
+                "column": 0
+              },
+              "end": {
+                "line": 117,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -279,6 +347,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 64 \n * @param \n * {UNKNOWN} abilities \n * @return \n * {Cast} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1852,
+                    "end": 1999,
+                    "loc": {
+                      "start": {
+                        "line": 63,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 76,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Creates a generic `Cast` implementation, where every actor\n     *  is given all the abilities specified when the method is called.\n     *\n     * @param {Ability[]} abilities\n     * @returns {Cast}\n     ",
+                    "start": 2005,
+                    "end": 2234,
+                    "loc": {
+                      "start": {
+                        "line": 78,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 85,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2345,
+                    "end": 2489,
+                    "loc": {
+                      "start": {
+                        "line": 89,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 102,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -528,42 +648,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 2496,
+                "end": 2534,
+                "loc": {
+                  "start": {
+                    "line": 105,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 105,
+                    "column": 42
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 64 \n * @param \n * {UNKNOWN} abilities \n * @return \n * {Cast} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1852,
-                    "end": 1999,
-                    "loc": {
-                      "start": {
-                        "line": 63,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 76,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Creates a generic `Cast` implementation, where every actor\n     *  is given all the abilities specified when the method is called.\n     *\n     * @param {Ability[]} abilities\n     * @returns {Cast}\n     ",
-                    "start": 2005,
-                    "end": 2234,
-                    "loc": {
-                      "start": {
-                        "line": 78,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 85,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -580,22 +681,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 2496,
-                "end": 2534,
-                "loc": {
-                  "start": {
-                    "line": 105,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 105,
-                    "column": 42
-                  }
-                },
+                ],
                 "abstract": true,
                 "static": false,
                 "key": {
@@ -732,25 +818,7 @@
                       "name": "Actor"
                     }
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2345,
-                    "end": 2489,
-                    "loc": {
-                      "start": {
-                        "line": 89,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 102,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -822,42 +890,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 2605,
+        "end": 2917,
+        "loc": {
+          "start": {
+            "line": 118,
+            "column": 0
+          },
+          "end": {
+            "line": 138,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 55 \n ",
-            "start": 48,
-            "end": 93,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Describes the {@link Actor}s available to take part in the performance.\n *\n * @example <caption>Define a cast of actors interacting with a Web UI</caption>\n *\n *  import { engage, Actor, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  class UIActors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *      }\n *  }\n *\n *  beforeEach(() => engage(new UIActors()));\n *\n * @example <caption>Using a generic cast</caption>\n *\n *  import { engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  beforeEach(() => engage(BrowseTheWeb.using(protractor.browser)));\n *\n * @example <caption>Preparing actors differently based on their name</caption>\n *\n *  import { actorCalled, engage, Cast } from '@serenity-js/core';\n *  import { BrowseTheWeb } from '@serenity-js/protractor';\n *  import { CallAnApi } from '@serenity-js/rest';\n *  import { protractor } from 'protractor';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          switch (actor.name) {\n *              case 'James':\n *                  return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *              default:\n *                  return actor.whoCan(CallAnApi.at(protractor.browser.baseUrl));\n *          }\n *      }\n *  }\n *\n *  beforeEach(() => engage(new Actors()));\n *\n *  actorCalled('James') // returns an actor using a browser\n *  actorCalled('Alice') // returns an actor interacting with an API\n *\n * @see {@link Stage}\n * @interface\n ",
-            "start": 96,
-            "end": 1822,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 61,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
@@ -890,22 +939,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 2605,
-        "end": 2917,
-        "loc": {
-          "start": {
-            "line": 118,
-            "column": 0
-          },
-          "end": {
-            "line": 138,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 2611,
@@ -987,6 +1021,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+                  "start": 2704,
+                  "end": 2824,
+                  "loc": {
+                    "start": {
+                      "line": 121,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 132,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -1124,8 +1176,23 @@
                 },
                 "body": [],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 2831,
+              "end": 2915,
+              "loc": {
+                "start": {
+                  "line": 135,
+                  "column": 4
+                },
+                "end": {
+                  "line": 137,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
@@ -1142,22 +1209,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 2831,
-              "end": 2915,
-              "loc": {
-                "start": {
-                  "line": 135,
-                  "column": 4
-                },
-                "end": {
-                  "line": 137,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -1368,6 +1420,7 @@
                           },
                           "name": "actor"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 2883,
@@ -1384,8 +1437,7 @@
                             "identifierName": "whoCan"
                           },
                           "name": "whoCan"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -1431,6 +1483,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2898,
@@ -1447,8 +1500,7 @@
                                 "identifierName": "abilities"
                               },
                               "name": "abilities"
-                            },
-                            "computed": false
+                            }
                           }
                         }
                       ]
@@ -1456,62 +1508,10 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
-                  "start": 2704,
-                  "end": 2824,
-                  "loc": {
-                    "start": {
-                      "line": 121,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 132,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
-            "start": 2537,
-            "end": 2582,
-            "loc": {
-              "start": {
-                "line": 107,
-                "column": 0
-              },
-              "end": {
-                "line": 112,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 2585,
-            "end": 2604,
-            "loc": {
-              "start": {
-                "line": 115,
-                "column": 0
-              },
-              "end": {
-                "line": 117,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -218,6 +218,40 @@
             "column": 43
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n ",
+            "start": 154,
+            "end": 199,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Configures the {@link Target} representing\n *  a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)\n *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  to interact with.\n *\n * @interface\n * @interface ",
+            "start": 202,
+            "end": 480,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 20,
+                "column": 16
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -289,8 +323,23 @@
             "raw": "'protractor'"
           },
           "value": "protractor"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 481,
+        "end": 1304,
+        "loc": {
+          "start": {
+            "line": 21,
+            "column": 0
+          },
+          "end": {
+            "line": 53,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n ",
@@ -323,22 +372,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 481,
-        "end": 1304,
-        "loc": {
-          "start": {
-            "line": 21,
-            "column": 0
-          },
-          "end": {
-            "line": 53,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -404,6 +438,40 @@
                     "column": 75
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 34 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 519,
+                    "end": 611,
+                    "loc": {
+                      "start": {
+                        "line": 22,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 31,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Configures the {@link Target} representing\n     *  a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to interact with\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link Select}\n     * @see {@link Select.option}\n     * @see {@link Select.options}\n     * @see {@link Select.value}\n     * @see {@link Select.values}\n     * @see {@link Target}\n     ",
+                    "start": 618,
+                    "end": 1226,
+                    "loc": {
+                      "start": {
+                        "line": 34,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 51,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -664,41 +732,7 @@
                     }
                   }
                 },
-                "value": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 34 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 519,
-                    "end": 611,
-                    "loc": {
-                      "start": {
-                        "line": 22,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 31,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Configures the {@link Target} representing\n     *  a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to interact with\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link Select}\n     * @see {@link Select.option}\n     * @see {@link Select.options}\n     * @see {@link Select.value}\n     * @see {@link Select.values}\n     * @see {@link Target}\n     ",
-                    "start": 618,
-                    "end": 1226,
-                    "loc": {
-                      "start": {
-                        "line": 34,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 51,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                "value": null
               }
             ]
           },
@@ -737,41 +771,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n ",
-            "start": 154,
-            "end": 199,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Configures the {@link Target} representing\n *  a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)\n *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  to interact with.\n *\n * @interface\n * @interface ",
-            "start": 202,
-            "end": 480,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 20,
-                "column": 16
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

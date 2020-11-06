@@ -44,6 +44,40 @@
             "column": 28
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+            "start": 29,
+            "end": 74,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc There are a couple of common use-cases for contexts: running the same test in different browsers,\n * and running the same test on different operating systems.\n * If you use the name of a browser (e.g. “chrome”, “firefox”, “safari”, “ie”),\n * the context will be represented in the reports as the icon of the respective browsers.\n * If you provide an operating system (e.g. “linux”, “windows”, “mac”, “android”, “iphone”),\n * a similar icon will be used. If you use any other term for your context,\n * it will appear in text form in the test results lists, so it is better to keep context names relatively short.\n *\n * @access public\n * @deprecated\n ",
+            "start": 77,
+            "end": 741,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -115,8 +149,23 @@
             "raw": "'./Tag'"
           },
           "value": "./Tag"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 742,
+        "end": 993,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 39,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
@@ -149,22 +198,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 742,
-        "end": 993,
-        "loc": {
-          "start": {
-            "line": 22,
-            "column": 0
-          },
-          "end": {
-            "line": 39,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -245,6 +279,24 @@
                     "column": 37
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 780,
+                    "end": 869,
+                    "loc": {
+                      "start": {
+                        "line": 23,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "readonly": true,
                 "static": true,
                 "key": {
@@ -284,25 +336,7 @@
                     "raw": "'context'"
                   },
                   "value": "context"
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 780,
-                    "end": 869,
-                    "loc": {
-                      "start": {
-                        "line": 23,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 32,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -497,6 +531,7 @@
                               },
                               "name": "ContextTag"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 979,
@@ -513,8 +548,7 @@
                                 "identifierName": "Type"
                               },
                               "name": "Type"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
@@ -560,41 +594,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
-            "start": 29,
-            "end": 74,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc There are a couple of common use-cases for contexts: running the same test in different browsers,\n * and running the same test on different operating systems.\n * If you use the name of a browser (e.g. “chrome”, “firefox”, “safari”, “ie”),\n * the context will be represented in the reports as the icon of the respective browsers.\n * If you provide an operating system (e.g. “linux”, “windows”, “mac”, “android”, “iphone”),\n * a similar icon will be used. If you use any other term for your context,\n * it will appear in text form in the test results lists, so it is better to keep context names relatively short.\n *\n * @access public\n * @deprecated\n ",
-            "start": 77,
-            "end": 741,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

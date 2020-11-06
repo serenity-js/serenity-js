@@ -588,6 +588,40 @@
             "column": 46
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
+            "start": 287,
+            "end": 332,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  send a key press or a sequence of keys to a Web element.\n *\n *  **Please note** that modifier keys, such as Command ⌘, [won't work on Mac](https://github.com/angular/protractor/issues/690)\n *\n * @example <caption>Example widget</caption>\n *  <form>\n *    <input type=\"text\" name=\"example\" id=\"example\" />\n *  </form>\n *\n * @example <caption>Lean Page Object describing the widget</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { by } from 'protractor';\n *\n *  class Form {\n *      static exampleInput = Target.the('example input')\n *          .located(by.id('example'));\n *  }\n *\n * @example <caption>Pressing keys</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Press, Value } from '@serenity-js/protractor';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { protractor, Key } from 'protractor';\n *\n *  actorCalled('Priyanka')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Press.the('H', 'i', '!', Key.ENTER).in(Form.exampleInput),\n *          Ensure.that(Value.of(Form.exampleInput), equals('Hi!')),\n *      );\n *\n * @see {@link BrowseTheWeb}\n * @see {@link Target}\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions/lib/expectations~equals}\n * @see {@link selenium-webdriver~Key}\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
+            "start": 335,
+            "end": 1847,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 55,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -659,8 +693,23 @@
             "raw": "'./PressBuilder'"
           },
           "value": "./PressBuilder"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1848,
+        "end": 4253,
+        "loc": {
+          "start": {
+            "line": 56,
+            "column": 0
+          },
+          "end": {
+            "line": 151,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
@@ -693,22 +742,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1848,
-        "end": 4253,
-        "loc": {
-          "start": {
-            "line": 56,
-            "column": 0
-          },
-          "end": {
-            "line": 151,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n * @param \n * {UNKNOWN} keys \n ",
+            "start": 4254,
+            "end": 4330,
+            "loc": {
+              "start": {
+                "line": 152,
+                "column": 0
+              },
+              "end": {
+                "line": 159,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -789,6 +841,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 60 \n * @param \n * {UNKNOWN} keys \n * @return \n * {PressBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1889,
+                    "end": 2039,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 70,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {...keys: string[]} keys\n     *  A sequence of one or more keys to press\n     *\n     * @returns {PressBuilder}\n     ",
+                    "start": 2046,
+                    "end": 2282,
+                    "loc": {
+                      "start": {
+                        "line": 73,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 81,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {string[]} keys\n     *  A sequence of one or more keys to press\n     *\n     * @param {Question<ElementFinder> | ElementFinder} field\n     *  Web element to send the keys to\n     ",
+                    "start": 2504,
+                    "end": 2702,
+                    "loc": {
+                      "start": {
+                        "line": 88,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 94,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -980,6 +1084,9 @@
                             "line": 85,
                             "column": 9
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 2480
                         },
                         "properties": [
                           {
@@ -1380,50 +1487,28 @@
                               }
                             }
                           }
-                        ],
-                        "extra": {
-                          "trailingComma": 2480
-                        }
+                        ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2707,
+                "end": 2904,
+                "loc": {
+                  "start": {
+                    "line": 95,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 100,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 60 \n * @param \n * {UNKNOWN} keys \n * @return \n * {PressBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1889,
-                    "end": 2039,
-                    "loc": {
-                      "start": {
-                        "line": 57,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 70,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {...keys: string[]} keys\n     *  A sequence of one or more keys to press\n     *\n     * @returns {PressBuilder}\n     ",
-                    "start": 2046,
-                    "end": 2282,
-                    "loc": {
-                      "start": {
-                        "line": 73,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 81,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {string[]} keys\n     *  A sequence of one or more keys to press\n     *\n     * @param {Question<ElementFinder> | ElementFinder} field\n     *  Web element to send the keys to\n     ",
@@ -1440,22 +1525,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2707,
-                "end": 2904,
-                "loc": {
-                  "start": {
-                    "line": 95,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 2905,
+                    "end": 3058,
+                    "loc": {
+                      "start": {
+                        "line": 101,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 112,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 100,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                    "start": 3065,
+                    "end": 3703,
+                    "loc": {
+                      "start": {
+                        "line": 115,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 128,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1915,26 +2019,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3708,
+                "end": 3884,
+                "loc": {
+                  "start": {
+                    "line": 129,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 131,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {string[]} keys\n     *  A sequence of one or more keys to press\n     *\n     * @param {Question<ElementFinder> | ElementFinder} field\n     *  Web element to send the keys to\n     ",
-                    "start": 2504,
-                    "end": 2702,
-                    "loc": {
-                      "start": {
-                        "line": 88,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 94,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -1967,22 +2068,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3708,
-                "end": 3884,
-                "loc": {
-                  "start": {
-                    "line": 129,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 104 \n * @public \n * \\TRUE \n ",
+                    "start": 3885,
+                    "end": 3953,
+                    "loc": {
+                      "start": {
+                        "line": 132,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 139,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 131,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 3960,
+                    "end": 4130,
+                    "loc": {
+                      "start": {
+                        "line": 142,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 147,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2307,6 +2427,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 3819,
@@ -2323,8 +2444,7 @@
                                 "identifierName": "field"
                               },
                               "name": "field"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "ArrowFunctionExpression",
@@ -2454,6 +2574,7 @@
                                   },
                                   "name": "elf"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3854,
@@ -2470,8 +2591,7 @@
                                     "identifierName": "sendKeys"
                                   },
                                   "name": "sendKeys"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -2517,6 +2637,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 3871,
@@ -2533,8 +2654,7 @@
                                         "identifierName": "keys"
                                       },
                                       "name": "keys"
-                                    },
-                                    "computed": false
+                                    }
                                   }
                                 }
                               ]
@@ -2545,42 +2665,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4135,
+                "end": 4251,
+                "loc": {
+                  "start": {
+                    "line": 148,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 150,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 2905,
-                    "end": 3058,
-                    "loc": {
-                      "start": {
-                        "line": 101,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 112,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                    "start": 3065,
-                    "end": 3703,
-                    "loc": {
-                      "start": {
-                        "line": 115,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 128,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 104 \n * @public \n * \\TRUE \n ",
@@ -2613,22 +2714,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4135,
-                "end": 4251,
-                "loc": {
-                  "start": {
-                    "line": 148,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 150,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2758,6 +2844,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4206,
@@ -2774,8 +2861,7 @@
                                     "identifierName": "keys"
                                   },
                                   "name": "keys"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           },
@@ -2836,6 +2922,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4225,
@@ -2852,9 +2939,9 @@
                                     "identifierName": "field"
                                   },
                                   "name": "field"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4231,
@@ -2871,8 +2958,7 @@
                                   "identifierName": "toString"
                                 },
                                 "name": "toString"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
                           }
@@ -2943,41 +3029,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 104 \n * @public \n * \\TRUE \n ",
-                    "start": 3885,
-                    "end": 3953,
-                    "loc": {
-                      "start": {
-                        "line": 132,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 139,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 3960,
-                    "end": 4130,
-                    "loc": {
-                      "start": {
-                        "line": 142,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 147,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -3033,42 +3085,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 4333,
+        "end": 4593,
+        "loc": {
+          "start": {
+            "line": 162,
+            "column": 0
+          },
+          "end": {
+            "line": 170,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
-            "start": 287,
-            "end": 332,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  send a key press or a sequence of keys to a Web element.\n *\n *  **Please note** that modifier keys, such as Command ⌘, [won't work on Mac](https://github.com/angular/protractor/issues/690)\n *\n * @example <caption>Example widget</caption>\n *  <form>\n *    <input type=\"text\" name=\"example\" id=\"example\" />\n *  </form>\n *\n * @example <caption>Lean Page Object describing the widget</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { by } from 'protractor';\n *\n *  class Form {\n *      static exampleInput = Target.the('example input')\n *          .located(by.id('example'));\n *  }\n *\n * @example <caption>Pressing keys</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Press, Value } from '@serenity-js/protractor';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { protractor, Key } from 'protractor';\n *\n *  actorCalled('Priyanka')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Press.the('H', 'i', '!', Key.ENTER).in(Form.exampleInput),\n *          Ensure.that(Value.of(Form.exampleInput), equals('Hi!')),\n *      );\n *\n * @see {@link BrowseTheWeb}\n * @see {@link Target}\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions/lib/expectations~equals}\n * @see {@link selenium-webdriver~Key}\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
-            "start": 335,
-            "end": 1847,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 55,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n * @param \n * {UNKNOWN} keys \n ",
@@ -3085,22 +3118,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 4333,
-        "end": 4593,
-        "loc": {
-          "start": {
-            "line": 162,
-            "column": 0
-          },
-          "end": {
-            "line": 170,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 119 \n * @param \n * {string} key \n ",
+            "start": 4594,
+            "end": 4668,
+            "loc": {
+              "start": {
+                "line": 171,
+                "column": 0
+              },
+              "end": {
+                "line": 178,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4342,
@@ -3342,6 +3378,7 @@
                                 },
                                 "name": "keys"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4395,
@@ -3358,8 +3395,7 @@
                                   "identifierName": "map"
                                 },
                                 "name": "map"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -3612,6 +3648,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4492,
@@ -3628,8 +3665,7 @@
                               "identifierName": "reduce"
                             },
                             "name": "reduce"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -3730,6 +3766,7 @@
                                   },
                                   "name": "acc"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 4521,
@@ -3746,8 +3783,7 @@
                                     "identifierName": "concat"
                                   },
                                   "name": "concat"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -3788,6 +3824,7 @@
                           }
                         ]
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 4547,
@@ -3804,8 +3841,7 @@
                           "identifierName": "slice"
                         },
                         "name": "slice"
-                      },
-                      "computed": false
+                      }
                     },
                     "arguments": [
                       {
@@ -3887,6 +3923,7 @@
                               },
                               "name": "keys"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 4561,
@@ -3903,8 +3940,7 @@
                                 "identifierName": "length"
                               },
                               "name": "length"
-                            },
-                            "computed": false
+                            }
                           },
                           "operator": "*",
                           "right": {
@@ -3952,6 +3988,7 @@
                       }
                     ]
                   },
+                  "computed": false,
                   "property": {
                     "type": "Identifier",
                     "start": 4582,
@@ -3968,8 +4005,7 @@
                       "identifierName": "join"
                     },
                     "name": "join"
-                  },
-                  "computed": false
+                  }
                 },
                 "arguments": [
                   {
@@ -3997,26 +4033,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 4671,
+        "end": 4786,
+        "loc": {
+          "start": {
+            "line": 181,
+            "column": 0
+          },
+          "end": {
+            "line": 183,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n * @param \n * {UNKNOWN} keys \n ",
-            "start": 4254,
-            "end": 4330,
-            "loc": {
-              "start": {
-                "line": 152,
-                "column": 0
-              },
-              "end": {
-                "line": 159,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 119 \n * @param \n * {string} key \n ",
@@ -4033,22 +4066,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 4671,
-        "end": 4786,
-        "loc": {
-          "start": {
-            "line": 181,
-            "column": 0
-          },
-          "end": {
-            "line": 183,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {string} key \n ",
+            "start": 4787,
+            "end": 4861,
+            "loc": {
+              "start": {
+                "line": 184,
+                "column": 0
+              },
+              "end": {
+                "line": 191,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4680,
@@ -4268,6 +4304,7 @@
                                 },
                                 "name": "Key"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4728,
@@ -4284,8 +4321,7 @@
                                   "identifierName": "ALT"
                                 },
                                 "name": "ALT"
-                              },
-                              "computed": false
+                              }
                             },
                             {
                               "type": "MemberExpression",
@@ -4318,6 +4354,7 @@
                                 },
                                 "name": "Key"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4737,
@@ -4334,8 +4371,7 @@
                                   "identifierName": "COMMAND"
                                 },
                                 "name": "COMMAND"
-                              },
-                              "computed": false
+                              }
                             },
                             {
                               "type": "MemberExpression",
@@ -4368,6 +4404,7 @@
                                 },
                                 "name": "Key"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4750,
@@ -4384,8 +4421,7 @@
                                   "identifierName": "CONTROL"
                                 },
                                 "name": "CONTROL"
-                              },
-                              "computed": false
+                              }
                             },
                             {
                               "type": "MemberExpression",
@@ -4418,6 +4454,7 @@
                                 },
                                 "name": "Key"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4763,
@@ -4434,11 +4471,11 @@
                                   "identifierName": "SHIFT"
                                 },
                                 "name": "SHIFT"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 4771,
@@ -4455,8 +4492,7 @@
                             "identifierName": "indexOf"
                           },
                           "name": "indexOf"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -4484,26 +4520,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 4864,
+        "end": 5068,
+        "loc": {
+          "start": {
+            "line": 194,
+            "column": 0
+          },
+          "end": {
+            "line": 203,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 119 \n * @param \n * {string} key \n ",
-            "start": 4594,
-            "end": 4668,
-            "loc": {
-              "start": {
-                "line": 171,
-                "column": 0
-              },
-              "end": {
-                "line": 178,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {string} key \n ",
@@ -4520,22 +4553,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 4864,
-        "end": 5068,
-        "loc": {
-          "start": {
-            "line": 194,
-            "column": 0
-          },
-          "end": {
-            "line": 203,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 134 \n * @param \n * {string} name \n ",
+            "start": 5069,
+            "end": 5144,
+            "loc": {
+              "start": {
+                "line": 204,
+                "column": 0
+              },
+              "end": {
+                "line": 211,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4873,
@@ -4789,6 +4825,7 @@
                             },
                             "name": "Key"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4947,
@@ -4805,8 +4842,7 @@
                               "identifierName": "hasOwnProperty"
                             },
                             "name": "hasOwnProperty"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -4874,6 +4910,7 @@
                             },
                             "name": "Key"
                           },
+                          "computed": true,
                           "property": {
                             "type": "Identifier",
                             "start": 4981,
@@ -4890,8 +4927,7 @@
                               "identifierName": "candidate"
                             },
                             "name": "candidate"
-                          },
-                          "computed": true
+                          }
                         },
                         "operator": "===",
                         "right": {
@@ -5003,26 +5039,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 5147,
+        "end": 5268,
+        "loc": {
+          "start": {
+            "line": 214,
+            "column": 0
+          },
+          "end": {
+            "line": 216,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {string} key \n ",
-            "start": 4787,
-            "end": 4861,
-            "loc": {
-              "start": {
-                "line": 184,
-                "column": 0
-              },
-              "end": {
-                "line": 191,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 134 \n * @param \n * {string} name \n ",
@@ -5039,22 +5072,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 5147,
-        "end": 5268,
-        "loc": {
-          "start": {
-            "line": 214,
-            "column": 0
-          },
-          "end": {
-            "line": 216,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 5156,
@@ -5239,6 +5257,7 @@
                           },
                           "name": "name"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 5200,
@@ -5255,8 +5274,7 @@
                             "identifierName": "charAt"
                           },
                           "name": "charAt"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -5281,6 +5299,7 @@
                         }
                       ]
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 5210,
@@ -5297,8 +5316,7 @@
                         "identifierName": "toLocaleUpperCase"
                       },
                       "name": "toLocaleUpperCase"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": []
                 },
@@ -5376,6 +5394,7 @@
                           },
                           "name": "name"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 5237,
@@ -5392,8 +5411,7 @@
                             "identifierName": "slice"
                           },
                           "name": "slice"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -5418,6 +5436,7 @@
                         }
                       ]
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 5246,
@@ -5434,8 +5453,7 @@
                         "identifierName": "toLocaleLowerCase"
                       },
                       "name": "toLocaleLowerCase"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": []
                 }
@@ -5443,25 +5461,7 @@
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 134 \n * @param \n * {string} name \n ",
-            "start": 5069,
-            "end": 5144,
-            "loc": {
-              "start": {
-                "line": 204,
-                "column": 0
-              },
-              "end": {
-                "line": 211,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

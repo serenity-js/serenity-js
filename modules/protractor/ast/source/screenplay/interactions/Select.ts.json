@@ -1034,6 +1034,40 @@
             "column": 48
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n ",
+            "start": 537,
+            "end": 582,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  select an option from a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select),\n *  either by its display name, or by value.\n *\n * @see {@link Selected}\n ",
+            "start": 585,
+            "end": 869,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 0
+              },
+              "end": {
+                "line": 25,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -1105,8 +1139,23 @@
             "raw": "'./SelectBuilder'"
           },
           "value": "./SelectBuilder"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 870,
+        "end": 11033,
+        "loc": {
+          "start": {
+            "line": 26,
+            "column": 0
+          },
+          "end": {
+            "line": 311,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n ",
@@ -1139,22 +1188,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 870,
-        "end": 11033,
-        "loc": {
-          "start": {
-            "line": 26,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 249 \n ",
+            "start": 11034,
+            "end": 11080,
+            "loc": {
+              "start": {
+                "line": 312,
+                "column": 0
+              },
+              "end": {
+                "line": 317,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 311,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 11083,
+            "end": 11102,
+            "loc": {
+              "start": {
+                "line": 320,
+                "column": 0
+              },
+              "end": {
+                "line": 322,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1219,6 +1287,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 69 \n * @param \n * {undefined | Answerable} value \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 892,
+                    "end": 1059,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 40,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with a [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value)\n     *  of a single [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.\n     *\n     * @example <caption>Example widget</caption>\n     *  <select data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object describing the widget</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.value('UK').from(Countries.dropdown),\n     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),\n     *      );\n     *\n     * @param {string | Answerable<string>} value\n     *  A value of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select\n     *\n     * @returns {SelectBuilder}\n     *\n     * @see {@link Selected.valueOf}\n     * @see {@link BrowseTheWeb}\n     * @see {@link Target}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~equals}\n     ",
+                    "start": 1066,
+                    "end": 3185,
+                    "loc": {
+                      "start": {
+                        "line": 43,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 90,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n * @param \n * {Array} values \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3421,
+                    "end": 3573,
+                    "loc": {
+                      "start": {
+                        "line": 97,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 110,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with [`value`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value)\n     *  of multiple [`<option>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.\n     *\n     * @example <caption>Example widget</caption>\n     *  <select multiple data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object describing the widget</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.values('UK').from(Countries.dropdown),\n     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),\n     *      );\n     *\n     * @param {Array<Answerable<string[] | string>>} values\n     *  Values of the [`option` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select\n     *\n     * @returns {SelectBuilder}\n     *\n     * @see {@link Selected.valuesOf}\n     * @see {@link BrowseTheWeb}\n     * @see {@link Target}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~equals}\n     ",
+                    "start": 3580,
+                    "end": 5733,
+                    "loc": {
+                      "start": {
+                        "line": 113,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 160,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1800,42 +1936,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5738,
+                "end": 5984,
+                "loc": {
+                  "start": {
+                    "line": 161,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 166,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 69 \n * @param \n * {undefined | Answerable} value \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 892,
-                    "end": 1059,
-                    "loc": {
-                      "start": {
-                        "line": 27,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 40,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with a [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value)\n     *  of a single [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.\n     *\n     * @example <caption>Example widget</caption>\n     *  <select data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object describing the widget</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.value('UK').from(Countries.dropdown),\n     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),\n     *      );\n     *\n     * @param {string | Answerable<string>} value\n     *  A value of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select\n     *\n     * @returns {SelectBuilder}\n     *\n     * @see {@link Selected.valueOf}\n     * @see {@link BrowseTheWeb}\n     * @see {@link Target}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~equals}\n     ",
-                    "start": 1066,
-                    "end": 3185,
-                    "loc": {
-                      "start": {
-                        "line": 43,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 90,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n * @param \n * {Array} values \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1868,22 +1985,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5738,
-                "end": 5984,
-                "loc": {
-                  "start": {
-                    "line": 161,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @param \n * {undefined | Answerable} value \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 5985,
+                    "end": 6153,
+                    "loc": {
+                      "start": {
+                        "line": 167,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 180,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 166,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with a single [`option`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.\n     *\n     * @example <caption>Example widget</caption>\n     *  <select data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object describing the widget</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.option('Poland').from(Countries.dropdown),\n     *          Ensure.that(\n     *              Selected.optionIn(Countries.dropdown),\n     *              equals('Poland')\n     *          ),\n     *      );\n     *\n     * @param {string | Answerable<string>} value\n     *  Text of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select\n     *\n     * @returns {SelectBuilder}\n     *\n     * @see {@link Selected.optionIn}\n     * @see {@link BrowseTheWeb}\n     * @see {@link Target}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~equals}\n     ",
+                    "start": 6160,
+                    "end": 8243,
+                    "loc": {
+                      "start": {
+                        "line": 183,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 232,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2544,42 +2680,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 8248,
+                "end": 8480,
+                "loc": {
+                  "start": {
+                    "line": 233,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 238,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n * @param \n * {Array} values \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3421,
-                    "end": 3573,
-                    "loc": {
-                      "start": {
-                        "line": 97,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 110,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with [`value`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value)\n     *  of multiple [`<option>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.\n     *\n     * @example <caption>Example widget</caption>\n     *  <select multiple data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object describing the widget</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.values('UK').from(Countries.dropdown),\n     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),\n     *      );\n     *\n     * @param {Array<Answerable<string[] | string>>} values\n     *  Values of the [`option` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select\n     *\n     * @returns {SelectBuilder}\n     *\n     * @see {@link Selected.valuesOf}\n     * @see {@link BrowseTheWeb}\n     * @see {@link Target}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~equals}\n     ",
-                    "start": 3580,
-                    "end": 5733,
-                    "loc": {
-                      "start": {
-                        "line": 113,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 160,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @param \n * {undefined | Answerable} value \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2612,22 +2729,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 8248,
-                "end": 8480,
-                "loc": {
-                  "start": {
-                    "line": 233,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 238 \n * @param \n * {Array} values \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 8481,
+                    "end": 8633,
+                    "loc": {
+                      "start": {
+                        "line": 239,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 252,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 238,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with [`option`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.\n     *\n     * @example <caption>Example widget</caption>\n     *  <select multiple data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object describing the widget</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.options('Poland', 'United States').from(Countries.dropdown),\n     *          Ensure.that(\n     *              Selected.optionsIn(Countries.dropdown),\n     *              equals([ 'Poland', 'United States' ])\n     *          ),\n     *      );\n     *\n     * @param {Array<Answerable<string[] | string>>} values\n     *  Text of the [`option` elements  ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select\n     *\n     * @returns {SelectBuilder}\n     *\n     * @see {@link Selected.optionsIn}\n     * @see {@link BrowseTheWeb}\n     * @see {@link Target}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~equals}\n     ",
+                    "start": 8640,
+                    "end": 10778,
+                    "loc": {
+                      "start": {
+                        "line": 255,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 304,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -3209,42 +3345,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 10783,
+                "end": 11031,
+                "loc": {
+                  "start": {
+                    "line": 305,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 310,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @param \n * {undefined | Answerable} value \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 5985,
-                    "end": 6153,
-                    "loc": {
-                      "start": {
-                        "line": 167,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 180,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with a single [`option`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.\n     *\n     * @example <caption>Example widget</caption>\n     *  <select data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object describing the widget</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.option('Poland').from(Countries.dropdown),\n     *          Ensure.that(\n     *              Selected.optionIn(Countries.dropdown),\n     *              equals('Poland')\n     *          ),\n     *      );\n     *\n     * @param {string | Answerable<string>} value\n     *  Text of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select\n     *\n     * @returns {SelectBuilder}\n     *\n     * @see {@link Selected.optionIn}\n     * @see {@link BrowseTheWeb}\n     * @see {@link Target}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~equals}\n     ",
-                    "start": 6160,
-                    "end": 8243,
-                    "loc": {
-                      "start": {
-                        "line": 183,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 232,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 238 \n * @param \n * {Array} values \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -3277,22 +3394,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 10783,
-                "end": 11031,
-                "loc": {
-                  "start": {
-                    "line": 305,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 310,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -3953,41 +4055,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 238 \n * @param \n * {Array} values \n * @return \n * {SelectBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 8481,
-                    "end": 8633,
-                    "loc": {
-                      "start": {
-                        "line": 239,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 252,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  with [`option`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.\n     *\n     * @example <caption>Example widget</caption>\n     *  <select multiple data-test='countries'>\n     *      <option value='UK'>United Kingdom</option>\n     *      <option value='PL'>Poland</option>\n     *      <option value='US'>United States</option>\n     *  </select>\n     *\n     * @example <caption>Lean Page Object describing the widget</caption>\n     *  import { Target } from '@serenity-js/protractor';\n     *  import { browser, by } from 'protractor';\n     *\n     *  class Countries {\n     *      static dropdown = Target.the('countries dropdown')\n     *          .located(by.css('[data-test=\"countries\"]'));\n     *  }\n     *\n     * @example <caption>Retrieving the selected value</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Select.options('Poland', 'United States').from(Countries.dropdown),\n     *          Ensure.that(\n     *              Selected.optionsIn(Countries.dropdown),\n     *              equals([ 'Poland', 'United States' ])\n     *          ),\n     *      );\n     *\n     * @param {Array<Answerable<string[] | string>>} values\n     *  Text of the [`option` elements  ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)\n     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select\n     *\n     * @returns {SelectBuilder}\n     *\n     * @see {@link Selected.optionsIn}\n     * @see {@link BrowseTheWeb}\n     * @see {@link Target}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~equals}\n     ",
-                    "start": 8640,
-                    "end": 10778,
-                    "loc": {
-                      "start": {
-                        "line": 255,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 304,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -4059,42 +4127,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 11103,
+        "end": 12016,
+        "loc": {
+          "start": {
+            "line": 323,
+            "column": 0
+          },
+          "end": {
+            "line": 366,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n ",
-            "start": 537,
-            "end": 582,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  select an option from a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select),\n *  either by its display name, or by value.\n *\n * @see {@link Selected}\n ",
-            "start": 585,
-            "end": 869,
-            "loc": {
-              "start": {
-                "line": 18,
-                "column": 0
-              },
-              "end": {
-                "line": 25,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 249 \n ",
@@ -4127,22 +4176,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 11103,
-        "end": 12016,
-        "loc": {
-          "start": {
-            "line": 323,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 275 \n ",
+            "start": 12017,
+            "end": 12063,
+            "loc": {
+              "start": {
+                "line": 367,
+                "column": 0
+              },
+              "end": {
+                "line": 372,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 366,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 12066,
+            "end": 12085,
+            "loc": {
+              "start": {
+                "line": 375,
+                "column": 0
+              },
+              "end": {
+                "line": 377,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 11109,
@@ -4224,6 +4292,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 257 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 11312,
+                  "end": 11462,
+                  "loc": {
+                    "start": {
+                      "line": 330,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 341,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -4589,8 +4675,23 @@
                 },
                 "body": [],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 11469,
+              "end": 11832,
+              "loc": {
+                "start": {
+                  "line": 344,
+                  "column": 4
+                },
+                "end": {
+                  "line": 352,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 257 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -4607,22 +4708,25 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 11469,
-              "end": 11832,
-              "loc": {
-                "start": {
-                  "line": 344,
-                  "column": 4
-                },
-                "end": {
-                  "line": 352,
-                  "column": 5
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 267 \n * @public \n * \\TRUE \n ",
+                  "start": 11833,
+                  "end": 11901,
+                  "loc": {
+                    "start": {
+                      "line": 353,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 360,
+                      "column": 3
+                    }
+                  }
                 }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -4942,6 +5046,7 @@
                               },
                               "name": "actor"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 11558,
@@ -4958,8 +5063,7 @@
                                 "identifierName": "answer"
                               },
                               "name": "answer"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -4991,6 +5095,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 11570,
@@ -5007,11 +5112,11 @@
                                   "identifierName": "value"
                                 },
                                 "name": "value"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 11590,
@@ -5028,8 +5133,7 @@
                             "identifierName": "then"
                           },
                           "name": "then"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -5174,6 +5278,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 11645,
@@ -5190,8 +5295,7 @@
                                         "identifierName": "target"
                                       },
                                       "name": "target"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   {
                                     "type": "ArrowFunctionExpression",
@@ -5321,6 +5425,7 @@
                                           },
                                           "name": "element"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 11734,
@@ -5337,8 +5442,7 @@
                                             "identifierName": "element"
                                           },
                                           "name": "element"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": [
                                         {
@@ -5386,6 +5490,7 @@
                                               },
                                               "name": "by"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 11745,
@@ -5402,8 +5507,7 @@
                                                 "identifierName": "css"
                                               },
                                               "name": "css"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -5489,6 +5593,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 11804,
@@ -5505,8 +5610,7 @@
                                   "identifierName": "click"
                                 },
                                 "name": "click"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
                           }
@@ -5516,26 +5620,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 11908,
+              "end": 12014,
+              "loc": {
+                "start": {
+                  "line": 363,
+                  "column": 4
+                },
+                "end": {
+                  "line": 365,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 257 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 11312,
-                  "end": 11462,
-                  "loc": {
-                    "start": {
-                      "line": 330,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 341,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 267 \n * @public \n * \\TRUE \n ",
@@ -5552,22 +5653,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 11908,
-              "end": 12014,
-              "loc": {
-                "start": {
-                  "line": 363,
-                  "column": 4
-                },
-                "end": {
-                  "line": 365,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -5696,6 +5782,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 11977,
@@ -5712,8 +5799,7 @@
                                 "identifierName": "value"
                               },
                               "name": "value"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -5744,6 +5830,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 11998,
@@ -5760,8 +5847,7 @@
                                 "identifierName": "target"
                               },
                               "name": "target"
-                            },
-                            "computed": false
+                            }
                           }
                         ],
                         "quasis": [
@@ -5831,63 +5917,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 267 \n * @public \n * \\TRUE \n ",
-                  "start": 11833,
-                  "end": 11901,
-                  "loc": {
-                    "start": {
-                      "line": 353,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 360,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 12086,
+        "end": 13476,
+        "loc": {
+          "start": {
+            "line": 378,
+            "column": 0
+          },
+          "end": {
+            "line": 432,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 249 \n ",
-            "start": 11034,
-            "end": 11080,
-            "loc": {
-              "start": {
-                "line": 312,
-                "column": 0
-              },
-              "end": {
-                "line": 317,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 11083,
-            "end": 11102,
-            "loc": {
-              "start": {
-                "line": 320,
-                "column": 0
-              },
-              "end": {
-                "line": 322,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 275 \n ",
@@ -5920,22 +5969,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 12086,
-        "end": 13476,
-        "loc": {
-          "start": {
-            "line": 378,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 312 \n ",
+            "start": 13477,
+            "end": 13523,
+            "loc": {
+              "start": {
+                "line": 433,
+                "column": 0
+              },
+              "end": {
+                "line": 438,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 432,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 13526,
+            "end": 13545,
+            "loc": {
+              "start": {
+                "line": 441,
+                "column": 0
+              },
+              "end": {
+                "line": 443,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 12092,
@@ -6017,6 +6085,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 283 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 12306,
+                  "end": 12456,
+                  "loc": {
+                    "start": {
+                      "line": 385,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 396,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6446,8 +6532,23 @@
                 },
                 "body": [],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 12463,
+              "end": 13264,
+              "loc": {
+                "start": {
+                  "line": 399,
+                  "column": 4
+                },
+                "end": {
+                  "line": 418,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 283 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -6464,22 +6565,25 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 12463,
-              "end": 13264,
-              "loc": {
-                "start": {
-                  "line": 399,
-                  "column": 4
-                },
-                "end": {
-                  "line": 418,
-                  "column": 5
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 304 \n * @public \n * \\TRUE \n ",
+                  "start": 13265,
+                  "end": 13333,
+                  "loc": {
+                    "start": {
+                      "line": 419,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 426,
+                      "column": 3
+                    }
+                  }
                 }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6827,6 +6931,7 @@
                                   },
                                   "name": "Promise"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 12555,
@@ -6843,8 +6948,7 @@
                                     "identifierName": "all"
                                   },
                                   "name": "all"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -6904,6 +7008,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 12564,
@@ -6920,9 +7025,9 @@
                                           "identifierName": "values"
                                         },
                                         "name": "values"
-                                      },
-                                      "computed": false
+                                      }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 12571,
@@ -6939,8 +7044,7 @@
                                         "identifierName": "map"
                                       },
                                       "name": "map"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -7024,6 +7128,7 @@
                                             },
                                             "name": "actor"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 12590,
@@ -7040,8 +7145,7 @@
                                               "identifierName": "answer"
                                             },
                                             "name": "answer"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -7068,6 +7172,7 @@
                                 }
                               ]
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 12619,
@@ -7084,8 +7189,7 @@
                                 "identifierName": "then"
                               },
                               "name": "then"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -7107,6 +7211,7 @@
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 12646,
@@ -7123,8 +7228,7 @@
                             "identifierName": "then"
                           },
                           "name": "then"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -7380,6 +7484,7 @@
                                                 },
                                                 "name": "option"
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 12783,
@@ -7396,8 +7501,7 @@
                                                   "identifierName": "getAttribute"
                                                 },
                                                 "name": "getAttribute"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": [
                                               {
@@ -7422,6 +7526,7 @@
                                               }
                                             ]
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 12805,
@@ -7438,8 +7543,7 @@
                                               "identifierName": "then"
                                             },
                                             "name": "then"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -7571,6 +7675,7 @@
                                                         },
                                                         "name": "values"
                                                       },
+                                                      "computed": false,
                                                       "property": {
                                                         "type": "Identifier",
                                                         "start": 12830,
@@ -7587,8 +7692,7 @@
                                                           "identifierName": "indexOf"
                                                         },
                                                         "name": "indexOf"
-                                                      },
-                                                      "computed": false
+                                                      }
                                                     },
                                                     "arguments": [
                                                       {
@@ -7777,6 +7881,7 @@
                                             },
                                             "name": "option"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 12910,
@@ -7793,8 +7898,7 @@
                                               "identifierName": "click"
                                             },
                                             "name": "click"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": []
                                       }
@@ -7927,6 +8031,7 @@
                                               }
                                             }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 12999,
@@ -7943,8 +8048,7 @@
                                               "identifierName": "target"
                                             },
                                             "name": "target"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         {
                                           "type": "ArrowFunctionExpression",
@@ -8130,6 +8234,7 @@
                                                         },
                                                         "name": "element"
                                                       },
+                                                      "computed": false,
                                                       "property": {
                                                         "type": "Identifier",
                                                         "start": 13067,
@@ -8146,8 +8251,7 @@
                                                           "identifierName": "all"
                                                         },
                                                         "name": "all"
-                                                      },
-                                                      "computed": false
+                                                      }
                                                     },
                                                     "arguments": [
                                                       {
@@ -8195,6 +8299,7 @@
                                                             },
                                                             "name": "by"
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 13074,
@@ -8211,8 +8316,7 @@
                                                               "identifierName": "css"
                                                             },
                                                             "name": "css"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         },
                                                         "arguments": [
                                                           {
@@ -8239,6 +8343,7 @@
                                                       }
                                                     ]
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 13118,
@@ -8255,8 +8360,7 @@
                                                       "identifierName": "filter"
                                                     },
                                                     "name": "filter"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
                                                 "arguments": [
                                                   {
@@ -8312,6 +8416,7 @@
                                                   }
                                                 ]
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 13189,
@@ -8328,8 +8433,7 @@
                                                   "identifierName": "each"
                                                 },
                                                 "name": "each"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": [
                                               {
@@ -8366,26 +8470,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 13340,
+              "end": 13474,
+              "loc": {
+                "start": {
+                  "line": 429,
+                  "column": 4
+                },
+                "end": {
+                  "line": 431,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 283 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 12306,
-                  "end": 12456,
-                  "loc": {
-                    "start": {
-                      "line": 385,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 396,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 304 \n * @public \n * \\TRUE \n ",
@@ -8402,22 +8503,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 13340,
-              "end": 13474,
-              "loc": {
-                "start": {
-                  "line": 429,
-                  "column": 4
-                },
-                "end": {
-                  "line": 431,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -8579,6 +8665,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 13423,
@@ -8595,8 +8682,7 @@
                                       "identifierName": "values"
                                     },
                                     "name": "values"
-                                  },
-                                  "computed": false
+                                  }
                                 }
                               ]
                             },
@@ -8648,6 +8734,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 13458,
@@ -8664,8 +8751,7 @@
                               "identifierName": "target"
                             },
                             "name": "target"
-                          },
-                          "computed": false
+                          }
                         }
                       ],
                       "quasis": [
@@ -8734,63 +8820,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 304 \n * @public \n * \\TRUE \n ",
-                  "start": 13265,
-                  "end": 13333,
-                  "loc": {
-                    "start": {
-                      "line": 419,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 426,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 13546,
+        "end": 14479,
+        "loc": {
+          "start": {
+            "line": 444,
+            "column": 0
+          },
+          "end": {
+            "line": 487,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 275 \n ",
-            "start": 12017,
-            "end": 12063,
-            "loc": {
-              "start": {
-                "line": 367,
-                "column": 0
-              },
-              "end": {
-                "line": 372,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 12066,
-            "end": 12085,
-            "loc": {
-              "start": {
-                "line": 375,
-                "column": 0
-              },
-              "end": {
-                "line": 377,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 312 \n ",
@@ -8823,22 +8872,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 13546,
-        "end": 14479,
-        "loc": {
-          "start": {
-            "line": 444,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 338 \n ",
+            "start": 14480,
+            "end": 14526,
+            "loc": {
+              "start": {
+                "line": 488,
+                "column": 0
+              },
+              "end": {
+                "line": 493,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 487,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 14529,
+            "end": 14548,
+            "loc": {
+              "start": {
+                "line": 496,
+                "column": 0
+              },
+              "end": {
+                "line": 498,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 13552,
@@ -8920,6 +8988,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 320 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 13756,
+                  "end": 13906,
+                  "loc": {
+                    "start": {
+                      "line": 451,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 462,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -9285,8 +9371,23 @@
                 },
                 "body": [],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 13913,
+              "end": 14301,
+              "loc": {
+                "start": {
+                  "line": 465,
+                  "column": 4
+                },
+                "end": {
+                  "line": 473,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 320 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -9303,22 +9404,25 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 13913,
-              "end": 14301,
-              "loc": {
-                "start": {
-                  "line": 465,
-                  "column": 4
-                },
-                "end": {
-                  "line": 473,
-                  "column": 5
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 330 \n * @public \n * \\TRUE \n ",
+                  "start": 14302,
+                  "end": 14370,
+                  "loc": {
+                    "start": {
+                      "line": 474,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 481,
+                      "column": 3
+                    }
+                  }
                 }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -9638,6 +9742,7 @@
                               },
                               "name": "actor"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 14002,
@@ -9654,8 +9759,7 @@
                                 "identifierName": "answer"
                               },
                               "name": "answer"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -9687,6 +9791,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 14014,
@@ -9703,11 +9808,11 @@
                                   "identifierName": "value"
                                 },
                                 "name": "value"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 14034,
@@ -9724,8 +9829,7 @@
                             "identifierName": "then"
                           },
                           "name": "then"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -9931,6 +10035,7 @@
                                                   }
                                                 }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 14108,
@@ -9947,8 +10052,7 @@
                                                   "identifierName": "target"
                                                 },
                                                 "name": "target"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             {
                                               "type": "ArrowFunctionExpression",
@@ -10078,6 +10182,7 @@
                                                     },
                                                     "name": "element"
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 14197,
@@ -10094,8 +10199,7 @@
                                                       "identifierName": "element"
                                                     },
                                                     "name": "element"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
                                                 "arguments": [
                                                   {
@@ -10143,6 +10247,7 @@
                                                         },
                                                         "name": "by"
                                                       },
+                                                      "computed": false,
                                                       "property": {
                                                         "type": "Identifier",
                                                         "start": 14208,
@@ -10159,8 +10264,7 @@
                                                           "identifierName": "cssContainingText"
                                                         },
                                                         "name": "cssContainingText"
-                                                      },
-                                                      "computed": false
+                                                      }
                                                     },
                                                     "arguments": [
                                                       {
@@ -10207,6 +10311,7 @@
                                             }
                                           ]
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 14270,
@@ -10223,8 +10328,7 @@
                                             "identifierName": "click"
                                           },
                                           "name": "click"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": []
                                     }
@@ -10240,26 +10344,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 14377,
+              "end": 14477,
+              "loc": {
+                "start": {
+                  "line": 484,
+                  "column": 4
+                },
+                "end": {
+                  "line": 486,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 320 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 13756,
-                  "end": 13906,
-                  "loc": {
-                    "start": {
-                      "line": 451,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 462,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 330 \n * @public \n * \\TRUE \n ",
@@ -10276,22 +10377,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 14377,
-              "end": 14477,
-              "loc": {
-                "start": {
-                  "line": 484,
-                  "column": 4
-                },
-                "end": {
-                  "line": 486,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -10420,6 +10506,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 14440,
@@ -10436,8 +10523,7 @@
                                 "identifierName": "value"
                               },
                               "name": "value"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -10468,6 +10554,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 14461,
@@ -10484,8 +10571,7 @@
                                 "identifierName": "target"
                               },
                               "name": "target"
-                            },
-                            "computed": false
+                            }
                           }
                         ],
                         "quasis": [
@@ -10555,63 +10641,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 330 \n * @public \n * \\TRUE \n ",
-                  "start": 14302,
-                  "end": 14370,
-                  "loc": {
-                    "start": {
-                      "line": 474,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 481,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 14549,
+        "end": 15918,
+        "loc": {
+          "start": {
+            "line": 499,
+            "column": 0
+          },
+          "end": {
+            "line": 552,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 312 \n ",
-            "start": 13477,
-            "end": 13523,
-            "loc": {
-              "start": {
-                "line": 433,
-                "column": 0
-              },
-              "end": {
-                "line": 438,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 13526,
-            "end": 13545,
-            "loc": {
-              "start": {
-                "line": 441,
-                "column": 0
-              },
-              "end": {
-                "line": 443,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 338 \n ",
@@ -10644,22 +10693,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 14549,
-        "end": 15918,
-        "loc": {
-          "start": {
-            "line": 499,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 372 \n * @param \n * {Array} listOfLists \n * @return \n * {UNKNOWN} \n ",
+            "start": 15919,
+            "end": 16026,
+            "loc": {
+              "start": {
+                "line": 553,
+                "column": 0
+              },
+              "end": {
+                "line": 562,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 552,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "* @package ",
+            "start": 16029,
+            "end": 16044,
+            "loc": {
+              "start": {
+                "line": 565,
+                "column": 0
+              },
+              "end": {
+                "line": 565,
+                "column": 15
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 14555,
@@ -10741,6 +10809,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 346 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 14770,
+                  "end": 14920,
+                  "loc": {
+                    "start": {
+                      "line": 506,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 517,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -11170,8 +11256,23 @@
                 },
                 "body": [],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 14927,
+              "end": 15713,
+              "loc": {
+                "start": {
+                  "line": 520,
+                  "column": 4
+                },
+                "end": {
+                  "line": 538,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 346 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -11188,22 +11289,25 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 14927,
-              "end": 15713,
-              "loc": {
-                "start": {
-                  "line": 520,
-                  "column": 4
-                },
-                "end": {
-                  "line": 538,
-                  "column": 5
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 366 \n * @public \n * \\TRUE \n ",
+                  "start": 15714,
+                  "end": 15782,
+                  "loc": {
+                    "start": {
+                      "line": 539,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 546,
+                      "column": 3
+                    }
+                  }
                 }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -11551,6 +11655,7 @@
                                   },
                                   "name": "Promise"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 15018,
@@ -11567,8 +11672,7 @@
                                     "identifierName": "all"
                                   },
                                   "name": "all"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -11628,6 +11732,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 15027,
@@ -11644,9 +11749,9 @@
                                           "identifierName": "values"
                                         },
                                         "name": "values"
-                                      },
-                                      "computed": false
+                                      }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 15034,
@@ -11663,8 +11768,7 @@
                                         "identifierName": "map"
                                       },
                                       "name": "map"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -11748,6 +11852,7 @@
                                             },
                                             "name": "actor"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 15053,
@@ -11764,8 +11869,7 @@
                                               "identifierName": "answer"
                                             },
                                             "name": "answer"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -11792,6 +11896,7 @@
                                 }
                               ]
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 15082,
@@ -11808,8 +11913,7 @@
                                 "identifierName": "then"
                               },
                               "name": "then"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -11831,6 +11935,7 @@
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 15109,
@@ -11847,8 +11952,7 @@
                             "identifierName": "then"
                           },
                           "name": "then"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -12104,6 +12208,7 @@
                                                 },
                                                 "name": "option"
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 15245,
@@ -12120,11 +12225,11 @@
                                                   "identifierName": "getText"
                                                 },
                                                 "name": "getText"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": []
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 15255,
@@ -12141,8 +12246,7 @@
                                               "identifierName": "then"
                                             },
                                             "name": "then"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -12274,6 +12378,7 @@
                                                         },
                                                         "name": "values"
                                                       },
+                                                      "computed": false,
                                                       "property": {
                                                         "type": "Identifier",
                                                         "start": 15280,
@@ -12290,8 +12395,7 @@
                                                           "identifierName": "indexOf"
                                                         },
                                                         "name": "indexOf"
-                                                      },
-                                                      "computed": false
+                                                      }
                                                     },
                                                     "arguments": [
                                                       {
@@ -12480,6 +12584,7 @@
                                             },
                                             "name": "option"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 15360,
@@ -12496,8 +12601,7 @@
                                               "identifierName": "click"
                                             },
                                             "name": "click"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": []
                                       }
@@ -12630,6 +12734,7 @@
                                               }
                                             }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 15449,
@@ -12646,8 +12751,7 @@
                                               "identifierName": "target"
                                             },
                                             "name": "target"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         {
                                           "type": "ArrowFunctionExpression",
@@ -12833,6 +12937,7 @@
                                                         },
                                                         "name": "element"
                                                       },
+                                                      "computed": false,
                                                       "property": {
                                                         "type": "Identifier",
                                                         "start": 15517,
@@ -12849,8 +12954,7 @@
                                                           "identifierName": "all"
                                                         },
                                                         "name": "all"
-                                                      },
-                                                      "computed": false
+                                                      }
                                                     },
                                                     "arguments": [
                                                       {
@@ -12898,6 +13002,7 @@
                                                             },
                                                             "name": "by"
                                                           },
+                                                          "computed": false,
                                                           "property": {
                                                             "type": "Identifier",
                                                             "start": 15524,
@@ -12914,8 +13019,7 @@
                                                               "identifierName": "css"
                                                             },
                                                             "name": "css"
-                                                          },
-                                                          "computed": false
+                                                          }
                                                         },
                                                         "arguments": [
                                                           {
@@ -12942,6 +13046,7 @@
                                                       }
                                                     ]
                                                   },
+                                                  "computed": false,
                                                   "property": {
                                                     "type": "Identifier",
                                                     "start": 15568,
@@ -12958,8 +13063,7 @@
                                                       "identifierName": "filter"
                                                     },
                                                     "name": "filter"
-                                                  },
-                                                  "computed": false
+                                                  }
                                                 },
                                                 "arguments": [
                                                   {
@@ -13015,6 +13119,7 @@
                                                   }
                                                 ]
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 15638,
@@ -13031,8 +13136,7 @@
                                                   "identifierName": "each"
                                                 },
                                                 "name": "each"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "arguments": [
                                               {
@@ -13069,26 +13173,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 15789,
+              "end": 15916,
+              "loc": {
+                "start": {
+                  "line": 549,
+                  "column": 4
+                },
+                "end": {
+                  "line": 551,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 346 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 14770,
-                  "end": 14920,
-                  "loc": {
-                    "start": {
-                      "line": 506,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 517,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 366 \n * @public \n * \\TRUE \n ",
@@ -13105,22 +13206,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 15789,
-              "end": 15916,
-              "loc": {
-                "start": {
-                  "line": 549,
-                  "column": 4
-                },
-                "end": {
-                  "line": 551,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -13282,6 +13368,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 15865,
@@ -13298,8 +13385,7 @@
                                       "identifierName": "values"
                                     },
                                     "name": "values"
-                                  },
-                                  "computed": false
+                                  }
                                 }
                               ]
                             },
@@ -13351,6 +13437,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 15900,
@@ -13367,8 +13454,7 @@
                               "identifierName": "target"
                             },
                             "name": "target"
-                          },
-                          "computed": false
+                          }
                         }
                       ],
                       "quasis": [
@@ -13437,63 +13523,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 366 \n * @public \n * \\TRUE \n ",
-                  "start": 15714,
-                  "end": 15782,
-                  "loc": {
-                    "start": {
-                      "line": 539,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 546,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 16045,
+        "end": 16227,
+        "loc": {
+          "start": {
+            "line": 566,
+            "column": 0
+          },
+          "end": {
+            "line": 570,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 338 \n ",
-            "start": 14480,
-            "end": 14526,
-            "loc": {
-              "start": {
-                "line": 488,
-                "column": 0
-              },
-              "end": {
-                "line": 493,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 14529,
-            "end": 14548,
-            "loc": {
-              "start": {
-                "line": 496,
-                "column": 0
-              },
-              "end": {
-                "line": 498,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 372 \n * @param \n * {Array} listOfLists \n * @return \n * {UNKNOWN} \n ",
@@ -13526,22 +13575,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 16045,
-        "end": 16227,
-        "loc": {
-          "start": {
-            "line": 566,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 379 \n * @param \n * {Function} criterion \n ",
+            "start": 16228,
+            "end": 16310,
+            "loc": {
+              "start": {
+                "line": 571,
+                "column": 0
+              },
+              "end": {
+                "line": 578,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 570,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "* @package ",
+            "start": 16313,
+            "end": 16328,
+            "loc": {
+              "start": {
+                "line": 581,
+                "column": 0
+              },
+              "end": {
+                "line": 581,
+                "column": 15
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 16054,
@@ -13937,6 +14005,7 @@
                         },
                         "name": "listOfLists"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 16133,
@@ -13953,8 +14022,7 @@
                           "identifierName": "map"
                         },
                         "name": "map"
-                      },
-                      "computed": false
+                      }
                     },
                     "arguments": [
                       {
@@ -14037,6 +14105,7 @@
                               },
                               "elements": []
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 16148,
@@ -14053,8 +14122,7 @@
                                 "identifierName": "concat"
                               },
                               "name": "concat"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -14079,6 +14147,7 @@
                       }
                     ]
                   },
+                  "computed": false,
                   "property": {
                     "type": "Identifier",
                     "start": 16171,
@@ -14095,8 +14164,7 @@
                       "identifierName": "reduce"
                     },
                     "name": "reduce"
-                  },
-                  "computed": false
+                  }
                 },
                 "arguments": [
                   {
@@ -14321,6 +14389,7 @@
                           },
                           "name": "acc"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 16207,
@@ -14337,8 +14406,7 @@
                             "identifierName": "concat"
                           },
                           "name": "concat"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -14382,42 +14450,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 16329,
+        "end": 16808,
+        "loc": {
+          "start": {
+            "line": 582,
+            "column": 0
+          },
+          "end": {
+            "line": 594,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 372 \n * @param \n * {Array} listOfLists \n * @return \n * {UNKNOWN} \n ",
-            "start": 15919,
-            "end": 16026,
-            "loc": {
-              "start": {
-                "line": 553,
-                "column": 0
-              },
-              "end": {
-                "line": 562,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "* @package ",
-            "start": 16029,
-            "end": 16044,
-            "loc": {
-              "start": {
-                "line": 565,
-                "column": 0
-              },
-              "end": {
-                "line": 565,
-                "column": 15
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 379 \n * @param \n * {Function} criterion \n ",
@@ -14450,22 +14499,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 16329,
-        "end": 16808,
-        "loc": {
-          "start": {
-            "line": 582,
-            "column": 0
-          },
-          "end": {
-            "line": 594,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 16338,
@@ -14900,6 +14934,7 @@
                           },
                           "name": "option"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 16493,
@@ -14916,8 +14951,7 @@
                             "identifierName": "isSelected"
                           },
                           "name": "isSelected"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": []
                     }
@@ -15108,6 +15142,7 @@
                               },
                               "name": "list"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 16564,
@@ -15124,8 +15159,7 @@
                                 "identifierName": "filter"
                               },
                               "name": "filter"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -15216,6 +15250,7 @@
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 16588,
@@ -15232,8 +15267,7 @@
                             "identifierName": "length"
                           },
                           "name": "length"
-                        },
-                        "computed": false
+                        }
                       },
                       "operator": "===",
                       "right": {
@@ -15446,6 +15480,7 @@
                             },
                             "name": "protractor"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 16660,
@@ -15462,9 +15497,9 @@
                               "identifierName": "promise"
                             },
                             "name": "promise"
-                          },
-                          "computed": false
+                          }
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 16668,
@@ -15481,8 +15516,7 @@
                             "identifierName": "all"
                           },
                           "name": "all"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -15606,6 +15640,7 @@
                         }
                       ]
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 16779,
@@ -15622,8 +15657,7 @@
                         "identifierName": "then"
                       },
                       "name": "then"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -15649,41 +15683,7 @@
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 379 \n * @param \n * {Function} criterion \n ",
-            "start": 16228,
-            "end": 16310,
-            "loc": {
-              "start": {
-                "line": 571,
-                "column": 0
-              },
-              "end": {
-                "line": 578,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "* @package ",
-            "start": 16313,
-            "end": 16328,
-            "loc": {
-              "start": {
-                "line": 581,
-                "column": 0
-              },
-              "end": {
-                "line": 581,
-                "column": 15
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

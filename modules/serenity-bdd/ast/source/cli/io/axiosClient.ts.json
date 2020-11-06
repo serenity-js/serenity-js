@@ -348,6 +348,24 @@
             "column": 54
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentLine",
+            "value": " tslint:disable-line:no-submodule-imports",
+            "start": 195,
+            "end": 238,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 55
+              },
+              "end": {
+                "line": 3,
+                "column": 98
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -419,8 +437,23 @@
             "raw": "'axios/lib/adapters/http'"
           },
           "value": "axios/lib/adapters/http"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 239,
+        "end": 264,
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 25
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentLine",
             "value": " tslint:disable-line:no-submodule-imports",
@@ -437,22 +470,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ImportDeclaration",
-        "start": 239,
-        "end": 264,
-        "loc": {
-          "start": {
-            "line": 4,
-            "column": 0
-          },
-          "end": {
-            "line": 4,
-            "column": 25
-          }
-        },
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -507,25 +525,7 @@
             "raw": "'fs'"
           },
           "value": "fs"
-        },
-        "leadingComments": [
-          {
-            "type": "CommentLine",
-            "value": " tslint:disable-line:no-submodule-imports",
-            "start": 195,
-            "end": 238,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 55
-              },
-              "end": {
-                "line": 3,
-                "column": 98
-              }
-            }
-          }
-        ]
+        }
       },
       {
         "type": "ImportDeclaration",
@@ -785,6 +785,40 @@
             "column": 53
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {URL} repository \n * @param \n * {boolean} ignoreSsl \n * @param \n * {UNKNOWN} env \n * @param \n * {Credentials} repositoryAuth \n * @return \n * {AxiosInstance} \n ",
+            "start": 419,
+            "end": 636,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 25,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentLine",
+            "value": " tslint:disable-line:no-var-requires ignore problematic type definitions",
+            "start": 638,
+            "end": 712,
+            "loc": {
+              "start": {
+                "line": 26,
+                "column": 1
+              },
+              "end": {
+                "line": 26,
+                "column": 75
+              }
+            }
+          }
+        ],
         "declarations": [
           {
             "type": "VariableDeclarator",
@@ -873,8 +907,23 @@
             }
           }
         ],
-        "kind": "const",
-        "trailingComments": [
+        "kind": "const"
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 714,
+        "end": 2173,
+        "loc": {
+          "start": {
+            "line": 28,
+            "column": 0
+          },
+          "end": {
+            "line": 68,
+            "column": 1
+          }
+        },
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {URL} repository \n * @param \n * {boolean} ignoreSsl \n * @param \n * {UNKNOWN} env \n * @param \n * {Credentials} repositoryAuth \n * @return \n * {AxiosInstance} \n ",
@@ -907,22 +956,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 714,
-        "end": 2173,
-        "loc": {
-          "start": {
-            "line": 28,
-            "column": 0
-          },
-          "end": {
-            "line": 68,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @param \n * {URL} url \n * @param \n * {EnvVar} configuredProxy \n * @param \n * {EnvVar} configuredNoProxy \n * @return \n * {boolean} \n ",
+            "start": 2174,
+            "end": 2352,
+            "loc": {
+              "start": {
+                "line": 69,
+                "column": 0
+              },
+              "end": {
+                "line": 82,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1465,6 +1517,7 @@
                               },
                               "name": "repository"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 924,
@@ -1481,8 +1534,7 @@
                                 "identifierName": "protocol"
                               },
                               "name": "protocol"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       },
@@ -2220,6 +2272,9 @@
                           "column": 5
                         }
                       },
+                      "extra": {
+                        "trailingComma": 1513
+                      },
                       "properties": [
                         {
                           "type": "ObjectProperty",
@@ -2300,6 +2355,7 @@
                                 },
                                 "name": "repository"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1434,
@@ -2316,8 +2372,7 @@
                                   "identifierName": "toString"
                                 },
                                 "name": "toString"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
                           }
@@ -2426,10 +2481,7 @@
                             "name": "repositoryAuth"
                           }
                         }
-                      ],
-                      "extra": {
-                        "trailingComma": 1513
-                      }
+                      ]
                     }
                   }
                 ],
@@ -2512,6 +2564,7 @@
                         },
                         "name": "repository"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 1550,
@@ -2528,8 +2581,7 @@
                           "identifierName": "protocol"
                         },
                         "name": "protocol"
-                      },
-                      "computed": false
+                      }
                     }
                   ]
                 },
@@ -2608,6 +2660,7 @@
                             },
                             "name": "options"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1579,
@@ -2624,8 +2677,7 @@
                               "identifierName": "proxy"
                             },
                             "name": "proxy"
-                          },
-                          "computed": false
+                          }
                         },
                         "right": {
                           "type": "BooleanLiteral",
@@ -2705,6 +2757,7 @@
                             },
                             "name": "options"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1610,
@@ -2721,8 +2774,7 @@
                               "identifierName": "httpsAgent"
                             },
                             "name": "httpsAgent"
-                          },
-                          "computed": false
+                          }
                         },
                         "right": {
                           "type": "ConditionalExpression",
@@ -3091,6 +3143,7 @@
                             },
                             "name": "options"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1876,
@@ -3107,8 +3160,7 @@
                               "identifierName": "proxy"
                             },
                             "name": "proxy"
-                          },
-                          "computed": false
+                          }
                         },
                         "right": {
                           "type": "ConditionalExpression",
@@ -3329,6 +3381,7 @@
                     },
                     "name": "env"
                   },
+                  "computed": false,
                   "property": {
                     "type": "Identifier",
                     "start": 2035,
@@ -3345,8 +3398,7 @@
                       "identifierName": "npm_config_user_agent"
                     },
                     "name": "npm_config_user_agent"
-                  },
-                  "computed": false
+                  }
                 },
                 "consequent": {
                   "type": "BlockStatement",
@@ -3423,6 +3475,7 @@
                             },
                             "name": "options"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2076,
@@ -3439,8 +3492,7 @@
                               "identifierName": "headers"
                             },
                             "name": "headers"
-                          },
-                          "computed": false
+                          }
                         },
                         "right": {
                           "type": "ObjectExpression",
@@ -3525,6 +3577,7 @@
                                   },
                                   "name": "env"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2106,
@@ -3541,8 +3594,7 @@
                                     "identifierName": "npm_config_user_agent"
                                   },
                                   "name": "npm_config_user_agent"
-                                },
-                                "computed": false
+                                }
                               }
                             }
                           ]
@@ -3613,6 +3665,7 @@
                       },
                       "name": "axios"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 2155,
@@ -3629,8 +3682,7 @@
                         "identifierName": "create"
                       },
                       "name": "create"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -3708,42 +3760,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2355,
+        "end": 3074,
+        "loc": {
+          "start": {
+            "line": 85,
+            "column": 0
+          },
+          "end": {
+            "line": 108,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {URL} repository \n * @param \n * {boolean} ignoreSsl \n * @param \n * {UNKNOWN} env \n * @param \n * {Credentials} repositoryAuth \n * @return \n * {AxiosInstance} \n ",
-            "start": 419,
-            "end": 636,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 25,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentLine",
-            "value": " tslint:disable-line:no-var-requires ignore problematic type definitions",
-            "start": 638,
-            "end": 712,
-            "loc": {
-              "start": {
-                "line": 26,
-                "column": 1
-              },
-              "end": {
-                "line": 26,
-                "column": 75
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @param \n * {URL} url \n * @param \n * {EnvVar} configuredProxy \n * @param \n * {EnvVar} configuredNoProxy \n * @return \n * {boolean} \n ",
@@ -3760,22 +3793,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 2355,
-        "end": 3074,
-        "loc": {
-          "start": {
-            "line": 85,
-            "column": 0
-          },
-          "end": {
-            "line": 108,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {EnvVar} proxyUrl \n * @return \n * {AxiosProxyConfig | undefined} \n ",
+            "start": 3075,
+            "end": 3200,
+            "loc": {
+              "start": {
+                "line": 109,
+                "column": 0
+              },
+              "end": {
+                "line": 118,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -4065,6 +4101,24 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentLine",
+                    "value": " there's no proxy configured so don't proxy...",
+                    "start": 2460,
+                    "end": 2508,
+                    "loc": {
+                      "start": {
+                        "line": 86,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 86,
+                        "column": 52
+                      }
+                    }
+                  }
+                ],
                 "test": {
                   "type": "UnaryExpression",
                   "start": 2517,
@@ -4112,6 +4166,7 @@
                       },
                       "name": "configuredProxy"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 2535,
@@ -4128,8 +4183,7 @@
                         "identifierName": "value"
                       },
                       "name": "value"
-                    },
-                    "computed": false
+                    }
                   }
                 },
                 "consequent": {
@@ -4181,25 +4235,7 @@
                   ],
                   "directives": []
                 },
-                "alternate": null,
-                "leadingComments": [
-                  {
-                    "type": "CommentLine",
-                    "value": " there's no proxy configured so don't proxy...",
-                    "start": 2460,
-                    "end": 2508,
-                    "loc": {
-                      "start": {
-                        "line": 86,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 86,
-                        "column": 52
-                      }
-                    }
-                  }
-                ]
+                "alternate": null
               },
               {
                 "type": "VariableDeclaration",
@@ -4317,6 +4353,10 @@
                                   "column": 57
                                 }
                               },
+                              "extra": {
+                                "parenthesized": true,
+                                "parenStart": 2600
+                              },
                               "left": {
                                 "type": "MemberExpression",
                                 "start": 2601,
@@ -4348,6 +4388,7 @@
                                   },
                                   "name": "configuredNoProxy"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2619,
@@ -4364,8 +4405,7 @@
                                     "identifierName": "value"
                                   },
                                   "name": "value"
-                                },
-                                "computed": false
+                                }
                               },
                               "operator": "||",
                               "right": {
@@ -4387,12 +4427,9 @@
                                   "raw": "''"
                                 },
                                 "value": ""
-                              },
-                              "extra": {
-                                "parenthesized": true,
-                                "parenStart": 2600
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2632,
@@ -4409,8 +4446,7 @@
                                 "identifierName": "split"
                               },
                               "name": "split"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -4435,6 +4471,7 @@
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 2643,
@@ -4451,8 +4488,7 @@
                             "identifierName": "map"
                           },
                           "name": "map"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -4536,6 +4572,7 @@
                                 },
                                 "name": "_"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2654,
@@ -4552,8 +4589,7 @@
                                   "identifierName": "trim"
                                 },
                                 "name": "trim"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
                           }
@@ -4639,6 +4675,7 @@
                         },
                         "name": "noProxyDomains"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 2692,
@@ -4655,8 +4692,7 @@
                           "identifierName": "some"
                         },
                         "name": "some"
-                      },
-                      "computed": false
+                      }
                     },
                     "arguments": [
                       {
@@ -5000,6 +5036,7 @@
                                       },
                                       "name": "noProxyDomain"
                                     },
+                                    "computed": true,
                                     "property": {
                                       "type": "NumericLiteral",
                                       "start": 2883,
@@ -5019,8 +5056,7 @@
                                         "raw": "0"
                                       },
                                       "value": 0
-                                    },
-                                    "computed": true
+                                    }
                                   },
                                   "operator": "===",
                                   "right": {
@@ -5118,6 +5154,7 @@
                                           },
                                           "name": "url"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2901,
@@ -5134,9 +5171,9 @@
                                             "identifierName": "hostname"
                                           },
                                           "name": "hostname"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 2910,
@@ -5153,8 +5190,7 @@
                                           "identifierName": "substr"
                                         },
                                         "name": "substr"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "arguments": [
                                       {
@@ -5216,6 +5252,7 @@
                                               },
                                               "name": "url"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 2921,
@@ -5232,9 +5269,9 @@
                                                 "identifierName": "hostname"
                                               },
                                               "name": "hostname"
-                                            },
-                                            "computed": false
+                                            }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2930,
@@ -5251,8 +5288,7 @@
                                               "identifierName": "length"
                                             },
                                             "name": "length"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "operator": "-",
                                         "right": {
@@ -5286,6 +5322,7 @@
                                             },
                                             "name": "noProxyDomain"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2953,
@@ -5302,8 +5339,7 @@
                                               "identifierName": "length"
                                             },
                                             "name": "length"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       }
                                     ]
@@ -5438,6 +5474,7 @@
                                     },
                                     "name": "url"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 3037,
@@ -5454,8 +5491,7 @@
                                       "identifierName": "hostname"
                                     },
                                     "name": "hostname"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "operator": "===",
                                 "right": {
@@ -5524,26 +5560,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 3203,
+        "end": 4150,
+        "loc": {
+          "start": {
+            "line": 121,
+            "column": 0
+          },
+          "end": {
+            "line": 152,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @param \n * {URL} url \n * @param \n * {EnvVar} configuredProxy \n * @param \n * {EnvVar} configuredNoProxy \n * @return \n * {boolean} \n ",
-            "start": 2174,
-            "end": 2352,
-            "loc": {
-              "start": {
-                "line": 69,
-                "column": 0
-              },
-              "end": {
-                "line": 82,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {EnvVar} proxyUrl \n * @return \n * {AxiosProxyConfig | undefined} \n ",
@@ -5560,22 +5593,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 3203,
-        "end": 4150,
-        "loc": {
-          "start": {
-            "line": 121,
-            "column": 0
-          },
-          "end": {
-            "line": 152,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @param \n * {UNKNOWN} env \n * @param \n * {boolean} ignoreSsl \n * @return \n * {boolean} \n ",
+            "start": 4151,
+            "end": 4287,
+            "loc": {
+              "start": {
+                "line": 153,
+                "column": 0
+              },
+              "end": {
+                "line": 164,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 3212,
@@ -5865,6 +5901,7 @@
                       },
                       "name": "proxyUrl"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 3312,
@@ -5881,8 +5918,7 @@
                         "identifierName": "value"
                       },
                       "name": "value"
-                    },
-                    "computed": false
+                    }
                   }
                 }
               },
@@ -6174,6 +6210,7 @@
                               },
                               "name": "proxyUrl"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 3420,
@@ -6190,8 +6227,7 @@
                                 "identifierName": "value"
                               },
                               "name": "value"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
@@ -6338,6 +6374,7 @@
                                   },
                                   "name": "proxyUrl"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3513,
@@ -6354,8 +6391,7 @@
                                     "identifierName": "name"
                                   },
                                   "name": "name"
-                                },
-                                "computed": false
+                                }
                               },
                               {
                                 "type": "MemberExpression",
@@ -6388,6 +6424,7 @@
                                   },
                                   "name": "proxyUrl"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 3532,
@@ -6404,8 +6441,7 @@
                                     "identifierName": "value"
                                   },
                                   "name": "value"
-                                },
-                                "computed": false
+                                }
                               }
                             ],
                             "quasis": [
@@ -6573,6 +6609,7 @@
                         },
                         "name": "parsed"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 3614,
@@ -6589,8 +6626,7 @@
                           "identifierName": "protocol"
                         },
                         "name": "protocol"
-                      },
-                      "computed": false
+                      }
                     }
                   ]
                 }
@@ -6702,6 +6738,7 @@
                                 },
                                 "name": "proxyUrl"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3690,
@@ -6718,8 +6755,7 @@
                                   "identifierName": "name"
                                 },
                                 "name": "name"
-                              },
-                              "computed": false
+                              }
                             },
                             {
                               "type": "MemberExpression",
@@ -6752,6 +6788,7 @@
                                 },
                                 "name": "proxyUrl"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3709,
@@ -6768,8 +6805,7 @@
                                   "identifierName": "value"
                                 },
                                 "name": "value"
-                              },
-                              "computed": false
+                              }
                             }
                           ],
                           "quasis": [
@@ -6871,6 +6907,9 @@
                     "column": 5
                   }
                 },
+                "extra": {
+                  "trailingComma": 4140
+                },
                 "properties": [
                   {
                     "type": "ObjectProperty",
@@ -6937,6 +6976,7 @@
                         },
                         "name": "parsed"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 3826,
@@ -6953,8 +6993,7 @@
                           "identifierName": "protocol"
                         },
                         "name": "protocol"
-                      },
-                      "computed": false
+                      }
                     }
                   },
                   {
@@ -7022,6 +7061,7 @@
                         },
                         "name": "parsed"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 3857,
@@ -7038,8 +7078,7 @@
                           "identifierName": "hostname"
                         },
                         "name": "hostname"
-                      },
-                      "computed": false
+                      }
                     }
                   },
                   {
@@ -7121,6 +7160,7 @@
                           },
                           "name": "parsed"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 3889,
@@ -7137,8 +7177,7 @@
                             "identifierName": "port"
                           },
                           "name": "port"
-                        },
-                        "computed": false
+                        }
                       },
                       "consequent": {
                         "type": "CallExpression",
@@ -7203,6 +7242,7 @@
                               },
                               "name": "parsed"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 3924,
@@ -7219,8 +7259,7 @@
                                 "identifierName": "port"
                               },
                               "name": "port"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "NumericLiteral",
@@ -7321,6 +7360,7 @@
                                 },
                                 "name": "parsed"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 3963,
@@ -7337,8 +7377,7 @@
                                   "identifierName": "protocol"
                                 },
                                 "name": "protocol"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         },
@@ -7447,6 +7486,10 @@
                             "column": 49
                           }
                         },
+                        "extra": {
+                          "parenthesized": true,
+                          "parenStart": 4000
+                        },
                         "left": {
                           "type": "MemberExpression",
                           "start": 4001,
@@ -7478,6 +7521,7 @@
                             },
                             "name": "parsed"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4008,
@@ -7494,8 +7538,7 @@
                               "identifierName": "password"
                             },
                             "name": "password"
-                          },
-                          "computed": false
+                          }
                         },
                         "operator": "||",
                         "right": {
@@ -7529,6 +7572,7 @@
                             },
                             "name": "parsed"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 4027,
@@ -7545,12 +7589,7 @@
                               "identifierName": "username"
                             },
                             "name": "username"
-                          },
-                          "computed": false
-                        },
-                        "extra": {
-                          "parenthesized": true,
-                          "parenStart": 4000
+                          }
                         }
                       },
                       "consequent": {
@@ -7566,6 +7605,9 @@
                             "line": 150,
                             "column": 9
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 4117
                         },
                         "properties": [
                           {
@@ -7633,6 +7675,7 @@
                                 },
                                 "name": "parsed"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4070,
@@ -7649,8 +7692,7 @@
                                   "identifierName": "password"
                                 },
                                 "name": "password"
-                              },
-                              "computed": false
+                              }
                             }
                           },
                           {
@@ -7718,6 +7760,7 @@
                                 },
                                 "name": "parsed"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4109,
@@ -7734,14 +7777,10 @@
                                   "identifierName": "username"
                                 },
                                 "name": "username"
-                              },
-                              "computed": false
+                              }
                             }
                           }
-                        ],
-                        "extra": {
-                          "trailingComma": 4117
-                        }
+                        ]
                       },
                       "alternate": {
                         "type": "Identifier",
@@ -7762,34 +7801,28 @@
                       }
                     }
                   }
-                ],
-                "extra": {
-                  "trailingComma": 4140
-                }
+                ]
               }
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 4290,
+        "end": 4471,
+        "loc": {
+          "start": {
+            "line": 167,
+            "column": 0
+          },
+          "end": {
+            "line": 170,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {EnvVar} proxyUrl \n * @return \n * {AxiosProxyConfig | undefined} \n ",
-            "start": 3075,
-            "end": 3200,
-            "loc": {
-              "start": {
-                "line": 109,
-                "column": 0
-              },
-              "end": {
-                "line": 118,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @param \n * {UNKNOWN} env \n * @param \n * {boolean} ignoreSsl \n * @return \n * {boolean} \n ",
@@ -7806,22 +7839,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 4290,
-        "end": 4471,
-        "loc": {
-          "start": {
-            "line": 167,
-            "column": 0
-          },
-          "end": {
-            "line": 170,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 116 \n * @param \n * {AxiosProxyConfig} proxyConfig \n * @param \n * {string} ca \n * @param \n * {boolean} rejectUnauthorized \n ",
+            "start": 4472,
+            "end": 4635,
+            "loc": {
+              "start": {
+                "line": 171,
+                "column": 0
+              },
+              "end": {
+                "line": 182,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4299,
@@ -8186,6 +8222,7 @@
                       },
                       "name": "env"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 4437,
@@ -8202,8 +8239,7 @@
                         "identifierName": "npm_config_strict_ssl"
                       },
                       "name": "npm_config_strict_ssl"
-                    },
-                    "computed": false
+                    }
                   },
                   "operator": "===",
                   "right": {
@@ -8231,26 +8267,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 4638,
+        "end": 4816,
+        "loc": {
+          "start": {
+            "line": 185,
+            "column": 0
+          },
+          "end": {
+            "line": 187,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @param \n * {UNKNOWN} env \n * @param \n * {boolean} ignoreSsl \n * @return \n * {boolean} \n ",
-            "start": 4151,
-            "end": 4287,
-            "loc": {
-              "start": {
-                "line": 153,
-                "column": 0
-              },
-              "end": {
-                "line": 164,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 116 \n * @param \n * {AxiosProxyConfig} proxyConfig \n * @param \n * {string} ca \n * @param \n * {boolean} rejectUnauthorized \n ",
@@ -8267,22 +8300,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 4638,
-        "end": 4816,
-        "loc": {
-          "start": {
-            "line": 185,
-            "column": 0
-          },
-          "end": {
-            "line": 187,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 120 \n * @param \n * {string} ca \n * @param \n * {boolean} rejectUnauthorized \n ",
+            "start": 4817,
+            "end": 4934,
+            "loc": {
+              "start": {
+                "line": 188,
+                "column": 0
+              },
+              "end": {
+                "line": 197,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4647,
@@ -8552,6 +8588,9 @@
                             "column": 35
                           }
                         },
+                        "extra": {
+                          "shorthand": true
+                        },
                         "method": false,
                         "key": {
                           "type": "Identifier",
@@ -8588,9 +8627,6 @@
                             "identifierName": "ca"
                           },
                           "name": "ca"
-                        },
-                        "extra": {
-                          "shorthand": true
                         }
                       },
                       {
@@ -8607,6 +8643,9 @@
                             "column": 55
                           }
                         },
+                        "extra": {
+                          "shorthand": true
+                        },
                         "method": false,
                         "key": {
                           "type": "Identifier",
@@ -8643,9 +8682,6 @@
                             "identifierName": "rejectUnauthorized"
                           },
                           "name": "rejectUnauthorized"
-                        },
-                        "extra": {
-                          "shorthand": true
                         }
                       },
                       {
@@ -8687,26 +8723,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 4937,
+        "end": 5071,
+        "loc": {
+          "start": {
+            "line": 200,
+            "column": 0
+          },
+          "end": {
+            "line": 202,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 116 \n * @param \n * {AxiosProxyConfig} proxyConfig \n * @param \n * {string} ca \n * @param \n * {boolean} rejectUnauthorized \n ",
-            "start": 4472,
-            "end": 4635,
-            "loc": {
-              "start": {
-                "line": 171,
-                "column": 0
-              },
-              "end": {
-                "line": 182,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 120 \n * @param \n * {string} ca \n * @param \n * {boolean} rejectUnauthorized \n ",
@@ -8723,22 +8756,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 4937,
-        "end": 5071,
-        "loc": {
-          "start": {
-            "line": 200,
-            "column": 0
-          },
-          "end": {
-            "line": 202,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n * @param \n * {UNKNOWN} env \n * @return \n * {undefined | undefined} \n ",
+            "start": 5072,
+            "end": 5187,
+            "loc": {
+              "start": {
+                "line": 203,
+                "column": 0
+              },
+              "end": {
+                "line": 212,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 4946,
@@ -9007,6 +9043,7 @@
                     },
                     "name": "https"
                   },
+                  "computed": false,
                   "property": {
                     "type": "Identifier",
                     "start": 5034,
@@ -9023,8 +9060,7 @@
                       "identifierName": "Agent"
                     },
                     "name": "Agent"
-                  },
-                  "computed": false
+                  }
                 },
                 "arguments": [
                   {
@@ -9041,6 +9077,9 @@
                         "column": 54
                       }
                     },
+                    "extra": {
+                      "trailingComma": 5064
+                    },
                     "properties": [
                       {
                         "type": "ObjectProperty",
@@ -9055,6 +9094,9 @@
                             "line": 201,
                             "column": 31
                           }
+                        },
+                        "extra": {
+                          "shorthand": true
                         },
                         "method": false,
                         "key": {
@@ -9092,9 +9134,6 @@
                             "identifierName": "ca"
                           },
                           "name": "ca"
-                        },
-                        "extra": {
-                          "shorthand": true
                         }
                       },
                       {
@@ -9111,6 +9150,9 @@
                             "column": 51
                           }
                         },
+                        "extra": {
+                          "shorthand": true
+                        },
                         "method": false,
                         "key": {
                           "type": "Identifier",
@@ -9147,41 +9189,32 @@
                             "identifierName": "rejectUnauthorized"
                           },
                           "name": "rejectUnauthorized"
-                        },
-                        "extra": {
-                          "shorthand": true
                         }
                       }
-                    ],
-                    "extra": {
-                      "trailingComma": 5064
-                    }
+                    ]
                   }
                 ]
               }
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 5190,
+        "end": 5720,
+        "loc": {
+          "start": {
+            "line": 215,
+            "column": 0
+          },
+          "end": {
+            "line": 231,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 120 \n * @param \n * {string} ca \n * @param \n * {boolean} rejectUnauthorized \n ",
-            "start": 4817,
-            "end": 4934,
-            "loc": {
-              "start": {
-                "line": 188,
-                "column": 0
-              },
-              "end": {
-                "line": 197,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n * @param \n * {UNKNOWN} env \n * @return \n * {undefined | undefined} \n ",
@@ -9198,22 +9231,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 5190,
-        "end": 5720,
-        "loc": {
-          "start": {
-            "line": 215,
-            "column": 0
-          },
-          "end": {
-            "line": 231,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n ",
+            "start": 5721,
+            "end": 5767,
+            "loc": {
+              "start": {
+                "line": 232,
+                "column": 0
+              },
+              "end": {
+                "line": 237,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 5199,
@@ -9469,6 +9505,24 @@
                   "column": 5
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "CommentLine",
+                  "value": " old school, the value is specified in the env var itself",
+                  "start": 5281,
+                  "end": 5340,
+                  "loc": {
+                    "start": {
+                      "line": 217,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 217,
+                      "column": 63
+                    }
+                  }
+                }
+              ],
               "test": {
                 "type": "MemberExpression",
                 "start": 5349,
@@ -9500,6 +9554,7 @@
                   },
                   "name": "env"
                 },
+                "computed": false,
                 "property": {
                   "type": "Identifier",
                   "start": 5353,
@@ -9516,8 +9571,7 @@
                     "identifierName": "npm_config_ca"
                   },
                   "name": "npm_config_ca"
-                },
-                "computed": false
+                }
               },
               "consequent": {
                 "type": "BlockStatement",
@@ -9579,6 +9633,7 @@
                         },
                         "name": "env"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 5389,
@@ -9595,32 +9650,13 @@
                           "identifierName": "npm_config_ca"
                         },
                         "name": "npm_config_ca"
-                      },
-                      "computed": false
+                      }
                     }
                   }
                 ],
                 "directives": []
               },
-              "alternate": null,
-              "leadingComments": [
-                {
-                  "type": "CommentLine",
-                  "value": " old school, the value is specified in the env var itself",
-                  "start": 5281,
-                  "end": 5340,
-                  "loc": {
-                    "start": {
-                      "line": 217,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 217,
-                      "column": 63
-                    }
-                  }
-                }
-              ]
+              "alternate": null
             },
             {
               "type": "IfStatement",
@@ -9667,6 +9703,7 @@
                   },
                   "name": "env"
                 },
+                "computed": false,
                 "property": {
                   "type": "Identifier",
                   "start": 5423,
@@ -9683,8 +9720,7 @@
                     "identifierName": "npm_config_cafile"
                   },
                   "name": "npm_config_cafile"
-                },
-                "computed": false
+                }
               },
               "consequent": {
                 "type": "BlockStatement",
@@ -9789,6 +9825,7 @@
                                 },
                                 "name": "fs"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 5480,
@@ -9805,8 +9842,7 @@
                                   "identifierName": "readFileSync"
                                 },
                                 "name": "readFileSync"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -9840,6 +9876,7 @@
                                   },
                                   "name": "env"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 5497,
@@ -9856,8 +9893,7 @@
                                     "identifierName": "npm_config_cafile"
                                   },
                                   "name": "npm_config_cafile"
-                                },
-                                "computed": false
+                                }
                               },
                               {
                                 "type": "ObjectExpression",
@@ -10075,6 +10111,7 @@
                                         },
                                         "name": "env"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 5650,
@@ -10091,8 +10128,7 @@
                                           "identifierName": "npm_config_cafile"
                                         },
                                         "name": "npm_config_cafile"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   ],
                                   "quasis": [
@@ -10203,26 +10239,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "TSTypeAliasDeclaration",
+        "start": 5770,
+        "end": 6004,
+        "loc": {
+          "start": {
+            "line": 240,
+            "column": 0
+          },
+          "end": {
+            "line": 262,
+            "column": 18
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n * @param \n * {UNKNOWN} env \n * @return \n * {undefined | undefined} \n ",
-            "start": 5072,
-            "end": 5187,
-            "loc": {
-              "start": {
-                "line": 203,
-                "column": 0
-              },
-              "end": {
-                "line": 212,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n ",
@@ -10239,22 +10272,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "TSTypeAliasDeclaration",
-        "start": 5770,
-        "end": 6004,
-        "loc": {
-          "start": {
-            "line": 240,
-            "column": 0
-          },
-          "end": {
-            "line": 262,
-            "column": 18
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 144 \n * @param \n * {UNKNOWN} env \n * @param \n * {UNKNOWN} candidateVariables \n * @return \n * {EnvVar} \n ",
+            "start": 6005,
+            "end": 6149,
+            "loc": {
+              "start": {
+                "line": 263,
+                "column": 0
+              },
+              "end": {
+                "line": 274,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 5775,
@@ -10301,6 +10337,42 @@
                   "column": 15
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 5786,
+                  "end": 5877,
+                  "loc": {
+                    "start": {
+                      "line": 241,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 250,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 5894,
+                  "end": 5985,
+                  "loc": {
+                    "start": {
+                      "line": 252,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 261,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "key": {
                 "type": "Identifier",
                 "start": 5879,
@@ -10349,26 +10421,23 @@
                     }
                   }
                 }
+              }
+            },
+            {
+              "type": "TSPropertySignature",
+              "start": 5987,
+              "end": 6001,
+              "loc": {
+                "start": {
+                  "line": 262,
+                  "column": 1
+                },
+                "end": {
+                  "line": 262,
+                  "column": 15
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 5786,
-                  "end": 5877,
-                  "loc": {
-                    "start": {
-                      "line": 241,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 250,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -10385,22 +10454,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "TSPropertySignature",
-              "start": 5987,
-              "end": 6001,
-              "loc": {
-                "start": {
-                  "line": 262,
-                  "column": 1
-                },
-                "end": {
-                  "line": 262,
-                  "column": 15
-                }
-              },
+              ],
               "key": {
                 "type": "Identifier",
                 "start": 5987,
@@ -10449,47 +10503,26 @@
                     }
                   }
                 }
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 5894,
-                  "end": 5985,
-                  "loc": {
-                    "start": {
-                      "line": 252,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 261,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n ",
-            "start": 5721,
-            "end": 5767,
-            "loc": {
-              "start": {
-                "line": 232,
-                "column": 0
-              },
-              "end": {
-                "line": 237,
-                "column": 3
               }
             }
+          ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 6152,
+        "end": 6395,
+        "loc": {
+          "start": {
+            "line": 277,
+            "column": 0
+          },
+          "end": {
+            "line": 283,
+            "column": 1
           }
-        ],
-        "trailingComments": [
+        },
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 144 \n * @param \n * {UNKNOWN} env \n * @param \n * {UNKNOWN} candidateVariables \n * @return \n * {EnvVar} \n ",
@@ -10506,22 +10539,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 6152,
-        "end": 6395,
-        "loc": {
-          "start": {
-            "line": 277,
-            "column": 0
-          },
-          "end": {
-            "line": 283,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 152 \n * @param \n * {string} protocol \n ",
+            "start": 6396,
+            "end": 6475,
+            "loc": {
+              "start": {
+                "line": 284,
+                "column": 0
+              },
+              "end": {
+                "line": 291,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 6161,
@@ -10916,6 +10952,7 @@
                         },
                         "name": "candidateVariables"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 6287,
@@ -10932,8 +10969,7 @@
                           "identifierName": "find"
                         },
                         "name": "find"
-                      },
-                      "computed": false
+                      }
                     },
                     "arguments": [
                       {
@@ -11035,6 +11071,7 @@
                                 },
                                 "name": "env"
                               },
+                              "computed": true,
                               "property": {
                                 "type": "Identifier",
                                 "start": 6308,
@@ -11051,8 +11088,7 @@
                                   "identifierName": "value"
                                 },
                                 "name": "value"
-                              },
-                              "computed": true
+                              }
                             }
                           }
                         }
@@ -11240,6 +11276,7 @@
                           },
                           "name": "env"
                         },
+                        "computed": true,
                         "property": {
                           "type": "Identifier",
                           "start": 6371,
@@ -11256,8 +11293,7 @@
                             "identifierName": "found"
                           },
                           "name": "found"
-                        },
-                        "computed": true
+                        }
                       }
                     }
                   ]
@@ -11282,26 +11318,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 6478,
+        "end": 6635,
+        "loc": {
+          "start": {
+            "line": 294,
+            "column": 0
+          },
+          "end": {
+            "line": 297,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 144 \n * @param \n * {UNKNOWN} env \n * @param \n * {UNKNOWN} candidateVariables \n * @return \n * {EnvVar} \n ",
-            "start": 6005,
-            "end": 6149,
-            "loc": {
-              "start": {
-                "line": 263,
-                "column": 0
-              },
-              "end": {
-                "line": 274,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 152 \n * @param \n * {string} protocol \n ",
@@ -11318,22 +11351,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 6478,
-        "end": 6635,
-        "loc": {
-          "start": {
-            "line": 294,
-            "column": 0
-          },
-          "end": {
-            "line": 297,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @param \n * {string} urlOrProtocol \n ",
+            "start": 6636,
+            "end": 6720,
+            "loc": {
+              "start": {
+                "line": 298,
+                "column": 0
+              },
+              "end": {
+                "line": 305,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 6487,
@@ -11556,6 +11592,7 @@
                       }
                     ]
                   },
+                  "computed": false,
                   "property": {
                     "type": "Identifier",
                     "start": 6591,
@@ -11572,8 +11609,7 @@
                       "identifierName": "find"
                     },
                     "name": "find"
-                  },
-                  "computed": false
+                  }
                 },
                 "arguments": [
                   {
@@ -11668,26 +11704,23 @@
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 6723,
+        "end": 6838,
+        "loc": {
+          "start": {
+            "line": 308,
+            "column": 0
+          },
+          "end": {
+            "line": 311,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 152 \n * @param \n * {string} protocol \n ",
-            "start": 6396,
-            "end": 6475,
-            "loc": {
-              "start": {
-                "line": 284,
-                "column": 0
-              },
-              "end": {
-                "line": 291,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @param \n * {string} urlOrProtocol \n ",
@@ -11704,22 +11737,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 6723,
-        "end": 6838,
-        "loc": {
-          "start": {
-            "line": 308,
-            "column": 0
-          },
-          "end": {
-            "line": 311,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 6732,
@@ -11894,6 +11912,7 @@
                       },
                       "name": "urlOrProtocol"
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 6815,
@@ -11910,8 +11929,7 @@
                         "identifierName": "startsWith"
                       },
                       "name": "startsWith"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -11940,25 +11958,7 @@
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @param \n * {string} urlOrProtocol \n ",
-            "start": 6636,
-            "end": 6720,
-            "loc": {
-              "start": {
-                "line": 298,
-                "column": 0
-              },
-              "end": {
-                "line": 305,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

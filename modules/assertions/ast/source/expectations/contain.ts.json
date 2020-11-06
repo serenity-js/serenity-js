@@ -131,6 +131,24 @@
             "column": 47
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentLine",
+            "value": " tslint:disable-line:no-submodule-imports",
+            "start": 96,
+            "end": 139,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 48
+              },
+              "end": {
+                "line": 2,
+                "column": 91
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +220,23 @@
             "raw": "'tiny-types/lib/objects'"
           },
           "value": "tiny-types/lib/objects"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 141,
+        "end": 186,
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 45
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentLine",
             "value": " tslint:disable-line:no-submodule-imports",
@@ -220,22 +253,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ImportDeclaration",
-        "start": 141,
-        "end": 186,
-        "loc": {
-          "start": {
-            "line": 4,
-            "column": 0
-          },
-          "end": {
-            "line": 4,
-            "column": 45
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n * @param \n * {Answerable} expected \n * @return \n * {Expectation} \n ",
+            "start": 187,
+            "end": 298,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -307,26 +343,23 @@
             "raw": "'../Expectation'"
           },
           "value": "../Expectation"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 301,
+        "end": 573,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 20,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentLine",
-            "value": " tslint:disable-line:no-submodule-imports",
-            "start": 96,
-            "end": 139,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 48
-              },
-              "end": {
-                "line": 2,
-                "column": 91
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n * @param \n * {Answerable} expected \n * @return \n * {Expectation} \n ",
@@ -343,22 +376,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 301,
-        "end": 573,
-        "loc": {
-          "start": {
-            "line": 17,
-            "column": 0
-          },
-          "end": {
-            "line": 20,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -788,6 +806,7 @@
                           },
                           "name": "Expectation"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 411,
@@ -804,8 +823,7 @@
                             "identifierName": "thatActualShould"
                           },
                           "name": "thatActualShould"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -943,6 +961,7 @@
                         ]
                       }
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 472,
@@ -959,8 +978,7 @@
                         "identifierName": "soThat"
                       },
                       "name": "soThat"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -1109,6 +1127,7 @@
                                   },
                                   "name": "actualValue"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 528,
@@ -1125,8 +1144,7 @@
                                     "identifierName": "findIndex"
                                   },
                                   "name": "findIndex"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -1265,25 +1283,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n * @param \n * {Answerable} expected \n * @return \n * {Expectation} \n ",
-            "start": 187,
-            "end": 298,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

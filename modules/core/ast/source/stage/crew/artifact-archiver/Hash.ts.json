@@ -131,6 +131,40 @@
             "column": 57
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n ",
+            "start": 95,
+            "end": 139,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 142,
+            "end": 161,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -300,8 +334,23 @@
             "raw": "'tiny-types'"
           },
           "value": "tiny-types"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 162,
+        "end": 907,
+        "loc": {
+          "start": {
+            "line": 14,
+            "column": 0
+          },
+          "end": {
+            "line": 68,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n ",
@@ -334,22 +383,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 162,
-        "end": 907,
-        "loc": {
-          "start": {
-            "line": 14,
-            "column": 0
-          },
-          "end": {
-            "line": 68,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -430,6 +464,24 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n * @param \n * {string} value \n * @return \n * {Hash} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 199,
+                    "end": 340,
+                    "loc": {
+                      "start": {
+                        "line": 15,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -720,6 +772,7 @@
                                       }
                                     ]
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 422,
@@ -736,8 +789,7 @@
                                       "identifierName": "update"
                                     },
                                     "name": "update"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -759,6 +811,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 436,
@@ -775,8 +828,7 @@
                                   "identifierName": "digest"
                                 },
                                 "name": "digest"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -806,25 +858,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n * @param \n * {string} value \n * @return \n * {Hash} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 199,
-                    "end": 340,
-                    "loc": {
-                      "start": {
-                        "line": 15,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 28,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -840,6 +874,24 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 590,
+                    "end": 682,
+                    "loc": {
+                      "start": {
+                        "line": 38,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 47,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1079,6 +1131,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 545,
@@ -1095,9 +1148,9 @@
                                   "identifierName": "constructor"
                                 },
                                 "name": "constructor"
-                              },
-                              "computed": false
+                              }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 557,
@@ -1114,8 +1167,7 @@
                                 "identifierName": "name"
                               },
                               "name": "name"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "Identifier",
@@ -1172,8 +1224,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 689,
+                "end": 738,
+                "loc": {
+                  "start": {
+                    "line": 50,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 52,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1190,22 +1257,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 689,
-                "end": 738,
-                "loc": {
-                  "start": {
-                    "line": 50,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 52,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 739,
+                    "end": 831,
+                    "loc": {
+                      "start": {
+                        "line": 53,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 62,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1318,6 +1388,7 @@
                             }
                           }
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 726,
@@ -1334,32 +1405,28 @@
                             "identifierName": "value"
                           },
                           "name": "value"
-                        },
-                        "computed": false
+                        }
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 838,
+                "end": 905,
+                "loc": {
+                  "start": {
+                    "line": 65,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 67,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 590,
-                    "end": 682,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 47,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1376,22 +1443,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 838,
-                "end": 905,
-                "loc": {
-                  "start": {
-                    "line": 65,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 67,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1532,6 +1584,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 876,
@@ -1548,9 +1601,9 @@
                                 "identifierName": "value"
                               },
                               "name": "value"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 882,
@@ -1567,8 +1620,7 @@
                               "identifierName": "substring"
                             },
                             "name": "substring"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1616,25 +1668,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 739,
-                    "end": 831,
-                    "loc": {
-                      "start": {
-                        "line": 53,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 62,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1673,41 +1707,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n ",
-            "start": 95,
-            "end": 139,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 142,
-            "end": 161,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -305,6 +305,24 @@
             "column": 44
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
+            "start": 182,
+            "end": 226,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -376,8 +394,23 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 229,
+        "end": 2407,
+        "loc": {
+          "start": {
+            "line": 13,
+            "column": 0
+          },
+          "end": {
+            "line": 72,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
@@ -394,22 +427,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 229,
-        "end": 2407,
-        "loc": {
-          "start": {
-            "line": 13,
-            "column": 0
-          },
-          "end": {
-            "line": 72,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -474,6 +492,40 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 252,
+                    "end": 341,
+                    "loc": {
+                      "start": {
+                        "line": 14,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 23,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Creates a {@link Question} that reads the entries of the browser log\n     *  so that they can be asserted on.\n     *\n     *  Please note that in order to ensure that the automated test has access to the browser log,\n     *  Protractor needs to be configured with the desired logging level, as per the example below.\n     *\n     * @example <caption>Enabling Protractor browser logging</caption>\n     * // protractor.conf.js\n     * exports.config = {\n     *   capabilities: {\n     *     loggingPrefs: {\n     *         // available options: OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL\n     *         browser: 'SEVERE'\n     *     },\n     *   }\n     * }\n     *\n     * @example <caption>Ensure the app didn't log anything to the console during the test</caption>\n     * import { Actor, BrowseTheWeb, Browser } from '@serenity-js/core';\n     * import { Ensure, property, equals } from '@serenity-js/assertions';\n     *\n     * actor.attemptsTo(\n     *   Ensure.that(Browser.log(), property('length', equals(0))),\n     * );\n     *\n     * @example <caption>Mark the test as \"compromised\" if the server responds with a 500 to any AJAX request during the test</caption>\n     * import { Actor, BrowseTheWeb, Browser, TestCompromisedError } from '@serenity-js/core';\n     * import { Ensure, property, equals, not, contrainAtLeastOneItemThat } from '@serenity-js/assertions'\n     *\n     * actor.attemptsTo(\n     *   Ensure.that(Browser.log(),\n     *     not(contrainAtLeastOneItemThat(\n     *       property('message', includes('the server responded with a status of 500'))\n     *     ))\n     *   ).otherwiseFailWith(TestCompromisedError, 'The server is down'),\n     * );\n     *\n     * @see https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#loggingpreferences-json-object\n     * @returns {Question<Promise<logging.Entry[]>>}\n     ",
+                    "start": 348,
+                    "end": 2221,
+                    "loc": {
+                      "start": {
+                        "line": 26,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 67,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -572,6 +624,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2265,
@@ -588,8 +641,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -827,6 +879,7 @@
                                                   },
                                                   "name": "BrowseTheWeb"
                                                 },
+                                                "computed": false,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 2356,
@@ -843,8 +896,7 @@
                                                     "identifierName": "as"
                                                   },
                                                   "name": "as"
-                                                },
-                                                "computed": false
+                                                }
                                               },
                                               "arguments": [
                                                 {
@@ -866,6 +918,7 @@
                                                 }
                                               ]
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 2366,
@@ -882,11 +935,11 @@
                                                 "identifierName": "manage"
                                               },
                                               "name": "manage"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": []
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2375,
@@ -903,11 +956,11 @@
                                             "identifierName": "logs"
                                           },
                                           "name": "logs"
-                                        },
-                                        "computed": false
+                                        }
                                       },
                                       "arguments": []
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 2382,
@@ -924,8 +977,7 @@
                                         "identifierName": "get"
                                       },
                                       "name": "get"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1103,41 +1155,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 252,
-                    "end": 341,
-                    "loc": {
-                      "start": {
-                        "line": 14,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 23,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Creates a {@link Question} that reads the entries of the browser log\n     *  so that they can be asserted on.\n     *\n     *  Please note that in order to ensure that the automated test has access to the browser log,\n     *  Protractor needs to be configured with the desired logging level, as per the example below.\n     *\n     * @example <caption>Enabling Protractor browser logging</caption>\n     * // protractor.conf.js\n     * exports.config = {\n     *   capabilities: {\n     *     loggingPrefs: {\n     *         // available options: OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL\n     *         browser: 'SEVERE'\n     *     },\n     *   }\n     * }\n     *\n     * @example <caption>Ensure the app didn't log anything to the console during the test</caption>\n     * import { Actor, BrowseTheWeb, Browser } from '@serenity-js/core';\n     * import { Ensure, property, equals } from '@serenity-js/assertions';\n     *\n     * actor.attemptsTo(\n     *   Ensure.that(Browser.log(), property('length', equals(0))),\n     * );\n     *\n     * @example <caption>Mark the test as \"compromised\" if the server responds with a 500 to any AJAX request during the test</caption>\n     * import { Actor, BrowseTheWeb, Browser, TestCompromisedError } from '@serenity-js/core';\n     * import { Ensure, property, equals, not, contrainAtLeastOneItemThat } from '@serenity-js/assertions'\n     *\n     * actor.attemptsTo(\n     *   Ensure.that(Browser.log(),\n     *     not(contrainAtLeastOneItemThat(\n     *       property('message', includes('the server responded with a status of 500'))\n     *     ))\n     *   ).otherwiseFailWith(TestCompromisedError, 'The server is down'),\n     * );\n     *\n     * @see https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#loggingpreferences-json-object\n     * @returns {Question<Promise<logging.Entry[]>>}\n     ",
-                    "start": 348,
-                    "end": 2221,
-                    "loc": {
-                      "start": {
-                        "line": 26,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 67,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1160,25 +1178,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
-            "start": 182,
-            "end": 226,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -131,6 +131,24 @@
             "column": 45
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n * @param \n * {Answerable} expected \n * @return \n * {Expectation} \n ",
+            "start": 95,
+            "end": 206,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +220,23 @@
             "raw": "'../Expectation'"
           },
           "value": "../Expectation"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 209,
+        "end": 465,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 19,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n * @param \n * {Answerable} expected \n * @return \n * {Expectation} \n ",
@@ -220,22 +253,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 209,
-        "end": 465,
-        "loc": {
-          "start": {
-            "line": 16,
-            "column": 0
-          },
-          "end": {
-            "line": 19,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -551,6 +569,7 @@
                           },
                           "name": "Expectation"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 312,
@@ -567,8 +586,7 @@
                             "identifierName": "thatActualShould"
                           },
                           "name": "thatActualShould"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -675,6 +693,7 @@
                         ]
                       }
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 395,
@@ -691,8 +710,7 @@
                         "identifierName": "soThat"
                       },
                       "name": "soThat"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -824,25 +842,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n * @param \n * {Answerable} expected \n * @return \n * {Expectation} \n ",
-            "start": 95,
-            "end": 206,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

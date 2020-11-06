@@ -354,6 +354,24 @@
             "column": 44
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
+            "start": 180,
+            "end": 224,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -425,8 +443,23 @@
             "raw": "'./DomainEvent'"
           },
           "value": "./DomainEvent"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 227,
+        "end": 1139,
+        "loc": {
+          "start": {
+            "line": 13,
+            "column": 0
+          },
+          "end": {
+            "line": 59,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
@@ -443,22 +476,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 227,
-        "end": 1139,
-        "loc": {
-          "start": {
-            "line": 13,
-            "column": 0
-          },
-          "end": {
-            "line": 59,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -539,6 +557,24 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {JSONObject} o \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 283,
+                    "end": 401,
+                    "loc": {
+                      "start": {
+                        "line": 14,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 25,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -734,6 +770,7 @@
                                 },
                                 "name": "ErrorSerialiser"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 509,
@@ -750,8 +787,7 @@
                                   "identifierName": "deserialise"
                                 },
                                 "name": "deserialise"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -799,6 +835,7 @@
                                     },
                                     "name": "o"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 523,
@@ -815,8 +852,7 @@
                                       "identifierName": "error"
                                     },
                                     "name": "error"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "typeAnnotation": {
                                   "type": "TSStringKeyword",
@@ -881,6 +917,7 @@
                                 },
                                 "name": "CorrelationId"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 567,
@@ -897,8 +934,7 @@
                                   "identifierName": "fromJSON"
                                 },
                                 "name": "fromJSON"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -946,6 +982,7 @@
                                     },
                                     "name": "o"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 578,
@@ -962,8 +999,7 @@
                                       "identifierName": "correlationId"
                                     },
                                     "name": "correlationId"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "typeAnnotation": {
                                   "type": "TSStringKeyword",
@@ -1028,6 +1064,7 @@
                                 },
                                 "name": "Timestamp"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 626,
@@ -1044,8 +1081,7 @@
                                   "identifierName": "fromJSON"
                                 },
                                 "name": "fromJSON"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1093,6 +1129,7 @@
                                     },
                                     "name": "o"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 637,
@@ -1109,8 +1146,7 @@
                                       "identifierName": "timestamp"
                                     },
                                     "name": "timestamp"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "typeAnnotation": {
                                   "type": "TSStringKeyword",
@@ -1135,25 +1171,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {JSONObject} o \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 283,
-                    "end": 401,
-                    "loc": {
-                      "start": {
-                        "line": 14,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 25,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -1169,6 +1187,24 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @public \n * \\TRUE \n ",
+                    "start": 857,
+                    "end": 924,
+                    "loc": {
+                      "start": {
+                        "line": 42,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 49,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1502,8 +1538,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 931,
+                "end": 1137,
+                "loc": {
+                  "start": {
+                    "line": 52,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 58,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @public \n * \\TRUE \n ",
@@ -1520,22 +1571,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 931,
-                "end": 1137,
-                "loc": {
-                  "start": {
-                    "line": 52,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 58,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1602,6 +1638,9 @@
                             "line": 57,
                             "column": 9
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 1119
                         },
                         "properties": [
                           {
@@ -1695,6 +1734,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 991,
@@ -1711,9 +1751,9 @@
                                       "identifierName": "correlationId"
                                     },
                                     "name": "correlationId"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1005,
@@ -1730,8 +1770,7 @@
                                     "identifierName": "toJSON"
                                   },
                                   "name": "toJSON"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             }
@@ -1815,6 +1854,7 @@
                                   },
                                   "name": "ErrorSerialiser"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1050,
@@ -1831,8 +1871,7 @@
                                     "identifierName": "serialise"
                                   },
                                   "name": "serialise"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -1864,6 +1903,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1065,
@@ -1880,8 +1920,7 @@
                                       "identifierName": "error"
                                     },
                                     "name": "error"
-                                  },
-                                  "computed": false
+                                  }
                                 }
                               ]
                             }
@@ -1977,6 +2016,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1101,
@@ -1993,9 +2033,9 @@
                                       "identifierName": "timestamp"
                                     },
                                     "name": "timestamp"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1111,
@@ -2012,39 +2052,17 @@
                                     "identifierName": "toJSON"
                                   },
                                   "name": "toJSON"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             }
                           }
-                        ],
-                        "extra": {
-                          "trailingComma": 1119
-                        }
+                        ]
                       }
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @public \n * \\TRUE \n ",
-                    "start": 857,
-                    "end": 924,
-                    "loc": {
-                      "start": {
-                        "line": 42,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 49,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -2067,25 +2085,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
-            "start": 180,
-            "end": 224,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

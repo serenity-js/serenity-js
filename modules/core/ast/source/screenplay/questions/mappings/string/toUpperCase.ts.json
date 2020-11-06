@@ -316,6 +316,40 @@
             "column": 65
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 175,
+            "end": 260,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Converts all the alphabetic characters in a string to uppercase.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase\n ",
+            "start": 263,
+            "end": 514,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -387,8 +421,23 @@
             "raw": "'../AnswerMappingFunction'"
           },
           "value": "../AnswerMappingFunction"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 515,
+        "end": 763,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 27,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @return \n * {AnswerMappingFunction} \n ",
@@ -421,22 +470,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 515,
-        "end": 763,
-        "loc": {
-          "start": {
-            "line": 22,
-            "column": 0
-          },
-          "end": {
-            "line": 27,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -911,6 +945,7 @@
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 747,
@@ -927,8 +962,7 @@
                             "identifierName": "toUpperCase"
                           },
                           "name": "toUpperCase"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": []
                     }
@@ -973,41 +1007,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 175,
-            "end": 260,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Converts all the alphabetic characters in a string to uppercase.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase\n ",
-            "start": 263,
-            "end": 514,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -131,6 +131,40 @@
             "column": 28
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 70,
+            "end": 115,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Indicates that execution of a given scene\n *  has been retried for the `currentRetry`-th time.\n *\n * @access public\n ",
+            "start": 118,
+            "end": 254,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -202,8 +236,23 @@
             "raw": "'./Tag'"
           },
           "value": "./Tag"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 255,
+        "end": 887,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 55,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
@@ -236,22 +285,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 255,
-        "end": 887,
-        "loc": {
-          "start": {
-            "line": 18,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @param \n * {undefined} n \n * @return \n * {string} \n ",
+            "start": 888,
+            "end": 987,
+            "loc": {
+              "start": {
+                "line": 56,
+                "column": 0
+              },
+              "end": {
+                "line": 65,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 55,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n * @param n\n ",
+            "start": 990,
+            "end": 1021,
+            "loc": {
+              "start": {
+                "line": 68,
+                "column": 0
+              },
+              "end": {
+                "line": 71,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -332,6 +400,42 @@
                     "column": 35
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 302,
+                    "end": 391,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {JSONObject} o \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 429,
+                    "end": 548,
+                    "loc": {
+                      "start": {
+                        "line": 31,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 42,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "readonly": true,
                 "static": true,
                 "key": {
@@ -371,26 +475,23 @@
                     "raw": "'retry'"
                   },
                   "value": "retry"
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 555,
+                "end": 677,
+                "loc": {
+                  "start": {
+                    "line": 45,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 47,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 302,
-                    "end": 391,
-                    "loc": {
-                      "start": {
-                        "line": 19,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 28,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {JSONObject} o \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -407,22 +508,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 555,
-                "end": 677,
-                "loc": {
-                  "start": {
-                    "line": 45,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 47,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -618,6 +704,7 @@
                                 },
                                 "name": "o"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 629,
@@ -634,8 +721,7 @@
                                   "identifierName": "retry"
                                 },
                                 "name": "retry"
-                              },
-                              "computed": false
+                              }
                             },
                             "typeAnnotation": {
                               "type": "TSNumberKeyword",
@@ -698,6 +784,7 @@
                                 },
                                 "name": "o"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 648,
@@ -714,8 +801,7 @@
                                   "identifierName": "description"
                                 },
                                 "name": "description"
-                              },
-                              "computed": false
+                              }
                             },
                             "typeAnnotation": {
                               "type": "TSStringKeyword",
@@ -738,25 +824,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {JSONObject} o \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 429,
-                    "end": 548,
-                    "loc": {
-                      "start": {
-                        "line": 31,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 42,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -1196,6 +1264,7 @@
                               },
                               "name": "ExecutionRetriedTag"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 873,
@@ -1212,8 +1281,7 @@
                                 "identifierName": "Type"
                               },
                               "name": "Type"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
@@ -1292,42 +1360,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 1022,
+        "end": 1120,
+        "loc": {
+          "start": {
+            "line": 72,
+            "column": 0
+          },
+          "end": {
+            "line": 74,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 70,
-            "end": 115,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Indicates that execution of a given scene\n *  has been retried for the `currentRetry`-th time.\n *\n * @access public\n ",
-            "start": 118,
-            "end": 254,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @param \n * {undefined} n \n * @return \n * {string} \n ",
@@ -1360,22 +1409,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 1022,
-        "end": 1120,
-        "loc": {
-          "start": {
-            "line": 72,
-            "column": 0
-          },
-          "end": {
-            "line": 74,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 1031,
@@ -1578,6 +1612,7 @@
                       }
                     ]
                   },
+                  "computed": true,
                   "property": {
                     "type": "BinaryExpression",
                     "start": 1078,
@@ -1620,6 +1655,10 @@
                             "column": 50
                           }
                         },
+                        "extra": {
+                          "parenthesized": true,
+                          "parenStart": 1078
+                        },
                         "left": {
                           "type": "BinaryExpression",
                           "start": 1079,
@@ -1647,6 +1686,10 @@
                                 "line": 73,
                                 "column": 38
                               }
+                            },
+                            "extra": {
+                              "parenthesized": true,
+                              "parenStart": 1079
                             },
                             "left": {
                               "type": "Identifier",
@@ -1685,10 +1728,6 @@
                                 "raw": "90"
                               },
                               "value": 90
-                            },
-                            "extra": {
-                              "parenthesized": true,
-                              "parenStart": 1079
                             }
                           },
                           "operator": "%",
@@ -1733,10 +1772,6 @@
                             "raw": "10"
                           },
                           "value": 10
-                        },
-                        "extra": {
-                          "parenthesized": true,
-                          "parenStart": 1078
                         }
                       },
                       "operator": "%",
@@ -1782,8 +1817,7 @@
                       },
                       "value": 1
                     }
-                  },
-                  "computed": true
+                  }
                 },
                 "operator": "||",
                 "right": {
@@ -1810,41 +1844,7 @@
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @param \n * {undefined} n \n * @return \n * {string} \n ",
-            "start": 888,
-            "end": 987,
-            "loc": {
-              "start": {
-                "line": 56,
-                "column": 0
-              },
-              "end": {
-                "line": 65,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @private\n * @param n\n ",
-            "start": 990,
-            "end": 1021,
-            "loc": {
-              "start": {
-                "line": 68,
-                "column": 0
-              },
-              "end": {
-                "line": 71,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

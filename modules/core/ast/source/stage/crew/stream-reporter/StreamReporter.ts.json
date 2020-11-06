@@ -300,6 +300,40 @@
             "column": 56
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
+            "start": 182,
+            "end": 227,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/)\n *  to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(process.stdout) ],\n * });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n * import fs = require('fs');\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(fs.createWriteStream('./events.ndjson')) ],\n * });\n *\n * @implements {StageCrewMember}\n ",
+            "start": 230,
+            "end": 922,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 35,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -371,8 +405,23 @@
             "raw": "'../../StageCrewMember'"
           },
           "value": "../../StageCrewMember"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 923,
+        "end": 2458,
+        "loc": {
+          "start": {
+            "line": 36,
+            "column": 0
+          },
+          "end": {
+            "line": 101,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
@@ -405,22 +454,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 923,
-        "end": 2458,
-        "loc": {
-          "start": {
-            "line": 36,
-            "column": 0
-          },
-          "end": {
-            "line": 101,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -519,6 +553,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {WriteStream} output - A WriteStream that should receive the output\n     * @param {Stage} [stage=null] - The stage this {@link StageCrewMember} should be assigned to\n     ",
+                    "start": 985,
+                    "end": 1176,
+                    "loc": {
+                      "start": {
+                        "line": 38,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 41,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
+                    "start": 1317,
+                    "end": 1447,
+                    "loc": {
+                      "start": {
+                        "line": 47,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 58,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     ",
+                    "start": 1454,
+                    "end": 1825,
+                    "loc": {
+                      "start": {
+                        "line": 61,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 69,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -668,6 +754,7 @@
                           },
                           "name": "process"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 1249,
@@ -684,8 +771,7 @@
                             "identifierName": "stdout"
                           },
                           "name": "stdout"
-                        },
-                        "computed": false
+                        }
                       }
                     }
                   },
@@ -817,26 +903,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1830,
+                "end": 1934,
+                "loc": {
+                  "start": {
+                    "line": 70,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 72,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {WriteStream} output - A WriteStream that should receive the output\n     * @param {Stage} [stage=null] - The stage this {@link StageCrewMember} should be assigned to\n     ",
-                    "start": 985,
-                    "end": 1176,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 41,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
@@ -869,22 +952,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1830,
-                "end": 1934,
-                "loc": {
-                  "start": {
-                    "line": 70,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 1935,
+                    "end": 2060,
+                    "loc": {
+                      "start": {
+                        "line": 73,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 84,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 72,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
+                    "start": 2067,
+                    "end": 2279,
+                    "loc": {
+                      "start": {
+                        "line": 87,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 95,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1111,6 +1213,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1913,
@@ -1127,8 +1230,7 @@
                                 "identifierName": "output"
                               },
                               "name": "output"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "Identifier",
@@ -1152,42 +1254,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2284,
+                "end": 2456,
+                "loc": {
+                  "start": {
+                    "line": 96,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 100,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
-                    "start": 1317,
-                    "end": 1447,
-                    "loc": {
-                      "start": {
-                        "line": 47,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 58,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     ",
-                    "start": 1454,
-                    "end": 1825,
-                    "loc": {
-                      "start": {
-                        "line": 61,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 69,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -1220,22 +1303,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2284,
-                "end": 2456,
-                "loc": {
-                  "start": {
-                    "line": 96,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 100,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1398,6 +1466,9 @@
                             "column": 9
                           }
                         },
+                        "extra": {
+                          "trailingComma": 2438
+                        },
                         "callee": {
                           "type": "MemberExpression",
                           "start": 2329,
@@ -1441,6 +1512,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2334,
@@ -1457,9 +1529,9 @@
                                 "identifierName": "output"
                               },
                               "name": "output"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 2341,
@@ -1476,11 +1548,7 @@
                               "identifierName": "write"
                             },
                             "name": "write"
-                          },
-                          "computed": false
-                        },
-                        "extra": {
-                          "trailingComma": 2438
+                          }
                         },
                         "arguments": [
                           {
@@ -1542,6 +1610,7 @@
                                   },
                                   "name": "JSON"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 2365,
@@ -1558,8 +1627,7 @@
                                     "identifierName": "stringify"
                                   },
                                   "name": "stringify"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -1656,6 +1724,7 @@
                                             },
                                             "name": "event"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2389,
@@ -1672,9 +1741,9 @@
                                               "identifierName": "constructor"
                                             },
                                             "name": "constructor"
-                                          },
-                                          "computed": false
+                                          }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 2401,
@@ -1691,8 +1760,7 @@
                                             "identifierName": "name"
                                           },
                                           "name": "name"
-                                        },
-                                        "computed": false
+                                        }
                                       }
                                     },
                                     {
@@ -1774,6 +1842,7 @@
                                             },
                                             "name": "event"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 2420,
@@ -1790,8 +1859,7 @@
                                               "identifierName": "toJSON"
                                             },
                                             "name": "toJSON"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": []
                                       }
@@ -1827,41 +1895,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 1935,
-                    "end": 2060,
-                    "loc": {
-                      "start": {
-                        "line": 73,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 84,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
-                    "start": 2067,
-                    "end": 2279,
-                    "loc": {
-                      "start": {
-                        "line": 87,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 95,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1900,41 +1934,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
-            "start": 182,
-            "end": 227,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/)\n *  to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(process.stdout) ],\n * });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n * import fs = require('fs');\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(fs.createWriteStream('./events.ndjson')) ],\n * });\n *\n * @implements {StageCrewMember}\n ",
-            "start": 230,
-            "end": 922,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 35,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -131,6 +131,40 @@
             "column": 38
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {any} jasmineConstructor \n * @param \n * {UNKNOWN} wrappers \n ",
+            "start": 101,
+            "end": 220,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Monkey-patches Jasmine domain model constructors so that they\n *  record information about the file system location of the caller function.\n *\n *  This helps to make reporting more accurate.\n *\n * @param jasmineConstructor - A Jasmine constructor function to be patched\n * @param {object} wrappers - Attributes to wrap when the monkey-patched Jasmine constructor is invoked\n ",
+            "start": 223,
+            "end": 617,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 25,
+                "column": 3
+              }
+            }
+          }
+        ],
         "declarations": [
           {
             "type": "VariableDeclarator",
@@ -198,8 +232,23 @@
             }
           }
         ],
-        "kind": "const",
-        "trailingComments": [
+        "kind": "const"
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 618,
+        "end": 1306,
+        "loc": {
+          "start": {
+            "line": 26,
+            "column": 0
+          },
+          "end": {
+            "line": 49,
+            "column": 1
+          }
+        },
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {any} jasmineConstructor \n * @param \n * {UNKNOWN} wrappers \n ",
@@ -232,22 +281,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 618,
-        "end": 1306,
-        "loc": {
-          "start": {
-            "line": 26,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 46 \n ",
+            "start": 1307,
+            "end": 1352,
+            "loc": {
+              "start": {
+                "line": 50,
+                "column": 0
+              },
+              "end": {
+                "line": 55,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 49,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Retrieves the file system location of the caller function.\n *\n * @package\n ",
+            "start": 1355,
+            "end": 1449,
+            "loc": {
+              "start": {
+                "line": 58,
+                "column": 0
+              },
+              "end": {
+                "line": 63,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -989,6 +1057,7 @@
                                       },
                                       "name": "Object"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 855,
@@ -1005,8 +1074,7 @@
                                         "identifierName": "keys"
                                       },
                                       "name": "keys"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -1028,6 +1096,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 870,
@@ -1044,8 +1113,7 @@
                                     "identifierName": "forEach"
                                   },
                                   "name": "forEach"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -1159,6 +1227,7 @@
                                               },
                                               "name": "attrs"
                                             },
+                                            "computed": true,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 905,
@@ -1175,8 +1244,7 @@
                                                 "identifierName": "key"
                                               },
                                               "name": "key"
-                                            },
-                                            "computed": true
+                                            }
                                           },
                                           "right": {
                                             "type": "CallExpression",
@@ -1223,6 +1291,7 @@
                                                 },
                                                 "name": "wrappers"
                                               },
+                                              "computed": true,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 921,
@@ -1239,8 +1308,7 @@
                                                   "identifierName": "key"
                                                 },
                                                 "name": "key"
-                                              },
-                                              "computed": true
+                                              }
                                             },
                                             "arguments": [
                                               {
@@ -1274,6 +1342,7 @@
                                                   },
                                                   "name": "attrs"
                                                 },
+                                                "computed": true,
                                                 "property": {
                                                   "type": "Identifier",
                                                   "start": 932,
@@ -1290,8 +1359,7 @@
                                                     "identifierName": "key"
                                                   },
                                                   "name": "key"
-                                                },
-                                                "computed": true
+                                                }
                                               }
                                             ]
                                           }
@@ -1479,6 +1547,7 @@
                                     },
                                     "name": "instance"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1025,
@@ -1495,9 +1564,9 @@
                                       "identifierName": "result"
                                     },
                                     "name": "result"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1032,
@@ -1514,8 +1583,7 @@
                                     "identifierName": "location"
                                   },
                                   "name": "location"
-                                },
-                                "computed": false
+                                }
                               },
                               "right": {
                                 "type": "CallExpression",
@@ -1707,6 +1775,7 @@
                               },
                               "name": "Object"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1106,
@@ -1723,8 +1792,7 @@
                                 "identifierName": "getOwnPropertyNames"
                               },
                               "name": "getOwnPropertyNames"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -1746,6 +1814,7 @@
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 1155,
@@ -1762,8 +1831,7 @@
                             "identifierName": "filter"
                           },
                           "name": "filter"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -1785,6 +1853,7 @@
                         }
                       ]
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 1190,
@@ -1801,8 +1870,7 @@
                         "identifierName": "forEach"
                       },
                       "name": "forEach"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -1916,6 +1984,7 @@
                                   },
                                   "name": "result"
                                 },
+                                "computed": true,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1231,
@@ -1932,8 +2001,7 @@
                                     "identifierName": "property"
                                   },
                                   "name": "property"
-                                },
-                                "computed": true
+                                }
                               },
                               "right": {
                                 "type": "MemberExpression",
@@ -1966,6 +2034,7 @@
                                   },
                                   "name": "jasmineConstructor"
                                 },
+                                "computed": true,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1262,
@@ -1982,8 +2051,7 @@
                                     "identifierName": "property"
                                   },
                                   "name": "property"
-                                },
-                                "computed": true
+                                }
                               }
                             }
                           }
@@ -2097,42 +2165,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 1450,
+        "end": 1874,
+        "loc": {
+          "start": {
+            "line": 64,
+            "column": 0
+          },
+          "end": {
+            "line": 76,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @param \n * {any} jasmineConstructor \n * @param \n * {UNKNOWN} wrappers \n ",
-            "start": 101,
-            "end": 220,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Monkey-patches Jasmine domain model constructors so that they\n *  record information about the file system location of the caller function.\n *\n *  This helps to make reporting more accurate.\n *\n * @param jasmineConstructor - A Jasmine constructor function to be patched\n * @param {object} wrappers - Attributes to wrap when the monkey-patched Jasmine constructor is invoked\n ",
-            "start": 223,
-            "end": 617,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 25,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 46 \n ",
@@ -2165,22 +2214,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 1450,
-        "end": 1874,
-        "loc": {
-          "start": {
-            "line": 64,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {string} property \n ",
+            "start": 1875,
+            "end": 1953,
+            "loc": {
+              "start": {
+                "line": 77,
+                "column": 0
+              },
+              "end": {
+                "line": 84,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 76,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Checks if a given property is likely to be a static method or a static field on the constructor function.\n *\n * @param {string} property - name of the property to be checked\n *\n * @package\n ",
+            "start": 1956,
+            "end": 2165,
+            "loc": {
+              "start": {
+                "line": 87,
+                "column": 0
+              },
+              "end": {
+                "line": 94,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 1459,
@@ -2363,6 +2431,7 @@
                                 },
                                 "name": "parser"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1505,
@@ -2379,8 +2448,7 @@
                                   "identifierName": "parse"
                                 },
                                 "name": "parse"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -2418,6 +2486,7 @@
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1533,
@@ -2434,8 +2503,7 @@
                               "identifierName": "filter"
                             },
                             "name": "filter"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2538,6 +2606,7 @@
                                     "pattern": "(node_modules)",
                                     "flags": ""
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1568,
@@ -2554,8 +2623,7 @@
                                       "identifierName": "test"
                                     },
                                     "name": "test"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2589,6 +2657,7 @@
                                       },
                                       "name": "frame"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1579,
@@ -2605,8 +2674,7 @@
                                         "identifierName": "fileName"
                                       },
                                       "name": "fileName"
-                                    },
-                                    "computed": false
+                                    }
                                   }
                                 ]
                               }
@@ -2614,6 +2682,7 @@
                           }
                         ]
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 1599,
@@ -2630,8 +2699,7 @@
                           "identifierName": "filter"
                         },
                         "name": "filter"
-                      },
-                      "computed": false
+                      }
                     },
                     "arguments": [
                       {
@@ -2718,6 +2786,7 @@
                               "pattern": "^(Suite|Object)",
                               "flags": ""
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1633,
@@ -2734,8 +2803,7 @@
                                 "identifierName": "test"
                               },
                               "name": "test"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -2769,6 +2837,7 @@
                                 },
                                 "name": "frame"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1644,
@@ -2785,8 +2854,7 @@
                                   "identifierName": "functionName"
                                 },
                                 "name": "functionName"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         }
@@ -2888,6 +2956,7 @@
                         },
                         "name": "callers"
                       },
+                      "computed": true,
                       "property": {
                         "type": "NumericLiteral",
                         "start": 1688,
@@ -2907,8 +2976,7 @@
                           "raw": "0"
                         },
                         "value": 0
-                      },
-                      "computed": true
+                      }
                     },
                     "operator": "||",
                     "right": {
@@ -3126,6 +3194,9 @@
                     "column": 5
                   }
                 },
+                "extra": {
+                  "trailingComma": 1864
+                },
                 "properties": [
                   {
                     "type": "ObjectProperty",
@@ -3192,6 +3263,7 @@
                         },
                         "name": "caller"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 1786,
@@ -3208,8 +3280,7 @@
                           "identifierName": "fileName"
                         },
                         "name": "fileName"
-                      },
-                      "computed": false
+                      }
                     }
                   },
                   {
@@ -3277,6 +3348,7 @@
                         },
                         "name": "caller"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 1817,
@@ -3293,8 +3365,7 @@
                           "identifierName": "lineNumber"
                         },
                         "name": "lineNumber"
-                      },
-                      "computed": false
+                      }
                     }
                   },
                   {
@@ -3362,6 +3433,7 @@
                         },
                         "name": "caller"
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 1852,
@@ -3378,54 +3450,31 @@
                           "identifierName": "columnNumber"
                         },
                         "name": "columnNumber"
-                      },
-                      "computed": false
+                      }
                     }
                   }
-                ],
-                "extra": {
-                  "trailingComma": 1864
-                }
+                ]
               }
             }
           ],
           "directives": []
+        }
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 2166,
+        "end": 2302,
+        "loc": {
+          "start": {
+            "line": 95,
+            "column": 0
+          },
+          "end": {
+            "line": 97,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 46 \n ",
-            "start": 1307,
-            "end": 1352,
-            "loc": {
-              "start": {
-                "line": 50,
-                "column": 0
-              },
-              "end": {
-                "line": 55,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Retrieves the file system location of the caller function.\n *\n * @package\n ",
-            "start": 1355,
-            "end": 1449,
-            "loc": {
-              "start": {
-                "line": 58,
-                "column": 0
-              },
-              "end": {
-                "line": 63,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {string} property \n ",
@@ -3458,22 +3507,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 2166,
-        "end": 2302,
-        "loc": {
-          "start": {
-            "line": 95,
-            "column": 0
-          },
-          "end": {
-            "line": 97,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 2175,
@@ -3748,6 +3782,7 @@
                           }
                         ]
                       },
+                      "computed": false,
                       "property": {
                         "type": "Identifier",
                         "start": 2282,
@@ -3764,8 +3799,7 @@
                           "identifierName": "indexOf"
                         },
                         "name": "indexOf"
-                      },
-                      "computed": false
+                      }
                     },
                     "arguments": [
                       {
@@ -3792,41 +3826,7 @@
             }
           ],
           "directives": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {string} property \n ",
-            "start": 1875,
-            "end": 1953,
-            "loc": {
-              "start": {
-                "line": 77,
-                "column": 0
-              },
-              "end": {
-                "line": 84,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Checks if a given property is likely to be a static method or a static field on the constructor function.\n *\n * @param {string} property - name of the property to be checked\n *\n * @package\n ",
-            "start": 1956,
-            "end": 2165,
-            "loc": {
-              "start": {
-                "line": 87,
-                "column": 0
-              },
-              "end": {
-                "line": 94,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

@@ -44,6 +44,24 @@
             "column": 61
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
+            "start": 62,
+            "end": 106,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -213,8 +231,23 @@
             "raw": "'..'"
           },
           "value": ".."
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 109,
+        "end": 156,
+        "loc": {
+          "start": {
+            "line": 10,
+            "column": 0
+          },
+          "end": {
+            "line": 10,
+            "column": 47
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
@@ -231,22 +264,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 109,
-        "end": 156,
-        "loc": {
-          "start": {
-            "line": 10,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "start": 157,
+            "end": 201,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 10,
-            "column": 47
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @deprecated\n ",
+            "start": 204,
+            "end": 226,
+            "loc": {
+              "start": {
+                "line": 19,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "type",
         "specifiers": [],
         "source": null,
@@ -477,26 +529,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 227,
+        "end": 1534,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 97,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
-            "start": 62,
-            "end": 106,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
@@ -529,22 +578,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 227,
-        "end": 1534,
-        "loc": {
-          "start": {
-            "line": 22,
-            "column": 0
-          },
-          "end": {
-            "line": 97,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -658,6 +692,24 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {Question} question \n * @param \n * {Assertion} assertion \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 269,
+                    "end": 459,
+                    "loc": {
+                      "start": {
+                        "line": 23,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 38,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1138,25 +1190,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {Question} question \n * @param \n * {Assertion} assertion \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 269,
-                    "end": 459,
-                    "loc": {
-                      "start": {
-                        "line": 23,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 38,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -1172,6 +1206,40 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 721,
+                    "end": 858,
+                    "loc": {
+                      "start": {
+                        "line": 50,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 61,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this {@link Interaction}.\n     *\n     * @param {AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link AnswersQuestions}\n     ",
+                    "start": 865,
+                    "end": 1120,
+                    "loc": {
+                      "start": {
+                        "line": 64,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 74,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1518,8 +1586,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1125,
+                "end": 1248,
+                "loc": {
+                  "start": {
+                    "line": 75,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 77,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -1552,22 +1635,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1125,
-                "end": 1248,
-                "loc": {
-                  "start": {
-                    "line": 75,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @public \n * \\TRUE \n ",
+                    "start": 1249,
+                    "end": 1316,
+                    "loc": {
+                      "start": {
+                        "line": 78,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 85,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 77,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 1323,
+                    "end": 1460,
+                    "loc": {
+                      "start": {
+                        "line": 88,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 93,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1838,6 +1940,7 @@
                                 },
                                 "name": "actor"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1202,
@@ -1854,8 +1957,7 @@
                                   "identifierName": "answer"
                                 },
                                 "name": "answer"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1887,6 +1989,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1214,
@@ -1903,11 +2006,11 @@
                                     "identifierName": "question"
                                   },
                                   "name": "question"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 1224,
@@ -1924,8 +2027,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1957,6 +2059,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1234,
@@ -1973,50 +2076,30 @@
                                 "identifierName": "assert"
                               },
                               "name": "assert"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1465,
+                "end": 1532,
+                "loc": {
+                  "start": {
+                    "line": 94,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 96,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @param \n * {AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 721,
-                    "end": 858,
-                    "loc": {
-                      "start": {
-                        "line": 50,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 61,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this {@link Interaction}.\n     *\n     * @param {AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link AnswersQuestions}\n     ",
-                    "start": 865,
-                    "end": 1120,
-                    "loc": {
-                      "start": {
-                        "line": 64,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 74,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @public \n * \\TRUE \n ",
@@ -2049,22 +2132,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1465,
-                "end": 1532,
-                "loc": {
-                  "start": {
-                    "line": 94,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 96,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2162,6 +2230,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1515,
@@ -2178,8 +2247,7 @@
                                 "identifierName": "question"
                               },
                               "name": "question"
-                            },
-                            "computed": false
+                            }
                           }
                         ],
                         "quasis": [
@@ -2228,41 +2296,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @public \n * \\TRUE \n ",
-                    "start": 1249,
-                    "end": 1316,
-                    "loc": {
-                      "start": {
-                        "line": 78,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 85,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 1323,
-                    "end": 1460,
-                    "loc": {
-                      "start": {
-                        "line": 88,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 93,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -2301,41 +2335,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
-            "start": 157,
-            "end": 201,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @deprecated\n ",
-            "start": 204,
-            "end": 226,
-            "loc": {
-              "start": {
-                "line": 19,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

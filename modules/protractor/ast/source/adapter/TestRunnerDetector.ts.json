@@ -218,6 +218,40 @@
             "column": 50
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+            "start": 146,
+            "end": 190,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n ",
+            "start": 193,
+            "end": 212,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -289,8 +323,23 @@
             "raw": "'./runners/TestRunner'"
           },
           "value": "./runners/TestRunner"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 213,
+        "end": 2936,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 140,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
@@ -323,22 +372,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 213,
-        "end": 2936,
-        "loc": {
-          "start": {
-            "line": 16,
-            "column": 0
-          },
-          "end": {
-            "line": 140,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -403,6 +437,24 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 247,
+                    "end": 336,
+                    "loc": {
+                      "start": {
+                        "line": 17,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 26,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -539,25 +591,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 247,
-                    "end": 336,
-                    "loc": {
-                      "start": {
-                        "line": 17,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 26,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               },
               {
                 "type": "ClassMethod",
@@ -573,6 +607,120 @@
                     "column": 5
                   }
                 },
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @public \n * \\TRUE \n ",
+                    "start": 557,
+                    "end": 684,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 50,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentLine",
+                    "value": " todo: when invoking, merge config",
+                    "start": 691,
+                    "end": 727,
+                    "loc": {
+                      "start": {
+                        "line": 53,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 53,
+                        "column": 40
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentLine",
+                    "value": "      Object.assign(",
+                    "start": 732,
+                    "end": 754,
+                    "loc": {
+                      "start": {
+                        "line": 54,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 54,
+                        "column": 26
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentLine",
+                    "value": "          {},",
+                    "start": 759,
+                    "end": 774,
+                    "loc": {
+                      "start": {
+                        "line": 55,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 55,
+                        "column": 19
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentLine",
+                    "value": "          config.cucumberOpts,",
+                    "start": 779,
+                    "end": 811,
+                    "loc": {
+                      "start": {
+                        "line": 56,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 56,
+                        "column": 36
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentLine",
+                    "value": "          config.capabilities.cucumberOpts",
+                    "start": 816,
+                    "end": 860,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 57,
+                        "column": 48
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentLine",
+                    "value": "      )",
+                    "start": 865,
+                    "end": 874,
+                    "loc": {
+                      "start": {
+                        "line": 58,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 58,
+                        "column": 13
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -695,8 +843,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 879,
+                "end": 1912,
+                "loc": {
+                  "start": {
+                    "line": 59,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 85,
+                    "column": 5
+                  }
                 },
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @public \n * \\TRUE \n ",
@@ -809,22 +972,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 879,
-                "end": 1912,
-                "loc": {
-                  "start": {
-                    "line": 59,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 85,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @private \n * \\TRUE \n ",
+                    "start": 1913,
+                    "end": 2041,
+                    "loc": {
+                      "start": {
+                        "line": 86,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 97,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -990,6 +1156,40 @@
                           "column": 48
                         }
                       },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " todo: simplify and introduce a config object with \"as(String)\", \"as(Object)\", etc. to avoid issues with undefined",
+                          "start": 928,
+                          "end": 1044,
+                          "loc": {
+                            "start": {
+                              "line": 61,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 61,
+                              "column": 124
+                            }
+                          }
+                        },
+                        {
+                          "type": "CommentLine",
+                          "value": " todo: and config merge too, using on deepmerge",
+                          "start": 1053,
+                          "end": 1102,
+                          "loc": {
+                            "start": {
+                              "line": 62,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 62,
+                              "column": 57
+                            }
+                          }
+                        }
+                      ],
                       "declarations": [
                         {
                           "type": "VariableDeclarator",
@@ -1179,6 +1379,7 @@
                                         },
                                         "name": "config"
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1194,
@@ -1195,8 +1396,7 @@
                                           "identifierName": "serenity"
                                         },
                                         "name": "serenity"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   }
                                 },
@@ -1278,6 +1478,7 @@
                                           },
                                           "name": "config"
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 1231,
@@ -1294,9 +1495,9 @@
                                             "identifierName": "serenity"
                                           },
                                           "name": "serenity"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 1240,
@@ -1313,8 +1514,7 @@
                                           "identifierName": "runner"
                                         },
                                         "name": "runner"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   }
                                 }
@@ -1379,6 +1579,7 @@
                                       },
                                       "name": "config"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1273,
@@ -1395,9 +1596,9 @@
                                         "identifierName": "serenity"
                                       },
                                       "name": "serenity"
-                                    },
-                                    "computed": false
+                                    }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1282,
@@ -1414,8 +1615,7 @@
                                       "identifierName": "runner"
                                     },
                                     "name": "runner"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "operator": "===",
                                 "right": {
@@ -1440,41 +1640,7 @@
                           }
                         }
                       ],
-                      "kind": "const",
-                      "leadingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " todo: simplify and introduce a config object with \"as(String)\", \"as(Object)\", etc. to avoid issues with undefined",
-                          "start": 928,
-                          "end": 1044,
-                          "loc": {
-                            "start": {
-                              "line": 61,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 61,
-                              "column": 124
-                            }
-                          }
-                        },
-                        {
-                          "type": "CommentLine",
-                          "value": " todo: and config merge too, using on deepmerge",
-                          "start": 1053,
-                          "end": 1102,
-                          "loc": {
-                            "start": {
-                              "line": 62,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 62,
-                              "column": 57
-                            }
-                          }
-                        }
-                      ]
+                      "kind": "const"
                     },
                     {
                       "type": "SwitchStatement",
@@ -1579,6 +1745,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1401,
@@ -1595,8 +1762,7 @@
                                       "identifierName": "useCucumber"
                                     },
                                     "name": "useCucumber"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -1747,6 +1913,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1498,
@@ -1763,8 +1930,7 @@
                                       "identifierName": "useJasmine"
                                     },
                                     "name": "useJasmine"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -1915,6 +2081,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1592,
@@ -1931,8 +2098,7 @@
                                       "identifierName": "useMocha"
                                     },
                                     "name": "useMocha"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2083,6 +2249,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1679,
@@ -2099,8 +2266,7 @@
                                       "identifierName": "useCucumber"
                                     },
                                     "name": "useCucumber"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2187,6 +2353,7 @@
                                   },
                                   "name": "config"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1637,
@@ -2203,8 +2370,7 @@
                                     "identifierName": "cucumberOpts"
                                   },
                                   "name": "cucumberOpts"
-                                },
-                                "computed": false
+                                }
                               }
                             }
                           }
@@ -2281,6 +2447,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1766,
@@ -2297,8 +2464,7 @@
                                       "identifierName": "useMocha"
                                     },
                                     "name": "useMocha"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2385,6 +2551,7 @@
                                   },
                                   "name": "config"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1727,
@@ -2401,8 +2568,7 @@
                                     "identifierName": "mochaOpts"
                                   },
                                   "name": "mochaOpts"
-                                },
-                                "computed": false
+                                }
                               }
                             }
                           }
@@ -2485,6 +2651,7 @@
                                   },
                                   "name": "config"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 1811,
@@ -2501,8 +2668,7 @@
                                     "identifierName": "jasmineNodeOpts"
                                   },
                                   "name": "jasmineNodeOpts"
-                                },
-                                "computed": false
+                                }
                               }
                             }
                           }
@@ -2579,6 +2745,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1877,
@@ -2595,8 +2762,7 @@
                                       "identifierName": "useJasmine"
                                     },
                                     "name": "useJasmine"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -2626,122 +2792,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2048,
+                "end": 2262,
+                "loc": {
+                  "start": {
+                    "line": 100,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 103,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @public \n * \\TRUE \n ",
-                    "start": 557,
-                    "end": 684,
-                    "loc": {
-                      "start": {
-                        "line": 39,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 50,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentLine",
-                    "value": " todo: when invoking, merge config",
-                    "start": 691,
-                    "end": 727,
-                    "loc": {
-                      "start": {
-                        "line": 53,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 53,
-                        "column": 40
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentLine",
-                    "value": "      Object.assign(",
-                    "start": 732,
-                    "end": 754,
-                    "loc": {
-                      "start": {
-                        "line": 54,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 54,
-                        "column": 26
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentLine",
-                    "value": "          {},",
-                    "start": 759,
-                    "end": 774,
-                    "loc": {
-                      "start": {
-                        "line": 55,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 55,
-                        "column": 19
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentLine",
-                    "value": "          config.cucumberOpts,",
-                    "start": 779,
-                    "end": 811,
-                    "loc": {
-                      "start": {
-                        "line": 56,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 56,
-                        "column": 36
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentLine",
-                    "value": "          config.capabilities.cucumberOpts",
-                    "start": 816,
-                    "end": 860,
-                    "loc": {
-                      "start": {
-                        "line": 57,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 57,
-                        "column": 48
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentLine",
-                    "value": "      )",
-                    "start": 865,
-                    "end": 874,
-                    "loc": {
-                      "start": {
-                        "line": 58,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 58,
-                        "column": 13
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @private \n * \\TRUE \n ",
@@ -2758,22 +2825,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2048,
-                "end": 2262,
-                "loc": {
-                  "start": {
-                    "line": 100,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 103,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @private \n * \\TRUE \n ",
+                    "start": 2263,
+                    "end": 2391,
+                    "loc": {
+                      "start": {
+                        "line": 104,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 115,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -2984,6 +3054,9 @@
                                     "column": 34
                                   }
                                 },
+                                "extra": {
+                                  "shorthand": true
+                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -3020,9 +3093,6 @@
                                     "identifierName": "CucumberTestRunner"
                                   },
                                   "name": "CucumberTestRunner"
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 }
                               }
                             ]
@@ -3176,6 +3246,7 @@
                                 },
                                 "name": "config"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2223,
@@ -3192,8 +3263,7 @@
                                   "identifierName": "cucumberOpts"
                                 },
                                 "name": "cucumberOpts"
-                              },
-                              "computed": false
+                              }
                             },
                             "operator": "||",
                             "right": {
@@ -3242,6 +3312,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2248,
@@ -3258,34 +3329,30 @@
                                 "identifierName": "loader"
                               },
                               "name": "loader"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2398,
+                "end": 2605,
+                "loc": {
+                  "start": {
+                    "line": 118,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 121,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @private \n * \\TRUE \n ",
-                    "start": 1913,
-                    "end": 2041,
-                    "loc": {
-                      "start": {
-                        "line": 86,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 97,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @private \n * \\TRUE \n ",
@@ -3302,22 +3369,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2398,
-                "end": 2605,
-                "loc": {
-                  "start": {
-                    "line": 118,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 121,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 66 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @private \n * \\TRUE \n ",
+                    "start": 2606,
+                    "end": 2734,
+                    "loc": {
+                      "start": {
+                        "line": 122,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 133,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -3528,6 +3598,9 @@
                                     "column": 33
                                   }
                                 },
+                                "extra": {
+                                  "shorthand": true
+                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -3564,9 +3637,6 @@
                                     "identifierName": "JasmineTestRunner"
                                   },
                                   "name": "JasmineTestRunner"
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 }
                               }
                             ]
@@ -3706,6 +3776,7 @@
                               },
                               "name": "config"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2569,
@@ -3722,8 +3793,7 @@
                                 "identifierName": "jasmineNodeOpts"
                               },
                               "name": "jasmineNodeOpts"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -3754,6 +3824,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2591,
@@ -3770,34 +3841,30 @@
                                 "identifierName": "loader"
                               },
                               "name": "loader"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2741,
+                "end": 2934,
+                "loc": {
+                  "start": {
+                    "line": 136,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 139,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @private \n * \\TRUE \n ",
-                    "start": 2263,
-                    "end": 2391,
-                    "loc": {
-                      "start": {
-                        "line": 104,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 115,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 66 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @private \n * \\TRUE \n ",
@@ -3814,22 +3881,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2741,
-                "end": 2934,
-                "loc": {
-                  "start": {
-                    "line": 136,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 139,
-                    "column": 5
-                  }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -4040,6 +4092,9 @@
                                     "column": 31
                                   }
                                 },
+                                "extra": {
+                                  "shorthand": true
+                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -4076,9 +4131,6 @@
                                     "identifierName": "MochaTestRunner"
                                   },
                                   "name": "MochaTestRunner"
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 }
                               }
                             ]
@@ -4218,6 +4270,7 @@
                               },
                               "name": "config"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2904,
@@ -4234,8 +4287,7 @@
                                 "identifierName": "mochaOpts"
                               },
                               "name": "mochaOpts"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -4266,6 +4318,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 2920,
@@ -4282,33 +4335,14 @@
                                 "identifierName": "loader"
                               },
                               "name": "loader"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 66 \n * @param \n * {Config} config \n * @return \n * {TestRunner} \n * @private \n * \\TRUE \n ",
-                    "start": 2606,
-                    "end": 2734,
-                    "loc": {
-                      "start": {
-                        "line": 122,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 133,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -4347,41 +4381,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-            "start": 146,
-            "end": 190,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @private\n ",
-            "start": 193,
-            "end": 212,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

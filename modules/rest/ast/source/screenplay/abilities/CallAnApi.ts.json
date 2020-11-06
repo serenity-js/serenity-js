@@ -327,6 +327,40 @@
             "column": 106
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n ",
+            "start": 221,
+            "end": 266,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor} to call a HTTP API.\n *\n * @example <caption>Using a default Axios HTTP client</caption>\n * import { Actor } from '@serenity-js/core';\n * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n * import { Ensure, equals } from '@serenity-js/assertions';\n *\n * const actor = Actor.named('Apisit').whoCan(\n *     CallAnApi.at('https://myapp.com/api'),\n * );\n *\n * actor.attemptsTo(\n *     Send.a(GetRequest.to('/users/2')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n * );\n *\n * @example <caption>Using Axios client with custom configuration</caption>\n * import { Actor } from '@serenity-js/core';\n * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n * import { Ensure, equals } from '@serenity-js/assertions';\n *\n * import axios  from 'axios';\n *\n * const axiosInstance = axios.create({\n *     timeout: 5 * 1000,\n *     headers: {\n *         'X-Custom-Api-Key': 'secret-key',\n *     },\n * });\n *\n * const actor = Actor.named('Apisit').whoCan(\n *     CallAnApi.using(axiosInstance),\n * );\n *\n * actor.attemptsTo(\n *     Send.a(GetRequest.to('/users/2')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n * );\n *\n * @see https://github.com/axios/axios\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods\n *\n * @public\n * @implements {@link @serenity-js/core/lib/screenplay~Ability}\n ",
+            "start": 269,
+            "end": 1737,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 57,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -626,8 +660,23 @@
             "raw": "'axios'"
           },
           "value": "axios"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1738,
+        "end": 7520,
+        "loc": {
+          "start": {
+            "line": 58,
+            "column": 0
+          },
+          "end": {
+            "line": 304,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n ",
@@ -660,22 +709,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1738,
-        "end": 7520,
-        "loc": {
-          "start": {
-            "line": 58,
-            "column": 0
-          },
-          "end": {
-            "line": 304,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -774,74 +808,6 @@
                     "column": 40
                   }
                 },
-                "accessibility": "private",
-                "static": false,
-                "key": {
-                  "type": "Identifier",
-                  "start": 1915,
-                  "end": 1927,
-                  "loc": {
-                    "start": {
-                      "line": 72,
-                      "column": 12
-                    },
-                    "end": {
-                      "line": 72,
-                      "column": 24
-                    },
-                    "identifierName": "lastResponse"
-                  },
-                  "name": "lastResponse"
-                },
-                "computed": false,
-                "typeAnnotation": {
-                  "type": "TSTypeAnnotation",
-                  "start": 1927,
-                  "end": 1942,
-                  "loc": {
-                    "start": {
-                      "line": 72,
-                      "column": 24
-                    },
-                    "end": {
-                      "line": 72,
-                      "column": 39
-                    }
-                  },
-                  "typeAnnotation": {
-                    "type": "TSTypeReference",
-                    "start": 1929,
-                    "end": 1942,
-                    "loc": {
-                      "start": {
-                        "line": 72,
-                        "column": 26
-                      },
-                      "end": {
-                        "line": 72,
-                        "column": 39
-                      }
-                    },
-                    "typeName": {
-                      "type": "Identifier",
-                      "start": 1929,
-                      "end": 1942,
-                      "loc": {
-                        "start": {
-                          "line": 72,
-                          "column": 26
-                        },
-                        "end": {
-                          "line": 72,
-                          "column": 39
-                        },
-                        "identifierName": "AxiosResponse"
-                      },
-                      "name": "AxiosResponse"
-                    }
-                  }
-                },
-                "value": null,
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
@@ -909,7 +875,75 @@
                       }
                     }
                   }
-                ]
+                ],
+                "accessibility": "private",
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1915,
+                  "end": 1927,
+                  "loc": {
+                    "start": {
+                      "line": 72,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 72,
+                      "column": 24
+                    },
+                    "identifierName": "lastResponse"
+                  },
+                  "name": "lastResponse"
+                },
+                "computed": false,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 1927,
+                  "end": 1942,
+                  "loc": {
+                    "start": {
+                      "line": 72,
+                      "column": 24
+                    },
+                    "end": {
+                      "line": 72,
+                      "column": 39
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeReference",
+                    "start": 1929,
+                    "end": 1942,
+                    "loc": {
+                      "start": {
+                        "line": 72,
+                        "column": 26
+                      },
+                      "end": {
+                        "line": 72,
+                        "column": 39
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 1929,
+                      "end": 1942,
+                      "loc": {
+                        "start": {
+                          "line": 72,
+                          "column": 26
+                        },
+                        "end": {
+                          "line": 72,
+                          "column": 39
+                        },
+                        "identifierName": "AxiosResponse"
+                      },
+                      "name": "AxiosResponse"
+                    }
+                  }
+                },
+                "value": null
               },
               {
                 "type": "ClassMethod",
@@ -925,6 +959,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {string} baseURL \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1944,
+                    "end": 2065,
+                    "loc": {
+                      "start": {
+                        "line": 73,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 84,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Ability to Call and api at a specified baseUrl\n     *\n     *  Default timeout is set to 2s.\n     *\n     *  Default request headers:\n     *  - Accept: application/json,application/xml\n     *\n     * @param {string} baseURL\n     * @returns {CallAnApi}\n     ",
+                    "start": 2072,
+                    "end": 2353,
+                    "loc": {
+                      "start": {
+                        "line": 87,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 98,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {AxiosInstance} axiosInstance \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2567,
+                    "end": 2701,
+                    "loc": {
+                      "start": {
+                        "line": 106,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 117,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Ability to Call a REST API using a given axios instance.\n     *\n     *  Useful when you need to customise Axios to\n     *  [make it aware of proxies](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d),\n     *  for example.\n     *\n     * @param {AxiosInstance} axiosInstance\n     * @returns {CallAnApi}\n     *\n     * @see {@link AxiosInstance}\n     ",
+                    "start": 2708,
+                    "end": 3106,
+                    "loc": {
+                      "start": {
+                        "line": 120,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 132,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1103,6 +1205,7 @@
                                 },
                                 "name": "axios"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 2422,
@@ -1119,8 +1222,7 @@
                                   "identifierName": "create"
                                 },
                                 "name": "create"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -1137,6 +1239,9 @@
                                     "column": 9
                                   }
                                 },
+                                "extra": {
+                                  "trailingComma": 2546
+                                },
                                 "properties": [
                                   {
                                     "type": "ObjectProperty",
@@ -1151,6 +1256,9 @@
                                         "line": 101,
                                         "column": 19
                                       }
+                                    },
+                                    "extra": {
+                                      "shorthand": true
                                     },
                                     "method": false,
                                     "key": {
@@ -1188,9 +1296,6 @@
                                         "identifierName": "baseURL"
                                       },
                                       "name": "baseURL"
-                                    },
-                                    "extra": {
-                                      "shorthand": true
                                     }
                                   },
                                   {
@@ -1355,10 +1460,7 @@
                                       ]
                                     }
                                   }
-                                ],
-                                "extra": {
-                                  "trailingComma": 2546
-                                }
+                                ]
                               }
                             ]
                           }
@@ -1367,42 +1469,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3111,
+                "end": 3206,
+                "loc": {
+                  "start": {
+                    "line": 133,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 135,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {string} baseURL \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1944,
-                    "end": 2065,
-                    "loc": {
-                      "start": {
-                        "line": 73,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 84,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Ability to Call and api at a specified baseUrl\n     *\n     *  Default timeout is set to 2s.\n     *\n     *  Default request headers:\n     *  - Accept: application/json,application/xml\n     *\n     * @param {string} baseURL\n     * @returns {CallAnApi}\n     ",
-                    "start": 2072,
-                    "end": 2353,
-                    "loc": {
-                      "start": {
-                        "line": 87,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 98,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {AxiosInstance} axiosInstance \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1435,22 +1518,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3111,
-                "end": 3206,
-                "loc": {
-                  "start": {
-                    "line": 133,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {UsesAbilities} actor \n * @return \n * {CallAnApi} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3207,
+                    "end": 3362,
+                    "loc": {
+                      "start": {
+                        "line": 136,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 149,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 135,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Used to access the Actor's ability to {@link CallAnApi}\n     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,\n     *  such as {@link Send}.\n     *\n     * @param {UsesAbilities} actor\n     * @return {CallAnApi}\n     ",
+                    "start": 3369,
+                    "end": 3643,
+                    "loc": {
+                      "start": {
+                        "line": 152,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 160,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1623,42 +1725,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3648,
+                "end": 3741,
+                "loc": {
+                  "start": {
+                    "line": 161,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 163,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {AxiosInstance} axiosInstance \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2567,
-                    "end": 2701,
-                    "loc": {
-                      "start": {
-                        "line": 106,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 117,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Ability to Call a REST API using a given axios instance.\n     *\n     *  Useful when you need to customise Axios to\n     *  [make it aware of proxies](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d),\n     *  for example.\n     *\n     * @param {AxiosInstance} axiosInstance\n     * @returns {CallAnApi}\n     *\n     * @see {@link AxiosInstance}\n     ",
-                    "start": 2708,
-                    "end": 3106,
-                    "loc": {
-                      "start": {
-                        "line": 120,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 132,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {UsesAbilities} actor \n * @return \n * {CallAnApi} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1691,22 +1774,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3648,
-                "end": 3741,
-                "loc": {
-                  "start": {
-                    "line": 161,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 163,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {AxiosInstance} axiosInstance\n     *  A pre-configured instance of the Axios HTTP client\n     *\n     * @see {@link AxiosInstance}\n     ",
+                    "start": 3747,
+                    "end": 3902,
+                    "loc": {
+                      "start": {
+                        "line": 165,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 170,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1917,6 +2003,7 @@
                             },
                             "name": "actor"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 3714,
@@ -1933,8 +2020,7 @@
                               "identifierName": "abilityTo"
                             },
                             "name": "abilityTo"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1959,42 +2045,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3907,
+                "end": 3973,
+                "loc": {
+                  "start": {
+                    "line": 171,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 172,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {UsesAbilities} actor \n * @return \n * {CallAnApi} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3207,
-                    "end": 3362,
-                    "loc": {
-                      "start": {
-                        "line": 136,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 149,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Used to access the Actor's ability to {@link CallAnApi}\n     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,\n     *  such as {@link Send}.\n     *\n     * @param {UsesAbilities} actor\n     * @return {CallAnApi}\n     ",
-                    "start": 3369,
-                    "end": 3643,
-                    "loc": {
-                      "start": {
-                        "line": 152,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 160,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {AxiosInstance} axiosInstance\n     *  A pre-configured instance of the Axios HTTP client\n     *\n     * @see {@link AxiosInstance}\n     ",
@@ -2011,22 +2078,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3907,
-                "end": 3973,
-                "loc": {
-                  "start": {
-                    "line": 171,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @param \n * {Function} fn \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 3974,
+                    "end": 4094,
+                    "loc": {
+                      "start": {
+                        "line": 173,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 184,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 172,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Allows for the original Axios config to be changed after\n     *  the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *  has been instantiated and given to the {@link Actor}.\n     *\n     * @param {function (original: AxiosRequestConfig): any} fn\n     * @returns {void}\n     *\n     * @see {@link AxiosRequestConfig}\n     ",
+                    "start": 4101,
+                    "end": 4471,
+                    "loc": {
+                      "start": {
+                        "line": 187,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 197,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2149,26 +2235,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4476,
+                "end": 4586,
+                "loc": {
+                  "start": {
+                    "line": 198,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 200,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {AxiosInstance} axiosInstance\n     *  A pre-configured instance of the Axios HTTP client\n     *\n     * @see {@link AxiosInstance}\n     ",
-                    "start": 3747,
-                    "end": 3902,
-                    "loc": {
-                      "start": {
-                        "line": 165,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 170,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @param \n * {Function} fn \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -2201,22 +2284,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4476,
-                "end": 4586,
-                "loc": {
-                  "start": {
-                    "line": 198,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 145 \n * @param \n * {AxiosRequestConfig} config \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 4587,
+                    "end": 4724,
+                    "loc": {
+                      "start": {
+                        "line": 201,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 212,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 200,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Sends a HTTP request to a specified url.\n     *  Response will be cached and available via {@link CallAnApi#mapLastResponse}\n     *\n     * @param {AxiosRequestConfig} config\n     *  Axios request configuration, which can be used to override the defaults\n     *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated\n     *\n     * @returns {Promise<AxiosResponse>}\n     *  A promise of an AxiosResponse\n     *\n     * @see {@link AxiosRequestConfig}\n     * @see {@link AxiosResponse}\n     ",
+                    "start": 4731,
+                    "end": 5292,
+                    "loc": {
+                      "start": {
+                        "line": 215,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 229,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2519,6 +2621,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 4556,
@@ -2535,9 +2638,9 @@
                                   "identifierName": "axiosInstance"
                                 },
                                 "name": "axiosInstance"
-                              },
-                              "computed": false
+                              }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 4570,
@@ -2554,50 +2657,30 @@
                                 "identifierName": "defaults"
                               },
                               "name": "defaults"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5297,
+                "end": 5439,
+                "loc": {
+                  "start": {
+                    "line": 230,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 232,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @param \n * {Function} fn \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 3974,
-                    "end": 4094,
-                    "loc": {
-                      "start": {
-                        "line": 173,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 184,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Allows for the original Axios config to be changed after\n     *  the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *  has been instantiated and given to the {@link Actor}.\n     *\n     * @param {function (original: AxiosRequestConfig): any} fn\n     * @returns {void}\n     *\n     * @see {@link AxiosRequestConfig}\n     ",
-                    "start": 4101,
-                    "end": 4471,
-                    "loc": {
-                      "start": {
-                        "line": 187,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 197,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 145 \n * @param \n * {AxiosRequestConfig} config \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2630,22 +2713,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5297,
-                "end": 5439,
-                "loc": {
-                  "start": {
-                    "line": 230,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 159 \n * @param \n * {Function} fn \n * @return \n * {T} \n * @public \n * \\TRUE \n ",
+                    "start": 5440,
+                    "end": 5557,
+                    "loc": {
+                      "start": {
+                        "line": 233,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 244,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 232,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Maps the last cached response to another type.\n     *  Useful when you need to extract a portion of the {@link AxiosResponse} object.\n     *\n     * @param {function<T>(AxiosResponse): T} fn - mapper function\n     * @returns {T}\n     *\n     * @see {@link AxiosResponse}\n     ",
+                    "start": 5564,
+                    "end": 5865,
+                    "loc": {
+                      "start": {
+                        "line": 247,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 256,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2903,6 +3005,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 5379,
@@ -2919,8 +3022,7 @@
                               "identifierName": "captureResponseOf"
                             },
                             "name": "captureResponseOf"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2980,6 +3082,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 5402,
@@ -2996,9 +3099,9 @@
                                     "identifierName": "axiosInstance"
                                   },
                                   "name": "axiosInstance"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 5416,
@@ -3015,8 +3118,7 @@
                                   "identifierName": "request"
                                 },
                                 "name": "request"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -3043,42 +3145,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5870,
+                "end": 6124,
+                "loc": {
+                  "start": {
+                    "line": 257,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 263,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 145 \n * @param \n * {AxiosRequestConfig} config \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 4587,
-                    "end": 4724,
-                    "loc": {
-                      "start": {
-                        "line": 201,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 212,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Sends a HTTP request to a specified url.\n     *  Response will be cached and available via {@link CallAnApi#mapLastResponse}\n     *\n     * @param {AxiosRequestConfig} config\n     *  Axios request configuration, which can be used to override the defaults\n     *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated\n     *\n     * @returns {Promise<AxiosResponse>}\n     *  A promise of an AxiosResponse\n     *\n     * @see {@link AxiosRequestConfig}\n     * @see {@link AxiosResponse}\n     ",
-                    "start": 4731,
-                    "end": 5292,
-                    "loc": {
-                      "start": {
-                        "line": 215,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 229,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 159 \n * @param \n * {Function} fn \n * @return \n * {T} \n * @public \n * \\TRUE \n ",
@@ -3111,22 +3194,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5870,
-                "end": 6124,
-                "loc": {
-                  "start": {
-                    "line": 257,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 263,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 167 \n * @param \n * {AxiosPromise} promisedResponse \n * @return \n * {AxiosPromise} \n * @private \n * \\TRUE \n ",
+                    "start": 6125,
+                    "end": 6272,
+                    "loc": {
+                      "start": {
+                        "line": 264,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 275,
+                        "column": 3
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3466,6 +3552,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 5948,
@@ -3482,8 +3569,7 @@
                               "identifierName": "lastResponse"
                             },
                             "name": "lastResponse"
-                          },
-                          "computed": false
+                          }
                         }
                       },
                       "consequent": {
@@ -3668,6 +3754,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 6104,
@@ -3684,50 +3771,30 @@
                                 "identifierName": "lastResponse"
                               },
                               "name": "lastResponse"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6279,
+                "end": 7518,
+                "loc": {
+                  "start": {
+                    "line": 278,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 303,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 159 \n * @param \n * {Function} fn \n * @return \n * {T} \n * @public \n * \\TRUE \n ",
-                    "start": 5440,
-                    "end": 5557,
-                    "loc": {
-                      "start": {
-                        "line": 233,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 244,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Maps the last cached response to another type.\n     *  Useful when you need to extract a portion of the {@link AxiosResponse} object.\n     *\n     * @param {function<T>(AxiosResponse): T} fn - mapper function\n     * @returns {T}\n     *\n     * @see {@link AxiosResponse}\n     ",
-                    "start": 5564,
-                    "end": 5865,
-                    "loc": {
-                      "start": {
-                        "line": 247,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 256,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 167 \n * @param \n * {AxiosPromise} promisedResponse \n * @return \n * {AxiosPromise} \n * @private \n * \\TRUE \n ",
@@ -3744,22 +3811,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6279,
-                "end": 7518,
-                "loc": {
-                  "start": {
-                    "line": 278,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 303,
-                    "column": 5
-                  }
-                },
+                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -3940,6 +3992,9 @@
                             "column": 13
                           }
                         },
+                        "extra": {
+                          "trailingComma": 7496
+                        },
                         "callee": {
                           "type": "MemberExpression",
                           "start": 6368,
@@ -3971,6 +4026,7 @@
                             },
                             "name": "promisedResponse"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 6398,
@@ -3987,11 +4043,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
-                        },
-                        "extra": {
-                          "trailingComma": 7496
+                          }
                         },
                         "arguments": [
                           {
@@ -4103,6 +4155,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 6460,
@@ -4119,8 +4172,7 @@
                                           "identifierName": "lastResponse"
                                         },
                                         "name": "lastResponse"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "right": {
                                       "type": "Identifier",
@@ -4427,6 +4479,7 @@
                                             "pattern": "timeout.*exceeded",
                                             "flags": ""
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 6659,
@@ -4443,8 +4496,7 @@
                                               "identifierName": "test"
                                             },
                                             "name": "test"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -4478,6 +4530,7 @@
                                               },
                                               "name": "rejected"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 6673,
@@ -4494,8 +4547,7 @@
                                                 "identifierName": "message"
                                               },
                                               "name": "message"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         ]
                                       }
@@ -4668,6 +4720,7 @@
                                             "pattern": "Network Error",
                                             "flags": ""
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 6827,
@@ -4684,8 +4737,7 @@
                                               "identifierName": "test"
                                             },
                                             "name": "test"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -4719,6 +4771,7 @@
                                               },
                                               "name": "rejected"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 6841,
@@ -4735,8 +4788,7 @@
                                                 "identifierName": "message"
                                               },
                                               "name": "message"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         ]
                                       }
@@ -5076,6 +5128,10 @@
                                                 "column": 54
                                               }
                                             },
+                                            "extra": {
+                                              "parenthesized": true,
+                                              "parenStart": 7170
+                                            },
                                             "expression": {
                                               "type": "Identifier",
                                               "start": 7171,
@@ -5124,12 +5180,9 @@
                                                 },
                                                 "name": "AxiosError"
                                               }
-                                            },
-                                            "extra": {
-                                              "parenthesized": true,
-                                              "parenStart": 7170
                                             }
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 7195,
@@ -5146,8 +5199,7 @@
                                               "identifierName": "response"
                                             },
                                             "name": "response"
-                                          },
-                                          "computed": false
+                                          }
                                         }
                                       }
                                     },
@@ -5224,6 +5276,7 @@
                                                   }
                                                 }
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 7368,
@@ -5240,8 +5293,7 @@
                                                   "identifierName": "lastResponse"
                                                 },
                                                 "name": "lastResponse"
-                                              },
-                                              "computed": false
+                                              }
                                             },
                                             "right": {
                                               "type": "MemberExpression",
@@ -5274,6 +5326,7 @@
                                                 },
                                                 "name": "rejected"
                                               },
+                                              "computed": false,
                                               "property": {
                                                 "type": "Identifier",
                                                 "start": 7392,
@@ -5290,8 +5343,7 @@
                                                   "identifierName": "response"
                                                 },
                                                 "name": "response"
-                                              },
-                                              "computed": false
+                                              }
                                             }
                                           }
                                         },
@@ -5340,6 +5392,7 @@
                                               },
                                               "name": "rejected"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 7447,
@@ -5356,8 +5409,7 @@
                                                 "identifierName": "response"
                                               },
                                               "name": "response"
-                                            },
-                                            "computed": false
+                                            }
                                           }
                                         }
                                       ],
@@ -5374,25 +5426,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 167 \n * @param \n * {AxiosPromise} promisedResponse \n * @return \n * {AxiosPromise} \n * @private \n * \\TRUE \n ",
-                    "start": 6125,
-                    "end": 6272,
-                    "loc": {
-                      "start": {
-                        "line": 264,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 275,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -5431,41 +5465,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n ",
-            "start": 221,
-            "end": 266,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor} to call a HTTP API.\n *\n * @example <caption>Using a default Axios HTTP client</caption>\n * import { Actor } from '@serenity-js/core';\n * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n * import { Ensure, equals } from '@serenity-js/assertions';\n *\n * const actor = Actor.named('Apisit').whoCan(\n *     CallAnApi.at('https://myapp.com/api'),\n * );\n *\n * actor.attemptsTo(\n *     Send.a(GetRequest.to('/users/2')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n * );\n *\n * @example <caption>Using Axios client with custom configuration</caption>\n * import { Actor } from '@serenity-js/core';\n * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n * import { Ensure, equals } from '@serenity-js/assertions';\n *\n * import axios  from 'axios';\n *\n * const axiosInstance = axios.create({\n *     timeout: 5 * 1000,\n *     headers: {\n *         'X-Custom-Api-Key': 'secret-key',\n *     },\n * });\n *\n * const actor = Actor.named('Apisit').whoCan(\n *     CallAnApi.using(axiosInstance),\n * );\n *\n * actor.attemptsTo(\n *     Send.a(GetRequest.to('/users/2')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n * );\n *\n * @see https://github.com/axios/axios\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods\n *\n * @public\n * @implements {@link @serenity-js/core/lib/screenplay~Ability}\n ",
-            "start": 269,
-            "end": 1737,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 57,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

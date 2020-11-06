@@ -44,6 +44,24 @@
             "column": 45
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file ",
+            "start": 0,
+            "end": 26,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -115,25 +133,7 @@
             "raw": "'@serenity-js/core'"
           },
           "value": "@serenity-js/core"
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " istanbul ignore file ",
-            "start": 0,
-            "end": 26,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 26
-              }
-            }
-          }
-        ]
+        }
       },
       {
         "type": "ImportDeclaration",
@@ -497,6 +497,40 @@
             "column": 58
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
+            "start": 349,
+            "end": 482,
+            "loc": {
+              "start": {
+                "line": 9,
+                "column": 0
+              },
+              "end": {
+                "line": 20,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @param {protractor~Runner} runner\n * @param {string[]} specs\n * @returns {Promise<ProtractorReport>}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor\n ",
+            "start": 485,
+            "end": 716,
+            "loc": {
+              "start": {
+                "line": 23,
+                "column": 0
+              },
+              "end": {
+                "line": 29,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -568,8 +602,23 @@
             "raw": "'./TestRunnerDetector'"
           },
           "value": "./TestRunnerDetector"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 717,
+        "end": 960,
+        "loc": {
+          "start": {
+            "line": 30,
+            "column": 0
+          },
+          "end": {
+            "line": 36,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
@@ -602,22 +651,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 717,
-        "end": 960,
-        "loc": {
-          "start": {
-            "line": 30,
-            "column": 0
-          },
-          "end": {
-            "line": 36,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1110,6 +1144,7 @@
                                       },
                                       "name": "process"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 932,
@@ -1126,8 +1161,7 @@
                                         "identifierName": "cwd"
                                       },
                                       "name": "cwd"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": []
                                 }
@@ -1137,6 +1171,7 @@
                         }
                       ]
                     },
+                    "computed": false,
                     "property": {
                       "type": "Identifier",
                       "start": 947,
@@ -1153,8 +1188,7 @@
                         "identifierName": "run"
                       },
                       "name": "run"
-                    },
-                    "computed": false
+                    }
                   },
                   "arguments": [
                     {
@@ -1215,41 +1249,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
-            "start": 349,
-            "end": 482,
-            "loc": {
-              "start": {
-                "line": 9,
-                "column": 0
-              },
-              "end": {
-                "line": 20,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @param {protractor~Runner} runner\n * @param {string[]} specs\n * @returns {Promise<ProtractorReport>}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor\n ",
-            "start": 485,
-            "end": 716,
-            "loc": {
-              "start": {
-                "line": 23,
-                "column": 0
-              },
-              "end": {
-                "line": 29,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

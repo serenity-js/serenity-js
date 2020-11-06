@@ -626,6 +626,40 @@
             "column": 31
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n ",
+            "start": 285,
+            "end": 331,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Enables the {@link Actor} to iterate over a list of items produced by any {@link Answerable}.\n *\n *  You can think of `Loop` as a more sophisticated Screenplay-style equivalent of\n *  [`Array.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach).\n *  `Loop` is capable of working with both synchronous data structures,\n *  such as [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)\n *  and `Question<Array<T>>`,\n *  as well as asynchronous ones, so `Promise<Array<T>>` and `Question<Promise<Array<T>>>`.\n *\n *  Use {@link Loop.item} to access the current item being processed by {@link Loop}, and {@link Loop.index}\n *  to access the index of {@link Loop.item} in the list.\n *\n * @example <caption>Basic scenario - Iterating over a static list of items</caption>\n *  import { actorCalled, Loop, Log } from '@serenity-js/core';\n *\n *  actorCalled('Joe').attemptsTo(\n *      Loop.over([ 'apple', 'banana', 'candy' ]).to(\n *          Log.the('current element', Loop.item<string>()),\n *          Log.the('current index', Loop.index()),\n *      ),\n *  );\n *\n * @example <caption>API scenario - Iterating over items in an API response</caption>\n *\n *  import { actorCalled, Loop } from '@serenity-js/core';\n *  import { Send, GetRequest, CallAnApi, LastResponse } from '@serenity-js/rest';\n *  import { Ensure, property, isGreaterThan } from '@serenity-js/assertions';\n *\n *  interface TodoItem {\n *      userId: number;\n *      id: number;\n *      title: string;\n *      completed: boolean;\n *  }\n *\n *  actorCalled('Joe').whoCan(\n *      CallAnApi.at('https://jsonplaceholder.typicode.com')\n *  ).attemptsTo(\n *      Send.a(GetRequest.to('/todos')),\n *      Loop.over(LastResponse.body<TodoItem[]>()).to(\n *          Ensure.that(\n *              Loop.item<TodoItem>(),\n *              property('userId', isGreaterThan(0)),\n *          ),\n *      )\n *  );\n *\n * @example <caption>UI scenario - Example widget</caption>\n *  <nav>\n *      <div data-test=\"cookies\">\n *          <label for=\"functional-cookies\">\n *              <input type=\"checkbox\" id=\"functional-cookies\" />Allow functional cookies\n *          </label>\n *          <label for=\"performance-cookies\">\n *              <input type=\"checkbox\" id=\"performance-cookies\" />Allow performance cookies\n *          </label>\n *          <label for=\"advertising-cookies\">\n *              <input type=\"checkbox\" id=\"advertising-cookies\" />Allow advertising cookies\n *          </label>\n *      </div>\n *  </nav>\n *\n * @example <caption>UI scenario - Lean Page Object</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { browser, by } from 'protractor';\n *\n *  class Cookies {\n *      static labels = Target.all('cookie options')\n *          .located(by.css('[data-test=\"cookies\"]'));\n *\n *      static checkbox = Target.the('checkbox')\n *          .located(by.tagName('input')),\n *  }\n *\n * @example <caption>UI scenario - Performing the same set of activities with each element</caption>\n *  import { actorCalled, Loop } from '@serenity-js/core';\n *  import { Click, Text, isSelected } from '@serenity-js/protractor';\n *  import { Ensure, startsWith } from '@serenity-js/assertions';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Joe')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Loop.over(Cookies.labels).to(\n *               Ensure.that(\n *                  Text.of(Loop.item<ElementFinder>()),\n *                  startsWith('Allow'),\n *              ),\n *\n *              Click.on(Loop.item<ElementFinder>()),\n *              Ensure.that(\n *                  Cookies.checkbox.of(Loop.item<ElementFinder>()),\n *                  isSelected(),\n *              ),\n *          ),\n *      );\n *\n * @extends {Task}\n *\n * @see {@link Loop.item}\n * @see {@link Loop.index}\n * @see {@link Question}\n ",
+            "start": 334,
+            "end": 4282,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 119,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -697,8 +731,23 @@
             "raw": "'../Task'"
           },
           "value": "../Task"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 4283,
+        "end": 8885,
+        "loc": {
+          "start": {
+            "line": 120,
+            "column": 0
+          },
+          "end": {
+            "line": 319,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n ",
@@ -731,22 +780,25 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 4283,
-        "end": 8885,
-        "loc": {
-          "start": {
-            "line": 120,
-            "column": 0
-          },
-          "end": {
-            "line": 319,
-            "column": 1
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @typedef {Object} LoopBuilder\n * @property {function(...activities: Activity[]): Loop} to\n *\n * @example <caption>Basic scenario - Iterating over a static list of items</caption>\n *  import { actorCalled, Loop, Log } from '@serenity-js/core';\n *\n *  actorCalled('Joe').attemptsTo(\n *      Loop.over([ 'apple', 'banana', 'candy' ]).to(\n *          Log.the('current element', Loop.item<string>()),\n *      ),\n *  );\n *\n * @see {@link Loop}\n * @see {@link Loop.over}\n ",
+            "start": 8887,
+            "end": 9361,
+            "loc": {
+              "start": {
+                "line": 321,
+                "column": 0
+              },
+              "end": {
+                "line": 336,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -860,6 +912,42 @@
                     "column": 56
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @type \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
+                    "start": 4322,
+                    "end": 4437,
+                    "loc": {
+                      "start": {
+                        "line": 121,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 132,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @type \n * {number} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
+                    "start": 4496,
+                    "end": 4610,
+                    "loc": {
+                      "start": {
+                        "line": 135,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 146,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "accessibility": "private",
                 "static": true,
                 "key": {
@@ -926,26 +1014,23 @@
                     "identifierName": "undefined"
                   },
                   "name": "undefined"
+                }
+              },
+              {
+                "type": "ClassProperty",
+                "start": 4616,
+                "end": 4660,
+                "loc": {
+                  "start": {
+                    "line": 148,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 148,
+                    "column": 48
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @type \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
-                    "start": 4322,
-                    "end": 4437,
-                    "loc": {
-                      "start": {
-                        "line": 121,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 132,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @type \n * {number} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
@@ -962,22 +1047,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassProperty",
-                "start": 4616,
-                "end": 4660,
-                "loc": {
-                  "start": {
-                    "line": 148,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @param \n * {Answerable} items \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 4661,
+                    "end": 4785,
+                    "loc": {
+                      "start": {
+                        "line": 149,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 160,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 148,
-                    "column": 48
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates a {@link Task} to {@link Loop}\n     *  that enables the {@link Actor} to iterate over `items`\n     *  to perform some `activities`.\n     *\n     * @param {items: Answerable<ReducibleCollection>} items\n     * @returns {LoopBuilder}\n     ",
+                    "start": 4792,
+                    "end": 5067,
+                    "loc": {
+                      "start": {
+                        "line": 163,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 171,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "accessibility": "private",
                 "static": true,
                 "key": {
@@ -1047,26 +1151,23 @@
                     "raw": "0"
                   },
                   "value": 0
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5072,
+                "end": 5245,
+                "loc": {
+                  "start": {
+                    "line": 172,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 177,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @type \n * {number} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
-                    "start": 4496,
-                    "end": 4610,
-                    "loc": {
-                      "start": {
-                        "line": 135,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 146,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @param \n * {Answerable} items \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1099,22 +1200,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5072,
-                "end": 5245,
-                "loc": {
-                  "start": {
-                    "line": 172,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 150 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 5246,
+                    "end": 5363,
+                    "loc": {
+                      "start": {
+                        "line": 178,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 189,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 177,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Returns the current item being processed by {@link Loop.over}.\n     *\n     *  **Please note** that in order for the TypeScript transpiler to understand the exact `ExpectedType`\n     *  of the {@link Question} produced by this method you can optionally configure it with\n     *  a [_type variable_](https://www.typescriptlang.org/docs/handbook/generics.html).\n     *\n     *  For example, configuring the method with type variable of `string`, so `Loop.item<string>()`,\n     *  tells the transpiler that a `Question<string>` will be returned.\n     *\n     *  If the type variable is not configured, the transpiler assumes that returned type is a\n     *  `Question<any>`. This means that while your code could still work, you'd miss out\n     *  on checking provided by TypeScript.\n     *\n     * @returns {Question<ExpectedType>}\n     ",
+                    "start": 5370,
+                    "end": 6227,
+                    "loc": {
+                      "start": {
+                        "line": 192,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 208,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1601,42 +1721,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6232,
+                "end": 6428,
+                "loc": {
+                  "start": {
+                    "line": 209,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 213,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @param \n * {Answerable} items \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 4661,
-                    "end": 4785,
-                    "loc": {
-                      "start": {
-                        "line": 149,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 160,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates a {@link Task} to {@link Loop}\n     *  that enables the {@link Actor} to iterate over `items`\n     *  to perform some `activities`.\n     *\n     * @param {items: Answerable<ReducibleCollection>} items\n     * @returns {LoopBuilder}\n     ",
-                    "start": 4792,
-                    "end": 5067,
-                    "loc": {
-                      "start": {
-                        "line": 163,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 171,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 150 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1669,22 +1770,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6232,
-                "end": 6428,
-                "loc": {
-                  "start": {
-                    "line": 209,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 6429,
+                    "end": 6546,
+                    "loc": {
+                      "start": {
+                        "line": 214,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 225,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 213,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Returns the index of current {@link Loop.item} in the `Answerable<Array>` given to {@link Loop.over}.\n     *\n     *  The index starts at `0`.\n     *\n     * @returns {Question<number>}\n     ",
+                    "start": 6553,
+                    "end": 6769,
+                    "loc": {
+                      "start": {
+                        "line": 228,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 235,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1927,6 +2047,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 6316,
@@ -1943,8 +2064,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2066,6 +2186,7 @@
                                   },
                                   "name": "Loop"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 6383,
@@ -2082,8 +2203,7 @@
                                     "identifierName": "currentItem"
                                   },
                                   "name": "currentItem"
-                                },
-                                "computed": false
+                                }
                               },
                               "typeAnnotation": {
                                 "type": "TSTypeReference",
@@ -2173,42 +2293,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6774,
+                "end": 6925,
+                "loc": {
+                  "start": {
+                    "line": 236,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 240,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 150 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 5246,
-                    "end": 5363,
-                    "loc": {
-                      "start": {
-                        "line": 178,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 189,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the current item being processed by {@link Loop.over}.\n     *\n     *  **Please note** that in order for the TypeScript transpiler to understand the exact `ExpectedType`\n     *  of the {@link Question} produced by this method you can optionally configure it with\n     *  a [_type variable_](https://www.typescriptlang.org/docs/handbook/generics.html).\n     *\n     *  For example, configuring the method with type variable of `string`, so `Loop.item<string>()`,\n     *  tells the transpiler that a `Question<string>` will be returned.\n     *\n     *  If the type variable is not configured, the transpiler assumes that returned type is a\n     *  `Question<any>`. This means that while your code could still work, you'd miss out\n     *  on checking provided by TypeScript.\n     *\n     * @returns {Question<ExpectedType>}\n     ",
-                    "start": 5370,
-                    "end": 6227,
-                    "loc": {
-                      "start": {
-                        "line": 192,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 208,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2241,22 +2342,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6774,
-                "end": 6925,
-                "loc": {
-                  "start": {
-                    "line": 236,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 240,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {Answerable<Reducible>} items\n     * @param {Activity[]} activities\n     ",
+                    "start": 6931,
+                    "end": 7024,
+                    "loc": {
+                      "start": {
+                        "line": 242,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 245,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2434,6 +2538,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 6833,
@@ -2450,8 +2555,7 @@
                               "identifierName": "about"
                             },
                             "name": "about"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2559,6 +2663,7 @@
                                 },
                                 "name": "Loop"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 6895,
@@ -2575,8 +2680,7 @@
                                   "identifierName": "currentIndex"
                                 },
                                 "name": "currentIndex"
-                              },
-                              "computed": false
+                              }
                             }
                           }
                         ],
@@ -2616,42 +2720,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7029,
+                "end": 7175,
+                "loc": {
+                  "start": {
+                    "line": 246,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 251,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 6429,
-                    "end": 6546,
-                    "loc": {
-                      "start": {
-                        "line": 214,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 225,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the index of current {@link Loop.item} in the `Answerable<Array>` given to {@link Loop.over}.\n     *\n     *  The index starts at `0`.\n     *\n     * @returns {Question<number>}\n     ",
-                    "start": 6553,
-                    "end": 6769,
-                    "loc": {
-                      "start": {
-                        "line": 228,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 235,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {Answerable<Reducible>} items\n     * @param {Activity[]} activities\n     ",
@@ -2668,22 +2753,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7029,
-                "end": 7175,
-                "loc": {
-                  "start": {
-                    "line": 246,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 194 \n * @param \n * {PerformsActivities & UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike | PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 7176,
+                    "end": 7365,
+                    "loc": {
+                      "start": {
+                        "line": 252,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 263,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 251,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this {@link Task}.\n     *\n     * @param {PerformsActivities & UsesAbilities & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link PerformsActivities}\n     * @see {@link UsesAbilities}\n     * @see {@link AnswersQuestions}\n     ",
+                    "start": 7372,
+                    "end": 7730,
+                    "loc": {
+                      "start": {
+                        "line": 266,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 278,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2998,26 +3102,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7735,
+                "end": 8369,
+                "loc": {
+                  "start": {
+                    "line": 279,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 293,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Answerable<Reducible>} items\n     * @param {Activity[]} activities\n     ",
-                    "start": 6931,
-                    "end": 7024,
-                    "loc": {
-                      "start": {
-                        "line": 242,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 245,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 194 \n * @param \n * {PerformsActivities & UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike | PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -3050,22 +3151,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7735,
-                "end": 8369,
-                "loc": {
-                  "start": {
-                    "line": 279,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 216 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 8370,
+                    "end": 8463,
+                    "loc": {
+                      "start": {
+                        "line": 294,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 303,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 293,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 8470,
+                    "end": 8607,
+                    "loc": {
+                      "start": {
+                        "line": 306,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 311,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3498,6 +3618,7 @@
                                 },
                                 "name": "actor"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 7868,
@@ -3514,8 +3635,7 @@
                                   "identifierName": "answer"
                                 },
                                 "name": "answer"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -3547,6 +3667,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 7880,
@@ -3563,11 +3684,11 @@
                                     "identifierName": "items"
                                   },
                                   "name": "items"
-                                },
-                                "computed": false
+                                }
                               }
                             ]
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 7900,
@@ -3584,8 +3705,7 @@
                               "identifierName": "then"
                             },
                             "name": "then"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -3669,6 +3789,7 @@
                                   },
                                   "name": "items"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 7936,
@@ -3685,8 +3806,7 @@
                                     "identifierName": "reduce"
                                   },
                                   "name": "reduce"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -3989,6 +4109,7 @@
                                               },
                                               "name": "previous"
                                             },
+                                            "computed": false,
                                             "property": {
                                               "type": "Identifier",
                                               "start": 8040,
@@ -4005,8 +4126,7 @@
                                                 "identifierName": "then"
                                               },
                                               "name": "then"
-                                            },
-                                            "computed": false
+                                            }
                                           },
                                           "arguments": [
                                             {
@@ -4102,6 +4222,7 @@
                                                           },
                                                           "name": "Loop"
                                                         },
+                                                        "computed": false,
                                                         "property": {
                                                           "type": "Identifier",
                                                           "start": 8082,
@@ -4118,8 +4239,7 @@
                                                             "identifierName": "currentIndex"
                                                           },
                                                           "name": "currentIndex"
-                                                        },
-                                                        "computed": false
+                                                        }
                                                       },
                                                       "right": {
                                                         "type": "Identifier",
@@ -4200,6 +4320,7 @@
                                                           },
                                                           "name": "Loop"
                                                         },
+                                                        "computed": false,
                                                         "property": {
                                                           "type": "Identifier",
                                                           "start": 8133,
@@ -4216,8 +4337,7 @@
                                                             "identifierName": "currentItem"
                                                           },
                                                           "name": "currentItem"
-                                                        },
-                                                        "computed": false
+                                                        }
                                                       },
                                                       "right": {
                                                         "type": "Identifier",
@@ -4297,6 +4417,7 @@
                                                           },
                                                           "name": "actor"
                                                         },
+                                                        "computed": false,
                                                         "property": {
                                                           "type": "Identifier",
                                                           "start": 8195,
@@ -4313,8 +4434,7 @@
                                                             "identifierName": "attemptsTo"
                                                           },
                                                           "name": "attemptsTo"
-                                                        },
-                                                        "computed": false
+                                                        }
                                                       },
                                                       "arguments": [
                                                         {
@@ -4360,6 +4480,7 @@
                                                                 }
                                                               }
                                                             },
+                                                            "computed": false,
                                                             "property": {
                                                               "type": "Identifier",
                                                               "start": 8243,
@@ -4376,8 +4497,7 @@
                                                                 "identifierName": "activities"
                                                               },
                                                               "name": "activities"
-                                                            },
-                                                            "computed": false
+                                                            }
                                                           }
                                                         }
                                                       ]
@@ -4439,6 +4559,7 @@
                                       },
                                       "name": "Promise"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 8332,
@@ -4455,8 +4576,7 @@
                                         "identifierName": "resolve"
                                       },
                                       "name": "resolve"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -4506,42 +4626,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 8612,
+                "end": 8883,
+                "loc": {
+                  "start": {
+                    "line": 312,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 318,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 194 \n * @param \n * {PerformsActivities & UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike | PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 7176,
-                    "end": 7365,
-                    "loc": {
-                      "start": {
-                        "line": 252,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 263,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this {@link Task}.\n     *\n     * @param {PerformsActivities & UsesAbilities & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link PerformsActivities}\n     * @see {@link UsesAbilities}\n     * @see {@link AnswersQuestions}\n     ",
-                    "start": 7372,
-                    "end": 7730,
-                    "loc": {
-                      "start": {
-                        "line": 266,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 278,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 216 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -4574,22 +4675,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 8612,
-                "end": 8883,
-                "loc": {
-                  "start": {
-                    "line": 312,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 318,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4764,6 +4850,7 @@
                                   },
                                   "name": "Array"
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 8668,
@@ -4780,8 +4867,7 @@
                                     "identifierName": "isArray"
                                   },
                                   "name": "isArray"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -4813,6 +4899,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 8681,
@@ -4829,8 +4916,7 @@
                                       "identifierName": "items"
                                     },
                                     "name": "items"
-                                  },
-                                  "computed": false
+                                  }
                                 }
                               ]
                             },
@@ -4892,6 +4978,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 8721,
@@ -4908,9 +4995,9 @@
                                         "identifierName": "items"
                                       },
                                       "name": "items"
-                                    },
-                                    "computed": false
+                                    }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 8727,
@@ -4927,8 +5014,7 @@
                                       "identifierName": "length"
                                     },
                                     "name": "length"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 {
                                   "type": "ConditionalExpression",
@@ -5001,6 +5087,7 @@
                                             }
                                           }
                                         },
+                                        "computed": false,
                                         "property": {
                                           "type": "Identifier",
                                           "start": 8748,
@@ -5017,9 +5104,9 @@
                                             "identifierName": "items"
                                           },
                                           "name": "items"
-                                        },
-                                        "computed": false
+                                        }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 8754,
@@ -5036,8 +5123,7 @@
                                           "identifierName": "length"
                                         },
                                         "name": "length"
-                                      },
-                                      "computed": false
+                                      }
                                     },
                                     "operator": "!==",
                                     "right": {
@@ -5241,6 +5327,7 @@
                                         }
                                       }
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 8814,
@@ -5257,8 +5344,7 @@
                                         "identifierName": "items"
                                       },
                                       "name": "items"
-                                    },
-                                    "computed": false
+                                    }
                                   }
                                 ],
                                 "quasis": [
@@ -5403,41 +5489,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 216 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 8370,
-                    "end": 8463,
-                    "loc": {
-                      "start": {
-                        "line": 294,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 303,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 8470,
-                    "end": 8607,
-                    "loc": {
-                      "start": {
-                        "line": 306,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 311,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -5493,59 +5545,7 @@
               }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n ",
-            "start": 285,
-            "end": 331,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Enables the {@link Actor} to iterate over a list of items produced by any {@link Answerable}.\n *\n *  You can think of `Loop` as a more sophisticated Screenplay-style equivalent of\n *  [`Array.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach).\n *  `Loop` is capable of working with both synchronous data structures,\n *  such as [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)\n *  and `Question<Array<T>>`,\n *  as well as asynchronous ones, so `Promise<Array<T>>` and `Question<Promise<Array<T>>>`.\n *\n *  Use {@link Loop.item} to access the current item being processed by {@link Loop}, and {@link Loop.index}\n *  to access the index of {@link Loop.item} in the list.\n *\n * @example <caption>Basic scenario - Iterating over a static list of items</caption>\n *  import { actorCalled, Loop, Log } from '@serenity-js/core';\n *\n *  actorCalled('Joe').attemptsTo(\n *      Loop.over([ 'apple', 'banana', 'candy' ]).to(\n *          Log.the('current element', Loop.item<string>()),\n *          Log.the('current index', Loop.index()),\n *      ),\n *  );\n *\n * @example <caption>API scenario - Iterating over items in an API response</caption>\n *\n *  import { actorCalled, Loop } from '@serenity-js/core';\n *  import { Send, GetRequest, CallAnApi, LastResponse } from '@serenity-js/rest';\n *  import { Ensure, property, isGreaterThan } from '@serenity-js/assertions';\n *\n *  interface TodoItem {\n *      userId: number;\n *      id: number;\n *      title: string;\n *      completed: boolean;\n *  }\n *\n *  actorCalled('Joe').whoCan(\n *      CallAnApi.at('https://jsonplaceholder.typicode.com')\n *  ).attemptsTo(\n *      Send.a(GetRequest.to('/todos')),\n *      Loop.over(LastResponse.body<TodoItem[]>()).to(\n *          Ensure.that(\n *              Loop.item<TodoItem>(),\n *              property('userId', isGreaterThan(0)),\n *          ),\n *      )\n *  );\n *\n * @example <caption>UI scenario - Example widget</caption>\n *  <nav>\n *      <div data-test=\"cookies\">\n *          <label for=\"functional-cookies\">\n *              <input type=\"checkbox\" id=\"functional-cookies\" />Allow functional cookies\n *          </label>\n *          <label for=\"performance-cookies\">\n *              <input type=\"checkbox\" id=\"performance-cookies\" />Allow performance cookies\n *          </label>\n *          <label for=\"advertising-cookies\">\n *              <input type=\"checkbox\" id=\"advertising-cookies\" />Allow advertising cookies\n *          </label>\n *      </div>\n *  </nav>\n *\n * @example <caption>UI scenario - Lean Page Object</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { browser, by } from 'protractor';\n *\n *  class Cookies {\n *      static labels = Target.all('cookie options')\n *          .located(by.css('[data-test=\"cookies\"]'));\n *\n *      static checkbox = Target.the('checkbox')\n *          .located(by.tagName('input')),\n *  }\n *\n * @example <caption>UI scenario - Performing the same set of activities with each element</caption>\n *  import { actorCalled, Loop } from '@serenity-js/core';\n *  import { Click, Text, isSelected } from '@serenity-js/protractor';\n *  import { Ensure, startsWith } from '@serenity-js/assertions';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Joe')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Loop.over(Cookies.labels).to(\n *               Ensure.that(\n *                  Text.of(Loop.item<ElementFinder>()),\n *                  startsWith('Allow'),\n *              ),\n *\n *              Click.on(Loop.item<ElementFinder>()),\n *              Ensure.that(\n *                  Cookies.checkbox.of(Loop.item<ElementFinder>()),\n *                  isSelected(),\n *              ),\n *          ),\n *      );\n *\n * @extends {Task}\n *\n * @see {@link Loop.item}\n * @see {@link Loop.index}\n * @see {@link Question}\n ",
-            "start": 334,
-            "end": 4282,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 119,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @typedef {Object} LoopBuilder\n * @property {function(...activities: Activity[]): Loop} to\n *\n * @example <caption>Basic scenario - Iterating over a static list of items</caption>\n *  import { actorCalled, Loop, Log } from '@serenity-js/core';\n *\n *  actorCalled('Joe').attemptsTo(\n *      Loop.over([ 'apple', 'banana', 'candy' ]).to(\n *          Log.the('current element', Loop.item<string>()),\n *      ),\n *  );\n *\n * @see {@link Loop}\n * @see {@link Loop.over}\n ",
-            "start": 8887,
-            "end": 9361,
-            "loc": {
-              "start": {
-                "line": 321,
-                "column": 0
-              },
-              "end": {
-                "line": 336,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

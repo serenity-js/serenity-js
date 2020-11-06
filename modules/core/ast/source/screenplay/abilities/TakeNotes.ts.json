@@ -441,6 +441,40 @@
             "column": 39
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
+            "start": 227,
+            "end": 272,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Enables the {@link Actor} to {@link TakeNote} of an answer to a given {@link Question}\n *  and to retrieve their {@link Note} later.\n *\n * @see {@link Note}\n * @see {@link TakeNote}\n *\n * @implements {Ability}\n * @implements {Discardable}\n ",
+            "start": 275,
+            "end": 534,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -512,8 +546,23 @@
             "raw": "'../Question'"
           },
           "value": "../Question"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 535,
+        "end": 7396,
+        "loc": {
+          "start": {
+            "line": 25,
+            "column": 0
+          },
+          "end": {
+            "line": 282,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
@@ -546,22 +595,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 535,
-        "end": 7396,
-        "loc": {
-          "start": {
-            "line": 25,
-            "column": 0
-          },
-          "end": {
-            "line": 282,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -692,6 +726,58 @@
                     "column": 58
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
+                    "start": 592,
+                    "end": 682,
+                    "loc": {
+                      "start": {
+                        "line": 26,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 69 \n * @return \n * {TakeNotes} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 743,
+                    "end": 860,
+                    "loc": {
+                      "start": {
+                        "line": 38,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 49,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates an ability to {@link TakeNotes} that uses an empty notepad.\n     *\n     *  This method should be used when you need the {@link Actor} to {@link TakeNote}\n     *  of an answer to some {@link Question} and retrieve such {@link Note} later on in the same scenario,\n     *  but you don't need the {@link Actor}s to share their notes.\n     *\n     * @example\n     *  import { actorCalled, Log, Note, TakeNote, TakeNotes } from '@serenity-js/core'\n     *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'\n     *  import { by, protractor } from 'protractor';\n     *\n     *  const actor = actorCalled('Apisitt').whoCan(\n     *      TakeNotes.usingAnEmptyNotepad(),\n     *      CallAnApi.at('https://api.example.org'),\n     *  );\n     *\n     *  actor.attemptsTo(\n     *      Send.a(GetRequest.to('/customers')),\n     *      TakeNote.of(LastResponse.status()),     // remember the LastResponse.status()\n     *      // ... perform some other activities\n     *      Log.the(Note.of(LastResponse.body())),  // log it later, or pass to any other interaction\n     *  );\n     *\n     * @example\n     *  import { actorCalled, Note, TakeNote, TakeNotes } from '@serenity-js/core'\n     *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'\n     *  import { by, protractor } from 'protractor';\n     *\n     *  class Vouchers {\n     *      static code             = Target.the('voucher code').located(by.id('voucher'));\n     *      static appliedVoucher   = Target.the('voucher code').located(by.id('applied-voucher'));\n     *  }\n     *\n     *  const actor = actorCalled('Noah').whoCan(\n     *      TakeNotes.usingAnEmptyNotepad(),\n     *      BrowseTheWeb.using(protractor.browser),\n     *  );\n     *\n     *  actor.attemptsTo(\n     *      TakeNote.of(Text.of(Vouchers.code)),\n     *      // ... add the product to a basket, go to checkout, etc.\n     *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),\n     *  );\n     *\n     * @returns {TakeNotes}\n     ",
+                    "start": 867,
+                    "end": 2918,
+                    "loc": {
+                      "start": {
+                        "line": 52,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 99,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "accessibility": "private",
                 "static": true,
                 "key": {
@@ -791,26 +877,23 @@
                     ]
                   },
                   "arguments": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2923,
+                "end": 3024,
+                "loc": {
+                  "start": {
+                    "line": 100,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 102,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
-                    "start": 592,
-                    "end": 682,
-                    "loc": {
-                      "start": {
-                        "line": 26,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 35,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 69 \n * @return \n * {TakeNotes} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -843,22 +926,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2923,
-                "end": 3024,
-                "loc": {
-                  "start": {
-                    "line": 100,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n * @return \n * {TakeNotes} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3025,
+                    "end": 3143,
+                    "loc": {
+                      "start": {
+                        "line": 103,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 114,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 102,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates an ability to {@link TakeNotes} that uses a notepad that can be shared amongst {@link Actor}s.\n     *\n     *  This method should be used when you need the {@link Actor}s to {@link TakeNote}s\n     *  of answers to some {@link Question}s, share those notes amongst themselves,\n     *  and retrieve such shared {@link Note}s later on in the same scenario.\n     *\n     * @example\n     *  import { actorCalled, Note, TakeNote, TakeNotes } from '@serenity-js/core'\n     *  import { ManageALocalServer, StartLocalTestServer, StopLocalTestServer } from '@serenity-js/local-server'\n     *  import { BrowseTheWeb } from '@serenity-js/protractor'\n     *\n     *  const server = http.createServer(function (request, response) {\n     *      response.setHeader('Connection', 'close');\n     *      response.end('Hello!');\n     *  });\n     *\n     *  const Adam = actorCalled('Adam').whoCan(\n     *      ManageALocalServer.using(server),\n     *      TakeNotes.usingASharedNotepad(),\n     *  );\n     *\n     *  const Becky = actorCalled('Becky').whoCan(\n     *      TakeNotes.usingASharedNotepad(),\n     *      BrowseTheWeb.using(protractor.browser),\n     *  );\n     *\n     *  Adam.attemptsTo(\n     *      StartLocalTestServer.onRandomPort(),\n     *      TakeNote.of(LocalServer.url()),\n     *  );\n     *\n     *  Becky.attemptsTo(\n     *      Navigate.to(Note.of(LocalServer.url())),\n     *      // perform some UI interactions\n     *  );\n     *\n     * @returns {TakeNotes}\n     ",
+                    "start": 3150,
+                    "end": 4649,
+                    "loc": {
+                      "start": {
+                        "line": 117,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 156,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1076,42 +1178,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4654,
+                "end": 4756,
+                "loc": {
+                  "start": {
+                    "line": 157,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 159,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 69 \n * @return \n * {TakeNotes} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 743,
-                    "end": 860,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 49,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates an ability to {@link TakeNotes} that uses an empty notepad.\n     *\n     *  This method should be used when you need the {@link Actor} to {@link TakeNote}\n     *  of an answer to some {@link Question} and retrieve such {@link Note} later on in the same scenario,\n     *  but you don't need the {@link Actor}s to share their notes.\n     *\n     * @example\n     *  import { actorCalled, Log, Note, TakeNote, TakeNotes } from '@serenity-js/core'\n     *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'\n     *  import { by, protractor } from 'protractor';\n     *\n     *  const actor = actorCalled('Apisitt').whoCan(\n     *      TakeNotes.usingAnEmptyNotepad(),\n     *      CallAnApi.at('https://api.example.org'),\n     *  );\n     *\n     *  actor.attemptsTo(\n     *      Send.a(GetRequest.to('/customers')),\n     *      TakeNote.of(LastResponse.status()),     // remember the LastResponse.status()\n     *      // ... perform some other activities\n     *      Log.the(Note.of(LastResponse.body())),  // log it later, or pass to any other interaction\n     *  );\n     *\n     * @example\n     *  import { actorCalled, Note, TakeNote, TakeNotes } from '@serenity-js/core'\n     *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'\n     *  import { by, protractor } from 'protractor';\n     *\n     *  class Vouchers {\n     *      static code             = Target.the('voucher code').located(by.id('voucher'));\n     *      static appliedVoucher   = Target.the('voucher code').located(by.id('applied-voucher'));\n     *  }\n     *\n     *  const actor = actorCalled('Noah').whoCan(\n     *      TakeNotes.usingAnEmptyNotepad(),\n     *      BrowseTheWeb.using(protractor.browser),\n     *  );\n     *\n     *  actor.attemptsTo(\n     *      TakeNote.of(Text.of(Vouchers.code)),\n     *      // ... add the product to a basket, go to checkout, etc.\n     *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),\n     *  );\n     *\n     * @returns {TakeNotes}\n     ",
-                    "start": 867,
-                    "end": 2918,
-                    "loc": {
-                      "start": {
-                        "line": 52,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 99,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n * @return \n * {TakeNotes} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1144,22 +1227,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4654,
-                "end": 4756,
-                "loc": {
-                  "start": {
-                    "line": 157,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 129 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {TakeNotes} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 4757,
+                    "end": 4931,
+                    "loc": {
+                      "start": {
+                        "line": 160,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 173,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 159,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Retrieves the {@link Ability} to {@link TakeNotes}\n     *  for a given {@link Actor} to be used in custom {@link Interaction}s.\n     *\n     * @see {@link Ability}\n     * @see {@link Interaction}\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *\n     * @returns {TakeNotes}\n     ",
+                    "start": 4938,
+                    "end": 5262,
+                    "loc": {
+                      "start": {
+                        "line": 176,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 187,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1323,6 +1425,7 @@
                               },
                               "name": "TakeNotes"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 4735,
@@ -1339,50 +1442,30 @@
                                 "identifierName": "sharedNotepad"
                               },
                               "name": "sharedNotepad"
-                            },
-                            "computed": false
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5267,
+                "end": 5379,
+                "loc": {
+                  "start": {
+                    "line": 188,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 190,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n * @return \n * {TakeNotes} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3025,
-                    "end": 3143,
-                    "loc": {
-                      "start": {
-                        "line": 103,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 114,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates an ability to {@link TakeNotes} that uses a notepad that can be shared amongst {@link Actor}s.\n     *\n     *  This method should be used when you need the {@link Actor}s to {@link TakeNote}s\n     *  of answers to some {@link Question}s, share those notes amongst themselves,\n     *  and retrieve such shared {@link Note}s later on in the same scenario.\n     *\n     * @example\n     *  import { actorCalled, Note, TakeNote, TakeNotes } from '@serenity-js/core'\n     *  import { ManageALocalServer, StartLocalTestServer, StopLocalTestServer } from '@serenity-js/local-server'\n     *  import { BrowseTheWeb } from '@serenity-js/protractor'\n     *\n     *  const server = http.createServer(function (request, response) {\n     *      response.setHeader('Connection', 'close');\n     *      response.end('Hello!');\n     *  });\n     *\n     *  const Adam = actorCalled('Adam').whoCan(\n     *      ManageALocalServer.using(server),\n     *      TakeNotes.usingASharedNotepad(),\n     *  );\n     *\n     *  const Becky = actorCalled('Becky').whoCan(\n     *      TakeNotes.usingASharedNotepad(),\n     *      BrowseTheWeb.using(protractor.browser),\n     *  );\n     *\n     *  Adam.attemptsTo(\n     *      StartLocalTestServer.onRandomPort(),\n     *      TakeNote.of(LocalServer.url()),\n     *  );\n     *\n     *  Becky.attemptsTo(\n     *      Navigate.to(Note.of(LocalServer.url())),\n     *      // perform some UI interactions\n     *  );\n     *\n     * @returns {TakeNotes}\n     ",
-                    "start": 3150,
-                    "end": 4649,
-                    "loc": {
-                      "start": {
-                        "line": 117,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 156,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 129 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {TakeNotes} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1415,22 +1498,25 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5267,
-                "end": 5379,
-                "loc": {
-                  "start": {
-                    "line": 188,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 190,
-                    "column": 5
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates the {@link Ability} to {@link TakeNotes}\n     *\n     * @param {Map<string, any>} notepad\n     ",
+                    "start": 5385,
+                    "end": 5519,
+                    "loc": {
+                      "start": {
+                        "line": 192,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 197,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1690,6 +1776,7 @@
                             },
                             "name": "actor"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 5352,
@@ -1706,8 +1793,7 @@
                               "identifierName": "abilityTo"
                             },
                             "name": "abilityTo"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1732,42 +1818,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5524,
+                "end": 5587,
+                "loc": {
+                  "start": {
+                    "line": 198,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 199,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 129 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {TakeNotes} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 4757,
-                    "end": 4931,
-                    "loc": {
-                      "start": {
-                        "line": 160,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 173,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves the {@link Ability} to {@link TakeNotes}\n     *  for a given {@link Actor} to be used in custom {@link Interaction}s.\n     *\n     * @see {@link Ability}\n     * @see {@link Interaction}\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *\n     * @returns {TakeNotes}\n     ",
-                    "start": 4938,
-                    "end": 5262,
-                    "loc": {
-                      "start": {
-                        "line": 176,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 187,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Instantiates the {@link Ability} to {@link TakeNotes}\n     *\n     * @param {Map<string, any>} notepad\n     ",
@@ -1784,22 +1851,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5524,
-                "end": 5587,
-                "loc": {
-                  "start": {
-                    "line": 198,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 154 \n * @param \n * {Question | Question | undefined} subject \n * @param \n * {Promise | Answer} value \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 5588,
+                    "end": 5776,
+                    "loc": {
+                      "start": {
+                        "line": 200,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 213,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 199,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Records the answer to a given {@link Question}\n     *\n     * @param {Question<Promise<Answer>> | Question<Answer> | string} subject\n     *  Question or name to record the Answer as\n     *\n     * @param {Promise<Answer> | Answer} value\n     *  The Answer to record\n     *\n     * @returns {void}\n     ",
+                    "start": 5783,
+                    "end": 6109,
+                    "loc": {
+                      "start": {
+                        "line": 216,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 227,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1969,26 +2055,23 @@
                   },
                   "body": [],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6114,
+                "end": 6292,
+                "loc": {
+                  "start": {
+                    "line": 228,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 230,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates the {@link Ability} to {@link TakeNotes}\n     *\n     * @param {Map<string, any>} notepad\n     ",
-                    "start": 5385,
-                    "end": 5519,
-                    "loc": {
-                      "start": {
-                        "line": 192,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 197,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 154 \n * @param \n * {Question | Question | undefined} subject \n * @param \n * {Promise | Answer} value \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -2021,22 +2104,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6114,
-                "end": 6292,
-                "loc": {
-                  "start": {
-                    "line": 228,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 167 \n * @param \n * {Question | Question | undefined} subject \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 6293,
+                    "end": 6444,
+                    "loc": {
+                      "start": {
+                        "line": 231,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 242,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 230,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Recalls the answer to a given {@link Question}\n     *\n     * @param {Question<Promise<Answer>> | Question<Answer> | string} subject\n     *  Question or name the Answer was recorded as\n     *\n     * @returns {Promise<Answer>}\n     ",
+                    "start": 6451,
+                    "end": 6708,
+                    "loc": {
+                      "start": {
+                        "line": 245,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 253,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2648,6 +2750,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 6247,
@@ -2664,9 +2767,9 @@
                                 "identifierName": "notepad"
                               },
                               "name": "notepad"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 6255,
@@ -2683,8 +2786,7 @@
                               "identifierName": "set"
                             },
                             "name": "set"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -2732,6 +2834,7 @@
                                 },
                                 "name": "subject"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 6267,
@@ -2748,8 +2851,7 @@
                                   "identifierName": "toString"
                                 },
                                 "name": "toString"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
                           },
@@ -2775,42 +2877,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6713,
+                "end": 7049,
+                "loc": {
+                  "start": {
+                    "line": 254,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 260,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 154 \n * @param \n * {Question | Question | undefined} subject \n * @param \n * {Promise | Answer} value \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 5588,
-                    "end": 5776,
-                    "loc": {
-                      "start": {
-                        "line": 200,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 213,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Records the answer to a given {@link Question}\n     *\n     * @param {Question<Promise<Answer>> | Question<Answer> | string} subject\n     *  Question or name to record the Answer as\n     *\n     * @param {Promise<Answer> | Answer} value\n     *  The Answer to record\n     *\n     * @returns {void}\n     ",
-                    "start": 5783,
-                    "end": 6109,
-                    "loc": {
-                      "start": {
-                        "line": 216,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 227,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 167 \n * @param \n * {Question | Question | undefined} subject \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2843,22 +2926,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6713,
-                "end": 7049,
-                "loc": {
-                  "start": {
-                    "line": 254,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 7050,
+                    "end": 7156,
+                    "loc": {
+                      "start": {
+                        "line": 261,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 270,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 260,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Enables the {@link Actor} to clear the notepad when the {@link SceneFinishes}.\n     *\n     * @returns {Promise<void> | void}\n     ",
+                    "start": 7163,
+                    "end": 7320,
+                    "loc": {
+                      "start": {
+                        "line": 273,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 278,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3394,6 +3496,7 @@
                                 },
                                 "name": "subject"
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 6841,
@@ -3410,8 +3513,7 @@
                                   "identifierName": "toString"
                                 },
                                 "name": "toString"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": []
                           }
@@ -3520,6 +3622,7 @@
                                     }
                                   }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 6876,
@@ -3536,9 +3639,9 @@
                                     "identifierName": "notepad"
                                   },
                                   "name": "notepad"
-                                },
-                                "computed": false
+                                }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 6884,
@@ -3555,8 +3658,7 @@
                                   "identifierName": "has"
                                 },
                                 "name": "has"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -3624,6 +3726,7 @@
                               },
                               "name": "Promise"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 6915,
@@ -3640,8 +3743,7 @@
                                 "identifierName": "reject"
                               },
                               "name": "reject"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -3801,6 +3903,7 @@
                               },
                               "name": "Promise"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 7012,
@@ -3817,8 +3920,7 @@
                                 "identifierName": "resolve"
                               },
                               "name": "resolve"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -3878,6 +3980,7 @@
                                       }
                                     }
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 7025,
@@ -3894,9 +3997,9 @@
                                       "identifierName": "notepad"
                                     },
                                     "name": "notepad"
-                                  },
-                                  "computed": false
+                                  }
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 7033,
@@ -3913,8 +4016,7 @@
                                     "identifierName": "get"
                                   },
                                   "name": "get"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": [
                                 {
@@ -3942,42 +4044,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7325,
+                "end": 7394,
+                "loc": {
+                  "start": {
+                    "line": 279,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 281,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 167 \n * @param \n * {Question | Question | undefined} subject \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 6293,
-                    "end": 6444,
-                    "loc": {
-                      "start": {
-                        "line": 231,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 242,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Recalls the answer to a given {@link Question}\n     *\n     * @param {Question<Promise<Answer>> | Question<Answer> | string} subject\n     *  Question or name the Answer was recorded as\n     *\n     * @returns {Promise<Answer>}\n     ",
-                    "start": 6451,
-                    "end": 6708,
-                    "loc": {
-                      "start": {
-                        "line": 245,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 253,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
@@ -4010,22 +4093,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7325,
-                "end": 7394,
-                "loc": {
-                  "start": {
-                    "line": 279,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 281,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4247,6 +4315,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 7372,
@@ -4263,9 +4332,9 @@
                                 "identifierName": "notepad"
                               },
                               "name": "notepad"
-                            },
-                            "computed": false
+                            }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 7380,
@@ -4282,49 +4351,14 @@
                               "identifierName": "clear"
                             },
                             "name": "clear"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": []
                       }
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 7050,
-                    "end": 7156,
-                    "loc": {
-                      "start": {
-                        "line": 261,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 270,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enables the {@link Actor} to clear the notepad when the {@link SceneFinishes}.\n     *\n     * @returns {Promise<void> | void}\n     ",
-                    "start": 7163,
-                    "end": 7320,
-                    "loc": {
-                      "start": {
-                        "line": 273,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 278,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -4363,41 +4397,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
-            "start": 227,
-            "end": 272,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Enables the {@link Actor} to {@link TakeNote} of an answer to a given {@link Question}\n *  and to retrieve their {@link Note} later.\n *\n * @see {@link Note}\n * @see {@link TakeNote}\n *\n * @implements {Ability}\n * @implements {Discardable}\n ",
-            "start": 275,
-            "end": 534,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 24,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

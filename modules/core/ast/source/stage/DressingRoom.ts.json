@@ -44,6 +44,40 @@
             "column": 47
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n ",
+            "start": 48,
+            "end": 93,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Prepares the {@link Actor} for the performance.\n *\n * @example <caption>A dressing room for actors interacting with a Web UI</caption>\n *\n *  import { serenity, Actor, DressingRoom } from '@serenity-js/core'\n *  import { BrowseTheWeb } from '@serenity-js/protractor'\n *  import { protractor } from 'protractor'\n *\n *  class UIActors implements DressingRoom {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *      }\n *  }\n *\n *  const stage = serenity.callToStageFor(new UIActors());\n *\n * @see {@link Stage}\n * @see {@link Cast}\n * @interface\n *\n * @deprecated Please use the Cast instead\n ",
+            "start": 96,
+            "end": 764,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 33,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -164,8 +198,23 @@
             "raw": "'../screenplay'"
           },
           "value": "../screenplay"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 765,
+        "end": 1526,
+        "loc": {
+          "start": {
+            "line": 34,
+            "column": 0
+          },
+          "end": {
+            "line": 78,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n ",
@@ -198,22 +247,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 765,
-        "end": 1526,
-        "loc": {
-          "start": {
-            "line": 34,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 46 \n ",
+            "start": 1527,
+            "end": 1572,
+            "loc": {
+              "start": {
+                "line": 79,
+                "column": 0
+              },
+              "end": {
+                "line": 84,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 78,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 1575,
+            "end": 1594,
+            "loc": {
+              "start": {
+                "line": 87,
+                "column": 0
+              },
+              "end": {
+                "line": 89,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -279,6 +347,58 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 36 \n * @param \n * {UNKNOWN} abilities \n * @return \n * {DressingRoom} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 802,
+                    "end": 957,
+                    "loc": {
+                      "start": {
+                        "line": 35,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 48,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Creates a generic `DressingRoom` implementation, where every actor\n     *  is given all the abilities specified when the method is called.\n     *\n     * @param {Ability[]} abilities\n     * @returns {DressingRoom}\n     ",
+                    "start": 963,
+                    "end": 1208,
+                    "loc": {
+                      "start": {
+                        "line": 50,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 57,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1335,
+                    "end": 1479,
+                    "loc": {
+                      "start": {
+                        "line": 61,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 74,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -528,42 +648,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 1486,
+                "end": 1524,
+                "loc": {
+                  "start": {
+                    "line": 77,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 77,
+                    "column": 42
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 36 \n * @param \n * {UNKNOWN} abilities \n * @return \n * {DressingRoom} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 802,
-                    "end": 957,
-                    "loc": {
-                      "start": {
-                        "line": 35,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 48,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Creates a generic `DressingRoom` implementation, where every actor\n     *  is given all the abilities specified when the method is called.\n     *\n     * @param {Ability[]} abilities\n     * @returns {DressingRoom}\n     ",
-                    "start": 963,
-                    "end": 1208,
-                    "loc": {
-                      "start": {
-                        "line": 50,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 57,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -580,22 +681,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 1486,
-                "end": 1524,
-                "loc": {
-                  "start": {
-                    "line": 77,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 77,
-                    "column": 42
-                  }
-                },
+                ],
                 "abstract": true,
                 "static": false,
                 "key": {
@@ -732,25 +818,7 @@
                       "name": "Actor"
                     }
                   }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1335,
-                    "end": 1479,
-                    "loc": {
-                      "start": {
-                        "line": 61,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 74,
-                        "column": 3
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -822,42 +890,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 1595,
+        "end": 1923,
+        "loc": {
+          "start": {
+            "line": 90,
+            "column": 0
+          },
+          "end": {
+            "line": 110,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n ",
-            "start": 48,
-            "end": 93,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Prepares the {@link Actor} for the performance.\n *\n * @example <caption>A dressing room for actors interacting with a Web UI</caption>\n *\n *  import { serenity, Actor, DressingRoom } from '@serenity-js/core'\n *  import { BrowseTheWeb } from '@serenity-js/protractor'\n *  import { protractor } from 'protractor'\n *\n *  class UIActors implements DressingRoom {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(BrowseTheWeb.using(protractor.browser));\n *      }\n *  }\n *\n *  const stage = serenity.callToStageFor(new UIActors());\n *\n * @see {@link Stage}\n * @see {@link Cast}\n * @interface\n *\n * @deprecated Please use the Cast instead\n ",
-            "start": 96,
-            "end": 764,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 33,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 46 \n ",
@@ -890,22 +939,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 1595,
-        "end": 1923,
-        "loc": {
-          "start": {
-            "line": 90,
-            "column": 0
-          },
-          "end": {
-            "line": 110,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 1601,
@@ -987,6 +1021,24 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+                  "start": 1710,
+                  "end": 1830,
+                  "loc": {
+                    "start": {
+                      "line": 93,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 104,
+                      "column": 3
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -1124,8 +1176,23 @@
                 },
                 "body": [],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 1837,
+              "end": 1921,
+              "loc": {
+                "start": {
+                  "line": 107,
+                  "column": 4
+                },
+                "end": {
+                  "line": 109,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
@@ -1142,22 +1209,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 1837,
-              "end": 1921,
-              "loc": {
-                "start": {
-                  "line": 107,
-                  "column": 4
-                },
-                "end": {
-                  "line": 109,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -1368,6 +1420,7 @@
                           },
                           "name": "actor"
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 1889,
@@ -1384,8 +1437,7 @@
                             "identifierName": "whoCan"
                           },
                           "name": "whoCan"
-                        },
-                        "computed": false
+                        }
                       },
                       "arguments": [
                         {
@@ -1431,6 +1483,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 1904,
@@ -1447,8 +1500,7 @@
                                 "identifierName": "abilities"
                               },
                               "name": "abilities"
-                            },
-                            "computed": false
+                            }
                           }
                         }
                       ]
@@ -1456,62 +1508,10 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
-                  "start": 1710,
-                  "end": 1830,
-                  "loc": {
-                    "start": {
-                      "line": 93,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 104,
-                      "column": 3
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 46 \n ",
-            "start": 1527,
-            "end": 1572,
-            "loc": {
-              "start": {
-                "line": 79,
-                "column": 0
-              },
-              "end": {
-                "line": 84,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 1575,
-            "end": 1594,
-            "loc": {
-              "start": {
-                "line": 87,
-                "column": 0
-              },
-              "end": {
-                "line": 89,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

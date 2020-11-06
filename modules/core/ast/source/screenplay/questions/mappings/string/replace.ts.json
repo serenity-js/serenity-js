@@ -490,6 +490,40 @@
             "column": 65
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {Answerable} pattern \n * @param \n * {Answerable} replacement \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 287,
+            "end": 448,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Returns a new string with some or all matches of a pattern replaced by a replacement.\n *  The pattern can be a string or a RegExp, and the replacement can be a string or a function to be called for each match.\n *  If pattern is a string, only the first occurrence will be replaced.\n *\n * @param {Answerable<string | RegExp>} pattern\n *\n * @param {Answerable<string|function>} replacement\n *\n * @returns {MappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace\n ",
+            "start": 451,
+            "end": 1015,
+            "loc": {
+              "start": {
+                "line": 20,
+                "column": 0
+              },
+              "end": {
+                "line": 33,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -561,8 +595,23 @@
             "raw": "'../AnswerMappingFunction'"
           },
           "value": "../AnswerMappingFunction"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1016,
+        "end": 1566,
+        "loc": {
+          "start": {
+            "line": 34,
+            "column": 0
+          },
+          "end": {
+            "line": 46,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {Answerable} pattern \n * @param \n * {Answerable} replacement \n * @return \n * {AnswerMappingFunction} \n ",
@@ -595,22 +644,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1016,
-        "end": 1566,
-        "loc": {
-          "start": {
-            "line": 34,
-            "column": 0
-          },
-          "end": {
-            "line": 46,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1560,6 +1594,9 @@
                                 "column": 13
                               }
                             },
+                            "extra": {
+                              "trailingComma": 1538
+                            },
                             "callee": {
                               "type": "MemberExpression",
                               "start": 1368,
@@ -1619,6 +1656,7 @@
                                     },
                                     "name": "Promise"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 1376,
@@ -1635,8 +1673,7 @@
                                       "identifierName": "all"
                                     },
                                     "name": "all"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -1702,6 +1739,7 @@
                                             },
                                             "name": "actor"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1404,
@@ -1718,8 +1756,7 @@
                                               "identifierName": "answer"
                                             },
                                             "name": "answer"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1786,6 +1823,7 @@
                                             },
                                             "name": "actor"
                                           },
+                                          "computed": false,
                                           "property": {
                                             "type": "Identifier",
                                             "start": 1443,
@@ -1802,8 +1840,7 @@
                                               "identifierName": "answer"
                                             },
                                             "name": "answer"
-                                          },
-                                          "computed": false
+                                          }
                                         },
                                         "arguments": [
                                           {
@@ -1829,6 +1866,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 1479,
@@ -1845,11 +1883,7 @@
                                   "identifierName": "then"
                                 },
                                 "name": "then"
-                              },
-                              "computed": false
-                            },
-                            "extra": {
-                              "trailingComma": 1538
+                              }
                             },
                             "arguments": [
                               {
@@ -1967,6 +2001,7 @@
                                       },
                                       "name": "value"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 1518,
@@ -1983,8 +2018,7 @@
                                         "identifierName": "replace"
                                       },
                                       "name": "replace"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -2101,41 +2135,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {Answerable} pattern \n * @param \n * {Answerable} replacement \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 287,
-            "end": 448,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Returns a new string with some or all matches of a pattern replaced by a replacement.\n *  The pattern can be a string or a RegExp, and the replacement can be a string or a function to be called for each match.\n *  If pattern is a string, only the first occurrence will be replaced.\n *\n * @param {Answerable<string | RegExp>} pattern\n *\n * @param {Answerable<string|function>} replacement\n *\n * @returns {MappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace\n ",
-            "start": 451,
-            "end": 1015,
-            "loc": {
-              "start": {
-                "line": 20,
-                "column": 0
-              },
-              "end": {
-                "line": 33,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

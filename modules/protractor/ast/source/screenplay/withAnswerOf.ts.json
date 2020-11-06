@@ -44,6 +44,40 @@
             "column": 78
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @param \n * {Question | T} maybeQuestion \n * @param \n * {Function} fn \n ",
+            "start": 79,
+            "end": 252,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n * @param actor\n * @param maybeQuestion\n * @param fn\n ",
+            "start": 255,
+            "end": 327,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -213,8 +247,23 @@
             "raw": "'@serenity-js/core'"
           },
           "value": "@serenity-js/core"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 328,
+        "end": 620,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 32,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @param \n * {Question | T} maybeQuestion \n * @param \n * {Function} fn \n ",
@@ -247,22 +296,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 328,
-        "end": 620,
-        "loc": {
-          "start": {
-            "line": 22,
-            "column": 0
-          },
-          "end": {
-            "line": 32,
-            "column": 1
-          }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -905,6 +939,7 @@
                             },
                             "name": "Question"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 501,
@@ -921,8 +956,7 @@
                               "identifierName": "isAQuestion"
                             },
                             "name": "isAQuestion"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -989,6 +1023,7 @@
                             },
                             "name": "maybeQuestion"
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 552,
@@ -1005,8 +1040,7 @@
                               "identifierName": "answeredBy"
                             },
                             "name": "answeredBy"
-                          },
-                          "computed": false
+                          }
                         },
                         "arguments": [
                           {
@@ -1154,41 +1188,7 @@
             }
           ],
           "trailingComments": []
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @param \n * {Question | T} maybeQuestion \n * @param \n * {Function} fn \n ",
-            "start": 79,
-            "end": 252,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @private\n * @param actor\n * @param maybeQuestion\n * @param fn\n ",
-            "start": 255,
-            "end": 327,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []

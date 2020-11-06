@@ -501,6 +501,40 @@
             "column": 44
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 248,
+            "end": 293,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Allows the {@link @serenity-js/core/lib/screenplay/actor~Actor} to navigate to a specific destination,\n *  as well as back and forth in the browser history, or reload the current page.\n ",
+            "start": 296,
+            "end": 501,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 3
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -572,8 +606,23 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 502,
+        "end": 6756,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 235,
+            "column": 1
+          }
         },
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
@@ -606,22 +655,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 502,
-        "end": 6756,
-        "loc": {
-          "start": {
-            "line": 18,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 168 \n ",
+            "start": 6757,
+            "end": 6803,
+            "loc": {
+              "start": {
+                "line": 236,
+                "column": 0
+              },
+              "end": {
+                "line": 241,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 235,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 6806,
+            "end": 6825,
+            "loc": {
+              "start": {
+                "line": 244,
+                "column": 0
+              },
+              "end": {
+                "line": 246,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -686,6 +754,74 @@
                     "column": 5
                   }
                 },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Answerable} url \n * @return \n * {Interaction & undefined} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 526,
+                    "end": 689,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  navigate to a given URL.\n     *\n     *  The URL can be:\n     *  - absolute, i.e. `https://example.org/search`\n     *  - relative, i.e. `/search`\n     *\n     *  If the URL is relative, Protractor will append it to `baseUrl` configured in [`protractor.conf.js`](https://github.com/angular/protractor/blob/master/lib/config.ts).\n     *\n     * @example <caption>protractor.conf.js</caption>\n     *  exports.config = {\n     *      baseUrl: 'https://example.org',\n     *      // ...\n     *  }\n     *\n     * @example <caption>Navigate to path relative to baseUrl</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/search'),\n     *      );\n     *\n     * @example <caption>Navigate to an absolute URL (overrides baseUrl)</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('https://mycompany.org/login'),\n     *      );\n     *\n     * @example <caption>Navigate to URL with timeout</caption>\n     *  import { actorCalled, Duration } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/search').withTimeout(Duration.ofSeconds(2)),\n     *      );\n     *\n     * @param {Answerable<string>} url\n     *  An absolute URL or path an {@link @serenity-js/core/lib/screenplay/actor~Actor} should navigate to\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction & { withTimeout: (duration: Answerable<Duration>) => Interaction }}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link @serenity-js/core~Duration}\n     ",
+                    "start": 696,
+                    "end": 2896,
+                    "loc": {
+                      "start": {
+                        "line": 35,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 89,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 99 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3157,
+                    "end": 3276,
+                    "loc": {
+                      "start": {
+                        "line": 104,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 115,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  navigate back one page in the session history.\n     *\n     * @example <caption>Navigate to path relative to baseUrl</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Ensure, endsWith } from '@serenity-js/assertions';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/first'),\n     *          Navigate.to('/second'),\n     *\n     *          Navigate.back(),\n     *\n     *          Ensure.that(Website.url(), endsWith('/first')),\n     *      );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~endsWith}\n     ",
+                    "start": 3283,
+                    "end": 4275,
+                    "loc": {
+                      "start": {
+                        "line": 118,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 144,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -897,6 +1033,24 @@
                                 "column": 61
                               }
                             },
+                            "leadingComments": [
+                              {
+                                "type": "CommentBlock",
+                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                                "start": 2953,
+                                "end": 3045,
+                                "loc": {
+                                  "start": {
+                                    "line": 91,
+                                    "column": 0
+                                  },
+                                  "end": {
+                                    "line": 100,
+                                    "column": 3
+                                  }
+                                }
+                              }
+                            ],
                             "key": {
                               "type": "Identifier",
                               "start": 3047,
@@ -1106,25 +1260,7 @@
                                   }
                                 }
                               }
-                            },
-                            "leadingComments": [
-                              {
-                                "type": "CommentBlock",
-                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                                "start": 2953,
-                                "end": 3045,
-                                "loc": {
-                                  "start": {
-                                    "line": 91,
-                                    "column": 0
-                                  },
-                                  "end": {
-                                    "line": 100,
-                                    "column": 3
-                                  }
-                                }
-                              }
-                            ]
+                            }
                           }
                         ]
                       }
@@ -1214,42 +1350,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4280,
+                "end": 4349,
+                "loc": {
+                  "start": {
+                    "line": 145,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 147,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Answerable} url \n * @return \n * {Interaction & undefined} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 526,
-                    "end": 689,
-                    "loc": {
-                      "start": {
-                        "line": 19,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 32,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  navigate to a given URL.\n     *\n     *  The URL can be:\n     *  - absolute, i.e. `https://example.org/search`\n     *  - relative, i.e. `/search`\n     *\n     *  If the URL is relative, Protractor will append it to `baseUrl` configured in [`protractor.conf.js`](https://github.com/angular/protractor/blob/master/lib/config.ts).\n     *\n     * @example <caption>protractor.conf.js</caption>\n     *  exports.config = {\n     *      baseUrl: 'https://example.org',\n     *      // ...\n     *  }\n     *\n     * @example <caption>Navigate to path relative to baseUrl</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/search'),\n     *      );\n     *\n     * @example <caption>Navigate to an absolute URL (overrides baseUrl)</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('https://mycompany.org/login'),\n     *      );\n     *\n     * @example <caption>Navigate to URL with timeout</caption>\n     *  import { actorCalled, Duration } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/search').withTimeout(Duration.ofSeconds(2)),\n     *      );\n     *\n     * @param {Answerable<string>} url\n     *  An absolute URL or path an {@link @serenity-js/core/lib/screenplay/actor~Actor} should navigate to\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction & { withTimeout: (duration: Answerable<Duration>) => Interaction }}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link @serenity-js/core~Duration}\n     ",
-                    "start": 696,
-                    "end": 2896,
-                    "loc": {
-                      "start": {
-                        "line": 35,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 89,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 99 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1282,22 +1399,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4280,
-                "end": 4349,
-                "loc": {
-                  "start": {
-                    "line": 145,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 131 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 4350,
+                    "end": 4470,
+                    "loc": {
+                      "start": {
+                        "line": 148,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 159,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 147,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  navigate forward one page in the session history.\n     *\n     * @example <caption>Navigate to path relative to baseUrl</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Ensure, endsWith } from '@serenity-js/assertions';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/first'),\n     *          Navigate.to('/second'),\n     *\n     *          Navigate.back(),\n     *          Navigate.forward(),\n     *\n     *          Ensure.that(Website.url(), endsWith('/second')),\n     *      );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~endsWith}\n     ",
+                    "start": 4477,
+                    "end": 5509,
+                    "loc": {
+                      "start": {
+                        "line": 162,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 189,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1434,42 +1570,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5514,
+                "end": 5589,
+                "loc": {
+                  "start": {
+                    "line": 190,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 192,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 99 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3157,
-                    "end": 3276,
-                    "loc": {
-                      "start": {
-                        "line": 104,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 115,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  navigate back one page in the session history.\n     *\n     * @example <caption>Navigate to path relative to baseUrl</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Ensure, endsWith } from '@serenity-js/assertions';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/first'),\n     *          Navigate.to('/second'),\n     *\n     *          Navigate.back(),\n     *\n     *          Ensure.that(Website.url(), endsWith('/first')),\n     *      );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~endsWith}\n     ",
-                    "start": 3283,
-                    "end": 4275,
-                    "loc": {
-                      "start": {
-                        "line": 118,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 144,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 131 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1502,22 +1619,41 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5514,
-                "end": 5589,
-                "loc": {
-                  "start": {
-                    "line": 190,
-                    "column": 4
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 160 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 5590,
+                    "end": 5710,
+                    "loc": {
+                      "start": {
+                        "line": 193,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 204,
+                        "column": 3
+                      }
+                    }
                   },
-                  "end": {
-                    "line": 192,
-                    "column": 5
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  reload the current page.\n     *\n     * @example <caption>Navigate to path relative to baseUrl</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Ensure, endsWith } from '@serenity-js/assertions';\n     *  import { Navigate, BrowseTheWeb, DeleteCookies } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/login'),\n     *          DeleteCookies.called('session_id'),\n     *          Navigate.reloadPage(),\n     *      );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link DeleteCookies}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~endsWith}\n     ",
+                    "start": 5717,
+                    "end": 6676,
+                    "loc": {
+                      "start": {
+                        "line": 207,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 231,
+                        "column": 7
+                      }
+                    }
                   }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1654,42 +1790,23 @@
                     }
                   ],
                   "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6681,
+                "end": 6754,
+                "loc": {
+                  "start": {
+                    "line": 232,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 234,
+                    "column": 5
+                  }
                 },
                 "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 131 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 4350,
-                    "end": 4470,
-                    "loc": {
-                      "start": {
-                        "line": 148,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 159,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  navigate forward one page in the session history.\n     *\n     * @example <caption>Navigate to path relative to baseUrl</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Ensure, endsWith } from '@serenity-js/assertions';\n     *  import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/first'),\n     *          Navigate.to('/second'),\n     *\n     *          Navigate.back(),\n     *          Navigate.forward(),\n     *\n     *          Ensure.that(Website.url(), endsWith('/second')),\n     *      );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~endsWith}\n     ",
-                    "start": 4477,
-                    "end": 5509,
-                    "loc": {
-                      "start": {
-                        "line": 162,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 189,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 160 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1722,22 +1839,7 @@
                       }
                     }
                   }
-                ]
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6681,
-                "end": 6754,
-                "loc": {
-                  "start": {
-                    "line": 232,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 234,
-                    "column": 5
-                  }
-                },
+                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1874,41 +1976,7 @@
                     }
                   ],
                   "directives": []
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 160 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 5590,
-                    "end": 5710,
-                    "loc": {
-                      "start": {
-                        "line": 193,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 204,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n     *  reload the current page.\n     *\n     * @example <caption>Navigate to path relative to baseUrl</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Ensure, endsWith } from '@serenity-js/assertions';\n     *  import { Navigate, BrowseTheWeb, DeleteCookies } from '@serenity-js/protractor';\n     *\n     *  actorCalled('Hannu')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/login'),\n     *          DeleteCookies.called('session_id'),\n     *          Navigate.reloadPage(),\n     *      );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link DeleteCookies}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~endsWith}\n     ",
-                    "start": 5717,
-                    "end": 6676,
-                    "loc": {
-                      "start": {
-                        "line": 207,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 231,
-                        "column": 7
-                      }
-                    }
-                  }
-                ]
+                }
               }
             ]
           },
@@ -1980,42 +2048,23 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 6826,
+        "end": 8821,
+        "loc": {
+          "start": {
+            "line": 247,
+            "column": 0
+          },
+          "end": {
+            "line": 330,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 248,
-            "end": 293,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Allows the {@link @serenity-js/core/lib/screenplay/actor~Actor} to navigate to a specific destination,\n *  as well as back and forth in the browser history, or reload the current page.\n ",
-            "start": 296,
-            "end": 501,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 168 \n ",
@@ -2048,22 +2097,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 6826,
-        "end": 8821,
-        "loc": {
-          "start": {
-            "line": 247,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 219 \n ",
+            "start": 8822,
+            "end": 8868,
+            "loc": {
+              "start": {
+                "line": 331,
+                "column": 0
+              },
+              "end": {
+                "line": 336,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 330,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 8871,
+            "end": 8890,
+            "loc": {
+              "start": {
+                "line": 339,
+                "column": 0
+              },
+              "end": {
+                "line": 341,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 6832,
@@ -2127,6 +2195,40 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @param \n * {Answerable} duration \n * @return \n * {Interaction} \n * @public \n * \\TRUE \n ",
+                  "start": 6951,
+                  "end": 7086,
+                  "loc": {
+                    "start": {
+                      "line": 251,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 262,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Specifies timeout to wait for an Angular app to load.\n     *  Please note that the timeout is ignored if you disable\n     *  synchronisation with Angular.\n     *\n     * @param {Answerable<Duration>} duration\n     ",
+                  "start": 7093,
+                  "end": 7333,
+                  "loc": {
+                    "start": {
+                      "line": 265,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 272,
+                      "column": 7
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -2328,8 +2430,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 7338,
+              "end": 7467,
+              "loc": {
+                "start": {
+                  "line": 273,
+                  "column": 4
+                },
+                "end": {
+                  "line": 275,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @param \n * {Answerable} duration \n * @return \n * {Interaction} \n * @public \n * \\TRUE \n ",
@@ -2362,22 +2479,41 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 7338,
-              "end": 7467,
-              "loc": {
-                "start": {
-                  "line": 273,
-                  "column": 4
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 199 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                  "start": 7468,
+                  "end": 7622,
+                  "loc": {
+                    "start": {
+                      "line": 276,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 287,
+                      "column": 3
+                    }
+                  }
                 },
-                "end": {
-                  "line": 275,
-                  "column": 5
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                  "start": 7629,
+                  "end": 8267,
+                  "loc": {
+                    "start": {
+                      "line": 290,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 303,
+                      "column": 7
+                    }
+                  }
                 }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -2653,6 +2789,7 @@
                               }
                             }
                           },
+                          "computed": false,
                           "property": {
                             "type": "Identifier",
                             "start": 7446,
@@ -2669,8 +2806,7 @@
                               "identifierName": "url"
                             },
                             "name": "url"
-                          },
-                          "computed": false
+                          }
                         },
                         {
                           "type": "Identifier",
@@ -2694,42 +2830,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 8272,
+              "end": 8455,
+              "loc": {
+                "start": {
+                  "line": 304,
+                  "column": 4
+                },
+                "end": {
+                  "line": 308,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @param \n * {Answerable} duration \n * @return \n * {Interaction} \n * @public \n * \\TRUE \n ",
-                  "start": 6951,
-                  "end": 7086,
-                  "loc": {
-                    "start": {
-                      "line": 251,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 262,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Specifies timeout to wait for an Angular app to load.\n     *  Please note that the timeout is ignored if you disable\n     *  synchronisation with Angular.\n     *\n     * @param {Answerable<Duration>} duration\n     ",
-                  "start": 7093,
-                  "end": 7333,
-                  "loc": {
-                    "start": {
-                      "line": 265,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 272,
-                      "column": 7
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 199 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -2762,22 +2879,41 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 8272,
-              "end": 8455,
-              "loc": {
-                "start": {
-                  "line": 304,
-                  "column": 4
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 211 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 8456,
+                  "end": 8549,
+                  "loc": {
+                    "start": {
+                      "line": 309,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 318,
+                      "column": 3
+                    }
+                  }
                 },
-                "end": {
-                  "line": 308,
-                  "column": 5
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                  "start": 8556,
+                  "end": 8726,
+                  "loc": {
+                    "start": {
+                      "line": 321,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 326,
+                      "column": 7
+                    }
+                  }
                 }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -3038,6 +3174,9 @@
                           "column": 9
                         }
                       },
+                      "extra": {
+                        "trailingComma": 8437
+                      },
                       "callee": {
                         "type": "MemberExpression",
                         "start": 8359,
@@ -3097,6 +3236,7 @@
                               },
                               "name": "actor"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 8365,
@@ -3113,8 +3253,7 @@
                                 "identifierName": "answer"
                               },
                               "name": "answer"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -3146,6 +3285,7 @@
                                   }
                                 }
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 8377,
@@ -3162,11 +3302,11 @@
                                   "identifierName": "url"
                                 },
                                 "name": "url"
-                              },
-                              "computed": false
+                              }
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 8382,
@@ -3183,11 +3323,7 @@
                             "identifierName": "then"
                           },
                           "name": "then"
-                        },
-                        "computed": false
-                      },
-                      "extra": {
-                        "trailingComma": 8437
+                        }
                       },
                       "arguments": [
                         {
@@ -3299,6 +3435,7 @@
                                     },
                                     "name": "BrowseTheWeb"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 8419,
@@ -3315,8 +3452,7 @@
                                       "identifierName": "as"
                                     },
                                     "name": "as"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -3338,6 +3474,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 8429,
@@ -3354,8 +3491,7 @@
                                   "identifierName": "get"
                                 },
                                 "name": "get"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -3383,42 +3519,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 8731,
+              "end": 8819,
+              "loc": {
+                "start": {
+                  "line": 327,
+                  "column": 4
+                },
+                "end": {
+                  "line": 329,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 199 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                  "start": 7468,
-                  "end": 7622,
-                  "loc": {
-                    "start": {
-                      "line": 276,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 287,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                  "start": 7629,
-                  "end": 8267,
-                  "loc": {
-                    "start": {
-                      "line": 290,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 303,
-                      "column": 7
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 211 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -3451,22 +3568,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 8731,
-              "end": 8819,
-              "loc": {
-                "start": {
-                  "line": 327,
-                  "column": 4
-                },
-                "end": {
-                  "line": 329,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -3625,6 +3727,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 8806,
@@ -3641,8 +3744,7 @@
                                 "identifierName": "url"
                               },
                               "name": "url"
-                            },
-                            "computed": false
+                            }
                           }
                         ],
                         "quasis": [
@@ -3692,79 +3794,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 211 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 8456,
-                  "end": 8549,
-                  "loc": {
-                    "start": {
-                      "line": 309,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 318,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                  "start": 8556,
-                  "end": 8726,
-                  "loc": {
-                    "start": {
-                      "line": 321,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 326,
-                      "column": 7
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 8891,
+        "end": 10597,
+        "loc": {
+          "start": {
+            "line": 342,
+            "column": 0
+          },
+          "end": {
+            "line": 403,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 168 \n ",
-            "start": 6757,
-            "end": 6803,
-            "loc": {
-              "start": {
-                "line": 236,
-                "column": 0
-              },
-              "end": {
-                "line": 241,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 6806,
-            "end": 6825,
-            "loc": {
-              "start": {
-                "line": 244,
-                "column": 0
-              },
-              "end": {
-                "line": 246,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 219 \n ",
@@ -3797,22 +3846,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 8891,
-        "end": 10597,
-        "loc": {
-          "start": {
-            "line": 342,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 261 \n ",
+            "start": 10598,
+            "end": 10644,
+            "loc": {
+              "start": {
+                "line": 404,
+                "column": 0
+              },
+              "end": {
+                "line": 409,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 403,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 10647,
+            "end": 10666,
+            "loc": {
+              "start": {
+                "line": 412,
+                "column": 0
+              },
+              "end": {
+                "line": 414,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 8897,
@@ -3876,6 +3944,40 @@
                   "column": 5
                 }
               },
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 238 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                  "start": 9075,
+                  "end": 9229,
+                  "loc": {
+                    "start": {
+                      "line": 346,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 357,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                  "start": 9236,
+                  "end": 9874,
+                  "loc": {
+                    "start": {
+                      "line": 360,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 373,
+                      "column": 7
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -4207,8 +4309,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 9879,
+              "end": 10179,
+              "loc": {
+                "start": {
+                  "line": 374,
+                  "column": 4
+                },
+                "end": {
+                  "line": 381,
+                  "column": 5
+                }
               },
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 238 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -4241,22 +4358,41 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 9879,
-              "end": 10179,
-              "loc": {
-                "start": {
-                  "line": 374,
-                  "column": 4
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 253 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 10180,
+                  "end": 10273,
+                  "loc": {
+                    "start": {
+                      "line": 382,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 391,
+                      "column": 3
+                    }
+                  }
                 },
-                "end": {
-                  "line": 381,
-                  "column": 5
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                  "start": 10280,
+                  "end": 10450,
+                  "loc": {
+                    "start": {
+                      "line": 394,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 399,
+                      "column": 7
+                    }
+                  }
                 }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -4517,6 +4653,9 @@
                           "column": 9
                         }
                       },
+                      "extra": {
+                        "trailingComma": 10161
+                      },
                       "callee": {
                         "type": "MemberExpression",
                         "start": 9966,
@@ -4576,6 +4715,7 @@
                               },
                               "name": "Promise"
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 9974,
@@ -4592,8 +4732,7 @@
                                 "identifierName": "all"
                               },
                               "name": "all"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": [
                             {
@@ -4659,6 +4798,7 @@
                                       },
                                       "name": "actor"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 9998,
@@ -4675,8 +4815,7 @@
                                         "identifierName": "answer"
                                       },
                                       "name": "answer"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -4708,6 +4847,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 10010,
@@ -4724,8 +4864,7 @@
                                           "identifierName": "url"
                                         },
                                         "name": "url"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   ]
                                 },
@@ -4774,6 +4913,7 @@
                                       },
                                       "name": "actor"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 10034,
@@ -4790,8 +4930,7 @@
                                         "identifierName": "answer"
                                       },
                                       "name": "answer"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -4823,6 +4962,7 @@
                                           }
                                         }
                                       },
+                                      "computed": false,
                                       "property": {
                                         "type": "Identifier",
                                         "start": 10046,
@@ -4839,8 +4979,7 @@
                                           "identifierName": "timeout"
                                         },
                                         "name": "timeout"
-                                      },
-                                      "computed": false
+                                      }
                                     }
                                   ]
                                 }
@@ -4848,6 +4987,7 @@
                             }
                           ]
                         },
+                        "computed": false,
                         "property": {
                           "type": "Identifier",
                           "start": 10067,
@@ -4864,11 +5004,7 @@
                             "identifierName": "then"
                           },
                           "name": "then"
-                        },
-                        "computed": false
-                      },
-                      "extra": {
-                        "trailingComma": 10161
+                        }
                       },
                       "arguments": [
                         {
@@ -5014,6 +5150,7 @@
                                     },
                                     "name": "BrowseTheWeb"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 10117,
@@ -5030,8 +5167,7 @@
                                       "identifierName": "as"
                                     },
                                     "name": "as"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": [
                                   {
@@ -5053,6 +5189,7 @@
                                   }
                                 ]
                               },
+                              "computed": false,
                               "property": {
                                 "type": "Identifier",
                                 "start": 10127,
@@ -5069,8 +5206,7 @@
                                   "identifierName": "get"
                                 },
                                 "name": "get"
-                              },
-                              "computed": false
+                              }
                             },
                             "arguments": [
                               {
@@ -5135,6 +5271,7 @@
                                     },
                                     "name": "timeout"
                                   },
+                                  "computed": false,
                                   "property": {
                                     "type": "Identifier",
                                     "start": 10144,
@@ -5151,8 +5288,7 @@
                                       "identifierName": "inMilliseconds"
                                     },
                                     "name": "inMilliseconds"
-                                  },
-                                  "computed": false
+                                  }
                                 },
                                 "arguments": []
                               }
@@ -5164,42 +5300,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 10455,
+              "end": 10595,
+              "loc": {
+                "start": {
+                  "line": 400,
+                  "column": 4
+                },
+                "end": {
+                  "line": 402,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 238 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                  "start": 9075,
-                  "end": 9229,
-                  "loc": {
-                    "start": {
-                      "line": 346,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 357,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                  "start": 9236,
-                  "end": 9874,
-                  "loc": {
-                    "start": {
-                      "line": 360,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 373,
-                      "column": 7
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 253 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -5232,22 +5349,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 10455,
-              "end": 10595,
-              "loc": {
-                "start": {
-                  "line": 400,
-                  "column": 4
-                },
-                "end": {
-                  "line": 402,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -5406,6 +5508,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 10530,
@@ -5422,8 +5525,7 @@
                                 "identifierName": "url"
                               },
                               "name": "url"
-                            },
-                            "computed": false
+                            }
                           },
                           {
                             "type": "MemberExpression",
@@ -5454,6 +5556,7 @@
                                 }
                               }
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 10558,
@@ -5470,8 +5573,7 @@
                                 "identifierName": "timeout"
                               },
                               "name": "timeout"
-                            },
-                            "computed": false
+                            }
                           }
                         ],
                         "quasis": [
@@ -5541,79 +5643,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 253 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 10180,
-                  "end": 10273,
-                  "loc": {
-                    "start": {
-                      "line": 382,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 391,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                  "start": 10280,
-                  "end": 10450,
-                  "loc": {
-                    "start": {
-                      "line": 394,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 399,
-                      "column": 7
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 10667,
+        "end": 12026,
+        "loc": {
+          "start": {
+            "line": 415,
+            "column": 0
+          },
+          "end": {
+            "line": 468,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 219 \n ",
-            "start": 8822,
-            "end": 8868,
-            "loc": {
-              "start": {
-                "line": 331,
-                "column": 0
-              },
-              "end": {
-                "line": 336,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 8871,
-            "end": 8890,
-            "loc": {
-              "start": {
-                "line": 339,
-                "column": 0
-              },
-              "end": {
-                "line": 341,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 261 \n ",
@@ -5646,22 +5695,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 10667,
-        "end": 12026,
-        "loc": {
-          "start": {
-            "line": 415,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 295 \n ",
+            "start": 12027,
+            "end": 12073,
+            "loc": {
+              "start": {
+                "line": 469,
+                "column": 0
+              },
+              "end": {
+                "line": 474,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 468,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 12076,
+            "end": 12095,
+            "loc": {
+              "start": {
+                "line": 477,
+                "column": 0
+              },
+              "end": {
+                "line": 479,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 10673,
@@ -5725,6 +5793,74 @@
                   "column": 5
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 277 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 10708,
+                  "end": 10858,
+                  "loc": {
+                    "start": {
+                      "line": 416,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 427,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                  "start": 10865,
+                  "end": 11503,
+                  "loc": {
+                    "start": {
+                      "line": 430,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 443,
+                      "column": 7
+                    }
+                  }
+                }
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 287 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 11650,
+                  "end": 11743,
+                  "loc": {
+                    "start": {
+                      "line": 447,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 456,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                  "start": 11750,
+                  "end": 11920,
+                  "loc": {
+                    "start": {
+                      "line": 459,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 464,
+                      "column": 7
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6104,6 +6240,7 @@
                                       },
                                       "name": "BrowseTheWeb"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 11614,
@@ -6120,8 +6257,7 @@
                                         "identifierName": "as"
                                       },
                                       "name": "as"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -6143,6 +6279,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 11624,
@@ -6159,11 +6296,11 @@
                                     "identifierName": "navigate"
                                   },
                                   "name": "navigate"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 11635,
@@ -6180,8 +6317,7 @@
                                 "identifierName": "back"
                               },
                               "name": "back"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": []
                         }
@@ -6190,42 +6326,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 11925,
+              "end": 12024,
+              "loc": {
+                "start": {
+                  "line": 465,
+                  "column": 4
+                },
+                "end": {
+                  "line": 467,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 277 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 10708,
-                  "end": 10858,
-                  "loc": {
-                    "start": {
-                      "line": 416,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 427,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                  "start": 10865,
-                  "end": 11503,
-                  "loc": {
-                    "start": {
-                      "line": 430,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 443,
-                      "column": 7
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 287 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -6258,22 +6375,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 11925,
-              "end": 12024,
-              "loc": {
-                "start": {
-                  "line": 465,
-                  "column": 4
-                },
-                "end": {
-                  "line": 467,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6430,79 +6532,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 287 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 11650,
-                  "end": 11743,
-                  "loc": {
-                    "start": {
-                      "line": 447,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 456,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                  "start": 11750,
-                  "end": 11920,
-                  "loc": {
-                    "start": {
-                      "line": 459,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 464,
-                      "column": 7
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 12096,
+        "end": 13464,
+        "loc": {
+          "start": {
+            "line": 480,
+            "column": 0
+          },
+          "end": {
+            "line": 533,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 261 \n ",
-            "start": 10598,
-            "end": 10644,
-            "loc": {
-              "start": {
-                "line": 404,
-                "column": 0
-              },
-              "end": {
-                "line": 409,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 10647,
-            "end": 10666,
-            "loc": {
-              "start": {
-                "line": 412,
-                "column": 0
-              },
-              "end": {
-                "line": 414,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 295 \n ",
@@ -6535,22 +6584,41 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 12096,
-        "end": 13464,
-        "loc": {
-          "start": {
-            "line": 480,
-            "column": 0
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 329 \n ",
+            "start": 13465,
+            "end": 13511,
+            "loc": {
+              "start": {
+                "line": 534,
+                "column": 0
+              },
+              "end": {
+                "line": 539,
+                "column": 3
+              }
+            }
           },
-          "end": {
-            "line": 533,
-            "column": 1
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 13514,
+            "end": 13533,
+            "loc": {
+              "start": {
+                "line": 542,
+                "column": 0
+              },
+              "end": {
+                "line": 544,
+                "column": 3
+              }
+            }
           }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 12102,
@@ -6614,6 +6682,74 @@
                   "column": 5
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 311 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 12140,
+                  "end": 12290,
+                  "loc": {
+                    "start": {
+                      "line": 481,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 492,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                  "start": 12297,
+                  "end": 12935,
+                  "loc": {
+                    "start": {
+                      "line": 495,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 508,
+                      "column": 7
+                    }
+                  }
+                }
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 321 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 13085,
+                  "end": 13178,
+                  "loc": {
+                    "start": {
+                      "line": 512,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 521,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                  "start": 13185,
+                  "end": 13355,
+                  "loc": {
+                    "start": {
+                      "line": 524,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 529,
+                      "column": 7
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6993,6 +7129,7 @@
                                       },
                                       "name": "BrowseTheWeb"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 13046,
@@ -7009,8 +7146,7 @@
                                         "identifierName": "as"
                                       },
                                       "name": "as"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -7032,6 +7168,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 13056,
@@ -7048,11 +7185,11 @@
                                     "identifierName": "navigate"
                                   },
                                   "name": "navigate"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 13067,
@@ -7069,8 +7206,7 @@
                                 "identifierName": "forward"
                               },
                               "name": "forward"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": []
                         }
@@ -7079,42 +7215,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 13360,
+              "end": 13462,
+              "loc": {
+                "start": {
+                  "line": 530,
+                  "column": 4
+                },
+                "end": {
+                  "line": 532,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 311 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 12140,
-                  "end": 12290,
-                  "loc": {
-                    "start": {
-                      "line": 481,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 492,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                  "start": 12297,
-                  "end": 12935,
-                  "loc": {
-                    "start": {
-                      "line": 495,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 508,
-                      "column": 7
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 321 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -7147,22 +7264,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 13360,
-              "end": 13462,
-              "loc": {
-                "start": {
-                  "line": 530,
-                  "column": 4
-                },
-                "end": {
-                  "line": 532,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -7319,79 +7421,26 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 321 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 13085,
-                  "end": 13178,
-                  "loc": {
-                    "start": {
-                      "line": 512,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 521,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                  "start": 13185,
-                  "end": 13355,
-                  "loc": {
-                    "start": {
-                      "line": 524,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 529,
-                      "column": 7
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
+        }
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 13534,
+        "end": 14873,
+        "loc": {
+          "start": {
+            "line": 545,
+            "column": 0
+          },
+          "end": {
+            "line": 598,
+            "column": 1
+          }
         },
         "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 295 \n ",
-            "start": 12027,
-            "end": 12073,
-            "loc": {
-              "start": {
-                "line": 469,
-                "column": 0
-              },
-              "end": {
-                "line": 474,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 12076,
-            "end": 12095,
-            "loc": {
-              "start": {
-                "line": 477,
-                "column": 0
-              },
-              "end": {
-                "line": 479,
-                "column": 3
-              }
-            }
-          }
-        ],
-        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 329 \n ",
@@ -7424,22 +7473,7 @@
               }
             }
           }
-        ]
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 13534,
-        "end": 14873,
-        "loc": {
-          "start": {
-            "line": 545,
-            "column": 0
-          },
-          "end": {
-            "line": 598,
-            "column": 1
-          }
-        },
+        ],
         "id": {
           "type": "Identifier",
           "start": 13540,
@@ -7503,6 +7537,74 @@
                   "column": 5
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 345 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 13573,
+                  "end": 13723,
+                  "loc": {
+                    "start": {
+                      "line": 546,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 557,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                  "start": 13730,
+                  "end": 14368,
+                  "loc": {
+                    "start": {
+                      "line": 560,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 573,
+                      "column": 7
+                    }
+                  }
+                }
+              ],
+              "trailingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 355 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 14518,
+                  "end": 14611,
+                  "loc": {
+                    "start": {
+                      "line": 577,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 586,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                  "start": 14618,
+                  "end": 14788,
+                  "loc": {
+                    "start": {
+                      "line": 589,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 594,
+                      "column": 7
+                    }
+                  }
+                }
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -7882,6 +7984,7 @@
                                       },
                                       "name": "BrowseTheWeb"
                                     },
+                                    "computed": false,
                                     "property": {
                                       "type": "Identifier",
                                       "start": 14479,
@@ -7898,8 +8001,7 @@
                                         "identifierName": "as"
                                       },
                                       "name": "as"
-                                    },
-                                    "computed": false
+                                    }
                                   },
                                   "arguments": [
                                     {
@@ -7921,6 +8023,7 @@
                                     }
                                   ]
                                 },
+                                "computed": false,
                                 "property": {
                                   "type": "Identifier",
                                   "start": 14489,
@@ -7937,11 +8040,11 @@
                                     "identifierName": "navigate"
                                   },
                                   "name": "navigate"
-                                },
-                                "computed": false
+                                }
                               },
                               "arguments": []
                             },
+                            "computed": false,
                             "property": {
                               "type": "Identifier",
                               "start": 14500,
@@ -7958,8 +8061,7 @@
                                 "identifierName": "refresh"
                               },
                               "name": "refresh"
-                            },
-                            "computed": false
+                            }
                           },
                           "arguments": []
                         }
@@ -7968,42 +8070,23 @@
                   }
                 ],
                 "directives": []
+              }
+            },
+            {
+              "type": "ClassMethod",
+              "start": 14793,
+              "end": 14871,
+              "loc": {
+                "start": {
+                  "line": 595,
+                  "column": 4
+                },
+                "end": {
+                  "line": 597,
+                  "column": 5
+                }
               },
               "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 345 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 13573,
-                  "end": 13723,
-                  "loc": {
-                    "start": {
-                      "line": 546,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 557,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                  "start": 13730,
-                  "end": 14368,
-                  "loc": {
-                    "start": {
-                      "line": 560,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 573,
-                      "column": 7
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 355 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -8036,22 +8119,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "type": "ClassMethod",
-              "start": 14793,
-              "end": 14871,
-              "loc": {
-                "start": {
-                  "line": 595,
-                  "column": 4
-                },
-                "end": {
-                  "line": 597,
-                  "column": 5
-                }
-              },
+              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -8208,78 +8276,10 @@
                   }
                 ],
                 "directives": []
-              },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 355 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 14518,
-                  "end": 14611,
-                  "loc": {
-                    "start": {
-                      "line": 577,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 586,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                  "start": 14618,
-                  "end": 14788,
-                  "loc": {
-                    "start": {
-                      "line": 589,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 594,
-                      "column": 7
-                    }
-                  }
-                }
-              ]
+              }
             }
           ]
-        },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 329 \n ",
-            "start": 13465,
-            "end": 13511,
-            "loc": {
-              "start": {
-                "line": 534,
-                "column": 0
-              },
-              "end": {
-                "line": 539,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 13514,
-            "end": 13533,
-            "loc": {
-              "start": {
-                "line": 542,
-                "column": 0
-              },
-              "end": {
-                "line": 544,
-                "column": 3
-              }
-            }
-          }
-        ]
+        }
       }
     ],
     "directives": []
