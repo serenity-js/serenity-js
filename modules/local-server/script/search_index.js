@@ -1015,13 +1015,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/reporting.spec.ts.html#lineNumber87",
+    "test-file/spec/reporting.spec.ts.html#lineNumber58",
     "@serenity-js/local-server when managing a local server",
     "test"
   ],
   [
     "",
-    "test-file/spec/reporting.spec.ts.html#lineNumber58",
+    "test-file/spec/reporting.spec.ts.html#lineNumber87",
     "@serenity-js/local-server when managing a local server",
     "test"
   ],
@@ -1159,13 +1159,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/servers.spec.ts.html#lineNumber15",
+    "test-file/spec/restarting.spec.ts.html#lineNumber13",
     "ManageALocalServer",
     "test"
   ],
   [
     "",
-    "test-file/spec/restarting.spec.ts.html#lineNumber13",
+    "test-file/spec/servers.spec.ts.html#lineNumber15",
     "ManageALocalServer",
     "test"
   ],

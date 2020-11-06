@@ -1231,7 +1231,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber9",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber15",
+    "SerenityBDDReporter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber24",
     "SerenityBDDReporter",
     "test"
   ],
@@ -1255,13 +1261,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber15",
-    "SerenityBDDReporter",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts.html#lineNumber24",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber9",
     "SerenityBDDReporter",
     "test"
   ],
@@ -1399,13 +1399,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber137",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber29",
     "SerenityBDDReporter produces a SerenityBDDReport that",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html#lineNumber29",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber137",
     "SerenityBDDReporter produces a SerenityBDDReport that",
     "test"
   ],
@@ -1542,14 +1542,14 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "serenitybddreporter scenestarts scenefinished testrunfinishes executioncompromised src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executioncompromised,executioncompromised",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber382",
+    "serenitybddreporter scenestarts scenefinished testrunfinishes testcompromisederror executioncompromised src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/errors~testcompromisederror,testcompromisederror @serenity-js/core/lib/model~executioncompromised,executioncompromised",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber315",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been compromised",
     "test"
   ],
   [
-    "serenitybddreporter scenestarts scenefinished testrunfinishes testcompromisederror executioncompromised src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/errors~testcompromisederror,testcompromisederror @serenity-js/core/lib/model~executioncompromised,executioncompromised",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber315",
+    "serenitybddreporter scenestarts scenefinished testrunfinishes executioncompromised src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/events~testrunfinishes,testrunfinishes @serenity-js/core/lib/model~executioncompromised,executioncompromised",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber382",
     "SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been compromised",
     "test"
   ],

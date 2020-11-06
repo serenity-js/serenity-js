@@ -901,13 +901,13 @@ window.esdocSearchIndex = [
   ],
   [
     "bootstrap monkeypatched src/bootstrap.ts~bootstrap,bootstrap src/monkeypatched.ts~monkeypatched,monkeypatched",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber81",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber68",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Spec has all the static members of the original constructor function",
     "test"
   ],
   [
     "bootstrap monkeypatched src/bootstrap.ts~bootstrap,bootstrap src/monkeypatched.ts~monkeypatched,monkeypatched",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber68",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber81",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Spec has all the static members of the original constructor function",
     "test"
   ],

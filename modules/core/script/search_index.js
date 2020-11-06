@@ -1843,13 +1843,13 @@ window.esdocSearchIndex = [
   ],
   [
     "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber163",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149",
     "TakeNotes usingASharedNotepad ",
     "test"
   ],
   [
     "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber163",
     "TakeNotes usingASharedNotepad ",
     "test"
   ],
