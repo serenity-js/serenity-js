@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.RELEASE_GH_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Configure git
         run: |
@@ -23,7 +23,7 @@ jobs:
         env:
           GH_EMAIL: ${{secrets.RELEASE_GH_EMAIL}}
           GH_USERNAME: ${{secrets.RELEASE_GH_USERNAME}}
-          GH_TOKEN: ${{secrets.RELEASE_GH_TOKEN}}
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
 
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
@@ -45,10 +45,10 @@ jobs:
         run: npx lerna publish --yes
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-          GH_TOKEN: ${{secrets.RELEASE_GH_TOKEN}}
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
 
       - name: Publish site
         run: npm run site:publish
         env:
-          GH_TOKEN: ${{secrets.RELEASE_GH_TOKEN}}
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
 
