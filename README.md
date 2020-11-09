@@ -6,8 +6,9 @@
 
 [![Build Status](https://github.com/serenity-js/serenity-js/workflows/Release%20Pipeline/badge.svg)](https://github.com/serenity-js/serenity-js/actions)
 [![Known Vulnerabilities](https://snyk.io/test/github/serenity-js/serenity-js/badge.svg)](https://snyk.io/test/github/serenity-js/serenity-js)
-[![Dependencies](https://flat.badgen.net/dependabot/serenity-js/serenity-js?icon=dependabot)](https://github.com/serenity-js/serenity-js)
+[![Dependabot](https://badgen.net/github/dependabot/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js?ref=badge_shield)
+[![CodeFactor](https://www.codefactor.io/repository/github/serenity-js/serenity-js/badge)](https://www.codefactor.io/repository/github/serenity-js/serenity-js)
 
 [![Serenity/JS on Github](https://img.shields.io/badge/github-serenity--js-yellow?logo=github)](https://github.com/serenity-js/serenity-js)
 [![Serenity/JS on StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
