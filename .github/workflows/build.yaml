@@ -56,12 +56,3 @@ jobs:
         run: npm run site:publish
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-      - name: Publish site
-        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: documentation/website/target/site
-          CLEAN: true
