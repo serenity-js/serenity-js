@@ -36,7 +36,7 @@ jobs:
       - run: npm ci
 
       - name: Build
-        run: make clean verify report site
+        run: make clean verify report
 
       - name: Publish coverage
         if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
@@ -50,6 +50,9 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Site
+        run: make site
 
       - name: Publish site
         if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
