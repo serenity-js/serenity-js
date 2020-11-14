@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.17.14 (2020-11-14)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
 ## 2.17.13 (2020-11-14)
 
 **Note:** Version bump only for package @serenity-js/console-reporter
