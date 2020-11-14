@@ -1,0 +1,67 @@
+name: Release Pipeline
+
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 10.x, 12.x, 14.x ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - uses: ./.github/actions/setup-lerna
+        with:
+          github_token:   ${{ secrets.GH_TOKEN }}
+          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
+          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
+          npm_token:      ${{ secrets.NPM_TOKEN }}
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
+
+      - name: Build
+        run: make clean verify report site
+
+      - name: Publish coverage
+        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
+        run: npm run coverage:publish
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
+      - name: Publish artifacts
+        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
+        run: npx lerna publish --yes
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Publish site
+        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
+        run: npm run site:publish
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Publish site
+        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: documentation/website/target/site
+          CLEAN: true
