@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.17.12 (2020-11-14)
+
+
+### Bug Fixes
+
+* **deps:** updated dependencies ([0b5abc7](https://github.com/serenity-js/serenity-js/commit/0b5abc7f4a9f026d49691e844315e1ba8677c282))
+
+
+
+
+
 ## 2.17.11 (2020-11-14)
 
 **Note:** Version bump only for package @integration/jasmine
