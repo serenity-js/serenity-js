@@ -16,20 +16,46 @@
     "version": {
       "allowBranch": "master",
       "conventionalCommits": true,
-      "conventionalGraduate": true,
       "createRelease": "github",
       "exact": true,
-      "message": "chore(release): %s\n[ci skip]"
-    },
-    "ignoreChanges": [
-      "**/documentation/**",
-      "**/examples/**",
-      "**/integration/**",
-      "**/*.md",
-      "**/spec/**",
-      ".github/**",
-      "package.json",
-      "lerna.json"
-    ]
+      "log": "verbose",
+      "message": "chore(release): %s\n[ci skip]",
+      "ignoreChanges": [
+        "documentation/esdoc-external-docs-plugin/**",
+        "documentation/esdoc-template/**",
+        "documentation/esdoc-typescript-plugin/**",
+
+        "examples/calculator-app/**",
+        "examples/cucumber-domain-level-testing/**",
+        "examples/cucumber-reporting/**",
+        "examples/cucumber-rest-api-level-testing/**",
+        "examples/mocha-rest-api-level-testing/**",
+        "examples/protractor-cucumber/**",
+        "examples/protractor-jasmine/**",
+        "examples/protractor-jasmine-todomvc/**",
+        "examples/protractor-mocha/**",
+
+        "integration/cucumber/**",
+        "integration/cucumber-1-runner/**",
+        "integration/cucumber-2-runner/**",
+        "integration/cucumber-3-runner/**",
+        "integration/cucumber-4-runner/**",
+        "integration/cucumber-5-runner/**",
+        "integration/cucumber-6-runner/**",
+        "integration/jasmine/**",
+        "integration/mocha/**",
+        "integration/protractor-jasmine/**",
+        "integration/protractor-mocha/**",
+        "integration/testing-tools/**",
+
+        "**/spec/**",
+        "**/*.md",
+        "*.md",
+        ".github/**",
+        "package.json",
+        "package-lock.json",
+        "lerna.json"
+      ]
+    }
   }
 }
