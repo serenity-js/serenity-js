@@ -1,7 +1,7 @@
-import { ActivityRelatedArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes } from '../../events';
-import { Ability, AbilityType, Answerable, Cast, ConfigurationError, Discardable, serenity } from '../../index';
-import { Artifact, CorrelationId, Description, Name } from '../../model';
-import { ListensToDomainEvents } from '../../screenplay';
+import { ConfigurationError } from '../../errors';
+import { ActivityRelatedArtifactGenerated } from '../../events';
+import { Artifact, Name } from '../../model';
+import { Ability, AbilityType, Answerable, Discardable } from '../../screenplay';
 import { Stage } from '../../stage';
 import { TrackedActivity } from '../activities';
 import { Activity } from '../Activity';
@@ -17,28 +17,11 @@ export class Actor implements
     UsesAbilities,
     CanHaveAbilities<Actor>,
     AnswersQuestions,
-    CollectsArtifacts,
-    ListensToDomainEvents
+    CollectsArtifacts
 {
     // todo: Actor should have execution strategies
     // todo: the default one executes every activity
     // todo: there could be a dry-run mode that default to skip strategy
-
-    /**
-     * @deprecated
-     * @param name
-     */
-    static named(name: string): CanHaveAbilities<Actor> {
-        return {
-            whoCan: (...abilities): Actor => {
-                serenity.configure({
-                    actors: Cast.whereEveryoneCan(...abilities),
-                });
-
-                return serenity.theActorCalled(name);
-            },
-        };
-    }
 
     constructor(
         public readonly name: string,
@@ -47,18 +30,39 @@ export class Actor implements
     ) {
     }
 
+    /**
+     * @desc
+     *  Retrieves actor's {@link Ability} to `doSomething`.
+     *
+     *  Please note that this method performs an [`instancepf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof)
+     *  check against abilities given to this actor via {@link Actor#whoCan}. Please also note that {@link Actor#whoCan} performs
+     *  the same check when abilities are assigned to the actor to ensure the actor has at most one instance of a given ability type.
+     *
+     * @param doSomething
+     */
     abilityTo<T extends Ability>(doSomething: AbilityType<T>): T {
-        if (! this.can(doSomething)) {
+        const found = this.findAbilityTo(doSomething);
+
+        if (! found) {
             throw new ConfigurationError(`${ this.name } can't ${ doSomething.name } yet. ` +
                 `Did you give them the ability to do so?`);
         }
 
-        return this.abilities.get(doSomething) as T;
+        return found;
     }
 
+    /**
+     * @desc
+     *  Instructs the actor to attempt to perform a number of activities
+     *  (see {@link Activity}, so either {@link Task}s or {@link Interaction}s)
+     *  one by one.
+     *
+     * @param {...activities: Activity[]} activities
+     * @return {Promise<void>}
+     */
     attemptsTo(...activities: Activity[]): Promise<void> {
         return activities
-            .map(activity => new TrackedActivity(activity, this.stage))  // todo: TrackedInteraction, TrackedTask
+            .map(activity => new TrackedActivity(activity, this.stage))
             .reduce((previous: Promise<void>, current: Activity) => {
                 return previous.then(() => {
                     /* todo: add an execution strategy */
@@ -67,11 +71,32 @@ export class Actor implements
             }, Promise.resolve(void 0));
     }
 
+    /**
+     * @desc
+     *  Gives this Actor a list of abilities (see {@link Ability}) they can use
+     *  to interact with the system under test or the test environment.
+     *
+     * @param {...Ability[]} abilities
+     *  A vararg list of abilities to give the actor
+     *
+     * @returns {Actor}
+     *  The actor with newly gained abilities
+     *
+     * @throws {ConfigurationError}
+     *  Throws a ConfigurationError if the actor already has an ability of this type.
+     */
     whoCan(...abilities: Ability[]): Actor {
         abilities.forEach(ability => {
             const abilityType = ability.constructor as AbilityType<Ability>;
-            if (this.abilities.has(abilityType)) {
-                throw new ConfigurationError(`${ this.name } already has an ability to ${ abilityType.name }, so you don't need to give it to them again.`);
+
+            const found = this.findAbilityTo(abilityType);
+
+            if (found) {
+                const description = found.constructor.name === abilityType.name
+                    ? found.constructor.name
+                    : `${ found.constructor.name } (which extends ${ abilityType.name })`
+
+                throw new ConfigurationError(`${ this.name } already has an ability to ${ description }, so you don't need to give it to them again.`);
             }
 
             this.abilities.set(ability.constructor as AbilityType<Ability>, ability);
@@ -104,27 +129,6 @@ export class Actor implements
         return Promise.resolve(answerable as T);
     }
 
-    notifyOf(event: DomainEvent): void {
-        if (event instanceof SceneFinishes) {
-            const id = CorrelationId.create();
-
-            this.stage.announce(new AsyncOperationAttempted(
-                new Description(`[${ this.constructor.name }] ${ this.name } discards abilities...`),
-                id,
-            ));
-
-            this.discardAbilities()
-                .then(() =>
-                    this.stage.announce(new AsyncOperationCompleted(
-                        new Description(`[${ this.constructor.name }] ${ this.name } discarded abilities successfully`),
-                        id,
-                )))
-                .catch(error =>
-                    this.stage.announce(new AsyncOperationFailed(error, id)),
-                );
-        }
-    }
-
     /**
      * @desc
      *  Announce collection of an {@link Artifact} so that it can be picked up by a {@link StageCrewMember}.
@@ -142,31 +146,14 @@ export class Actor implements
         ));
     }
 
-    toString() {
-        const abilities = Array.from(this.abilities.keys()).map(type => type.name);
-
-        return `Actor(name=${ this.name }, abilities=[${ abilities.join(', ') }])`;
-    }
-
-    private can<T extends Ability>(doSomething: AbilityType<T>): boolean {
-        return this.abilities.has(doSomething);
-    }
-
     /**
      * @desc
-     *  Instantiates a {@link Name} based on the string value of the parameter,
-     *  or returns the argument if it's already an instance of {@link Name}.
+     *  Instructs the actor to invoke {@link Discardable#discard} method on any
+     *  {@link Discardable} {@link Ability} it's been configured with.
      *
-     * @param {string | Name} maybeName
-     * @returns {Name}
+     * @returns {Promise<void>}
      */
-    private nameFrom(maybeName: string | Name): Name {
-        return typeof maybeName === 'string'
-            ? new Name(maybeName)
-            : maybeName;
-    }
-
-    private discardAbilities(): Promise<void> {
+    dismiss(): Promise<void> {
         const abilitiesFrom = (map: Map<AbilityType<Ability>, Ability>): Ability[] =>
             Array.from(map.values());
 
@@ -179,5 +166,47 @@ export class Actor implements
                     previous.then(() => Promise.resolve(ability.discard())),
                 Promise.resolve(void 0),
             ) as Promise<void>;
+    }
+
+    /**
+     * @desc
+     *  Returns a human-readable, string representation of this Actor
+     *
+     * @returns {string}
+     */
+    toString() {
+        const abilities = Array.from(this.abilities.keys()).map(type => type.name);
+
+        return `Actor(name=${ this.name }, abilities=[${ abilities.join(', ') }])`;
+    }
+
+    /**
+     * @param doSomething
+     * @private
+     */
+    private findAbilityTo<T extends Ability>(doSomething: AbilityType<T>): T | undefined {
+        for (const [abilityType, ability] of this.abilities) {
+            if (ability instanceof doSomething) {
+                return ability as T;
+            }
+        }
+
+        return undefined;
+    }
+
+    /**
+     * @desc
+     *  Instantiates a {@link Name} based on the string value of the parameter,
+     *  or returns the argument if it's already an instance of {@link Name}.
+     *
+     * @param {string | Name} maybeName
+     * @returns {Name}
+     *
+     * @private
+     */
+    private nameFrom(maybeName: string | Name): Name {
+        return typeof maybeName === 'string'
+            ? new Name(maybeName)
+            : maybeName;
     }
 }
