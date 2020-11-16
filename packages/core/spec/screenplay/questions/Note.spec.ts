@@ -3,7 +3,7 @@ import 'mocha';
 import * as sinon from 'sinon';
 import { LogicError } from '../../../src/errors';
 import { CorrelationId } from '../../../src/model';
-import { Ability, Actor, Log, Note, Question, TakeNotes } from '../../../src/screenplay';
+import { Ability, Actor, Log, Note, Question, TakeNote, TakeNotes } from '../../../src/screenplay';
 import { Stage } from '../../../src/stage';
 import { expect } from '../../expect';
 import { EnsureSame } from '../EnsureSame';
@@ -35,23 +35,21 @@ describe('Note', () => {
      * @test {TakeNotes}
      * @test {Note}
      */
-    it('enables the actor to recall the answer to a given question', () => {
-        const notepad = new Map([ [NameOfAHobby().toString(), 'DYI'] ]);
-        expect(actorWhoCan(new TakeNotes(notepad)).attemptsTo(
+    it('enables the actor to recall the answer to a given question', () =>
+        actorWhoCan(TakeNotes.usingAnEmptyNotepad()).attemptsTo(
+            TakeNote.of(NameOfAHobby()),
             EnsureSame(Note.of(NameOfAHobby()), 'DYI'),
         ));
-    });
 
     /**
      * @test {TakeNotes}
      * @test {Note}
      */
-    it('enables the actor to recall the answer on a given subject', () => {
-        const notepad = new Map([ ['custom subject', 'DYI'] ]);
-        expect(actorWhoCan(new TakeNotes(notepad)).attemptsTo(
+    it('enables the actor to recall the answer on a given subject', () =>
+        actorWhoCan(TakeNotes.usingAnEmptyNotepad()).attemptsTo(
+            TakeNote.of(NameOfAHobby()).as('custom subject'),
             EnsureSame(Note.of('custom subject'), 'DYI'),
         ));
-    });
 
     /**
      * @test {TakeNotes}

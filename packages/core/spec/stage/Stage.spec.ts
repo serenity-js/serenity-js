@@ -3,8 +3,11 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import { ConfigurationError, LogicError } from '../../src/errors';
-import { Actor } from '../../src/screenplay';
-import { Cast, Stage, StageManager } from '../../src/stage';
+import { SceneFinished, SceneFinishes, SceneStarts, TestRunFinished, TestRunFinishes } from '../../src/events';
+import { FileSystemLocation, Path } from '../../src/io';
+import { Category, CorrelationId, Duration, ExecutionSuccessful, Name, ScenarioDetails } from '../../src/model';
+import { Ability, Actor, Discardable } from '../../src/screenplay';
+import { Cast, Clock, Stage, StageManager } from '../../src/stage';
 import { expect } from '../expect';
 
 describe('Stage', () => {
@@ -101,13 +104,153 @@ describe('Stage', () => {
          * @test {Stage#theActorInTheSpotlight}
          * @test {Stage#theActorInTheSpotlight}
          */
-        it('complains if you try to access the actor in the spotlight, but there isn\'t any yet', () => {
+        it(`complains if you try to access the actor in the spotlight, but there isn't any yet`, () => {
             const
                 stage  = new Stage(new Extras(), stageManager as unknown as StageManager);
 
             expect(
                 () => stage.theActorInTheSpotlight(),
             ).to.throw(LogicError, `There is no actor in the spotlight yet. Make sure you instantiate one with stage.actor(actorName) before calling this method.`);
+        });
+    });
+
+    describe('when instantiating and dismissing the actors', () => {
+
+        class SomeAbilityThatNeedsDiscarding implements Discardable, Ability {
+            discard(): Promise<void> | void {
+                return Promise.resolve();
+            }
+        }
+
+        class Spies implements Cast {
+            public readonly calls: Actor[] = [];
+
+            prepare(actor: Actor): Actor {
+                this.calls.push(actor);
+
+                sinon.spy(actor, 'dismiss');
+
+                return actor.whoCan(new SomeAbilityThatNeedsDiscarding());
+            }
+        }
+
+        const
+            sceneId = new CorrelationId('example scene'),
+            anotherSceneId = new CorrelationId('another example scene'),
+            scenario = new ScenarioDetails(
+                new Name('Paying with a default card'),
+                new Category('Online Checkout'),
+                new FileSystemLocation(
+                    new Path('payments/checkout.feature'),
+                ),
+        );
+
+        let manager: StageManager;
+
+        beforeEach(() => {
+            manager = new StageManager(Duration.ofMilliseconds(100), new Clock());
+        });
+
+        describe('performing a single scene', () => {
+            it('dismisses actors instantiated after SceneStarts when SceneFinished', async () => {
+                const stage = new Stage(new Spies(), manager);
+
+                stage.announce(new SceneStarts(sceneId, scenario));
+
+                const actor = stage.actor('Bob');
+
+                stage.announce(new SceneFinishes(sceneId, scenario));
+
+                expect(actor.dismiss).to.have.been.calledOnce;  // tslint:disable-line:no-unused-expression
+
+                stage.announce(new SceneFinished(sceneId, scenario, new ExecutionSuccessful()));
+
+                stage.announce(new TestRunFinishes());
+                stage.announce(new TestRunFinished());
+
+                await stage.waitForNextCue()
+
+                // make sure it's not called again
+                expect(actor.dismiss).to.have.been.calledOnce;  // tslint:disable-line:no-unused-expression
+            });
+
+            it('re-instantiates actors dismissed when the SceneFinished', async () => {
+                const actors = new Spies();
+
+                const stage = new Stage(actors, manager);
+
+                stage.announce(new SceneStarts(sceneId, scenario));
+                stage.actor('Bob');
+                stage.announce(new SceneFinishes(sceneId, scenario));
+                stage.announce(new SceneFinished(sceneId, scenario, new ExecutionSuccessful()));
+
+                await stage.waitForNextCue();
+
+                stage.announce(new SceneStarts(anotherSceneId, scenario));
+                stage.actor('Bob');
+                stage.announce(new SceneFinishes(anotherSceneId, scenario));
+                stage.announce(new SceneFinished(anotherSceneId, scenario, new ExecutionSuccessful()));
+
+                await stage.waitForNextCue();
+
+                stage.announce(new TestRunFinishes());
+                stage.announce(new TestRunFinished());
+
+                await stage.waitForNextCue();
+
+                expect(actors.calls).to.have.lengthOf(2);
+            });
+        });
+
+        describe('performing across multiple scenes', () => {
+
+            it('dismisses actors instantiated before SceneStarts when TestRunFinishes', async () => {
+                const stage = new Stage(new Spies(), manager);
+
+                const actor = stage.actor('Bob');
+
+                stage.announce(new SceneStarts(sceneId, scenario));
+                stage.announce(new SceneFinishes(sceneId, scenario));
+
+                expect(actor.dismiss).to.have.not.been.called;  // tslint:disable-line:no-unused-expression
+
+                stage.announce(new SceneFinished(sceneId, scenario, new ExecutionSuccessful()));
+
+                stage.announce(new TestRunFinishes());
+                stage.announce(new TestRunFinished());
+
+                await stage.waitForNextCue()
+
+                // make sure it's called
+                expect(actor.dismiss).to.have.been.calledOnce;  // tslint:disable-line:no-unused-expression
+            });
+
+            it('retains instances of actors instantiated before the SceneStarts', async () => {
+                const actors = new Spies();
+
+                const stage = new Stage(actors, manager);
+
+                stage.actor('Bob');
+
+                stage.announce(new SceneStarts(sceneId, scenario));
+                stage.actor('Bob');
+                stage.announce(new SceneFinished(sceneId, scenario, new ExecutionSuccessful()));
+
+                await stage.waitForNextCue();
+
+                stage.announce(new SceneStarts(anotherSceneId, scenario));
+                stage.actor('Bob');
+                stage.announce(new SceneFinished(anotherSceneId, scenario, new ExecutionSuccessful()));
+
+                await stage.waitForNextCue();
+
+                stage.announce(new TestRunFinishes());
+                stage.announce(new TestRunFinished());
+
+                await stage.waitForNextCue();
+
+                expect(actors.calls).to.have.lengthOf(1);
+            });
         });
     });
 
