@@ -1,17 +1,41 @@
 import { ensure, isDefined } from 'tiny-types';
+
 import { ConfigurationError, LogicError } from '../errors';
-import { DomainEvent } from '../events';
-import { ActivityDetails, CorrelationId, Timestamp } from '../model';
-import { Activity, ListensToDomainEvents } from '../screenplay';
-import { ActivityDescriber } from '../screenplay/activities/ActivityDescriber';
+import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes, SceneStarts, TestRunFinishes } from '../events';
+import { CorrelationId, Description, Timestamp } from '../model';
+import { ListensToDomainEvents } from '../screenplay';
 import { Actor } from '../screenplay/actor';
 import { Cast } from './Cast';
 import { StageManager } from './StageManager';
 
 export class Stage {
-    private static readonly describer = new ActivityDescriber();
 
-    private actorsOnStage: Map<string, Actor> = new Map<string, Actor>();
+    /**
+     * @desc
+     *  Actors instantiated after the scene has started,
+     *  who will be dismissed when the scene finishes.
+     *
+     * @private
+     */
+    private actorsOnFrontStage: Map<string, Actor> = new Map<string, Actor>();
+
+    /**
+     * @desc
+     *  Actors instantiated before the scene has started,
+     *  who will be dismissed when the test run finishes.
+     *
+     * @private
+     */
+    private actorsOnBackstage: Map<string, Actor> = new Map<string, Actor>();
+
+    private actorsOnStage: Map<string, Actor> = this.actorsOnBackstage;
+
+    /**
+     * @desc
+     *  The most recent actor referenced via the {@link actor} method
+     *
+     * @private
+     */
     private actorInTheSpotlight: Actor = null;
 
     private currentActivity: CorrelationId = null;
@@ -44,11 +68,10 @@ export class Stage {
      * @return {Actor}
      */
     actor(name: string): Actor {
-        if (! this.actorsOnStage.has(name)) {
+        if (! this.instantiatedActorCalled(name)) {
             let actor;
             try {
                 const newActor = new Actor(name, this);
-                this.assign(newActor);
 
                 actor = this.cast.prepare(newActor);
             }
@@ -63,7 +86,7 @@ export class Stage {
             this.actorsOnStage.set(name, actor)
         }
 
-        this.actorInTheSpotlight = this.actorsOnStage.get(name);
+        this.actorInTheSpotlight = this.instantiatedActorCalled(name);
 
         return this.actorInTheSpotlight;
     }
@@ -95,26 +118,14 @@ export class Stage {
     }
 
     /**
-     * @deprecated
+     * @desc
+     *  Configures the Stage to prepare {@link Actor}s
+     *  instantiated via {@link Stage#actor} using the provided {@link Cast}.
+     *
      * @param {Cast} actors
-     * @return {Stage}
+     * @returns void
      */
-    callFor(actors: Cast): Stage {
-        this.drawTheCurtain();
-        this.engage(actors);
-
-        return this;
-    }
-
-    drawTheCurtain() {
-        Array.from(this.actorsOnStage.values())
-            .forEach(actor => this.manager.deregister(actor));
-
-        this.actorsOnStage.clear();
-        this.actorInTheSpotlight = null;
-    }
-
-    engage(actors: Cast) {
+    engage(actors: Cast): void {
         ensure('Cast', actors, isDefined());
 
         this.cast        = actors;
@@ -125,7 +136,21 @@ export class Stage {
     }
 
     announce(event: DomainEvent): void {
+        if (event instanceof SceneStarts) {
+            this.actorsOnStage = this.actorsOnFrontStage;
+        }
+
         this.manager.notifyOf(event);
+
+        if (event instanceof SceneFinishes) {
+            this.dismiss(this.actorsOnStage);
+
+            this.actorsOnStage = this.actorsOnBackstage;
+        }
+
+        if (event instanceof TestRunFinishes) {
+            this.dismiss(this.actorsOnStage);
+        }
     }
 
     currentTime(): Timestamp {
@@ -160,6 +185,42 @@ export class Stage {
 
     waitForNextCue(): Promise<void> {
         return this.manager.waitForNextCue();
+    }
+
+    private instantiatedActorCalled(name: string): Actor | undefined {
+        return this.actorsOnBackstage.has(name)
+            ? this.actorsOnBackstage.get(name)
+            : this.actorsOnFrontStage.get(name)
+    }
+
+    private dismiss(activeActors: Map<string, Actor>): Promise<void> {
+        const actors = Array.from(activeActors.values());
+
+        if (actors.find(actor => actor === this.actorInTheSpotlight)) {
+            this.actorInTheSpotlight = null;
+        }
+
+        return Promise
+            .all(actors.map(actor => {
+                const id = CorrelationId.create();
+
+                this.announce(new AsyncOperationAttempted(
+                    new Description(`[${ this.constructor.name }] Dismissing ${ actor.name }...`),
+                    id,
+                ));
+
+                return actor.dismiss()
+                    .then(() =>
+                        this.announce(new AsyncOperationCompleted(
+                            new Description(`[${ this.constructor.name }] Dismissed ${ actor.name } successfully`),
+                            id,
+                        )))
+                    .catch(error =>
+                        this.announce(new AsyncOperationFailed(error, id)),
+                    );
+
+            }))
+            .then(() => activeActors.clear());
     }
 
     /**

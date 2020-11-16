@@ -6,16 +6,7 @@ import { UsesAbilities } from './actor';
  *  An interface describing the static access method that every {@link Ability} class
  *  needs to provide in order to be accessible from within an {@link Interaction}.
  */
-export interface AbilityType<A extends Ability> {
-
-    /**
-     * @desc
-     *  Every Ability should be constructible and ideally receive the client communicating with
-     *  the desired external interface of the system under test as an argument.
-     *
-     * @param {...any} args
-     */
-    new (...args): A;
+export interface AbilityType<A extends Ability> extends Function {
 
     /**
      * @desc

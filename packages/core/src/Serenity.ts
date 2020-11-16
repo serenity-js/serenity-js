@@ -1,11 +1,13 @@
 import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
-import { DomainEvent, SceneFinished, SceneStarts } from './events';
-import { ErrorStackParser } from './io';
+import { DomainEvent } from './events';
 import { CorrelationId, Duration, Timestamp } from './model';
-import { Actor } from './screenplay/actor';
+import { Actor } from './screenplay/actor/Actor';
 import { SerenityConfig } from './SerenityConfig';
-import { Cast, Clock, Stage, StageCrewMember, StageManager } from './stage';
+import { Cast } from './stage/Cast';
+import { Clock } from './stage/Clock';
+import { Stage } from './stage/Stage';
+import { StageManager } from './stage/StageManager';
 import { Extras } from './stage/Extras';
 
 export class Serenity {
@@ -19,8 +21,6 @@ export class Serenity {
             Serenity.defaultActors,
             new StageManager(Serenity.defaultCueTimeout, clock),
         );
-
-        this.stage.assign(new StageHand(this.stage));
     }
 
     /**
@@ -47,8 +47,6 @@ export class Serenity {
         if (!! config.actors) {
             this.engage(config.actors);
         }
-
-        this.stage.assign(new StageHand(this.stage));
 
         if (Array.isArray(config.crew)) {
             this.stage.assign(
@@ -197,59 +195,5 @@ export class Serenity {
      */
     waitForNextCue(): Promise<void> {
         return this.stage.waitForNextCue();
-    }
-
-    /**
-     * @deprecated
-     * @experimental
-     * @param stageCrewMembers
-     */
-    setTheStage(...stageCrewMembers: StageCrewMember[]): void {
-        deprecated('serenity.setTheStage', 'Please use the new `configure({ crew: stageCrewMembers }) from @serenity-js/core instead.');
-
-        this.stage.assign(
-            ...stageCrewMembers.map(stageCrewMember => stageCrewMember.assignedTo(this.stage)),
-        );
-    }
-
-    /**
-     * @deprecated
-     * @param actors
-     */
-    callToStageFor(actors: Cast): Stage {
-        deprecated('serenity.callToStageFor(...)', 'Please use `actorCalled(name)` and `actorInTheSpotlight()` functions from @serenity-js/core to access the actors instead.');
-
-        return this.stage.callFor(actors);
-    }
-}
-
-// todo: remove when the deprecated methods are removed
-function deprecated(method: string, message: string) {
-    const callers = new ErrorStackParser().parse(new Error())
-        .filter(frame => ! /(node_modules)/.test(frame.fileName));
-
-    const location = !! callers[2]
-        ? `[${ callers[2].fileName }:${ callers[2].lineNumber }] `
-        : '';
-
-    console.warn(`${ location }${ method } has been deprecated. ${ message }`);   // tslint:disable-line:no-console
-}
-
-/**
- * @private
- */
-class StageHand implements StageCrewMember {
-    constructor(
-        private readonly stage: Stage = null) {
-    }
-
-    assignedTo(stage: Stage): StageCrewMember {
-        return new StageHand(stage);
-    }
-
-    notifyOf(event: DomainEvent): void {
-        if (event instanceof SceneFinished) {
-            this.stage.drawTheCurtain();
-        }
     }
 }
