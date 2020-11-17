@@ -111,14 +111,6 @@ describe('Actor', () => {
         ).to.throw(ConfigurationError, `Ben already has an ability to PlayAGuitar, so you don't need to give it to them again.`);
     });
 
-    /** @test {Actor} */
-    it('can be instantiated without explicitly specifying the Stage', () => {
-
-        const anActor: Actor = Actor.named('Bob').whoCan(PlayAGuitar.suchAs(guitar));
-
-        expect(anActor.name).to.equal('Bob');
-    });
-
     describe('DomainEvent handling', () => {
 
         let Bob: Actor;

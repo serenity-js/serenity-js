@@ -65,6 +65,15 @@ export abstract class Cast {
         return new GenericCast(abilities);
     }
 
+    /**
+     * @desc
+     *  Configures an {@link Actor} instantiated when {@link Stage#actor} is invoked.
+     *
+     * @param {Actor} actor
+     * @return {Actor}
+     *
+     * @see {@link engage}
+     */
     abstract prepare(actor: Actor): Actor;
 }
 

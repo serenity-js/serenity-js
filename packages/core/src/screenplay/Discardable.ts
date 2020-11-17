@@ -1,7 +1,11 @@
 /**
  * @desc
  *  An interface to be implemented by any {@link Ability} that needs to free up
- *  any resources it's using when the test scenario finishes.
+ *  the resources it uses.
+ *
+ *  This method is invoked directly by the {@link Actor}, and indirectly by {@link Stage}:
+ *  - when {@link SceneFinishes}, for actors instantiated after {@link SceneStarts} - i.e. within a test scenario or in a "before each" hook
+ *  - when {@link TestRunFinishes}, for actors instantiated before {@link SceneStarts} - i.e. in a "before all" hook
  *
  * @public
  */

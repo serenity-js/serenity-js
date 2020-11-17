@@ -12,11 +12,10 @@ import { Question } from '../Question';
  * @see {@link Note}
  * @see {@link TakeNote}
  *
+ * @abstract
  * @implements {Ability}
- * @implements {Discardable}
  */
-export class TakeNotes implements Discardable, Ability {
-    private static sharedNotepad = new Map<string, any>();
+export abstract class TakeNotes implements Ability {
 
     /**
      * @desc
@@ -64,10 +63,10 @@ export class TakeNotes implements Discardable, Ability {
      *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
      *  );
      *
-     * @returns {TakeNotes}
+     * @returns {TakeNotes & Discardable}
      */
-    static usingAnEmptyNotepad(): TakeNotes {
-        return new TakeNotes(new Map<string, any>());
+    static usingAnEmptyNotepad(): TakeNotes & Discardable {
+        return new TakeNotesUsingAnEmptyNotepad();
     }
 
     /**
@@ -111,7 +110,7 @@ export class TakeNotes implements Discardable, Ability {
      * @returns {TakeNotes}
      */
     static usingASharedNotepad(): TakeNotes {
-        return new TakeNotes(TakeNotes.sharedNotepad);
+        return new TakeNotesUsingASharedNotepad();
     }
 
     /**
@@ -136,7 +135,7 @@ export class TakeNotes implements Discardable, Ability {
      *
      * @param {Map<string, any>} notepad
      */
-    constructor(private readonly notepad: Map<string, any>) {
+    protected constructor(protected readonly notepad: Map<string, any>) {
     }
 
     /**
@@ -171,6 +170,22 @@ export class TakeNotes implements Discardable, Ability {
             ? Promise.reject(new LogicError(`The answer to "${ key }" has never been recorded`))
             : Promise.resolve(this.notepad.get(key));
     }
+}
+
+/**
+ * @package
+ */
+class TakeNotesUsingAnEmptyNotepad extends TakeNotes implements Discardable {
+
+    /**
+     * @desc
+     *  Instantiates the {@link Ability} to {@link TakeNotes}
+     *
+     * @param {Map<string, any>} notepad
+     */
+    constructor() {
+        super(new Map<string, any>());
+    }
 
     /**
      * @desc
@@ -180,5 +195,22 @@ export class TakeNotes implements Discardable, Ability {
      */
     discard(): Promise<void> | void {
         this.notepad.clear();
+    }
+}
+
+/**
+ * @package
+ */
+class TakeNotesUsingASharedNotepad extends TakeNotes {
+    private static sharedNotepad = new Map<string, any>();
+
+    /**
+     * @desc
+     *  Instantiates the {@link Ability} to {@link TakeNotes}
+     *
+     * @param {Map<string, any>} notepad
+     */
+    constructor() {
+        super(TakeNotesUsingASharedNotepad.sharedNotepad);
     }
 }
