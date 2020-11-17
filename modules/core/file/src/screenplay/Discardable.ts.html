@@ -265,7 +265,11 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  An interface to be implemented by any {<span class="hljs-doctag">@link </span>Ability} that needs to free up
- *  any resources it&apos;s using when the test scenario finishes.
+ *  the resources it uses.
+ *
+ *  This method is invoked directly by the {<span class="hljs-doctag">@link </span>Actor}, and indirectly by {<span class="hljs-doctag">@link </span>Stage}:
+ *  - when {<span class="hljs-doctag">@link </span>SceneFinishes}, for actors instantiated after {<span class="hljs-doctag">@link </span>SceneStarts} - i.e. within a test scenario or in a &quot;before each&quot; hook
+ *  - when {<span class="hljs-doctag">@link </span>TestRunFinishes}, for actors instantiated before {<span class="hljs-doctag">@link </span>SceneStarts} - i.e. in a &quot;before all&quot; hook
  *
  * <span class="hljs-doctag">@public</span>
  */</span>

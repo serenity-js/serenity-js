@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2011,
+  "end": 1644,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 87,
+      "line": 65,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2011,
+    "end": 1644,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 87,
+        "line": 65,
         "column": 0
       }
     },
@@ -241,14 +241,14 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 324,
-        "end": 2010,
+        "end": 1643,
         "loc": {
           "start": {
             "line": 16,
             "column": 0
           },
           "end": {
-            "line": 86,
+            "line": 64,
             "column": 1
           }
         },
@@ -292,14 +292,14 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 331,
-          "end": 2010,
+          "end": 1643,
           "loc": {
             "start": {
               "line": 16,
               "column": 7
             },
             "end": {
-              "line": 86,
+              "line": 64,
               "column": 1
             }
           },
@@ -386,42 +386,58 @@
               }
             ]
           },
-          "superClass": null,
-          "body": {
-            "type": "ClassBody",
-            "start": 377,
-            "end": 2010,
+          "superClass": {
+            "type": "Identifier",
+            "start": 385,
+            "end": 393,
             "loc": {
               "start": {
                 "line": 16,
-                "column": 53
+                "column": 61
               },
               "end": {
-                "line": 86,
+                "line": 16,
+                "column": 69
+              },
+              "identifierName": "Function"
+            },
+            "name": "Function"
+          },
+          "body": {
+            "type": "ClassBody",
+            "start": 394,
+            "end": 1643,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 70
+              },
+              "end": {
+                "line": 64,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "TSDeclareMethod",
-                "start": 745,
-                "end": 762,
+                "start": 1613,
+                "end": 1641,
                 "loc": {
                   "start": {
-                    "line": 38,
+                    "line": 63,
                     "column": 4
                   },
                   "end": {
-                    "line": 38,
-                    "column": 21
+                    "line": 63,
+                    "column": 32
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {undefined} args \n * @return \n * {A} \n * @public \n * \\TRUE \n ",
-                    "start": 379,
-                    "end": 498,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n * @param \n * {UsesAbilities} actor \n * @return \n * {A} \n * @public \n * \\TRUE \n ",
+                    "start": 396,
+                    "end": 520,
                     "loc": {
                       "start": {
                         "line": 17,
@@ -435,50 +451,16 @@
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Every Ability should be constructible and ideally receive the client communicating with\n     *  the desired external interface of the system under test as an argument.\n     *\n     * @param {...any} args\n     ",
-                    "start": 505,
-                    "end": 740,
+                    "value": "*\n     * @desc\n     *  Retrieves the Ability in question from the {@link Actor}, provided that the {@link Actor} has it.\n     *\n     * @example\n     * import { Ability, Actor, Interface } from '@serenity-js/core';\n     *\n     * class MakePhoneCalls implements Ability {\n     *     static as(actor: UsesAbilities): MakesPhoneCalls {\n     *         return actor.abilityTo(MakePhoneCalls);\n     *     }\n     *\n     *     static using(phone: Phone) {\n     *         return new MakePhoneCalls(phone);\n     *     }\n     *\n     *     constructor(private readonly phone: Phone) {}\n     *\n     *     // some method that allows us to interact with the external interface of the system under test\n     *     dial(phoneNumber: string) {\n     *       // ...\n     *     }\n     * }\n     *\n     * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));\n     *\n     * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>\n     *  MakePhoneCalls.as(actor).dial(phoneNumber);\n     * );\n     *\n     * @param {UsesAbilities} actor\n     ",
+                    "start": 527,
+                    "end": 1608,
                     "loc": {
                       "start": {
                         "line": 31,
                         "column": 4
                       },
                       "end": {
-                        "line": 37,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n * @param \n * {UsesAbilities} actor \n * @return \n * {A} \n * @public \n * \\TRUE \n ",
-                    "start": 763,
-                    "end": 887,
-                    "loc": {
-                      "start": {
-                        "line": 39,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 50,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves the Ability in question from the {@link Actor}, provided that the {@link Actor} has it.\n     *\n     * @example\n     * import { Ability, Actor, Interface } from '@serenity-js/core';\n     *\n     * class MakePhoneCalls implements Ability {\n     *     static as(actor: UsesAbilities): MakesPhoneCalls {\n     *         return actor.abilityTo(MakePhoneCalls);\n     *     }\n     *\n     *     static using(phone: Phone) {\n     *         return new MakePhoneCalls(phone);\n     *     }\n     *\n     *     constructor(private readonly phone: Phone) {}\n     *\n     *     // some method that allows us to interact with the external interface of the system under test\n     *     dial(phoneNumber: string) {\n     *       // ...\n     *     }\n     * }\n     *\n     * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));\n     *\n     * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>\n     *  MakePhoneCalls.as(actor).dial(phoneNumber);\n     * );\n     *\n     * @param {UsesAbilities} actor\n     ",
-                    "start": 894,
-                    "end": 1975,
-                    "loc": {
-                      "start": {
-                        "line": 53,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 84,
+                        "line": 62,
                         "column": 7
                       }
                     }
@@ -487,168 +469,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 745,
-                  "end": 748,
+                  "start": 1613,
+                  "end": 1615,
                   "loc": {
                     "start": {
-                      "line": 38,
+                      "line": 63,
                       "column": 4
                     },
                     "end": {
-                      "line": 38,
-                      "column": 7
-                    },
-                    "identifierName": "new"
-                  },
-                  "name": "new"
-                },
-                "computed": false,
-                "kind": "method",
-                "id": null,
-                "generator": false,
-                "async": false,
-                "params": [
-                  {
-                    "type": "RestElement",
-                    "start": 750,
-                    "end": 757,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 9
-                      },
-                      "end": {
-                        "line": 38,
-                        "column": 16
-                      }
-                    },
-                    "argument": {
-                      "type": "Identifier",
-                      "start": 753,
-                      "end": 757,
-                      "loc": {
-                        "start": {
-                          "line": 38,
-                          "column": 12
-                        },
-                        "end": {
-                          "line": 38,
-                          "column": 16
-                        },
-                        "identifierName": "args"
-                      },
-                      "name": "args"
-                    }
-                  }
-                ],
-                "returnType": {
-                  "type": "TSTypeAnnotation",
-                  "start": 758,
-                  "end": 761,
-                  "loc": {
-                    "start": {
-                      "line": 38,
-                      "column": 17
-                    },
-                    "end": {
-                      "line": 38,
-                      "column": 20
-                    }
-                  },
-                  "typeAnnotation": {
-                    "type": "TSTypeReference",
-                    "start": 760,
-                    "end": 761,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 19
-                      },
-                      "end": {
-                        "line": 38,
-                        "column": 20
-                      }
-                    },
-                    "typeName": {
-                      "type": "Identifier",
-                      "start": 760,
-                      "end": 761,
-                      "loc": {
-                        "start": {
-                          "line": 38,
-                          "column": 19
-                        },
-                        "end": {
-                          "line": 38,
-                          "column": 20
-                        },
-                        "identifierName": "A"
-                      },
-                      "name": "A"
-                    }
-                  }
-                }
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 1980,
-                "end": 2008,
-                "loc": {
-                  "start": {
-                    "line": 85,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 85,
-                    "column": 32
-                  }
-                },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n * @param \n * {UsesAbilities} actor \n * @return \n * {A} \n * @public \n * \\TRUE \n ",
-                    "start": 763,
-                    "end": 887,
-                    "loc": {
-                      "start": {
-                        "line": 39,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 50,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves the Ability in question from the {@link Actor}, provided that the {@link Actor} has it.\n     *\n     * @example\n     * import { Ability, Actor, Interface } from '@serenity-js/core';\n     *\n     * class MakePhoneCalls implements Ability {\n     *     static as(actor: UsesAbilities): MakesPhoneCalls {\n     *         return actor.abilityTo(MakePhoneCalls);\n     *     }\n     *\n     *     static using(phone: Phone) {\n     *         return new MakePhoneCalls(phone);\n     *     }\n     *\n     *     constructor(private readonly phone: Phone) {}\n     *\n     *     // some method that allows us to interact with the external interface of the system under test\n     *     dial(phoneNumber: string) {\n     *       // ...\n     *     }\n     * }\n     *\n     * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));\n     *\n     * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>\n     *  MakePhoneCalls.as(actor).dial(phoneNumber);\n     * );\n     *\n     * @param {UsesAbilities} actor\n     ",
-                    "start": 894,
-                    "end": 1975,
-                    "loc": {
-                      "start": {
-                        "line": 53,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 84,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "static": false,
-                "key": {
-                  "type": "Identifier",
-                  "start": 1980,
-                  "end": 1982,
-                  "loc": {
-                    "start": {
-                      "line": 85,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 85,
+                      "line": 63,
                       "column": 6
                     },
                     "identifierName": "as"
@@ -663,15 +492,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 1983,
-                    "end": 2003,
+                    "start": 1616,
+                    "end": 1636,
                     "loc": {
                       "start": {
-                        "line": 85,
+                        "line": 63,
                         "column": 7
                       },
                       "end": {
-                        "line": 85,
+                        "line": 63,
                         "column": 27
                       },
                       "identifierName": "actor"
@@ -679,43 +508,43 @@
                     "name": "actor",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 1988,
-                      "end": 2003,
+                      "start": 1621,
+                      "end": 1636,
                       "loc": {
                         "start": {
-                          "line": 85,
+                          "line": 63,
                           "column": 12
                         },
                         "end": {
-                          "line": 85,
+                          "line": 63,
                           "column": 27
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 1990,
-                        "end": 2003,
+                        "start": 1623,
+                        "end": 1636,
                         "loc": {
                           "start": {
-                            "line": 85,
+                            "line": 63,
                             "column": 14
                           },
                           "end": {
-                            "line": 85,
+                            "line": 63,
                             "column": 27
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 1990,
-                          "end": 2003,
+                          "start": 1623,
+                          "end": 1636,
                           "loc": {
                             "start": {
-                              "line": 85,
+                              "line": 63,
                               "column": 14
                             },
                             "end": {
-                              "line": 85,
+                              "line": 63,
                               "column": 27
                             },
                             "identifierName": "UsesAbilities"
@@ -728,43 +557,43 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 2004,
-                  "end": 2007,
+                  "start": 1637,
+                  "end": 1640,
                   "loc": {
                     "start": {
-                      "line": 85,
+                      "line": 63,
                       "column": 28
                     },
                     "end": {
-                      "line": 85,
+                      "line": 63,
                       "column": 31
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 2006,
-                    "end": 2007,
+                    "start": 1639,
+                    "end": 1640,
                     "loc": {
                       "start": {
-                        "line": 85,
+                        "line": 63,
                         "column": 30
                       },
                       "end": {
-                        "line": 85,
+                        "line": 63,
                         "column": 31
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 2006,
-                      "end": 2007,
+                      "start": 1639,
+                      "end": 1640,
                       "loc": {
                         "start": {
-                          "line": 85,
+                          "line": 63,
                           "column": 30
                         },
                         "end": {
-                          "line": 85,
+                          "line": 63,
                           "column": 31
                         },
                         "identifierName": "A"
@@ -851,9 +680,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {undefined} args \n * @return \n * {A} \n * @public \n * \\TRUE \n ",
-      "start": 379,
-      "end": 498,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n * @param \n * {UsesAbilities} actor \n * @return \n * {A} \n * @public \n * \\TRUE \n ",
+      "start": 396,
+      "end": 520,
       "loc": {
         "start": {
           "line": 17,
@@ -867,48 +696,16 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * @desc\n     *  Every Ability should be constructible and ideally receive the client communicating with\n     *  the desired external interface of the system under test as an argument.\n     *\n     * @param {...any} args\n     ",
-      "start": 505,
-      "end": 740,
+      "value": "*\n     * @desc\n     *  Retrieves the Ability in question from the {@link Actor}, provided that the {@link Actor} has it.\n     *\n     * @example\n     * import { Ability, Actor, Interface } from '@serenity-js/core';\n     *\n     * class MakePhoneCalls implements Ability {\n     *     static as(actor: UsesAbilities): MakesPhoneCalls {\n     *         return actor.abilityTo(MakePhoneCalls);\n     *     }\n     *\n     *     static using(phone: Phone) {\n     *         return new MakePhoneCalls(phone);\n     *     }\n     *\n     *     constructor(private readonly phone: Phone) {}\n     *\n     *     // some method that allows us to interact with the external interface of the system under test\n     *     dial(phoneNumber: string) {\n     *       // ...\n     *     }\n     * }\n     *\n     * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));\n     *\n     * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>\n     *  MakePhoneCalls.as(actor).dial(phoneNumber);\n     * );\n     *\n     * @param {UsesAbilities} actor\n     ",
+      "start": 527,
+      "end": 1608,
       "loc": {
         "start": {
           "line": 31,
           "column": 4
         },
         "end": {
-          "line": 37,
-          "column": 7
-        }
-      }
-    },
-    {
-      "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n * @param \n * {UsesAbilities} actor \n * @return \n * {A} \n * @public \n * \\TRUE \n ",
-      "start": 763,
-      "end": 887,
-      "loc": {
-        "start": {
-          "line": 39,
-          "column": 0
-        },
-        "end": {
-          "line": 50,
-          "column": 3
-        }
-      }
-    },
-    {
-      "type": "CommentBlock",
-      "value": "*\n     * @desc\n     *  Retrieves the Ability in question from the {@link Actor}, provided that the {@link Actor} has it.\n     *\n     * @example\n     * import { Ability, Actor, Interface } from '@serenity-js/core';\n     *\n     * class MakePhoneCalls implements Ability {\n     *     static as(actor: UsesAbilities): MakesPhoneCalls {\n     *         return actor.abilityTo(MakePhoneCalls);\n     *     }\n     *\n     *     static using(phone: Phone) {\n     *         return new MakePhoneCalls(phone);\n     *     }\n     *\n     *     constructor(private readonly phone: Phone) {}\n     *\n     *     // some method that allows us to interact with the external interface of the system under test\n     *     dial(phoneNumber: string) {\n     *       // ...\n     *     }\n     * }\n     *\n     * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));\n     *\n     * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>\n     *  MakePhoneCalls.as(actor).dial(phoneNumber);\n     * );\n     *\n     * @param {UsesAbilities} actor\n     ",
-      "start": 894,
-      "end": 1975,
-      "loc": {
-        "start": {
-          "line": 53,
-          "column": 4
-        },
-        "end": {
-          "line": 84,
+          "line": 62,
           "column": 7
         }
       }

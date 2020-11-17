@@ -268,7 +268,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/Discardable.ts.html#lineNumber15">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/Discardable.ts.html#lineNumber19">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -277,7 +277,12 @@
   
 
   <div class="description" data-ice="description"><p> An interface to be implemented by any <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> that needs to free up
- any resources it&apos;s using when the test scenario finishes.</p>
+ the resources it uses.</p>
+<p> This method is invoked directly by the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>, and indirectly by <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>:</p>
+<ul>
+<li>when <span><a href="class/src/events/SceneFinishes.ts~SceneFinishes.html">SceneFinishes</a></span>, for actors instantiated after <span><a href="class/src/events/SceneStarts.ts~SceneStarts.html">SceneStarts</a></span> - i.e. within a test scenario or in a &quot;before each&quot; hook</li>
+<li>when <span><a href="class/src/events/TestRunFinishes.ts~TestRunFinishes.html">TestRunFinishes</a></span>, for actors instantiated before <span><a href="class/src/events/SceneStarts.ts~SceneStarts.html">SceneStarts</a></span> - i.e. in a &quot;before all&quot; hook</li>
+</ul>
 </div>
 
   
@@ -287,7 +292,7 @@
   
   
   
-  <div class="flat-list" data-ice="directImplemented"><h4>Direct Implemented:</h4><ul><li><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></li></ul></div>
+  
   
 
   

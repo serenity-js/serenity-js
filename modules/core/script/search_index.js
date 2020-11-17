@@ -847,19 +847,19 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber138",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber130",
     "Actor DomainEvent handling",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber155",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber147",
     "Actor DomainEvent handling announces the events that activities it performs",
     "test"
   ],
   [
     "actor src/screenplay/actor/actor.ts~actor,actor",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber158",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber150",
     "Actor DomainEvent handling announces the events that activities it performs notifies when an activity begins and ends",
     "test"
   ],
@@ -891,12 +891,6 @@ window.esdocSearchIndex = [
     "actor src/screenplay/actor/actor.ts~actor,actor",
     "test-file/spec/screenplay/actor.spec.ts.html#lineNumber48",
     "Actor can be identified by their name",
-    "test"
-  ],
-  [
-    "actor src/screenplay/actor/actor.ts~actor,actor",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber131",
-    "Actor can be instantiated without explicitly specifying the Stage",
     "test"
   ],
   [
@@ -1387,19 +1381,19 @@ window.esdocSearchIndex = [
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber69",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber67",
     "Note complains if no answer on a given subject has ever been remembered",
     "test"
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber60",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber58",
     "Note complains if no answer to a given question has ever been remembered",
     "test"
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber49",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber48",
     "Note enables the actor to recall the answer on a given subject",
     "test"
   ],
@@ -1669,127 +1663,169 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber10",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber13",
     "Stage",
     "test"
   ],
   [
     "stage#actor stage#theactorcalled src/stage/stage.ts~stage#actor,stage#actor src/stage/stage.ts~stage#theactorcalled,stage#theactorcalled",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber44",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber47",
     "Stage provides both the more verbose and more concise way of accessing the actors",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber177",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber369",
     "Stage when an error occurs",
     "test"
   ],
   [
     "stage#actor src/stage/stage.ts~stage#actor,stage#actor",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber192",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber384",
     "Stage when an error occurs complains if the Cast does not provide a way to instantiate a given actor",
     "test"
   ],
   [
     "stage#actor src/stage/stage.ts~stage#actor,stage#actor",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber206",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber398",
     "Stage when an error occurs complains if the Cast does not provide a way to prepare a given actor and mentions the type of the Cast, when available",
     "test"
   ],
   [
     "stage#actor src/stage/stage.ts~stage#actor,stage#actor",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber244",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber436",
     "Stage when an error occurs complains if the Cast throws an error during actor instantiation",
     "test"
   ],
   [
     "stage#actor src/stage/stage.ts~stage#actor,stage#actor",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber258",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber450",
     "Stage when an error occurs complains if the Cast throws an error during actor instantiation and mentions the type of the Cast, when available",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber179",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber371",
     "Stage when an error occurs complains when instantiated with no Cast",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber185",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber377",
     "Stage when an error occurs complains when instantiated with no StageManager",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber134",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber326",
     "Stage when correlating activities",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber157",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber349",
     "Stage when correlating activities assigns activityIds",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber136",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber328",
     "Stage when correlating activities assigns sceneIds",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber168",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber360",
     "Stage when correlating activities complains if an activityId is attempted to be retrieved before is has been assigned",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber147",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber339",
     "Stage when correlating activities returns a default sceneId when activities are performed outside of a test runner",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber53",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber56",
     "Stage when instantiating actors",
     "test"
   ],
   [
     "stage#actor src/stage/stage.ts~stage#actor,stage#actor",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber56",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber59",
     "Stage when instantiating actors instantiates a new actor when their name is called for the first time",
     "test"
   ],
   [
     "stage#actor src/stage/stage.ts~stage#actor,stage#actor",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber71",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber74",
     "Stage when instantiating actors returns an existing actor if it has already been instantiated before",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber89",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber137",
+    "Stage when instantiating and dismissing the actors",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber223",
+    "Stage when instantiating and dismissing the actors performing a single scene",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber224",
+    "Stage when instantiating and dismissing the actors performing a single scene dismisses actors instantiated after SceneStarts when SceneFinished",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber246",
+    "Stage when instantiating and dismissing the actors performing a single scene re-instantiates actors dismissed when the SceneFinished",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber274",
+    "Stage when instantiating and dismissing the actors performing across multiple scenes",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber276",
+    "Stage when instantiating and dismissing the actors performing across multiple scenes dismisses actors instantiated before SceneStarts when TestRunFinishes",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber297",
+    "Stage when instantiating and dismissing the actors performing across multiple scenes retains instances of actors instantiated before the SceneStarts",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber92",
     "Stage when referencing a recently retrieved actor",
     "test"
   ],
   [
     "stage#theactorinthespotlight stage#theactorinthespotlight src/stage/stage.ts~stage#theactorinthespotlight,stage#theactorinthespotlight src/stage/stage.ts~stage#theactorinthespotlight,stage#theactorinthespotlight",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber124",
-    "Stage when referencing a recently retrieved actor complains if you try to access the actor in the spotlight, but there isn't any yet",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber127",
+    "Stage when referencing a recently retrieved actor ",
     "test"
   ],
   [
     "stage#theactorinthespotlight stage#theactorinthespotlight src/stage/stage.ts~stage#theactorinthespotlight,stage#theactorinthespotlight src/stage/stage.ts~stage#theactorinthespotlight,stage#theactorinthespotlight",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber107",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber110",
     "Stage when referencing a recently retrieved actor provides both the more verbose and more concise way of accessing the actors in the spotlight",
     "test"
   ],
   [
     "stage#actor src/stage/stage.ts~stage#actor,stage#actor",
-    "test-file/spec/stage/Stage.spec.ts.html#lineNumber92",
+    "test-file/spec/stage/Stage.spec.ts.html#lineNumber95",
     "Stage when referencing a recently retrieved actor retrieves the current actor, if there is any",
     "test"
   ],
@@ -1837,55 +1873,55 @@ window.esdocSearchIndex = [
   ],
   [
     "takenotes.usingasharednotepad src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber131",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149",
     "TakeNotes usingASharedNotepad",
     "test"
   ],
   [
     "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber167",
     "TakeNotes usingASharedNotepad ",
     "test"
   ],
   [
     "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber163",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber182",
     "TakeNotes usingASharedNotepad ",
     "test"
   ],
   [
     "takenotes.usingasharednotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usingasharednotepad,takenotes.usingasharednotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber156",
     "TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later",
     "test"
   ],
   [
     "takenotes.usinganemptynotepad src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber66",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber68",
     "TakeNotes usingAnEmptyNotepad",
     "test"
   ],
   [
     "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber95",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber106",
     "TakeNotes usingAnEmptyNotepad ",
     "test"
   ],
   [
     "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber114",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber129",
     "TakeNotes usingAnEmptyNotepad ",
-    "test"
-  ],
-  [
-    "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
-    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber73",
-    "TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later",
     "test"
   ],
   [
     "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
     "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84",
+    "TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later",
+    "test"
+  ],
+  [
+    "takenotes.usinganemptynotepad note takenote src/screenplay/abilities/takenotes.ts~takenotes.usinganemptynotepad,takenotes.usinganemptynotepad src/screenplay/questions/note.ts~note,note src/screenplay/interactions/takenote.ts~takenote,takenote",
+    "test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber95",
     "TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question under a custom name",
     "test"
   ],
@@ -2610,12 +2646,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/serenity.ts~serenity#calltostagefor",
-    "class/src/Serenity.ts~Serenity.html#instance-method-callToStageFor",
-    "src/Serenity.ts~Serenity#callToStageFor",
-    "method"
-  ],
-  [
     "src/serenity.ts~serenity#configure",
     "class/src/Serenity.ts~Serenity.html#instance-method-configure",
     "src/Serenity.ts~Serenity#configure",
@@ -2643,12 +2673,6 @@ window.esdocSearchIndex = [
     "src/serenity.ts~serenity#engage",
     "class/src/Serenity.ts~Serenity.html#instance-method-engage",
     "src/Serenity.ts~Serenity#engage",
-    "method"
-  ],
-  [
-    "src/serenity.ts~serenity#setthestage",
-    "class/src/Serenity.ts~Serenity.html#instance-method-setTheStage",
-    "src/Serenity.ts~Serenity#setTheStage",
     "method"
   ],
   [
@@ -4656,12 +4680,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/screenplay/abilities/takenotes.ts~takenotes#discard",
-    "class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-discard",
-    "src/screenplay/abilities/TakeNotes.ts~TakeNotes#discard",
-    "method"
-  ],
-  [
     "src/screenplay/abilities/takenotes.ts~takenotes#record",
     "class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-record",
     "src/screenplay/abilities/TakeNotes.ts~TakeNotes#record",
@@ -4752,15 +4770,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/screenplay/actor/actor.ts~actor#namefrom",
-    "class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-nameFrom",
-    "src/screenplay/actor/Actor.ts~Actor#nameFrom",
-    "method"
-  ],
-  [
-    "src/screenplay/actor/actor.ts~actor#notifyof",
-    "class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-notifyOf",
-    "src/screenplay/actor/Actor.ts~Actor#notifyOf",
+    "src/screenplay/actor/actor.ts~actor#dismiss",
+    "class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-dismiss",
+    "src/screenplay/actor/Actor.ts~Actor#dismiss",
     "method"
   ],
   [
@@ -4773,12 +4785,6 @@ window.esdocSearchIndex = [
     "src/screenplay/actor/actor.ts~actor#whocan",
     "class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan",
     "src/screenplay/actor/Actor.ts~Actor#whoCan",
-    "method"
-  ],
-  [
-    "src/screenplay/actor/actor.ts~actor.named",
-    "class/src/screenplay/actor/Actor.ts~Actor.html#static-method-named",
-    "src/screenplay/actor/Actor.ts~Actor.named",
     "method"
   ],
   [
@@ -5232,12 +5238,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/stage/stage.ts~stage#callfor",
-    "class/src/stage/Stage.ts~Stage.html#instance-method-callFor",
-    "src/stage/Stage.ts~Stage#callFor",
-    "method"
-  ],
-  [
     "src/stage/stage.ts~stage#cast",
     "class/src/stage/Stage.ts~Stage.html#instance-member-cast",
     "src/stage/Stage.ts~Stage#cast",
@@ -5265,12 +5265,6 @@ window.esdocSearchIndex = [
     "src/stage/stage.ts~stage#currenttime",
     "class/src/stage/Stage.ts~Stage.html#instance-method-currentTime",
     "src/stage/Stage.ts~Stage#currentTime",
-    "method"
-  ],
-  [
-    "src/stage/stage.ts~stage#drawthecurtain",
-    "class/src/stage/Stage.ts~Stage.html#instance-method-drawTheCurtain",
-    "src/stage/Stage.ts~Stage#drawTheCurtain",
     "method"
   ],
   [

@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2918,
+  "end": 3125,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 139,
+      "line": 148,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2918,
+    "end": 3125,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 139,
+        "line": 148,
         "column": 0
       }
     },
@@ -203,14 +203,14 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 1823,
-        "end": 2536,
+        "end": 2743,
         "loc": {
           "start": {
             "line": 62,
             "column": 0
           },
           "end": {
-            "line": 106,
+            "line": 115,
             "column": 1
           }
         },
@@ -251,16 +251,16 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
-            "start": 2537,
-            "end": 2582,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n ",
+            "start": 2744,
+            "end": 2789,
             "loc": {
               "start": {
-                "line": 107,
+                "line": 116,
                 "column": 0
               },
               "end": {
-                "line": 112,
+                "line": 121,
                 "column": 3
               }
             }
@@ -268,15 +268,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @package\n ",
-            "start": 2585,
-            "end": 2604,
+            "start": 2792,
+            "end": 2811,
             "loc": {
               "start": {
-                "line": 115,
+                "line": 124,
                 "column": 0
               },
               "end": {
-                "line": 117,
+                "line": 126,
                 "column": 3
               }
             }
@@ -288,14 +288,14 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 1830,
-          "end": 2536,
+          "end": 2743,
           "loc": {
             "start": {
               "line": 62,
               "column": 7
             },
             "end": {
-              "line": 106,
+              "line": 115,
               "column": 1
             }
           },
@@ -321,14 +321,14 @@
           "body": {
             "type": "ClassBody",
             "start": 1850,
-            "end": 2536,
+            "end": 2743,
             "loc": {
               "start": {
                 "line": 62,
                 "column": 27
               },
               "end": {
-                "line": 106,
+                "line": 115,
                 "column": 1
               }
             },
@@ -384,7 +384,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 77 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
                     "start": 2345,
                     "end": 2489,
                     "loc": {
@@ -395,6 +395,22 @@
                       "end": {
                         "line": 102,
                         "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Configures an {@link Actor} instantiated when {@link Stage#actor} is invoked.\n     *\n     * @param {Actor} actor\n     * @return {Actor}\n     *\n     * @see {@link engage}\n     ",
+                    "start": 2496,
+                    "end": 2698,
+                    "loc": {
+                      "start": {
+                        "line": 105,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 113,
+                        "column": 7
                       }
                     }
                   }
@@ -652,22 +668,22 @@
               },
               {
                 "type": "TSDeclareMethod",
-                "start": 2496,
-                "end": 2534,
+                "start": 2703,
+                "end": 2741,
                 "loc": {
                   "start": {
-                    "line": 105,
+                    "line": 114,
                     "column": 4
                   },
                   "end": {
-                    "line": 105,
+                    "line": 114,
                     "column": 42
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 77 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
                     "start": 2345,
                     "end": 2489,
                     "loc": {
@@ -680,21 +696,37 @@
                         "column": 3
                       }
                     }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Configures an {@link Actor} instantiated when {@link Stage#actor} is invoked.\n     *\n     * @param {Actor} actor\n     * @return {Actor}\n     *\n     * @see {@link engage}\n     ",
+                    "start": 2496,
+                    "end": 2698,
+                    "loc": {
+                      "start": {
+                        "line": 105,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 113,
+                        "column": 7
+                      }
+                    }
                   }
                 ],
                 "abstract": true,
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2505,
-                  "end": 2512,
+                  "start": 2712,
+                  "end": 2719,
                   "loc": {
                     "start": {
-                      "line": 105,
+                      "line": 114,
                       "column": 13
                     },
                     "end": {
-                      "line": 105,
+                      "line": 114,
                       "column": 20
                     },
                     "identifierName": "prepare"
@@ -709,15 +741,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 2513,
-                    "end": 2525,
+                    "start": 2720,
+                    "end": 2732,
                     "loc": {
                       "start": {
-                        "line": 105,
+                        "line": 114,
                         "column": 21
                       },
                       "end": {
-                        "line": 105,
+                        "line": 114,
                         "column": 33
                       },
                       "identifierName": "actor"
@@ -725,43 +757,43 @@
                     "name": "actor",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 2518,
-                      "end": 2525,
+                      "start": 2725,
+                      "end": 2732,
                       "loc": {
                         "start": {
-                          "line": 105,
+                          "line": 114,
                           "column": 26
                         },
                         "end": {
-                          "line": 105,
+                          "line": 114,
                           "column": 33
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 2520,
-                        "end": 2525,
+                        "start": 2727,
+                        "end": 2732,
                         "loc": {
                           "start": {
-                            "line": 105,
+                            "line": 114,
                             "column": 28
                           },
                           "end": {
-                            "line": 105,
+                            "line": 114,
                             "column": 33
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 2520,
-                          "end": 2525,
+                          "start": 2727,
+                          "end": 2732,
                           "loc": {
                             "start": {
-                              "line": 105,
+                              "line": 114,
                               "column": 28
                             },
                             "end": {
-                              "line": 105,
+                              "line": 114,
                               "column": 33
                             },
                             "identifierName": "Actor"
@@ -774,43 +806,43 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 2526,
-                  "end": 2533,
+                  "start": 2733,
+                  "end": 2740,
                   "loc": {
                     "start": {
-                      "line": 105,
+                      "line": 114,
                       "column": 34
                     },
                     "end": {
-                      "line": 105,
+                      "line": 114,
                       "column": 41
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 2528,
-                    "end": 2533,
+                    "start": 2735,
+                    "end": 2740,
                     "loc": {
                       "start": {
-                        "line": 105,
+                        "line": 114,
                         "column": 36
                       },
                       "end": {
-                        "line": 105,
+                        "line": 114,
                         "column": 41
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 2528,
-                      "end": 2533,
+                      "start": 2735,
+                      "end": 2740,
                       "loc": {
                         "start": {
-                          "line": 105,
+                          "line": 114,
                           "column": 36
                         },
                         "end": {
-                          "line": 105,
+                          "line": 114,
                           "column": 41
                         },
                         "identifierName": "Actor"
@@ -859,16 +891,16 @@
           "trailingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
-              "start": 2537,
-              "end": 2582,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n ",
+              "start": 2744,
+              "end": 2789,
               "loc": {
                 "start": {
-                  "line": 107,
+                  "line": 116,
                   "column": 0
                 },
                 "end": {
-                  "line": 112,
+                  "line": 121,
                   "column": 3
                 }
               }
@@ -876,15 +908,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @package\n ",
-              "start": 2585,
-              "end": 2604,
+              "start": 2792,
+              "end": 2811,
               "loc": {
                 "start": {
-                  "line": 115,
+                  "line": 124,
                   "column": 0
                 },
                 "end": {
-                  "line": 117,
+                  "line": 126,
                   "column": 3
                 }
               }
@@ -894,31 +926,31 @@
       },
       {
         "type": "ClassDeclaration",
-        "start": 2605,
-        "end": 2917,
+        "start": 2812,
+        "end": 3124,
         "loc": {
           "start": {
-            "line": 118,
+            "line": 127,
             "column": 0
           },
           "end": {
-            "line": 138,
+            "line": 147,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
-            "start": 2537,
-            "end": 2582,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n ",
+            "start": 2744,
+            "end": 2789,
             "loc": {
               "start": {
-                "line": 107,
+                "line": 116,
                 "column": 0
               },
               "end": {
-                "line": 112,
+                "line": 121,
                 "column": 3
               }
             }
@@ -926,15 +958,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @package\n ",
-            "start": 2585,
-            "end": 2604,
+            "start": 2792,
+            "end": 2811,
             "loc": {
               "start": {
-                "line": 115,
+                "line": 124,
                 "column": 0
               },
               "end": {
-                "line": 117,
+                "line": 126,
                 "column": 3
               }
             }
@@ -942,15 +974,15 @@
         ],
         "id": {
           "type": "Identifier",
-          "start": 2611,
-          "end": 2622,
+          "start": 2818,
+          "end": 2829,
           "loc": {
             "start": {
-              "line": 118,
+              "line": 127,
               "column": 6
             },
             "end": {
-              "line": 118,
+              "line": 127,
               "column": 17
             },
             "identifierName": "GenericCast"
@@ -961,29 +993,29 @@
         "implements": [
           {
             "type": "TSExpressionWithTypeArguments",
-            "start": 2634,
-            "end": 2638,
+            "start": 2841,
+            "end": 2845,
             "loc": {
               "start": {
-                "line": 118,
+                "line": 127,
                 "column": 29
               },
               "end": {
-                "line": 118,
+                "line": 127,
                 "column": 33
               }
             },
             "expression": {
               "type": "Identifier",
-              "start": 2634,
-              "end": 2638,
+              "start": 2841,
+              "end": 2845,
               "loc": {
                 "start": {
-                  "line": 118,
+                  "line": 127,
                   "column": 29
                 },
                 "end": {
-                  "line": 118,
+                  "line": 127,
                   "column": 33
                 },
                 "identifierName": "Cast"
@@ -994,46 +1026,46 @@
         ],
         "body": {
           "type": "ClassBody",
-          "start": 2639,
-          "end": 2917,
+          "start": 2846,
+          "end": 3124,
           "loc": {
             "start": {
-              "line": 118,
+              "line": 127,
               "column": 34
             },
             "end": {
-              "line": 138,
+              "line": 147,
               "column": 1
             }
           },
           "body": [
             {
               "type": "ClassMethod",
-              "start": 2645,
-              "end": 2703,
+              "start": 2852,
+              "end": 2910,
               "loc": {
                 "start": {
-                  "line": 119,
+                  "line": 128,
                   "column": 4
                 },
                 "end": {
-                  "line": 120,
+                  "line": 129,
                   "column": 5
                 }
               },
               "trailingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
-                  "start": 2704,
-                  "end": 2824,
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+                  "start": 2911,
+                  "end": 3031,
                   "loc": {
                     "start": {
-                      "line": 121,
+                      "line": 130,
                       "column": 0
                     },
                     "end": {
-                      "line": 132,
+                      "line": 141,
                       "column": 3
                     }
                   }
@@ -1042,15 +1074,15 @@
               "static": false,
               "key": {
                 "type": "Identifier",
-                "start": 2645,
-                "end": 2656,
+                "start": 2852,
+                "end": 2863,
                 "loc": {
                   "start": {
-                    "line": 119,
+                    "line": 128,
                     "column": 4
                   },
                   "end": {
-                    "line": 119,
+                    "line": 128,
                     "column": 15
                   },
                   "identifierName": "constructor"
@@ -1065,15 +1097,15 @@
               "params": [
                 {
                   "type": "TSParameterProperty",
-                  "start": 2657,
-                  "end": 2694,
+                  "start": 2864,
+                  "end": 2901,
                   "loc": {
                     "start": {
-                      "line": 119,
+                      "line": 128,
                       "column": 16
                     },
                     "end": {
-                      "line": 119,
+                      "line": 128,
                       "column": 53
                     }
                   },
@@ -1081,15 +1113,15 @@
                   "readonly": true,
                   "parameter": {
                     "type": "Identifier",
-                    "start": 2674,
-                    "end": 2694,
+                    "start": 2881,
+                    "end": 2901,
                     "loc": {
                       "start": {
-                        "line": 119,
+                        "line": 128,
                         "column": 33
                       },
                       "end": {
-                        "line": 119,
+                        "line": 128,
                         "column": 53
                       },
                       "identifierName": "abilities"
@@ -1097,57 +1129,57 @@
                     "name": "abilities",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 2683,
-                      "end": 2694,
+                      "start": 2890,
+                      "end": 2901,
                       "loc": {
                         "start": {
-                          "line": 119,
+                          "line": 128,
                           "column": 42
                         },
                         "end": {
-                          "line": 119,
+                          "line": 128,
                           "column": 53
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSArrayType",
-                        "start": 2685,
-                        "end": 2694,
+                        "start": 2892,
+                        "end": 2901,
                         "loc": {
                           "start": {
-                            "line": 119,
+                            "line": 128,
                             "column": 44
                           },
                           "end": {
-                            "line": 119,
+                            "line": 128,
                             "column": 53
                           }
                         },
                         "elementType": {
                           "type": "TSTypeReference",
-                          "start": 2685,
-                          "end": 2692,
+                          "start": 2892,
+                          "end": 2899,
                           "loc": {
                             "start": {
-                              "line": 119,
+                              "line": 128,
                               "column": 44
                             },
                             "end": {
-                              "line": 119,
+                              "line": 128,
                               "column": 51
                             }
                           },
                           "typeName": {
                             "type": "Identifier",
-                            "start": 2685,
-                            "end": 2692,
+                            "start": 2892,
+                            "end": 2899,
                             "loc": {
                               "start": {
-                                "line": 119,
+                                "line": 128,
                                 "column": 44
                               },
                               "end": {
-                                "line": 119,
+                                "line": 128,
                                 "column": 51
                               },
                               "identifierName": "Ability"
@@ -1162,15 +1194,15 @@
               ],
               "body": {
                 "type": "BlockStatement",
-                "start": 2696,
-                "end": 2703,
+                "start": 2903,
+                "end": 2910,
                 "loc": {
                   "start": {
-                    "line": 119,
+                    "line": 128,
                     "column": 55
                   },
                   "end": {
-                    "line": 120,
+                    "line": 129,
                     "column": 5
                   }
                 },
@@ -1180,31 +1212,31 @@
             },
             {
               "type": "ClassMethod",
-              "start": 2831,
-              "end": 2915,
+              "start": 3038,
+              "end": 3122,
               "loc": {
                 "start": {
-                  "line": 135,
+                  "line": 144,
                   "column": 4
                 },
                 "end": {
-                  "line": 137,
+                  "line": 146,
                   "column": 5
                 }
               },
               "leadingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
-                  "start": 2704,
-                  "end": 2824,
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+                  "start": 2911,
+                  "end": 3031,
                   "loc": {
                     "start": {
-                      "line": 121,
+                      "line": 130,
                       "column": 0
                     },
                     "end": {
-                      "line": 132,
+                      "line": 141,
                       "column": 3
                     }
                   }
@@ -1213,15 +1245,15 @@
               "static": false,
               "key": {
                 "type": "Identifier",
-                "start": 2831,
-                "end": 2838,
+                "start": 3038,
+                "end": 3045,
                 "loc": {
                   "start": {
-                    "line": 135,
+                    "line": 144,
                     "column": 4
                   },
                   "end": {
-                    "line": 135,
+                    "line": 144,
                     "column": 11
                   },
                   "identifierName": "prepare"
@@ -1236,15 +1268,15 @@
               "params": [
                 {
                   "type": "Identifier",
-                  "start": 2839,
-                  "end": 2851,
+                  "start": 3046,
+                  "end": 3058,
                   "loc": {
                     "start": {
-                      "line": 135,
+                      "line": 144,
                       "column": 12
                     },
                     "end": {
-                      "line": 135,
+                      "line": 144,
                       "column": 24
                     },
                     "identifierName": "actor"
@@ -1252,43 +1284,43 @@
                   "name": "actor",
                   "typeAnnotation": {
                     "type": "TSTypeAnnotation",
-                    "start": 2844,
-                    "end": 2851,
+                    "start": 3051,
+                    "end": 3058,
                     "loc": {
                       "start": {
-                        "line": 135,
+                        "line": 144,
                         "column": 17
                       },
                       "end": {
-                        "line": 135,
+                        "line": 144,
                         "column": 24
                       }
                     },
                     "typeAnnotation": {
                       "type": "TSTypeReference",
-                      "start": 2846,
-                      "end": 2851,
+                      "start": 3053,
+                      "end": 3058,
                       "loc": {
                         "start": {
-                          "line": 135,
+                          "line": 144,
                           "column": 19
                         },
                         "end": {
-                          "line": 135,
+                          "line": 144,
                           "column": 24
                         }
                       },
                       "typeName": {
                         "type": "Identifier",
-                        "start": 2846,
-                        "end": 2851,
+                        "start": 3053,
+                        "end": 3058,
                         "loc": {
                           "start": {
-                            "line": 135,
+                            "line": 144,
                             "column": 19
                           },
                           "end": {
-                            "line": 135,
+                            "line": 144,
                             "column": 24
                           },
                           "identifierName": "Actor"
@@ -1301,43 +1333,43 @@
               ],
               "returnType": {
                 "type": "TSTypeAnnotation",
-                "start": 2852,
-                "end": 2859,
+                "start": 3059,
+                "end": 3066,
                 "loc": {
                   "start": {
-                    "line": 135,
+                    "line": 144,
                     "column": 25
                   },
                   "end": {
-                    "line": 135,
+                    "line": 144,
                     "column": 32
                   }
                 },
                 "typeAnnotation": {
                   "type": "TSTypeReference",
-                  "start": 2854,
-                  "end": 2859,
+                  "start": 3061,
+                  "end": 3066,
                   "loc": {
                     "start": {
-                      "line": 135,
+                      "line": 144,
                       "column": 27
                     },
                     "end": {
-                      "line": 135,
+                      "line": 144,
                       "column": 32
                     }
                   },
                   "typeName": {
                     "type": "Identifier",
-                    "start": 2854,
-                    "end": 2859,
+                    "start": 3061,
+                    "end": 3066,
                     "loc": {
                       "start": {
-                        "line": 135,
+                        "line": 144,
                         "column": 27
                       },
                       "end": {
-                        "line": 135,
+                        "line": 144,
                         "column": 32
                       },
                       "identifierName": "Actor"
@@ -1348,72 +1380,72 @@
               },
               "body": {
                 "type": "BlockStatement",
-                "start": 2860,
-                "end": 2915,
+                "start": 3067,
+                "end": 3122,
                 "loc": {
                   "start": {
-                    "line": 135,
+                    "line": 144,
                     "column": 33
                   },
                   "end": {
-                    "line": 137,
+                    "line": 146,
                     "column": 5
                   }
                 },
                 "body": [
                   {
                     "type": "ReturnStatement",
-                    "start": 2870,
-                    "end": 2909,
+                    "start": 3077,
+                    "end": 3116,
                     "loc": {
                       "start": {
-                        "line": 136,
+                        "line": 145,
                         "column": 8
                       },
                       "end": {
-                        "line": 136,
+                        "line": 145,
                         "column": 47
                       }
                     },
                     "argument": {
                       "type": "CallExpression",
-                      "start": 2877,
-                      "end": 2908,
+                      "start": 3084,
+                      "end": 3115,
                       "loc": {
                         "start": {
-                          "line": 136,
+                          "line": 145,
                           "column": 15
                         },
                         "end": {
-                          "line": 136,
+                          "line": 145,
                           "column": 46
                         }
                       },
                       "callee": {
                         "type": "MemberExpression",
-                        "start": 2877,
-                        "end": 2889,
+                        "start": 3084,
+                        "end": 3096,
                         "loc": {
                           "start": {
-                            "line": 136,
+                            "line": 145,
                             "column": 15
                           },
                           "end": {
-                            "line": 136,
+                            "line": 145,
                             "column": 27
                           }
                         },
                         "object": {
                           "type": "Identifier",
-                          "start": 2877,
-                          "end": 2882,
+                          "start": 3084,
+                          "end": 3089,
                           "loc": {
                             "start": {
-                              "line": 136,
+                              "line": 145,
                               "column": 15
                             },
                             "end": {
-                              "line": 136,
+                              "line": 145,
                               "column": 20
                             },
                             "identifierName": "actor"
@@ -1423,15 +1455,15 @@
                         "computed": false,
                         "property": {
                           "type": "Identifier",
-                          "start": 2883,
-                          "end": 2889,
+                          "start": 3090,
+                          "end": 3096,
                           "loc": {
                             "start": {
-                              "line": 136,
+                              "line": 145,
                               "column": 21
                             },
                             "end": {
-                              "line": 136,
+                              "line": 145,
                               "column": 27
                             },
                             "identifierName": "whoCan"
@@ -1442,43 +1474,43 @@
                       "arguments": [
                         {
                           "type": "SpreadElement",
-                          "start": 2890,
-                          "end": 2907,
+                          "start": 3097,
+                          "end": 3114,
                           "loc": {
                             "start": {
-                              "line": 136,
+                              "line": 145,
                               "column": 28
                             },
                             "end": {
-                              "line": 136,
+                              "line": 145,
                               "column": 45
                             }
                           },
                           "argument": {
                             "type": "MemberExpression",
-                            "start": 2893,
-                            "end": 2907,
+                            "start": 3100,
+                            "end": 3114,
                             "loc": {
                               "start": {
-                                "line": 136,
+                                "line": 145,
                                 "column": 31
                               },
                               "end": {
-                                "line": 136,
+                                "line": 145,
                                 "column": 45
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 2893,
-                              "end": 2897,
+                              "start": 3100,
+                              "end": 3104,
                               "loc": {
                                 "start": {
-                                  "line": 136,
+                                  "line": 145,
                                   "column": 31
                                 },
                                 "end": {
-                                  "line": 136,
+                                  "line": 145,
                                   "column": 35
                                 }
                               }
@@ -1486,15 +1518,15 @@
                             "computed": false,
                             "property": {
                               "type": "Identifier",
-                              "start": 2898,
-                              "end": 2907,
+                              "start": 3105,
+                              "end": 3114,
                               "loc": {
                                 "start": {
-                                  "line": 136,
+                                  "line": 145,
                                   "column": 36
                                 },
                                 "end": {
-                                  "line": 136,
+                                  "line": 145,
                                   "column": 45
                                 },
                                 "identifierName": "abilities"
@@ -1583,7 +1615,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 77 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @abstract \n * \\TRUE \n * @public \n * \\TRUE \n ",
       "start": 2345,
       "end": 2489,
       "loc": {
@@ -1599,16 +1631,32 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n ",
-      "start": 2537,
-      "end": 2582,
+      "value": "*\n     * @desc\n     *  Configures an {@link Actor} instantiated when {@link Stage#actor} is invoked.\n     *\n     * @param {Actor} actor\n     * @return {Actor}\n     *\n     * @see {@link engage}\n     ",
+      "start": 2496,
+      "end": 2698,
       "loc": {
         "start": {
-          "line": 107,
+          "line": 105,
+          "column": 4
+        },
+        "end": {
+          "line": 113,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n ",
+      "start": 2744,
+      "end": 2789,
+      "loc": {
+        "start": {
+          "line": 116,
           "column": 0
         },
         "end": {
-          "line": 112,
+          "line": 121,
           "column": 3
         }
       }
@@ -1616,31 +1664,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @package\n ",
-      "start": 2585,
-      "end": 2604,
+      "start": 2792,
+      "end": 2811,
       "loc": {
         "start": {
-          "line": 115,
+          "line": 124,
           "column": 0
         },
         "end": {
-          "line": 117,
+          "line": 126,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
-      "start": 2704,
-      "end": 2824,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @param \n * {Actor} actor \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+      "start": 2911,
+      "end": 3031,
       "loc": {
         "start": {
-          "line": 121,
+          "line": 130,
           "column": 0
         },
         "end": {
-          "line": 132,
+          "line": 141,
           "column": 3
         }
       }

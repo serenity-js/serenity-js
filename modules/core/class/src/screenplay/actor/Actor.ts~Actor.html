@@ -306,8 +306,7 @@
 <li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber104">Actor asks Questions about the state of the system rejects the promise should the answer differ from what was expected</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber116">Actor admits if it does not have the Ability necessary to accomplish a given Interaction</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber123">Actor complains if given the same ability twice</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber131">Actor can be instantiated without explicitly specifying the Stage</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber158">Actor DomainEvent handling announces the events that activities it performs notifies when an activity begins and ends</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber150">Actor DomainEvent handling announces the events that activities it performs notifies when an activity begins and ends</a></span></li>
 </ul>
   </div>
 
@@ -317,41 +316,7 @@
 </div>
 
 
-<div data-ice="staticMethodSummary"><h2>Static Method Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Static Public Methods</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      <span data-ice="static">static</span>
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#static-method-named">named</a></span></span><span class="code" data-ice="signature">(name: <span>*</span>): {&quot;whoCan&quot;: <span>*</span>}</span>
-        </p>
-      </div>
-      <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+
 <div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
   <tbody>
@@ -406,13 +371,17 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-abilityTo">abilityTo</a></span></span><span class="code" data-ice="signature">(doSomething: <span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span>): <span>T</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-abilityTo">abilityTo</a></span></span><span class="code" data-ice="signature">(doSomething: <span>*</span>): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Retrieves actor&apos;s <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> to <code>doSomething</code>.</p>
+<p> Please note that this method performs an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof"><code>instancepf</code></a>
+ check against abilities given to this actor via <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan">Actor#whoCan</a></span>. Please also note that <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan">Actor#whoCan</a></span> performs
+ the same check when abilities are assigned to the actor to ensure the actor has at most one instance of a given ability type.</p>
+</div>
       </div>
     </td>
     <td>
@@ -462,13 +431,16 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo">attemptsTo</a></span></span><span class="code" data-ice="signature">(activities: <span>UNKNOWN</span>): <span>Promise</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo">attemptsTo</a></span></span><span class="code" data-ice="signature">(activities: <span><span>...activities: Activity</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Instructs the actor to attempt to perform a number of activities
+ (see <span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span>, so either <span><a href="class/src/screenplay/Task.ts~Task.html">Task</a></span>s or <span><a href="class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>s)
+ one by one.</p>
+</div>
       </div>
     </td>
     <td>
@@ -519,43 +491,15 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-nameFrom">nameFrom</a></span></span><span class="code" data-ice="signature">(maybeName: <span>string </span> | <span> Name</span>): <span><a href="class/src/model/Name.ts~Name.html">Name</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-dismiss">dismiss</a></span></span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p> Instantiates a <span><a href="class/src/model/Name.ts~Name.html">Name</a></span> based on the string value of the parameter,
- or returns the argument if it&apos;s already an instance of <span><a href="class/src/model/Name.ts~Name.html">Name</a></span>.</p>
+        <div data-ice="description"><p> Instructs the actor to invoke <span>Discardable#discard</span> method on any
+ <span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span> <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> it&apos;s been configured with.</p>
 </div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-notifyOf">notifyOf</a></span></span><span class="code" data-ice="signature">(event: <span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>): <span>void</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
       </div>
     </td>
     <td>
@@ -583,7 +527,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p> Returns a human-readable, string representation of this Actor</p>
+</div>
       </div>
     </td>
     <td>
@@ -605,13 +550,15 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan">whoCan</a></span></span><span class="code" data-ice="signature">(abilities: <span>UNKNOWN</span>): <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan">whoCan</a></span></span><span class="code" data-ice="signature">(abilities: <span><span>...Ability</span><span>[]</span></span>): <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Gives this Actor a list of abilities (see <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span>) they can use
+ to interact with the system under test or the test environment.</p>
+</div>
       </div>
     </td>
     <td>
@@ -626,80 +573,7 @@
 
 
 
-<div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
 
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-method-named">
-    <span class="access" data-ice="access">public</span>
-    <span data-ice="static">static</span>
-    
-    
-    
-    
-    <span class="code" data-ice="name">named</span><span class="code" data-ice="signature">(name: <span>*</span>): {&quot;whoCan&quot;: <span>*</span>}</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber53">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">name</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType">{&quot;whoCan&quot;: <span>*</span>}</td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
 <div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
 
 <div class="detail" data-ice="detail">
@@ -714,7 +588,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber33">source</a></span></span>
     </span>
   </h3>
 
@@ -757,18 +631,22 @@
     
     
     
-    <span class="code" data-ice="name">abilityTo</span><span class="code" data-ice="signature">(doSomething: <span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span>): <span>T</span></span>
+    <span class="code" data-ice="name">abilityTo</span><span class="code" data-ice="signature">(doSomething: <span>*</span>): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber63">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Retrieves actor&apos;s <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> to <code>doSomething</code>.</p>
+<p> Please note that this method performs an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof"><code>instancepf</code></a>
+ check against abilities given to this actor via <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan">Actor#whoCan</a></span>. Please also note that <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan">Actor#whoCan</a></span> performs
+ the same check when abilities are assigned to the actor to ensure the actor has at most one instance of a given ability type.</p>
+</div>
 
   
 
@@ -782,7 +660,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">doSomething</td>
-      <td data-ice="type" class="code"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></td>
+      <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -796,7 +674,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>T</span></td>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
           
         </tr>
       </tbody>
@@ -832,7 +710,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber161">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber171">source</a></span></span>
     </span>
   </h3>
 
@@ -901,18 +779,21 @@
     
     
     
-    <span class="code" data-ice="name">attemptsTo</span><span class="code" data-ice="signature">(activities: <span>UNKNOWN</span>): <span>Promise</span></span>
+    <span class="code" data-ice="name">attemptsTo</span><span class="code" data-ice="signature">(activities: <span><span>...activities: Activity</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber96">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Instructs the actor to attempt to perform a number of activities
+ (see <span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span>, so either <span><a href="class/src/screenplay/Task.ts~Task.html">Task</a></span>s or <span><a href="class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>s)
+ one by one.</p>
+</div>
 
   
 
@@ -926,7 +807,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">activities</td>
-      <td data-ice="type" class="code"><span>UNKNOWN</span></td>
+      <td data-ice="type" class="code"><span><span>...activities: Activity</span><span>[]</span></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -940,7 +821,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>Promise</span></td>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>void</span>&gt;</td>
           
         </tr>
       </tbody>
@@ -976,7 +857,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber255">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber231">source</a></span></span>
     </span>
   </h3>
 
@@ -1031,47 +912,31 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-nameFrom">
+  <h3 data-ice="anchor" id="instance-method-dismiss">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">nameFrom</span><span class="code" data-ice="signature">(maybeName: <span>string </span> | <span> Name</span>): <span><a href="class/src/model/Name.ts~Name.html">Name</a></span></span>
+    <span class="code" data-ice="name">dismiss</span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber318">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber259">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p> Instantiates a <span><a href="class/src/model/Name.ts~Name.html">Name</a></span> based on the string value of the parameter,
- or returns the argument if it&apos;s already an instance of <span><a href="class/src/model/Name.ts~Name.html">Name</a></span>.</p>
+  <div data-ice="description"><p> Instructs the actor to invoke <span>Discardable#discard</span> method on any
+ <span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span> <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> it&apos;s been configured with.</p>
 </div>
 
   
 
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">maybeName</td>
-      <td data-ice="type" class="code"><span>string </span> | <span> Name</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
+  <div data-ice="properties">
 </div>
 
   <div class="return-params" data-ice="returnParams">
@@ -1079,78 +944,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/model/Name.ts~Name.html">Name</a></span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-notifyOf">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">notifyOf</span><span class="code" data-ice="signature">(event: <span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>): <span>void</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber107">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">event</td>
-      <td data-ice="type" class="code"><span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>void</span></td>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>void</span>&gt;</td>
           
         </tr>
       </tbody>
@@ -1186,14 +980,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber145">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber289">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Returns a human-readable, string representation of this Actor</p>
+</div>
 
   
 
@@ -1237,18 +1032,20 @@
     
     
     
-    <span class="code" data-ice="name">whoCan</span><span class="code" data-ice="signature">(abilities: <span>UNKNOWN</span>): <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span>
+    <span class="code" data-ice="name">whoCan</span><span class="code" data-ice="signature">(abilities: <span><span>...Ability</span><span>[]</span></span>): <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber70">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber134">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Gives this Actor a list of abilities (see <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span>) they can use
+ to interact with the system under test or the test environment.</p>
+</div>
 
   
 
@@ -1262,9 +1059,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">abilities</td>
-      <td data-ice="type" class="code"><span>UNKNOWN</span></td>
+      <td data-ice="type" class="code"><span><span>...Ability</span><span>[]</span></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>A vararg list of abilities to give the actor</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1277,7 +1075,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>The actor with newly gained abilities</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1289,7 +1088,19 @@
 
   
 
-  
+  <div data-ice="throwWrap">
+    <h4>Throws:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="class/src/errors/ConfigurationError.ts~ConfigurationError.html">ConfigurationError</a></span></p></td>
+        <td data-ice="throwDesc"><p>Throws a ConfigurationError if the actor already has an ability of this type.</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 

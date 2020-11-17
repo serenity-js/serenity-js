@@ -375,14 +375,6 @@ describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-f
         ).to.throw(ConfigurationError, <span class="hljs-string">`Ben already has an ability to PlayAGuitar, so you don&apos;t need to give it to them again.`</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;can be instantiated without explicitly specifying the Stage&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-
-        <span class="hljs-keyword">const</span> anActor: Actor = Actor.named(<span class="hljs-string">&apos;Bob&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar));
-
-        expect(anActor.name).to.equal(<span class="hljs-string">&apos;Bob&apos;</span>);
-    });
-
     describe(<span class="hljs-string">&apos;DomainEvent handling&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">let</span> Bob: Actor;

@@ -283,9 +283,9 @@
   
   
   
+  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclasses:</h4><div><span>src/screenplay/abilities/TakeNotes.ts~TakeNotesUsingASharedNotepad</span>, <span>src/screenplay/abilities/TakeNotes.ts~TakeNotesUsingAnEmptyNotepad</span></div></div>
   
-  
-  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></li>, <li><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></li></ul></div>
+  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></li></ul></div>
   
   
   
@@ -302,9 +302,9 @@
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber13">TakeNotes</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber38">Note enables the actor to recall the answer to a given question</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber49">Note enables the actor to recall the answer on a given subject</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber60">Note complains if no answer to a given question has ever been remembered</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber69">Note complains if no answer on a given subject has ever been remembered</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber48">Note enables the actor to recall the answer on a given subject</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber58">Note complains if no answer to a given question has ever been remembered</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber67">Note complains if no answer on a given subject has ever been remembered</a></span></li>
 </ul>
   </div>
 
@@ -392,7 +392,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingAnEmptyNotepad">usingAnEmptyNotepad</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#static-method-usingAnEmptyNotepad">usingAnEmptyNotepad</a></span></span><span class="code" data-ice="signature">(): <span>TakeNotes &amp; Discardable</span></span>
         </p>
       </div>
       <div>
@@ -494,35 +494,6 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-discard">discard</a></span></span><span class="code" data-ice="signature">(): <span>Promise&lt;void&gt; </span> | <span> void</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p> Enables the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to clear the notepad when the <span><a href="class/src/events/SceneFinishes.ts~SceneFinishes.html">SceneFinishes</a></span>.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
           <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html#instance-method-record">record</a></span></span><span class="code" data-ice="signature">(subject: <span>Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span>, value: <span>Promise&lt;Answer&gt; </span> | <span> Answer</span>): <span>void</span></span>
         </p>
       </div>
@@ -559,7 +530,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber188">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber176">source</a></span></span>
     </span>
   </h3>
 
@@ -633,7 +604,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber157">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber145">source</a></span></span>
     </span>
   </h3>
 
@@ -713,10 +684,10 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber131">TakeNotes usingASharedNotepad</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber138">TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149">TakeNotes usingASharedNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber163">TakeNotes usingASharedNotepad </a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber149">TakeNotes usingASharedNotepad</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber156">TakeNotes usingASharedNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber167">TakeNotes usingASharedNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber182">TakeNotes usingASharedNotepad </a></span></li>
 </ul>
   </div>
 
@@ -731,11 +702,11 @@
     
     
     
-    <span class="code" data-ice="name">usingAnEmptyNotepad</span><span class="code" data-ice="signature">(): <span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span>
+    <span class="code" data-ice="name">usingAnEmptyNotepad</span><span class="code" data-ice="signature">(): <span>TakeNotes &amp; Discardable</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber100">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber88">source</a></span></span>
     </span>
   </h3>
 
@@ -758,7 +729,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span>TakeNotes &amp; Discardable</span></td>
           
         </tr>
       </tbody>
@@ -824,11 +795,11 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber66">TakeNotes usingAnEmptyNotepad</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber73">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question under a custom name</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber95">TakeNotes usingAnEmptyNotepad </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber114">TakeNotes usingAnEmptyNotepad </a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber68">TakeNotes usingAnEmptyNotepad</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber84">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question and recall it later</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber95">TakeNotes usingAnEmptyNotepad enables the actor to take note of an answer to a given question under a custom name</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber106">TakeNotes usingAnEmptyNotepad </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/TakeNotes.spec.ts.html#lineNumber129">TakeNotes usingAnEmptyNotepad </a></span></li>
 </ul>
   </div>
 
@@ -850,7 +821,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber198">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber186">source</a></span></span>
     </span>
   </h3>
 
@@ -914,7 +885,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber254">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber242">source</a></span></span>
     </span>
   </h3>
 
@@ -976,62 +947,6 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-discard">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">discard</span><span class="code" data-ice="signature">(): <span>Promise&lt;void&gt; </span> | <span> void</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber279">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p> Enables the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to clear the notepad when the <span><a href="class/src/events/SceneFinishes.ts~SceneFinishes.html">SceneFinishes</a></span>.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>Promise&lt;void&gt; </span> | <span> void</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-record">
     <span class="access" data-ice="access">public</span>
     
@@ -1043,7 +958,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber228">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/TakeNotes.ts.html#lineNumber216">source</a></span></span>
     </span>
   </h3>
 

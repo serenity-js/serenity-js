@@ -294,11 +294,22 @@
  *  Re-configures Serenity/JS with a new {<span class="hljs-doctag">@link </span>Cast} of {<span class="hljs-doctag">@link </span>Actor}s
  *  you&apos;d like to use in any subsequent call to {<span class="hljs-doctag">@link </span>actorCalled}.
  *
- *  This function provides an alternative to calling {<span class="hljs-doctag">@link </span>Actor#whoCan}
- *  directly in your tests and you&apos;d typically us it in a &quot;before each&quot;
- *  hook of your test runner of choice.
+ *  This function is an alias for {<span class="hljs-doctag">@link </span>Serenity#engage},
+ *  which provides an alternative to calling {<span class="hljs-doctag">@link </span>Actor#whoCan}
+ *  directly in your tests and is typically invoked in a &quot;before all&quot;
+ *  or &quot;before each&quot; hook of your test runner of choice.
  *
- *  This function is an alias for {<span class="hljs-doctag">@link </span>Serenity#engage}.
+ *  If your implementation of the {<span class="hljs-doctag">@link </span>Cast} interface is stateless,
+ *  you can invoke this function once before your entire test suite is executed, see
+ *  - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,
+ *  - [`before`](https://mochajs.org/#hooks) in Mocha,
+ *  - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js
+ *
+ *  However, if your {<span class="hljs-doctag">@link </span>Cast} holds state that you want reset before each scenario,
+ *  it&apos;s better to invoke `engage` before each test using:
+ *  - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine
+ *  - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,
+ *  - [`Before`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#hooks) in Cucumber.js
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Engaging a cast of actors&lt;/caption&gt;
  *  import { Actor, Cast } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;

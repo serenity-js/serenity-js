@@ -533,34 +533,6 @@ by their name if they&apos;ve already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-callFor">callFor</a></span></span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>): <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span></span>
-        </p>
-      </div>
-      <div>
-        <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
           <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-currentActivityId">currentActivityId</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span>
         </p>
       </div>
@@ -645,41 +617,15 @@ by their name if they&apos;ve already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-drawTheCurtain">drawTheCurtain</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-engage">engage</a></span></span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-engage">engage</a></span></span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
+        <div data-ice="description"><p> Configures the Stage to prepare <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>s
+ instantiated via <span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-actor">Stage#actor</a></span> using the provided <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -824,7 +770,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber82">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber117">source</a></span></span>
     </span>
   </h3>
 
@@ -870,7 +816,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber263">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber265">source</a></span></span>
     </span>
   </h3>
 
@@ -916,7 +862,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber134">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber169">source</a></span></span>
     </span>
   </h3>
 
@@ -977,14 +923,14 @@ by their name if they&apos;ve already been instantiated.</p>
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber44">Stage provides both the more verbose and more concise way of accessing the actors</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber56">Stage when instantiating actors instantiates a new actor when their name is called for the first time</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber71">Stage when instantiating actors returns an existing actor if it has already been instantiated before</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber92">Stage when referencing a recently retrieved actor retrieves the current actor, if there is any</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber192">Stage when an error occurs complains if the Cast does not provide a way to instantiate a given actor</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber206">Stage when an error occurs complains if the Cast does not provide a way to prepare a given actor and mentions the type of the Cast, when available</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber244">Stage when an error occurs complains if the Cast throws an error during actor instantiation</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber258">Stage when an error occurs complains if the Cast throws an error during actor instantiation and mentions the type of the Cast, when available</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber47">Stage provides both the more verbose and more concise way of accessing the actors</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber59">Stage when instantiating actors instantiates a new actor when their name is called for the first time</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber74">Stage when instantiating actors returns an existing actor if it has already been instantiated before</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber95">Stage when referencing a recently retrieved actor retrieves the current actor, if there is any</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber384">Stage when an error occurs complains if the Cast does not provide a way to instantiate a given actor</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber398">Stage when an error occurs complains if the Cast does not provide a way to prepare a given actor and mentions the type of the Cast, when available</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber436">Stage when an error occurs complains if the Cast throws an error during actor instantiation</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber450">Stage when an error occurs complains if the Cast throws an error during actor instantiation and mentions the type of the Cast, when available</a></span></li>
 </ul>
   </div>
 
@@ -1003,7 +949,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber127">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber138">source</a></span></span>
     </span>
   </h3>
 
@@ -1074,7 +1020,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber134">source</a></span></span>
     </span>
   </h3>
 
@@ -1133,7 +1079,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber146">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber171">source</a></span></span>
     </span>
   </h3>
 
@@ -1188,7 +1134,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber135">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber160">source</a></span></span>
     </span>
   </h3>
 
@@ -1232,77 +1178,6 @@ by their name if they&apos;ve already been instantiated.</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-callFor">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">callFor</span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>): <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber225">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">actors</td>
-      <td data-ice="type" class="code"><span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-currentActivityId">
     <span class="access" data-ice="access">public</span>
     
@@ -1314,7 +1189,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber153">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber178">source</a></span></span>
     </span>
   </h3>
 
@@ -1369,7 +1244,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber142">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber167">source</a></span></span>
     </span>
   </h3>
 
@@ -1424,7 +1299,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber131">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber156">source</a></span></span>
     </span>
   </h3>
 
@@ -1468,49 +1343,6 @@ by their name if they&apos;ve already been instantiated.</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-drawTheCurtain">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">drawTheCurtain</span><span class="code" data-ice="signature">()</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber109">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-engage">
     <span class="access" data-ice="access">public</span>
     
@@ -1518,18 +1350,20 @@ by their name if they&apos;ve already been instantiated.</p>
     
     
     
-    <span class="code" data-ice="name">engage</span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>)</span>
+    <span class="code" data-ice="name">engage</span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber117">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber262">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Configures the Stage to prepare <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>s
+ instantiated via <span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-actor">Stage#actor</a></span> using the provided <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>.</p>
+</div>
 
   
 
@@ -1552,7 +1386,20 @@ by their name if they&apos;ve already been instantiated.</p>
 </div>
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>void</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -1581,7 +1428,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber110">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber145">source</a></span></span>
     </span>
   </h3>
 
@@ -1640,7 +1487,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber44">Stage provides both the more verbose and more concise way of accessing the actors</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber47">Stage provides both the more verbose and more concise way of accessing the actors</a></span></li>
 </ul>
   </div>
 
@@ -1659,7 +1506,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber178">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber212">source</a></span></span>
     </span>
   </h3>
 
@@ -1715,10 +1562,10 @@ by their name if they&apos;ve already been instantiated.</p>
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber107">Stage when referencing a recently retrieved actor provides both the more verbose and more concise way of accessing the actors in the spotlight</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber107">Stage when referencing a recently retrieved actor provides both the more verbose and more concise way of accessing the actors in the spotlight</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber124">Stage when referencing a recently retrieved actor complains if you try to access the actor in the spotlight, but there isn&apos;t any yet</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber124">Stage when referencing a recently retrieved actor complains if you try to access the actor in the spotlight, but there isn&apos;t any yet</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber110">Stage when referencing a recently retrieved actor provides both the more verbose and more concise way of accessing the actors in the spotlight</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber110">Stage when referencing a recently retrieved actor provides both the more verbose and more concise way of accessing the actors in the spotlight</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber127">Stage when referencing a recently retrieved actor </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/Stage.spec.ts.html#lineNumber127">Stage when referencing a recently retrieved actor </a></span></li>
 </ul>
   </div>
 
@@ -1737,7 +1584,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber203">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber237">source</a></span></span>
     </span>
   </h3>
 
@@ -1793,7 +1640,7 @@ by their name if they&apos;ve already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber161">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber186">source</a></span></span>
     </span>
   </h3>
 

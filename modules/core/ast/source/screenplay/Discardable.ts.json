@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 413,
+  "end": 732,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 29,
+      "line": 33,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 413,
+    "end": 732,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 29,
+        "line": 33,
         "column": 0
       }
     },
@@ -32,24 +32,24 @@
     "body": [
       {
         "type": "ExportNamedDeclaration",
-        "start": 232,
-        "end": 412,
+        "start": 550,
+        "end": 731,
         "loc": {
           "start": {
-            "line": 15,
+            "line": 19,
             "column": 0
           },
           "end": {
-            "line": 28,
+            "line": 32,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
             "start": 1,
-            "end": 45,
+            "end": 46,
             "loc": {
               "start": {
                 "line": 2,
@@ -63,16 +63,16 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  any resources it's using when the test scenario finishes.\n *\n * @public\n * @interface ",
-            "start": 46,
-            "end": 231,
+            "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  the resources it uses.\n *\n *  This method is invoked directly by the {@link Actor}, and indirectly by {@link Stage}:\n *  - when {@link SceneFinishes}, for actors instantiated after {@link SceneStarts} - i.e. within a test scenario or in a \"before each\" hook\n *  - when {@link TestRunFinishes}, for actors instantiated before {@link SceneStarts} - i.e. in a \"before all\" hook\n *\n * @public\n * @interface ",
+            "start": 47,
+            "end": 549,
             "loc": {
               "start": {
                 "line": 8,
                 "column": 0
               },
               "end": {
-                "line": 14,
+                "line": 18,
                 "column": 16
               }
             }
@@ -83,30 +83,30 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 239,
-          "end": 412,
+          "start": 557,
+          "end": 731,
           "loc": {
             "start": {
-              "line": 15,
+              "line": 19,
               "column": 7
             },
             "end": {
-              "line": 28,
+              "line": 32,
               "column": 1
             }
           },
           "abstract": true,
           "id": {
             "type": "Identifier",
-            "start": 254,
-            "end": 265,
+            "start": 572,
+            "end": 583,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 19,
                 "column": 22
               },
               "end": {
-                "line": 15,
+                "line": 19,
                 "column": 33
               },
               "identifierName": "Discardable"
@@ -116,46 +116,46 @@
           "superClass": null,
           "body": {
             "type": "ClassBody",
-            "start": 266,
-            "end": 412,
+            "start": 584,
+            "end": 731,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 19,
                 "column": 34
               },
               "end": {
-                "line": 28,
+                "line": 32,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "TSDeclareMethod",
-                "start": 378,
-                "end": 410,
+                "start": 697,
+                "end": 729,
                 "loc": {
                   "start": {
-                    "line": 27,
+                    "line": 31,
                     "column": 4
                   },
                   "end": {
-                    "line": 27,
+                    "line": 31,
                     "column": 36
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 268,
-                    "end": 372,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 586,
+                    "end": 691,
                     "loc": {
                       "start": {
-                        "line": 16,
+                        "line": 20,
                         "column": 0
                       },
                       "end": {
-                        "line": 25,
+                        "line": 29,
                         "column": 3
                       }
                     }
@@ -164,15 +164,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 378,
-                  "end": 385,
+                  "start": 697,
+                  "end": 704,
                   "loc": {
                     "start": {
-                      "line": 27,
+                      "line": 31,
                       "column": 4
                     },
                     "end": {
-                      "line": 27,
+                      "line": 31,
                       "column": 11
                     },
                     "identifierName": "discard"
@@ -187,58 +187,58 @@
                 "params": [],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 387,
-                  "end": 409,
+                  "start": 706,
+                  "end": 728,
                   "loc": {
                     "start": {
-                      "line": 27,
+                      "line": 31,
                       "column": 13
                     },
                     "end": {
-                      "line": 27,
+                      "line": 31,
                       "column": 35
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSUnionType",
-                    "start": 389,
-                    "end": 409,
+                    "start": 708,
+                    "end": 728,
                     "loc": {
                       "start": {
-                        "line": 27,
+                        "line": 31,
                         "column": 15
                       },
                       "end": {
-                        "line": 27,
+                        "line": 31,
                         "column": 35
                       }
                     },
                     "types": [
                       {
                         "type": "TSTypeReference",
-                        "start": 389,
-                        "end": 402,
+                        "start": 708,
+                        "end": 721,
                         "loc": {
                           "start": {
-                            "line": 27,
+                            "line": 31,
                             "column": 15
                           },
                           "end": {
-                            "line": 27,
+                            "line": 31,
                             "column": 28
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 389,
-                          "end": 396,
+                          "start": 708,
+                          "end": 715,
                           "loc": {
                             "start": {
-                              "line": 27,
+                              "line": 31,
                               "column": 15
                             },
                             "end": {
-                              "line": 27,
+                              "line": 31,
                               "column": 22
                             },
                             "identifierName": "Promise"
@@ -247,30 +247,30 @@
                         },
                         "typeParameters": {
                           "type": "TSTypeParameterInstantiation",
-                          "start": 396,
-                          "end": 402,
+                          "start": 715,
+                          "end": 721,
                           "loc": {
                             "start": {
-                              "line": 27,
+                              "line": 31,
                               "column": 22
                             },
                             "end": {
-                              "line": 27,
+                              "line": 31,
                               "column": 28
                             }
                           },
                           "params": [
                             {
                               "type": "TSVoidKeyword",
-                              "start": 397,
-                              "end": 401,
+                              "start": 716,
+                              "end": 720,
                               "loc": {
                                 "start": {
-                                  "line": 27,
+                                  "line": 31,
                                   "column": 23
                                 },
                                 "end": {
-                                  "line": 27,
+                                  "line": 31,
                                   "column": 27
                                 }
                               }
@@ -280,15 +280,15 @@
                       },
                       {
                         "type": "TSVoidKeyword",
-                        "start": 405,
-                        "end": 409,
+                        "start": 724,
+                        "end": 728,
                         "loc": {
                           "start": {
-                            "line": 27,
+                            "line": 31,
                             "column": 31
                           },
                           "end": {
-                            "line": 27,
+                            "line": 31,
                             "column": 35
                           }
                         }
@@ -302,9 +302,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
               "start": 1,
-              "end": 45,
+              "end": 46,
               "loc": {
                 "start": {
                   "line": 2,
@@ -318,16 +318,16 @@
             },
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  any resources it's using when the test scenario finishes.\n *\n * @public\n * @interface ",
-              "start": 46,
-              "end": 231,
+              "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  the resources it uses.\n *\n *  This method is invoked directly by the {@link Actor}, and indirectly by {@link Stage}:\n *  - when {@link SceneFinishes}, for actors instantiated after {@link SceneStarts} - i.e. within a test scenario or in a \"before each\" hook\n *  - when {@link TestRunFinishes}, for actors instantiated before {@link SceneStarts} - i.e. in a \"before all\" hook\n *\n * @public\n * @interface ",
+              "start": 47,
+              "end": 549,
               "loc": {
                 "start": {
                   "line": 8,
                   "column": 0
                 },
                 "end": {
-                  "line": 14,
+                  "line": 18,
                   "column": 16
                 }
               }
@@ -342,9 +342,9 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
       "start": 1,
-      "end": 45,
+      "end": 46,
       "loc": {
         "start": {
           "line": 2,
@@ -358,32 +358,32 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  any resources it's using when the test scenario finishes.\n *\n * @public\n * @interface ",
-      "start": 46,
-      "end": 231,
+      "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to free up\n *  the resources it uses.\n *\n *  This method is invoked directly by the {@link Actor}, and indirectly by {@link Stage}:\n *  - when {@link SceneFinishes}, for actors instantiated after {@link SceneStarts} - i.e. within a test scenario or in a \"before each\" hook\n *  - when {@link TestRunFinishes}, for actors instantiated before {@link SceneStarts} - i.e. in a \"before all\" hook\n *\n * @public\n * @interface ",
+      "start": 47,
+      "end": 549,
       "loc": {
         "start": {
           "line": 8,
           "column": 0
         },
         "end": {
-          "line": 14,
+          "line": 18,
           "column": 16
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
-      "start": 268,
-      "end": 372,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
+      "start": 586,
+      "end": 691,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 20,
           "column": 0
         },
         "end": {
-          "line": 25,
+          "line": 29,
           "column": 3
         }
       }

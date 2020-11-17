@@ -263,19 +263,43 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/Stage.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+
 <span class="hljs-keyword">import</span> { ConfigurationError, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../errors&apos;</span>;
-<span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../events&apos;</span>;
-<span class="hljs-keyword">import</span> { ActivityDetails, CorrelationId, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
-<span class="hljs-keyword">import</span> { Activity, ListensToDomainEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
-<span class="hljs-keyword">import</span> { ActivityDescriber } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay/activities/ActivityDescriber&apos;</span>;
+<span class="hljs-keyword">import</span> { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes, SceneStarts, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../events&apos;</span>;
+<span class="hljs-keyword">import</span> { CorrelationId, Description, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
+<span class="hljs-keyword">import</span> { ListensToDomainEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay/actor&apos;</span>;
 <span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Cast&apos;</span>;
 <span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./StageManager&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stage</span> </span>{
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> describer = <span class="hljs-keyword">new</span> ActivityDescriber();
 
-    <span class="hljs-keyword">private</span> actorsOnStage: <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, Actor&gt; = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, Actor&gt;();
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Actors instantiated after the scene has started,
+     *  who will be dismissed when the scene finishes.
+     *
+     * <span class="hljs-doctag">@private</span>
+     */</span>
+    <span class="hljs-keyword">private</span> actorsOnFrontStage: <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, Actor&gt; = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, Actor&gt;();
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Actors instantiated before the scene has started,
+     *  who will be dismissed when the test run finishes.
+     *
+     * <span class="hljs-doctag">@private</span>
+     */</span>
+    <span class="hljs-keyword">private</span> actorsOnBackstage: <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, Actor&gt; = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, Actor&gt;();
+
+    <span class="hljs-keyword">private</span> actorsOnStage: <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, Actor&gt; = <span class="hljs-built_in">this</span>.actorsOnBackstage;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  The most recent actor referenced via the {<span class="hljs-doctag">@link </span>actor} method
+     *
+     * <span class="hljs-doctag">@private</span>
+     */</span>
     <span class="hljs-keyword">private</span> actorInTheSpotlight: Actor = <span class="hljs-literal">null</span>;
 
     <span class="hljs-keyword">private</span> currentActivity: CorrelationId = <span class="hljs-literal">null</span>;
@@ -308,11 +332,10 @@
      * <span class="hljs-doctag">@return <span class="hljs-type">{Actor}</span></span>
      */</span>
     actor(name: <span class="hljs-built_in">string</span>): Actor {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.actorsOnStage.has(name)) {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.instantiatedActorCalled(name)) {
             <span class="hljs-keyword">let</span> actor;
             <span class="hljs-keyword">try</span> {
                 <span class="hljs-keyword">const</span> newActor = <span class="hljs-keyword">new</span> Actor(name, <span class="hljs-built_in">this</span>);
-                <span class="hljs-built_in">this</span>.assign(newActor);
 
                 actor = <span class="hljs-built_in">this</span>.cast.prepare(newActor);
             }
@@ -327,7 +350,7 @@
             <span class="hljs-built_in">this</span>.actorsOnStage.set(name, actor)
         }
 
-        <span class="hljs-built_in">this</span>.actorInTheSpotlight = <span class="hljs-built_in">this</span>.actorsOnStage.get(name);
+        <span class="hljs-built_in">this</span>.actorInTheSpotlight = <span class="hljs-built_in">this</span>.instantiatedActorCalled(name);
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.actorInTheSpotlight;
     }
@@ -359,26 +382,14 @@
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@deprecated</span>
+     * <span class="hljs-doctag">@desc</span>
+     *  Configures the Stage to prepare {<span class="hljs-doctag">@link </span>Actor}s
+     *  instantiated via {<span class="hljs-doctag">@link </span>Stage#actor} using the provided {<span class="hljs-doctag">@link </span>Cast}.
+     *
      * <span class="hljs-doctag">@param <span class="hljs-type">{Cast}</span> <span class="hljs-variable">actors</span></span>
-     * <span class="hljs-doctag">@return <span class="hljs-type">{Stage}</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-variable">void</span></span>
      */</span>
-    callFor(actors: Cast): Stage {
-        <span class="hljs-built_in">this</span>.drawTheCurtain();
-        <span class="hljs-built_in">this</span>.engage(actors);
-
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
-    }
-
-    <span class="hljs-function"><span class="hljs-title">drawTheCurtain</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-built_in">Array</span>.from(<span class="hljs-built_in">this</span>.actorsOnStage.values())
-            .forEach(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">this</span>.manager.deregister(actor));
-
-        <span class="hljs-built_in">this</span>.actorsOnStage.clear();
-        <span class="hljs-built_in">this</span>.actorInTheSpotlight = <span class="hljs-literal">null</span>;
-    }
-
-    <span class="hljs-function"><span class="hljs-title">engage</span>(<span class="hljs-params">actors: Cast</span>)</span> {
+    engage(actors: Cast): <span class="hljs-built_in">void</span> {
         ensure(<span class="hljs-string">&apos;Cast&apos;</span>, actors, isDefined());
 
         <span class="hljs-built_in">this</span>.cast        = actors;
@@ -389,7 +400,21 @@
     }
 
     announce(event: DomainEvent): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneStarts) {
+            <span class="hljs-built_in">this</span>.actorsOnStage = <span class="hljs-built_in">this</span>.actorsOnFrontStage;
+        }
+
         <span class="hljs-built_in">this</span>.manager.notifyOf(event);
+
+        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinishes) {
+            <span class="hljs-built_in">this</span>.dismiss(<span class="hljs-built_in">this</span>.actorsOnStage);
+
+            <span class="hljs-built_in">this</span>.actorsOnStage = <span class="hljs-built_in">this</span>.actorsOnBackstage;
+        }
+
+        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> TestRunFinishes) {
+            <span class="hljs-built_in">this</span>.dismiss(<span class="hljs-built_in">this</span>.actorsOnStage);
+        }
     }
 
     currentTime(): Timestamp {
@@ -424,6 +449,42 @@
 
     waitForNextCue(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.manager.waitForNextCue();
+    }
+
+    <span class="hljs-keyword">private</span> instantiatedActorCalled(name: <span class="hljs-built_in">string</span>): Actor | <span class="hljs-literal">undefined</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.actorsOnBackstage.has(name)
+            ? <span class="hljs-built_in">this</span>.actorsOnBackstage.get(name)
+            : <span class="hljs-built_in">this</span>.actorsOnFrontStage.get(name)
+    }
+
+    <span class="hljs-keyword">private</span> dismiss(activeActors: <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">string</span>, Actor&gt;): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> actors = <span class="hljs-built_in">Array</span>.from(activeActors.values());
+
+        <span class="hljs-keyword">if</span> (actors.find(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> actor === <span class="hljs-built_in">this</span>.actorInTheSpotlight)) {
+            <span class="hljs-built_in">this</span>.actorInTheSpotlight = <span class="hljs-literal">null</span>;
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>
+            .all(actors.map(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+                <span class="hljs-keyword">const</span> id = CorrelationId.create();
+
+                <span class="hljs-built_in">this</span>.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
+                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Dismissing <span class="hljs-subst">${ actor.name }</span>...`</span>),
+                    id,
+                ));
+
+                <span class="hljs-keyword">return</span> actor.dismiss()
+                    .then(<span class="hljs-function">() =&gt;</span>
+                        <span class="hljs-built_in">this</span>.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
+                            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Dismissed <span class="hljs-subst">${ actor.name }</span> successfully`</span>),
+                            id,
+                        )))
+                    .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span>
+                        <span class="hljs-built_in">this</span>.announce(<span class="hljs-keyword">new</span> AsyncOperationFailed(error, id)),
+                    );
+
+            }))
+            .then(<span class="hljs-function">() =&gt;</span> activeActors.clear());
     }
 
     <span class="hljs-comment">/**

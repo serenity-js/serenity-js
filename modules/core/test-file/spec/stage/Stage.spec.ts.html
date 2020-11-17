@@ -267,8 +267,11 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 
 <span class="hljs-keyword">import</span> { ConfigurationError, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
-<span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/screenplay&apos;</span>;
-<span class="hljs-keyword">import</span> { Cast, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/stage&apos;</span>;
+<span class="hljs-keyword">import</span> { SceneFinished, SceneFinishes, SceneStarts, TestRunFinished, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/events&apos;</span>;
+<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/io&apos;</span>;
+<span class="hljs-keyword">import</span> { Category, CorrelationId, Duration, ExecutionSuccessful, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
+<span class="hljs-keyword">import</span> { Ability, Actor, Discardable } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { Cast, Clock, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 
 describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -365,13 +368,153 @@ describe(<span class="hljs-string">&apos;Stage&apos;</span>, <span class="hljs-f
          * <span class="hljs-doctag">@test <span class="hljs-type">{Stage#theActorInTheSpotlight}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{Stage#theActorInTheSpotlight}</span></span>
          */</span>
-        it(<span class="hljs-string">&apos;complains if you try to access the actor in the spotlight, but there isn\&apos;t any yet&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">`complains if you try to access the actor in the spotlight, but there isn&apos;t any yet`</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 stage  = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
 
             expect(
                 <span class="hljs-function">() =&gt;</span> stage.theActorInTheSpotlight(),
             ).to.throw(LogicError, <span class="hljs-string">`There is no actor in the spotlight yet. Make sure you instantiate one with stage.actor(actorName) before calling this method.`</span>);
+        });
+    });
+
+    describe(<span class="hljs-string">&apos;when instantiating and dismissing the actors&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SomeAbilityThatNeedsDiscarding</span> <span class="hljs-title">implements</span> <span class="hljs-title">Discardable</span>, <span class="hljs-title">Ability</span> </span>{
+            discard(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve();
+            }
+        }
+
+        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Spies</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> calls: Actor[] = [];
+
+            prepare(actor: Actor): Actor {
+                <span class="hljs-built_in">this</span>.calls.push(actor);
+
+                sinon.spy(actor, <span class="hljs-string">&apos;dismiss&apos;</span>);
+
+                <span class="hljs-keyword">return</span> actor.whoCan(<span class="hljs-keyword">new</span> SomeAbilityThatNeedsDiscarding());
+            }
+        }
+
+        <span class="hljs-keyword">const</span>
+            sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;example scene&apos;</span>),
+            anotherSceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;another example scene&apos;</span>),
+            scenario = <span class="hljs-keyword">new</span> ScenarioDetails(
+                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Paying with a default card&apos;</span>),
+                <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;Online Checkout&apos;</span>),
+                <span class="hljs-keyword">new</span> FileSystemLocation(
+                    <span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;payments/checkout.feature&apos;</span>),
+                ),
+        );
+
+        <span class="hljs-keyword">let</span> manager: StageManager;
+
+        beforeEach(<span class="hljs-function">() =&gt;</span> {
+            manager = <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">100</span>), <span class="hljs-keyword">new</span> Clock());
+        });
+
+        describe(<span class="hljs-string">&apos;performing a single scene&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">&apos;dismisses actors instantiated after SceneStarts when SceneFinished&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Spies(), manager);
+
+                stage.announce(<span class="hljs-keyword">new</span> SceneStarts(sceneId, scenario));
+
+                <span class="hljs-keyword">const</span> actor = stage.actor(<span class="hljs-string">&apos;Bob&apos;</span>);
+
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinishes(sceneId, scenario));
+
+                expect(actor.dismiss).to.have.been.calledOnce;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinished(sceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
+
+                stage.announce(<span class="hljs-keyword">new</span> TestRunFinishes());
+                stage.announce(<span class="hljs-keyword">new</span> TestRunFinished());
+
+                <span class="hljs-keyword">await</span> stage.waitForNextCue()
+
+                <span class="hljs-comment">// make sure it&apos;s not called again</span>
+                expect(actor.dismiss).to.have.been.calledOnce;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+            });
+
+            it(<span class="hljs-string">&apos;re-instantiates actors dismissed when the SceneFinished&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                <span class="hljs-keyword">const</span> actors = <span class="hljs-keyword">new</span> Spies();
+
+                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> Stage(actors, manager);
+
+                stage.announce(<span class="hljs-keyword">new</span> SceneStarts(sceneId, scenario));
+                stage.actor(<span class="hljs-string">&apos;Bob&apos;</span>);
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinishes(sceneId, scenario));
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinished(sceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
+
+                <span class="hljs-keyword">await</span> stage.waitForNextCue();
+
+                stage.announce(<span class="hljs-keyword">new</span> SceneStarts(anotherSceneId, scenario));
+                stage.actor(<span class="hljs-string">&apos;Bob&apos;</span>);
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinishes(anotherSceneId, scenario));
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinished(anotherSceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
+
+                <span class="hljs-keyword">await</span> stage.waitForNextCue();
+
+                stage.announce(<span class="hljs-keyword">new</span> TestRunFinishes());
+                stage.announce(<span class="hljs-keyword">new</span> TestRunFinished());
+
+                <span class="hljs-keyword">await</span> stage.waitForNextCue();
+
+                expect(actors.calls).to.have.lengthOf(<span class="hljs-number">2</span>);
+            });
+        });
+
+        describe(<span class="hljs-string">&apos;performing across multiple scenes&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+            it(<span class="hljs-string">&apos;dismisses actors instantiated before SceneStarts when TestRunFinishes&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Spies(), manager);
+
+                <span class="hljs-keyword">const</span> actor = stage.actor(<span class="hljs-string">&apos;Bob&apos;</span>);
+
+                stage.announce(<span class="hljs-keyword">new</span> SceneStarts(sceneId, scenario));
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinishes(sceneId, scenario));
+
+                expect(actor.dismiss).to.have.not.been.called;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinished(sceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
+
+                stage.announce(<span class="hljs-keyword">new</span> TestRunFinishes());
+                stage.announce(<span class="hljs-keyword">new</span> TestRunFinished());
+
+                <span class="hljs-keyword">await</span> stage.waitForNextCue()
+
+                <span class="hljs-comment">// make sure it&apos;s called</span>
+                expect(actor.dismiss).to.have.been.calledOnce;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+            });
+
+            it(<span class="hljs-string">&apos;retains instances of actors instantiated before the SceneStarts&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                <span class="hljs-keyword">const</span> actors = <span class="hljs-keyword">new</span> Spies();
+
+                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> Stage(actors, manager);
+
+                stage.actor(<span class="hljs-string">&apos;Bob&apos;</span>);
+
+                stage.announce(<span class="hljs-keyword">new</span> SceneStarts(sceneId, scenario));
+                stage.actor(<span class="hljs-string">&apos;Bob&apos;</span>);
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinished(sceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
+
+                <span class="hljs-keyword">await</span> stage.waitForNextCue();
+
+                stage.announce(<span class="hljs-keyword">new</span> SceneStarts(anotherSceneId, scenario));
+                stage.actor(<span class="hljs-string">&apos;Bob&apos;</span>);
+                stage.announce(<span class="hljs-keyword">new</span> SceneFinished(anotherSceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
+
+                <span class="hljs-keyword">await</span> stage.waitForNextCue();
+
+                stage.announce(<span class="hljs-keyword">new</span> TestRunFinishes());
+                stage.announce(<span class="hljs-keyword">new</span> TestRunFinished());
+
+                <span class="hljs-keyword">await</span> stage.waitForNextCue();
+
+                expect(actors.calls).to.have.lengthOf(<span class="hljs-number">1</span>);
+            });
         });
     });
 

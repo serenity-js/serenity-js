@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 4302,
+  "end": 5163,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 187,
+      "line": 198,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 4302,
+    "end": 5163,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 187,
+        "line": 198,
         "column": 0
       }
     },
@@ -749,7 +749,7 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {Cast} actors \n ",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {Cast} actors \n ",
             "start": 783,
             "end": 857,
             "loc": {
@@ -765,16 +765,16 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and you'd typically us it in a \"before each\"\n *  hook of your test runner of choice.\n *\n *  This function is an alias for {@link Serenity#engage}.\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
+            "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function is an alias for {@link Serenity#engage},\n *  which provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and is typically invoked in a \"before all\"\n *  or \"before each\" hook of your test runner of choice.\n *\n *  If your implementation of the {@link Cast} interface is stateless,\n *  you can invoke this function once before your entire test suite is executed, see\n *  - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,\n *  - [`before`](https://mochajs.org/#hooks) in Mocha,\n *  - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js\n *\n *  However, if your {@link Cast} holds state that you want reset before each scenario,\n *  it's better to invoke `engage` before each test using:\n *  - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine\n *  - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,\n *  - [`Before`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#hooks) in Cucumber.js\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
             "start": 860,
-            "end": 1988,
+            "end": 2849,
             "loc": {
               "start": {
                 "line": 46,
                 "column": 0
               },
               "end": {
-                "line": 87,
+                "line": 98,
                 "column": 3
               }
             }
@@ -1036,7 +1036,7 @@
           "trailingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {Cast} actors \n ",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {Cast} actors \n ",
               "start": 783,
               "end": 857,
               "loc": {
@@ -1052,16 +1052,16 @@
             },
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and you'd typically us it in a \"before each\"\n *  hook of your test runner of choice.\n *\n *  This function is an alias for {@link Serenity#engage}.\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
+              "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function is an alias for {@link Serenity#engage},\n *  which provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and is typically invoked in a \"before all\"\n *  or \"before each\" hook of your test runner of choice.\n *\n *  If your implementation of the {@link Cast} interface is stateless,\n *  you can invoke this function once before your entire test suite is executed, see\n *  - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,\n *  - [`before`](https://mochajs.org/#hooks) in Mocha,\n *  - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js\n *\n *  However, if your {@link Cast} holds state that you want reset before each scenario,\n *  it's better to invoke `engage` before each test using:\n *  - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine\n *  - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,\n *  - [`Before`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#hooks) in Cucumber.js\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
               "start": 860,
-              "end": 1988,
+              "end": 2849,
               "loc": {
                 "start": {
                   "line": 46,
                   "column": 0
                 },
                 "end": {
-                  "line": 87,
+                  "line": 98,
                   "column": 3
                 }
               }
@@ -1071,22 +1071,22 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 1989,
-        "end": 2065,
+        "start": 2850,
+        "end": 2926,
         "loc": {
           "start": {
-            "line": 88,
+            "line": 99,
             "column": 0
           },
           "end": {
-            "line": 90,
+            "line": 101,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {Cast} actors \n ",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {Cast} actors \n ",
             "start": 783,
             "end": 857,
             "loc": {
@@ -1102,16 +1102,16 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and you'd typically us it in a \"before each\"\n *  hook of your test runner of choice.\n *\n *  This function is an alias for {@link Serenity#engage}.\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
+            "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function is an alias for {@link Serenity#engage},\n *  which provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and is typically invoked in a \"before all\"\n *  or \"before each\" hook of your test runner of choice.\n *\n *  If your implementation of the {@link Cast} interface is stateless,\n *  you can invoke this function once before your entire test suite is executed, see\n *  - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,\n *  - [`before`](https://mochajs.org/#hooks) in Mocha,\n *  - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js\n *\n *  However, if your {@link Cast} holds state that you want reset before each scenario,\n *  it's better to invoke `engage` before each test using:\n *  - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine\n *  - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,\n *  - [`Before`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#hooks) in Cucumber.js\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
             "start": 860,
-            "end": 1988,
+            "end": 2849,
             "loc": {
               "start": {
                 "line": 46,
                 "column": 0
               },
               "end": {
-                "line": 87,
+                "line": 98,
                 "column": 3
               }
             }
@@ -1120,16 +1120,16 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 112 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
-            "start": 2066,
-            "end": 2165,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
+            "start": 2927,
+            "end": 3026,
             "loc": {
               "start": {
-                "line": 91,
+                "line": 102,
                 "column": 0
               },
               "end": {
-                "line": 100,
+                "line": 111,
                 "column": 3
               }
             }
@@ -1137,15 +1137,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  Instantiates or retrieves an actor {@link Actor}\n *  called `name` if one has already been instantiated.\n *\n *  This method is an alias for {@link Serenity#theActorCalled}.\n *\n * @example <caption>Usage with Jasmine</caption>\n *   import 'jasmine';\n *   import { actorCalled } from '@serenity-js/core';\n *\n *   describe('Feature', () => {\n *\n *      it('should have some behaviour', () =>\n *          actorCalled('James').attemptsTo(\n *              // ... activities\n *          ));\n *   });\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n * @param {string} name\n *  The name of the actor to instantiate or retrieve\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link Actor}\n * @see {@link Cast}\n * @see {@link Serenity#theActorCalled}\n ",
-            "start": 2168,
-            "end": 3190,
+            "start": 3029,
+            "end": 4051,
             "loc": {
               "start": {
-                "line": 103,
+                "line": 114,
                 "column": 0
               },
               "end": {
-                "line": 140,
+                "line": 151,
                 "column": 3
               }
             }
@@ -1156,29 +1156,29 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 1996,
-          "end": 2065,
+          "start": 2857,
+          "end": 2926,
           "loc": {
             "start": {
-              "line": 88,
+              "line": 99,
               "column": 7
             },
             "end": {
-              "line": 90,
+              "line": 101,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 2005,
-            "end": 2011,
+            "start": 2866,
+            "end": 2872,
             "loc": {
               "start": {
-                "line": 88,
+                "line": 99,
                 "column": 16
               },
               "end": {
-                "line": 88,
+                "line": 99,
                 "column": 22
               },
               "identifierName": "engage"
@@ -1190,15 +1190,15 @@
           "params": [
             {
               "type": "Identifier",
-              "start": 2012,
-              "end": 2024,
+              "start": 2873,
+              "end": 2885,
               "loc": {
                 "start": {
-                  "line": 88,
+                  "line": 99,
                   "column": 23
                 },
                 "end": {
-                  "line": 88,
+                  "line": 99,
                   "column": 35
                 },
                 "identifierName": "actors"
@@ -1206,43 +1206,43 @@
               "name": "actors",
               "typeAnnotation": {
                 "type": "TSTypeAnnotation",
-                "start": 2018,
-                "end": 2024,
+                "start": 2879,
+                "end": 2885,
                 "loc": {
                   "start": {
-                    "line": 88,
+                    "line": 99,
                     "column": 29
                   },
                   "end": {
-                    "line": 88,
+                    "line": 99,
                     "column": 35
                   }
                 },
                 "typeAnnotation": {
                   "type": "TSTypeReference",
-                  "start": 2020,
-                  "end": 2024,
+                  "start": 2881,
+                  "end": 2885,
                   "loc": {
                     "start": {
-                      "line": 88,
+                      "line": 99,
                       "column": 31
                     },
                     "end": {
-                      "line": 88,
+                      "line": 99,
                       "column": 35
                     }
                   },
                   "typeName": {
                     "type": "Identifier",
-                    "start": 2020,
-                    "end": 2024,
+                    "start": 2881,
+                    "end": 2885,
                     "loc": {
                       "start": {
-                        "line": 88,
+                        "line": 99,
                         "column": 31
                       },
                       "end": {
-                        "line": 88,
+                        "line": 99,
                         "column": 35
                       },
                       "identifierName": "Cast"
@@ -1255,72 +1255,72 @@
           ],
           "body": {
             "type": "BlockStatement",
-            "start": 2026,
-            "end": 2065,
+            "start": 2887,
+            "end": 2926,
             "loc": {
               "start": {
-                "line": 88,
+                "line": 99,
                 "column": 37
               },
               "end": {
-                "line": 90,
+                "line": 101,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 2032,
-                "end": 2063,
+                "start": 2893,
+                "end": 2924,
                 "loc": {
                   "start": {
-                    "line": 89,
+                    "line": 100,
                     "column": 4
                   },
                   "end": {
-                    "line": 89,
+                    "line": 100,
                     "column": 35
                   }
                 },
                 "argument": {
                   "type": "CallExpression",
-                  "start": 2039,
-                  "end": 2062,
+                  "start": 2900,
+                  "end": 2923,
                   "loc": {
                     "start": {
-                      "line": 89,
+                      "line": 100,
                       "column": 11
                     },
                     "end": {
-                      "line": 89,
+                      "line": 100,
                       "column": 34
                     }
                   },
                   "callee": {
                     "type": "MemberExpression",
-                    "start": 2039,
-                    "end": 2054,
+                    "start": 2900,
+                    "end": 2915,
                     "loc": {
                       "start": {
-                        "line": 89,
+                        "line": 100,
                         "column": 11
                       },
                       "end": {
-                        "line": 89,
+                        "line": 100,
                         "column": 26
                       }
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 2039,
-                      "end": 2047,
+                      "start": 2900,
+                      "end": 2908,
                       "loc": {
                         "start": {
-                          "line": 89,
+                          "line": 100,
                           "column": 11
                         },
                         "end": {
-                          "line": 89,
+                          "line": 100,
                           "column": 19
                         },
                         "identifierName": "serenity"
@@ -1330,15 +1330,15 @@
                     "computed": false,
                     "property": {
                       "type": "Identifier",
-                      "start": 2048,
-                      "end": 2054,
+                      "start": 2909,
+                      "end": 2915,
                       "loc": {
                         "start": {
-                          "line": 89,
+                          "line": 100,
                           "column": 20
                         },
                         "end": {
-                          "line": 89,
+                          "line": 100,
                           "column": 26
                         },
                         "identifierName": "engage"
@@ -1349,15 +1349,15 @@
                   "arguments": [
                     {
                       "type": "Identifier",
-                      "start": 2055,
-                      "end": 2061,
+                      "start": 2916,
+                      "end": 2922,
                       "loc": {
                         "start": {
-                          "line": 89,
+                          "line": 100,
                           "column": 27
                         },
                         "end": {
-                          "line": 89,
+                          "line": 100,
                           "column": 33
                         },
                         "identifierName": "actors"
@@ -1373,7 +1373,7 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {Cast} actors \n ",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {Cast} actors \n ",
               "start": 783,
               "end": 857,
               "loc": {
@@ -1389,16 +1389,16 @@
             },
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and you'd typically us it in a \"before each\"\n *  hook of your test runner of choice.\n *\n *  This function is an alias for {@link Serenity#engage}.\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
+              "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function is an alias for {@link Serenity#engage},\n *  which provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and is typically invoked in a \"before all\"\n *  or \"before each\" hook of your test runner of choice.\n *\n *  If your implementation of the {@link Cast} interface is stateless,\n *  you can invoke this function once before your entire test suite is executed, see\n *  - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,\n *  - [`before`](https://mochajs.org/#hooks) in Mocha,\n *  - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js\n *\n *  However, if your {@link Cast} holds state that you want reset before each scenario,\n *  it's better to invoke `engage` before each test using:\n *  - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine\n *  - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,\n *  - [`Before`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#hooks) in Cucumber.js\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
               "start": 860,
-              "end": 1988,
+              "end": 2849,
               "loc": {
                 "start": {
                   "line": 46,
                   "column": 0
                 },
                 "end": {
-                  "line": 87,
+                  "line": 98,
                   "column": 3
                 }
               }
@@ -1407,16 +1407,16 @@
           "trailingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 112 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
-              "start": 2066,
-              "end": 2165,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
+              "start": 2927,
+              "end": 3026,
               "loc": {
                 "start": {
-                  "line": 91,
+                  "line": 102,
                   "column": 0
                 },
                 "end": {
-                  "line": 100,
+                  "line": 111,
                   "column": 3
                 }
               }
@@ -1424,15 +1424,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc\n *  Instantiates or retrieves an actor {@link Actor}\n *  called `name` if one has already been instantiated.\n *\n *  This method is an alias for {@link Serenity#theActorCalled}.\n *\n * @example <caption>Usage with Jasmine</caption>\n *   import 'jasmine';\n *   import { actorCalled } from '@serenity-js/core';\n *\n *   describe('Feature', () => {\n *\n *      it('should have some behaviour', () =>\n *          actorCalled('James').attemptsTo(\n *              // ... activities\n *          ));\n *   });\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n * @param {string} name\n *  The name of the actor to instantiate or retrieve\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link Actor}\n * @see {@link Cast}\n * @see {@link Serenity#theActorCalled}\n ",
-              "start": 2168,
-              "end": 3190,
+              "start": 3029,
+              "end": 4051,
               "loc": {
                 "start": {
-                  "line": 103,
+                  "line": 114,
                   "column": 0
                 },
                 "end": {
-                  "line": 140,
+                  "line": 151,
                   "column": 3
                 }
               }
@@ -1442,31 +1442,31 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 3191,
-        "end": 3285,
+        "start": 4052,
+        "end": 4146,
         "loc": {
           "start": {
-            "line": 141,
+            "line": 152,
             "column": 0
           },
           "end": {
-            "line": 143,
+            "line": 154,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 112 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
-            "start": 2066,
-            "end": 2165,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
+            "start": 2927,
+            "end": 3026,
             "loc": {
               "start": {
-                "line": 91,
+                "line": 102,
                 "column": 0
               },
               "end": {
-                "line": 100,
+                "line": 111,
                 "column": 3
               }
             }
@@ -1474,15 +1474,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  Instantiates or retrieves an actor {@link Actor}\n *  called `name` if one has already been instantiated.\n *\n *  This method is an alias for {@link Serenity#theActorCalled}.\n *\n * @example <caption>Usage with Jasmine</caption>\n *   import 'jasmine';\n *   import { actorCalled } from '@serenity-js/core';\n *\n *   describe('Feature', () => {\n *\n *      it('should have some behaviour', () =>\n *          actorCalled('James').attemptsTo(\n *              // ... activities\n *          ));\n *   });\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n * @param {string} name\n *  The name of the actor to instantiate or retrieve\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link Actor}\n * @see {@link Cast}\n * @see {@link Serenity#theActorCalled}\n ",
-            "start": 2168,
-            "end": 3190,
+            "start": 3029,
+            "end": 4051,
             "loc": {
               "start": {
-                "line": 103,
+                "line": 114,
                 "column": 0
               },
               "end": {
-                "line": 140,
+                "line": 151,
                 "column": 3
               }
             }
@@ -1491,16 +1491,16 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @return \n * {Actor} \n ",
-            "start": 3286,
-            "end": 3356,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @return \n * {Actor} \n ",
+            "start": 4147,
+            "end": 4217,
             "loc": {
               "start": {
-                "line": 144,
+                "line": 155,
                 "column": 0
               },
               "end": {
-                "line": 151,
+                "line": 162,
                 "column": 3
               }
             }
@@ -1508,15 +1508,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  Retrieves an actor who was last instantiated or retrieved\n *  using {@link actorCalled}.\n *\n *  This function is particularly useful when automating Cucumber scenarios.\n *\n *  This function is an alias for {@link Serenity#theActorInTheSpotlight}.\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given, When } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n *   When(/(?:he|she|they) browse their recent orders/, () =>\n *      actorInTheSpotlight().attemptsTo(\n *              // ... activities\n *          ));\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link actorCalled}\n * @see {@link Actor}\n * @see {@link Cast}\n ",
-            "start": 3359,
-            "end": 4206,
+            "start": 4220,
+            "end": 5067,
             "loc": {
               "start": {
-                "line": 154,
+                "line": 165,
                 "column": 0
               },
               "end": {
-                "line": 183,
+                "line": 194,
                 "column": 3
               }
             }
@@ -1527,29 +1527,29 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 3198,
-          "end": 3285,
+          "start": 4059,
+          "end": 4146,
           "loc": {
             "start": {
-              "line": 141,
+              "line": 152,
               "column": 7
             },
             "end": {
-              "line": 143,
+              "line": 154,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 3207,
-            "end": 3218,
+            "start": 4068,
+            "end": 4079,
             "loc": {
               "start": {
-                "line": 141,
+                "line": 152,
                 "column": 16
               },
               "end": {
-                "line": 141,
+                "line": 152,
                 "column": 27
               },
               "identifierName": "actorCalled"
@@ -1561,15 +1561,15 @@
           "params": [
             {
               "type": "Identifier",
-              "start": 3219,
-              "end": 3231,
+              "start": 4080,
+              "end": 4092,
               "loc": {
                 "start": {
-                  "line": 141,
+                  "line": 152,
                   "column": 28
                 },
                 "end": {
-                  "line": 141,
+                  "line": 152,
                   "column": 40
                 },
                 "identifierName": "name"
@@ -1577,29 +1577,29 @@
               "name": "name",
               "typeAnnotation": {
                 "type": "TSTypeAnnotation",
-                "start": 3223,
-                "end": 3231,
+                "start": 4084,
+                "end": 4092,
                 "loc": {
                   "start": {
-                    "line": 141,
+                    "line": 152,
                     "column": 32
                   },
                   "end": {
-                    "line": 141,
+                    "line": 152,
                     "column": 40
                   }
                 },
                 "typeAnnotation": {
                   "type": "TSStringKeyword",
-                  "start": 3225,
-                  "end": 3231,
+                  "start": 4086,
+                  "end": 4092,
                   "loc": {
                     "start": {
-                      "line": 141,
+                      "line": 152,
                       "column": 34
                     },
                     "end": {
-                      "line": 141,
+                      "line": 152,
                       "column": 40
                     }
                   }
@@ -1609,43 +1609,43 @@
           ],
           "returnType": {
             "type": "TSTypeAnnotation",
-            "start": 3232,
-            "end": 3239,
+            "start": 4093,
+            "end": 4100,
             "loc": {
               "start": {
-                "line": 141,
+                "line": 152,
                 "column": 41
               },
               "end": {
-                "line": 141,
+                "line": 152,
                 "column": 48
               }
             },
             "typeAnnotation": {
               "type": "TSTypeReference",
-              "start": 3234,
-              "end": 3239,
+              "start": 4095,
+              "end": 4100,
               "loc": {
                 "start": {
-                  "line": 141,
+                  "line": 152,
                   "column": 43
                 },
                 "end": {
-                  "line": 141,
+                  "line": 152,
                   "column": 48
                 }
               },
               "typeName": {
                 "type": "Identifier",
-                "start": 3234,
-                "end": 3239,
+                "start": 4095,
+                "end": 4100,
                 "loc": {
                   "start": {
-                    "line": 141,
+                    "line": 152,
                     "column": 43
                   },
                   "end": {
-                    "line": 141,
+                    "line": 152,
                     "column": 48
                   },
                   "identifierName": "Actor"
@@ -1656,72 +1656,72 @@
           },
           "body": {
             "type": "BlockStatement",
-            "start": 3240,
-            "end": 3285,
+            "start": 4101,
+            "end": 4146,
             "loc": {
               "start": {
-                "line": 141,
+                "line": 152,
                 "column": 49
               },
               "end": {
-                "line": 143,
+                "line": 154,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 3246,
-                "end": 3283,
+                "start": 4107,
+                "end": 4144,
                 "loc": {
                   "start": {
-                    "line": 142,
+                    "line": 153,
                     "column": 4
                   },
                   "end": {
-                    "line": 142,
+                    "line": 153,
                     "column": 41
                   }
                 },
                 "argument": {
                   "type": "CallExpression",
-                  "start": 3253,
-                  "end": 3282,
+                  "start": 4114,
+                  "end": 4143,
                   "loc": {
                     "start": {
-                      "line": 142,
+                      "line": 153,
                       "column": 11
                     },
                     "end": {
-                      "line": 142,
+                      "line": 153,
                       "column": 40
                     }
                   },
                   "callee": {
                     "type": "MemberExpression",
-                    "start": 3253,
-                    "end": 3276,
+                    "start": 4114,
+                    "end": 4137,
                     "loc": {
                       "start": {
-                        "line": 142,
+                        "line": 153,
                         "column": 11
                       },
                       "end": {
-                        "line": 142,
+                        "line": 153,
                         "column": 34
                       }
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 3253,
-                      "end": 3261,
+                      "start": 4114,
+                      "end": 4122,
                       "loc": {
                         "start": {
-                          "line": 142,
+                          "line": 153,
                           "column": 11
                         },
                         "end": {
-                          "line": 142,
+                          "line": 153,
                           "column": 19
                         },
                         "identifierName": "serenity"
@@ -1731,15 +1731,15 @@
                     "computed": false,
                     "property": {
                       "type": "Identifier",
-                      "start": 3262,
-                      "end": 3276,
+                      "start": 4123,
+                      "end": 4137,
                       "loc": {
                         "start": {
-                          "line": 142,
+                          "line": 153,
                           "column": 20
                         },
                         "end": {
-                          "line": 142,
+                          "line": 153,
                           "column": 34
                         },
                         "identifierName": "theActorCalled"
@@ -1750,15 +1750,15 @@
                   "arguments": [
                     {
                       "type": "Identifier",
-                      "start": 3277,
-                      "end": 3281,
+                      "start": 4138,
+                      "end": 4142,
                       "loc": {
                         "start": {
-                          "line": 142,
+                          "line": 153,
                           "column": 35
                         },
                         "end": {
-                          "line": 142,
+                          "line": 153,
                           "column": 39
                         },
                         "identifierName": "name"
@@ -1774,16 +1774,16 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 112 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
-              "start": 2066,
-              "end": 2165,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
+              "start": 2927,
+              "end": 3026,
               "loc": {
                 "start": {
-                  "line": 91,
+                  "line": 102,
                   "column": 0
                 },
                 "end": {
-                  "line": 100,
+                  "line": 111,
                   "column": 3
                 }
               }
@@ -1791,15 +1791,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc\n *  Instantiates or retrieves an actor {@link Actor}\n *  called `name` if one has already been instantiated.\n *\n *  This method is an alias for {@link Serenity#theActorCalled}.\n *\n * @example <caption>Usage with Jasmine</caption>\n *   import 'jasmine';\n *   import { actorCalled } from '@serenity-js/core';\n *\n *   describe('Feature', () => {\n *\n *      it('should have some behaviour', () =>\n *          actorCalled('James').attemptsTo(\n *              // ... activities\n *          ));\n *   });\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n * @param {string} name\n *  The name of the actor to instantiate or retrieve\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link Actor}\n * @see {@link Cast}\n * @see {@link Serenity#theActorCalled}\n ",
-              "start": 2168,
-              "end": 3190,
+              "start": 3029,
+              "end": 4051,
               "loc": {
                 "start": {
-                  "line": 103,
+                  "line": 114,
                   "column": 0
                 },
                 "end": {
-                  "line": 140,
+                  "line": 151,
                   "column": 3
                 }
               }
@@ -1808,16 +1808,16 @@
           "trailingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @return \n * {Actor} \n ",
-              "start": 3286,
-              "end": 3356,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @return \n * {Actor} \n ",
+              "start": 4147,
+              "end": 4217,
               "loc": {
                 "start": {
-                  "line": 144,
+                  "line": 155,
                   "column": 0
                 },
                 "end": {
-                  "line": 151,
+                  "line": 162,
                   "column": 3
                 }
               }
@@ -1825,15 +1825,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc\n *  Retrieves an actor who was last instantiated or retrieved\n *  using {@link actorCalled}.\n *\n *  This function is particularly useful when automating Cucumber scenarios.\n *\n *  This function is an alias for {@link Serenity#theActorInTheSpotlight}.\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given, When } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n *   When(/(?:he|she|they) browse their recent orders/, () =>\n *      actorInTheSpotlight().attemptsTo(\n *              // ... activities\n *          ));\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link actorCalled}\n * @see {@link Actor}\n * @see {@link Cast}\n ",
-              "start": 3359,
-              "end": 4206,
+              "start": 4220,
+              "end": 5067,
               "loc": {
                 "start": {
-                  "line": 154,
+                  "line": 165,
                   "column": 0
                 },
                 "end": {
-                  "line": 183,
+                  "line": 194,
                   "column": 3
                 }
               }
@@ -1843,31 +1843,31 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 4207,
-        "end": 4301,
+        "start": 5068,
+        "end": 5162,
         "loc": {
           "start": {
-            "line": 184,
+            "line": 195,
             "column": 0
           },
           "end": {
-            "line": 186,
+            "line": 197,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @return \n * {Actor} \n ",
-            "start": 3286,
-            "end": 3356,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @return \n * {Actor} \n ",
+            "start": 4147,
+            "end": 4217,
             "loc": {
               "start": {
-                "line": 144,
+                "line": 155,
                 "column": 0
               },
               "end": {
-                "line": 151,
+                "line": 162,
                 "column": 3
               }
             }
@@ -1875,15 +1875,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  Retrieves an actor who was last instantiated or retrieved\n *  using {@link actorCalled}.\n *\n *  This function is particularly useful when automating Cucumber scenarios.\n *\n *  This function is an alias for {@link Serenity#theActorInTheSpotlight}.\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given, When } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n *   When(/(?:he|she|they) browse their recent orders/, () =>\n *      actorInTheSpotlight().attemptsTo(\n *              // ... activities\n *          ));\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link actorCalled}\n * @see {@link Actor}\n * @see {@link Cast}\n ",
-            "start": 3359,
-            "end": 4206,
+            "start": 4220,
+            "end": 5067,
             "loc": {
               "start": {
-                "line": 154,
+                "line": 165,
                 "column": 0
               },
               "end": {
-                "line": 183,
+                "line": 194,
                 "column": 3
               }
             }
@@ -1894,29 +1894,29 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 4214,
-          "end": 4301,
+          "start": 5075,
+          "end": 5162,
           "loc": {
             "start": {
-              "line": 184,
+              "line": 195,
               "column": 7
             },
             "end": {
-              "line": 186,
+              "line": 197,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 4223,
-            "end": 4242,
+            "start": 5084,
+            "end": 5103,
             "loc": {
               "start": {
-                "line": 184,
+                "line": 195,
                 "column": 16
               },
               "end": {
-                "line": 184,
+                "line": 195,
                 "column": 35
               },
               "identifierName": "actorInTheSpotlight"
@@ -1928,43 +1928,43 @@
           "params": [],
           "returnType": {
             "type": "TSTypeAnnotation",
-            "start": 4244,
-            "end": 4251,
+            "start": 5105,
+            "end": 5112,
             "loc": {
               "start": {
-                "line": 184,
+                "line": 195,
                 "column": 37
               },
               "end": {
-                "line": 184,
+                "line": 195,
                 "column": 44
               }
             },
             "typeAnnotation": {
               "type": "TSTypeReference",
-              "start": 4246,
-              "end": 4251,
+              "start": 5107,
+              "end": 5112,
               "loc": {
                 "start": {
-                  "line": 184,
+                  "line": 195,
                   "column": 39
                 },
                 "end": {
-                  "line": 184,
+                  "line": 195,
                   "column": 44
                 }
               },
               "typeName": {
                 "type": "Identifier",
-                "start": 4246,
-                "end": 4251,
+                "start": 5107,
+                "end": 5112,
                 "loc": {
                   "start": {
-                    "line": 184,
+                    "line": 195,
                     "column": 39
                   },
                   "end": {
-                    "line": 184,
+                    "line": 195,
                     "column": 44
                   },
                   "identifierName": "Actor"
@@ -1975,72 +1975,72 @@
           },
           "body": {
             "type": "BlockStatement",
-            "start": 4252,
-            "end": 4301,
+            "start": 5113,
+            "end": 5162,
             "loc": {
               "start": {
-                "line": 184,
+                "line": 195,
                 "column": 45
               },
               "end": {
-                "line": 186,
+                "line": 197,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 4258,
-                "end": 4299,
+                "start": 5119,
+                "end": 5160,
                 "loc": {
                   "start": {
-                    "line": 185,
+                    "line": 196,
                     "column": 4
                   },
                   "end": {
-                    "line": 185,
+                    "line": 196,
                     "column": 45
                   }
                 },
                 "argument": {
                   "type": "CallExpression",
-                  "start": 4265,
-                  "end": 4298,
+                  "start": 5126,
+                  "end": 5159,
                   "loc": {
                     "start": {
-                      "line": 185,
+                      "line": 196,
                       "column": 11
                     },
                     "end": {
-                      "line": 185,
+                      "line": 196,
                       "column": 44
                     }
                   },
                   "callee": {
                     "type": "MemberExpression",
-                    "start": 4265,
-                    "end": 4296,
+                    "start": 5126,
+                    "end": 5157,
                     "loc": {
                       "start": {
-                        "line": 185,
+                        "line": 196,
                         "column": 11
                       },
                       "end": {
-                        "line": 185,
+                        "line": 196,
                         "column": 42
                       }
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 4265,
-                      "end": 4273,
+                      "start": 5126,
+                      "end": 5134,
                       "loc": {
                         "start": {
-                          "line": 185,
+                          "line": 196,
                           "column": 11
                         },
                         "end": {
-                          "line": 185,
+                          "line": 196,
                           "column": 19
                         },
                         "identifierName": "serenity"
@@ -2050,15 +2050,15 @@
                     "computed": false,
                     "property": {
                       "type": "Identifier",
-                      "start": 4274,
-                      "end": 4296,
+                      "start": 5135,
+                      "end": 5157,
                       "loc": {
                         "start": {
-                          "line": 185,
+                          "line": 196,
                           "column": 20
                         },
                         "end": {
-                          "line": 185,
+                          "line": 196,
                           "column": 42
                         },
                         "identifierName": "theActorInTheSpotlight"
@@ -2075,16 +2075,16 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @return \n * {Actor} \n ",
-              "start": 3286,
-              "end": 3356,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @return \n * {Actor} \n ",
+              "start": 4147,
+              "end": 4217,
               "loc": {
                 "start": {
-                  "line": 144,
+                  "line": 155,
                   "column": 0
                 },
                 "end": {
-                  "line": 151,
+                  "line": 162,
                   "column": 3
                 }
               }
@@ -2092,15 +2092,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc\n *  Retrieves an actor who was last instantiated or retrieved\n *  using {@link actorCalled}.\n *\n *  This function is particularly useful when automating Cucumber scenarios.\n *\n *  This function is an alias for {@link Serenity#theActorInTheSpotlight}.\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given, When } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n *   When(/(?:he|she|they) browse their recent orders/, () =>\n *      actorInTheSpotlight().attemptsTo(\n *              // ... activities\n *          ));\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link actorCalled}\n * @see {@link Actor}\n * @see {@link Cast}\n ",
-              "start": 3359,
-              "end": 4206,
+              "start": 4220,
+              "end": 5067,
               "loc": {
                 "start": {
-                  "line": 154,
+                  "line": 165,
                   "column": 0
                 },
                 "end": {
-                  "line": 183,
+                  "line": 194,
                   "column": 3
                 }
               }
@@ -2147,7 +2147,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {Cast} actors \n ",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {Cast} actors \n ",
       "start": 783,
       "end": 857,
       "loc": {
@@ -2163,32 +2163,32 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and you'd typically us it in a \"before each\"\n *  hook of your test runner of choice.\n *\n *  This function is an alias for {@link Serenity#engage}.\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
+      "value": "*\n * @desc\n *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s\n *  you'd like to use in any subsequent call to {@link actorCalled}.\n *\n *  This function is an alias for {@link Serenity#engage},\n *  which provides an alternative to calling {@link Actor#whoCan}\n *  directly in your tests and is typically invoked in a \"before all\"\n *  or \"before each\" hook of your test runner of choice.\n *\n *  If your implementation of the {@link Cast} interface is stateless,\n *  you can invoke this function once before your entire test suite is executed, see\n *  - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,\n *  - [`before`](https://mochajs.org/#hooks) in Mocha,\n *  - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js\n *\n *  However, if your {@link Cast} holds state that you want reset before each scenario,\n *  it's better to invoke `engage` before each test using:\n *  - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine\n *  - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,\n *  - [`Before`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#hooks) in Cucumber.js\n *\n * @example <caption>Engaging a cast of actors</caption>\n *  import { Actor, Cast } from '@serenity-js/core';\n *\n *  class Actors implements Cast {\n *      prepare(actor: Actor) {\n *          return actor.whoCan(\n *              // ... abilities you'd like the Actor to have\n *          );\n *      }\n *  }\n *\n * engage(new Actors();\n *\n * @example <caption>Usage with Jasmine</caption>\n *  import 'jasmine';\n *\n *  beforeEach(() => engage(new Actors()));\n *\n * @example <caption>Usage with Cucumber</caption>\n *  import { Before } from 'cucumber';\n *\n *  Before(() => engage(new Actors());\n *\n * @param {Cast} actors\n * @returns {void}\n *\n * @see {@link Actor}\n * @see {@link Cast}\n *\n * @see {@link Serenity#engage}\n ",
       "start": 860,
-      "end": 1988,
+      "end": 2849,
       "loc": {
         "start": {
           "line": 46,
           "column": 0
         },
         "end": {
-          "line": 87,
+          "line": 98,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 112 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
-      "start": 2066,
-      "end": 2165,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @param \n * {string} name \n * @return \n * {Actor} \n ",
+      "start": 2927,
+      "end": 3026,
       "loc": {
         "start": {
-          "line": 91,
+          "line": 102,
           "column": 0
         },
         "end": {
-          "line": 100,
+          "line": 111,
           "column": 3
         }
       }
@@ -2196,27 +2196,11 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc\n *  Instantiates or retrieves an actor {@link Actor}\n *  called `name` if one has already been instantiated.\n *\n *  This method is an alias for {@link Serenity#theActorCalled}.\n *\n * @example <caption>Usage with Jasmine</caption>\n *   import 'jasmine';\n *   import { actorCalled } from '@serenity-js/core';\n *\n *   describe('Feature', () => {\n *\n *      it('should have some behaviour', () =>\n *          actorCalled('James').attemptsTo(\n *              // ... activities\n *          ));\n *   });\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n * @param {string} name\n *  The name of the actor to instantiate or retrieve\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link Actor}\n * @see {@link Cast}\n * @see {@link Serenity#theActorCalled}\n ",
-      "start": 2168,
-      "end": 3190,
+      "start": 3029,
+      "end": 4051,
       "loc": {
         "start": {
-          "line": 103,
-          "column": 0
-        },
-        "end": {
-          "line": 140,
-          "column": 3
-        }
-      }
-    },
-    {
-      "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @return \n * {Actor} \n ",
-      "start": 3286,
-      "end": 3356,
-      "loc": {
-        "start": {
-          "line": 144,
+          "line": 114,
           "column": 0
         },
         "end": {
@@ -2227,16 +2211,32 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc\n *  Retrieves an actor who was last instantiated or retrieved\n *  using {@link actorCalled}.\n *\n *  This function is particularly useful when automating Cucumber scenarios.\n *\n *  This function is an alias for {@link Serenity#theActorInTheSpotlight}.\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given, When } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n *   When(/(?:he|she|they) browse their recent orders/, () =>\n *      actorInTheSpotlight().attemptsTo(\n *              // ... activities\n *          ));\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link actorCalled}\n * @see {@link Actor}\n * @see {@link Cast}\n ",
-      "start": 3359,
-      "end": 4206,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @return \n * {Actor} \n ",
+      "start": 4147,
+      "end": 4217,
       "loc": {
         "start": {
-          "line": 154,
+          "line": 155,
           "column": 0
         },
         "end": {
-          "line": 183,
+          "line": 162,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Retrieves an actor who was last instantiated or retrieved\n *  using {@link actorCalled}.\n *\n *  This function is particularly useful when automating Cucumber scenarios.\n *\n *  This function is an alias for {@link Serenity#theActorInTheSpotlight}.\n *\n * @example <caption>Usage with Cucumber</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { Given, When } from 'cucumber';\n *\n *   Given(/(.*?) is a registered user/, (name: string) =>\n *      actorCalled(name).attemptsTo(\n *              // ... activities\n *          ));\n *\n *   When(/(?:he|she|they) browse their recent orders/, () =>\n *      actorInTheSpotlight().attemptsTo(\n *              // ... activities\n *          ));\n *\n * @returns {Actor}\n *\n * @see {@link engage}\n * @see {@link actorCalled}\n * @see {@link Actor}\n * @see {@link Cast}\n ",
+      "start": 4220,
+      "end": 5067,
+      "loc": {
+        "start": {
+          "line": 165,
+          "column": 0
+        },
+        "end": {
+          "line": 194,
           "column": 3
         }
       }

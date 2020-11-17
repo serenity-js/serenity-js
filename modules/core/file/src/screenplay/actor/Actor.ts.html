@@ -262,10 +262,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/Actor.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../events&apos;</span>;
-<span class="hljs-keyword">import</span> { Ability, AbilityType, Answerable, Cast, ConfigurationError, Discardable, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../index&apos;</span>;
-<span class="hljs-keyword">import</span> { Artifact, CorrelationId, Description, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
-<span class="hljs-keyword">import</span> { ListensToDomainEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../screenplay&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../errors&apos;</span>;
+<span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../events&apos;</span>;
+<span class="hljs-keyword">import</span> { Artifact, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
+<span class="hljs-keyword">import</span> { Ability, AbilityType, Answerable, Discardable } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../stage&apos;</span>;
 <span class="hljs-keyword">import</span> { TrackedActivity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../activities&apos;</span>;
 <span class="hljs-keyword">import</span> { Activity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Activity&apos;</span>;
@@ -281,28 +281,11 @@
     <span class="hljs-title">UsesAbilities</span>,
     <span class="hljs-title">CanHaveAbilities</span>&lt;<span class="hljs-title">Actor</span>&gt;,
     <span class="hljs-title">AnswersQuestions</span>,
-    <span class="hljs-title">CollectsArtifacts</span>,
-    <span class="hljs-title">ListensToDomainEvents</span>
+    <span class="hljs-title">CollectsArtifacts</span>
 </span>{
     <span class="hljs-comment">// todo: Actor should have execution strategies</span>
     <span class="hljs-comment">// todo: the default one executes every activity</span>
     <span class="hljs-comment">// todo: there could be a dry-run mode that default to skip strategy</span>
-
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@deprecated</span>
-     * <span class="hljs-doctag">@param <span class="hljs-variable">name</span></span>
-     */</span>
-    <span class="hljs-keyword">static</span> named(name: <span class="hljs-built_in">string</span>): CanHaveAbilities&lt;Actor&gt; {
-        <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">whoCan</span>: (...abilities): <span class="hljs-function"><span class="hljs-params">Actor</span> =&gt;</span> {
-                serenity.configure({
-                    <span class="hljs-attr">actors</span>: Cast.whereEveryoneCan(...abilities),
-                });
-
-                <span class="hljs-keyword">return</span> serenity.theActorCalled(name);
-            },
-        };
-    }
 
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: <span class="hljs-built_in">string</span>,
@@ -311,18 +294,39 @@
     </span>)</span> {
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Retrieves actor&apos;s {<span class="hljs-doctag">@link </span>Ability} to `doSomething`.
+     *
+     *  Please note that this method performs an [`instancepf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof)
+     *  check against abilities given to this actor via {<span class="hljs-doctag">@link </span>Actor#whoCan}. Please also note that {<span class="hljs-doctag">@link </span>Actor#whoCan} performs
+     *  the same check when abilities are assigned to the actor to ensure the actor has at most one instance of a given ability type.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-variable">doSomething</span></span>
+     */</span>
     abilityTo&lt;T <span class="hljs-keyword">extends</span> Ability&gt;(doSomething: AbilityType&lt;T&gt;): T {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.can(doSomething)) {
+        <span class="hljs-keyword">const</span> found = <span class="hljs-built_in">this</span>.findAbilityTo(doSomething);
+
+        <span class="hljs-keyword">if</span> (! found) {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span> can&apos;t <span class="hljs-subst">${ doSomething.name }</span> yet. `</span> +
                 <span class="hljs-string">`Did you give them the ability to do so?`</span>);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.abilities.get(doSomething) <span class="hljs-keyword">as</span> T;
+        <span class="hljs-keyword">return</span> found;
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Instructs the actor to attempt to perform a number of activities
+     *  (see {<span class="hljs-doctag">@link </span>Activity}, so either {<span class="hljs-doctag">@link </span>Task}s or {<span class="hljs-doctag">@link </span>Interaction}s)
+     *  one by one.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{...activities: Activity[]}</span> <span class="hljs-variable">activities</span></span>
+     * <span class="hljs-doctag">@return <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     */</span>
     attemptsTo(...activities: Activity[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> activities
-            .map(<span class="hljs-function"><span class="hljs-params">activity</span> =&gt;</span> <span class="hljs-keyword">new</span> TrackedActivity(activity, <span class="hljs-built_in">this</span>.stage))  <span class="hljs-comment">// todo: TrackedInteraction, TrackedTask</span>
+            .map(<span class="hljs-function"><span class="hljs-params">activity</span> =&gt;</span> <span class="hljs-keyword">new</span> TrackedActivity(activity, <span class="hljs-built_in">this</span>.stage))
             .reduce(<span class="hljs-function">(<span class="hljs-params">previous: <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;, current: Activity</span>) =&gt;</span> {
                 <span class="hljs-keyword">return</span> previous.then(<span class="hljs-function">() =&gt;</span> {
                     <span class="hljs-comment">/* todo: add an execution strategy */</span>
@@ -331,11 +335,32 @@
             }, <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Gives this Actor a list of abilities (see {<span class="hljs-doctag">@link </span>Ability}) they can use
+     *  to interact with the system under test or the test environment.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{...Ability[]}</span> <span class="hljs-variable">abilities</span></span>
+     *  A vararg list of abilities to give the actor
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Actor}</span></span>
+     *  The actor with newly gained abilities
+     *
+     * <span class="hljs-doctag">@throws <span class="hljs-type">{ConfigurationError}</span></span>
+     *  Throws a ConfigurationError if the actor already has an ability of this type.
+     */</span>
     whoCan(...abilities: Ability[]): Actor {
         abilities.forEach(<span class="hljs-function"><span class="hljs-params">ability</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> abilityType = ability.constructor <span class="hljs-keyword">as</span> AbilityType&lt;Ability&gt;;
-            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.abilities.has(abilityType)) {
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span> already has an ability to <span class="hljs-subst">${ abilityType.name }</span>, so you don&apos;t need to give it to them again.`</span>);
+
+            <span class="hljs-keyword">const</span> found = <span class="hljs-built_in">this</span>.findAbilityTo(abilityType);
+
+            <span class="hljs-keyword">if</span> (found) {
+                <span class="hljs-keyword">const</span> description = found.constructor.name === abilityType.name
+                    ? found.constructor.name
+                    : <span class="hljs-string">`<span class="hljs-subst">${ found.constructor.name }</span> (which extends <span class="hljs-subst">${ abilityType.name }</span>)`</span>
+
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span> already has an ability to <span class="hljs-subst">${ description }</span>, so you don&apos;t need to give it to them again.`</span>);
             }
 
             <span class="hljs-built_in">this</span>.abilities.set(ability.constructor <span class="hljs-keyword">as</span> AbilityType&lt;Ability&gt;, ability);
@@ -368,27 +393,6 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(answerable <span class="hljs-keyword">as</span> T);
     }
 
-    notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinishes) {
-            <span class="hljs-keyword">const</span> id = CorrelationId.create();
-
-            <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span> discards abilities...`</span>),
-                id,
-            ));
-
-            <span class="hljs-built_in">this</span>.discardAbilities()
-                .then(<span class="hljs-function">() =&gt;</span>
-                    <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
-                        <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span> discarded abilities successfully`</span>),
-                        id,
-                )))
-                .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span>
-                    <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationFailed(error, id)),
-                );
-        }
-    }
-
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Announce collection of an {<span class="hljs-doctag">@link </span>Artifact} so that it can be picked up by a {<span class="hljs-doctag">@link </span>StageCrewMember}.
@@ -406,31 +410,14 @@
         ));
     }
 
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-keyword">const</span> abilities = <span class="hljs-built_in">Array</span>.from(<span class="hljs-built_in">this</span>.abilities.keys()).map(<span class="hljs-function"><span class="hljs-params">type</span> =&gt;</span> <span class="hljs-keyword">type</span>.name);
-
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`Actor(name=<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span>, abilities=[<span class="hljs-subst">${ abilities.join(<span class="hljs-string">&apos;, &apos;</span>) }</span>])`</span>;
-    }
-
-    <span class="hljs-keyword">private</span> can&lt;T <span class="hljs-keyword">extends</span> Ability&gt;(doSomething: AbilityType&lt;T&gt;): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.abilities.has(doSomething);
-    }
-
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Instantiates a {<span class="hljs-doctag">@link </span>Name} based on the string value of the parameter,
-     *  or returns the argument if it&apos;s already an instance of {<span class="hljs-doctag">@link </span>Name}.
+     *  Instructs the actor to invoke {<span class="hljs-doctag">@link </span>Discardable#discard} method on any
+     *  {<span class="hljs-doctag">@link </span>Discardable} {<span class="hljs-doctag">@link </span>Ability} it&apos;s been configured with.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string | Name}</span> <span class="hljs-variable">maybeName</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Name}</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      */</span>
-    <span class="hljs-keyword">private</span> nameFrom(maybeName: <span class="hljs-built_in">string</span> | Name): Name {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> maybeName === <span class="hljs-string">&apos;string&apos;</span>
-            ? <span class="hljs-keyword">new</span> Name(maybeName)
-            : maybeName;
-    }
-
-    <span class="hljs-keyword">private</span> discardAbilities(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    dismiss(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">const</span> abilitiesFrom = (map: <span class="hljs-built_in">Map</span>&lt;AbilityType&lt;Ability&gt;, Ability&gt;): Ability[] =&gt;
             <span class="hljs-built_in">Array</span>.from(map.values());
 
@@ -443,6 +430,48 @@
                     previous.then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(ability.discard())),
                 <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
             ) <span class="hljs-keyword">as</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns a human-readable, string representation of this Actor
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     */</span>
+    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+        <span class="hljs-keyword">const</span> abilities = <span class="hljs-built_in">Array</span>.from(<span class="hljs-built_in">this</span>.abilities.keys()).map(<span class="hljs-function"><span class="hljs-params">type</span> =&gt;</span> <span class="hljs-keyword">type</span>.name);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`Actor(name=<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span>, abilities=[<span class="hljs-subst">${ abilities.join(<span class="hljs-string">&apos;, &apos;</span>) }</span>])`</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-variable">doSomething</span></span>
+     * <span class="hljs-doctag">@private</span>
+     */</span>
+    <span class="hljs-keyword">private</span> findAbilityTo&lt;T <span class="hljs-keyword">extends</span> Ability&gt;(doSomething: AbilityType&lt;T&gt;): T | <span class="hljs-literal">undefined</span> {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [abilityType, ability] <span class="hljs-keyword">of</span> <span class="hljs-built_in">this</span>.abilities) {
+            <span class="hljs-keyword">if</span> (ability <span class="hljs-keyword">instanceof</span> doSomething) {
+                <span class="hljs-keyword">return</span> ability <span class="hljs-keyword">as</span> T;
+            }
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Instantiates a {<span class="hljs-doctag">@link </span>Name} based on the string value of the parameter,
+     *  or returns the argument if it&apos;s already an instance of {<span class="hljs-doctag">@link </span>Name}.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string | Name}</span> <span class="hljs-variable">maybeName</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Name}</span></span>
+     *
+     * <span class="hljs-doctag">@private</span>
+     */</span>
+    <span class="hljs-keyword">private</span> nameFrom(maybeName: <span class="hljs-built_in">string</span> | Name): Name {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> maybeName === <span class="hljs-string">&apos;string&apos;</span>
+            ? <span class="hljs-keyword">new</span> Name(maybeName)
+            : maybeName;
     }
 }
 </code></pre>

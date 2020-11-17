@@ -264,12 +264,14 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/Serenity.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isInstanceOf, property } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
 
-<span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./events&apos;</span>;
-<span class="hljs-keyword">import</span> { ErrorStackParser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./io&apos;</span>;
+<span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./events&apos;</span>;
 <span class="hljs-keyword">import</span> { CorrelationId, Duration, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./model&apos;</span>;
-<span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./screenplay/actor&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./screenplay/actor/Actor&apos;</span>;
 <span class="hljs-keyword">import</span> { SerenityConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SerenityConfig&apos;</span>;
-<span class="hljs-keyword">import</span> { Cast, Clock, Stage, StageCrewMember, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage&apos;</span>;
+<span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage/Cast&apos;</span>;
+<span class="hljs-keyword">import</span> { Clock } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage/Clock&apos;</span>;
+<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage/Stage&apos;</span>;
+<span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage/StageManager&apos;</span>;
 <span class="hljs-keyword">import</span> { Extras } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./stage/Extras&apos;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Serenity</span> </span>{
@@ -283,8 +285,6 @@
             Serenity.defaultActors,
             <span class="hljs-keyword">new</span> StageManager(Serenity.defaultCueTimeout, clock),
         );
-
-        <span class="hljs-built_in">this</span>.stage.assign(<span class="hljs-keyword">new</span> StageHand(<span class="hljs-built_in">this</span>.stage));
     }
 
     <span class="hljs-comment">/**
@@ -311,8 +311,6 @@
         <span class="hljs-keyword">if</span> (!! config.actors) {
             <span class="hljs-built_in">this</span>.engage(config.actors);
         }
-
-        <span class="hljs-built_in">this</span>.stage.assign(<span class="hljs-keyword">new</span> StageHand(<span class="hljs-built_in">this</span>.stage));
 
         <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(config.crew)) {
             <span class="hljs-built_in">this</span>.stage.assign(
@@ -461,60 +459,6 @@
      */</span>
     waitForNextCue(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.waitForNextCue();
-    }
-
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@deprecated</span>
-     * <span class="hljs-doctag">@experimental</span>
-     * <span class="hljs-doctag">@param <span class="hljs-variable">stageCrewMembers</span></span>
-     */</span>
-    setTheStage(...stageCrewMembers: StageCrewMember[]): <span class="hljs-built_in">void</span> {
-        deprecated(<span class="hljs-string">&apos;serenity.setTheStage&apos;</span>, <span class="hljs-string">&apos;Please use the new `configure({ crew: stageCrewMembers }) from @serenity-js/core instead.&apos;</span>);
-
-        <span class="hljs-built_in">this</span>.stage.assign(
-            ...stageCrewMembers.map(<span class="hljs-function"><span class="hljs-params">stageCrewMember</span> =&gt;</span> stageCrewMember.assignedTo(<span class="hljs-built_in">this</span>.stage)),
-        );
-    }
-
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@deprecated</span>
-     * <span class="hljs-doctag">@param <span class="hljs-variable">actors</span></span>
-     */</span>
-    callToStageFor(actors: Cast): Stage {
-        deprecated(<span class="hljs-string">&apos;serenity.callToStageFor(...)&apos;</span>, <span class="hljs-string">&apos;Please use `actorCalled(name)` and `actorInTheSpotlight()` functions from @serenity-js/core to access the actors instead.&apos;</span>);
-
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.callFor(actors);
-    }
-}
-
-<span class="hljs-comment">// todo: remove when the deprecated methods are removed</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deprecated</span>(<span class="hljs-params">method: <span class="hljs-built_in">string</span>, message: <span class="hljs-built_in">string</span></span>) </span>{
-    <span class="hljs-keyword">const</span> callers = <span class="hljs-keyword">new</span> ErrorStackParser().parse(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>())
-        .filter(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> ! <span class="hljs-regexp">/(node_modules)/</span>.test(frame.fileName));
-
-    <span class="hljs-keyword">const</span> location = !! callers[<span class="hljs-number">2</span>]
-        ? <span class="hljs-string">`[<span class="hljs-subst">${ callers[<span class="hljs-number">2</span>].fileName }</span>:<span class="hljs-subst">${ callers[<span class="hljs-number">2</span>].lineNumber }</span>] `</span>
-        : <span class="hljs-string">&apos;&apos;</span>;
-
-    <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">`<span class="hljs-subst">${ location }</span><span class="hljs-subst">${ method }</span> has been deprecated. <span class="hljs-subst">${ message }</span>`</span>);   <span class="hljs-comment">// tslint:disable-line:no-console</span>
-}
-
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@private</span>
- */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StageHand</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span></span>)</span> {
-    }
-
-    assignedTo(stage: Stage): StageCrewMember {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StageHand(stage);
-    }
-
-    notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinished) {
-            <span class="hljs-built_in">this</span>.stage.drawTheCurtain();
-        }
     }
 }
 </code></pre>

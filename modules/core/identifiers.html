@@ -439,9 +439,23 @@
         
         <div data-ice="description"><p> Re-configures Serenity/JS with a new <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span> of <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>s
  you&apos;d like to use in any subsequent call to <span><a href="function/index.html#static-function-actorCalled">actorCalled</a></span>.</p>
-<p> This function provides an alternative to calling <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan">Actor#whoCan</a></span>
- directly in your tests and you&apos;d typically us it in a &quot;before each&quot;
- hook of your test runner of choice.</p>
+<p> This function is an alias for <span><a href="class/src/Serenity.ts~Serenity.html#instance-method-engage">Serenity#engage</a></span>,
+ which provides an alternative to calling <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan">Actor#whoCan</a></span>
+ directly in your tests and is typically invoked in a &quot;before all&quot;
+ or &quot;before each&quot; hook of your test runner of choice.</p>
+<p> If your implementation of the <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span> interface is stateless,
+ you can invoke this function once before your entire test suite is executed, see</p>
+<ul>
+<li><a href="https://jasmine.github.io/api/3.6/global.html#beforeAll"><code>beforeAll</code></a> in Jasmine,</li>
+<li><a href="https://mochajs.org/#hooks"><code>before</code></a> in Mocha,</li>
+<li><p><a href="https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall"><code>BeforeAll</code></a> in Cucumber.js</p>
+<p>However, if your <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span> holds state that you want reset before each scenario,
+it&apos;s better to invoke <code>engage</code> before each test using:</p>
+</li>
+<li><a href="https://jasmine.github.io/api/3.6/global.html#beforeEach"><code>beforeEach</code></a> in Jasmine</li>
+<li><a href="https://mochajs.org/#hooks"><code>beforeEach</code></a> in Mocha,</li>
+<li><a href="https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#hooks"><code>Before</code></a> in Cucumber.js</li>
+</ul>
 </div>
       </div>
     </td>
@@ -3413,7 +3427,7 @@ and running the same test on different operating systems.</p>
         
         
         <div data-ice="description"><p> An interface to be implemented by any <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> that needs to free up
- any resources it&apos;s using when the test scenario finishes.</p>
+ the resources it uses.</p>
 </div>
       </div>
     </td>
@@ -3467,7 +3481,7 @@ and running the same test on different operating systems.</p>
       <span class="access" data-ice="access">public</span>
       
       
-      
+      <span class="abstract" data-ice="abstract">abstract</span>
       <span class="override" data-ice="override"></span>
     </td>
     <td>

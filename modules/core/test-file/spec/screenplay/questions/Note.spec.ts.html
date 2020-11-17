@@ -267,7 +267,7 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
 <span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/errors&apos;</span>;
 <span class="hljs-keyword">import</span> { CorrelationId } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/model&apos;</span>;
-<span class="hljs-keyword">import</span> { Ability, Actor, Log, Note, Question, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { Ability, Actor, Log, Note, Question, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
 <span class="hljs-keyword">import</span> { EnsureSame } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../EnsureSame&apos;</span>;
@@ -299,23 +299,21 @@ describe(<span class="hljs-string">&apos;Note&apos;</span>, <span class="hljs-fu
      * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes}</span></span>
      * <span class="hljs-doctag">@test <span class="hljs-type">{Note}</span></span>
      */</span>
-    it(<span class="hljs-string">&apos;enables the actor to recall the answer to a given question&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> notepad = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([ [NameOfAHobby().toString(), <span class="hljs-string">&apos;DYI&apos;</span>] ]);
-        expect(actorWhoCan(<span class="hljs-keyword">new</span> TakeNotes(notepad)).attemptsTo(
+    it(<span class="hljs-string">&apos;enables the actor to recall the answer to a given question&apos;</span>, <span class="hljs-function">() =&gt;</span>
+        actorWhoCan(TakeNotes.usingAnEmptyNotepad()).attemptsTo(
+            TakeNote.of(NameOfAHobby()),
             EnsureSame(Note.of(NameOfAHobby()), <span class="hljs-string">&apos;DYI&apos;</span>),
         ));
-    });
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes}</span></span>
      * <span class="hljs-doctag">@test <span class="hljs-type">{Note}</span></span>
      */</span>
-    it(<span class="hljs-string">&apos;enables the actor to recall the answer on a given subject&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> notepad = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([ [<span class="hljs-string">&apos;custom subject&apos;</span>, <span class="hljs-string">&apos;DYI&apos;</span>] ]);
-        expect(actorWhoCan(<span class="hljs-keyword">new</span> TakeNotes(notepad)).attemptsTo(
+    it(<span class="hljs-string">&apos;enables the actor to recall the answer on a given subject&apos;</span>, <span class="hljs-function">() =&gt;</span>
+        actorWhoCan(TakeNotes.usingAnEmptyNotepad()).attemptsTo(
+            TakeNote.of(NameOfAHobby()).as(<span class="hljs-string">&apos;custom subject&apos;</span>),
             EnsureSame(Note.of(<span class="hljs-string">&apos;custom subject&apos;</span>), <span class="hljs-string">&apos;DYI&apos;</span>),
         ));
-    });
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@test <span class="hljs-type">{TakeNotes}</span></span>
