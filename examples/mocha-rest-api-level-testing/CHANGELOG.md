@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.18.0 (2020-11-17)
+
+
+### Features
+
+* **core:** Cross-scenario Actors + improved Ability lifecycle management (version bump) ([5f30cc2](https://github.com/serenity-js/serenity-js/commit/5f30cc2583e706f1527f47dee265fe570603e9a6))
+
+
+
+
+
 ## 2.17.16 (2020-11-17)
 
 **Note:** Version bump only for package @serenity-js-examples/mocha-rest-api-level-testing
