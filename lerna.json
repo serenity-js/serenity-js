@@ -1,5 +1,5 @@
 {
-  "lerna": "2.11.0",
+  "lerna": "3.22.1",
   "loglevel": "info",
   "packages": [
     "documentation/*",
@@ -7,7 +7,7 @@
     "integration/*",
     "packages/*"
   ],
-  "version": "2.17.16",
+  "version": "2.17.6",
   "command": {
     "create": {
       "homepage": "https://serenity-js.org",
@@ -26,36 +26,11 @@
     }
   },
   "ignoreChanges": [
-    "documentation/esdoc-external-docs-plugin/**",
-    "documentation/esdoc-template/**",
-    "documentation/esdoc-typescript-plugin/**",
-    "examples/calculator-app/**",
-    "examples/cucumber-domain-level-testing/**",
-    "examples/cucumber-reporting/**",
-    "examples/cucumber-rest-api-level-testing/**",
-    "examples/mocha-rest-api-level-testing/**",
-    "examples/protractor-cucumber/**",
-    "examples/protractor-jasmine/**",
-    "examples/protractor-jasmine-todomvc/**",
-    "examples/protractor-mocha/**",
-    "integration/cucumber/**",
-    "integration/cucumber-1-runner/**",
-    "integration/cucumber-2-runner/**",
-    "integration/cucumber-3-runner/**",
-    "integration/cucumber-4-runner/**",
-    "integration/cucumber-5-runner/**",
-    "integration/cucumber-6-runner/**",
-    "integration/jasmine/**",
-    "integration/mocha/**",
-    "integration/protractor-jasmine/**",
-    "integration/protractor-mocha/**",
-    "integration/testing-tools/**",
-    "**/spec/**",
+    "**/documentation/**",
+    "**/examples/**",
+    "**/integration/**",
     "**/*.md",
-    "*.md",
-    ".github/**",
-    "package.json",
-    "package-lock.json",
-    "lerna.json"
+    "**/spec/**",
+    "./package.json"
   ]
 }
