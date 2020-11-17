@@ -30,11 +30,22 @@ export function configure(config: SerenityConfig) {
  *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s
  *  you'd like to use in any subsequent call to {@link actorCalled}.
  *
- *  This function provides an alternative to calling {@link Actor#whoCan}
- *  directly in your tests and you'd typically us it in a "before each"
- *  hook of your test runner of choice.
+ *  This function is an alias for {@link Serenity#engage},
+ *  which provides an alternative to calling {@link Actor#whoCan}
+ *  directly in your tests and is typically invoked in a "before all"
+ *  or "before each" hook of your test runner of choice.
  *
- *  This function is an alias for {@link Serenity#engage}.
+ *  If your implementation of the {@link Cast} interface is stateless,
+ *  you can invoke this function once before your entire test suite is executed, see
+ *  - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,
+ *  - [`before`](https://mochajs.org/#hooks) in Mocha,
+ *  - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js
+ *
+ *  However, if your {@link Cast} holds state that you want reset before each scenario,
+ *  it's better to invoke `engage` before each test using:
+ *  - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine
+ *  - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,
+ *  - [`Before`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#hooks) in Cucumber.js
  *
  * @example <caption>Engaging a cast of actors</caption>
  *  import { Actor, Cast } from '@serenity-js/core';

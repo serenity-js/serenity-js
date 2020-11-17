@@ -11,19 +11,24 @@ describe('Calculator', () => {
 
     before(() => engage(new Actors()));
 
-    beforeEach(() =>
+    // start the server once and keep it running for all the tests
+    before(() =>
         actorCalled('Apisitt').attemptsTo(
             StartLocalServer.onRandomPort(),
+
+            // Apisitt uses a shared notepad, so other actors can read his notes
             TakeNote.of(LocalServer.url()),
         ));
 
-    afterEach(() =>
+    // shut the server down when all tests are finished
+    after(() =>
         actorCalled('Apisitt').attemptsTo(
             StopLocalServer.ifRunning(),
         ));
 
     it('calculates result of basic expressions', () =>
         actorCalled('Jane').attemptsTo(
+            // Jane and Apisitt use a shared notepad
             ChangeApiUrl.to(Note.of(LocalServer.url())),
             RequestCalculationOf('5 + 2'),
             VerifyResultAt(LastResponse.header('location'), equals({ result: 7 })),

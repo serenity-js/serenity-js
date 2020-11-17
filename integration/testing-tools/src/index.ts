@@ -7,4 +7,3 @@ export * from './givenFollowingEvents';
 export * from './PickEvent';
 export * from './EventRecorder';
 export * from './EventStreamEmitter';
-export * from './stage';

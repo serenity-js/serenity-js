@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { EventRecorder, expect, PickEvent, stage } from '@integration/testing-tools';
+import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, LogicError, Question, RuntimeError, TestCompromisedError } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
