@@ -118,25 +118,5 @@ describe('@serenity-js/jasmine', function () {
                     })
                 ;
             }));
-
-        it('has a failing Screenplay expectation', () => jasmine('examples/failing/screenplay-assertion-error.spec.js')
-            .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-
-                expect(res.exitCode).to.equal(1);
-
-                PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))
-                    .next(SceneFinished,       event => {
-                        const outcome: ProblemIndication = event.outcome as ProblemIndication;
-
-                        expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
-                        expect(outcome.error.name).to.equal('AssertionError');
-                        expect(outcome.error.message).to.equal('Expected false to equal true');
-                    })
-                ;
-            }));
     });
 });

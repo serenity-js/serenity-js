@@ -1,8 +1,9 @@
 const
     { ChildProcessReporter } = require('@integration/testing-tools'),
-    { serenity, StreamReporter } = require('@serenity-js/core');
+    { configure, Duration, StreamReporter } = require('@serenity-js/core');
 
-serenity.configure({
+configure({
+    cueTimeout: Duration.ofMilliseconds(500),
     crew: [
         new ChildProcessReporter(),
         new StreamReporter(),
