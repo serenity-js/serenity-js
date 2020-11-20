@@ -2,7 +2,7 @@
 
 import { Serenity } from '@serenity-js/core';
 import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, CorrelationId, ExecutionRetriedTag, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { MochaOptions, reporters, Runner, Test } from 'mocha';
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
 import { OutcomeRecorder } from './OutcomeRecorder';
@@ -90,7 +90,12 @@ export class SerenityReporterForMocha extends reporters.Base {
         this.emit(new TestRunFinishes(this.serenity.currentTime()));
 
         this.serenity.waitForNextCue()
-            .then(() => this.emit(new TestRunFinished(this.serenity.currentTime())))
+            .then(() => {
+                this.emit(new TestRunFinished(this.serenity.currentTime()));
+            })
+            .catch(error => {
+                this.emit(new TestRunFinished(this.serenity.currentTime()))     // todo: consider adding outcome to TestRunFinished
+            })
             .then(() => fn(failures));
     }
 
@@ -127,6 +132,17 @@ export class SerenityReporterForMocha extends reporters.Base {
                 ));
 
                 this.recorder.erase(test);
+            }, error => {
+                this.emit(new SceneFinished(
+                    this.currentSceneId,
+                    scenario,
+                    new ExecutionFailedWithError(error),
+                    this.serenity.currentTime(),
+                ));
+
+                this.recorder.erase(test);
+
+                throw error;
             });
     }
 
@@ -154,8 +170,6 @@ export class SerenityReporterForMocha extends reporters.Base {
         if (! this.isRetriable(test)) {
             return void 0;
         }
-
-        const scenario = this.testMapper.detailsOf(test)
 
         this.emit(
             new SceneTagged(

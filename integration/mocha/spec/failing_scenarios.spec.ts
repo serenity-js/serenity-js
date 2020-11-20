@@ -113,25 +113,5 @@ describe('@serenity-js/mocha', function () {
                     })
                 ;
             }));
-
-        it('fails because of a failing Screenplay expectation', () => mocha('examples/failing/screenplay-assertion-error.spec.js')
-            .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-
-                expect(res.exitCode).to.equal(1);
-
-                PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
-                    .next(SceneFinished,       event => {
-                        const outcome: ProblemIndication = event.outcome as ProblemIndication;
-
-                        expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
-                        expect(outcome.error.name).to.equal('AssertionError');
-                        expect(outcome.error.message).to.equal('Expected false to equal true');
-                    })
-                ;
-            }));
     });
 });

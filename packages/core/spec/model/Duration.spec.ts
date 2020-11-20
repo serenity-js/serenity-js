@@ -43,4 +43,24 @@ describe('Duration', () => {
             expect(oneMinute.plus(tenSeconds)).to.equal(Duration.ofSeconds(70));
         });
     });
+
+    describe('when comparing', () => {
+        const
+            oneMinute   = Duration.ofMinutes(1),
+            tenSeconds  = Duration.ofSeconds(10);
+
+        given([
+            { description: 'isGreaterThan (positive)',            result: oneMinute.isGreaterThan(tenSeconds),            expected: true  },
+            { description: 'isGreaterThan (negative)',            result: tenSeconds.isGreaterThan(oneMinute),            expected: false },
+            { description: 'isGreaterThanOrEqualTo(positive)',    result: oneMinute.isGreaterThanOrEqualTo(oneMinute),    expected: true  },
+            { description: 'isGreaterThanOrEqualTo(negative)',    result: tenSeconds.isGreaterThanOrEqualTo(oneMinute),   expected: false },
+            { description: 'isLessThan(positive)',                result: tenSeconds.isLessThan(oneMinute),               expected: true  },
+            { description: 'isLessThan(negative)',                result: oneMinute.isLessThan(tenSeconds),               expected: false },
+            { description: 'isLessThanOrEqualTo(positive)',       result: oneMinute.isLessThanOrEqualTo(oneMinute),       expected: true  },
+            { description: 'isLessThanOrEqualTo(negative)',       result: oneMinute.isLessThanOrEqualTo(tenSeconds),      expected: false },
+        ]).
+        it('allows for durations to be compared', ({ result, expected }) => {
+            expect(result).to.equal(expected);
+        });
+    });
 });

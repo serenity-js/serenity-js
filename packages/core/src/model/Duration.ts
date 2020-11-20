@@ -19,6 +19,22 @@ export class Duration extends TinyType {
         super();
     }
 
+    isLessThan(another: Duration): boolean {
+        return this.milliseconds < another.milliseconds;
+    }
+
+    isLessThanOrEqualTo(another: Duration): boolean {
+        return this.milliseconds <= another.milliseconds;
+    }
+
+    isGreaterThan(another: Duration): boolean {
+        return this.milliseconds > another.milliseconds;
+    }
+
+    isGreaterThanOrEqualTo(another: Duration): boolean {
+        return this.milliseconds >= another.milliseconds;
+    }
+
     plus(another: Duration) {
         return new Duration(this.milliseconds + another.milliseconds);
     }
