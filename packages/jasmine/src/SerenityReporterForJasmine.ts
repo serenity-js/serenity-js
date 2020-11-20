@@ -110,6 +110,15 @@ export class SerenityReporterForJasmine {
                     this.outcomeFrom(result),
                     this.serenity.currentTime(),
                 ));
+            }, error => {
+                this.emit(new SceneFinished(
+                    this.currentSceneId,
+                    scenarioDetails,
+                    new ExecutionFailedWithError(error),
+                    this.serenity.currentTime(),
+                ));
+
+                throw error;
             });
     }
 
