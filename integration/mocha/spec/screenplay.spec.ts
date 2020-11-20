@@ -34,7 +34,7 @@ describe('@serenity-js/mocha', function () {
 
         it('fails when discarding an ability results in Error', () =>
             mocha('examples/screenplay/ability-discard-error.spec.js')
-                .then(ifExitCodeIsOtherThan(100, logOutput))
+                .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(res => {
                     expect(res.exitCode).to.equal(1);
 
@@ -58,7 +58,7 @@ describe('@serenity-js/mocha', function () {
 
         it(`fails when discarding an ability doesn't complete within a timeout`, () =>
             mocha('examples/screenplay/ability-discard-timeout.spec.js')
-                .then(ifExitCodeIsOtherThan(100, logOutput))
+                .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(res => {
                     expect(res.exitCode).to.equal(1);
 
