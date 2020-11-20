@@ -245,7 +245,7 @@ describe('ProtractorFrameworkAdapter', () => {
                         sample('passing.spec.ts').path,
                     ]))
                     .to.be.rejectedWith(Error, [
-                        `Some of the async operations have failed:`,
+                        `1 async operation has failed to complete:`,
                         `[ProtractorReporter] Invoking ProtractorRunner.afterEach... - ${ expectedError.stack }`,
                         `---`,
                     ''].join('\n'));

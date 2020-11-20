@@ -71,19 +71,17 @@ describe('StageManager', () => {
             CorrelationId.create(),
         ));
 
-        setTimeout(() => {
-            stageManager.notifyOf(new AsyncOperationAttempted(
-                new Description('[Service 2] Starting...'),
-                CorrelationId.create(),
-            ));
-        }, 50);
+        stageManager.notifyOf(new AsyncOperationAttempted(
+            new Description('[Service 2] Starting...'),
+            CorrelationId.create(),
+        ));
 
         return expect(stageManager.waitForNextCue()).to.be.rejected.then(error => {
             const lines = error.message.split('\n');
 
-            expect(lines[0]).to.equal('Some of the 2 async operations have failed to complete within 250ms:');
-            expect(lines[1]).to.match(/^[\d]+ms - \[Service 1\] Starting...$/);
-            expect(lines[2]).to.match(/^[\d]+ms - \[Service 2\] Starting...$/);
+            expect(lines[0]).to.equal('2 async operations have failed to complete within a 250ms cue timeout:');
+            expect(lines[1]).to.match(/^[\d]+ms - \[Service 1] Starting...$/);
+            expect(lines[2]).to.match(/^[\d]+ms - \[Service 2] Starting...$/);
         });
     });
 
@@ -111,7 +109,7 @@ describe('StageManager', () => {
         return expect(stageManager.waitForNextCue()).to.be.rejected.then(error => {
             const lines = error.message.split('\n');
 
-            expect(lines[0]).to.match(/^Some of the async operations have failed:$/);
+            expect(lines[0]).to.equal('1 async operation has failed to complete:');
             expect(lines[1]).to.equal('[Service 1] Starting... - Error: Something happened');
         });
     });

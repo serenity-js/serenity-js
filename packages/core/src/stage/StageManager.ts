@@ -3,6 +3,7 @@ import { TinyType } from 'tiny-types';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
 import { CorrelationId, Description, Duration, Timestamp } from '../model';
 import { ListensToDomainEvents } from '../screenplay';
+import { Clock } from './Clock';
 
 interface AsyncOperationDetails {
     taskDescription:    Description;
@@ -22,7 +23,7 @@ export class StageManager {
     private readonly failedOperations: FailedAsyncOperationDetails[] = [];
 
     constructor(private readonly cueTimeout: Duration,
-                private readonly clock) {
+                private readonly clock: Clock) {
     }
 
     register(...subscribers: ListensToDomainEvents[]) {
@@ -40,6 +41,12 @@ export class StageManager {
     }
 
     waitForNextCue(): Promise<void> {
+        function header(numberOfFailures: number) {
+            return numberOfFailures === 1
+                ? `1 async operation has failed to complete`
+                : `${ numberOfFailures } async operations have failed to complete`;
+        }
+
         return new Promise((resolve, reject) => {
 
             let interval: NodeJS.Timer,
@@ -48,18 +55,22 @@ export class StageManager {
             timeout = setTimeout(() => {
                 clearInterval(interval);
 
-                if (this.wip.size() > 0) {
-                    let message = `Some of the ${ this.wip.size() } async operations have failed to complete within ${ this.cueTimeout.toString()}:\n`;
+                const now = this.clock.now();
 
-                    this.wip.forEach((op: AsyncOperationDetails) => {
-                        message += `${ this.clock.now().diff(op.startedAt) } - ${ op.taskDescription.value }\n`;
-                    });
+                if (this.wip.size() > 0) {
+                    const timedOutOperations = this.wip.filter(op => now.diff(op.startedAt).isGreaterThanOrEqualTo(this.cueTimeout));
+
+                    const message = timedOutOperations.reduce(
+                        (acc, op) =>
+                            acc.concat(`${ now.diff(op.startedAt) } - ${ op.taskDescription.value }`),
+                        [ `${ header(timedOutOperations.length) } within a ${ this.cueTimeout } cue timeout:` ],
+                    ).join('\n');
 
                     return reject(new Error(message));
                 }
 
                 if (this.failedOperations.length > 0) {
-                    let message = `Some of the async operations have failed:\n`;
+                    let message = `${ header(this.failedOperations.length) }:\n`;
 
                     this.failedOperations.forEach((op: FailedAsyncOperationDetails) => {
                         message += `${ op.taskDescription.value } - ${ op.error.stack }\n---\n`;
@@ -138,6 +149,10 @@ class WIP<Key extends TinyType, Value> {
 
     forEach(callback: (value: Value, key: Key, map: Map<Key, Value>) => void, thisArg?: any) {
         return this.wip.forEach(callback);
+    }
+
+    filter(callback: (value: Value, index: number, array: Value[]) => boolean): Value[] {
+        return Array.from(this.wip.values()).filter(callback);
     }
 
     private asReference(key: Key) {
