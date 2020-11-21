@@ -1093,6 +1093,12 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/spec/model/Duration.spec.ts.html#lineNumber47",
+    "Duration when comparing",
+    "test"
+  ],
+  [
+    "",
     "test-file/spec/model/Duration.spec.ts.html#lineNumber36",
     "Duration when performing computations",
     "test"
@@ -1855,7 +1861,7 @@ window.esdocSearchIndex = [
   ],
   [
     "stagemanager asyncoperationattempted asyncoperationfailed src/stage/stagemanager.ts~stagemanager,stagemanager src/events/asyncoperationattempted.ts~asyncoperationattempted,asyncoperationattempted src/events/asyncoperationfailed.ts~asyncoperationfailed,asyncoperationfailed",
-    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber102",
+    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber100",
     "StageManager provides details should the work in progress fail with an error",
     "test"
   ],
@@ -3825,6 +3831,30 @@ window.esdocSearchIndex = [
     "src/model/duration.ts~duration#inmilliseconds",
     "class/src/model/Duration.ts~Duration.html#instance-method-inMilliseconds",
     "src/model/Duration.ts~Duration#inMilliseconds",
+    "method"
+  ],
+  [
+    "src/model/duration.ts~duration#isgreaterthan",
+    "class/src/model/Duration.ts~Duration.html#instance-method-isGreaterThan",
+    "src/model/Duration.ts~Duration#isGreaterThan",
+    "method"
+  ],
+  [
+    "src/model/duration.ts~duration#isgreaterthanorequalto",
+    "class/src/model/Duration.ts~Duration.html#instance-method-isGreaterThanOrEqualTo",
+    "src/model/Duration.ts~Duration#isGreaterThanOrEqualTo",
+    "method"
+  ],
+  [
+    "src/model/duration.ts~duration#islessthan",
+    "class/src/model/Duration.ts~Duration.html#instance-method-isLessThan",
+    "src/model/Duration.ts~Duration#isLessThan",
+    "method"
+  ],
+  [
+    "src/model/duration.ts~duration#islessthanorequalto",
+    "class/src/model/Duration.ts~Duration.html#instance-method-isLessThanOrEqualTo",
+    "src/model/Duration.ts~Duration#isLessThanOrEqualTo",
     "method"
   ],
   [

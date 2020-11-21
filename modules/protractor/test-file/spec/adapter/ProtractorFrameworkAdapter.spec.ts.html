@@ -421,7 +421,7 @@ describe(<span class="hljs-string">&apos;ProtractorFrameworkAdapter&apos;</span>
                         sample(<span class="hljs-string">&apos;passing.spec.ts&apos;</span>).path,
                     ]))
                     .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, [
-                        <span class="hljs-string">`Some of the async operations have failed:`</span>,
+                        <span class="hljs-string">`1 async operation has failed to complete:`</span>,
                         <span class="hljs-string">`[ProtractorReporter] Invoking ProtractorRunner.afterEach... - <span class="hljs-subst">${ expectedError.stack }</span>`</span>,
                         <span class="hljs-string">`---`</span>,
                     <span class="hljs-string">&apos;&apos;</span>].join(<span class="hljs-string">&apos;\n&apos;</span>));

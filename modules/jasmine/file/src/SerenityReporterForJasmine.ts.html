@@ -235,6 +235,15 @@
                     <span class="hljs-built_in">this</span>.outcomeFrom(result),
                     <span class="hljs-built_in">this</span>.serenity.currentTime(),
                 ));
+            }, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinished(
+                    <span class="hljs-built_in">this</span>.currentSceneId,
+                    scenarioDetails,
+                    <span class="hljs-keyword">new</span> ExecutionFailedWithError(error),
+                    <span class="hljs-built_in">this</span>.serenity.currentTime(),
+                ));
+
+                <span class="hljs-keyword">throw</span> error;
             });
     }
 

@@ -307,6 +307,26 @@ describe(<span class="hljs-string">&apos;Duration&apos;</span>, <span class="hlj
             expect(oneMinute.plus(tenSeconds)).to.equal(Duration.ofSeconds(<span class="hljs-number">70</span>));
         });
     });
+
+    describe(<span class="hljs-string">&apos;when comparing&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span>
+            oneMinute   = Duration.ofMinutes(<span class="hljs-number">1</span>),
+            tenSeconds  = Duration.ofSeconds(<span class="hljs-number">10</span>);
+
+        given([
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;isGreaterThan (positive)&apos;</span>,            <span class="hljs-attr">result</span>: oneMinute.isGreaterThan(tenSeconds),            <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;isGreaterThan (negative)&apos;</span>,            <span class="hljs-attr">result</span>: tenSeconds.isGreaterThan(oneMinute),            <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;isGreaterThanOrEqualTo(positive)&apos;</span>,    <span class="hljs-attr">result</span>: oneMinute.isGreaterThanOrEqualTo(oneMinute),    <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;isGreaterThanOrEqualTo(negative)&apos;</span>,    <span class="hljs-attr">result</span>: tenSeconds.isGreaterThanOrEqualTo(oneMinute),   <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;isLessThan(positive)&apos;</span>,                <span class="hljs-attr">result</span>: tenSeconds.isLessThan(oneMinute),               <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;isLessThan(negative)&apos;</span>,                <span class="hljs-attr">result</span>: oneMinute.isLessThan(tenSeconds),               <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;isLessThanOrEqualTo(positive)&apos;</span>,       <span class="hljs-attr">result</span>: oneMinute.isLessThanOrEqualTo(oneMinute),       <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;isLessThanOrEqualTo(negative)&apos;</span>,       <span class="hljs-attr">result</span>: oneMinute.isLessThanOrEqualTo(tenSeconds),      <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
+        ]).
+        it(<span class="hljs-string">&apos;allows for durations to be compared&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ result, expected }</span>) =&gt;</span> {
+            expect(result).to.equal(expected);
+        });
+    });
 });
 </code></pre>
 

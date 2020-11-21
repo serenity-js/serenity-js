@@ -123,7 +123,7 @@
 
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionRetriedTag, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
 <span class="hljs-keyword">import</span> { MochaOptions, reporters, Runner, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> { MochaOutcomeMapper, MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./mappers&apos;</span>;
 <span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./OutcomeRecorder&apos;</span>;
@@ -211,7 +211,12 @@
         <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-built_in">this</span>.serenity.currentTime()));
 
         <span class="hljs-built_in">this</span>.serenity.waitForNextCue()
-            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-built_in">this</span>.serenity.currentTime())))
+            .then(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-built_in">this</span>.serenity.currentTime()));
+            })
+            .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-built_in">this</span>.serenity.currentTime()))     <span class="hljs-comment">// todo: consider adding outcome to TestRunFinished</span>
+            })
             .then(<span class="hljs-function">() =&gt;</span> fn(failures));
     }
 
@@ -248,6 +253,17 @@
                 ));
 
                 <span class="hljs-built_in">this</span>.recorder.erase(test);
+            }, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> SceneFinished(
+                    <span class="hljs-built_in">this</span>.currentSceneId,
+                    scenario,
+                    <span class="hljs-keyword">new</span> ExecutionFailedWithError(error),
+                    <span class="hljs-built_in">this</span>.serenity.currentTime(),
+                ));
+
+                <span class="hljs-built_in">this</span>.recorder.erase(test);
+
+                <span class="hljs-keyword">throw</span> error;
             });
     }
 
@@ -275,8 +291,6 @@
         <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.isRetriable(test)) {
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
         }
-
-        <span class="hljs-keyword">const</span> scenario = <span class="hljs-built_in">this</span>.testMapper.detailsOf(test)
 
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneTagged(

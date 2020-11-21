@@ -192,11 +192,11 @@ of modern full-stack applications faster, more collaborative and easier to scale
 
     <span class="hljs-comment">// Configure Serenity/JS to use an appropriate test runner</span>
     <span class="hljs-comment">// and the Stage Crew Members we&apos;ve imported at the top of this file</span>
-    serenity: {
+    <span class="hljs-attr">serenity</span>: {
         <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;jasmine&apos;</span>,
         <span class="hljs-comment">// runner: &apos;cucumber&apos;,</span>
         <span class="hljs-comment">// runner: &apos;mocha&apos;,</span>
-        crew: [
+        <span class="hljs-attr">crew</span>: [
             ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
             ConsoleReporter.forDarkTerminals(),
             Photographer.whoWill(TakePhotosOfFailures),     <span class="hljs-comment">// or Photographer.whoWill(TakePhotosOfInteractions),</span>

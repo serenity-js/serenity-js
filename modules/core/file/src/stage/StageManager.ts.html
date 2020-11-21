@@ -267,6 +267,7 @@
 <span class="hljs-keyword">import</span> { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../events&apos;</span>;
 <span class="hljs-keyword">import</span> { CorrelationId, Description, Duration, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
 <span class="hljs-keyword">import</span> { ListensToDomainEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { Clock } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Clock&apos;</span>;
 
 <span class="hljs-keyword">interface</span> AsyncOperationDetails {
     <span class="hljs-attr">taskDescription</span>:    Description;
@@ -286,7 +287,7 @@
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> failedOperations: FailedAsyncOperationDetails[] = [];
 
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> cueTimeout: Duration,
-                <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> clock</span>)</span> {
+                <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> clock: Clock</span>)</span> {
     }
 
     <span class="hljs-function"><span class="hljs-title">register</span>(<span class="hljs-params">...subscribers: ListensToDomainEvents[]</span>)</span> {
@@ -304,6 +305,12 @@
     }
 
     waitForNextCue(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">header</span>(<span class="hljs-params">numberOfFailures: <span class="hljs-built_in">number</span></span>) </span>{
+            <span class="hljs-keyword">return</span> numberOfFailures === <span class="hljs-number">1</span>
+                ? <span class="hljs-string">`1 async operation has failed to complete`</span>
+                : <span class="hljs-string">`<span class="hljs-subst">${ numberOfFailures }</span> async operations have failed to complete`</span>;
+        }
+
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
 
             <span class="hljs-keyword">let</span> interval: NodeJS.Timer,
@@ -312,18 +319,22 @@
             timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-built_in">clearInterval</span>(interval);
 
-                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.wip.size() &gt; <span class="hljs-number">0</span>) {
-                    <span class="hljs-keyword">let</span> message = <span class="hljs-string">`Some of the <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.wip.size() }</span> async operations have failed to complete within <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.cueTimeout.toString()}</span>:\n`</span>;
+                <span class="hljs-keyword">const</span> now = <span class="hljs-built_in">this</span>.clock.now();
 
-                    <span class="hljs-built_in">this</span>.wip.forEach(<span class="hljs-function">(<span class="hljs-params">op: AsyncOperationDetails</span>) =&gt;</span> {
-                        message += <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.clock.now().diff(op.startedAt) }</span> - <span class="hljs-subst">${ op.taskDescription.value }</span>\n`</span>;
-                    });
+                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.wip.size() &gt; <span class="hljs-number">0</span>) {
+                    <span class="hljs-keyword">const</span> timedOutOperations = <span class="hljs-built_in">this</span>.wip.filter(<span class="hljs-function"><span class="hljs-params">op</span> =&gt;</span> now.diff(op.startedAt).isGreaterThanOrEqualTo(<span class="hljs-built_in">this</span>.cueTimeout));
+
+                    <span class="hljs-keyword">const</span> message = timedOutOperations.reduce(
+                        <span class="hljs-function">(<span class="hljs-params">acc, op</span>) =&gt;</span>
+                            acc.concat(<span class="hljs-string">`<span class="hljs-subst">${ now.diff(op.startedAt) }</span> - <span class="hljs-subst">${ op.taskDescription.value }</span>`</span>),
+                        [ <span class="hljs-string">`<span class="hljs-subst">${ header(timedOutOperations.length) }</span> within a <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.cueTimeout }</span> cue timeout:`</span> ],
+                    ).join(<span class="hljs-string">&apos;\n&apos;</span>);
 
                     <span class="hljs-keyword">return</span> reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(message));
                 }
 
                 <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.failedOperations.length &gt; <span class="hljs-number">0</span>) {
-                    <span class="hljs-keyword">let</span> message = <span class="hljs-string">`Some of the async operations have failed:\n`</span>;
+                    <span class="hljs-keyword">let</span> message = <span class="hljs-string">`<span class="hljs-subst">${ header(<span class="hljs-built_in">this</span>.failedOperations.length) }</span>:\n`</span>;
 
                     <span class="hljs-built_in">this</span>.failedOperations.forEach(<span class="hljs-function">(<span class="hljs-params">op: FailedAsyncOperationDetails</span>) =&gt;</span> {
                         message += <span class="hljs-string">`<span class="hljs-subst">${ op.taskDescription.value }</span> - <span class="hljs-subst">${ op.error.stack }</span>\n---\n`</span>;
@@ -402,6 +413,10 @@
 
     <span class="hljs-function"><span class="hljs-title">forEach</span>(<span class="hljs-params">callback: (value: Value, key: Key, map: <span class="hljs-built_in">Map</span>&lt;Key, Value&gt;) =&gt; <span class="hljs-built_in">void</span>, thisArg?: <span class="hljs-built_in">any</span></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.wip.forEach(callback);
+    }
+
+    filter(callback: <span class="hljs-function">(<span class="hljs-params">value: Value, index: <span class="hljs-built_in">number</span>, array: Value[]</span>) =&gt;</span> <span class="hljs-built_in">boolean</span>): Value[] {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-built_in">this</span>.wip.values()).filter(callback);
     }
 
     <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">asReference</span>(<span class="hljs-params">key: Key</span>)</span> {

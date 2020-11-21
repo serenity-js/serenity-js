@@ -310,7 +310,7 @@
       <div class="example-caption" data-ice="exampleCaption">Sync error handling</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">try</span> {
     operationThatMightThrowAnError();
-} <span class="hljs-function"><span class="hljs-title">catch</span>(<span class="hljs-params">error</span>)</span> {
+} <span class="hljs-keyword">catch</span>(error) {
     <span class="hljs-comment">// catch and re-throw</span>
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> CustomError(<span class="hljs-string">&apos;operationThatMightThrowAnError has failed&apos;</span>, error);
 }</code></pre>

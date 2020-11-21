@@ -335,19 +335,17 @@ describe(<span class="hljs-string">&apos;StageManager&apos;</span>, <span class=
             CorrelationId.create(),
         ));
 
-        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
-            stageManager.notifyOf(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;[Service 2] Starting...&apos;</span>),
-                CorrelationId.create(),
-            ));
-        }, <span class="hljs-number">50</span>);
+        stageManager.notifyOf(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
+            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">&apos;[Service 2] Starting...&apos;</span>),
+            CorrelationId.create(),
+        ));
 
         <span class="hljs-keyword">return</span> expect(stageManager.waitForNextCue()).to.be.rejected.then(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> lines = error.message.split(<span class="hljs-string">&apos;\n&apos;</span>);
 
-            expect(lines[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">&apos;Some of the 2 async operations have failed to complete within 250ms:&apos;</span>);
-            expect(lines[<span class="hljs-number">1</span>]).to.match(<span class="hljs-regexp">/^[\d]+ms - \[Service 1\] Starting...$/</span>);
-            expect(lines[<span class="hljs-number">2</span>]).to.match(<span class="hljs-regexp">/^[\d]+ms - \[Service 2\] Starting...$/</span>);
+            expect(lines[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">&apos;2 async operations have failed to complete within a 250ms cue timeout:&apos;</span>);
+            expect(lines[<span class="hljs-number">1</span>]).to.match(<span class="hljs-regexp">/^[\d]+ms - \[Service 1] Starting...$/</span>);
+            expect(lines[<span class="hljs-number">2</span>]).to.match(<span class="hljs-regexp">/^[\d]+ms - \[Service 2] Starting...$/</span>);
         });
     });
 
@@ -375,7 +373,7 @@ describe(<span class="hljs-string">&apos;StageManager&apos;</span>, <span class=
         <span class="hljs-keyword">return</span> expect(stageManager.waitForNextCue()).to.be.rejected.then(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> lines = error.message.split(<span class="hljs-string">&apos;\n&apos;</span>);
 
-            expect(lines[<span class="hljs-number">0</span>]).to.match(<span class="hljs-regexp">/^Some of the async operations have failed:$/</span>);
+            expect(lines[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">&apos;1 async operation has failed to complete:&apos;</span>);
             expect(lines[<span class="hljs-number">1</span>]).to.equal(<span class="hljs-string">&apos;[Service 1] Starting... - Error: Something happened&apos;</span>);
         });
     });
