@@ -22,6 +22,8 @@ export function jasmine(...params: string[]): Promise<SpawnResult> {
 
         ...params,
 
+        '--random=false',
+
         // The path to the reporter needs to be relative to the Jasmine module.
         // Normally this will be simply "@serenity-js/jasmine" as the Serenity/JS adapter for Jasmine
         // will be installed next to it.

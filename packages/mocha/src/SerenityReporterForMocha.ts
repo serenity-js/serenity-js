@@ -3,7 +3,7 @@
 import { Serenity } from '@serenity-js/core';
 import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, FeatureTag, Name } from '@serenity-js/core/lib/model';
-import { MochaOptions, reporters, Runner, Test } from 'mocha';
+import { MochaOptions, reporters, Runnable, Runner, Test } from 'mocha';
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
 import { OutcomeRecorder } from './OutcomeRecorder';
 
@@ -68,12 +68,12 @@ export class SerenityReporterForMocha extends reporters.Base {
         const announceSceneFinishedFor = this.announceSceneFinishedFor.bind(this);
 
         runner.suite.afterEach('Serenity/JS', function () {
-            return announceSceneFinishedFor(this.currentTest);
+            return announceSceneFinishedFor(this.currentTest, this.test);
         });
 
         // https://github.com/cypress-io/cypress/issues/7562
         runner.on('test:after:run', (test: Test) => {
-            return announceSceneFinishedFor(test);
+            return announceSceneFinishedFor(test, test);
         });
 
         // Tests without body don't trigger the above custom afterEach hook
@@ -111,7 +111,7 @@ export class SerenityReporterForMocha extends reporters.Base {
         );
     }
 
-    private announceSceneFinishedFor(test: Test): Promise<void> {
+    private announceSceneFinishedFor(test: Test, runnable: Runnable): Promise<void> {
         const scenario = this.testMapper.detailsOf(test);
 
         this.emit(
@@ -142,7 +142,9 @@ export class SerenityReporterForMocha extends reporters.Base {
 
                 this.recorder.erase(test);
 
-                throw error;
+                // re-throwing an error here would cause Mocha to halt test suite, which we don't want to do
+                // https://github.com/mochajs/mocha/issues/1635
+                (runnable as any).error(error);
             });
     }
 
