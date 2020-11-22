@@ -5,25 +5,12 @@ import { CorrelationId, Description, Duration, Timestamp } from '../model';
 import { ListensToDomainEvents } from '../screenplay';
 import { Clock } from './Clock';
 
-interface AsyncOperationDetails {
-    taskDescription:    Description;
-    startedAt:          Timestamp;
-}
-
-interface FailedAsyncOperationDetails {
-    taskDescription:    Description;
-    startedAt:          Timestamp;
-    duration:           Duration;
-    error:              Error;
-}
-
 export class StageManager {
     private readonly subscribers: ListensToDomainEvents[] = [];
-    private readonly wip = new WIP<CorrelationId, AsyncOperationDetails>();
-    private readonly failedOperations: FailedAsyncOperationDetails[] = [];
+    private readonly wip: WIP;
 
-    constructor(private readonly cueTimeout: Duration,
-                private readonly clock: Clock) {
+    constructor(private readonly cueTimeout: Duration, private readonly clock: Clock) {
+        this.wip = new WIP(cueTimeout, clock);
     }
 
     register(...subscribers: ListensToDomainEvents[]) {
@@ -35,18 +22,12 @@ export class StageManager {
     }
 
     notifyOf(event: DomainEvent): void {
-        this.handleAsyncOperation(event);
+        this.wip.recordIfAsync(event);
 
         this.subscribers.forEach(crewMember => crewMember.notifyOf(event));
     }
 
     waitForNextCue(): Promise<void> {
-        function header(numberOfFailures: number) {
-            return numberOfFailures === 1
-                ? `1 async operation has failed to complete`
-                : `${ numberOfFailures } async operations have failed to complete`;
-        }
-
         return new Promise((resolve, reject) => {
 
             let interval: NodeJS.Timer,
@@ -55,28 +36,18 @@ export class StageManager {
             timeout = setTimeout(() => {
                 clearInterval(interval);
 
-                const now = this.clock.now();
+                if (this.wip.hasFailedOperations()) {
+                    const error = new Error(this.wip.descriptionOfFailedOperations());
 
-                if (this.wip.size() > 0) {
-                    const timedOutOperations = this.wip.filter(op => now.diff(op.startedAt).isGreaterThanOrEqualTo(this.cueTimeout));
+                    this.wip.resetFailedOperations();
 
-                    const message = timedOutOperations.reduce(
-                        (acc, op) =>
-                            acc.concat(`${ now.diff(op.startedAt) } - ${ op.taskDescription.value }`),
-                        [ `${ header(timedOutOperations.length) } within a ${ this.cueTimeout } cue timeout:` ],
-                    ).join('\n');
-
-                    return reject(new Error(message));
+                    return reject(error);
                 }
 
-                if (this.failedOperations.length > 0) {
-                    let message = `${ header(this.failedOperations.length) }:\n`;
+                if (this.wip.hasActiveOperations()) {
+                    const error = new Error(this.wip.descriptionOfTimedOutOperations());
 
-                    this.failedOperations.forEach((op: FailedAsyncOperationDetails) => {
-                        message += `${ op.taskDescription.value } - ${ op.error.stack }\n---\n`;
-                    });
-
-                    return reject(new Error(message));
+                    return reject(error);
                 }
 
                 // "else" can't happen because this case is covered by the interval check below
@@ -84,9 +55,18 @@ export class StageManager {
             }, this.cueTimeout.inMilliseconds());
 
             interval = setInterval(() => {
-                if (this.wip.size() === 0 && this.failedOperations.length === 0) {
+                if (this.wip.hasAllOperationsCompleted()) {
                     clearTimeout(timeout);
                     clearInterval(interval);
+
+                    if (this.wip.hasFailedOperations()) {
+
+                        const error = new Error(this.wip.descriptionOfFailedOperations());
+
+                        this.wip.resetFailedOperations();
+
+                        return reject(error);
+                    }
 
                     return resolve();
                 }
@@ -97,65 +77,104 @@ export class StageManager {
     currentTime(): Timestamp {
         return this.clock.now();
     }
+}
 
-    private handleAsyncOperation(event: DomainEvent): void {
+/**
+ * @package
+ */
+class WIP {
+    private readonly wip = new Map<CorrelationId, AsyncOperationDetails>();
+    private readonly failedOperations: FailedAsyncOperationDetails[] = [];
+
+    constructor(
+        private readonly cueTimeout: Duration,
+        private readonly clock: Clock,
+    ) {
+    }
+
+    recordIfAsync(event: DomainEvent): void {
         if (event instanceof AsyncOperationAttempted) {
-            this.wip.set(event.correlationId, {
-                taskDescription: event.taskDescription,
-                startedAt: event.timestamp,
+            this.set(event.correlationId, {
+                taskDescription:    event.taskDescription,
+                startedAt:          event.timestamp,
             });
         }
-        else if (event instanceof AsyncOperationCompleted) {
-            this.wip.delete(event.correlationId);
+
+        if (event instanceof AsyncOperationCompleted) {
+            this.delete(event.correlationId);
         }
-        else if (event instanceof AsyncOperationFailed) {
-            const original = this.wip.get(event.correlationId);
+
+        if (event instanceof AsyncOperationFailed) {
+            const original = this.get(event.correlationId);
+
             this.failedOperations.push({
                 taskDescription:    original.taskDescription,
                 startedAt:          original.startedAt,
                 duration:           event.timestamp.diff(original.startedAt),
                 error:              event.error,
             });
-            this.wip.delete(event.correlationId);
+
+            this.delete(event.correlationId)
         }
     }
-}
 
-/**
- * @package
- */
-class WIP<Key extends TinyType, Value> {
-    private wip = new Map<Key, Value>();
-
-    set(key: Key, value: Value) {
-        this.wip.set(key, value);
+    hasAllOperationsCompleted(): boolean {
+        return this.wip.size === 0;
     }
 
-    get(key: Key): Value {
-        return this.wip.get(this.asReference(key));
+    hasActiveOperations(): boolean {
+        return this.wip.size > 0;
     }
 
-    delete(key: Key): boolean {
-        return this.wip.delete(this.asReference(key));
+    hasFailedOperations(): boolean {
+        return this.failedOperations.length > 0;
     }
 
-    has(key): boolean {
-        return !! this.asReference(key);
+    descriptionOfTimedOutOperations(): string {
+        const now = this.clock.now();
+
+        const timedOutOperations = Array.from(this.wip.values())
+            .filter(op => now.diff(op.startedAt).isGreaterThanOrEqualTo(this.cueTimeout));
+
+        return timedOutOperations.reduce(
+            (acc, op) => acc.concat(`${ now.diff(op.startedAt) } - ${ op.taskDescription.value }`),
+            [`${ this.header(this.wip.size) } within a ${ this.cueTimeout } cue timeout:`],
+        ).join('\n');
     }
 
-    size(): number {
-        return this.wip.size;
+    descriptionOfFailedOperations() {
+        let message = `${ this.header(this.failedOperations.length) }:\n`;
+
+        this.failedOperations.forEach((op: FailedAsyncOperationDetails) => {
+            message += `${ op.taskDescription.value } - ${ op.error.stack }\n---\n`;
+        });
+
+        return message;
     }
 
-    forEach(callback: (value: Value, key: Key, map: Map<Key, Value>) => void, thisArg?: any) {
-        return this.wip.forEach(callback);
+    resetFailedOperations() {
+        this.failedOperations.length = 0;
     }
 
-    filter(callback: (value: Value, index: number, array: Value[]) => boolean): Value[] {
-        return Array.from(this.wip.values()).filter(callback);
+    private header(numberOfFailures): string {
+        return numberOfFailures === 1
+            ? `1 async operation has failed to complete`
+            : `${ numberOfFailures } async operations have failed to complete`;
     }
 
-    private asReference(key: Key) {
+    private set(correlationId: CorrelationId, details: AsyncOperationDetails) {
+        return this.wip.set(correlationId, details);
+    }
+
+    private get(correlationId: CorrelationId) {
+        return this.wip.get(this.asReference(correlationId));
+    }
+
+    private delete(correlationId: CorrelationId) {
+        this.wip.delete(this.asReference(correlationId))
+    }
+
+    private asReference(key: CorrelationId) {
         for (const [ k, v ] of this.wip.entries()) {
             if (k.equals(key)) {
                 return k;
@@ -164,4 +183,24 @@ class WIP<Key extends TinyType, Value> {
 
         return undefined;
     }
+}
+
+/**
+ * @package
+ */
+interface AsyncOperationDetails {
+    taskDescription:    Description;
+    startedAt:          Timestamp;
+    duration?:          Duration;
+    error?:             Error;
+}
+
+/**
+ * @package
+ */
+interface FailedAsyncOperationDetails {
+    taskDescription:    Description;
+    startedAt:          Timestamp;
+    duration:           Duration;
+    error:              Error;
 }

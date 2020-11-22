@@ -74,6 +74,9 @@ export class Stage {
                 const newActor = new Actor(name, this);
 
                 actor = this.cast.prepare(newActor);
+
+                // todo this.manager.notifyOf(ActorStarts)
+                // todo: map this in Serenity BDD Reporter so that the "cast" is recorded
             }
             catch (error) {
                 throw new ConfigurationError(`${ this.typeOf(this.cast) } encountered a problem when preparing actor "${ name }" for stage`, error);
@@ -215,8 +218,10 @@ export class Stage {
                             new Description(`[${ this.constructor.name }] Dismissed ${ actor.name } successfully`),
                             id,
                         )))
+                        // todo: ActorFinished
                     .catch(error =>
-                        this.announce(new AsyncOperationFailed(error, id)),
+                        this.announce(new AsyncOperationFailed(error, id)),     // todo: serialise the error!
+                        // todo: ActorFinished (error ?)
                     );
 
             }))

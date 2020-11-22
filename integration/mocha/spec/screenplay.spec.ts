@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import { ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionSuccessful, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
 import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
@@ -76,6 +76,44 @@ describe('@serenity-js/mocha', function () {
 
                             expect(message[0]).to.equal('1 async operation has failed to complete within a 50ms cue timeout:');
                             expect(message[1]).to.match(/[\d]+ms - \[Stage] Dismissing Donald\.\.\./);
+                        })
+                    ;
+                }));
+
+        it(`executes all the scenarios in the test suite even when some of them fail because of an error when discarding an ability`, () =>
+            mocha('examples/screenplay/ability-discard-error-should-not-affect-stage-cue.spec.js')
+                .then(ifExitCodeIsOtherThan(2, logOutput))
+                .then(res => {
+                    expect(res.exitCode).to.equal(2);   // 2 failures, so Mocha returns an exit code of 2
+
+                    PickEvent.from(res.events)
+                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
+                        .next(SceneFinished,       event => {
+                            const outcome: ProblemIndication = event.outcome as ProblemIndication;
+
+                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+                            expect(outcome.error.name).to.equal('Error');
+
+                            const message = outcome.error.message.split('\n');
+
+                            expect(message[0]).to.equal('1 async operation has failed to complete:');
+                            expect(message[1]).to.equal('[Stage] Dismissing Donald... - TypeError: Some internal error in ability');
+                        })
+                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario succeeds when ability is discarded successfully')))
+                        .next(SceneFinished,       event => {
+                            expect(event.outcome).to.be.instanceOf(ExecutionSuccessful);
+                        })
+                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails if the ability fails to discard again')))
+                        .next(SceneFinished,       event => {
+                            const outcome: ProblemIndication = event.outcome as ProblemIndication;
+
+                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+                            expect(outcome.error.name).to.equal('Error');
+
+                            const message = outcome.error.message.split('\n');
+
+                            expect(message[0]).to.equal('1 async operation has failed to complete:');
+                            expect(message[1]).to.equal('[Stage] Dismissing Donald... - TypeError: Some internal error in ability');
                         })
                     ;
                 }));
