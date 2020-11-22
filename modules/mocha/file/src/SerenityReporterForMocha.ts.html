@@ -124,7 +124,7 @@
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
 <span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { MochaOptions, reporters, Runner, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<span class="hljs-keyword">import</span> { MochaOptions, reporters, Runnable, Runner, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 <span class="hljs-keyword">import</span> { MochaOutcomeMapper, MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./mappers&apos;</span>;
 <span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./OutcomeRecorder&apos;</span>;
 
@@ -189,12 +189,12 @@
         <span class="hljs-keyword">const</span> announceSceneFinishedFor = <span class="hljs-built_in">this</span>.announceSceneFinishedFor.bind(<span class="hljs-built_in">this</span>);
 
         runner.suite.afterEach(<span class="hljs-string">&apos;Serenity/JS&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-            <span class="hljs-keyword">return</span> announceSceneFinishedFor(<span class="hljs-built_in">this</span>.currentTest);
+            <span class="hljs-keyword">return</span> announceSceneFinishedFor(<span class="hljs-built_in">this</span>.currentTest, <span class="hljs-built_in">this</span>.test);
         });
 
         <span class="hljs-comment">// https://github.com/cypress-io/cypress/issues/7562</span>
         runner.on(<span class="hljs-string">&apos;test:after:run&apos;</span>, <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
-            <span class="hljs-keyword">return</span> announceSceneFinishedFor(test);
+            <span class="hljs-keyword">return</span> announceSceneFinishedFor(test, test);
         });
 
         <span class="hljs-comment">// Tests without body don&apos;t trigger the above custom afterEach hook</span>
@@ -232,7 +232,7 @@
         );
     }
 
-    <span class="hljs-keyword">private</span> announceSceneFinishedFor(test: Test): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-keyword">private</span> announceSceneFinishedFor(test: Test, <span class="hljs-attr">runnable</span>: Runnable): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">const</span> scenario = <span class="hljs-built_in">this</span>.testMapper.detailsOf(test);
 
         <span class="hljs-built_in">this</span>.emit(
@@ -263,7 +263,9 @@
 
                 <span class="hljs-built_in">this</span>.recorder.erase(test);
 
-                <span class="hljs-keyword">throw</span> error;
+                <span class="hljs-comment">// re-throwing an error here would cause Mocha to halt test suite, which we don&apos;t want to do</span>
+                <span class="hljs-comment">// https://github.com/mochajs/mocha/issues/1635</span>
+                (runnable <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).error(error);
             });
     }
 

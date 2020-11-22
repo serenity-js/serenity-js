@@ -338,6 +338,9 @@
                 <span class="hljs-keyword">const</span> newActor = <span class="hljs-keyword">new</span> Actor(name, <span class="hljs-built_in">this</span>);
 
                 actor = <span class="hljs-built_in">this</span>.cast.prepare(newActor);
+
+                <span class="hljs-comment">// todo this.manager.notifyOf(ActorStarts)</span>
+                <span class="hljs-comment">// todo: map this in Serenity BDD Reporter so that the &quot;cast&quot; is recorded</span>
             }
             <span class="hljs-keyword">catch</span> (error) {
                 <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.typeOf(<span class="hljs-built_in">this</span>.cast) }</span> encountered a problem when preparing actor &quot;<span class="hljs-subst">${ name }</span>&quot; for stage`</span>, error);
@@ -479,8 +482,10 @@
                             <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Dismissed <span class="hljs-subst">${ actor.name }</span> successfully`</span>),
                             id,
                         )))
+                        <span class="hljs-comment">// todo: ActorFinished</span>
                     .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span>
-                        <span class="hljs-built_in">this</span>.announce(<span class="hljs-keyword">new</span> AsyncOperationFailed(error, id)),
+                        <span class="hljs-built_in">this</span>.announce(<span class="hljs-keyword">new</span> AsyncOperationFailed(error, id)),     <span class="hljs-comment">// todo: serialise the error!</span>
+                        <span class="hljs-comment">// todo: ActorFinished (error ?)</span>
                     );
 
             }))
