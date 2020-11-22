@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.18.2 (2020-11-22)
+
+
+### Bug Fixes
+
+* **core:** better support for abilities that are discarded asynchronously ([fb130b6](https://github.com/serenity-js/serenity-js/commit/fb130b626074337735f944308db4982c30824485))
+
+
+
+
+
 ## 2.18.1 (2020-11-21)
 
 **Note:** Version bump only for package @integration/cucumber
