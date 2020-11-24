@@ -1,7 +1,7 @@
-import { ConfigurationError } from '../../errors';
+import { ConfigurationError, TestCompromisedError } from '../../errors';
 import { ActivityRelatedArtifactGenerated } from '../../events';
 import { Artifact, Name } from '../../model';
-import { Ability, AbilityType, Answerable, Discardable } from '../../screenplay';
+import { Ability, AbilityType, Answerable, Discardable, Initialisable } from '../../screenplay';
 import { Stage } from '../../stage';
 import { TrackedActivity } from '../activities';
 import { Activity } from '../Activity';
@@ -68,7 +68,7 @@ export class Actor implements
                     /* todo: add an execution strategy */
                     return current.performAs(this);
                 });
-            }, Promise.resolve(void 0));
+            }, this.initialiseAbilities());
     }
 
     /**
@@ -154,16 +154,9 @@ export class Actor implements
      * @returns {Promise<void>}
      */
     dismiss(): Promise<void> {
-        const abilitiesFrom = (map: Map<AbilityType<Ability>, Ability>): Ability[] =>
-            Array.from(map.values());
-
-        const discardable = (ability: Ability): boolean =>
-            'discard' in ability;
-
-        return abilitiesFrom(this.abilities)
-            .filter(discardable)
+        return this.findAbilitiesOfType('discard')
             .reduce((previous: Promise<void>, ability: (Discardable & Ability)) =>
-                    previous.then(() => Promise.resolve(ability.discard())),
+                    previous.then(() => ability.discard()),
                 Promise.resolve(void 0),
             ) as Promise<void>;
     }
@@ -181,7 +174,38 @@ export class Actor implements
     }
 
     /**
-     * @param doSomething
+     * @private
+     */
+    private initialiseAbilities(): Promise<void> {
+        return this.findAbilitiesOfType<Initialisable>('initialise', 'isInitialised')
+            .filter(ability => ! ability.isInitialised())
+            .reduce((previous: Promise<void>, ability: (Initialisable & Ability)) =>
+                    previous
+                        .then(() => ability.initialise())
+                        .catch(error => {
+                            throw new TestCompromisedError(`${ this.name } couldn't initialise the ability to ${ ability.constructor.name }`, error);
+                        }),
+                Promise.resolve(void 0),
+            )
+    }
+
+    /**
+     * @param {...string[]} methodNames
+     * @private
+     */
+    private findAbilitiesOfType<T>(...methodNames: Array<keyof T>): Array<Ability & T> {
+        const abilitiesFrom = (map: Map<AbilityType<Ability>, Ability>): Ability[] =>
+            Array.from(map.values());
+
+        const abilitiesWithDesiredMethods = (ability: Ability & T): boolean =>
+            methodNames.every(methodName => typeof(ability[methodName]) === 'function');
+
+        return abilitiesFrom(this.abilities)
+            .filter(abilitiesWithDesiredMethods) as Array<Ability & T>;
+    }
+
+    /**
+     * @param {string} doSomething
      * @private
      */
     private findAbilityTo<T extends Ability>(doSomething: AbilityType<T>): T | undefined {

@@ -5,6 +5,7 @@ export * from './abilities';
 export * from './actor';
 export * from './Answerable';
 export * from './Discardable';
+export * from './Initialisable';
 export * from './Interaction';
 export * from './interactions';
 export * from './Question';
