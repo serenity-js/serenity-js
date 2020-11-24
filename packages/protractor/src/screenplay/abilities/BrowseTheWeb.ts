@@ -1,6 +1,6 @@
 // tslint:disable:member-ordering
 
-import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
+import { Ability, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options, WebElement } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
@@ -87,7 +87,6 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<void>}
      */
     get(destination: string, timeoutInMillis?: number): Promise<void> {
-        // todo: throw compromised error if we can't load page
         return promiseOf(this.browser.get(destination, timeoutInMillis)
             .then(() => this.browser.getWindowHandle())
             .then(handle => {

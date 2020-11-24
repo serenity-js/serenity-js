@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, Duration, Interaction, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Duration, Interaction, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { promiseOf } from '../../promiseOf';
 import { BrowseTheWeb } from '../abilities';
@@ -197,9 +197,11 @@ class NavigateToUrl extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return actor.answer(this.url).then(url =>
-            BrowseTheWeb.as(actor).get(url),
-        );
+        return actor.answer(this.url)
+            .then(url => BrowseTheWeb.as(actor).get(url))
+            .catch(error => {
+                throw new TestCompromisedError(`Couldn't navigate to ${ this.url }`, error);
+            })
     }
 
     /**
