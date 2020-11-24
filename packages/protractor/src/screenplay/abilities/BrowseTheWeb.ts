@@ -1,6 +1,6 @@
 // tslint:disable:member-ordering
 
-import { Ability, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
+import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options, WebElement } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';

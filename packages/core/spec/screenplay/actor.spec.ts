@@ -1,11 +1,11 @@
 import 'mocha';
 
 import * as sinon from 'sinon';
-import { ConfigurationError } from '../../src/errors';
+import { ConfigurationError, TestCompromisedError } from '../../src/errors';
 
 import { InteractionFinished, InteractionStarts } from '../../src/events';
 import { CorrelationId, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
-import { Ability, Actor, See } from '../../src/screenplay';
+import { Ability, Actor, Initialisable, See } from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
 import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from './example-implementation';
@@ -96,19 +96,82 @@ describe('Actor', () => {
         });
     });
 
-    /** @test {Actor} */
-    it('admits if it does not have the Ability necessary to accomplish a given Interaction', () =>
+    describe('when using abilities', () => {
 
-        expect(actor('Ben').attemptsTo(
-            PlayAChord.of(Chords.AMajor),
-        )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
+        /** @test {Actor} */
+        it('admits if it does not have the Ability necessary to accomplish a given Interaction', () =>
 
-    /** @test {Actor} */
-    it('complains if given the same ability twice', () => {
+            expect(actor('Ben').attemptsTo(
+                PlayAChord.of(Chords.AMajor),
+            )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
 
-        expect(() =>
-            actor('Ben').whoCan(PlayAGuitar.suchAs(guitar), PlayAGuitar.suchAs(guitar))
-        ).to.throw(ConfigurationError, `Ben already has an ability to PlayAGuitar, so you don't need to give it to them again.`);
+        /** @test {Actor} */
+        it('complains if given the same ability twice', () => {
+
+            expect(() =>
+                actor('Ben').whoCan(PlayAGuitar.suchAs(guitar), PlayAGuitar.suchAs(guitar))
+            ).to.throw(ConfigurationError, `Ben already has an ability to PlayAGuitar, so you don't need to give it to them again.`);
+        });
+
+        describe('that have to be initialised', () => {
+
+            class UseDatabase implements Initialisable, Ability {
+                public callsToInitialise = 0;
+                private connection = null;
+
+                initialise(): Promise<void> | void {
+                    this.connection = 'some connection';
+
+                    this.callsToInitialise++;
+                }
+
+                isInitialised(): boolean {
+                    return !! this.connection;
+                }
+            }
+
+            class UseBrokenDatabase implements Initialisable, Ability {
+                initialise(): Promise<void> | void {
+                    throw new Error('DB server is down, please cheer it up');
+                }
+
+                isInitialised(): boolean {
+                    return false;
+                }
+            }
+
+            /** @test {Actor} */
+            it('initialises them upon the first call to attemptsTo', async () => {
+
+                const useDatabase = new UseDatabase();
+
+                await actor('Dibillo').whoCan(useDatabase).attemptsTo(/* */);
+
+                expect(useDatabase.isInitialised()).to.equal(true);
+            });
+
+            /** @test {Actor} */
+            it(`initialises them only if they haven't been initialised before`, async () => {
+
+                const useDatabase = new UseDatabase();
+
+                await actor('Dibillo').whoCan(useDatabase).attemptsTo(/* */);
+                await actor('Dibillo').whoCan(useDatabase).attemptsTo(/* */);
+                await actor('Dibillo').whoCan(useDatabase).attemptsTo(/* */);
+
+                expect(useDatabase.callsToInitialise).to.equal(1);
+            });
+
+            /** @test {Actor} */
+            it(`complains if the ability could not be initialised`, () => {
+
+                return expect(actor('Dibillo').whoCan(new UseBrokenDatabase()).attemptsTo(/* */))
+                    .to.be.rejectedWith(TestCompromisedError, `Dibillo couldn't initialise the ability to UseBrokenDatabase`)
+                    .then(error => {
+                        expect(error.cause.message).to.equal('DB server is down, please cheer it up')
+                    });
+            });
+        });
     });
 
     describe('DomainEvent handling', () => {
