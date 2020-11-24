@@ -2,8 +2,8 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Duration } from '@serenity-js/core';
-import { by } from 'protractor';
+import { actorCalled, Duration, TestCompromisedError } from '@serenity-js/core';
+import { by, error as errors } from 'protractor';
 
 import { Navigate, Target, Text, Website } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
@@ -14,17 +14,28 @@ describe('Navigate', () => {
     describe('to(url)', () => {
 
         /** @test {Navigate.to} */
-        it('allows the actor to navigate to a desired destination', () => actorCalled('Bernie').attemptsTo(
-            Navigate.to(pageFromTemplate(`
-                <html>
-                    <body>
-                        <h1 id="h">Hello World</h1>
-                    </body>
-                </html>
-            `)),
+        it('allows the actor to navigate to a desired destination', () =>
+            actorCalled('Bernie').attemptsTo(
+                Navigate.to(pageFromTemplate(`
+                    <html>
+                        <body>
+                            <h1 id="h">Hello World</h1>
+                        </body>
+                    </html>
+                `)),
 
-            Ensure.that(Text.of(Target.the('heading').located(by.id('h'))), equals('Hello World')),
-        ));
+                Ensure.that(Text.of(Target.the('heading').located(by.id('h'))), equals('Hello World')),
+            ));
+
+        /** @test {Navigate.to} */
+        it(`marks the test as compromised if the desired destination can't be reached`, () =>
+            expect(actorCalled('Bernie').attemptsTo(
+                Navigate.to('invalid-destination'),
+            )).
+            to.be.rejectedWith(TestCompromisedError, `Couldn't navigate to invalid-destination`).
+            then((error: TestCompromisedError) => {
+                expect(error.cause).to.be.instanceOf(errors.WebDriverError)
+            }));
 
         /** @test {Navigate.to} */
         /** @test {Navigate#toString} */
