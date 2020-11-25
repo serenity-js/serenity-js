@@ -154,7 +154,7 @@ export class Actor implements
      * @returns {Promise<void>}
      */
     dismiss(): Promise<void> {
-        return this.findAbilitiesOfType('discard')
+        return this.findAbilitiesOfType<Discardable>('discard')
             .reduce((previous: Promise<void>, ability: (Discardable & Ability)) =>
                     previous.then(() => ability.discard()),
                 Promise.resolve(void 0),
