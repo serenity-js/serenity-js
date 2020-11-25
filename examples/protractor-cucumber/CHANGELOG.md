@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.19.1 (2020-11-25)
+
+
+### Bug Fixes
+
+* **deps:** updated dependencies ([25e316d](https://github.com/serenity-js/serenity-js/commit/25e316d8d5db2e9c9e44914d2017a2b004cb6eb7))
+
+
+
+
+
 # 2.19.0 (2020-11-25)
 
 
