@@ -1,8 +1,8 @@
 import { LogicError } from '../../errors';
 import { Ability } from '../Ability';
 import { AnswersQuestions, UsesAbilities } from '../actor';
-import { Discardable } from '../Discardable';
 import { Question } from '../Question';
+import { Discardable } from './Discardable';
 
 /**
  * @desc

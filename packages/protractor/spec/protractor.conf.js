@@ -16,7 +16,9 @@ exports.config = {
     specs: [ '**/*.spec.ts' ],
 
     mochaOpts: {
-        compiler: 'ts:ts-node/register',
+        require: [
+            'ts-node/register',
+        ],
         reporter: 'dot',
     },
 
