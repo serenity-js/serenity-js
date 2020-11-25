@@ -5,13 +5,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # 2.19.0 (2020-11-25)
 
-
 ### Features
 
 * **protractor:** EXPERIMENTAL: Custom extensions can be mixed into BrowseTheWeb ([3b26baa](https://github.com/serenity-js/serenity-js/commit/3b26baab1f2c2108648d2c3093e69326aaa1dfc4))
-
-
-
+* **core** abilities can be initialised and discarded automatically ([e537ae9](https://github.com/serenity-js/serenity-js/commit/e537ae9147478404f77845a994951fbebc3b1f83))
+* **protractor** navigate.to marks test as compromised if the page couldn't be navigated to ([9823ff8](https://github.com/serenity-js/serenity-js/commit/9823ff8600c7aafeb41438f313f14258b4287988))
 
 
 ## 2.18.2 (2020-11-22)
