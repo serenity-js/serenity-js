@@ -100,10 +100,13 @@
 /** @external {@serenity-js/core/lib/screenplay~Ability} /modules/core/class/src/screenplay/Ability.ts~Ability.html */
 /** @external {@serenity-js/core/lib/screenplay~AbilityType} /modules/core/class/src/screenplay/AbilityType.ts~AbilityType.html */
 /** @external {@serenity-js/core/lib/screenplay~Activity} /modules/core/class/src/screenplay/Activity.ts~Activity.html */
-/** @external {@serenity-js/core/lib/screenplay~Discardable} /modules/core/class/src/screenplay/Discardable.ts~Discardable.html */
 /** @external {@serenity-js/core/lib/screenplay~Interaction} /modules/core/class/src/screenplay/Interaction.ts~Interaction.html */
 /** @external {@serenity-js/core/lib/screenplay~Question} /modules/core/class/src/screenplay/Question.ts~Question.html */
 /** @external {@serenity-js/core/lib/screenplay~Task} /modules/core/class/src/screenplay/Task.ts~Task.html */
+/** @external {@serenity-js/core/lib/screenplay/abilities~Discardable} /modules/core/class/src/screenplay/abilities/Discardable.ts~Discardable.html */
+/** @external {@serenity-js/core/lib/screenplay/abilities~Extendable} /modules/core/class/src/screenplay/abilities/Extendable.ts~Extendable.html */
+/** @external {@serenity-js/core/lib/screenplay/abilities~Extension} /modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html */
+/** @external {@serenity-js/core/lib/screenplay/abilities~Initialisable} /modules/core/class/src/screenplay/abilities/Initialisable.ts~Initialisable.html */
 /** @external {@serenity-js/core/lib/screenplay/abilities~TakeNotes} /modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~Actor} /modules/core/class/src/screenplay/actor/Actor.ts~Actor.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} /modules/core/class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html */

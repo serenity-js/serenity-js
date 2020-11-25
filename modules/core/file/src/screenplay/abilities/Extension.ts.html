@@ -217,9 +217,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extendable.ts~Extendable.html">Extendable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
@@ -261,65 +264,14 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Discardable} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay&apos;</span></code></pre></div>
-  <span data-ice="access">public</span>
-  <span data-ice="kind">interface</span>
-  
-  
-  
-  <span data-ice="source">| <span><a href="file/src/screenplay/Discardable.ts.html#lineNumber19">source</a></span></span>
-</div>
-
-<div class="self-detail detail">
-  <h1 data-ice="name">Discardable</h1>
-
-  
-
-  <div class="description" data-ice="description"><p> An interface to be implemented by any <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> that needs to free up
- the resources it uses.</p>
-<p> This method is invoked directly by the <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>, and indirectly by <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>:</p>
-<ul>
-<li>when <span><a href="class/src/events/SceneFinishes.ts~SceneFinishes.html">SceneFinishes</a></span>, for actors instantiated after <span><a href="class/src/events/SceneStarts.ts~SceneStarts.html">SceneStarts</a></span> - i.e. within a test scenario or in a &quot;before each&quot; hook</li>
-<li>when <span><a href="class/src/events/TestRunFinishes.ts~TestRunFinishes.html">TestRunFinishes</a></span>, for actors instantiated before <span><a href="class/src/events/SceneStarts.ts~SceneStarts.html">SceneStarts</a></span> - i.e. in a &quot;before all&quot; hook</li>
-</ul>
-</div>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+                <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/Extension.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
+ * <span class="hljs-doctag">@experimental</span>
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Extension&lt;Subject&gt; {
+    applyTo(subject: Subject): <span class="hljs-built_in">Promise</span>&lt;Subject&gt; | Subject;
+}
+</code></pre>
 
 </article>
             </section>

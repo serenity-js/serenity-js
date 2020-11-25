@@ -178,8 +178,8 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 <span class="hljs-keyword">import</span> { endsWith, Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled, Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled, Duration, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { by, error <span class="hljs-keyword">as</span> errors } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
 <span class="hljs-keyword">import</span> { Navigate, Target, Text, Website } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
@@ -190,17 +190,28 @@ describe(<span class="hljs-string">&apos;Navigate&apos;</span>, <span class="hlj
     describe(<span class="hljs-string">&apos;to(url)&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.to}</span> </span>*/</span>
-        it(<span class="hljs-string">&apos;allows the actor to navigate to a desired destination&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
-            Navigate.to(pageFromTemplate(<span class="hljs-string">`
-                &lt;html&gt;
-                    &lt;body&gt;
-                        &lt;h1 id=&quot;h&quot;&gt;Hello World&lt;/h1&gt;
-                    &lt;/body&gt;
-                &lt;/html&gt;
-            `</span>)),
+        it(<span class="hljs-string">&apos;allows the actor to navigate to a desired destination&apos;</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+                Navigate.to(pageFromTemplate(<span class="hljs-string">`
+                    &lt;html&gt;
+                        &lt;body&gt;
+                            &lt;h1 id=&quot;h&quot;&gt;Hello World&lt;/h1&gt;
+                        &lt;/body&gt;
+                    &lt;/html&gt;
+                `</span>)),
 
-            Ensure.that(Text.of(Target.the(<span class="hljs-string">&apos;heading&apos;</span>).located(by.id(<span class="hljs-string">&apos;h&apos;</span>))), equals(<span class="hljs-string">&apos;Hello World&apos;</span>)),
-        ));
+                Ensure.that(Text.of(Target.the(<span class="hljs-string">&apos;heading&apos;</span>).located(by.id(<span class="hljs-string">&apos;h&apos;</span>))), equals(<span class="hljs-string">&apos;Hello World&apos;</span>)),
+            ));
+
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.to}</span> </span>*/</span>
+        it(<span class="hljs-string">`marks the test as compromised if the desired destination can&apos;t be reached`</span>, <span class="hljs-function">() =&gt;</span>
+            expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+                Navigate.to(<span class="hljs-string">&apos;invalid-destination&apos;</span>),
+            )).
+            to.be.rejectedWith(TestCompromisedError, <span class="hljs-string">`Couldn&apos;t navigate to invalid-destination`</span>).
+            then(<span class="hljs-function">(<span class="hljs-params">error: TestCompromisedError</span>) =&gt;</span> {
+                expect(error.cause).to.be.instanceOf(errors.WebDriverError)
+            }));
 
         <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate.to}</span> </span>*/</span>
         <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Navigate#toString}</span> </span>*/</span>

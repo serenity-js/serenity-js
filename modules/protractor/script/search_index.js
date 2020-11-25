@@ -1032,6 +1032,30 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/abilities~discardable",
+    "/modules/core/class/src/screenplay/abilities/Discardable.ts~Discardable.html",
+    "@serenity-js/core/lib/screenplay/abilities~Discardable",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/abilities~extendable",
+    "/modules/core/class/src/screenplay/abilities/Extendable.ts~Extendable.html",
+    "@serenity-js/core/lib/screenplay/abilities~Extendable",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/abilities~extension",
+    "/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html",
+    "@serenity-js/core/lib/screenplay/abilities~Extension",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/abilities~initialisable",
+    "/modules/core/class/src/screenplay/abilities/Initialisable.ts~Initialisable.html",
+    "@serenity-js/core/lib/screenplay/abilities~Initialisable",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/abilities~takenotes",
     "/modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html",
     "@serenity-js/core/lib/screenplay/abilities~TakeNotes",
@@ -1197,12 +1221,6 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay~activity",
     "/modules/core/class/src/screenplay/Activity.ts~Activity.html",
     "@serenity-js/core/lib/screenplay~Activity",
-    "external"
-  ],
-  [
-    "@serenity-js/core/lib/screenplay~discardable",
-    "/modules/core/class/src/screenplay/Discardable.ts~Discardable.html",
-    "@serenity-js/core/lib/screenplay~Discardable",
     "external"
   ],
   [
@@ -1540,6 +1558,36 @@ window.esdocSearchIndex = [
     "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73",
     "AxiosResponse",
     "external"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber8",
+    "BrowseTheWeb",
+    "test"
+  ],
+  [
+    "browsetheweb#with browsetheweb#with,browsetheweb#with",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber194",
+    "BrowseTheWeb complains if the extension is registered more than once",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber51",
+    "BrowseTheWeb when extended",
+    "test"
+  ],
+  [
+    "browsetheweb#with browsetheweb#with,browsetheweb#with",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber176",
+    "BrowseTheWeb when extended complains if the extension is not available",
+    "test"
+  ],
+  [
+    "browsetheweb#with browsetheweb#with,browsetheweb#with",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber169",
+    "BrowseTheWeb when extended initialises the extensions correctly",
+    "test"
   ],
   [
     "",
@@ -2257,55 +2305,55 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber47",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber58",
     "Navigate back",
     "test"
   ],
   [
     "navigate.back src/screenplay/interactions/navigate.ts~navigate.back,navigate.back",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber50",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber61",
     "Navigate back allows the actor to navigate back in the browser history",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber61",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber72",
     "Navigate back provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber67",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber78",
     "Navigate forward",
     "test"
   ],
   [
     "navigate.forward src/screenplay/interactions/navigate.ts~navigate.forward,navigate.forward",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber70",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber81",
     "Navigate forward allows the actor to navigate forward in the browser history",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber82",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber93",
     "Navigate forward provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber88",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber99",
     "Navigate reloadPage",
     "test"
   ],
   [
     "navigate.reloadpage src/screenplay/interactions/navigate.ts~navigate.reloadpage,navigate.reloadpage",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber91",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber102",
     "Navigate reloadPage allows the actor to navigate to a desired destination",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber112",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber123",
     "Navigate reloadPage provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -2317,25 +2365,31 @@ window.esdocSearchIndex = [
   ],
   [
     "navigate.to src/screenplay/interactions/navigate.ts~navigate.to,navigate.to",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber31",
+    "Navigate to(url) ",
+    "test"
+  ],
+  [
+    "navigate.to src/screenplay/interactions/navigate.ts~navigate.to,navigate.to",
     "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber17",
     "Navigate to(url) allows the actor to navigate to a desired destination",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber31",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber42",
     "Navigate to(url) provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber37",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber48",
     "Navigate to(url).withTimeout(duration)",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber41",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber52",
     "Navigate to(url).withTimeout(duration) provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -4230,6 +4284,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/abilities/browsetheweb.spec.ts",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html",
+    "spec/screenplay/abilities/BrowseTheWeb.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/interactions/clear.spec.ts",
     "test-file/spec/screenplay/interactions/Clear.spec.ts.html",
     "spec/screenplay/interactions/Clear.spec.ts",
@@ -4626,6 +4686,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#discard",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-discard",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#discard",
+    "method"
+  ],
+  [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#enableangularsynchronisation",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-enableAngularSynchronisation",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#enableAngularSynchronisation",
@@ -4641,6 +4707,18 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#executescript",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-executeScript",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#executeScript",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#extendedwith",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extendedWith",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#extendedWith",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#extension",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extension",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#extension",
     "method"
   ],
   [
@@ -4689,6 +4767,18 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#gettitle",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getTitle",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#getTitle",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#initialise",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-initialise",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#initialise",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#isinitialised",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-isInitialised",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#isInitialised",
     "method"
   ],
   [

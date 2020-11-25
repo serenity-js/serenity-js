@@ -217,9 +217,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extendable.ts~Extendable.html">Extendable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
@@ -265,11 +268,11 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
-<span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
+<span class="hljs-keyword">import</span> { ConfigurationError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/errors&apos;</span>;
 
 <span class="hljs-keyword">import</span> { InteractionFinished, InteractionStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/events&apos;</span>;
 <span class="hljs-keyword">import</span> { CorrelationId, ExecutionSuccessful, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
-<span class="hljs-keyword">import</span> { Ability, Actor, See } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { Ability, Actor, Initialisable, See } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/stage&apos;</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
 <span class="hljs-keyword">import</span> { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./example-implementation&apos;</span>;
@@ -360,19 +363,82 @@ describe(<span class="hljs-string">&apos;Actor&apos;</span>, <span class="hljs-f
         });
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;admits if it does not have the Ability necessary to accomplish a given Interaction&apos;</span>, <span class="hljs-function">() =&gt;</span>
+    describe(<span class="hljs-string">&apos;when using abilities&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
-        expect(actor(<span class="hljs-string">&apos;Ben&apos;</span>).attemptsTo(
-            PlayAChord.of(Chords.AMajor),
-        )).to.be.eventually.rejectedWith(ConfigurationError, <span class="hljs-string">`Ben can&apos;t PlayAGuitar yet. Did you give them the ability to do so?`</span>));
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
+        it(<span class="hljs-string">&apos;admits if it does not have the Ability necessary to accomplish a given Interaction&apos;</span>, <span class="hljs-function">() =&gt;</span>
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;complains if given the same ability twice&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            expect(actor(<span class="hljs-string">&apos;Ben&apos;</span>).attemptsTo(
+                PlayAChord.of(Chords.AMajor),
+            )).to.be.eventually.rejectedWith(ConfigurationError, <span class="hljs-string">`Ben can&apos;t PlayAGuitar yet. Did you give them the ability to do so?`</span>));
 
-        expect(<span class="hljs-function">() =&gt;</span>
-            actor(<span class="hljs-string">&apos;Ben&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar), PlayAGuitar.suchAs(guitar))
-        ).to.throw(ConfigurationError, <span class="hljs-string">`Ben already has an ability to PlayAGuitar, so you don&apos;t need to give it to them again.`</span>);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
+        it(<span class="hljs-string">&apos;complains if given the same ability twice&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+            expect(<span class="hljs-function">() =&gt;</span>
+                actor(<span class="hljs-string">&apos;Ben&apos;</span>).whoCan(PlayAGuitar.suchAs(guitar), PlayAGuitar.suchAs(guitar))
+            ).to.throw(ConfigurationError, <span class="hljs-string">`Ben already has an ability to PlayAGuitar, so you don&apos;t need to give it to them again.`</span>);
+        });
+
+        describe(<span class="hljs-string">&apos;that have to be initialised&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UseDatabase</span> <span class="hljs-title">implements</span> <span class="hljs-title">Initialisable</span>, <span class="hljs-title">Ability</span> </span>{
+                <span class="hljs-keyword">public</span> callsToInitialise = <span class="hljs-number">0</span>;
+                <span class="hljs-keyword">private</span> connection = <span class="hljs-literal">null</span>;
+
+                initialise(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
+                    <span class="hljs-built_in">this</span>.connection = <span class="hljs-string">&apos;some connection&apos;</span>;
+
+                    <span class="hljs-built_in">this</span>.callsToInitialise++;
+                }
+
+                isInitialised(): <span class="hljs-built_in">boolean</span> {
+                    <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.connection;
+                }
+            }
+
+            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UseBrokenDatabase</span> <span class="hljs-title">implements</span> <span class="hljs-title">Initialisable</span>, <span class="hljs-title">Ability</span> </span>{
+                initialise(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;DB server is down, please cheer it up&apos;</span>);
+                }
+
+                isInitialised(): <span class="hljs-built_in">boolean</span> {
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+                }
+            }
+
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
+            it(<span class="hljs-string">&apos;initialises them upon the first call to attemptsTo&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+
+                <span class="hljs-keyword">const</span> useDatabase = <span class="hljs-keyword">new</span> UseDatabase();
+
+                <span class="hljs-keyword">await</span> actor(<span class="hljs-string">&apos;Dibillo&apos;</span>).whoCan(useDatabase).attemptsTo(<span class="hljs-comment">/* */</span>);
+
+                expect(useDatabase.isInitialised()).to.equal(<span class="hljs-literal">true</span>);
+            });
+
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
+            it(<span class="hljs-string">`initialises them only if they haven&apos;t been initialised before`</span>, <span class="hljs-keyword">async</span> () =&gt; {
+
+                <span class="hljs-keyword">const</span> useDatabase = <span class="hljs-keyword">new</span> UseDatabase();
+
+                <span class="hljs-keyword">await</span> actor(<span class="hljs-string">&apos;Dibillo&apos;</span>).whoCan(useDatabase).attemptsTo(<span class="hljs-comment">/* */</span>);
+                <span class="hljs-keyword">await</span> actor(<span class="hljs-string">&apos;Dibillo&apos;</span>).whoCan(useDatabase).attemptsTo(<span class="hljs-comment">/* */</span>);
+                <span class="hljs-keyword">await</span> actor(<span class="hljs-string">&apos;Dibillo&apos;</span>).whoCan(useDatabase).attemptsTo(<span class="hljs-comment">/* */</span>);
+
+                expect(useDatabase.callsToInitialise).to.equal(<span class="hljs-number">1</span>);
+            });
+
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
+            it(<span class="hljs-string">`complains if the ability could not be initialised`</span>, <span class="hljs-function">() =&gt;</span> {
+
+                <span class="hljs-keyword">return</span> expect(actor(<span class="hljs-string">&apos;Dibillo&apos;</span>).whoCan(<span class="hljs-keyword">new</span> UseBrokenDatabase()).attemptsTo(<span class="hljs-comment">/* */</span>))
+                    .to.be.rejectedWith(TestCompromisedError, <span class="hljs-string">`Dibillo couldn&apos;t initialise the ability to UseBrokenDatabase`</span>)
+                    .then(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                        expect(error.cause.message).to.equal(<span class="hljs-string">&apos;DB server is down, please cheer it up&apos;</span>)
+                    });
+            });
+        });
     });
 
     describe(<span class="hljs-string">&apos;DomainEvent handling&apos;</span>, <span class="hljs-function">() =&gt;</span> {

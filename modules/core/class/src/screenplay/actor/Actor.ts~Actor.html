@@ -217,9 +217,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extendable.ts~Extendable.html">Extendable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
@@ -304,9 +307,12 @@
 <li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber81">Actor performs composite Tasks recursively to accomplish their Business Goals</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber94">Actor asks Questions about the state of the system fulfills the promise should the question be answered as expected</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber104">Actor asks Questions about the state of the system rejects the promise should the answer differ from what was expected</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber116">Actor admits if it does not have the Ability necessary to accomplish a given Interaction</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber123">Actor complains if given the same ability twice</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber150">Actor DomainEvent handling announces the events that activities it performs notifies when an activity begins and ends</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber118">Actor when using abilities admits if it does not have the Ability necessary to accomplish a given Interaction</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber125">Actor when using abilities complains if given the same ability twice</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber236">Actor when using abilities that have to be initialised initialises them upon the first call to attemptsTo</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber246">Actor when using abilities that have to be initialised </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber258">Actor when using abilities that have to be initialised </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber289">Actor DomainEvent handling announces the events that activities it performs notifies when an activity begins and ends</a></span></li>
 </ul>
   </div>
 
@@ -498,7 +504,7 @@
         
         
         <div data-ice="description"><p> Instructs the actor to invoke <span>Discardable#discard</span> method on any
- <span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span> <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> it&apos;s been configured with.</p>
+ <span><a href="class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span> <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> it&apos;s been configured with.</p>
 </div>
       </div>
     </td>
@@ -931,7 +937,7 @@
   
   
   <div data-ice="description"><p> Instructs the actor to invoke <span>Discardable#discard</span> method on any
- <span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span> <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> it&apos;s been configured with.</p>
+ <span><a href="class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span> <span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> it&apos;s been configured with.</p>
 </div>
 
   
@@ -980,7 +986,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber289">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/actor/Actor.ts.html#lineNumber282">source</a></span></span>
     </span>
   </h3>
 

@@ -192,9 +192,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@serenity-js/core/lib/screenplay~discardable",
-    "class/src/screenplay/Discardable.ts~Discardable.html",
-    "<span>Discardable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay</span>",
+    "@serenity-js/core/lib/screenplay/abilities~discardable",
+    "class/src/screenplay/abilities/Discardable.ts~Discardable.html",
+    "<span>Discardable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/abilities</span>",
     "class"
   ],
   [
@@ -264,6 +264,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/screenplay/abilities~extendable",
+    "class/src/screenplay/abilities/Extendable.ts~Extendable.html",
+    "<span>Extendable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/abilities</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/abilities~extension",
+    "class/src/screenplay/abilities/Extension.ts~Extension.html",
+    "<span>Extension</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/abilities</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/events~featurenarrativedetected",
     "class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html",
     "<span>FeatureNarrativeDetected</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/events</span>",
@@ -303,6 +315,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/errors~implementationpendingerror",
     "class/src/errors/ImplementationPendingError.ts~ImplementationPendingError.html",
     "<span>ImplementationPendingError</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/errors</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/abilities~initialisable",
+    "class/src/screenplay/abilities/Initialisable.ts~Initialisable.html",
+    "<span>Initialisable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/abilities</span>",
     "class"
   ],
   [
@@ -847,26 +865,20 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber130",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber269",
     "Actor DomainEvent handling",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber147",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber286",
     "Actor DomainEvent handling announces the events that activities it performs",
     "test"
   ],
   [
     "actor src/screenplay/actor/actor.ts~actor,actor",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber150",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber289",
     "Actor DomainEvent handling announces the events that activities it performs notifies when an activity begins and ends",
-    "test"
-  ],
-  [
-    "actor src/screenplay/actor/actor.ts~actor,actor",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber116",
-    "Actor admits if it does not have the Ability necessary to accomplish a given Interaction",
     "test"
   ],
   [
@@ -895,12 +907,6 @@ window.esdocSearchIndex = [
   ],
   [
     "actor src/screenplay/actor/actor.ts~actor,actor",
-    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber123",
-    "Actor complains if given the same ability twice",
-    "test"
-  ],
-  [
-    "actor src/screenplay/actor/actor.ts~actor,actor",
     "test-file/spec/screenplay/actor.spec.ts.html#lineNumber71",
     "Actor has Abilities allowing them to perform Activities and interact with a given interface of the system under test",
     "test"
@@ -915,6 +921,48 @@ window.esdocSearchIndex = [
     "actor src/screenplay/actor/actor.ts~actor,actor",
     "test-file/spec/screenplay/actor.spec.ts.html#lineNumber54",
     "Actor provides a developer-friendly toString",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber115",
+    "Actor when using abilities",
+    "test"
+  ],
+  [
+    "actor src/screenplay/actor/actor.ts~actor,actor",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber118",
+    "Actor when using abilities admits if it does not have the Ability necessary to accomplish a given Interaction",
+    "test"
+  ],
+  [
+    "actor src/screenplay/actor/actor.ts~actor,actor",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber125",
+    "Actor when using abilities complains if given the same ability twice",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber132",
+    "Actor when using abilities that have to be initialised",
+    "test"
+  ],
+  [
+    "actor src/screenplay/actor/actor.ts~actor,actor",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber246",
+    "Actor when using abilities that have to be initialised ",
+    "test"
+  ],
+  [
+    "actor src/screenplay/actor/actor.ts~actor,actor",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber258",
+    "Actor when using abilities that have to be initialised ",
+    "test"
+  ],
+  [
+    "actor src/screenplay/actor/actor.ts~actor,actor",
+    "test-file/spec/screenplay/actor.spec.ts.html#lineNumber236",
+    "Actor when using abilities that have to be initialised initialises them upon the first call to attemptsTo",
     "test"
   ],
   [
@@ -4614,12 +4662,6 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "src/screenplay/discardable.ts",
-    "file/src/screenplay/Discardable.ts.html",
-    "src/screenplay/Discardable.ts",
-    "file"
-  ],
-  [
     "src/screenplay/interaction.ts",
     "file/src/screenplay/Interaction.ts.html",
     "src/screenplay/Interaction.ts",
@@ -4690,6 +4732,36 @@ window.esdocSearchIndex = [
     "class/src/screenplay/Task.ts~Task.html#static-method-where",
     "src/screenplay/Task.ts~Task.where",
     "method"
+  ],
+  [
+    "src/screenplay/abilities/discardable.ts",
+    "file/src/screenplay/abilities/Discardable.ts.html",
+    "src/screenplay/abilities/Discardable.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/abilities/extendable.ts",
+    "file/src/screenplay/abilities/Extendable.ts.html",
+    "src/screenplay/abilities/Extendable.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/abilities/extension.ts",
+    "file/src/screenplay/abilities/Extension.ts.html",
+    "src/screenplay/abilities/Extension.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/abilities/extensiontype.ts",
+    "file/src/screenplay/abilities/ExtensionType.ts.html",
+    "src/screenplay/abilities/ExtensionType.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/abilities/initialisable.ts",
+    "file/src/screenplay/abilities/Initialisable.ts.html",
+    "src/screenplay/abilities/Initialisable.ts",
+    "file"
   ],
   [
     "src/screenplay/abilities/takenotes.ts",

@@ -217,9 +217,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extendable.ts~Extendable.html">Extendable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
@@ -1259,31 +1262,59 @@
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber116"><p>admits if it does not have the Ability necessary to accomplish a given Interaction</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber123"><p>complains if given the same ability twice</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber130"><p>DomainEvent handling</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber115"><p>when using abilities</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber147"><p>announces the events that activities it performs</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber118"><p>admits if it does not have the Ability necessary to accomplish a given Interaction</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber125"><p>complains if given the same ability twice</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber132"><p>that have to be initialised</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
-  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber150"><p>notifies when an activity begins and ends</p>
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber236"><p>initialises them upon the first call to attemptsTo</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber246">spec/screenplay/actor.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber258">spec/screenplay/actor.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber269"><p>DomainEvent handling</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber286"><p>announces the events that activities it performs</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/actor.spec.ts.html#lineNumber289"><p>notifies when an activity begins and ends</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></td>
 </tr>

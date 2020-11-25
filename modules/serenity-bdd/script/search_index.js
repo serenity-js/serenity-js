@@ -720,6 +720,30 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/abilities~discardable",
+    "/modules/core/class/src/screenplay/abilities/Discardable.ts~Discardable.html",
+    "@serenity-js/core/lib/screenplay/abilities~Discardable",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/abilities~extendable",
+    "/modules/core/class/src/screenplay/abilities/Extendable.ts~Extendable.html",
+    "@serenity-js/core/lib/screenplay/abilities~Extendable",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/abilities~extension",
+    "/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html",
+    "@serenity-js/core/lib/screenplay/abilities~Extension",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/abilities~initialisable",
+    "/modules/core/class/src/screenplay/abilities/Initialisable.ts~Initialisable.html",
+    "@serenity-js/core/lib/screenplay/abilities~Initialisable",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/abilities~takenotes",
     "/modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html",
     "@serenity-js/core/lib/screenplay/abilities~TakeNotes",
@@ -885,12 +909,6 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay~activity",
     "/modules/core/class/src/screenplay/Activity.ts~Activity.html",
     "@serenity-js/core/lib/screenplay~Activity",
-    "external"
-  ],
-  [
-    "@serenity-js/core/lib/screenplay~discardable",
-    "/modules/core/class/src/screenplay/Discardable.ts~Discardable.html",
-    "@serenity-js/core/lib/screenplay~Discardable",
     "external"
   ],
   [

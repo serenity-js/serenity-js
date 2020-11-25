@@ -210,23 +210,23 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using the protractor.browser</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
+ <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+ <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Wendy&apos;</span>).whoCan(
-    BrowseTheWeb.using(protractor.browser),
-);
+ <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Wendy&apos;</span>).whoCan(
+     BrowseTheWeb.using(protractor.browser),
+ );
 
-<span class="hljs-keyword">const</span> HomePage = {
-    <span class="hljs-attr">Title</span>: Target.the(<span class="hljs-string">&apos;title&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>)),
-};
+ <span class="hljs-keyword">const</span> HomePage = {
+     <span class="hljs-attr">Title</span>: Target.the(<span class="hljs-string">&apos;title&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>)),
+ };
 
-actor.attemptsTo(
-    Navigate.to(<span class="hljs-string">`https://serenity-js.org`</span>),
-    Ensure.that(Text.of(HomePage.Title), equals(<span class="hljs-string">&apos;Serenity/JS&apos;</span>)),
-);</code></pre>
+ actor.attemptsTo(
+     Navigate.to(<span class="hljs-string">`https://serenity-js.org`</span>),
+     Ensure.that(Text.of(HomePage.Title), equals(<span class="hljs-string">&apos;Serenity/JS&apos;</span>)),
+ );</code></pre>
     </div>
 </div>
 
@@ -450,6 +450,37 @@ actor.attemptsTo(
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-discard">discard</a></span></span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Discards any <span><a href="/modules/core/class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span>
+ <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span>s this ability has been
+ configured <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extendedWith">extendedWith</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-enableAngularSynchronisation">enableAngularSynchronisation</a></span></span><span class="code" data-ice="signature">(enable: <span>boolean</span>): <span>Promise</span>&lt;<span>boolean</span>&gt;</span>
         </p>
       </div>
@@ -516,6 +547,66 @@ tasks to complete before interacting with the browser.</p>
         
         
         <div data-ice="description"><p> Schedules a command to execute JavaScript in the context of the currently selected frame or window.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extendedWith">extendedWith</a></span></span><span class="code" data-ice="signature">(extension: <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span>): <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        <div class="experimental" data-ice="experimental">this method is experimental.</div>
+        <div data-ice="description"><p> Adds an <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span> to the list
+ of extensions to be applied to <span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span> when the ability is initialised
+ (see <span><a href="/modules/core/class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span>).</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extension">extension</a></span></span><span class="code" data-ice="signature">(extensionType: <span>ExtensionType</span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>&gt;): <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        <div class="experimental" data-ice="experimental">this method is experimental.</div>
+        <div data-ice="description"><p> Retrieves an extension by type, provided that one has already been added via <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extendedWith">extendedWith</a></span>.</p>
 </div>
       </div>
     </td>
@@ -749,6 +840,65 @@ tasks to complete before interacting with the browser.</p>
         
         
         <div data-ice="description"><p> Returns the title of the current page.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-initialise">initialise</a></span></span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Initialises any <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span>s this ability has been
+ configured <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extendedWith">extendedWith</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-isInitialised">isInitialised</a></span></span><span class="code" data-ice="signature">(): <span>boolean</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Whether or not all the extensions have been initialised and the ability is ready to be used.</p>
 </div>
       </div>
     </td>
@@ -1132,7 +1282,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber127">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber152">source</a></span></span>
     </span>
   </h3>
 
@@ -1205,7 +1355,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber100">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber125">source</a></span></span>
     </span>
   </h3>
 
@@ -1280,7 +1430,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber135">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber160">source</a></span></span>
     </span>
   </h3>
 
@@ -1344,7 +1494,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber214">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber450">source</a></span></span>
     </span>
   </h3>
 
@@ -1401,7 +1551,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber273">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber509">source</a></span></span>
     </span>
   </h3>
 
@@ -1463,7 +1613,7 @@ if there are no open alerts.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber543">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber779">source</a></span></span>
     </span>
   </h3>
 
@@ -1508,6 +1658,64 @@ if there are no open alerts.</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-discard">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">discard</span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber318">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Discards any <span><a href="/modules/core/class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span>
+ <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span>s this ability has been
+ configured <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extendedWith">extendedWith</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>void</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-enableAngularSynchronisation">
     <span class="access" data-ice="access">public</span>
     
@@ -1519,7 +1727,7 @@ if there are no open alerts.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber633">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber869">source</a></span></span>
     </span>
   </h3>
 
@@ -1612,7 +1820,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber773">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1009">source</a></span></span>
     </span>
   </h3>
 
@@ -1732,7 +1940,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber696">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber932">source</a></span></span>
     </span>
   </h3>
 
@@ -1837,6 +2045,155 @@ in protractor configuration:</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-extendedWith">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">extendedWith</span><span class="code" data-ice="signature">(extension: <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span>): <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber191">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  <div class="experimental" data-ice="experimental">this method is experimental.</div>
+  <div data-ice="description"><p> Adds an <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span> to the list
+ of extensions to be applied to <span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span> when the ability is initialised
+ (see <span><a href="/modules/core/class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span>).</p>
+<p> If the <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span> is
+ <span><a href="/modules/core/class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span>, it will be discarded
+ together with this <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">extension</td>
+      <td data-ice="type" class="code"><span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-extension">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">extension</span><span class="code" data-ice="signature">(extensionType: <span>ExtensionType</span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>&gt;): <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber255">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  <div class="experimental" data-ice="experimental">this method is experimental.</div>
+  <div data-ice="description"><p> Retrieves an extension by type, provided that one has already been added via <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extendedWith">extendedWith</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">extensionType</td>
+      <td data-ice="type" class="code"><span>ExtensionType</span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ProtractorBrowser">ProtractorBrowser</a></span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-get">
     <span class="access" data-ice="access">public</span>
     
@@ -1848,7 +2205,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber163">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber400">source</a></span></span>
     </span>
   </h3>
 
@@ -1927,7 +2284,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber522">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber758">source</a></span></span>
     </span>
   </h3>
 
@@ -1987,7 +2344,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber876">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1112">source</a></span></span>
     </span>
   </h3>
 
@@ -2047,7 +2404,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber851">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1087">source</a></span></span>
     </span>
   </h3>
 
@@ -2103,7 +2460,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber496">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber732">source</a></span></span>
     </span>
   </h3>
 
@@ -2161,7 +2518,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber949">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1185">source</a></span></span>
     </span>
   </h3>
 
@@ -2218,7 +2575,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber471">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber707">source</a></span></span>
     </span>
   </h3>
 
@@ -2275,7 +2632,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber830">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1066">source</a></span></span>
     </span>
   </h3>
 
@@ -2320,6 +2677,119 @@ in protractor configuration:</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-initialise">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">initialise</span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber285">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Initialises any <span><a href="/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span>s this ability has been
+ configured <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extendedWith">extendedWith</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>void</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-isInitialised">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">isInitialised</span><span class="code" data-ice="signature">(): <span>boolean</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber371">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Whether or not all the extensions have been initialised and the ability is ready to be used.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>boolean</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-locate">
     <span class="access" data-ice="access">public</span>
     
@@ -2331,7 +2801,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber567">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber803">source</a></span></span>
     </span>
   </h3>
 
@@ -2403,7 +2873,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber591">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber827">source</a></span></span>
     </span>
   </h3>
 
@@ -2475,7 +2945,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber237">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber473">source</a></span></span>
     </span>
   </h3>
 
@@ -2531,7 +3001,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber190">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber426">source</a></span></span>
     </span>
   </h3>
 
@@ -2587,7 +3057,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber900">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1136">source</a></span></span>
     </span>
   </h3>
 
@@ -2659,7 +3129,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber346">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber582">source</a></span></span>
     </span>
   </h3>
 
@@ -2717,7 +3187,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber300">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber536">source</a></span></span>
     </span>
   </h3>
 
@@ -2791,7 +3261,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber445">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber681">source</a></span></span>
     </span>
   </h3>
 
@@ -2847,7 +3317,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber323">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber559">source</a></span></span>
     </span>
   </h3>
 
@@ -2904,7 +3374,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber372">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber608">source</a></span></span>
     </span>
   </h3>
 
@@ -2977,7 +3447,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber807">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1043">source</a></span></span>
     </span>
   </h3>
 
@@ -3041,7 +3511,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber927">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1163">source</a></span></span>
     </span>
   </h3>
 

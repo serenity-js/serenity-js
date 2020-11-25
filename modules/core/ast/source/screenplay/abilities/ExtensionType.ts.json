@@ -1,0 +1,662 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 229,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 14,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 229,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 14,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 40,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 40
+          }
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
+            "start": 41,
+            "end": 85,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @experimental\n ",
+            "start": 88,
+            "end": 112,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 18,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 18
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 18,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 18
+                },
+                "identifierName": "Extension"
+              },
+              "name": "Extension"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 18,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 18
+                },
+                "identifierName": "Extension"
+              },
+              "name": "Extension"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 26,
+          "end": 39,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 26
+            },
+            "end": {
+              "line": 1,
+              "column": 39
+            }
+          },
+          "extra": {
+            "rawValue": "./Extension",
+            "raw": "'./Extension'"
+          },
+          "value": "./Extension"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 113,
+        "end": 228,
+        "loc": {
+          "start": {
+            "line": 13,
+            "column": 0
+          },
+          "end": {
+            "line": 13,
+            "column": 115
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
+            "start": 41,
+            "end": 85,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @experimental\n ",
+            "start": 88,
+            "end": 112,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "exportKind": "type",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "TSTypeAliasDeclaration",
+          "start": 120,
+          "end": 228,
+          "loc": {
+            "start": {
+              "line": 13,
+              "column": 7
+            },
+            "end": {
+              "line": 13,
+              "column": 115
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 125,
+            "end": 138,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 12
+              },
+              "end": {
+                "line": 13,
+                "column": 25
+              },
+              "identifierName": "ExtensionType"
+            },
+            "name": "ExtensionType"
+          },
+          "typeParameters": {
+            "type": "TSTypeParameterDeclaration",
+            "start": 138,
+            "end": 199,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 25
+              },
+              "end": {
+                "line": 13,
+                "column": 86
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeParameter",
+                "start": 139,
+                "end": 146,
+                "loc": {
+                  "start": {
+                    "line": 13,
+                    "column": 26
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 33
+                  }
+                },
+                "name": "Subject"
+              },
+              {
+                "type": "TSTypeParameter",
+                "start": 148,
+                "end": 198,
+                "loc": {
+                  "start": {
+                    "line": 13,
+                    "column": 35
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 85
+                  }
+                },
+                "name": "ET",
+                "constraint": {
+                  "type": "TSTypeReference",
+                  "start": 159,
+                  "end": 177,
+                  "loc": {
+                    "start": {
+                      "line": 13,
+                      "column": 46
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 64
+                    }
+                  },
+                  "typeName": {
+                    "type": "Identifier",
+                    "start": 159,
+                    "end": 168,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 46
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 55
+                      },
+                      "identifierName": "Extension"
+                    },
+                    "name": "Extension"
+                  },
+                  "typeParameters": {
+                    "type": "TSTypeParameterInstantiation",
+                    "start": 168,
+                    "end": 177,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 55
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 64
+                      }
+                    },
+                    "params": [
+                      {
+                        "type": "TSTypeReference",
+                        "start": 169,
+                        "end": 176,
+                        "loc": {
+                          "start": {
+                            "line": 13,
+                            "column": 56
+                          },
+                          "end": {
+                            "line": 13,
+                            "column": 63
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 169,
+                          "end": 176,
+                          "loc": {
+                            "start": {
+                              "line": 13,
+                              "column": 56
+                            },
+                            "end": {
+                              "line": 13,
+                              "column": 63
+                            },
+                            "identifierName": "Subject"
+                          },
+                          "name": "Subject"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "default": {
+                  "type": "TSTypeReference",
+                  "start": 180,
+                  "end": 198,
+                  "loc": {
+                    "start": {
+                      "line": 13,
+                      "column": 67
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 85
+                    }
+                  },
+                  "typeName": {
+                    "type": "Identifier",
+                    "start": 180,
+                    "end": 189,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 67
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 76
+                      },
+                      "identifierName": "Extension"
+                    },
+                    "name": "Extension"
+                  },
+                  "typeParameters": {
+                    "type": "TSTypeParameterInstantiation",
+                    "start": 189,
+                    "end": 198,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 76
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 85
+                      }
+                    },
+                    "params": [
+                      {
+                        "type": "TSTypeReference",
+                        "start": 190,
+                        "end": 197,
+                        "loc": {
+                          "start": {
+                            "line": 13,
+                            "column": 77
+                          },
+                          "end": {
+                            "line": 13,
+                            "column": 84
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 190,
+                          "end": 197,
+                          "loc": {
+                            "start": {
+                              "line": 13,
+                              "column": 77
+                            },
+                            "end": {
+                              "line": 13,
+                              "column": 84
+                            },
+                            "identifierName": "Subject"
+                          },
+                          "name": "Subject"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "typeAnnotation": {
+            "type": "TSConstructorType",
+            "start": 202,
+            "end": 228,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 89
+              },
+              "end": {
+                "line": 13,
+                "column": 115
+              }
+            },
+            "parameters": [
+              {
+                "type": "RestElement",
+                "start": 207,
+                "end": 221,
+                "loc": {
+                  "start": {
+                    "line": 13,
+                    "column": 94
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 108
+                  }
+                },
+                "argument": {
+                  "type": "Identifier",
+                  "start": 210,
+                  "end": 214,
+                  "loc": {
+                    "start": {
+                      "line": 13,
+                      "column": 97
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 101
+                    },
+                    "identifierName": "args"
+                  },
+                  "name": "args"
+                },
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 214,
+                  "end": 221,
+                  "loc": {
+                    "start": {
+                      "line": 13,
+                      "column": 101
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 108
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSArrayType",
+                    "start": 216,
+                    "end": 221,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 103
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 108
+                      }
+                    },
+                    "elementType": {
+                      "type": "TSAnyKeyword",
+                      "start": 216,
+                      "end": 219,
+                      "loc": {
+                        "start": {
+                          "line": 13,
+                          "column": 103
+                        },
+                        "end": {
+                          "line": 13,
+                          "column": 106
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "typeAnnotation": {
+              "type": "TSTypeAnnotation",
+              "start": 223,
+              "end": 228,
+              "loc": {
+                "start": {
+                  "line": 13,
+                  "column": 110
+                },
+                "end": {
+                  "line": 13,
+                  "column": 115
+                }
+              },
+              "typeAnnotation": {
+                "type": "TSTypeReference",
+                "start": 226,
+                "end": 228,
+                "loc": {
+                  "start": {
+                    "line": 13,
+                    "column": 113
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 115
+                  }
+                },
+                "typeName": {
+                  "type": "Identifier",
+                  "start": 226,
+                  "end": 228,
+                  "loc": {
+                    "start": {
+                      "line": 13,
+                      "column": 113
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 115
+                    },
+                    "identifierName": "ET"
+                  },
+                  "name": "ET"
+                }
+              }
+            }
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
+              "start": 41,
+              "end": 85,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @experimental\n ",
+              "start": 88,
+              "end": 112,
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 0
+                },
+                "end": {
+                  "line": 12,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
+      "start": 41,
+      "end": 85,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @experimental\n ",
+      "start": 88,
+      "end": 112,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 12,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

@@ -217,9 +217,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extendable.ts~Extendable.html">Extendable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
@@ -262,10 +265,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/Actor.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../errors&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ConfigurationError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../errors&apos;</span>;
 <span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../events&apos;</span>;
 <span class="hljs-keyword">import</span> { Artifact, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
-<span class="hljs-keyword">import</span> { Ability, AbilityType, Answerable, Discardable } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../screenplay&apos;</span>;
+<span class="hljs-keyword">import</span> { Ability, AbilityType, Answerable, Discardable, Initialisable } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../screenplay&apos;</span>;
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../stage&apos;</span>;
 <span class="hljs-keyword">import</span> { TrackedActivity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../activities&apos;</span>;
 <span class="hljs-keyword">import</span> { Activity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../Activity&apos;</span>;
@@ -332,7 +335,7 @@
                     <span class="hljs-comment">/* todo: add an execution strategy */</span>
                     <span class="hljs-keyword">return</span> current.performAs(<span class="hljs-built_in">this</span>);
                 });
-            }, <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
+            }, <span class="hljs-built_in">this</span>.initialiseAbilities());
     }
 
     <span class="hljs-comment">/**
@@ -418,16 +421,9 @@
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      */</span>
     dismiss(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> abilitiesFrom = (map: <span class="hljs-built_in">Map</span>&lt;AbilityType&lt;Ability&gt;, Ability&gt;): Ability[] =&gt;
-            <span class="hljs-built_in">Array</span>.from(map.values());
-
-        <span class="hljs-keyword">const</span> discardable = (ability: Ability): <span class="hljs-function"><span class="hljs-params">boolean</span> =&gt;</span>
-            <span class="hljs-string">&apos;discard&apos;</span> <span class="hljs-keyword">in</span> ability;
-
-        <span class="hljs-keyword">return</span> abilitiesFrom(<span class="hljs-built_in">this</span>.abilities)
-            .filter(discardable)
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.findAbilitiesOfType&lt;Discardable&gt;(<span class="hljs-string">&apos;discard&apos;</span>)
             .reduce(<span class="hljs-function">(<span class="hljs-params">previous: <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;, ability: (Discardable &amp; Ability)</span>) =&gt;</span>
-                    previous.then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(ability.discard())),
+                    previous.then(<span class="hljs-function">() =&gt;</span> ability.discard()),
                 <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
             ) <span class="hljs-keyword">as</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;;
     }
@@ -445,7 +441,38 @@
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-variable">doSomething</span></span>
+     * <span class="hljs-doctag">@private</span>
+     */</span>
+    <span class="hljs-keyword">private</span> initialiseAbilities(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.findAbilitiesOfType&lt;Initialisable&gt;(<span class="hljs-string">&apos;initialise&apos;</span>, <span class="hljs-string">&apos;isInitialised&apos;</span>)
+            .filter(<span class="hljs-function"><span class="hljs-params">ability</span> =&gt;</span> ! ability.isInitialised())
+            .reduce(<span class="hljs-function">(<span class="hljs-params">previous: <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;, ability: (Initialisable &amp; Ability)</span>) =&gt;</span>
+                    previous
+                        .then(<span class="hljs-function">() =&gt;</span> ability.initialise())
+                        .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span> couldn&apos;t initialise the ability to <span class="hljs-subst">${ ability.constructor.name }</span>`</span>, error);
+                        }),
+                <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
+            )
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-type">{...string[]}</span> <span class="hljs-variable">methodNames</span></span>
+     * <span class="hljs-doctag">@private</span>
+     */</span>
+    <span class="hljs-keyword">private</span> findAbilitiesOfType&lt;T&gt;(...methodNames: <span class="hljs-built_in">Array</span>&lt;keyof T&gt;): <span class="hljs-built_in">Array</span>&lt;Ability &amp; T&gt; {
+        <span class="hljs-keyword">const</span> abilitiesFrom = (map: <span class="hljs-built_in">Map</span>&lt;AbilityType&lt;Ability&gt;, Ability&gt;): Ability[] =&gt;
+            <span class="hljs-built_in">Array</span>.from(map.values());
+
+        <span class="hljs-keyword">const</span> abilitiesWithDesiredMethods = (ability: Ability &amp; T): <span class="hljs-function"><span class="hljs-params">boolean</span> =&gt;</span>
+            methodNames.every(<span class="hljs-function"><span class="hljs-params">methodName</span> =&gt;</span> <span class="hljs-keyword">typeof</span>(ability[methodName]) === <span class="hljs-string">&apos;function&apos;</span>);
+
+        <span class="hljs-keyword">return</span> abilitiesFrom(<span class="hljs-built_in">this</span>.abilities)
+            .filter(abilitiesWithDesiredMethods) <span class="hljs-keyword">as</span> <span class="hljs-built_in">Array</span>&lt;Ability &amp; T&gt;;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">doSomething</span></span>
      * <span class="hljs-doctag">@private</span>
      */</span>
     <span class="hljs-keyword">private</span> findAbilityTo&lt;T <span class="hljs-keyword">extends</span> Ability&gt;(doSomething: AbilityType&lt;T&gt;): T | <span class="hljs-literal">undefined</span> {

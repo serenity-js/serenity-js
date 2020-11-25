@@ -217,9 +217,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Ability.ts~Ability.html">Ability</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/AbilityType.ts~AbilityType.html">AbilityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extendable.ts~Extendable.html">Extendable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
@@ -261,20 +264,39 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/Discardable.ts</h1>
+                <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/Initialisable.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  An interface to be implemented by any {<span class="hljs-doctag">@link </span>Ability} that needs to free up
- *  the resources it uses.
+ *  An interface to be implemented by any {<span class="hljs-doctag">@link </span>Ability} that needs to initialise
+ *  the resources it uses (i.e. establish a database connection).
  *
- *  This method is invoked directly by the {<span class="hljs-doctag">@link </span>Actor}, and indirectly by {<span class="hljs-doctag">@link </span>Stage}:
- *  - when {<span class="hljs-doctag">@link </span>SceneFinishes}, for actors instantiated after {<span class="hljs-doctag">@link </span>SceneStarts} - i.e. within a test scenario or in a &quot;before each&quot; hook
- *  - when {<span class="hljs-doctag">@link </span>TestRunFinishes}, for actors instantiated before {<span class="hljs-doctag">@link </span>SceneStarts} - i.e. in a &quot;before all&quot; hook
+ *  The {<span class="hljs-doctag">@link </span>initialise} method is invoked when {<span class="hljs-doctag">@link </span>Actor#attemptsTo} is called,
+ *  but only when {<span class="hljs-doctag">@link </span>isInitialised} returns false.
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Discardable {
-    discard(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Initialisable {
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Initialises the ability. Invoked when {<span class="hljs-doctag">@link </span>Actor#attemptsTo} is called,
+     *  but only when {<span class="hljs-doctag">@link </span>isInitialised} returns false.
+     *
+     *  Make sure to implement {<span class="hljs-doctag">@link </span>isInitialised} so that it returns `true`
+     *  when the ability has been successfully initialised.
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt; | void}</span></span>
+     */</span>
+    initialise(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Whether or not a given ability has been initialised already
+     *  and should not be initialised again.
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{boolean}</span></span>
+     */</span>
+    isInitialised(): <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
 
