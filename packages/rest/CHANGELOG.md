@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.19.0 (2020-11-25)
+
+
+### Features
+
+* **protractor:** EXPERIMENTAL: Custom extensions can be mixed into BrowseTheWeb ([3b26baa](https://github.com/serenity-js/serenity-js/commit/3b26baab1f2c2108648d2c3093e69326aaa1dfc4))
+
+
+
+
+
 ## 2.18.2 (2020-11-22)
 
 
