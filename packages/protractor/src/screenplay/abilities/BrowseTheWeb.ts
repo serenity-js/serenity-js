@@ -1,6 +1,6 @@
 // tslint:disable:member-ordering
 
-import { Ability, ConfigurationError, Discardable, Extendable, Extension, ExtensionType, Initialisable, LogicError, UsesAbilities } from '@serenity-js/core';
+import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options, WebElement } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
@@ -34,14 +34,7 @@ import { promiseOf } from '../../promiseOf';
  * @implements {@link @serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWeb
-    implements Extendable<ProtractorBrowser>, Initialisable, Discardable, Ability
-{
-    /**
-     * @private
-     */
-    private readonly extensions = new Map<ExtensionType<ProtractorBrowser>, Extension<ProtractorBrowser>>();
-    private extensionsInitialised = false;
+export class BrowseTheWeb implements Ability {
 
     /**
      * @private
@@ -80,137 +73,7 @@ export class BrowseTheWeb
      * @param {ProtractorBrowser} browser
      *  An instance of a protractor browser
      */
-    constructor(private browser: ProtractorBrowser) {
-    }
-
-    /**
-     * @desc
-     *  Adds an {@link @serenity-js/core/lib/screenplay/abilities~Extension} to the list
-     *  of extensions to be applied to {@link ProtractorBrowser} when the ability is initialised
-     *  (see {@link @serenity-js/core/lib/screenplay/abilities~Initialisable}).
-     *
-     *  If the {@link @serenity-js/core/lib/screenplay/abilities~Extension} is
-     *  {@link @serenity-js/core/lib/screenplay/abilities~Discardable}, it will be discarded
-     *  together with this {@link @serenity-js/core/lib/screenplay~Ability}.
-     *
-     * @experimental
-     *
-     * @param {@serenity-js/core/lib/screenplay/abilities~Extension} extension
-     * @returns {BrowseTheWeb}
-     */
-    extendedWith(extension: Extension<ProtractorBrowser>): this {
-
-        const extensionType = extension.constructor as ExtensionType<ProtractorBrowser>;
-
-        const found = this.findExtension(extensionType);
-
-        if (found) {
-            throw new ConfigurationError(`${ this.constructor.name } already has the ${ found.constructor.name } extension, so you don't need to assign it again.`);
-        }
-
-        this.extensions.set(extensionType as ExtensionType<ProtractorBrowser>, extension);
-
-        return this;
-    }
-
-    /**
-     * @param requiredExtensionType
-     * @private
-     */
-    private findExtension<T extends Extension<ProtractorBrowser>>(requiredExtensionType: ExtensionType<ProtractorBrowser>): Extension<ProtractorBrowser> | undefined {
-        for (const [extensionType, extension] of this.extensions) {
-            if (extension instanceof requiredExtensionType) {
-                return extension as T;
-            }
-        }
-
-        return undefined;
-    }
-
-    /**
-     * @desc
-     *  Retrieves an extension by type, provided that one has already been added via {@link extendedWith}.
-     *
-     * @experimental
-     *
-     * @param {ExtensionType<ProtractorBrowser>} extensionType
-     * @returns {Extension<ProtractorBrowser>}
-     */
-    extension<E extends Extension<ProtractorBrowser>>(extensionType: ExtensionType<ProtractorBrowser, E>): E {
-        const found = this.findExtension(extensionType);
-
-        if (! found) {
-            throw new ConfigurationError(`${ this.constructor.name } doesn't have the ${ extensionType.name } extension`);
-        }
-
-        return found as E;
-    }
-
-    /**
-     * @desc
-     *  Initialises any {@link @serenity-js/core/lib/screenplay/abilities~Extension}s this ability has been
-     *  configured {@link extendedWith}.
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/abilities~Initialisable}
-     */
-    initialise(): Promise<void> {
-        return Array.from(this.extensions.values())
-            .reduce((previous: Promise<void>, extension: Extension<ProtractorBrowser>) =>
-                    previous
-                        .then(() => extension.applyTo(this.browser))
-                        .then(browser => {
-                            this.browser = browser
-                        }),
-                Promise.resolve(void 0),
-            )
-            .then(() => {
-                this.extensionsInitialised = true;
-            })
-    }
-
-    /**
-     * @desc
-     *  Discards any {@link @serenity-js/core/lib/screenplay/abilities~Discardable}
-     *  {@link @serenity-js/core/lib/screenplay/abilities~Extension}s this ability has been
-     *  configured {@link extendedWith}.
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/abilities~Discardable}
-     */
-    discard(): Promise<void> {
-        return this.findExtensionsOfType<Discardable>('discard')
-            .reduce((previous: Promise<void>, extension: (Discardable & Extension<ProtractorBrowser>)) =>
-                    previous.then(() => extension.discard()),
-                Promise.resolve(void 0),
-            ) as Promise<void>;
-    }
-
-    /**
-     * @param methodNames
-     * @private
-     */
-    private findExtensionsOfType<T>(...methodNames: Array<keyof T>): Array<Extension<ProtractorBrowser> & T> {
-        const extensionsFrom = (map: Map<ExtensionType<ProtractorBrowser>, Extension<ProtractorBrowser>>): Array<Extension<ProtractorBrowser>> =>
-            Array.from(map.values());
-
-        const extensionsWithDesiredMethods = (extension: Extension<ProtractorBrowser> & T): boolean =>
-            methodNames.every(methodName => typeof(extension[methodName]) === 'function');
-
-        return extensionsFrom(this.extensions)
-            .filter(extensionsWithDesiredMethods) as Array<Extension<ProtractorBrowser> & T>;
-    }
-
-    /**
-     * @desc
-     *  Whether or not all the extensions have been initialised and the ability is ready to be used.
-     *
-     * @returns {boolean}
-     */
-    isInitialised(): boolean {
-        return this.extensionsInitialised
+    constructor(protected browser: ProtractorBrowser) {
     }
 
     /**
