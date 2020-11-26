@@ -196,9 +196,12 @@ describe(<span class="hljs-string">&apos;BrowseTheWeb&apos;</span>, <span class=
     describe(<span class="hljs-string">&apos;when extended&apos;</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SupportForAngularEnabled</span> <span class="hljs-title">implements</span> <span class="hljs-title">Discardable</span>, <span class="hljs-title">Extension</span>&lt;<span class="hljs-title">ProtractorBrowser</span>&gt;</span>{
+            <span class="hljs-keyword">public</span> applyToCounter: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span>;
             <span class="hljs-keyword">private</span> browser: ProtractorBrowser;
 
             applyTo(subject: ProtractorBrowser): ProtractorBrowser | <span class="hljs-built_in">Promise</span>&lt;ProtractorBrowser&gt; {
+                <span class="hljs-built_in">this</span>.applyToCounter++;
+
                 <span class="hljs-built_in">this</span>.browser = subject;
 
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
@@ -242,6 +245,15 @@ describe(<span class="hljs-string">&apos;BrowseTheWeb&apos;</span>, <span class=
             actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
                 Ensure.that(AngularSupportEnabled(), isTrue())
             ));
+
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{BrowseTheWeb}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{BrowseTheWeb#with}</span> </span>*/</span>
+        it(<span class="hljs-string">&apos;ensures an extension is applied exactly once&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+            <span class="hljs-keyword">await</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo();
+            <span class="hljs-keyword">await</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo();
+
+            expect(BrowseTheWeb.as(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>)).extension(SupportForAngularEnabled).applyToCounter).equals(<span class="hljs-number">1</span>)
+        });
 
         <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{BrowseTheWeb}</span> </span>*/</span>
         <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{BrowseTheWeb#with}</span> </span>*/</span>

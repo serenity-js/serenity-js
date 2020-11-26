@@ -1567,7 +1567,7 @@ window.esdocSearchIndex = [
   ],
   [
     "browsetheweb#with browsetheweb#with,browsetheweb#with",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber194",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber217",
     "BrowseTheWeb complains if the extension is registered more than once",
     "test"
   ],
@@ -1579,13 +1579,19 @@ window.esdocSearchIndex = [
   ],
   [
     "browsetheweb#with browsetheweb#with,browsetheweb#with",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber176",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber199",
     "BrowseTheWeb when extended complains if the extension is not available",
     "test"
   ],
   [
     "browsetheweb#with browsetheweb#with,browsetheweb#with",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber169",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber190",
+    "BrowseTheWeb when extended ensures an extension is applied exactly once",
+    "test"
+  ],
+  [
+    "browsetheweb#with browsetheweb#with,browsetheweb#with",
+    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber183",
     "BrowseTheWeb when extended initialises the extensions correctly",
     "test"
   ],
@@ -4672,6 +4678,12 @@ window.esdocSearchIndex = [
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-alert",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#alert",
     "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#browser",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-member-browser",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#browser",
+    "member"
   ],
   [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#closecurrentwindow",
