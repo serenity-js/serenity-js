@@ -564,18 +564,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/core/lib/screenplay/abilities~extendable",
-    "/modules/core/class/src/screenplay/abilities/Extendable.ts~Extendable.html",
-    "@serenity-js/core/lib/screenplay/abilities~Extendable",
-    "external"
-  ],
-  [
-    "@serenity-js/core/lib/screenplay/abilities~extension",
-    "/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html",
-    "@serenity-js/core/lib/screenplay/abilities~Extension",
-    "external"
-  ],
-  [
     "@serenity-js/core/lib/screenplay/abilities~initialisable",
     "/modules/core/class/src/screenplay/abilities/Initialisable.ts~Initialisable.html",
     "@serenity-js/core/lib/screenplay/abilities~Initialisable",

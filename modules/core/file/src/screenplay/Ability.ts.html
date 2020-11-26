@@ -220,8 +220,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Answerable&lt;T&gt;">Answerable&lt;T&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html">TakeNotes</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Discardable.ts~Discardable.html">Discardable</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extendable.ts~Extendable.html">Extendable</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Extension.ts~Extension.html">Extension</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/Initialisable.ts~Initialisable.html">Initialisable</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-actor">screenplay/actor</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
@@ -298,42 +296,66 @@
  *  );
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Ability that&apos;s automatically initialised and discarded&lt;/caption&gt;
- *  import { Ability, Actor, Initialisable, Discardable, Interaction } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { Client } from &apos;pg&apos;;
+ *  import {
+ *      Ability, actorCalled, Discardable, Initialisable,
+ *      Question, UsesAbilities
+ *  } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
+ *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
  *
- *  class UsePostgreSQLDatabase implements Initialisable, Discardable, Ability {
- *      static using(client: Client) {
- *          return new UsePostgreSQLDatabase(client);
- *      }
+ *  // A low-level client we want the Actor to use, i.e. a database client:
+ *  const { Client } = require(&apos;pg&apos;);
  *
- *      static as(actor: UsePostgreSQLDatabase): MakesPhoneCalls {
- *          return actor.abilityTo(UsePostgreSQLDatabase);
- *      }
+ *  // A custom Ability to give an Actor access to the low-level client:
+ *  class QueryPostgresDB implements Initialisable, Discardable, Ability {
+ *     static as(actor: UsesAbilities) {
+ *         return actor.abilityTo(QueryPostgresDB);
+ *     }
  *
- *      constructor(private readonly client: Client) {}
+ *     constructor(private readonly client) {
+ *     }
  *
- *      // Connect to the database automatically the first time
- *      // actor.attemptsTo() is called.
- *      // See Initialisable for details
- *      async initialise(): Promise&lt;void&gt; {
- *          await this.client.connect();
- *      }
+ *     // invoked by Serenity/JS when actor.attemptsTo is first invoked
+ *     initialise(): Promise&lt;void&gt; | void {
+ *         return this.client.connect();
+ *     }
  *
- *      // Disconnect when the actor is dismissed.
- *      // See Discardable for details
- *      async discard(): Promise&lt;void&gt; {
- *          await this.client.end();
- *      }
+ *     // Helps to ensure that the Ability is not initialised more than once
+ *     isInitialised(): boolean {
+ *         return this.client._connected;
+ *     }
  *
- *      // some method that allows us to interact with the external interface of the system under test
- *      query(queryText: string, ...params: string[]) {
- *          return this.client(queryText, params);
- *      }
+ *     // Discards any resources the Ability uses when the Actor is dismissed
+ *     discard(): Promise&lt;void&gt; | void {
+ *         return this.client.end();
+ *     }
+ *
+ *     // Any custom integration APIs the custom Ability
+ *     // should make available to the Actor.
+ *     query(query: string) {
+ *         return this.client.query(query);
+ *     }
+ *
+ *     // ... other custom integration APIs
  *  }
  *
- *  const ResultsFor = (queryText: string, params: string[]) =&gt;
- *      Question.about(`results for ${ queryText } with params: ${ params }`,
- *          actor =&gt; UsePostgreSQLDatabase.as(actor).query(queryText, params));
+ *  // A custom Question to allow the Actor query the system
+ *  const CurrentDBUser = () =&gt;
+ *      Question.about(&apos;current db user&apos;, actor =&gt;
+ *          QueryPostgresDB.as(actor)
+ *              .query(&apos;SELECT current_user&apos;)
+ *              .then(result =&gt; result.rows[0].current_user)
+ *      );
+ *
+ *  // Example test scenario where the Actor uses an Ability to QueryPostgresDB
+ *  // to assert on the username the connection has been established with
+ *  describe(&apos;Serenity/JS&apos;, () =&gt; {
+ *     it(&apos;can initialise and discard abilities automatically&apos;, () =&gt;
+ *         actorCalled(&apos;Debbie&apos;)
+ *             .whoCan(new QueryPostgresDB(new Client()))
+ *             .attemptsTo(
+ *                 Ensure.that(CurrentDBUser(), equals(&apos;jan&apos;))
+ *             ));
+ *  });
  *
  * <span class="hljs-doctag">@see <span class="hljs-type">{@link Initialisable}</span></span>
  * <span class="hljs-doctag">@see <span class="hljs-type">{@link Discardable}</span></span>

@@ -104,8 +104,6 @@
 /** @external {@serenity-js/core/lib/screenplay~Question} /modules/core/class/src/screenplay/Question.ts~Question.html */
 /** @external {@serenity-js/core/lib/screenplay~Task} /modules/core/class/src/screenplay/Task.ts~Task.html */
 /** @external {@serenity-js/core/lib/screenplay/abilities~Discardable} /modules/core/class/src/screenplay/abilities/Discardable.ts~Discardable.html */
-/** @external {@serenity-js/core/lib/screenplay/abilities~Extendable} /modules/core/class/src/screenplay/abilities/Extendable.ts~Extendable.html */
-/** @external {@serenity-js/core/lib/screenplay/abilities~Extension} /modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html */
 /** @external {@serenity-js/core/lib/screenplay/abilities~Initialisable} /modules/core/class/src/screenplay/abilities/Initialisable.ts~Initialisable.html */
 /** @external {@serenity-js/core/lib/screenplay/abilities~TakeNotes} /modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~Actor} /modules/core/class/src/screenplay/actor/Actor.ts~Actor.html */

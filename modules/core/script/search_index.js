@@ -264,18 +264,6 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@serenity-js/core/lib/screenplay/abilities~extendable",
-    "class/src/screenplay/abilities/Extendable.ts~Extendable.html",
-    "<span>Extendable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/abilities</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/core/lib/screenplay/abilities~extension",
-    "class/src/screenplay/abilities/Extension.ts~Extension.html",
-    "<span>Extension</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/abilities</span>",
-    "class"
-  ],
-  [
     "@serenity-js/core/lib/events~featurenarrativedetected",
     "class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html",
     "<span>FeatureNarrativeDetected</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/events</span>",
@@ -4737,24 +4725,6 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/discardable.ts",
     "file/src/screenplay/abilities/Discardable.ts.html",
     "src/screenplay/abilities/Discardable.ts",
-    "file"
-  ],
-  [
-    "src/screenplay/abilities/extendable.ts",
-    "file/src/screenplay/abilities/Extendable.ts.html",
-    "src/screenplay/abilities/Extendable.ts",
-    "file"
-  ],
-  [
-    "src/screenplay/abilities/extension.ts",
-    "file/src/screenplay/abilities/Extension.ts.html",
-    "src/screenplay/abilities/Extension.ts",
-    "file"
-  ],
-  [
-    "src/screenplay/abilities/extensiontype.ts",
-    "file/src/screenplay/abilities/ExtensionType.ts.html",
-    "src/screenplay/abilities/ExtensionType.ts",
     "file"
   ],
   [

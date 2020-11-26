@@ -1038,18 +1038,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/core/lib/screenplay/abilities~extendable",
-    "/modules/core/class/src/screenplay/abilities/Extendable.ts~Extendable.html",
-    "@serenity-js/core/lib/screenplay/abilities~Extendable",
-    "external"
-  ],
-  [
-    "@serenity-js/core/lib/screenplay/abilities~extension",
-    "/modules/core/class/src/screenplay/abilities/Extension.ts~Extension.html",
-    "@serenity-js/core/lib/screenplay/abilities~Extension",
-    "external"
-  ],
-  [
     "@serenity-js/core/lib/screenplay/abilities~initialisable",
     "/modules/core/class/src/screenplay/abilities/Initialisable.ts~Initialisable.html",
     "@serenity-js/core/lib/screenplay/abilities~Initialisable",
@@ -1558,42 +1546,6 @@ window.esdocSearchIndex = [
     "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73",
     "AxiosResponse",
     "external"
-  ],
-  [
-    "",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber8",
-    "BrowseTheWeb",
-    "test"
-  ],
-  [
-    "browsetheweb#with browsetheweb#with,browsetheweb#with",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber217",
-    "BrowseTheWeb complains if the extension is registered more than once",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber51",
-    "BrowseTheWeb when extended",
-    "test"
-  ],
-  [
-    "browsetheweb#with browsetheweb#with,browsetheweb#with",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber199",
-    "BrowseTheWeb when extended complains if the extension is not available",
-    "test"
-  ],
-  [
-    "browsetheweb#with browsetheweb#with,browsetheweb#with",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber190",
-    "BrowseTheWeb when extended ensures an extension is applied exactly once",
-    "test"
-  ],
-  [
-    "browsetheweb#with browsetheweb#with,browsetheweb#with",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html#lineNumber183",
-    "BrowseTheWeb when extended initialises the extensions correctly",
-    "test"
   ],
   [
     "",
@@ -4290,12 +4242,6 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
-    "spec/screenplay/abilities/browsetheweb.spec.ts",
-    "test-file/spec/screenplay/abilities/BrowseTheWeb.spec.ts.html",
-    "spec/screenplay/abilities/BrowseTheWeb.spec.ts",
-    "testFile"
-  ],
-  [
     "spec/screenplay/interactions/clear.spec.ts",
     "test-file/spec/screenplay/interactions/Clear.spec.ts.html",
     "spec/screenplay/interactions/Clear.spec.ts",
@@ -4680,12 +4626,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#browser",
-    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-member-browser",
-    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#browser",
-    "member"
-  ],
-  [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#closecurrentwindow",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-closeCurrentWindow",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#closeCurrentWindow",
@@ -4695,12 +4635,6 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#constructor",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-constructor-constructor",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#constructor",
-    "method"
-  ],
-  [
-    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#discard",
-    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-discard",
-    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#discard",
     "method"
   ],
   [
@@ -4719,18 +4653,6 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#executescript",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-executeScript",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#executeScript",
-    "method"
-  ],
-  [
-    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#extendedwith",
-    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extendedWith",
-    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#extendedWith",
-    "method"
-  ],
-  [
-    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#extension",
-    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-extension",
-    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#extension",
     "method"
   ],
   [
@@ -4779,18 +4701,6 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#gettitle",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getTitle",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#getTitle",
-    "method"
-  ],
-  [
-    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#initialise",
-    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-initialise",
-    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#initialise",
-    "method"
-  ],
-  [
-    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#isinitialised",
-    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-isInitialised",
-    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#isInitialised",
     "method"
   ],
   [
