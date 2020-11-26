@@ -31,42 +31,66 @@
  *  );
  *
  * @example <caption>Ability that's automatically initialised and discarded</caption>
- *  import { Ability, Actor, Initialisable, Discardable, Interaction } from '@serenity-js/core';
- *  import { Client } from 'pg';
+ *  import {
+ *      Ability, actorCalled, Discardable, Initialisable,
+ *      Question, UsesAbilities
+ *  } from '@serenity-js/core';
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  class UsePostgreSQLDatabase implements Initialisable, Discardable, Ability {
- *      static using(client: Client) {
- *          return new UsePostgreSQLDatabase(client);
- *      }
+ *  // A low-level client we want the Actor to use, i.e. a database client:
+ *  const { Client } = require('pg');
  *
- *      static as(actor: UsePostgreSQLDatabase): MakesPhoneCalls {
- *          return actor.abilityTo(UsePostgreSQLDatabase);
- *      }
+ *  // A custom Ability to give an Actor access to the low-level client:
+ *  class QueryPostgresDB implements Initialisable, Discardable, Ability {
+ *     static as(actor: UsesAbilities) {
+ *         return actor.abilityTo(QueryPostgresDB);
+ *     }
  *
- *      constructor(private readonly client: Client) {}
+ *     constructor(private readonly client) {
+ *     }
  *
- *      // Connect to the database automatically the first time
- *      // actor.attemptsTo() is called.
- *      // See Initialisable for details
- *      async initialise(): Promise<void> {
- *          await this.client.connect();
- *      }
+ *     // invoked by Serenity/JS when actor.attemptsTo is first invoked
+ *     initialise(): Promise<void> | void {
+ *         return this.client.connect();
+ *     }
  *
- *      // Disconnect when the actor is dismissed.
- *      // See Discardable for details
- *      async discard(): Promise<void> {
- *          await this.client.end();
- *      }
+ *     // Helps to ensure that the Ability is not initialised more than once
+ *     isInitialised(): boolean {
+ *         return this.client._connected;
+ *     }
  *
- *      // some method that allows us to interact with the external interface of the system under test
- *      query(queryText: string, ...params: string[]) {
- *          return this.client(queryText, params);
- *      }
+ *     // Discards any resources the Ability uses when the Actor is dismissed
+ *     discard(): Promise<void> | void {
+ *         return this.client.end();
+ *     }
+ *
+ *     // Any custom integration APIs the custom Ability
+ *     // should make available to the Actor.
+ *     query(query: string) {
+ *         return this.client.query(query);
+ *     }
+ *
+ *     // ... other custom integration APIs
  *  }
  *
- *  const ResultsFor = (queryText: string, params: string[]) =>
- *      Question.about(`results for ${ queryText } with params: ${ params }`,
- *          actor => UsePostgreSQLDatabase.as(actor).query(queryText, params));
+ *  // A custom Question to allow the Actor query the system
+ *  const CurrentDBUser = () =>
+ *      Question.about('current db user', actor =>
+ *          QueryPostgresDB.as(actor)
+ *              .query('SELECT current_user')
+ *              .then(result => result.rows[0].current_user)
+ *      );
+ *
+ *  // Example test scenario where the Actor uses an Ability to QueryPostgresDB
+ *  // to assert on the username the connection has been established with
+ *  describe('Serenity/JS', () => {
+ *     it('can initialise and discard abilities automatically', () =>
+ *         actorCalled('Debbie')
+ *             .whoCan(new QueryPostgresDB(new Client()))
+ *             .attemptsTo(
+ *                 Ensure.that(CurrentDBUser(), equals('jan'))
+ *             ));
+ *  });
  *
  * @see {@link Initialisable}
  * @see {@link Discardable}
