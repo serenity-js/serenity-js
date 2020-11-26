@@ -164,7 +164,10 @@ export class BrowseTheWeb
                             this.browser = browser
                         }),
                 Promise.resolve(void 0),
-            ) as Promise<void>;
+            )
+            .then(() => {
+                this.extensionsInitialised = true;
+            })
     }
 
     /**

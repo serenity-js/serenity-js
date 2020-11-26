@@ -20,9 +20,12 @@ describe('BrowseTheWeb', () => {
     describe('when extended', () => {
 
         class SupportForAngularEnabled implements Discardable, Extension<ProtractorBrowser>{
+            public applyToCounter: number = 0;
             private browser: ProtractorBrowser;
 
             applyTo(subject: ProtractorBrowser): ProtractorBrowser | Promise<ProtractorBrowser> {
+                this.applyToCounter++;
+
                 this.browser = subject;
 
                 return Promise.resolve()
@@ -66,6 +69,15 @@ describe('BrowseTheWeb', () => {
             actorCalled('Bernie').attemptsTo(
                 Ensure.that(AngularSupportEnabled(), isTrue())
             ));
+
+        /** @test {BrowseTheWeb} */
+        /** @test {BrowseTheWeb#with} */
+        it('ensures an extension is applied exactly once', async () => {
+            await actorCalled('Bernie').attemptsTo();
+            await actorCalled('Bernie').attemptsTo();
+
+            expect(BrowseTheWeb.as(actorCalled('Bernie')).extension(SupportForAngularEnabled).applyToCounter).equals(1)
+        });
 
         /** @test {BrowseTheWeb} */
         /** @test {BrowseTheWeb#with} */
