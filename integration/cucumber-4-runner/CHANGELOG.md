@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.19.2 (2020-11-26)
+
+**Note:** Version bump only for package @integration/cucumber-4-runner
+
+
+
+
+
 ## 2.19.1 (2020-11-25)
 
 
