@@ -55,7 +55,7 @@ export class ProtractorParam<T = any>
      * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
      */
     constructor(private readonly name: Answerable<string>) {
-        super(formatted `Protractor param called "${ name }"`);
+        super(formatted `the ${ name } param specified in Protractor config`);
     }
 
     /**

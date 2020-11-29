@@ -585,7 +585,7 @@ export class BrowseTheWeb implements Ability {
         return path.split('.')
             .reduce((config, segment) => {
                 if (! (config && config[segment] !== undefined)) {
-                    throw new ConfigurationError(`Protractor param "${ path }" is undefined`);
+                    throw new ConfigurationError(`Protractor param '${ path }' is undefined`);
                 }
 
                 return config[segment];
