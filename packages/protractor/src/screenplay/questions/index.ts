@@ -5,6 +5,7 @@ export * from './CSSClasses';
 export * from './LastScriptExecution';
 export * from './ModalDialog';
 export { Pick } from './Pick';
+export * from './ProtractorParam';
 export { Target } from './targets';
 export * from './Selected';
 export * from './text';
