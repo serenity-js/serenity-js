@@ -1,6 +1,6 @@
 // tslint:disable:member-ordering
 
-import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
+import { Ability, ConfigurationError, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options, WebElement } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
@@ -550,6 +550,46 @@ export class BrowseTheWeb implements Ability {
         }
 
         return this.lastScriptExecutionSummary.result;
+    }
+
+    /**
+     * @desc
+     *  Returns Protractor configuration parameter at `path`.
+     *
+     * @example <caption>protractor.conf.js</caption>
+     *  exports.config = {
+     *    params: {
+     *        login: {
+     *            username: 'jane@example.org'
+     *            password: process.env.PASSWORD
+     *        }
+     *    }
+     *    // ...
+     * }
+     *
+     * @example <caption>Retrieving config param by name</caption>
+     *  BrowseTheWeb.as(actor).param('login') // returns object with username and password
+     *
+     * @example <caption>Retrieving config param by path</caption>
+     *  BrowseTheWeb.as(actor).param('login.username') // returns string 'jane@example.org'
+     *
+     * @param {string} path
+     *  Either a name or a dot-delimited path to the param.
+     *
+     * @returns {T}
+     *
+     * @throws {@serenity-js/core/lib/errors~ConfigurationError}
+     *  Throws a `ConfigurationError` if the parameter is `undefined`
+     */
+    param<T = any>(path: string): T {
+        return path.split('.')
+            .reduce((config, segment) => {
+                if (! (config && config[segment] !== undefined)) {
+                    throw new ConfigurationError(`Protractor param "${ path }" is undefined`);
+                }
+
+                return config[segment];
+            }, this.browser.params);
     }
 }
 

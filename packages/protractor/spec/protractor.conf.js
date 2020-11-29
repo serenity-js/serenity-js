@@ -22,6 +22,15 @@ exports.config = {
         reporter: 'dot',
     },
 
+    params: {
+        env: 'test',
+        user: {
+            id: 1,
+            firstName: 'Jan',
+            lastName: 'Molak',
+        }
+    },
+
     capabilities: {
         browserName: 'chrome',
         acceptInsecureCerts : true,
