@@ -174,36 +174,430 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { DomainEvent, InteractionFinished, InteractionStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { PhotoTakingStrategy } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./PhotoTakingStrategy&apos;</span>;
+                <article class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ProtractorParam} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor/lib/screenplay/questions&apos;</span></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/ProtractorParam.ts.html#lineNumber46">source</a></span></span>
+</div>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Configures the {<span class="hljs-doctag">@link </span>Photographer} to take photos (a.k.a. screenshots) both before and after
- *  every single {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} performed
- *  by the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight.
- *
- *  *Please note* that this strategy will result in _a lot_ of screenshots being taken,
- *  which will seriously affect the performance of your tests.
- *  For this reason, it&apos;s best to use it only for debugging purposes.
- *
- * <span class="hljs-doctag">@implements <span class="hljs-type">{PhotoTakingStrategy}</span></span>
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TakePhotosBeforeAndAfterInteractions</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PhotoTakingStrategy</span> </span>{
-    <span class="hljs-keyword">protected</span> shouldTakeAPhotoOf(event: DomainEvent): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> InteractionStarts
-            || event <span class="hljs-keyword">instanceof</span> InteractionFinished;
-    }
+<div class="self-detail detail">
+  <h1 data-ice="name">ProtractorParam</h1>
 
-    <span class="hljs-keyword">protected</span> photoNameFor(event: InteractionStarts | InteractionFinished): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> InteractionStarts
-            ? <span class="hljs-string">`Before <span class="hljs-subst">${ event.details.name.value }</span>`</span>
-            : <span class="hljs-string">`After <span class="hljs-subst">${ event.details.name.value }</span>`</span>;
-    }
-}
-</code></pre>
+  
 
+  <div class="description" data-ice="description"><p> Returns a Protractor configuration parameter specified in <code>protractor.conf.js</code>.
+ Note that Protractor configuration parameters can be overridden via the command line.</p>
+</div>
+
+  
+  
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>Question&lt;Promise&lt;T&gt;&gt;</span> &#x2192; ProtractorParam</div></div>
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  <div data-ice="exampleDocs">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">protractor.conf.js</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">exports</span>.config = {
+   <span class="hljs-attr">params</span>: {
+       <span class="hljs-attr">login</span>: {
+           <span class="hljs-attr">username</span>: <span class="hljs-string">&apos;jane@example.org&apos;</span>
+           <span class="hljs-attr">password</span>: process.env.PASSWORD
+       }
+   }
+   <span class="hljs-comment">// ...</span>
+}</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Overriding configuration parameter via the command line</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> protractor ./protractor.conf.js --params.login.username=<span class="hljs-string">&quot;bob@example.org&quot;</span></code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using in a test scenario</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { BrowseTheWeb, Enter, ProtractorParam } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+ <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+
+ actorCalled(<span class="hljs-string">&apos;Jane&apos;</span>)
+     .whoCan(BrowseTheWeb.using(protractor.browser))
+     .attemptsTo(
+         Enter.theValue(ProtractorParam.called(<span class="hljs-string">&apos;login.username&apos;</span>).into(Form.exampleInput),
+     );</code></pre>
+    </div>
+</div>
+
+  <div data-ice="tests">
+    <h4 id="tests">Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber15">ProtractorParam lets the actor read the value of a primitive Protractor parameter specified in protractor.conf.js</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber24">ProtractorParam lets the actor read the value of an object Protractor parameter specified in protractor.conf.js</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber69">ProtractorParam lets the actor read the value of a Protractor parameter specified by path</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber78">ProtractorParam complains if the parameter is undefined</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber87">ProtractorParam contributes to a human-readable description of an activity</a></span></li>
+</ul>
+  </div>
+
+  
+
+  <div data-ice="see"><h4>See also:</h4><ul><li><span><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-param">BrowseTheWeb#param</a></span></span></li></ul></div>
+</div>
+
+
+<div data-ice="staticMethodSummary"><h2>Static Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html#static-method-called">called</a></span></span><span class="code" data-ice="signature">(name: <span>Answerable</span>&lt;<span>string</span>&gt;): <span><a href="class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html">ProtractorParam</a></span>&lt;<span>R</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Name of the parameter to retrieve.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(name: <span>Answerable</span>&lt;<span>string</span>&gt;)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html#instance-method-answeredBy">answeredBy</a></span></span><span class="code" data-ice="signature">(actor: <span>AnswersQuestions &amp; UsesAbilities</span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Makes the provided <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ answer this <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+<div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-called">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">called</span><span class="code" data-ice="signature">(name: <span>Answerable</span>&lt;<span>string</span>&gt;): <span><a href="class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html">ProtractorParam</a></span>&lt;<span>R</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/ProtractorParam.ts.html#lineNumber70">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Name of the parameter to retrieve. This could also be a dot-delimited path,
+ i.e. <code>login.username</code></p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">name</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>string</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html">ProtractorParam</a></span>&lt;<span>R</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber15">ProtractorParam lets the actor read the value of a primitive Protractor parameter specified in protractor.conf.js</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber24">ProtractorParam lets the actor read the value of an object Protractor parameter specified in protractor.conf.js</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber69">ProtractorParam lets the actor read the value of a Protractor parameter specified by path</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber78">ProtractorParam complains if the parameter is undefined</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber87">ProtractorParam contributes to a human-readable description of an activity</a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+</div>
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(name: <span>Answerable</span>&lt;<span>string</span>&gt;)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/ProtractorParam.ts.html#lineNumber77">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">name</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>string</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-answeredBy">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">answeredBy</span><span class="code" data-ice="signature">(actor: <span>AnswersQuestions &amp; UsesAbilities</span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/ProtractorParam.ts.html#lineNumber106">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Makes the provided <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ answer this <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">actor</td>
+      <td data-ice="type" class="code"><span>AnswersQuestions &amp; UsesAbilities</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>void</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
+<li><span><span><a href="/modules/core/class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
+<li><span><span><a href="/modules/core/class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li></ul></div>
+  
+</div>
+</div>
 </article>
             </section>
         </div>

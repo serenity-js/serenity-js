@@ -174,34 +174,65 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { DomainEvent, InteractionFinished, InteractionStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { PhotoTakingStrategy } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./PhotoTakingStrategy&apos;</span>;
+                <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/ProtractorParam.spec.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Configures the {<span class="hljs-doctag">@link </span>Photographer} to take photos (a.k.a. screenshots) both before and after
- *  every single {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} performed
- *  by the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight.
- *
- *  *Please note* that this strategy will result in _a lot_ of screenshots being taken,
- *  which will seriously affect the performance of your tests.
- *  For this reason, it&apos;s best to use it only for debugging purposes.
- *
- * <span class="hljs-doctag">@implements <span class="hljs-type">{PhotoTakingStrategy}</span></span>
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TakePhotosBeforeAndAfterInteractions</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PhotoTakingStrategy</span> </span>{
-    <span class="hljs-keyword">protected</span> shouldTakeAPhotoOf(event: DomainEvent): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> InteractionStarts
-            || event <span class="hljs-keyword">instanceof</span> InteractionFinished;
-    }
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled, ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 
-    <span class="hljs-keyword">protected</span> photoNameFor(event: InteractionStarts | InteractionFinished): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> InteractionStarts
-            ? <span class="hljs-string">`Before <span class="hljs-subst">${ event.details.name.value }</span>`</span>
-            : <span class="hljs-string">`After <span class="hljs-subst">${ event.details.name.value }</span>`</span>;
-    }
-}
+<span class="hljs-keyword">import</span> { ProtractorParam } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
+
+describe(<span class="hljs-string">&apos;ProtractorParam&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     */</span>
+    it(<span class="hljs-string">&apos;lets the actor read the value of a primitive Protractor parameter specified in protractor.conf.js&apos;</span>, <span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+            Ensure.that(ProtractorParam.called&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&apos;env&apos;</span>), equals(<span class="hljs-string">&apos;test&apos;</span>)),
+        ));
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     */</span>
+    it(<span class="hljs-string">&apos;lets the actor read the value of an object Protractor parameter specified in protractor.conf.js&apos;</span>, <span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+            Ensure.that(
+                ProtractorParam.called&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">&apos;user&apos;</span>),
+                equals({ <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">firstName</span>: <span class="hljs-string">&apos;Jan&apos;</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-string">&apos;Molak&apos;</span> })
+            ),
+        ));
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     */</span>
+    it(<span class="hljs-string">&apos;lets the actor read the value of a Protractor parameter specified by path&apos;</span>, <span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+            Ensure.that(ProtractorParam.called&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&apos;user.firstName&apos;</span>), equals(<span class="hljs-string">&apos;Jan&apos;</span>)),
+        ));
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     */</span>
+    it(<span class="hljs-string">&apos;complains if the parameter is undefined&apos;</span>, <span class="hljs-function">() =&gt;</span>
+        expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+            Ensure.that(ProtractorParam.called&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&apos;user.address&apos;</span>), equals(<span class="hljs-string">&apos;London, UK&apos;</span>)),
+        )).to.be.rejectedWith(ConfigurationError, <span class="hljs-string">`Protractor param &apos;user.address&apos; is undefined`</span>));
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     */</span>
+    it(<span class="hljs-string">&apos;contributes to a human-readable description of an activity&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        expect(Ensure.that(ProtractorParam.called&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&apos;user.firstName&apos;</span>), equals(<span class="hljs-string">&apos;Jan&apos;</span>)).toString())
+            .to.equal(<span class="hljs-string">`#actor ensures that the &apos;user.firstName&apos; param specified in Protractor config does equal &apos;Jan&apos;`</span>)
+    });
+});
 </code></pre>
 
 </article>

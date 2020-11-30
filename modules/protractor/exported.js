@@ -38,6 +38,7 @@
 /** @external {@serenity-js/protractor/lib/screenplay/questions~LastScriptExecution} /modules/protractor/class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~ModalDialog} /modules/protractor/class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Pick} /modules/protractor/class/src/screenplay/questions/Pick.ts~Pick.html */
+/** @external {@serenity-js/protractor/lib/screenplay/questions~ProtractorParam} /modules/protractor/class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~RelativeQuestion} /modules/protractor/class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Selected} /modules/protractor/class/src/screenplay/questions/Selected.ts~Selected.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Value} /modules/protractor/class/src/screenplay/questions/Value.ts~Value.html */

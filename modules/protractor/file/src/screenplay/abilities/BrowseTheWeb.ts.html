@@ -151,6 +151,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html">LastScriptExecution</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html">ModalDialog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Pick.ts~Pick.html">Pick</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html">ProtractorParam</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Selected.ts~Selected.html">Selected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
@@ -176,7 +177,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/BrowseTheWeb.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">// tslint:disable:member-ordering</span>
 
-<span class="hljs-keyword">import</span> { Ability, LogicError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Ability, ConfigurationError, LogicError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { AlertPromise, Capabilities, Navigation, Options, WebElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;selenium-webdriver&apos;</span>;
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../promiseOf&apos;</span>;
@@ -726,6 +727,46 @@
         }
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.lastScriptExecutionSummary.result;
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns Protractor configuration parameter at `path`.
+     *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;protractor.conf.js&lt;/caption&gt;
+     *  exports.config = {
+     *    params: {
+     *        login: {
+     *            username: &apos;jane<span class="hljs-doctag">@example</span>.org&apos;
+     *            password: process.env.PASSWORD
+     *        }
+     *    }
+     *    // ...
+     * }
+     *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving config param by name&lt;/caption&gt;
+     *  BrowseTheWeb.as(actor).param(&apos;login&apos;) // returns object with username and password
+     *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving config param by path&lt;/caption&gt;
+     *  BrowseTheWeb.as(actor).param(&apos;login.username&apos;) // returns string &apos;jane<span class="hljs-doctag">@example</span>.org&apos;
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">path</span></span>
+     *  Either a name or a dot-delimited path to the param.
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{T}</span></span>
+     *
+     * <span class="hljs-doctag">@throws <span class="hljs-type">{@serenity-js/core/lib/errors~ConfigurationError}</span></span>
+     *  Throws a `ConfigurationError` if the parameter is `undefined`
+     */</span>
+    param&lt;T = <span class="hljs-built_in">any</span>&gt;(path: <span class="hljs-built_in">string</span>): T {
+        <span class="hljs-keyword">return</span> path.split(<span class="hljs-string">&apos;.&apos;</span>)
+            .reduce(<span class="hljs-function">(<span class="hljs-params">config, segment</span>) =&gt;</span> {
+                <span class="hljs-keyword">if</span> (! (config &amp;&amp; config[segment] !== <span class="hljs-literal">undefined</span>)) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Protractor param &apos;<span class="hljs-subst">${ path }</span>&apos; is undefined`</span>);
+                }
+
+                <span class="hljs-keyword">return</span> config[segment];
+            }, <span class="hljs-built_in">this</span>.browser.params);
     }
 }
 

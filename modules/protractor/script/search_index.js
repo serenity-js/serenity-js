@@ -156,6 +156,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/protractor/lib/screenplay/questions~protractorparam",
+    "class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html",
+    "<span>ProtractorParam</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
+    "class"
+  ],
+  [
     "@serenity-js/protractor/lib/screenplay/questions~relativequestion",
     "class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html",
     "<span>RelativeQuestion</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
@@ -2946,6 +2952,42 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber9",
+    "ProtractorParam",
+    "test"
+  ],
+  [
+    "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber78",
+    "ProtractorParam complains if the parameter is undefined",
+    "test"
+  ],
+  [
+    "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber87",
+    "ProtractorParam contributes to a human-readable description of an activity",
+    "test"
+  ],
+  [
+    "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber69",
+    "ProtractorParam lets the actor read the value of a Protractor parameter specified by path",
+    "test"
+  ],
+  [
+    "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber15",
+    "ProtractorParam lets the actor read the value of a primitive Protractor parameter specified in protractor.conf.js",
+    "test"
+  ],
+  [
+    "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber24",
+    "ProtractorParam lets the actor read the value of an object Protractor parameter specified in protractor.conf.js",
+    "test"
+  ],
+  [
     "resizebrowserwindow src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow,resizebrowserwindow",
     "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber9",
     "ResizeBrowserWindow",
@@ -4392,6 +4434,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/questions/protractorparam.spec.ts",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html",
+    "spec/screenplay/questions/ProtractorParam.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/questions/target.spec.ts",
     "test-file/spec/screenplay/questions/Target.spec.ts.html",
     "spec/screenplay/questions/Target.spec.ts",
@@ -4725,6 +4773,12 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#navigate",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-navigate",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#navigate",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#param",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-param",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#param",
     "method"
   ],
   [
@@ -5589,6 +5643,30 @@ window.esdocSearchIndex = [
     "src/screenplay/questions/pick.ts~pick.from",
     "class/src/screenplay/questions/Pick.ts~Pick.html#static-method-from",
     "src/screenplay/questions/Pick.ts~Pick.from",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/protractorparam.ts",
+    "file/src/screenplay/questions/ProtractorParam.ts.html",
+    "src/screenplay/questions/ProtractorParam.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/protractorparam.ts~protractorparam#answeredby",
+    "class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html#instance-method-answeredBy",
+    "src/screenplay/questions/ProtractorParam.ts~ProtractorParam#answeredBy",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/protractorparam.ts~protractorparam#constructor",
+    "class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html#instance-constructor-constructor",
+    "src/screenplay/questions/ProtractorParam.ts~ProtractorParam#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/protractorparam.ts~protractorparam.called",
+    "class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html#static-method-called",
+    "src/screenplay/questions/ProtractorParam.ts~ProtractorParam.called",
     "method"
   ],
   [
