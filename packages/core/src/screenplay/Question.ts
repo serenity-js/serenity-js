@@ -107,7 +107,8 @@ export abstract class Question<T> {
     }
 
     /**
-     * Changes the description of this question's subject.
+     * @desc
+     *  Changes the description of this question's subject.
      *
      * @param {string} subject
      * @returns {Question<T>}
