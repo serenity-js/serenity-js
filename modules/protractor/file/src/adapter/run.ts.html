@@ -178,7 +178,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
 
 <span class="hljs-keyword">import</span> { serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<span class="hljs-keyword">import</span> { FileFinder, ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
 <span class="hljs-keyword">import</span> { ProtractorFrameworkAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./ProtractorFrameworkAdapter&apos;</span>;
 <span class="hljs-keyword">import</span> { ProtractorReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./reporter&apos;</span>;
@@ -195,7 +195,7 @@
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProtractorFrameworkAdapter(
         serenity,
         runner,
-        <span class="hljs-keyword">new</span> TestRunnerDetector(<span class="hljs-keyword">new</span> ModuleLoader(process.cwd())),
+        <span class="hljs-keyword">new</span> TestRunnerDetector(Path.from(runner.getConfig().configDir)),
     ).run(specs);
 }
 </code></pre>

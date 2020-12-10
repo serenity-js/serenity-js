@@ -378,6 +378,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~filefinder",
+    "/modules/core/class/src/io/FileFinder.ts~FileFinder.html",
+    "@serenity-js/core/lib/io~FileFinder",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~filesystem",
     "/modules/core/class/src/io/FileSystem.ts~FileSystem.html",
     "@serenity-js/core/lib/io~FileSystem",
@@ -825,6 +831,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay/questions~transform",
     "/modules/core/class/src/screenplay/questions/Transform.ts~Transform.html",
     "@serenity-js/core/lib/screenplay/questions~Transform",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~q",
+    "/modules/core/function/index.html#static-function-q",
+    "@serenity-js/core/lib/screenplay/questions~q",
     "external"
   ],
   [

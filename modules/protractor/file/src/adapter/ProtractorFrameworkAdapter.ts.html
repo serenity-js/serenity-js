@@ -176,13 +176,11 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/ProtractorFrameworkAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ArtifactArchiver, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-
 <span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;deepmerge&apos;</span>);
 <span class="hljs-keyword">import</span> { isPlainObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;is-plain-object&apos;</span>;   <span class="hljs-comment">// tslint:disable-line:no-var-requires fails when using default import</span>
-
 <span class="hljs-keyword">import</span> { protractor, Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowserDetector, StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./browser-detector&apos;</span>;
 
+<span class="hljs-keyword">import</span> { BrowserDetector, StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./browser-detector&apos;</span>;
 <span class="hljs-keyword">import</span> { Config } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Config&apos;</span>;
 <span class="hljs-keyword">import</span> { ProtractorReport, ProtractorReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./reporter&apos;</span>;
 <span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TestRunnerDetector&apos;</span>;

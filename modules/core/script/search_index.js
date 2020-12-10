@@ -276,6 +276,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/io~filefinder",
+    "class/src/io/FileFinder.ts~FileFinder.html",
+    "<span>FileFinder</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/io~filesystem",
     "class/src/io/FileSystem.ts~FileSystem.html",
     "<span>FileSystem</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
@@ -774,6 +780,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions~q",
+    "function/index.html#static-function-q",
+    "<span>q</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions</span>",
+    "function"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~replace",
     "function/index.html#static-function-replace",
     "<span>replace</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/mappings/string</span>",
@@ -1200,80 +1212,116 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "filefinder src/io/filefinder.ts~filefinder,filefinder",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber8",
+    "FileFinder",
+    "test"
+  ],
+  [
+    "filefinder src/io/filefinder.ts~filefinder,filefinder",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber26",
+    "FileFinder ",
+    "test"
+  ],
+  [
+    "filefinder src/io/filefinder.ts~filefinder,filefinder",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber31",
+    "FileFinder returns a list with an exact match",
+    "test"
+  ],
+  [
+    "filefinder src/io/filefinder.ts~filefinder,filefinder",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber39",
+    "FileFinder returns a list with exact matches",
+    "test"
+  ],
+  [
+    "filefinder src/io/filefinder.ts~filefinder,filefinder",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber48",
+    "FileFinder supports glob patterns",
+    "test"
+  ],
+  [
+    "filefinder src/io/filefinder.ts~filefinder,filefinder",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber57",
+    "FileFinder supports globstar patterns",
+    "test"
+  ],
+  [
     "filesystem src/io/filesystem.ts~filesystem,filesystem",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber6",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber8",
     "FileSystem",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber84",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber86",
     "FileSystem when removing",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber110",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber112",
     "FileSystem when removing directories",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber112",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber114",
     "FileSystem when removing directories removes the directory recursively",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber86",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber88",
     "FileSystem when removing individual files",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber88",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber90",
     "FileSystem when removing individual files removes the file",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber14",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber16",
     "FileSystem when storing JSON files",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber41",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber43",
     "FileSystem when storing JSON files ",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber16",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber18",
     "FileSystem when storing JSON files stores a JSON file in a desired location",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber29",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber31",
     "FileSystem when storing JSON files tells the absolute path to a JSON file once it is saved",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber55",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber57",
     "FileSystem when storing pictures",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber57",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber59",
     "FileSystem when storing pictures stores a base64-encoded picture at a desired location",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber70",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber72",
     "FileSystem when storing pictures tells the absolute path to a JSON file once it is saved",
     "test"
   ],
@@ -1464,74 +1512,80 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber8",
+    "",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber7",
     "Path",
     "test"
   ],
   [
-    "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber72",
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber96",
     "Path ",
     "test"
   ],
   [
-    "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber33",
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber61",
+    "Path can be instantiated from path segments",
+    "test"
+  ],
+  [
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber36",
     "Path can be serialised and deserialised",
     "test"
   ],
   [
-    "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber39",
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber43",
     "Path can join path components into a single path",
     "test"
   ],
   [
-    "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber60",
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber82",
     "Path can resolve two paths",
     "test"
   ],
   [
-    "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber54",
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber75",
     "Path can split a relative path",
     "test"
   ],
   [
-    "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber47",
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber68",
     "Path can split an absolute path",
     "test"
   ],
   [
-    "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber68",
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber91",
     "Path knows the root directory",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber10",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber9",
     "Path when used across different operating systems",
     "test"
   ],
   [
-    "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber18",
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber19",
     "Path when used across different operating systems exposes the normalised path string",
     "test"
   ],
   [
-    "",
+    "path src/io/path.ts~path,path",
     "test-file/spec/io/Path.spec.ts.html#lineNumber14",
     "Path when used across different operating systems produces the same result no matter what path it's instantiated with",
     "test"
   ],
   [
-    "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber23",
+    "path src/io/path.ts~path,path",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber25",
     "Path when used across different operating systems splits the same",
     "test"
   ],
@@ -2346,6 +2400,30 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "q src/screenplay/questions/q.ts~q,q",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber10",
+    "q",
+    "test"
+  ],
+  [
+    "q src/screenplay/questions/q.ts~q,q",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber91",
+    "q can have the default description overridden",
+    "test"
+  ],
+  [
+    "q src/screenplay/questions/q.ts~q,q",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber84",
+    "q provides a sensible description of the question being asked",
+    "test"
+  ],
+  [
+    "q src/screenplay/questions/q.ts~q,q",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber53",
+    "q returns the original string value if no parameters are provided",
+    "test"
+  ],
+  [
     "question#map src/screenplay/question.ts~question#map,question#map",
     "test-file/spec/screenplay/questions/mappings/string/replace.spec.ts.html#lineNumber10",
     "replace",
@@ -2427,6 +2505,12 @@ window.esdocSearchIndex = [
     "spec/io/errorserialiser.spec.ts",
     "test-file/spec/io/ErrorSerialiser.spec.ts.html",
     "spec/io/ErrorSerialiser.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/io/filefinder.spec.ts",
+    "test-file/spec/io/FileFinder.spec.ts.html",
+    "spec/io/FileFinder.spec.ts",
     "testFile"
   ],
   [
@@ -2625,6 +2709,12 @@ window.esdocSearchIndex = [
     "spec/screenplay/questions/mappings/string/trim.spec.ts",
     "test-file/spec/screenplay/questions/mappings/string/trim.spec.ts.html",
     "spec/screenplay/questions/mappings/string/trim.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/q.spec.ts",
+    "test-file/spec/screenplay/questions/q.spec.ts.html",
+    "spec/screenplay/questions/q.spec.ts",
     "testFile"
   ],
   [
@@ -3456,6 +3546,24 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/io/filefinder.ts",
+    "file/src/io/FileFinder.ts.html",
+    "src/io/FileFinder.ts",
+    "file"
+  ],
+  [
+    "src/io/filefinder.ts~filefinder#constructor",
+    "class/src/io/FileFinder.ts~FileFinder.html#instance-constructor-constructor",
+    "src/io/FileFinder.ts~FileFinder#constructor",
+    "method"
+  ],
+  [
+    "src/io/filefinder.ts~filefinder#filesmatching",
+    "class/src/io/FileFinder.ts~FileFinder.html#instance-method-filesMatching",
+    "src/io/FileFinder.ts~FileFinder#filesMatching",
+    "method"
+  ],
+  [
     "src/io/filesystem.ts",
     "file/src/io/FileSystem.ts.html",
     "src/io/FileSystem.ts",
@@ -3606,10 +3714,16 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/io/path.ts~path.from",
+    "class/src/io/Path.ts~Path.html#static-method-from",
+    "src/io/Path.ts~Path.from",
+    "method"
+  ],
+  [
     "src/io/path.ts~path.fromjson",
-    "class/src/io/Path.ts~Path.html#static-member-fromJSON",
+    "class/src/io/Path.ts~Path.html#static-method-fromJSON",
     "src/io/Path.ts~Path.fromJSON",
-    "member"
+    "method"
   ],
   [
     "src/io/path.ts~path.fromsanitisedstring",
@@ -5169,6 +5283,12 @@ window.esdocSearchIndex = [
     "src/screenplay/questions/mappings/string/trim.ts",
     "file/src/screenplay/questions/mappings/string/trim.ts.html",
     "src/screenplay/questions/mappings/string/trim.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/q.ts",
+    "file/src/screenplay/questions/q.ts.html",
+    "src/screenplay/questions/q.ts",
     "file"
   ],
   [

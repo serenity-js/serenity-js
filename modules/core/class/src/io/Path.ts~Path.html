@@ -156,6 +156,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteStarts.ts~TestSuiteStarts.html">TestSuiteStarts</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io">io</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html">AssertionReportDiffer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html">ErrorSerialiser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileFinder.ts~FileFinder.html">FileFinder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystemLocation.ts~FileSystemLocation.html">FileSystemLocation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></span></li>
@@ -233,6 +234,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions">screenplay/questions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Transform.ts~Transform.html">Transform</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-q">q</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-mappings">screenplay/questions/mappings</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AnswerMappingFunction&lt;V,">AnswerMappingFunction&lt;V,</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-mappings-string">screenplay/questions/mappings/string</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-append">append</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-normalize">normalize</a></span></span></li>
@@ -299,7 +301,17 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber8">Path</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber14">Path when used across different operating systems produces the same result no matter what path it&apos;s instantiated with</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber19">Path when used across different operating systems exposes the normalised path string</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber25">Path when used across different operating systems splits the same</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber36">Path can be serialised and deserialised</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber43">Path can join path components into a single path</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber61">Path can be instantiated from path segments</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber68">Path can split an absolute path</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber75">Path can split a relative path</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber82">Path can resolve two paths</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber91">Path knows the root directory</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/Path.spec.ts.html#lineNumber96">Path </a></span></li>
 </ul>
   </div>
 
@@ -308,8 +320,9 @@
   
 </div>
 
-<div data-ice="staticMemberSummary"><h2>Static Member Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Static Public Members</td></tr></thead>
+
+<div data-ice="staticMethodSummary"><h2>Static Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Methods</td></tr></thead>
   <tbody>
   
   <tr data-ice="target">
@@ -326,7 +339,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/io/Path.ts~Path.html#static-member-fromJSON">fromJSON</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/io/Path.ts~Path.html#static-method-from">from</a></span></span><span class="code" data-ice="signature">(segments: <span>UNKNOWN</span>): <span>*</span></span>
         </p>
       </div>
       <div>
@@ -340,14 +353,35 @@
       
     </td>
   </tr>
-</tbody>
-</table>
-</div>
-<div data-ice="staticMethodSummary"><h2>Static Method Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Static Public Methods</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/io/Path.ts~Path.html#static-method-fromJSON">fromJSON</a></span></span><span class="code" data-ice="signature">(v: <span>string</span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
       <span data-ice="static">static</span>
@@ -654,17 +688,89 @@
 
 
 
-<div data-ice="staticMemberDetails"><h2 data-ice="title">Static Public Members</h2>
+
+<div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-member-fromJSON">
+  <h3 data-ice="anchor" id="static-method-from">
     <span class="access" data-ice="access">public</span>
     <span data-ice="static">static</span>
     
     
     
     
-    <span class="code" data-ice="name">fromJSON</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">from</span><span class="code" data-ice="signature">(segments: <span>UNKNOWN</span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber14">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">segments</td>
+      <td data-ice="type" class="code"><span>UNKNOWN</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-fromJSON">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">fromJSON</span><span class="code" data-ice="signature">(v: <span>string</span>): <span>*</span></span>
     <span class="right-info">
       
       
@@ -679,29 +785,54 @@
 
   
 
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">v</td>
+      <td data-ice="type" class="code"><span>string</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
 </div>
 </div>
-<div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
 
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
 <div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-method-fromSanitisedString">
     <span class="access" data-ice="access">public</span>
@@ -714,7 +845,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber12">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber18">source</a></span></span>
     </span>
   </h3>
 
@@ -788,7 +919,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber80">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber101">source</a></span></span>
     </span>
   </h3>
 
@@ -880,7 +1011,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber58">source</a></span></span>
     </span>
   </h3>
 
@@ -935,7 +1066,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber48">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
@@ -990,7 +1121,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber56">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
@@ -1045,7 +1176,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber34">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber40">source</a></span></span>
     </span>
   </h3>
 
@@ -1116,7 +1247,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber44">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber50">source</a></span></span>
     </span>
   </h3>
 
@@ -1187,7 +1318,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber60">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber66">source</a></span></span>
     </span>
   </h3>
 
@@ -1242,7 +1373,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber38">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Path.ts.html#lineNumber44">source</a></span></span>
     </span>
   </h3>
 

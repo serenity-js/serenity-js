@@ -175,8 +175,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/TestRunnerDetector.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileFinder, ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<span class="hljs-keyword">import</span> { isPlainObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;is-plain-object&apos;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;path&apos;</span>
 <span class="hljs-keyword">import</span> { Config } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;deepmerge&apos;</span>);
 
 <span class="hljs-keyword">import</span> { TestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./runners/TestRunner&apos;</span>;
 
@@ -184,6 +187,9 @@
  * <span class="hljs-doctag">@private</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestRunnerDetector</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> finder: FileFinder;
 
     <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">protractorCliOptions</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> [
@@ -193,7 +199,9 @@
         ];
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader</span>)</span> {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">cwd: Path</span>)</span> {
+        <span class="hljs-built_in">this</span>.loader = <span class="hljs-keyword">new</span> ModuleLoader(cwd.value);
+        <span class="hljs-built_in">this</span>.finder = <span class="hljs-keyword">new</span> FileFinder(cwd);
     }
 
     <span class="hljs-comment">// todo: when invoking, merge config</span>
@@ -232,7 +240,17 @@
 
     <span class="hljs-keyword">private</span> useCucumber(config: Config): TestRunner {
         <span class="hljs-keyword">const</span> { CucumberTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./runners/CucumberTestRunner&apos;</span>);
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CucumberTestRunner(config.cucumberOpts || {}, <span class="hljs-built_in">this</span>.loader);
+
+        <span class="hljs-keyword">const</span> correctedConfig = <span class="hljs-built_in">this</span>.withTransformedField(
+            config.cucumberOpts || {},
+            <span class="hljs-string">&apos;require&apos;</span>,
+            <span class="hljs-function"><span class="hljs-params">requires</span> =&gt;</span> <span class="hljs-built_in">this</span>.asAbsolutePaths(requires),
+        );
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CucumberTestRunner(
+            correctedConfig,
+            <span class="hljs-built_in">this</span>.loader,
+        );
     }
 
     <span class="hljs-keyword">private</span> useJasmine(config: Config): TestRunner {
@@ -243,6 +261,24 @@
     <span class="hljs-keyword">private</span> useMocha(config: Config): TestRunner {
         <span class="hljs-keyword">const</span> { MochaTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./runners/MochaTestRunner&apos;</span>);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MochaTestRunner(config.mochaOpts, <span class="hljs-built_in">this</span>.loader);
+    }
+
+    <span class="hljs-keyword">private</span> withTransformedField&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">object</span>, K <span class="hljs-keyword">extends</span> keyof T&gt;(obj: T, <span class="hljs-attr">key</span>: K, <span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">value: T[K]</span>) =&gt;</span> T[K]): T {
+        <span class="hljs-keyword">if</span> (! obj[key]) {
+            <span class="hljs-keyword">return</span> obj;
+        }
+
+        <span class="hljs-keyword">const</span> override = {
+            [key]: fn(obj[key]),
+        } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Partial&lt;T&gt;;
+
+        <span class="hljs-keyword">return</span> deepmerge&lt;T&gt;(obj, override, {
+            <span class="hljs-attr">isMergeableObject</span>: isPlainObject,
+        });
+    }
+
+    <span class="hljs-keyword">private</span> asAbsolutePaths(requires: <span class="hljs-built_in">string</span>[] | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): <span class="hljs-built_in">string</span>[] {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.finder.filesMatching(requires).map(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.value);
     }
 }
 </code></pre>

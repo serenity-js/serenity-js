@@ -156,6 +156,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteStarts.ts~TestSuiteStarts.html">TestSuiteStarts</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io">io</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html">AssertionReportDiffer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html">ErrorSerialiser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileFinder.ts~FileFinder.html">FileFinder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystemLocation.ts~FileSystemLocation.html">FileSystemLocation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></span></li>
@@ -233,6 +234,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/TakeNote.ts~TakeNote.html">TakeNote</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions">screenplay/questions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Note.ts~Note.html">Note</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Transform.ts~Transform.html">Transform</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-q">q</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-mappings">screenplay/questions/mappings</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AnswerMappingFunction&lt;V,">AnswerMappingFunction&lt;V,</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-mappings-string">screenplay/questions/mappings/string</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-append">append</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-normalize">normalize</a></span></span></li>
@@ -599,6 +601,36 @@ it&apos;s better to invoke <code>engage</code> before each test using:</p>
         
         
         <div data-ice="description"><p> Converts a JavaScript Object Notation (JSON) string into an object.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-q">q</a></span></span><span class="code" data-ice="signature">(templates: <span>TemplateStringsArray</span>, parameters: <span>Array</span>&lt;<span>Answerable&lt;string</span>|<span>number&gt;</span>&gt;): <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>string</span>&gt;&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> A Screenplay-flavour of a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates">tagged template literal</a>,
+ <code>q</code> is a tag function capable of resolving any <code>Answerable&lt;string | number&gt;</code> you parametrise it with (i.e.</p>
 </div>
       </div>
     </td>
@@ -1886,6 +1918,119 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
   
 
   
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-q">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">q</span><span class="code" data-ice="signature">(templates: <span>TemplateStringsArray</span>, parameters: <span>Array</span>&lt;<span>Answerable&lt;string</span>|<span>number&gt;</span>&gt;): <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>string</span>&gt;&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/q.ts.html#lineNumber49">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {q} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay/questions&apos;</span></code></pre></div>
+  
+  
+  <div data-ice="description"><p> A Screenplay-flavour of a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates">tagged template literal</a>,
+ <code>q</code> is a tag function capable of resolving any <code>Answerable&lt;string | number&gt;</code> you parametrise it with (i.e. a <span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>).</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">templates</td>
+      <td data-ice="type" class="code"><span>TemplateStringsArray</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">parameters</td>
+      <td data-ice="type" class="code"><span>Array</span>&lt;<span>Answerable&lt;string</span>|<span>number&gt;</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>string</span>&gt;&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Interpolating `Questions`</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { q, actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { Send, DeleteRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>;
+
+ actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
+     Send.a(DeleteRequest.to(
+         q <span class="hljs-string">`/articles/<span class="hljs-subst">${ Text.<span class="hljs-keyword">of</span>(Article.id()) }</span>`</span>
+     ))
+ )</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using a custom description</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { q, actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+ <span class="hljs-keyword">import</span> { Send, DeleteRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>;
+
+ actorCalled(<span class="hljs-string">&apos;Alice&apos;</span>).attemptsTo(
+     Send.a(DeleteRequest.to(
+         q <span class="hljs-string">`/articles/<span class="hljs-subst">${ Text.<span class="hljs-keyword">of</span>(Article.id()) }</span>`</span>.describedAs(<span class="hljs-string">&apos;/articles/:id&apos;</span>)
+     ))
+ )</code></pre>
+    </div>
+</div>
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber10">q</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber53">q returns the original string value if no parameters are provided</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber84">q provides a sensible description of the question being asked</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber91">q can have the default description overridden</a></span></li>
+</ul>
+  </div>
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/screenplay/Question.ts~Question.html">Question</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">

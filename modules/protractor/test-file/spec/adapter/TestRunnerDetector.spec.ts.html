@@ -178,7 +178,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<span class="hljs-keyword">import</span> { ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
 <span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter&apos;</span>;
 <span class="hljs-keyword">import</span> { CucumberTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter/runners/CucumberTestRunner&apos;</span>;
 <span class="hljs-keyword">import</span> { JasmineTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter/runners/JasmineTestRunner&apos;</span>;
@@ -189,7 +189,7 @@ describe(<span class="hljs-string">&apos;TestRunnerDetector&apos;</span>, <span 
     <span class="hljs-keyword">let</span> detector: TestRunnerDetector;
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
-        detector = <span class="hljs-keyword">new</span> TestRunnerDetector(<span class="hljs-keyword">new</span> ModuleLoader(process.cwd()));
+        detector = <span class="hljs-keyword">new</span> TestRunnerDetector(Path.from(__dirname));
     });
 
     describe(<span class="hljs-string">&apos;when configured with a specific runner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -270,9 +270,11 @@ describe(<span class="hljs-string">&apos;TestRunnerDetector&apos;</span>, <span 
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">cucumberOpts</span>: {
                     <span class="hljs-attr">require</span>: [
-                        <span class="hljs-string">&apos;ts-node/register&apos;</span>,
                         <span class="hljs-string">&apos;features/**/*.steps.ts&apos;</span>,
                     ],
+                    <span class="hljs-string">&apos;require-module&apos;</span>: [
+                        <span class="hljs-string">&apos;ts-node/register&apos;</span>
+                    ]
                 },
             });
 

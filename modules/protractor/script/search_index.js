@@ -744,6 +744,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~filefinder",
+    "/modules/core/class/src/io/FileFinder.ts~FileFinder.html",
+    "@serenity-js/core/lib/io~FileFinder",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~filesystem",
     "/modules/core/class/src/io/FileSystem.ts~FileSystem.html",
     "@serenity-js/core/lib/io~FileSystem",
@@ -1191,6 +1197,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/screenplay/questions~transform",
     "/modules/core/class/src/screenplay/questions/Transform.ts~Transform.html",
     "@serenity-js/core/lib/screenplay/questions~Transform",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~q",
+    "/modules/core/function/index.html#static-function-q",
+    "@serenity-js/core/lib/screenplay/questions~q",
     "external"
   ],
   [
@@ -3649,25 +3661,25 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber132",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber134",
     "TestRunnerDetector to support test runner options specified in the capabilities section",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber134",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber136",
     "TestRunnerDetector to support test runner options specified in the capabilities section merges the cucumberOpts",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber138",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber140",
     "TestRunnerDetector to support test runner options specified in the capabilities section merges the jasmineNodeOpts",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber136",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber138",
     "TestRunnerDetector to support test runner options specified in the capabilities section merges the mochaOpts",
     "test"
   ],
@@ -3727,19 +3739,19 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber105",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber107",
     "TestRunnerDetector when no specific test runner is set uses the JasmineTestRunner when jasmineNodeOpts are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber115",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber117",
     "TestRunnerDetector when no specific test runner is set uses the JasmineTestRunner when no other runners are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber121",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber123",
     "TestRunnerDetector when no specific test runner is set uses the MochaTestRunner when mochaOpts are specified",
     "test"
   ],

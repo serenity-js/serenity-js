@@ -44,6 +44,7 @@
 /** @external {@serenity-js/core/lib/io~AssertionReportDiffer} /modules/core/class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html */
 /** @external {@serenity-js/core/lib/io~SerialisedError} /modules/core/class/src/io/ErrorSerialiser.ts~SerialisedError.html */
 /** @external {@serenity-js/core/lib/io~ErrorSerialiser} /modules/core/class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html */
+/** @external {@serenity-js/core/lib/io~FileFinder} /modules/core/class/src/io/FileFinder.ts~FileFinder.html */
 /** @external {@serenity-js/core/lib/io~FileSystem} /modules/core/class/src/io/FileSystem.ts~FileSystem.html */
 /** @external {@serenity-js/core/lib/io~FileSystemLocation} /modules/core/class/src/io/FileSystemLocation.ts~FileSystemLocation.html */
 /** @external {@serenity-js/core/lib/io~ModuleLoader} /modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html */
@@ -129,6 +130,7 @@
 /** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~toNumber} /modules/core/function/index.html#static-function-toNumber */
 /** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~toUpperCase} /modules/core/function/index.html#static-function-toUpperCase */
 /** @external {@serenity-js/core/lib/screenplay/questions/mappings/string~trim} /modules/core/function/index.html#static-function-trim */
+/** @external {@serenity-js/core/lib/screenplay/questions~q} /modules/core/function/index.html#static-function-q */
 /** @external {@serenity-js/core/lib/screenplay/tasks~Loop} /modules/core/class/src/screenplay/tasks/Loop.ts~Loop.html */
 /** @external {@serenity-js/core/lib/stage~Cast} /modules/core/class/src/stage/Cast.ts~Cast.html */
 /** @external {@serenity-js/core/lib/stage~Clock} /modules/core/class/src/stage/Clock.ts~Clock.html */
