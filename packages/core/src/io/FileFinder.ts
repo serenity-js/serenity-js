@@ -1,4 +1,4 @@
-import { sync as fg } from 'fast-glob';
+import fg = require('fast-glob');
 import { Path } from './Path';
 
 export class FileFinder {
@@ -10,10 +10,10 @@ export class FileFinder {
             return [];
         }
 
-        return fg<string>(globPatterns, {
+        return fg.sync(globPatterns, {
             cwd: this.cwd.value,
             absolute: true,
             unique: true,
-        }).map(value => new Path(value));
+        }).map((value: string) => new Path(value));
     }
 }
