@@ -5,11 +5,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 2.19.5 (2020-12-10)
 
-**Note:** Version bump only for package serenity-js-monorepo
+### Bug Fixes
+
+* **core:** exported `q` so that it's available under @serenity-js/core ([49d4f81](https://github.com/serenity-js/serenity-js/commit/49d4f813d3e8f1afcc159c31f4c6b476a2a0a0a0))
+* **core:** removed unnecessary quotes surrounding the name of the note in TakeNote.toString ([faddee8](https://github.com/serenity-js/serenity-js/commit/faddee835a280fca066088b2b9b6e0500cb5811a))
+* **protractor:** cucumberOpts.require patterns are now resolved relative to protractor config dir ([9d9973f](https://github.com/serenity-js/serenity-js/commit/9d9973f984445c5ddb33e1ce9902b2b3890f2c20)), closes [#632](https://github.com/serenity-js/serenity-js/issues/632)
 
 
+### Features
 
-
+* **core:** `q` makes Question<string> templates as easy as regular string templates ([9db29f8](https://github.com/serenity-js/serenity-js/commit/9db29f89c2360f28d56890d15ced4e9b4d538dc5))
 
 ## 2.19.4 (2020-11-30)
 
