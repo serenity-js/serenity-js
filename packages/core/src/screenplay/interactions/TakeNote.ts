@@ -102,6 +102,6 @@ export class TakeNote<Answer> extends Interaction {
      * @returns {string}
      */
     toString() {
-        return formatted `#actor takes note of "${ this.subject }"`;
+        return formatted `#actor takes note of ${ this.subject }`;
     }
 }

@@ -1,5 +1,8 @@
-import { ModuleLoader } from '@serenity-js/core/lib/io';
+import { FileFinder, ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { isPlainObject } from 'is-plain-object';
+import * as path from 'path'
 import { Config } from 'protractor';
+import deepmerge = require('deepmerge');
 
 import { TestRunner } from './runners/TestRunner';
 
@@ -7,6 +10,9 @@ import { TestRunner } from './runners/TestRunner';
  * @private
  */
 export class TestRunnerDetector {
+
+    private readonly loader: ModuleLoader;
+    private readonly finder: FileFinder;
 
     static protractorCliOptions() {
         return [
@@ -16,7 +22,9 @@ export class TestRunnerDetector {
         ];
     }
 
-    constructor(private readonly loader: ModuleLoader) {
+    constructor(cwd: Path) {
+        this.loader = new ModuleLoader(cwd.value);
+        this.finder = new FileFinder(cwd);
     }
 
     // todo: when invoking, merge config
@@ -55,7 +63,17 @@ export class TestRunnerDetector {
 
     private useCucumber(config: Config): TestRunner {
         const { CucumberTestRunner } = require('./runners/CucumberTestRunner');
-        return new CucumberTestRunner(config.cucumberOpts || {}, this.loader);
+
+        const correctedConfig = this.withTransformedField(
+            config.cucumberOpts || {},
+            'require',
+            requires => this.asAbsolutePaths(requires),
+        );
+
+        return new CucumberTestRunner(
+            correctedConfig,
+            this.loader,
+        );
     }
 
     private useJasmine(config: Config): TestRunner {
@@ -66,5 +84,23 @@ export class TestRunnerDetector {
     private useMocha(config: Config): TestRunner {
         const { MochaTestRunner } = require('./runners/MochaTestRunner');
         return new MochaTestRunner(config.mochaOpts, this.loader);
+    }
+
+    private withTransformedField<T extends object, K extends keyof T>(obj: T, key: K, fn: (value: T[K]) => T[K]): T {
+        if (! obj[key]) {
+            return obj;
+        }
+
+        const override = {
+            [key]: fn(obj[key]),
+        } as unknown as Partial<T>;
+
+        return deepmerge<T>(obj, override, {
+            isMergeableObject: isPlainObject,
+        });
+    }
+
+    private asAbsolutePaths(requires: string[] | string | undefined): string[] {
+        return this.finder.filesMatching(requires).map(p => p.value);
     }
 }

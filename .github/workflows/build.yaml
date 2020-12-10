@@ -29,7 +29,7 @@ jobs:
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
-      - name: Use Node.js 14.x
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
@@ -52,7 +52,7 @@ jobs:
 
       - name: Publish artifacts
         if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
-        run: npx lerna publish --yes
+        run: npm run lerna:publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
