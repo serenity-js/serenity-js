@@ -1,0 +1,44 @@
+{
+  "name": "@integration/protractor-cucumber",
+  "version": "2.19.4",
+  "description": "Protractor/Cucumber integration tests",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 10",
+    "npm": ">= 6"
+  },
+  "dependencies": {
+    "@integration/testing-tools": "2.19.4",
+    "@serenity-js/core": "2.19.4",
+    "@serenity-js/cucumber": "2.19.4",
+    "@serenity-js/protractor": "2.19.4",
+    "chromedriver": "^87.0.0",
+    "cucumber": "^6.0.5",
+    "protractor": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^8.2.0"
+  }
+}

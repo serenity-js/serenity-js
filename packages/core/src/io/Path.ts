@@ -7,7 +7,13 @@ export class Path extends TinyType {
     private static readonly Separator = '/';
     public readonly value: string;
 
-    static fromJSON = (v: string) => new Path(v);
+    static fromJSON(v: string) {
+        return new Path(v);
+    };
+
+    static from(...segments: string[]) {
+        return new Path(path.joinSafe(...segments));
+    }
 
     static fromSanitisedString(value: string) {
         const

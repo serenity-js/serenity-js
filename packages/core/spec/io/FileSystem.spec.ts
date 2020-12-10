@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { FileSystem, Path } from '../../src/io';
 import { expect } from '../expect';
 import { FakeFS } from '../FakeFS';

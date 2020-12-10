@@ -4,6 +4,7 @@ export * from './AssertionReportDiffer';
 export * from './commaSeparated';
 export * from './ErrorSerialiser';
 export * from './ErrorStackParser';
+export * from './FileFinder';
 export * from './FileSystem';
 export * from './FileSystemLocation';
 export * from './formatted';
