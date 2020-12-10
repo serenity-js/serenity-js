@@ -38,6 +38,7 @@
     "coverage:publish": "cat ./target/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
     "commit": "git-cz",
     "lerna": "lerna",
+    "lerna:publish": "lerna publish --yes",
     "lerna:test:version": "lerna version --no-git-tag-version --no-push",
     "lerna:test:publish": "lerna publish --no-git-tag-version --no-push",
     "postinstall": "lerna bootstrap --hoist --nohoist=@types/jasmine --nohoist=@types/mocha && link-parent-bin -c packages && link-parent-bin -c integration && link-parent-bin -c examples && link-parent-bin -c documentation"
