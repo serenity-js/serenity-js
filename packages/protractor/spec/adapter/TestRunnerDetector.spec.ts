@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { ModuleLoader } from '@serenity-js/core/lib/io';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import { TestRunnerDetector } from '../../src/adapter';
 import { CucumberTestRunner } from '../../src/adapter/runners/CucumberTestRunner';
 import { JasmineTestRunner } from '../../src/adapter/runners/JasmineTestRunner';
@@ -12,7 +12,7 @@ describe('TestRunnerDetector', () => {
     let detector: TestRunnerDetector;
 
     beforeEach(() => {
-        detector = new TestRunnerDetector(new ModuleLoader(process.cwd()));
+        detector = new TestRunnerDetector(Path.from(__dirname));
     });
 
     describe('when configured with a specific runner', () => {
@@ -93,9 +93,11 @@ describe('TestRunnerDetector', () => {
             const runner = detector.runnerFor({
                 cucumberOpts: {
                     require: [
-                        'ts-node/register',
                         'features/**/*.steps.ts',
                     ],
+                    'require-module': [
+                        'ts-node/register'
+                    ]
                 },
             });
 

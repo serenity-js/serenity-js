@@ -1,0 +1,29 @@
+import 'mocha';
+
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
+import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { protractor } from '../src/protractor';
+
+describe('@serenity-js/cucumber', function () {
+
+    this.timeout(30000);
+
+    it('recognises a passing scenario', () =>
+        protractor(
+            './examples/protractor.conf.js',
+            '--specs=examples/features/passing.feature',
+        )
+        .then(ifExitCodeIsOtherThan(0, logOutput))
+        .then(res => {
+
+            expect(res.exitCode).to.equal(0);
+
+            PickEvent.from(res.events)
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A passing scenario')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('A passing feature')))
+                .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+            ;
+        }));
+});
