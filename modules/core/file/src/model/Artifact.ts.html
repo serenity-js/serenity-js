@@ -321,7 +321,7 @@
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">looksLikeBase64Encoded</span>(<span class="hljs-params"></span>): <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">string</span>&gt; </span>{
-    <span class="hljs-keyword">const</span> regex = <span class="hljs-regexp">/^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/</span>;
+    <span class="hljs-keyword">const</span> regex = <span class="hljs-regexp">/^[A-Za-z0-9+/=]+$/</span>;
 
     <span class="hljs-keyword">return</span> Predicate.to(<span class="hljs-string">`be base64-encoded`</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> regex.test(value));
 }

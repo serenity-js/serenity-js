@@ -1033,44 +1033,62 @@ window.esdocSearchIndex = [
   ],
   [
     "check src/check.ts~check,check",
-    "test-file/spec/Check.spec.ts.html#lineNumber9",
+    "test-file/spec/Check.spec.ts.html#lineNumber10",
     "Check",
     "test"
   ],
   [
     "",
-    "test-file/spec/Check.spec.ts.html#lineNumber16",
+    "test-file/spec/Check.spec.ts.html#lineNumber17",
     "Check (if branch)",
     "test"
   ],
   [
     "check#andifso check#andifso,check#andifso",
-    "test-file/spec/Check.spec.ts.html#lineNumber20",
+    "test-file/spec/Check.spec.ts.html#lineNumber21",
     "Check (if branch) makes the actor execute the activities when the expectation is met",
     "test"
   ],
   [
     "check#andifso check#andifso,check#andifso",
-    "test-file/spec/Check.spec.ts.html#lineNumber35",
+    "test-file/spec/Check.spec.ts.html#lineNumber36",
     "Check (if branch) makes the actor ignore the activities when the expectation is not met",
     "test"
   ],
   [
     "",
-    "test-file/spec/Check.spec.ts.html#lineNumber48",
+    "test-file/spec/Check.spec.ts.html#lineNumber49",
     "Check (if/else branches)",
     "test"
   ],
   [
     "check#otherwise src/check.ts~check#otherwise,check#otherwise",
-    "test-file/spec/Check.spec.ts.html#lineNumber52",
+    "test-file/spec/Check.spec.ts.html#lineNumber53",
     "Check (if/else branches) makes the actor execute the activities when the expectation is met",
     "test"
   ],
   [
     "check#otherwise src/check.ts~check#otherwise,check#otherwise",
-    "test-file/spec/Check.spec.ts.html#lineNumber70",
+    "test-file/spec/Check.spec.ts.html#lineNumber71",
     "Check (if/else branches) makes the actor execute the alternative activities when the expectation is not met",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/Check.spec.ts.html#lineNumber87",
+    "Check reporting",
+    "test"
+  ],
+  [
+    "check#whether check#whether,check#whether",
+    "test-file/spec/Check.spec.ts.html#lineNumber91",
+    "Check reporting provides a description of the check",
+    "test"
+  ],
+  [
+    "check#whether check#whether,check#whether",
+    "test-file/spec/Check.spec.ts.html#lineNumber97",
+    "Check reporting provides a description of the check while correctly cleaning the output from new line characters",
     "test"
   ],
   [

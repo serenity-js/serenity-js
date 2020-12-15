@@ -339,12 +339,18 @@
 
     <span class="hljs-keyword">private</span> fileNameFor(prefix: <span class="hljs-built_in">string</span>, <span class="hljs-attr">artifactName</span>: Name, <span class="hljs-attr">artifact</span>: Artifact, <span class="hljs-attr">extension</span>: <span class="hljs-built_in">string</span>): Path {
         <span class="hljs-keyword">const</span> hash = Hash.of(artifact.base64EncodedValue).short();
+
+        <span class="hljs-keyword">const</span> urlFriendly = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+            name.toLocaleLowerCase()
+                .replace(<span class="hljs-regexp">/[^a-z0-9.-]/g</span>, <span class="hljs-string">&apos;-&apos;</span>)
+                .replace(<span class="hljs-regexp">/-+/g</span>, <span class="hljs-string">&apos;-&apos;</span>)
+
         <span class="hljs-keyword">return</span> Path.fromSanitisedString(
             <span class="hljs-comment">// Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems</span>
             <span class="hljs-comment">// note: we can&apos;t do that in the Path constructor as the Path can be used to join other paths,</span>
             <span class="hljs-comment">// so restricting the length of the _path_ itself would not be correct.</span>
-            <span class="hljs-string">`<span class="hljs-subst">${ prefix.substring(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>) }</span>-<span class="hljs-subst">${ artifactName.value.toLocaleLowerCase().substring(<span class="hljs-number">0</span>, <span class="hljs-number">220</span>) }</span>-<span class="hljs-subst">${ hash }</span>.<span class="hljs-subst">${ extension }</span>`</span>,
-            <span class="hljs-comment">// characters:     10        1         220                                                 1    10   1    4            &lt; 250</span>
+            <span class="hljs-string">`<span class="hljs-subst">${ prefix.substring(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>) }</span>-<span class="hljs-subst">${ urlFriendly(artifactName.value).substring(<span class="hljs-number">0</span>, <span class="hljs-number">220</span>) }</span>-<span class="hljs-subst">${ hash }</span>.<span class="hljs-subst">${ extension }</span>`</span>,
+            <span class="hljs-comment">// characters:     10        1         220                                          1    10   1    4            &lt; 250</span>
 
         );
     }

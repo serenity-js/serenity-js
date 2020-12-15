@@ -144,11 +144,12 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/Check.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
-
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled, Interaction, Log, Note, Question, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled, Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
+
 <span class="hljs-keyword">import</span> { Check, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src&apos;</span>;
+<span class="hljs-keyword">import</span> { isIdenticalTo } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./fixtures&apos;</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check}</span> </span>*/</span>
 describe(<span class="hljs-string">&apos;Check&apos;</span>, <span class="hljs-function">() =&gt;</span> {
@@ -227,6 +228,25 @@ describe(<span class="hljs-string">&apos;Check&apos;</span>, <span class="hljs-f
             }),
         );
     });
+
+    describe(<span class="hljs-string">&apos;reporting&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#whether}</span> </span>*/</span>
+        it(<span class="hljs-string">&apos;provides a description of the check&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            expect(Check.whether(<span class="hljs-number">4</span>, isIdenticalTo(<span class="hljs-number">7</span>)).andIfSo().toString()).to.equal(<span class="hljs-string">`#actor checks whether 4 does have value identical to 7`</span>);
+        });
+
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#whether}</span> </span>*/</span>
+        it(<span class="hljs-string">&apos;provides a description of the check while correctly cleaning the output from new line characters&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            expect(Check.whether({ <span class="hljs-attr">person</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Jan&apos;</span> }}, equals({
+                <span class="hljs-attr">person</span>: {
+                    <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Jan&apos;</span>,
+                },
+            })).andIfSo().toString()).to.equal(<span class="hljs-string">`#actor checks whether { &quot;person&quot;: { &quot;name&quot;: &quot;Jan&quot; } } does equal { &quot;person&quot;: { &quot;name&quot;: &quot;Jan&quot; } }`</span>);
+        });
+    })
 });
 </code></pre>
 
