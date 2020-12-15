@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.19.9](https://github.com/serenity-js/serenity-js/compare/v2.19.8...v2.19.9) (2020-12-15)
+
+
+### Bug Fixes
+
+* **core:** ensure file names produced by the ArtifactArchiver contain only URL-friendly characters ([6c7abcc](https://github.com/serenity-js/serenity-js/commit/6c7abccb00a72cdad673fe9a2a806f02ca9eed81)), closes [#634](https://github.com/serenity-js/serenity-js/issues/634)
+
+
+### Performance Improvements
+
+* **core:** simplified Artifact validation to make it perform better with large screenshots ([ff365db](https://github.com/serenity-js/serenity-js/commit/ff365db0971f8208c5bd1ad6a6f8f1f1e7c15381))
+
+
+
+
+
 ## [2.19.8](https://github.com/serenity-js/serenity-js/compare/v2.19.7...v2.19.8) (2020-12-15)
 
 
