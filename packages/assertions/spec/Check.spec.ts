@@ -1,9 +1,10 @@
 import 'mocha';
-
 import { expect } from '@integration/testing-tools';
-import { actorCalled, Interaction, Log, Note, Question, Task } from '@serenity-js/core';
+import { actorCalled, Interaction } from '@serenity-js/core';
 import * as sinon from 'sinon';
+
 import { Check, equals, startsWith } from '../src';
+import { isIdenticalTo } from './fixtures';
 
 /** @test {Check} */
 describe('Check', () => {
@@ -82,4 +83,23 @@ describe('Check', () => {
             }),
         );
     });
+
+    describe('reporting', () => {
+
+        /** @test {Check.whether} */
+        /** @test {Check#whether} */
+        it('provides a description of the check', () => {
+            expect(Check.whether(4, isIdenticalTo(7)).andIfSo().toString()).to.equal(`#actor checks whether 4 does have value identical to 7`);
+        });
+
+        /** @test {Check.whether} */
+        /** @test {Check#whether} */
+        it('provides a description of the check while correctly cleaning the output from new line characters', () => {
+            expect(Check.whether({ person: { name: 'Jan' }}, equals({
+                person: {
+                    name: 'Jan',
+                },
+            })).andIfSo().toString()).to.equal(`#actor checks whether { "person": { "name": "Jan" } } does equal { "person": { "name": "Jan" } }`);
+        });
+    })
 });

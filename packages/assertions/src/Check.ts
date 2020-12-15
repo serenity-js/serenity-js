@@ -100,6 +100,6 @@ export class Check<Actual> extends Task {
      * @returns {string}
      */
     toString(): string {
-        return formatted `#actor ensures that ${ this.actual } does ${ this.expectation }`;
+        return formatted `#actor checks whether ${ this.actual } does ${ this.expectation }`;
     }
 }
