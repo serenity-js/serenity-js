@@ -124,14 +124,6 @@ export abstract class Question<T> {
      *  Creates a new {@link Question}, which value is a result of applying the `mapping`
      *  function to the value of this {@link Question}.
      *
-     * @example <caption>Mapping a Question<string> value to Question<Promise<Date>></caption>
-     *  import { Question, toDate } from '@serenity-js/core';
-     *
-     *  Question.about('first commit date', actor => '2016-06-16T16:54:12.000Z')
-     *      .map(toDate)
-     *
-     *  // => Question<Promise<Date>>
-     *
      * @example <caption>Mapping a Question<Promise<string>> to Question<Promise<number>></caption>
      *  import { Question, replace, toNumber } from '@serenity-js/core';
      *
