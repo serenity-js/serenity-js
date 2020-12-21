@@ -126,7 +126,7 @@ describe('ArtifactArchiver', () => {
          */
         it(`ensures that the generate file name doesn't contain special characters`, () => {
             const emittedEventName = 'linux-chrome-87-0.4280.88-jasmine-navigates-to-https://www.bounteous.com/#sr=g&m=o&cp=or&ct=-tmc&st=(opu%20qspwjefe)&ts=1402322447';
-            const expectedFileName = `photo-linux-chrome-87-0.4280.88-jasmine-navigates-to-https-www.bounteous.com-sr-g-m-o-cp-or-ct-tmc-st-opu-20qspwjefe-ts-1402322447-${ photoShortHash }.png`;
+            const expectedFileName = `photo-linux-chrome-87-0.4280.88-jasmine-navigates-to-https-www.bount-${ photoShortHash }.png`;
 
             stage.announce(new ArtifactGenerated(
                 sceneId,

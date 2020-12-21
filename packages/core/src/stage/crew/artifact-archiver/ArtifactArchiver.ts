@@ -75,16 +75,14 @@ export class ArtifactArchiver implements StageCrewMember {
 
         const urlFriendly = (name: string) =>
             name.toLocaleLowerCase()
-                .replace(/[^a-z0-9.-]/g, '-')
-                .replace(/-+/g, '-')
+                .replace(/[^a-z0-9.-]/g, '-');
 
         return Path.fromSanitisedString(
             // Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems
             // note: we can't do that in the Path constructor as the Path can be used to join other paths,
             // so restricting the length of the _path_ itself would not be correct.
-            `${ prefix.substring(0, 10) }-${ urlFriendly(artifactName.value).substring(0, 220) }-${ hash }.${ extension }`,
-            // characters:     10        1         220                                          1    10   1    4            < 250
-
+            `${ prefix.substring(0, 10) }-${ urlFriendly(artifactName.value).substring(0, 64) }-${ hash }.${ extension }`.replace(/-+/g, '-'),
+            // characters:     10        1         83                                          1    10   1    4                                 < 100
         );
     }
 
