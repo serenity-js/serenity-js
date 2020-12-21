@@ -82,7 +82,7 @@ export class ArtifactArchiver implements StageCrewMember {
             // note: we can't do that in the Path constructor as the Path can be used to join other paths,
             // so restricting the length of the _path_ itself would not be correct.
             `${ prefix.substring(0, 10) }-${ urlFriendly(artifactName.value).substring(0, 64) }-${ hash }.${ extension }`.replace(/-+/g, '-'),
-            // characters:     10        1         83                                          1    10   1    4                                 < 100
+            // characters:     10        1         64                                          1    10   1    4                                 < 100
         );
     }
 
