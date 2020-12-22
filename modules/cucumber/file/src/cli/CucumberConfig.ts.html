@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
                         <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">cucumber</a></li>
@@ -150,7 +150,7 @@
      *  For Cucumber 4.x and above use the {<span class="hljs-doctag">@link </span>CucumberConfig#require} option instead.
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Enable TypeScript support in Cucumber 1.x - 3.x&lt;/caption&gt;
-     *  compiler: &apos;ts:ts-node/register&apos;
+     *  compiler: 'ts:ts-node/register'
      *
      * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
      * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers
@@ -172,7 +172,7 @@
      *  Provide options for formatters
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
-     *  formatOptions: JSON.stringify({ option: &apos;value&apos; })
+     *  formatOptions: JSON.stringify({ option: 'value' })
      *
      * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
      * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options
@@ -196,7 +196,7 @@
      *  and the value is a string of CLI options.
      *
      *  The profile can be applied with -p &lt;NAME&gt; or --profile &lt;NAME&gt;.
-     *  This will prepend the profile&apos;s CLI options to the ones provided by the command line.
+     *  This will prepend the profile's CLI options to the ones provided by the command line.
      *  Multiple profiles can be specified at a time.
      *
      *  If no profile is specified and a profile named default exists,
@@ -222,10 +222,10 @@
      *  For example, to run all scenarios tagged with `<span class="hljs-doctag">@smoketest</span>`, but not with `<span class="hljs-doctag">@wip</span>`:
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
-     * tag: [ &apos;<span class="hljs-doctag">@smoketest</span>&apos;, &apos;~<span class="hljs-doctag">@wip</span>&apos; ]
+     * tag: [ '<span class="hljs-doctag">@smoketest</span>', '~<span class="hljs-doctag">@wip</span>' ]
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber &gt;= 2.x&lt;/caption&gt;
-     * tag: &apos;<span class="hljs-doctag">@smoketest </span>and not <span class="hljs-doctag">@wip</span>&apos;
+     * tag: '<span class="hljs-doctag">@smoketest </span>and not <span class="hljs-doctag">@wip</span>'
      *
      * <span class="hljs-doctag">@type <span class="hljs-type">{string[]|string}</span></span>
      * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags
@@ -247,7 +247,7 @@
      *  Provide parameters that will be passed to the world constructor
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
-     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== &apos;production&apos; })
+     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })
      *
      * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
      * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters

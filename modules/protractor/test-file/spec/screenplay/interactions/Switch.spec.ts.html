@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,24 +175,24 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Switch.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { error } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;selenium-webdriver&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { error } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
 
-<span class="hljs-keyword">import</span> { Click, Close, Navigate, Switch, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
-<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
+<span class="hljs-keyword">import</span> { Click, Close, Navigate, Switch, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch}</span> </span>*/</span>
-describe(<span class="hljs-string">&apos;Switch&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'Switch'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        h1 = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>)),
-        iframe = Target.the(<span class="hljs-string">&apos;test iframe&apos;</span>).located(by.tagName(<span class="hljs-string">&apos;iframe&apos;</span>)),
-        newTabLink = Target.the(<span class="hljs-string">&apos;link&apos;</span>).located(by.linkText(<span class="hljs-string">&apos;open new tab&apos;</span>));
+        h1 = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'h1'</span>)),
+        iframe = Target.the(<span class="hljs-string">'test iframe'</span>).located(by.tagName(<span class="hljs-string">'iframe'</span>)),
+        newTabLink = Target.the(<span class="hljs-string">'link'</span>).located(by.linkText(<span class="hljs-string">'open new tab'</span>));
 
     <span class="hljs-keyword">const</span> page =
         <span class="hljs-function">(<span class="hljs-params">header: <span class="hljs-built_in">string</span></span>) =&gt;</span>
@@ -210,7 +210,7 @@ describe(<span class="hljs-string">&apos;Switch&apos;</span>, <span class="hljs-
                 &lt;html&gt;
                     &lt;body&gt;
                         &lt;h1&gt;<span class="hljs-subst">${ header }</span>&lt;/h1&gt;
-                        &lt;iframe name=&quot;example-iframe&quot; src=&quot;<span class="hljs-subst">${ iframeSrc.replace(<span class="hljs-regexp">/&quot;/g</span>, <span class="hljs-string">&apos;&amp;quot;&apos;</span>) }</span>&quot; /&gt;
+                        &lt;iframe name="example-iframe" src="<span class="hljs-subst">${ iframeSrc.replace(<span class="hljs-regexp">/"/g</span>, <span class="hljs-string">'&amp;quot;'</span>) }</span>" /&gt;
                     &lt;/body&gt;
                 &lt;/html&gt;
             `</span>);
@@ -221,11 +221,11 @@ describe(<span class="hljs-string">&apos;Switch&apos;</span>, <span class="hljs-
                 &lt;html&gt;
                     &lt;body&gt;
                         &lt;h1&gt;<span class="hljs-subst">${ header }</span>&lt;/h1&gt;
-                        &lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;popup()&quot;&gt;open new tab&lt;/a&gt;
+                        &lt;a href="javascript:void(0)" onclick="popup()"&gt;open new tab&lt;/a&gt;
                         &lt;script&gt;
                             function popup() {
-                                var w = window.open(&apos;&apos;, &apos;new-tab&apos;);
-                                w.document.write(&apos;&lt;h1&gt;New tab&lt;/h1&gt;&apos;);
+                                var w = window.open('', 'new-tab');
+                                w.document.write('&lt;h1&gt;New tab&lt;/h1&gt;');
                                 w.document.close();
                             }
                         &lt;/script&gt;
@@ -233,253 +233,253 @@ describe(<span class="hljs-string">&apos;Switch&apos;</span>, <span class="hljs-
                 &lt;/html&gt;
             `</span>);
 
-    describe(<span class="hljs-string">&apos;when working with frames&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when working with frames'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">&apos;toFrame()&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'toFrame()'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
-            it(<span class="hljs-string">`should complain if there&apos;s no frame to switch to`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(page(<span class="hljs-string">&apos;main page&apos;</span>)),
+            it(<span class="hljs-string">`should complain if there's no frame to switch to`</span>, <span class="hljs-function">() =&gt;</span>
+                expect(actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(page(<span class="hljs-string">'main page'</span>)),
                     Switch.toFrame(<span class="hljs-number">0</span>),
                 )).to.be.rejectedWith(error.NoSuchFrameError));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should switch to an iframe identified by Question&lt;ElementFinder&gt;&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithIframe(<span class="hljs-string">&apos;main page&apos;</span>, page(<span class="hljs-string">&apos;an iframe&apos;</span>))),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;main page&apos;</span>)),
+            it(<span class="hljs-string">'should switch to an iframe identified by Question&lt;ElementFinder&gt;'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(pageWithIframe(<span class="hljs-string">'main page'</span>, page(<span class="hljs-string">'an iframe'</span>))),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'main page'</span>)),
 
                     Switch.toFrame(iframe),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;an iframe&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'an iframe'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should switch to an iframe identified by index&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithIframe(<span class="hljs-string">&apos;main page&apos;</span>, page(<span class="hljs-string">&apos;an iframe&apos;</span>))),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;main page&apos;</span>)),
+            it(<span class="hljs-string">'should switch to an iframe identified by index'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(pageWithIframe(<span class="hljs-string">'main page'</span>, page(<span class="hljs-string">'an iframe'</span>))),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'main page'</span>)),
 
                     Switch.toFrame(<span class="hljs-number">0</span>),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;an iframe&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'an iframe'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should switch to an iframe identified by name&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithIframe(<span class="hljs-string">&apos;main page&apos;</span>, page(<span class="hljs-string">&apos;an iframe&apos;</span>))),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;main page&apos;</span>)),
+            it(<span class="hljs-string">'should switch to an iframe identified by name'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(pageWithIframe(<span class="hljs-string">'main page'</span>, page(<span class="hljs-string">'an iframe'</span>))),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'main page'</span>)),
 
-                    Switch.toFrame(<span class="hljs-string">&apos;example-iframe&apos;</span>),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;an iframe&apos;</span>)),
+                    Switch.toFrame(<span class="hljs-string">'example-iframe'</span>),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'an iframe'</span>)),
                 ));
 
-            describe(<span class="hljs-string">&apos;should provide a sensible description when the iframe&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            describe(<span class="hljs-string">'should provide a sensible description when the iframe'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-                it(<span class="hljs-string">&apos;is specified by Question&lt;ElementFinder&gt;&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                    expect(Switch.toFrame(iframe).toString()).to.equal(<span class="hljs-string">&apos;#actor switches to frame: the test iframe&apos;</span>)
+                it(<span class="hljs-string">'is specified by Question&lt;ElementFinder&gt;'</span>, <span class="hljs-function">() =&gt;</span> {
+                    expect(Switch.toFrame(iframe).toString()).to.equal(<span class="hljs-string">'#actor switches to frame: the test iframe'</span>)
                 });
 
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-                it(<span class="hljs-string">&apos;is specified by index number&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                    expect(Switch.toFrame(<span class="hljs-number">1</span>).toString()).to.equal(<span class="hljs-string">&apos;#actor switches to frame: 1&apos;</span>)
+                it(<span class="hljs-string">'is specified by index number'</span>, <span class="hljs-function">() =&gt;</span> {
+                    expect(Switch.toFrame(<span class="hljs-number">1</span>).toString()).to.equal(<span class="hljs-string">'#actor switches to frame: 1'</span>)
                 });
 
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-                it(<span class="hljs-string">&apos;is specified by name&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                    expect(Switch.toFrame(<span class="hljs-string">&apos;example-iframe&apos;</span>).toString()).to.equal(<span class="hljs-string">&apos;#actor switches to frame: example-iframe&apos;</span>)
+                it(<span class="hljs-string">'is specified by name'</span>, <span class="hljs-function">() =&gt;</span> {
+                    expect(Switch.toFrame(<span class="hljs-string">'example-iframe'</span>).toString()).to.equal(<span class="hljs-string">'#actor switches to frame: example-iframe'</span>)
                 });
             });
         });
 
-        describe(<span class="hljs-string">&apos;toParentFrame()&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'toParentFrame()'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toParentFrame}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should not switch the frame if there are no parent frames&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(page(<span class="hljs-string">&apos;main page&apos;</span>)),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;main page&apos;</span>)),
+            it(<span class="hljs-string">'should not switch the frame if there are no parent frames'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(page(<span class="hljs-string">'main page'</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'main page'</span>)),
 
                     Switch.toParentFrame(),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;main page&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'main page'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toParentFrame}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should switch to the parent hosting an iframe&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithIframe(<span class="hljs-string">&apos;main page&apos;</span>, page(<span class="hljs-string">&apos;an iframe&apos;</span>))),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;main page&apos;</span>)),
+            it(<span class="hljs-string">'should switch to the parent hosting an iframe'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(pageWithIframe(<span class="hljs-string">'main page'</span>, page(<span class="hljs-string">'an iframe'</span>))),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'main page'</span>)),
 
                     Switch.toFrame(iframe),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;an iframe&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'an iframe'</span>)),
 
                     Switch.toParentFrame(),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;main page&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'main page'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toParentFrame}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should support nested frames&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithIframe(<span class="hljs-string">&apos;Level 0&apos;</span>, pageWithIframe(<span class="hljs-string">&apos;Level 1&apos;</span>, page(<span class="hljs-string">&apos;Level 2&apos;</span>)))),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 0&apos;</span>)),
+            it(<span class="hljs-string">'should support nested frames'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(pageWithIframe(<span class="hljs-string">'Level 0'</span>, pageWithIframe(<span class="hljs-string">'Level 1'</span>, page(<span class="hljs-string">'Level 2'</span>)))),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 0'</span>)),
 
                     Switch.toFrame(iframe),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 1&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 1'</span>)),
 
                     Switch.toFrame(iframe),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 2&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 2'</span>)),
 
                     Switch.toParentFrame(),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 1&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 1'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toParentFrame}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should provide a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(Switch.toParentFrame().toString()).to.equal(<span class="hljs-string">&apos;#actor switches to parent frame&apos;</span>)
+            it(<span class="hljs-string">'should provide a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+                expect(Switch.toParentFrame().toString()).to.equal(<span class="hljs-string">'#actor switches to parent frame'</span>)
             });
         });
 
-        describe(<span class="hljs-string">&apos;toDefaultContent()&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'toDefaultContent()'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toDefaultContent}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should not switch the frame if there are no parent frames&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(page(<span class="hljs-string">&apos;main page&apos;</span>)),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;main page&apos;</span>)),
+            it(<span class="hljs-string">'should not switch the frame if there are no parent frames'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(page(<span class="hljs-string">'main page'</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'main page'</span>)),
 
                     Switch.toDefaultContent(),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;main page&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'main page'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toDefaultContent}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should support nested frames&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithIframe(<span class="hljs-string">&apos;Level 0&apos;</span>, pageWithIframe(<span class="hljs-string">&apos;Level 1&apos;</span>, page(<span class="hljs-string">&apos;Level 2&apos;</span>)))),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 0&apos;</span>)),
+            it(<span class="hljs-string">'should support nested frames'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(pageWithIframe(<span class="hljs-string">'Level 0'</span>, pageWithIframe(<span class="hljs-string">'Level 1'</span>, page(<span class="hljs-string">'Level 2'</span>)))),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 0'</span>)),
 
                     Switch.toFrame(iframe),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 1&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 1'</span>)),
 
                     Switch.toFrame(iframe),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 2&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 2'</span>)),
 
                     Switch.toDefaultContent(),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 0&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 0'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toDefaultContent}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should provide a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(Switch.toDefaultContent().toString()).to.equal(<span class="hljs-string">&apos;#actor switches to default content&apos;</span>)
+            it(<span class="hljs-string">'should provide a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+                expect(Switch.toDefaultContent().toString()).to.equal(<span class="hljs-string">'#actor switches to default content'</span>)
             });
         });
 
-        describe(<span class="hljs-string">&apos;toFrame().and()&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'toFrame().and()'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should perform any activities in the context of the frame it switched to&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Franceska&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithIframe(<span class="hljs-string">&apos;Level 0&apos;</span>, pageWithIframe(<span class="hljs-string">&apos;Level 1&apos;</span>, page(<span class="hljs-string">&apos;Level 2&apos;</span>)))),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 0&apos;</span>)),
+            it(<span class="hljs-string">'should perform any activities in the context of the frame it switched to'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Franceska'</span>).attemptsTo(
+                    Navigate.to(pageWithIframe(<span class="hljs-string">'Level 0'</span>, pageWithIframe(<span class="hljs-string">'Level 1'</span>, page(<span class="hljs-string">'Level 2'</span>)))),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 0'</span>)),
 
                     Switch.toFrame(iframe).and(
                         Switch.toFrame(iframe).and(
-                            Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 2&apos;</span>)),
+                            Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 2'</span>)),
                         ),
-                        Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 1&apos;</span>)),
+                        Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 1'</span>)),
                     ),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Level 0&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Level 0'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toFrame}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should provide a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(Switch.toFrame(<span class="hljs-number">0</span>).and().toString()).to.equal(<span class="hljs-string">&apos;#actor switches to frame: 0&apos;</span>)
+            it(<span class="hljs-string">'should provide a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+                expect(Switch.toFrame(<span class="hljs-number">0</span>).and().toString()).to.equal(<span class="hljs-string">'#actor switches to frame: 0'</span>)
             });
         });
     });
 
-    describe(<span class="hljs-string">&apos;when working with windows&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when working with windows'</span>, <span class="hljs-function">() =&gt;</span> {
 
         afterEach(<span class="hljs-function">() =&gt;</span>
-            actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
+            actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
                 Close.anyNewWindows(),
             ));
 
-        describe(<span class="hljs-string">&apos;toWindow()&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'toWindow()'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toWindow}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should switch to a window identified by its index&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">&apos;Main window&apos;</span>)),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+            it(<span class="hljs-string">'should switch to a window identified by its index'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
+                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">'Main window'</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                     Click.on(newTabLink),
 
                     Switch.toWindow(<span class="hljs-number">1</span>),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;New tab&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'New tab'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toWindow}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should switch to a window identified by its name&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">&apos;Main window&apos;</span>)),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+            it(<span class="hljs-string">'should switch to a window identified by its name'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
+                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">'Main window'</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                     Click.on(newTabLink),
 
-                    Switch.toWindow(<span class="hljs-string">&apos;new-tab&apos;</span>),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;New tab&apos;</span>)),
+                    Switch.toWindow(<span class="hljs-string">'new-tab'</span>),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'New tab'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toWindow}</span> </span>*/</span>
-            it(<span class="hljs-string">`should complain if the desired window doesn&apos;t exit`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
-                    Navigate.to(page(<span class="hljs-string">&apos;Main window&apos;</span>)),
+            it(<span class="hljs-string">`should complain if the desired window doesn't exit`</span>, <span class="hljs-function">() =&gt;</span>
+                expect(actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
+                    Navigate.to(page(<span class="hljs-string">'Main window'</span>)),
 
                     Switch.toWindow(<span class="hljs-number">10</span>),
-                )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Window 10 doesn&apos;t exist`</span>));
+                )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Window 10 doesn't exist`</span>));
 
-            describe(<span class="hljs-string">&apos;should provide a sensible description when the window&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            describe(<span class="hljs-string">'should provide a sensible description when the window'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toWindow}</span> </span>*/</span>
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-                it(<span class="hljs-string">&apos;is specified by its index&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                    expect(Switch.toWindow(<span class="hljs-number">1</span>).toString()).to.equal(<span class="hljs-string">&apos;#actor switches to window: 1&apos;</span>)
+                it(<span class="hljs-string">'is specified by its index'</span>, <span class="hljs-function">() =&gt;</span> {
+                    expect(Switch.toWindow(<span class="hljs-number">1</span>).toString()).to.equal(<span class="hljs-string">'#actor switches to window: 1'</span>)
                 });
 
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toWindow}</span> </span>*/</span>
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-                it(<span class="hljs-string">&apos;is specified by name&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                    expect(Switch.toWindow(<span class="hljs-string">&apos;example-window&apos;</span>).toString()).to.equal(<span class="hljs-string">&apos;#actor switches to window: example-window&apos;</span>)
+                it(<span class="hljs-string">'is specified by name'</span>, <span class="hljs-function">() =&gt;</span> {
+                    expect(Switch.toWindow(<span class="hljs-string">'example-window'</span>).toString()).to.equal(<span class="hljs-string">'#actor switches to window: example-window'</span>)
                 });
             });
         });
 
-        describe(<span class="hljs-string">&apos;toWindow().and()&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'toWindow().and()'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toWindow}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should perform any activities in the context of the window it switched to&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">&apos;Main window&apos;</span>)),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+            it(<span class="hljs-string">'should perform any activities in the context of the window it switched to'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
+                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">'Main window'</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                     Click.on(newTabLink),
 
-                    Switch.toWindow(<span class="hljs-string">&apos;new-tab&apos;</span>).and(
-                        Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;New tab&apos;</span>)),
+                    Switch.toWindow(<span class="hljs-string">'new-tab'</span>).and(
+                        Ensure.that(Text.of(h1), equals(<span class="hljs-string">'New tab'</span>)),
                     ),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toWindow}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should provide a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(Switch.toWindow(<span class="hljs-string">&apos;new-tab&apos;</span>).and().toString()).to.equal(<span class="hljs-string">&apos;#actor switches to window: new-tab&apos;</span>)
+            it(<span class="hljs-string">'should provide a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+                expect(Switch.toWindow(<span class="hljs-string">'new-tab'</span>).and().toString()).to.equal(<span class="hljs-string">'#actor switches to window: new-tab'</span>)
             });
         });
 
@@ -487,81 +487,81 @@ describe(<span class="hljs-string">&apos;Switch&apos;</span>, <span class="hljs-
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toNewWindow}</span> </span>*/</span>
             it(<span class="hljs-string">`should complain if no new window has been opened`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
-                    Navigate.to(page(<span class="hljs-string">&apos;Main window&apos;</span>)),
+                expect(actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
+                    Navigate.to(page(<span class="hljs-string">'Main window'</span>)),
 
                     Switch.toNewWindow(),
                 )).to.be.rejectedWith(LogicError, <span class="hljs-string">`No new window has been opened to switch to`</span>));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toNewWindow}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should switch to a newly opened window&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">&apos;Main window&apos;</span>)),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+            it(<span class="hljs-string">'should switch to a newly opened window'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
+                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">'Main window'</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                     Click.on(newTabLink),
 
                     Switch.toNewWindow(),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;New tab&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'New tab'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toNewWindow}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should provide a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(Switch.toNewWindow().toString()).to.equal(<span class="hljs-string">&apos;#actor switches to the new browser window&apos;</span>)
+            it(<span class="hljs-string">'should provide a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+                expect(Switch.toNewWindow().toString()).to.equal(<span class="hljs-string">'#actor switches to the new browser window'</span>)
             });
         });
 
-        describe(<span class="hljs-string">&apos;toNewWindow().and()&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'toNewWindow().and()'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toNewWindow}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should perform any activities in the context of the new window it switched to&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">&apos;Main window&apos;</span>)),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+            it(<span class="hljs-string">'should perform any activities in the context of the new window it switched to'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
+                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">'Main window'</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                     Click.on(newTabLink),
 
                     Switch.toNewWindow().and(
-                        Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;New tab&apos;</span>)),
+                        Ensure.that(Text.of(h1), equals(<span class="hljs-string">'New tab'</span>)),
                     ),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toNewWindow}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should provide a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(Switch.toNewWindow().and().toString()).to.equal(<span class="hljs-string">&apos;#actor switches to the new window&apos;</span>)
+            it(<span class="hljs-string">'should provide a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+                expect(Switch.toNewWindow().and().toString()).to.equal(<span class="hljs-string">'#actor switches to the new window'</span>)
             });
         });
 
         describe(<span class="hljs-string">`toOriginalWindow()`</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toOriginalWindow}</span> </span>*/</span>
-            it(<span class="hljs-string">`should not complain if it&apos;s already in the original window`</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
-                    Navigate.to(page(<span class="hljs-string">&apos;Main window&apos;</span>)),
+            it(<span class="hljs-string">`should not complain if it's already in the original window`</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
+                    Navigate.to(page(<span class="hljs-string">'Main window'</span>)),
 
                     Switch.toOriginalWindow(),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toOriginalWindow}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should switch back from a newly opened window&apos;</span>, <span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">&apos;Ventana&apos;</span>).attemptsTo(
-                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">&apos;Main window&apos;</span>)),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+            it(<span class="hljs-string">'should switch back from a newly opened window'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Ventana'</span>).attemptsTo(
+                    Navigate.to(pageWithLinkToNewTab(<span class="hljs-string">'Main window'</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                     Click.on(newTabLink),
 
                     Switch.toNewWindow(),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;New tab&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'New tab'</span>)),
 
                     Switch.toOriginalWindow(),
-                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">&apos;Main window&apos;</span>)),
+                    Ensure.that(Text.of(h1), equals(<span class="hljs-string">'Main window'</span>)),
                 ));
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch.toOriginalWindow}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Switch#toString}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;should provide a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(Switch.toOriginalWindow().toString()).to.equal(<span class="hljs-string">&apos;#actor switches back to the original browser window&apos;</span>)
+            it(<span class="hljs-string">'should provide a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+                expect(Switch.toOriginalWindow().toString()).to.equal(<span class="hljs-string">'#actor switches back to the original browser window'</span>)
             });
         });
     });

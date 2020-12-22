@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="active">@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">rest</a></li>
@@ -131,7 +131,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {CallAnApi} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest/lib/screenplay/abilities&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {CallAnApi} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest/lib/screenplay/abilities'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -167,40 +167,40 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using a default Axios HTTP client</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Apisit&apos;</span>).whoCan(
-    CallAnApi.at(<span class="hljs-string">&apos;https://myapp.com/api&apos;</span>),
+<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
+    CallAnApi.at(<span class="hljs-string">'https://myapp.com/api'</span>),
 );
 
 actor.attemptsTo(
-    Send.a(GetRequest.to(<span class="hljs-string">&apos;/users/2&apos;</span>)),
+    Send.a(GetRequest.to(<span class="hljs-string">'/users/2'</span>)),
     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
 );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using Axios client with custom configuration</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-<span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
+<span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
 <span class="hljs-keyword">const</span> axiosInstance = axios.create({
     <span class="hljs-attr">timeout</span>: <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>,
     <span class="hljs-attr">headers</span>: {
-        <span class="hljs-string">&apos;X-Custom-Api-Key&apos;</span>: <span class="hljs-string">&apos;secret-key&apos;</span>,
+        <span class="hljs-string">'X-Custom-Api-Key'</span>: <span class="hljs-string">'secret-key'</span>,
     },
 });
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Apisit&apos;</span>).whoCan(
+<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
     CallAnApi.using(axiosInstance),
 );
 
 actor.attemptsTo(
-    Send.a(GetRequest.to(<span class="hljs-string">&apos;/users/2&apos;</span>)),
+    Send.a(GetRequest.to(<span class="hljs-string">'/users/2'</span>)),
     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
 );</code></pre>
     </div>
@@ -254,7 +254,7 @@ actor.attemptsTo(
       <div>
         
         
-        <div data-ice="description"><p> Used to access the Actor&apos;s ability to <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span>
+        <div data-ice="description"><p> Used to access the Actor's ability to <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span>
  from within the <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> classes,
  such as <span><a href="class/src/screenplay/interactions/Send.ts~Send.html">Send</a></span>.</p>
 </div>
@@ -483,7 +483,7 @@ actor.attemptsTo(
   
   
   
-  <div data-ice="description"><p> Used to access the Actor&apos;s ability to <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span>
+  <div data-ice="description"><p> Used to access the Actor's ability to <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span>
  from within the <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> classes,
  such as <span><a href="class/src/screenplay/interactions/Send.ts~Send.html">Send</a></span>.</p>
 </div>

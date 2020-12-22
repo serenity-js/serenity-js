@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
                         <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">cucumber</a></li>
@@ -138,46 +138,46 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/gherkin/feature-files/Cache.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> { Cache } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/gherkin&apos;</span>;
+<span class="hljs-keyword">import</span> { Cache } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/gherkin'</span>;
 
-describe(<span class="hljs-string">&apos;Cache&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'Cache'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">&apos;starts empty&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'starts empty'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> Cache();
 
         expect(cache.size()).to.equal(<span class="hljs-number">0</span>);
     });
 
-    it(<span class="hljs-string">&apos;allows for items to be stored and retrieved&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'allows for items to be stored and retrieved'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> Cache&lt;Path, <span class="hljs-built_in">number</span>&gt;();
 
-        cache.set(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/alice&apos;</span>), <span class="hljs-number">1</span>);
-        cache.set(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/bob&apos;</span>), <span class="hljs-number">2</span>);
+        cache.set(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/alice'</span>), <span class="hljs-number">1</span>);
+        cache.set(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/bob'</span>), <span class="hljs-number">2</span>);
 
         expect(cache.size()).to.equal(<span class="hljs-number">2</span>);
-        expect(cache.get(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/alice&apos;</span>))).to.equal(<span class="hljs-number">1</span>);
-        expect(cache.get(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/bob&apos;</span>))).to.equal(<span class="hljs-number">2</span>);
+        expect(cache.get(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/alice'</span>))).to.equal(<span class="hljs-number">1</span>);
+        expect(cache.get(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/bob'</span>))).to.equal(<span class="hljs-number">2</span>);
     });
 
-    it(<span class="hljs-string">&apos;tells whether or not an item has already been cached&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'tells whether or not an item has already been cached'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> Cache&lt;Path, <span class="hljs-built_in">number</span>&gt;();
 
-        cache.set(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/alice&apos;</span>), <span class="hljs-number">1</span>);
+        cache.set(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/alice'</span>), <span class="hljs-number">1</span>);
 
-        expect(cache.has(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/alice&apos;</span>))).to.equal(<span class="hljs-literal">true</span>);
-        expect(cache.has(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/bob&apos;</span>))).to.equal(<span class="hljs-literal">false</span>);
+        expect(cache.has(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/alice'</span>))).to.equal(<span class="hljs-literal">true</span>);
+        expect(cache.has(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/bob'</span>))).to.equal(<span class="hljs-literal">false</span>);
     });
 
-    it(<span class="hljs-string">&apos;complains when you try to retrieve an object that has not been cached yet&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'complains when you try to retrieve an object that has not been cached yet'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> Cache&lt;Path, <span class="hljs-built_in">number</span>&gt;();
 
-        expect(<span class="hljs-function">() =&gt;</span> cache.get(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/home/alice&apos;</span>))).to.throw(
-            <span class="hljs-string">&apos;Make sure you cache a value under Path(value=/home/alice) before trying to retrieve it&apos;</span>,
+        expect(<span class="hljs-function">() =&gt;</span> cache.get(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/alice'</span>))).to.throw(
+            <span class="hljs-string">'Make sure you cache a value under Path(value=/home/alice) before trying to retrieve it'</span>,
         );
     });
 });

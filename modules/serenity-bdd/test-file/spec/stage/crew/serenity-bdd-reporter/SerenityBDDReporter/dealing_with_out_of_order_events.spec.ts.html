@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -123,17 +123,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/dealing_with_out_of_order_events.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { EventRecorder, EventStreamEmitter, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Clock, Duration, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { Extras } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/stage/Extras&apos;</span>;
+<span class="hljs-keyword">import</span> { EventRecorder, EventStreamEmitter, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Clock, Duration, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { ArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { Extras } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage/Extras'</span>;
 
-<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src&apos;</span>;
+<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span> </span>*/</span>
-describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> reporter: SerenityBDDReporter,
         <span class="hljs-attr">stage</span>: Stage,
@@ -154,24 +154,24 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
     it(<span class="hljs-string">`works when events are in order`</span>, <span class="hljs-function">() =&gt;</span>
         emitter.emit(<span class="hljs-string">`
-            {&quot;type&quot;:&quot;SceneStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:14:59.637Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Search&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:15,&quot;path&quot;:&quot;features/search.feature&quot;},&quot;name&quot;:&quot;Advanced search&quot;}}}
-                {&quot;type&quot;:&quot;TaskStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10urdx00arcuun2wz2b721&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:00.645Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;When he enters search details&quot;}}}
-                    {&quot;type&quot;:&quot;TaskStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10vfaq00b3cuun69j179uv&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:31.634Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Bob chooses first option&quot;}}}
-                        {&quot;type&quot;:&quot;InteractionStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10vfaq00b4cuun76se5lvf&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:31.634Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Bob waits up to 5s until the first option does become clickable&quot;}}}
-                        {&quot;type&quot;:&quot;InteractionFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10vfaq00b4cuun76se5lvf&quot;,&quot;outcome&quot;:{&quot;code&quot;:4,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;AssertionError\\&quot;,\\&quot;stack\\&quot;:\\&quot;AssertionError: Waited 5s for the first option to become clickable\\\\n\\&quot;,\\&quot;message\\&quot;:\\&quot;Waited 5s for the first option to become clickable\\&quot;,\\&quot;expected\\&quot;:null,\\&quot;actual\\&quot;:null}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:41.906Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Bob waits up to 5s until the first option does become clickable&quot;}}}
-                    {&quot;type&quot;:&quot;TaskFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10vfaq00b3cuun69j179uv&quot;,&quot;outcome&quot;:{&quot;code&quot;:4,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;AssertionError\\&quot;,\\&quot;stack\\&quot;:\\&quot;AssertionError: Waited 5s for the first option to become clickable\\\\n\\&quot;,\\&quot;message\\&quot;:\\&quot;Waited 5s for the first option to become clickable\\&quot;,\\&quot;expected\\&quot;:null,\\&quot;actual\\&quot;:null}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:41.907Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Bob chooses first option&quot;}}}
-                {&quot;type&quot;:&quot;TaskFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10urdx00arcuun2wz2b721&quot;,&quot;outcome&quot;:{&quot;code&quot;:2,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;Error\\&quot;,\\&quot;stack\\&quot;:\\&quot;Error: function timed out, ensure the promise resolves within 40000 milliseconds\\&quot;,\\&quot;message\\&quot;:\\&quot;function timed out, ensure the promise resolves within 40000 milliseconds\\&quot;}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.649Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;When he enters search details&quot;}}}
-            {&quot;type&quot;:&quot;SceneFinishes&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.650Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Search&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:15,&quot;path&quot;:&quot;features/search.feature&quot;},&quot;name&quot;:&quot;Advanced search&quot;}}}
-            {&quot;type&quot;:&quot;SceneFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;outcome&quot;:{&quot;code&quot;:2,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;Error\\&quot;,\\&quot;stack\\&quot;:\\&quot;Error: function timed out, ensure the promise resolves within 40000 milliseconds\\\\n\\&quot;,\\&quot;message\\&quot;:\\&quot;function timed out, ensure the promise resolves within 40000 milliseconds\\&quot;}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.661Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Search&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:15,&quot;path&quot;:&quot;features/search.feature&quot;},&quot;name&quot;:&quot;Advanced search&quot;}}}
-            {&quot;type&quot;:&quot;SceneStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.663Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Tag management&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:5,&quot;path&quot;:&quot;features/tags.feature&quot;},&quot;name&quot;:&quot;Create new tag&quot;}}}
-                {&quot;type&quot;:&quot;TaskStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;activityId&quot;:&quot;ckg10vm9k00bbcuun7p1h7cce&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.664Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Given Adam is logged in&quot;}}}
-                    {&quot;type&quot;:&quot;InteractionStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;activityId&quot;:&quot;ckg10vm9l00bdcuun74ye4qww&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.665Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Adam navigates to &apos;/&apos;&quot;}}}
-                    {&quot;type&quot;:&quot;InteractionFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;activityId&quot;:&quot;ckg10vm9l00bdcuun74ye4qww&quot;,&quot;outcome&quot;:{&quot;code&quot;:64},&quot;timestamp&quot;:&quot;2020-10-08T16:15:41.908Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Adam navigates to &apos;/&apos;&quot;}}}
-                {&quot;type&quot;:&quot;TaskFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;activityId&quot;:&quot;ckg10vm9k00bbcuun7p1h7cce&quot;,&quot;outcome&quot;:{&quot;code&quot;:64},&quot;timestamp&quot;:&quot;2020-10-08T16:15:42.682Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Given Adam is logged in&quot;}}}
-            {&quot;type&quot;:&quot;SceneFinishes&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:52.689Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Tag management&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:5,&quot;path&quot;:&quot;features/tags.feature&quot;},&quot;name&quot;:&quot;Create new tag&quot;}}}
-            {&quot;type&quot;:&quot;SceneFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;outcome&quot;:{&quot;code&quot;:2,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;Error\\&quot;,\\&quot;stack\\&quot;:\\&quot;Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\&quot;,\\&quot;message\\&quot;:\\&quot;function timed out, ensure the promise resolves within 10000 milliseconds\\&quot;}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:52.701Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Tag management&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:5,&quot;path&quot;:&quot;features/tags.feature&quot;},&quot;name&quot;:&quot;Create new tag&quot;}}}
-            {&quot;type&quot;:&quot;TestRunFinishes&quot;,&quot;event&quot;:&quot;2020-10-08T16:16:15.302Z&quot;}
-            {&quot;type&quot;:&quot;TestRunFinished&quot;,&quot;event&quot;:&quot;2020-10-08T16:16:15.313Z&quot;}
+            {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2020-10-08T16:14:59.637Z","details":{"category":"Search","location":{"column":3,"line":15,"path":"features/search.feature"},"name":"Advanced search"}}}
+                {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10urdx00arcuun2wz2b721","timestamp":"2020-10-08T16:15:00.645Z","details":{"name":"When he enters search details"}}}
+                    {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b3cuun69j179uv","timestamp":"2020-10-08T16:15:31.634Z","details":{"name":"Bob chooses first option"}}}
+                        {"type":"InteractionStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b4cuun76se5lvf","timestamp":"2020-10-08T16:15:31.634Z","details":{"name":"Bob waits up to 5s until the first option does become clickable"}}}
+                        {"type":"InteractionFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b4cuun76se5lvf","outcome":{"code":4,"error":"{\\"name\\":\\"AssertionError\\",\\"stack\\":\\"AssertionError: Waited 5s for the first option to become clickable\\\\n\\",\\"message\\":\\"Waited 5s for the first option to become clickable\\",\\"expected\\":null,\\"actual\\":null}"},"timestamp":"2020-10-08T16:15:41.906Z","details":{"name":"Bob waits up to 5s until the first option does become clickable"}}}
+                    {"type":"TaskFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b3cuun69j179uv","outcome":{"code":4,"error":"{\\"name\\":\\"AssertionError\\",\\"stack\\":\\"AssertionError: Waited 5s for the first option to become clickable\\\\n\\",\\"message\\":\\"Waited 5s for the first option to become clickable\\",\\"expected\\":null,\\"actual\\":null}"},"timestamp":"2020-10-08T16:15:41.907Z","details":{"name":"Bob chooses first option"}}}
+                {"type":"TaskFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10urdx00arcuun2wz2b721","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 40000 milliseconds\\",\\"message\\":\\"function timed out, ensure the promise resolves within 40000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:40.649Z","details":{"name":"When he enters search details"}}}
+            {"type":"SceneFinishes","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2020-10-08T16:15:40.650Z","details":{"category":"Search","location":{"column":3,"line":15,"path":"features/search.feature"},"name":"Advanced search"}}}
+            {"type":"SceneFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 40000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 40000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:40.661Z","details":{"category":"Search","location":{"column":3,"line":15,"path":"features/search.feature"},"name":"Advanced search"}}}
+            {"type":"SceneStarts","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","timestamp":"2020-10-08T16:15:40.663Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
+                {"type":"TaskStarts","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","activityId":"ckg10vm9k00bbcuun7p1h7cce","timestamp":"2020-10-08T16:15:40.664Z","details":{"name":"Given Adam is logged in"}}}
+                    {"type":"InteractionStarts","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","activityId":"ckg10vm9l00bdcuun74ye4qww","timestamp":"2020-10-08T16:15:40.665Z","details":{"name":"Adam navigates to '/'"}}}
+                    {"type":"InteractionFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","activityId":"ckg10vm9l00bdcuun74ye4qww","outcome":{"code":64},"timestamp":"2020-10-08T16:15:41.908Z","details":{"name":"Adam navigates to '/'"}}}
+                {"type":"TaskFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","activityId":"ckg10vm9k00bbcuun7p1h7cce","outcome":{"code":64},"timestamp":"2020-10-08T16:15:42.682Z","details":{"name":"Given Adam is logged in"}}}
+            {"type":"SceneFinishes","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","timestamp":"2020-10-08T16:15:52.689Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
+            {"type":"SceneFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 10000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:52.701Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
+            {"type":"TestRunFinishes","event":"2020-10-08T16:16:15.302Z"}
+            {"type":"TestRunFinished","event":"2020-10-08T16:16:15.313Z"}
         `</span>).then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
@@ -190,24 +190,24 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
     it(<span class="hljs-string">`correctly reconciles out of order events`</span>, <span class="hljs-function">() =&gt;</span>
         emitter.emit(<span class="hljs-string">`
-            {&quot;type&quot;:&quot;SceneStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:14:59.637Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Search&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:15,&quot;path&quot;:&quot;features/search.feature&quot;},&quot;name&quot;:&quot;Advanced search&quot;}}}
-                {&quot;type&quot;:&quot;TaskStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10urdx00arcuun2wz2b721&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:00.645Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;When he enters search details&quot;}}}
-                    {&quot;type&quot;:&quot;TaskStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10vfaq00b3cuun69j179uv&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:31.634Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Bob chooses first option&quot;}}}
-                        {&quot;type&quot;:&quot;InteractionStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10vfaq00b4cuun76se5lvf&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:31.634Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Bob waits up to 5s until the first option does become clickable&quot;}}}
-                {&quot;type&quot;:&quot;TaskFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10urdx00arcuun2wz2b721&quot;,&quot;outcome&quot;:{&quot;code&quot;:2,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;Error\\&quot;,\\&quot;stack\\&quot;:\\&quot;Error: function timed out, ensure the promise resolves within 40000 milliseconds\\&quot;,\\&quot;message\\&quot;:\\&quot;function timed out, ensure the promise resolves within 40000 milliseconds\\&quot;}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.649Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;When he enters search details&quot;}}}
-            {&quot;type&quot;:&quot;SceneFinishes&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.650Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Search&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:15,&quot;path&quot;:&quot;features/search.feature&quot;},&quot;name&quot;:&quot;Advanced search&quot;}}}
-            {&quot;type&quot;:&quot;SceneFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;outcome&quot;:{&quot;code&quot;:2,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;Error\\&quot;,\\&quot;stack\\&quot;:\\&quot;Error: function timed out, ensure the promise resolves within 40000 milliseconds\\\\n\\&quot;,\\&quot;message\\&quot;:\\&quot;function timed out, ensure the promise resolves within 40000 milliseconds\\&quot;}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.661Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Search&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:15,&quot;path&quot;:&quot;features/search.feature&quot;},&quot;name&quot;:&quot;Advanced search&quot;}}}
-            {&quot;type&quot;:&quot;SceneStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.663Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Tag management&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:5,&quot;path&quot;:&quot;features/tags.feature&quot;},&quot;name&quot;:&quot;Create new tag&quot;}}}
-                {&quot;type&quot;:&quot;TaskStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;activityId&quot;:&quot;ckg10vm9k00bbcuun7p1h7cce&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.664Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Given Adam is logged in&quot;}}}
-                    {&quot;type&quot;:&quot;InteractionStarts&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;activityId&quot;:&quot;ckg10vm9l00bdcuun74ye4qww&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:40.665Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Adam navigates to &apos;/&apos;&quot;}}}
-                                {&quot;type&quot;:&quot;InteractionFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10vfaq00b4cuun76se5lvf&quot;,&quot;outcome&quot;:{&quot;code&quot;:4,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;AssertionError\\&quot;,\\&quot;stack\\&quot;:\\&quot;AssertionError: Waited 5s for the first option to become clickable\\\\n\\&quot;,\\&quot;message\\&quot;:\\&quot;Waited 5s for the first option to become clickable\\&quot;,\\&quot;expected\\&quot;:null,\\&quot;actual\\&quot;:null}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:41.906Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Bob waits up to 5s until the first option does become clickable&quot;}}}
-                            {&quot;type&quot;:&quot;TaskFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg2xi0mf0000xf5zb41kc67m&quot;,&quot;activityId&quot;:&quot;ckg10vfaq00b3cuun69j179uv&quot;,&quot;outcome&quot;:{&quot;code&quot;:4,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;AssertionError\\&quot;,\\&quot;stack\\&quot;:\\&quot;AssertionError: Waited 5s for the first option to become clickable\\\\n\\&quot;,\\&quot;message\\&quot;:\\&quot;Waited 5s for the first option to become clickable\\&quot;,\\&quot;expected\\&quot;:null,\\&quot;actual\\&quot;:null}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:41.907Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Bob chooses first option&quot;}}}
-                    {&quot;type&quot;:&quot;InteractionFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;activityId&quot;:&quot;ckg10vm9l00bdcuun74ye4qww&quot;,&quot;outcome&quot;:{&quot;code&quot;:64},&quot;timestamp&quot;:&quot;2020-10-08T16:15:41.908Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Adam navigates to &apos;/&apos;&quot;}}}
-                {&quot;type&quot;:&quot;TaskFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;activityId&quot;:&quot;ckg10vm9k00bbcuun7p1h7cce&quot;,&quot;outcome&quot;:{&quot;code&quot;:64},&quot;timestamp&quot;:&quot;2020-10-08T16:15:42.682Z&quot;,&quot;details&quot;:{&quot;name&quot;:&quot;Given Adam is logged in&quot;}}}
-            {&quot;type&quot;:&quot;SceneFinishes&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;timestamp&quot;:&quot;2020-10-08T16:15:52.689Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Tag management&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:5,&quot;path&quot;:&quot;features/tags.feature&quot;},&quot;name&quot;:&quot;Create new tag&quot;}}}
-            {&quot;type&quot;:&quot;SceneFinished&quot;,&quot;event&quot;:{&quot;sceneId&quot;:&quot;ckg9wf6xr000001qd8igkb90j&quot;,&quot;outcome&quot;:{&quot;code&quot;:2,&quot;error&quot;:&quot;{\\&quot;name\\&quot;:\\&quot;Error\\&quot;,\\&quot;stack\\&quot;:\\&quot;Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\&quot;,\\&quot;message\\&quot;:\\&quot;function timed out, ensure the promise resolves within 10000 milliseconds\\&quot;}&quot;},&quot;timestamp&quot;:&quot;2020-10-08T16:15:52.701Z&quot;,&quot;details&quot;:{&quot;category&quot;:&quot;Tag management&quot;,&quot;location&quot;:{&quot;column&quot;:3,&quot;line&quot;:5,&quot;path&quot;:&quot;features/tags.feature&quot;},&quot;name&quot;:&quot;Create new tag&quot;}}}
-            {&quot;type&quot;:&quot;TestRunFinishes&quot;,&quot;event&quot;:&quot;2020-10-08T16:16:15.302Z&quot;}
-            {&quot;type&quot;:&quot;TestRunFinished&quot;,&quot;event&quot;:&quot;2020-10-08T16:16:15.313Z&quot;}
+            {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2020-10-08T16:14:59.637Z","details":{"category":"Search","location":{"column":3,"line":15,"path":"features/search.feature"},"name":"Advanced search"}}}
+                {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10urdx00arcuun2wz2b721","timestamp":"2020-10-08T16:15:00.645Z","details":{"name":"When he enters search details"}}}
+                    {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b3cuun69j179uv","timestamp":"2020-10-08T16:15:31.634Z","details":{"name":"Bob chooses first option"}}}
+                        {"type":"InteractionStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b4cuun76se5lvf","timestamp":"2020-10-08T16:15:31.634Z","details":{"name":"Bob waits up to 5s until the first option does become clickable"}}}
+                {"type":"TaskFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10urdx00arcuun2wz2b721","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 40000 milliseconds\\",\\"message\\":\\"function timed out, ensure the promise resolves within 40000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:40.649Z","details":{"name":"When he enters search details"}}}
+            {"type":"SceneFinishes","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2020-10-08T16:15:40.650Z","details":{"category":"Search","location":{"column":3,"line":15,"path":"features/search.feature"},"name":"Advanced search"}}}
+            {"type":"SceneFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 40000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 40000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:40.661Z","details":{"category":"Search","location":{"column":3,"line":15,"path":"features/search.feature"},"name":"Advanced search"}}}
+            {"type":"SceneStarts","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","timestamp":"2020-10-08T16:15:40.663Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
+                {"type":"TaskStarts","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","activityId":"ckg10vm9k00bbcuun7p1h7cce","timestamp":"2020-10-08T16:15:40.664Z","details":{"name":"Given Adam is logged in"}}}
+                    {"type":"InteractionStarts","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","activityId":"ckg10vm9l00bdcuun74ye4qww","timestamp":"2020-10-08T16:15:40.665Z","details":{"name":"Adam navigates to '/'"}}}
+                                {"type":"InteractionFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b4cuun76se5lvf","outcome":{"code":4,"error":"{\\"name\\":\\"AssertionError\\",\\"stack\\":\\"AssertionError: Waited 5s for the first option to become clickable\\\\n\\",\\"message\\":\\"Waited 5s for the first option to become clickable\\",\\"expected\\":null,\\"actual\\":null}"},"timestamp":"2020-10-08T16:15:41.906Z","details":{"name":"Bob waits up to 5s until the first option does become clickable"}}}
+                            {"type":"TaskFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b3cuun69j179uv","outcome":{"code":4,"error":"{\\"name\\":\\"AssertionError\\",\\"stack\\":\\"AssertionError: Waited 5s for the first option to become clickable\\\\n\\",\\"message\\":\\"Waited 5s for the first option to become clickable\\",\\"expected\\":null,\\"actual\\":null}"},"timestamp":"2020-10-08T16:15:41.907Z","details":{"name":"Bob chooses first option"}}}
+                    {"type":"InteractionFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","activityId":"ckg10vm9l00bdcuun74ye4qww","outcome":{"code":64},"timestamp":"2020-10-08T16:15:41.908Z","details":{"name":"Adam navigates to '/'"}}}
+                {"type":"TaskFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","activityId":"ckg10vm9k00bbcuun7p1h7cce","outcome":{"code":64},"timestamp":"2020-10-08T16:15:42.682Z","details":{"name":"Given Adam is logged in"}}}
+            {"type":"SceneFinishes","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","timestamp":"2020-10-08T16:15:52.689Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
+            {"type":"SceneFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 10000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:52.701Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
+            {"type":"TestRunFinishes","event":"2020-10-08T16:16:15.302Z"}
+            {"type":"TestRunFinished","event":"2020-10-08T16:16:15.313Z"}
         `</span>).then(<span class="hljs-function">() =&gt;</span> {
 
             PickEvent.from(recorder.events)
@@ -225,125 +225,125 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         }));
 
     <span class="hljs-keyword">const</span> firstExpectedReport = {
-        <span class="hljs-string">&apos;name&apos;</span>: <span class="hljs-string">&apos;Advanced search&apos;</span>,
-        <span class="hljs-string">&apos;title&apos;</span>: <span class="hljs-string">&apos;Advanced search&apos;</span>,
-        <span class="hljs-string">&apos;manual&apos;</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-string">&apos;testSteps&apos;</span>: [
+        <span class="hljs-string">'name'</span>: <span class="hljs-string">'Advanced search'</span>,
+        <span class="hljs-string">'title'</span>: <span class="hljs-string">'Advanced search'</span>,
+        <span class="hljs-string">'manual'</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-string">'testSteps'</span>: [
             {
-                <span class="hljs-string">&apos;number&apos;</span>: <span class="hljs-number">1</span>,
-                <span class="hljs-string">&apos;description&apos;</span>: <span class="hljs-string">&apos;When he enters search details&apos;</span>,
-                <span class="hljs-string">&apos;startTime&apos;</span>: <span class="hljs-number">1602173700645</span>,
-                <span class="hljs-string">&apos;children&apos;</span>: [
+                <span class="hljs-string">'number'</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-string">'description'</span>: <span class="hljs-string">'When he enters search details'</span>,
+                <span class="hljs-string">'startTime'</span>: <span class="hljs-number">1602173700645</span>,
+                <span class="hljs-string">'children'</span>: [
                     {
-                        <span class="hljs-string">&apos;number&apos;</span>: <span class="hljs-number">2</span>,
-                        <span class="hljs-string">&apos;description&apos;</span>: <span class="hljs-string">&apos;Bob chooses first option&apos;</span>,
-                        <span class="hljs-string">&apos;startTime&apos;</span>: <span class="hljs-number">1602173731634</span>,
-                        <span class="hljs-string">&apos;children&apos;</span>: [
+                        <span class="hljs-string">'number'</span>: <span class="hljs-number">2</span>,
+                        <span class="hljs-string">'description'</span>: <span class="hljs-string">'Bob chooses first option'</span>,
+                        <span class="hljs-string">'startTime'</span>: <span class="hljs-number">1602173731634</span>,
+                        <span class="hljs-string">'children'</span>: [
                             {
-                                <span class="hljs-string">&apos;number&apos;</span>: <span class="hljs-number">3</span>,
-                                <span class="hljs-string">&apos;description&apos;</span>: <span class="hljs-string">&apos;Bob waits up to 5s until the first option does become clickable&apos;</span>,
-                                <span class="hljs-string">&apos;startTime&apos;</span>: <span class="hljs-number">1602173731634</span>,
-                                <span class="hljs-string">&apos;children&apos;</span>: [],
-                                <span class="hljs-string">&apos;reportData&apos;</span>: [],
-                                <span class="hljs-string">&apos;screenshots&apos;</span>: [],
-                                <span class="hljs-string">&apos;result&apos;</span>: <span class="hljs-string">&apos;FAILURE&apos;</span>,
-                                <span class="hljs-string">&apos;duration&apos;</span>: <span class="hljs-number">10272</span>,
-                                <span class="hljs-string">&apos;exception&apos;</span>: {
-                                    <span class="hljs-string">&apos;errorType&apos;</span>: <span class="hljs-string">&apos;AssertionError&apos;</span>,
-                                    <span class="hljs-string">&apos;message&apos;</span>: <span class="hljs-string">&apos;Waited 5s for the first option to become clickable&apos;</span>,
-                                    <span class="hljs-string">&apos;stackTrace&apos;</span>: [
+                                <span class="hljs-string">'number'</span>: <span class="hljs-number">3</span>,
+                                <span class="hljs-string">'description'</span>: <span class="hljs-string">'Bob waits up to 5s until the first option does become clickable'</span>,
+                                <span class="hljs-string">'startTime'</span>: <span class="hljs-number">1602173731634</span>,
+                                <span class="hljs-string">'children'</span>: [],
+                                <span class="hljs-string">'reportData'</span>: [],
+                                <span class="hljs-string">'screenshots'</span>: [],
+                                <span class="hljs-string">'result'</span>: <span class="hljs-string">'FAILURE'</span>,
+                                <span class="hljs-string">'duration'</span>: <span class="hljs-number">10272</span>,
+                                <span class="hljs-string">'exception'</span>: {
+                                    <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'AssertionError'</span>,
+                                    <span class="hljs-string">'message'</span>: <span class="hljs-string">'Waited 5s for the first option to become clickable'</span>,
+                                    <span class="hljs-string">'stackTrace'</span>: [
                                         {
-                                            <span class="hljs-string">&apos;declaringClass&apos;</span>: <span class="hljs-string">&apos;&apos;</span>,
-                                            <span class="hljs-string">&apos;methodName&apos;</span>: <span class="hljs-string">&apos;undefined()&apos;</span>,
-                                            <span class="hljs-string">&apos;fileName&apos;</span>: <span class="hljs-string">&apos;AssertionError: Waited 5s for the first option to become clickable&apos;</span>
+                                            <span class="hljs-string">'declaringClass'</span>: <span class="hljs-string">''</span>,
+                                            <span class="hljs-string">'methodName'</span>: <span class="hljs-string">'undefined()'</span>,
+                                            <span class="hljs-string">'fileName'</span>: <span class="hljs-string">'AssertionError: Waited 5s for the first option to become clickable'</span>
                                         }
                                     ]
                                 }
                             }
                         ],
-                        <span class="hljs-string">&apos;reportData&apos;</span>: [],
-                        <span class="hljs-string">&apos;screenshots&apos;</span>: [],
-                        <span class="hljs-string">&apos;result&apos;</span>: <span class="hljs-string">&apos;FAILURE&apos;</span>,
-                        <span class="hljs-string">&apos;duration&apos;</span>: <span class="hljs-number">10273</span>
+                        <span class="hljs-string">'reportData'</span>: [],
+                        <span class="hljs-string">'screenshots'</span>: [],
+                        <span class="hljs-string">'result'</span>: <span class="hljs-string">'FAILURE'</span>,
+                        <span class="hljs-string">'duration'</span>: <span class="hljs-number">10273</span>
                     }
                 ],
-                <span class="hljs-string">&apos;reportData&apos;</span>: [],
-                <span class="hljs-string">&apos;screenshots&apos;</span>: [],
-                <span class="hljs-string">&apos;result&apos;</span>: <span class="hljs-string">&apos;ERROR&apos;</span>,
-                <span class="hljs-string">&apos;duration&apos;</span>: <span class="hljs-number">40004</span>
+                <span class="hljs-string">'reportData'</span>: [],
+                <span class="hljs-string">'screenshots'</span>: [],
+                <span class="hljs-string">'result'</span>: <span class="hljs-string">'ERROR'</span>,
+                <span class="hljs-string">'duration'</span>: <span class="hljs-number">40004</span>
             }
         ],
-        <span class="hljs-string">&apos;userStory&apos;</span>: {
-            <span class="hljs-string">&apos;id&apos;</span>: <span class="hljs-string">&apos;search&apos;</span>,
-            <span class="hljs-string">&apos;storyName&apos;</span>: <span class="hljs-string">&apos;Search&apos;</span>,
-            <span class="hljs-string">&apos;path&apos;</span>: <span class="hljs-string">&apos;features/search.feature&apos;</span>,
-            <span class="hljs-string">&apos;type&apos;</span>: <span class="hljs-string">&apos;feature&apos;</span>
+        <span class="hljs-string">'userStory'</span>: {
+            <span class="hljs-string">'id'</span>: <span class="hljs-string">'search'</span>,
+            <span class="hljs-string">'storyName'</span>: <span class="hljs-string">'Search'</span>,
+            <span class="hljs-string">'path'</span>: <span class="hljs-string">'features/search.feature'</span>,
+            <span class="hljs-string">'type'</span>: <span class="hljs-string">'feature'</span>
         },
-        <span class="hljs-string">&apos;startTime&apos;</span>: <span class="hljs-number">1602173699637</span>,
-        <span class="hljs-string">&apos;duration&apos;</span>: <span class="hljs-number">41024</span>,
-        <span class="hljs-string">&apos;result&apos;</span>: <span class="hljs-string">&apos;ERROR&apos;</span>,
-        <span class="hljs-string">&apos;testFailureCause&apos;</span>: {
-            <span class="hljs-string">&apos;errorType&apos;</span>: <span class="hljs-string">&apos;Error&apos;</span>,
-            <span class="hljs-string">&apos;message&apos;</span>: <span class="hljs-string">&apos;function timed out, ensure the promise resolves within 40000 milliseconds&apos;</span>,
-            <span class="hljs-string">&apos;stackTrace&apos;</span>: [
+        <span class="hljs-string">'startTime'</span>: <span class="hljs-number">1602173699637</span>,
+        <span class="hljs-string">'duration'</span>: <span class="hljs-number">41024</span>,
+        <span class="hljs-string">'result'</span>: <span class="hljs-string">'ERROR'</span>,
+        <span class="hljs-string">'testFailureCause'</span>: {
+            <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Error'</span>,
+            <span class="hljs-string">'message'</span>: <span class="hljs-string">'function timed out, ensure the promise resolves within 40000 milliseconds'</span>,
+            <span class="hljs-string">'stackTrace'</span>: [
                 {
-                    <span class="hljs-string">&apos;declaringClass&apos;</span>: <span class="hljs-string">&apos;&apos;</span>,
-                    <span class="hljs-string">&apos;methodName&apos;</span>: <span class="hljs-string">&apos;undefined()&apos;</span>,
-                    <span class="hljs-string">&apos;fileName&apos;</span>: <span class="hljs-string">&apos;Error: function timed out, ensure the promise resolves within 40000 milliseconds&apos;</span>
+                    <span class="hljs-string">'declaringClass'</span>: <span class="hljs-string">''</span>,
+                    <span class="hljs-string">'methodName'</span>: <span class="hljs-string">'undefined()'</span>,
+                    <span class="hljs-string">'fileName'</span>: <span class="hljs-string">'Error: function timed out, ensure the promise resolves within 40000 milliseconds'</span>
                 }
             ]
         },
-        <span class="hljs-string">&apos;id&apos;</span>: <span class="hljs-string">&apos;search;advanced-search&apos;</span>
+        <span class="hljs-string">'id'</span>: <span class="hljs-string">'search;advanced-search'</span>
     };
 
     <span class="hljs-keyword">const</span> secondExpectedReport = {
-        <span class="hljs-string">&apos;name&apos;</span>: <span class="hljs-string">&apos;Create new tag&apos;</span>,
-        <span class="hljs-string">&apos;title&apos;</span>: <span class="hljs-string">&apos;Create new tag&apos;</span>,
-        <span class="hljs-string">&apos;manual&apos;</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-string">&apos;testSteps&apos;</span>: [
+        <span class="hljs-string">'name'</span>: <span class="hljs-string">'Create new tag'</span>,
+        <span class="hljs-string">'title'</span>: <span class="hljs-string">'Create new tag'</span>,
+        <span class="hljs-string">'manual'</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-string">'testSteps'</span>: [
             {
-                <span class="hljs-string">&apos;number&apos;</span>: <span class="hljs-number">1</span>,
-                <span class="hljs-string">&apos;description&apos;</span>: <span class="hljs-string">&apos;Given Adam is logged in&apos;</span>,
-                <span class="hljs-string">&apos;startTime&apos;</span>: <span class="hljs-number">1602173740664</span>,
-                <span class="hljs-string">&apos;children&apos;</span>: [
+                <span class="hljs-string">'number'</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-string">'description'</span>: <span class="hljs-string">'Given Adam is logged in'</span>,
+                <span class="hljs-string">'startTime'</span>: <span class="hljs-number">1602173740664</span>,
+                <span class="hljs-string">'children'</span>: [
                     {
-                        <span class="hljs-string">&apos;number&apos;</span>: <span class="hljs-number">2</span>,
-                        <span class="hljs-string">&apos;description&apos;</span>: <span class="hljs-string">&quot;Adam navigates to &apos;/&apos;&quot;</span>,
-                        <span class="hljs-string">&apos;startTime&apos;</span>: <span class="hljs-number">1602173740665</span>,
-                        <span class="hljs-string">&apos;children&apos;</span>: [],
-                        <span class="hljs-string">&apos;reportData&apos;</span>: [],
-                        <span class="hljs-string">&apos;screenshots&apos;</span>: [],
-                        <span class="hljs-string">&apos;result&apos;</span>: <span class="hljs-string">&apos;SUCCESS&apos;</span>,
-                        <span class="hljs-string">&apos;duration&apos;</span>: <span class="hljs-number">1243</span>
+                        <span class="hljs-string">'number'</span>: <span class="hljs-number">2</span>,
+                        <span class="hljs-string">'description'</span>: <span class="hljs-string">"Adam navigates to '/'"</span>,
+                        <span class="hljs-string">'startTime'</span>: <span class="hljs-number">1602173740665</span>,
+                        <span class="hljs-string">'children'</span>: [],
+                        <span class="hljs-string">'reportData'</span>: [],
+                        <span class="hljs-string">'screenshots'</span>: [],
+                        <span class="hljs-string">'result'</span>: <span class="hljs-string">'SUCCESS'</span>,
+                        <span class="hljs-string">'duration'</span>: <span class="hljs-number">1243</span>
                     }
                 ],
-                <span class="hljs-string">&apos;reportData&apos;</span>: [],
-                <span class="hljs-string">&apos;screenshots&apos;</span>: [],
-                <span class="hljs-string">&apos;result&apos;</span>: <span class="hljs-string">&apos;SUCCESS&apos;</span>,
-                <span class="hljs-string">&apos;duration&apos;</span>: <span class="hljs-number">2018</span>
+                <span class="hljs-string">'reportData'</span>: [],
+                <span class="hljs-string">'screenshots'</span>: [],
+                <span class="hljs-string">'result'</span>: <span class="hljs-string">'SUCCESS'</span>,
+                <span class="hljs-string">'duration'</span>: <span class="hljs-number">2018</span>
             }
         ],
-        <span class="hljs-string">&apos;userStory&apos;</span>: {
-            <span class="hljs-string">&apos;id&apos;</span>: <span class="hljs-string">&apos;tag-management&apos;</span>,
-            <span class="hljs-string">&apos;storyName&apos;</span>: <span class="hljs-string">&apos;Tag management&apos;</span>,
-            <span class="hljs-string">&apos;path&apos;</span>: <span class="hljs-string">&apos;features/tags.feature&apos;</span>,
-            <span class="hljs-string">&apos;type&apos;</span>: <span class="hljs-string">&apos;feature&apos;</span>
+        <span class="hljs-string">'userStory'</span>: {
+            <span class="hljs-string">'id'</span>: <span class="hljs-string">'tag-management'</span>,
+            <span class="hljs-string">'storyName'</span>: <span class="hljs-string">'Tag management'</span>,
+            <span class="hljs-string">'path'</span>: <span class="hljs-string">'features/tags.feature'</span>,
+            <span class="hljs-string">'type'</span>: <span class="hljs-string">'feature'</span>
         },
-        <span class="hljs-string">&apos;startTime&apos;</span>: <span class="hljs-number">1602173740663</span>,
-        <span class="hljs-string">&apos;duration&apos;</span>: <span class="hljs-number">12038</span>,
-        <span class="hljs-string">&apos;result&apos;</span>: <span class="hljs-string">&apos;ERROR&apos;</span>,
-        <span class="hljs-string">&apos;testFailureCause&apos;</span>: {
-            <span class="hljs-string">&apos;errorType&apos;</span>: <span class="hljs-string">&apos;Error&apos;</span>,
-            <span class="hljs-string">&apos;message&apos;</span>: <span class="hljs-string">&apos;function timed out, ensure the promise resolves within 10000 milliseconds&apos;</span>,
-            <span class="hljs-string">&apos;stackTrace&apos;</span>: [
+        <span class="hljs-string">'startTime'</span>: <span class="hljs-number">1602173740663</span>,
+        <span class="hljs-string">'duration'</span>: <span class="hljs-number">12038</span>,
+        <span class="hljs-string">'result'</span>: <span class="hljs-string">'ERROR'</span>,
+        <span class="hljs-string">'testFailureCause'</span>: {
+            <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Error'</span>,
+            <span class="hljs-string">'message'</span>: <span class="hljs-string">'function timed out, ensure the promise resolves within 10000 milliseconds'</span>,
+            <span class="hljs-string">'stackTrace'</span>: [
                 {
-                    <span class="hljs-string">&apos;declaringClass&apos;</span>: <span class="hljs-string">&apos;&apos;</span>,
-                    <span class="hljs-string">&apos;methodName&apos;</span>: <span class="hljs-string">&apos;undefined()&apos;</span>,
-                    <span class="hljs-string">&apos;fileName&apos;</span>: <span class="hljs-string">&apos;Error: function timed out, ensure the promise resolves within 10000 milliseconds&apos;</span>
+                    <span class="hljs-string">'declaringClass'</span>: <span class="hljs-string">''</span>,
+                    <span class="hljs-string">'methodName'</span>: <span class="hljs-string">'undefined()'</span>,
+                    <span class="hljs-string">'fileName'</span>: <span class="hljs-string">'Error: function timed out, ensure the promise resolves within 10000 milliseconds'</span>
                 }
             ]
         },
-        <span class="hljs-string">&apos;id&apos;</span>: <span class="hljs-string">&apos;tag-management;create-new-tag&apos;</span>
+        <span class="hljs-string">'id'</span>: <span class="hljs-string">'tag-management;create-new-tag'</span>
     };
 });
 </code></pre>

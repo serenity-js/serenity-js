@@ -137,9 +137,9 @@
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="the-trouble-with-test-scripts">The trouble with test scripts</h1>
 <p>Imagine for a moment that we wanted to write some automated acceptance tests
-for the <a href="http://todomvc.com/examples/angularjs/#/">TodoMVC app</a> -&#xA0;a&#xA0;simple web application
+for the <a href="http://todomvc.com/examples/angularjs/#/">TodoMVC app</a> -&nbsp;a&nbsp;simple web application
 that allows its users to manage a to-do list.</p>
-<p>To make things a bit more interesting, let&apos;s say that the <a href="https://en.wikipedia.org/wiki/User_story">user story</a>
+<p>To make things a bit more interesting, let's say that the <a href="https://en.wikipedia.org/wiki/User_story">user story</a>
 we want to write an acceptance test for looks as follows:</p>
 <pre><code class="lang-plaintext hljs plaintext">In order to focus on my outstanding tasks
 As a forgetful person
@@ -153,48 +153,48 @@ I want to be able to filter my todos to see active items only
 <li>filter the list to show active items only,</li>
 <li>ensure that the only items they see are the ones that are still outstanding.</li>
 </ul>
-<p>Let&apos;s now look at two ways of approaching the task of automating a test scenario that does precisely that.</p>
+<p>Let's now look at two ways of approaching the task of automating a test scenario that does precisely that.</p>
 <h2 id="a-test-script">A test script</h2>
 <p>The most common implementation follows what I like to call <em>the scripting approach</em>.</p>
 <p>A test implemented in this style is characterised by numerous calls to low-level WebDriver or WebDriver-like APIs
 and exhibit few or no business-focused abstractions.</p>
 <p>Below is an example test following the scripting approach, implemented using raw <a href="https://www.protractortest.org/#">Protractor</a> and <a href="https://jasmine.github.io/">Jasmine</a>.
-Please note, however, that this style is by no means specific to those particular tools as you&apos;ll see it often being used with other similar libraries and frameworks:</p>
-<pre><code class="lang-javascript hljs javascript">describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+Please note, however, that this style is by no means specific to those particular tools as you'll see it often being used with other similar libraries and frameworks:</p>
+<pre><code class="lang-javascript hljs javascript">describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
-    it(<span class="hljs-string">&apos;allows the user to show active items only&apos;</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    it(<span class="hljs-string">'allows the user to show active items only'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
         <span class="hljs-comment">// low-level navigation and synchronisation code</span>
-        <span class="hljs-keyword">await</span> protractor.browser.get(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/#/&apos;</span>);
+        <span class="hljs-keyword">await</span> protractor.browser.get(<span class="hljs-string">'http://todomvc.com/examples/angularjs/#/'</span>);
         <span class="hljs-keyword">await</span> protractor.browser.wait(
-                protractor.ExpectedConditions.presenceOf(element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>))),
+                protractor.ExpectedConditions.presenceOf(element(by.css(<span class="hljs-string">'.new-todo'</span>))),
                 <span class="hljs-number">2000</span>,
             );
         expect(<span class="hljs-keyword">await</span> protractor.browser.getTitle()).toMatch(<span class="hljs-regexp">/.*TodoMVC$/</span>);
 
         <span class="hljs-comment">// duplicated code</span>
-        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>)).sendKeys(<span class="hljs-string">&apos;Play some guitar&apos;</span>);
-        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>)).sendKeys(protractor.Key.ENTER);
+        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">'.new-todo'</span>)).sendKeys(<span class="hljs-string">'Play some guitar'</span>);
+        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">'.new-todo'</span>)).sendKeys(protractor.Key.ENTER);
 
-        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>)).sendKeys(<span class="hljs-string">&apos;Read a book&apos;</span>);
-        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>)).sendKeys(protractor.Key.ENTER);
+        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">'.new-todo'</span>)).sendKeys(<span class="hljs-string">'Read a book'</span>);
+        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">'.new-todo'</span>)).sendKeys(protractor.Key.ENTER);
 
-        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>)).sendKeys(<span class="hljs-string">&apos;Write some code&apos;</span>);
-        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>)).sendKeys(protractor.Key.ENTER);
+        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">'.new-todo'</span>)).sendKeys(<span class="hljs-string">'Write some code'</span>);
+        <span class="hljs-keyword">await</span> element(by.css(<span class="hljs-string">'.new-todo'</span>)).sendKeys(protractor.Key.ENTER);
 
         <span class="hljs-comment">// complex XPath locators</span>
         <span class="hljs-keyword">await</span> element(by.xpath(
-                <span class="hljs-string">`//li[*[@class=&apos;view&apos; and contains(.,&apos;Write some code&apos;)]]//input[contains(@class,&apos;toggle&apos;)]`</span>)
+                <span class="hljs-string">`//li[*[@class='view' and contains(.,'Write some code')]]//input[contains(@class,'toggle')]`</span>)
             ).click();
 
         <span class="hljs-keyword">await</span> element(by.linkText(<span class="hljs-string">`Active`</span>))
             .click();
 
         <span class="hljs-comment">// a mix of async/await style and Promises</span>
-        <span class="hljs-keyword">await</span> element.all(by.css(<span class="hljs-string">&apos;.todo-list li&apos;</span>)).getText()
+        <span class="hljs-keyword">await</span> element.all(by.css(<span class="hljs-string">'.todo-list li'</span>)).getText()
             .then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> {
                 expect(items).toEqual([
-                    <span class="hljs-string">&apos;Play some guitar&apos;</span>,
-                    <span class="hljs-string">&apos;Read a book&apos;</span>,
+                    <span class="hljs-string">'Play some guitar'</span>,
+                    <span class="hljs-string">'Read a book'</span>,
                 ]);
             });
     });
@@ -205,43 +205,43 @@ Please note, however, that this style is by no means specific to those particula
     });
 });
 </code></pre>
-<p>The code above &quot;gets the job done&quot; and automates the scenario we talked about.</p>
-<p>However, this implementation is far from ideal for a  number of reasons, some of which I&apos;ve highlighted in the comments in the code sample above:</p>
+<p>The code above "gets the job done" and automates the scenario we talked about.</p>
+<p>However, this implementation is far from ideal for a  number of reasons, some of which I've highlighted in the comments in the code sample above:</p>
 <ul>
-<li>There&apos;s a lot of duplication.</li>
+<li>There's a lot of duplication.</li>
 <li>The setup and cleanup code is at the same level of abstraction and importance as the main scenario flow, cluttering the test.</li>
 <li>Complex <a href="https://en.wikipedia.org/wiki/XPath">XPath</a> locators couple the test tightly to the UI and make it susceptible to any changes in its structure.</li>
 <li>Even small changes to the application structure or the user workflow tend to have <a href="https://sourcemaking.com/refactoring/smells/shotgun-surgery">a big impact</a> on the test code, making it difficult for the tests to keep pace with the application.</li>
 <li>The low-level, detail-focused code makes it hard to see at a glance if the test is actually doing its job correctly. It also makes it impossible for a non-technical business person to read and verify its logic.</li>
 <li>When a test suite like this expands, developers need to spend more and more time tackling the widespread duplication and keeping the test suite up to date with the application. This makes it increasingly hard to add new tests for any new functionality.</li>
-<li>Not to mention that tests like the one above make it virtually impossible to <a href="https://en.wikipedia.org/wiki/Acceptance_test%E2%80%93driven_development">test-drive the development</a> of a software system as they&apos;re too tightly coupled to the implementation.</li>
+<li>Not to mention that tests like the one above make it virtually impossible to <a href="https://en.wikipedia.org/wiki/Acceptance_test%E2%80%93driven_development">test-drive the development</a> of a software system as they're too tightly coupled to the implementation.</li>
 </ul>
-<p>As you can probably already tell, I&apos;m not a fan of this approach as it tends to be <strong>a recipe for a maintenance disaster</strong>.</p>
+<p>As you can probably already tell, I'm not a fan of this approach as it tends to be <strong>a recipe for a maintenance disaster</strong>.</p>
 <p>The creator of Selenium WebDriver, <a href="https://blog.rocketpoweredjetpants.com/">Simon Stewart</a>, holds the same view:</p>
 <blockquote>
-<p>If you have WebDriver APIs in your test methods, You&apos;re Doing It Wrong.</p>
+<p>If you have WebDriver APIs in your test methods, You're Doing It Wrong.</p>
 <p>Simon Stewart</p>
 </blockquote>
-<p>So let&apos;s see what we can do about this sorry state of affairs and find a way to improve our test and encapsulate and reuse some of the common parts.</p>
+<p>So let's see what we can do about this sorry state of affairs and find a way to improve our test and encapsulate and reuse some of the common parts.</p>
 <h2 id="the-page-object-s-pattern">The Page Object(s) Pattern</h2>
 <p>As Selenium WebDriver became more popular in the late 2000s, and test suites began to grow bigger,
 developers and testers new to browser-based test automation needed a way to address issues with test scripts.</p>
 <p>In response to this need, the <a href="https://docs.seleniumhq.org/">Selenium team</a> proposed the <a href="https://selenium.dev/documentation/en/guidelines_and_recommendations/page_object_models/">Page Object Pattern</a>.
 This simple pattern focuses on the user interface and models it in terms of pages, with each page being represented by a distinct class encapsulating both the definition of the page structure and the tasks that a user can perform on that page.</p>
-<p>The original Page Object Pattern was later <a href="https://martinfowler.com/bliki/PageObject.html">refined by Martin Fowler</a>, who proposed that instead of thinking of the entire application as a set of pages, each page should be considered in terms of smaller page objects or &quot;widgets&quot; that the page contained. The implementation below uses that refined version, as it&apos;s more representative of what you&apos;d find in the more modern codebases.</p>
-<p>What you&apos;ll see in the code sample below is a by-the-book implementation of the Page Objects pattern.
-For simplicity, I&apos;ve implemented the page object representing the <code>TodoList</code> in the same file as the test using it, as well as the test-specific <a href="https://jasmine.github.io/api/3.5/global.html#afterEach">teardown method</a>
-that prevents the application state from leaking between the tests. I&apos;ve also annotated the code to highlight the features and limitations of this implementation:</p>
-<pre><code class="lang-javascript hljs javascript">describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<p>The original Page Object Pattern was later <a href="https://martinfowler.com/bliki/PageObject.html">refined by Martin Fowler</a>, who proposed that instead of thinking of the entire application as a set of pages, each page should be considered in terms of smaller page objects or "widgets" that the page contained. The implementation below uses that refined version, as it's more representative of what you'd find in the more modern codebases.</p>
+<p>What you'll see in the code sample below is a by-the-book implementation of the Page Objects pattern.
+For simplicity, I've implemented the page object representing the <code>TodoList</code> in the same file as the test using it, as well as the test-specific <a href="https://jasmine.github.io/api/3.5/global.html#afterEach">teardown method</a>
+that prevents the application state from leaking between the tests. I've also annotated the code to highlight the features and limitations of this implementation:</p>
+<pre><code class="lang-javascript hljs javascript">describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-comment">// The page object representing the Todo list:</span>
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoList</span> </span>{
 
         <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-            <span class="hljs-comment">// Interactive elements represented as &quot;private&quot; fields of the page object</span>
-            <span class="hljs-comment">// to encourage the developers to use the &quot;public&quot; methods instead</span>
-            <span class="hljs-built_in">this</span>._whatNeedsToBeDoneInputBox = element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>));
-            <span class="hljs-built_in">this</span>._recordedItems             = element.all(by.css(<span class="hljs-string">&apos;.todo-list li&apos;</span>));
+            <span class="hljs-comment">// Interactive elements represented as "private" fields of the page object</span>
+            <span class="hljs-comment">// to encourage the developers to use the "public" methods instead</span>
+            <span class="hljs-built_in">this</span>._whatNeedsToBeDoneInputBox = element(by.css(<span class="hljs-string">'.new-todo'</span>));
+            <span class="hljs-built_in">this</span>._recordedItems             = element.all(by.css(<span class="hljs-string">'.todo-list li'</span>));
         }
 
         <span class="hljs-comment">// The methods of the page object represent the tasks that the user</span>
@@ -250,7 +250,7 @@ that prevents the application state from leaking between the tests. I&apos;ve al
         <span class="hljs-comment">// - completeItemCalled(itemName)</span>
         <span class="hljs-comment">// - filterToShowActiveItemsOnly(), etc.</span>
 
-        <span class="hljs-comment">// Each &quot;task method&quot; encapsulates the low-level interactions</span>
+        <span class="hljs-comment">// Each "task method" encapsulates the low-level interactions</span>
         <span class="hljs-comment">// like entering a value into a form field or clicking on a button:</span>
         <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">recordItemCalled</span>(<span class="hljs-params">itemName</span>)</span> {
             <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._whatNeedsToBeDoneInputBox.sendKeys(itemName);
@@ -259,11 +259,11 @@ that prevents the application state from leaking between the tests. I&apos;ve al
 
         <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">completeItemCalled</span>(<span class="hljs-params">itemName</span>)</span> {
             <span class="hljs-comment">// The dynamically-generated XPath locator is now encapsulated</span>
-            <span class="hljs-comment">// within the page object. But, even though it&apos;s swept under the carpet,</span>
-            <span class="hljs-comment">// it&apos;s still just as complex as it was before:</span>
+            <span class="hljs-comment">// within the page object. But, even though it's swept under the carpet,</span>
+            <span class="hljs-comment">// it's still just as complex as it was before:</span>
 
             <span class="hljs-keyword">await</span> element(by.xpath(
-                <span class="hljs-string">`//li[*[@class=&apos;view&apos; and contains(.,&apos;<span class="hljs-subst">${ itemName }</span>&apos;)]]//input[contains(@class,&apos;toggle&apos;)]`</span>)
+                <span class="hljs-string">`//li[*[@class='view' and contains(.,'<span class="hljs-subst">${ itemName }</span>')]]//input[contains(@class,'toggle')]`</span>)
             ).click();
         }
 
@@ -280,13 +280,13 @@ that prevents the application state from leaking between the tests. I&apos;ve al
     };
 
     <span class="hljs-comment">// The test where the TodoList page object is used:</span>
-    it(<span class="hljs-string">&apos;allows for the list to show active items only&apos;</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    it(<span class="hljs-string">'allows for the list to show active items only'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
-        <span class="hljs-comment">// Operations that are not part of the page object&apos;s responsibilities</span>
+        <span class="hljs-comment">// Operations that are not part of the page object's responsibilities</span>
         <span class="hljs-comment">// are still present in the test:</span>
-        <span class="hljs-keyword">await</span> protractor.browser.get(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/#/&apos;</span>);
+        <span class="hljs-keyword">await</span> protractor.browser.get(<span class="hljs-string">'http://todomvc.com/examples/angularjs/#/'</span>);
         <span class="hljs-keyword">await</span> protractor.browser.wait(
-                protractor.ExpectedConditions.presenceOf(element(by.css(<span class="hljs-string">&apos;.new-todo&apos;</span>))),
+                protractor.ExpectedConditions.presenceOf(element(by.css(<span class="hljs-string">'.new-todo'</span>))),
                 <span class="hljs-number">2000</span>,
             );
         expect(<span class="hljs-keyword">await</span> protractor.browser.getTitle()).toMatch(<span class="hljs-regexp">/.*TodoMVC$/</span>);
@@ -295,11 +295,11 @@ that prevents the application state from leaking between the tests. I&apos;ve al
         <span class="hljs-keyword">const</span> todoList = <span class="hljs-keyword">new</span> TodoList();
 
         <span class="hljs-comment">// Repeated calls to `recordItemCalled`</span>
-        <span class="hljs-keyword">await</span> todoList.recordItemCalled(<span class="hljs-string">&apos;Play some guitar&apos;</span>);
-        <span class="hljs-keyword">await</span> todoList.recordItemCalled(<span class="hljs-string">&apos;Read a book&apos;</span>);
-        <span class="hljs-keyword">await</span> todoList.recordItemCalled(<span class="hljs-string">&apos;Write some code&apos;</span>);
+        <span class="hljs-keyword">await</span> todoList.recordItemCalled(<span class="hljs-string">'Play some guitar'</span>);
+        <span class="hljs-keyword">await</span> todoList.recordItemCalled(<span class="hljs-string">'Read a book'</span>);
+        <span class="hljs-keyword">await</span> todoList.recordItemCalled(<span class="hljs-string">'Write some code'</span>);
 
-        <span class="hljs-keyword">await</span> todoList.completeItemCalled(<span class="hljs-string">&apos;Write some code&apos;</span>);
+        <span class="hljs-keyword">await</span> todoList.completeItemCalled(<span class="hljs-string">'Write some code'</span>);
 
         <span class="hljs-keyword">await</span> todoList.filterToShowActiveItemsOnly();
 
@@ -307,16 +307,16 @@ that prevents the application state from leaking between the tests. I&apos;ve al
         <span class="hljs-comment">// and go back to chaining Promises using `.then`:</span>
         <span class="hljs-keyword">await</span> todoList.textOfRecordedItems().then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> {
             expect(items).toEqual([
-                <span class="hljs-string">&apos;Play some guitar&apos;</span>,
-                <span class="hljs-string">&apos;Read a book&apos;</span>,
+                <span class="hljs-string">'Play some guitar'</span>,
+                <span class="hljs-string">'Read a book'</span>,
             ]);
         });
     });
 
     <span class="hljs-comment">// Teardown method responsible for clearing any application state</span>
     afterEach(<span class="hljs-keyword">async</span> () =&gt; {
-        <span class="hljs-comment">// Since the cleanup method doesn&apos;t belong to the page object</span>
-        <span class="hljs-comment">// representing the TodoList, it&apos;s left in the test:</span>
+        <span class="hljs-comment">// Since the cleanup method doesn't belong to the page object</span>
+        <span class="hljs-comment">// representing the TodoList, it's left in the test:</span>
 
         <span class="hljs-keyword">await</span> browser.executeScript(<span class="hljs-string">`window.localStorage.clear()`</span>);
     });
@@ -325,20 +325,20 @@ that prevents the application state from leaking between the tests. I&apos;ve al
 <p>As you can see above, the clarity of our test has already improved:</p>
 <ul>
 <li>The constructor of the page objects introduces two <a href="https://refactoring.com/catalog/extractVariable.html">meaningful variables</a>
-representing the elements of the <code>TodoList</code> that we&apos;d like to interact with: <code>_whatNeedsToBeDoneInputBox</code> and <code>_recordedItems</code>.
+representing the elements of the <code>TodoList</code> that we'd like to interact with: <code>_whatNeedsToBeDoneInputBox</code> and <code>_recordedItems</code>.
 This helps to avoid duplicating the locators all over the test.</li>
-<li>The low-level Protractor API calls, such as <code>element</code> or <code>element.all</code>, have been extracted and encapsulated within &quot;task methods&quot; such as <code>recordItemCalled(name)</code>,
+<li>The low-level Protractor API calls, such as <code>element</code> or <code>element.all</code>, have been extracted and encapsulated within "task methods" such as <code>recordItemCalled(name)</code>,
 <code>completeItemCalled(name)</code> and <code>filterToShowActiveItemsOnly()</code> available on the <code>TodoList</code> page object instance.
 Those methods not only encapsulate the interaction logic but also offer a much more business-focused API.</li>
 <li>Additionally, the <code>TodoList</code> page object also offers a way for us to retrieve the <code>textOfRecordedItems()</code>, which we use to perform the assertion.</li>
 </ul>
 <p>However, some issues are still outstanding:</p>
 <ul>
-<li>Since opening the web browser doesn&apos;t, strictly speaking, belong to the responsibilities of the page object, the code doing it is still left in the test.</li>
+<li>Since opening the web browser doesn't, strictly speaking, belong to the responsibilities of the page object, the code doing it is still left in the test.</li>
 <li>Since the test requires three items to be added to the todo list, we call <code>recordItemCalled()</code> three times.
-That&apos;s some duplication that could be avoided by creating some sort of a helper method.
+That's some duplication that could be avoided by creating some sort of a helper method.
 However, adding helper methods like that to page objects can result in their API expanding quite significantly.</li>
-<li>Clean up code that doesn&apos;t belong to any page object in particular, in our case code that clears the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"><code>localStorage</code></a>, is left in the test causing unnecessary noise and distraction.</li>
+<li>Clean up code that doesn't belong to any page object in particular, in our case code that clears the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"><code>localStorage</code></a>, is left in the test causing unnecessary noise and distraction.</li>
 </ul>
 <p>Moreover, since a Page Object works with three distinct concepts, as it:</p>
 <ul>
@@ -357,15 +357,15 @@ However, adding helper methods like that to page objects can result in their API
 <p>As the name implies, <em>Page Objects</em> reason at the level of the user interface, in terms of fields, buttons and links that the user manipulates. This affects not only the way your test is structured but also the way <em>you think</em> about the application.
 Just as we shape our tools, they shape us too - instead of placing the primary focus on <strong>what</strong> the user needs to do with the application, Page Objects lead you to focus on <strong>how</strong> the user interacts with individual pages. As a result, the tests become tightly coupled to the structure of the user interface, making them more brittle and more likely to be affected by UI changes.</p>
 <blockquote>
-<p>Coupling the tests to the structure of the system they verify results in a test suite that&apos;s brittle and more likely to fail when the implementation of the system changes.</p>
+<p>Coupling the tests to the structure of the system they verify results in a test suite that's brittle and more likely to fail when the implementation of the system changes.</p>
 </blockquote>
 <p>Even though Page Objects reduce code duplication and encourage reuse across tests within a single project and a single test suite, the design falls short if we need to enable code reuse across multiple projects and teams. This, of course, affects the scalability and accessibility of our solution.</p>
-<p>Also, the fact that each page object is tightly coupled to Protractor APIs: <code>element</code> and <code>by</code> - global functions that are browser instance-specific - makes it impossible to use this design &quot;as is&quot; for multi-browser testing (chat systems, workflow systems, multi-player games, etc.).</p>
-<p>Not to mention that even after <a href="https://refactoring.com/catalog/extractClass.html">extracting</a> a Page Object from the original test script, there&apos;s still plenty of low-level Protractor/WebDriver API calls left in our test. They are necessary as they deal with managing the browser window and clearing the application state, but they also cloud the business logic of the implementation.</p>
-<p>As you can see, even though Page Objects address some of the troubles with test scripts, they don&apos;t provide a complete solution.</p>
-<p>Let&apos;s see if we can find the missing ingredients!</p>
+<p>Also, the fact that each page object is tightly coupled to Protractor APIs: <code>element</code> and <code>by</code> - global functions that are browser instance-specific - makes it impossible to use this design "as is" for multi-browser testing (chat systems, workflow systems, multi-player games, etc.).</p>
+<p>Not to mention that even after <a href="https://refactoring.com/catalog/extractClass.html">extracting</a> a Page Object from the original test script, there's still plenty of low-level Protractor/WebDriver API calls left in our test. They are necessary as they deal with managing the browser window and clearing the application state, but they also cloud the business logic of the implementation.</p>
+<p>As you can see, even though Page Objects address some of the troubles with test scripts, they don't provide a complete solution.</p>
+<p>Let's see if we can find the missing ingredients!</p>
 <h2 id="cucumber">Cucumber</h2>
-<p>At this point, you&apos;re probably wondering if adding <a href="https://github.com/cucumber/cucumber-js">Cucumber</a> into the mix could introduce the layer of abstraction our example code so desperately needs?</p>
+<p>At this point, you're probably wondering if adding <a href="https://github.com/cucumber/cucumber-js">Cucumber</a> into the mix could introduce the layer of abstraction our example code so desperately needs?</p>
 <p>What such a move would definitely help us with is to introduce a layer of domain-specific language we could use to capture the vernacular of the business stakeholders.
 Additionally, expressing acceptance test scenarios in a human-readable language, such as English, makes it easier for non-technical stakeholders to work with and review.</p>
 <p>At the business level, our test scenario could be expressed as follows:</p>
@@ -376,12 +376,12 @@ Additionally, expressing acceptance test scenarios in a human-readable language,
     <span class="hljs-keyword">And</span> he filters the list to show only active items
    <span class="hljs-keyword">Then</span> he should see: Play some guitar, Read a book
 </code></pre>
-<p>This looks better, doesn&apos;t it?</p>
-<p>Let&apos;s look at the implementation of the <a href="https://cucumber.io/docs/gherkin/step-organization/">step library</a> that powers this test, though:</p>
-<pre><code class="lang-javascript hljs javascript"><span class="hljs-keyword">const</span> { Given, Then, When, Before, After } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;cucumber&apos;</span>);
+<p>This looks better, doesn't it?</p>
+<p>Let's look at the implementation of the <a href="https://cucumber.io/docs/gherkin/step-organization/">step library</a> that powers this test, though:</p>
+<pre><code class="lang-javascript hljs javascript"><span class="hljs-keyword">const</span> { Given, Then, When, Before, After } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cucumber'</span>);
 
 Before(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">await</span> browser.get(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/#/&apos;</span>);
+    <span class="hljs-keyword">await</span> browser.get(<span class="hljs-string">'http://todomvc.com/examples/angularjs/#/'</span>);
 });
 
 Given(<span class="hljs-regexp">/(.*) has a list containing: (.*)/</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">actorName, commaSeparatedItems</span>) </span>{
@@ -413,24 +413,24 @@ After(<span class="hljs-function"><span class="hljs-keyword">function</span> (<s
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">itemsFrom</span>(<span class="hljs-params">commaSeparatedItems</span>) </span>{
     <span class="hljs-keyword">return</span> commaSeparatedItems
-               .split(<span class="hljs-string">&apos;,&apos;</span>)
+               .split(<span class="hljs-string">','</span>)
                .map(<span class="hljs-function"><span class="hljs-params">itemName</span> =&gt;</span> itemName.trim());
 }
 </code></pre>
 <p>Even with a gold standard Cucumber scenario like the one above, the Cucumber step definitions suffer from the same issues
 our previous Protractor/Jasmine scenario has experienced:</p>
 <ul>
-<li>low-level API calls are still left in the code, and now they&apos;re accompanied by additional data transformation functions responsible for mapping the plain-English scenario to the automation code (such as <code>itemsFrom(commaSeparatedItems)</code>),</li>
+<li>low-level API calls are still left in the code, and now they're accompanied by additional data transformation functions responsible for mapping the plain-English scenario to the automation code (such as <code>itemsFrom(commaSeparatedItems)</code>),</li>
 <li>the low-level cleanup code is still present in the <code>After</code> hook,</li>
 <li>the step definitions have to switch between the <code>async/await</code> and Promises, depending on the context of the API call,</li>
-<li>and we haven&apos;t addressed any of the problems introduced with Page Objects!</li>
+<li>and we haven't addressed any of the problems introduced with Page Objects!</li>
 </ul>
-<p>Not to mention, that Cucumber, while an excellent collaboration and documentation tool, doesn&apos;t address concerns around
-code re-usability: you can&apos;t call a Cucumber step from within another step, for example, and <a href="https://cucumber.io/docs/guides/anti-patterns/#support-for-conjunction-steps">neither should you</a>.</p>
+<p>Not to mention, that Cucumber, while an excellent collaboration and documentation tool, doesn't address concerns around
+code re-usability: you can't call a Cucumber step from within another step, for example, and <a href="https://cucumber.io/docs/guides/anti-patterns/#support-for-conjunction-steps">neither should you</a>.</p>
 <h2 id="summary">Summary</h2>
-<p>As you can see, even though Protractor, WebDriver and other similar tools are excellent at automating low-level interactions with the system under test, their APIs are simply too low-level to express the business intent behind those interactions. Also, using tools like that directly in our tests leads to an implementation that&apos;s full of noise, distractions, and accidental detail.</p>
-<p>The Page Object(s) Pattern addresses some of the problems but falls short if what you want is a test automation system that&apos;s easy to extend, maintain and scale to multiple projects and teams.</p>
-<p>While adding Cucumber into the mix could help to capture the business language and slightly improve the reports our tests produce, it doesn&apos;t by itself address the code duplication or code structure issues. I&apos;m afraid that even gold standard Cucumber scenarios can&apos;t address that because there&apos;s still something we&apos;re missing.</p>
+<p>As you can see, even though Protractor, WebDriver and other similar tools are excellent at automating low-level interactions with the system under test, their APIs are simply too low-level to express the business intent behind those interactions. Also, using tools like that directly in our tests leads to an implementation that's full of noise, distractions, and accidental detail.</p>
+<p>The Page Object(s) Pattern addresses some of the problems but falls short if what you want is a test automation system that's easy to extend, maintain and scale to multiple projects and teams.</p>
+<p>While adding Cucumber into the mix could help to capture the business language and slightly improve the reports our tests produce, it doesn't by itself address the code duplication or code structure issues. I'm afraid that even gold standard Cucumber scenarios can't address that because there's still something we're missing.</p>
 <p>To find out what that is, we might need to change the way we think about our tests.</p>
 <p>We need to start <a href="/handbook/thinking-in-serenity-js/screenplay-by-example.html">thinking in Serenity/JS</a>.</p>
 </body></html>

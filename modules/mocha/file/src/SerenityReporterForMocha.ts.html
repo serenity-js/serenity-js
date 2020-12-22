@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="active">@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">mocha</a></li>
@@ -121,12 +121,12 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/SerenityReporterForMocha.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
 
-<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { MochaOptions, reporters, Runnable, Runner, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>;
-<span class="hljs-keyword">import</span> { MochaOutcomeMapper, MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./mappers&apos;</span>;
-<span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./OutcomeRecorder&apos;</span>;
+<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { MochaOptions, reporters, Runnable, Runner, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+<span class="hljs-keyword">import</span> { MochaOutcomeMapper, MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mappers'</span>;
+<span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutcomeRecorder'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
@@ -188,16 +188,16 @@
 
         <span class="hljs-keyword">const</span> announceSceneFinishedFor = <span class="hljs-built_in">this</span>.announceSceneFinishedFor.bind(<span class="hljs-built_in">this</span>);
 
-        runner.suite.afterEach(<span class="hljs-string">&apos;Serenity/JS&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        runner.suite.afterEach(<span class="hljs-string">'Serenity/JS'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
             <span class="hljs-keyword">return</span> announceSceneFinishedFor(<span class="hljs-built_in">this</span>.currentTest, <span class="hljs-built_in">this</span>.test);
         });
 
         <span class="hljs-comment">// https://github.com/cypress-io/cypress/issues/7562</span>
-        runner.on(<span class="hljs-string">&apos;test:after:run&apos;</span>, <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
+        runner.on(<span class="hljs-string">'test:after:run'</span>, <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
             <span class="hljs-keyword">return</span> announceSceneFinishedFor(test, test);
         });
 
-        <span class="hljs-comment">// Tests without body don&apos;t trigger the above custom afterEach hook</span>
+        <span class="hljs-comment">// Tests without body don't trigger the above custom afterEach hook</span>
         runner.on(Runner.constants.EVENT_TEST_PENDING,
             <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
                 <span class="hljs-keyword">if</span> (! test.fn) {
@@ -228,7 +228,7 @@
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneStarts(<span class="hljs-built_in">this</span>.currentSceneId, scenario, <span class="hljs-built_in">this</span>.serenity.currentTime()),
             <span class="hljs-keyword">new</span> SceneTagged(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-built_in">this</span>.testMapper.featureNameFor(test)), <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Mocha&apos;</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Mocha'</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
     }
 
@@ -263,7 +263,7 @@
 
                 <span class="hljs-built_in">this</span>.recorder.erase(test);
 
-                <span class="hljs-comment">// re-throwing an error here would cause Mocha to halt test suite, which we don&apos;t want to do</span>
+                <span class="hljs-comment">// re-throwing an error here would cause Mocha to halt test suite, which we don't want to do</span>
                 <span class="hljs-comment">// https://github.com/mochajs/mocha/issues/1635</span>
                 (runnable <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).error(error);
             });
@@ -297,7 +297,7 @@
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneTagged(
                 <span class="hljs-built_in">this</span>.currentSceneId,
-                <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">&apos;retried&apos;</span>),
+                <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'retried'</span>),
                 <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
         );

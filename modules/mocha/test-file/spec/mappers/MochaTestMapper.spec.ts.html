@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="active">@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">mocha</a></li>
@@ -119,32 +119,32 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/mappers/MochaTestMapper.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { Category, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/mappers&apos;</span>;
-<span class="hljs-keyword">import</span> { exampleTest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../exampleTest&apos;</span>;
+<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { Category, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/mappers'</span>;
+<span class="hljs-keyword">import</span> { exampleTest } <span class="hljs-keyword">from</span> <span class="hljs-string">'../exampleTest'</span>;
 
-describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'MochaTestMapper'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> MochaTestMapper();
 
-    it(<span class="hljs-string">&apos;treats the outer-most describe as the name of the feature&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'treats the outer-most describe as the name of the feature'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> feature = mapper.featureNameFor(exampleTest)
 
-        expect(feature).to.equal(<span class="hljs-string">&apos;Mocha reporting&apos;</span>);
+        expect(feature).to.equal(<span class="hljs-string">'Mocha reporting'</span>);
     });
 
-    it(<span class="hljs-string">&apos;maps a Mocha test to Serenity/JS ScenarioDetails&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'maps a Mocha test to Serenity/JS ScenarioDetails'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> scenario = mapper.detailsOf(exampleTest)
 
         expect(scenario).to.equal(<span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;A scenario passes&apos;</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;Mocha reporting&apos;</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;/Users/jan/Projects/serenity-js/integration/mocha/examples/passing.spec.js&apos;</span>))
+            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'A scenario passes'</span>),
+            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Mocha reporting'</span>),
+            <span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/Users/jan/Projects/serenity-js/integration/mocha/examples/passing.spec.js'</span>))
         ));
     });
 });

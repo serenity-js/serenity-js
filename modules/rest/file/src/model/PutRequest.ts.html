@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="active">@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">rest</a></li>
@@ -131,9 +131,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/PutRequest.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
-<span class="hljs-keyword">import</span> { HTTPRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./HTTPRequest&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> { HTTPRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">'./HTTPRequest'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -149,17 +149,17 @@
  *  calling it once or several times successively has the same effect (that is no _side effect_).
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Create a new resource at a known location&lt;/caption&gt;
- *  import { Actor } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { CallAnApi, LastResponse, PutRequest, Send } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;
- *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
+ *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { CallAnApi, LastResponse, PutRequest, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
+ *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
- *  const actor = Actor.named(&apos;Apisit&apos;).whoCan(CallAnApi.at(&apos;https://myapp.com/api&apos;));
+ *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
  *
  *  actor.attemptsTo(
- *      Send.a(PutRequest.to(&apos;/books/0-688-00230-7&apos;).with({
- *          isbn: &apos;0-688-00230-7&apos;,
- *          title: &apos;Zen and the Art of Motorcycle Maintenance: An Inquiry into Values&apos;,
- *          author: &apos;Robert M. Pirsig&apos;,
+ *      Send.a(PutRequest.to('/books/0-688-00230-7').with({
+ *          isbn: '0-688-00230-7',
+ *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
+ *          author: 'Robert M. Pirsig',
  *      })),
  *      Ensure.that(LastResponse.status(), equals(201)),
  *  );

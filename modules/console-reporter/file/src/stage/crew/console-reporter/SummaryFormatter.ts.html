@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="active">@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">console-reporter</a></li>
@@ -133,9 +133,9 @@
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { AggregatedCategories, AggregatedCategory } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Summary&apos;</span>;
-<span class="hljs-keyword">import</span> { TerminalTheme } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./themes&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { AggregatedCategories, AggregatedCategory } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Summary'</span>;
+<span class="hljs-keyword">import</span> { TerminalTheme } <span class="hljs-keyword">from</span> <span class="hljs-string">'./themes'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
@@ -151,8 +151,8 @@
             maxCategoryNameLengthAllowed    = <span class="hljs-built_in">Math</span>.min(<span class="hljs-built_in">Math</span>.max(maxCategoryNameLength, <span class="hljs-number">10</span>), <span class="hljs-number">30</span>);
 
         <span class="hljs-keyword">return</span> [
-            <span class="hljs-built_in">this</span>.theme.heading(<span class="hljs-string">&apos;Execution Summary&apos;</span>),
-            <span class="hljs-string">&apos;&apos;</span>,
+            <span class="hljs-built_in">this</span>.theme.heading(<span class="hljs-string">'Execution Summary'</span>),
+            <span class="hljs-string">''</span>,
             ...categoryNames.map(<span class="hljs-function"><span class="hljs-params">categoryName</span> =&gt;</span> {
                 <span class="hljs-keyword">const</span> displayName = (categoryName.length &gt; maxCategoryNameLengthAllowed
                     ? categoryName.substring(<span class="hljs-number">0</span>, maxCategoryNameLengthAllowed - <span class="hljs-number">4</span>) + <span class="hljs-string">`...:`</span>
@@ -163,12 +163,12 @@
             <span class="hljs-string">``</span>,
             <span class="hljs-string">`Total time: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.heading(aggregatedCategories.totalTime) }</span>`</span>,
             <span class="hljs-string">`Scenarios:  <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.heading(aggregatedCategories.numberOfScenarios) }</span>`</span>,
-            <span class="hljs-string">&apos;&apos;</span>,
-        ].join(<span class="hljs-string">&apos;\n&apos;</span>);
+            <span class="hljs-string">''</span>,
+        ].join(<span class="hljs-string">'\n'</span>);
     }
 
     <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">sorted</span>(<span class="hljs-params">strings: <span class="hljs-built_in">string</span>[]</span>)</span> {
-        <span class="hljs-keyword">return</span> strings.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.localeCompare(b, <span class="hljs-literal">undefined</span>, { <span class="hljs-attr">sensitivity</span>: <span class="hljs-string">&apos;base&apos;</span> }));
+        <span class="hljs-keyword">return</span> strings.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.localeCompare(b, <span class="hljs-literal">undefined</span>, { <span class="hljs-attr">sensitivity</span>: <span class="hljs-string">'base'</span> }));
     }
 
     <span class="hljs-keyword">private</span> formatTotalsFor(category: AggregatedCategory): <span class="hljs-built_in">string</span> {
@@ -179,7 +179,7 @@
                 acc.push(<span class="hljs-built_in">this</span>.theme.outcome(outcomeName, <span class="hljs-string">`<span class="hljs-subst">${category.outcomes[outcomeName].count}</span> <span class="hljs-subst">${<span class="hljs-built_in">this</span>.nameOf(outcomeName)}</span>`</span>));
                 <span class="hljs-keyword">return</span> acc;
             } , [])
-            .join(<span class="hljs-string">&apos;, &apos;</span>);
+            .join(<span class="hljs-string">', '</span>);
 
         <span class="hljs-keyword">const</span> total = <span class="hljs-built_in">Object</span>.keys(category.outcomes).map(<span class="hljs-function"><span class="hljs-params">outcomeName</span> =&gt;</span> category.outcomes[outcomeName].count).reduce(<span class="hljs-function">(<span class="hljs-params">acc, count</span>) =&gt;</span> acc + count, <span class="hljs-number">0</span>);
 
@@ -188,13 +188,13 @@
 
     <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">nameOf</span>(<span class="hljs-params">outcomeName: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">switch</span> (outcomeName) {
-            <span class="hljs-keyword">case</span> ExecutionCompromised.name:                 <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;compromised&apos;</span>;
-            <span class="hljs-keyword">case</span> ExecutionFailedWithError.name:             <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;broken&apos;</span>;
-            <span class="hljs-keyword">case</span> ExecutionFailedWithAssertionError.name:    <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;failed&apos;</span>;
-            <span class="hljs-keyword">case</span> ImplementationPending.name:                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;pending&apos;</span>;
-            <span class="hljs-keyword">case</span> ExecutionSkipped.name:                     <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;skipped&apos;</span>;
-            <span class="hljs-keyword">case</span> ExecutionIgnored.name:                     <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;ignored&apos;</span>;
-            <span class="hljs-keyword">case</span> ExecutionSuccessful.name:                  <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;successful&apos;</span>;
+            <span class="hljs-keyword">case</span> ExecutionCompromised.name:                 <span class="hljs-keyword">return</span> <span class="hljs-string">'compromised'</span>;
+            <span class="hljs-keyword">case</span> ExecutionFailedWithError.name:             <span class="hljs-keyword">return</span> <span class="hljs-string">'broken'</span>;
+            <span class="hljs-keyword">case</span> ExecutionFailedWithAssertionError.name:    <span class="hljs-keyword">return</span> <span class="hljs-string">'failed'</span>;
+            <span class="hljs-keyword">case</span> ImplementationPending.name:                <span class="hljs-keyword">return</span> <span class="hljs-string">'pending'</span>;
+            <span class="hljs-keyword">case</span> ExecutionSkipped.name:                     <span class="hljs-keyword">return</span> <span class="hljs-string">'skipped'</span>;
+            <span class="hljs-keyword">case</span> ExecutionIgnored.name:                     <span class="hljs-keyword">return</span> <span class="hljs-string">'ignored'</span>;
+            <span class="hljs-keyword">case</span> ExecutionSuccessful.name:                  <span class="hljs-keyword">return</span> <span class="hljs-string">'successful'</span>;
         }
     }
 }

@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -125,7 +125,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/** <span class="hljs-doctag">@package </span>*/</span>
 
-<span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
 <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/tree/50a3b1824001f192da2cdca6326d7525d4dd7f25/serenity-model/src/test/resources</span>
 <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/TestOutcome.java</span>
@@ -146,7 +146,7 @@
     duration: <span class="hljs-built_in">number</span>;                   <span class="hljs-comment">// done [x]</span>
     projectKey: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor                                                  &lt;- this typically comes from an env variable</span>
     sessionId?: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor                                                  &lt;- how is this used?</span>
-    driver?: <span class="hljs-built_in">string</span>;                    <span class="hljs-comment">// todo [ ]     protractor     &apos;chrome:jill&apos;                                &lt;- how is this used?</span>
+    driver?: <span class="hljs-built_in">string</span>;                    <span class="hljs-comment">// todo [ ]     protractor     'chrome:jill'                                &lt;- how is this used?</span>
     context?: <span class="hljs-built_in">string</span>;                   <span class="hljs-comment">// done [x]</span>
     dataTable?: DataTable;              <span class="hljs-comment">// done [x]     cucumber                                                    &lt;- can I use this with mocha?</span>
     manual: <span class="hljs-built_in">boolean</span>;                    <span class="hljs-comment">// done [x]</span>
@@ -188,14 +188,14 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Screenshot <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">screenshot</span>: <span class="hljs-built_in">string</span>;
     timeStamp: <span class="hljs-built_in">number</span>;
-    htmlSource?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// &quot;htmlSource&quot;: &quot;pagesource7953468346968205961.html.txt&quot;</span>
+    htmlSource?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// "htmlSource": "pagesource7953468346968205961.html.txt"</span>
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> UserStory <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;             <span class="hljs-comment">// dashified feature name</span>
     storyName: <span class="hljs-built_in">string</span>;      <span class="hljs-comment">// feature name</span>
     path: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// relative feature file path</span>
-    <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// &apos;feature&apos;</span>
+    <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// 'feature'</span>
     narrative?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// cucumber narrative, if any</span>
 }
 

@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
                         <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">cucumber</a></li>
@@ -138,8 +138,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/CucumberEventProtocolAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError, UnknownError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/errors&apos;</span>;
-<span class="hljs-keyword">import</span> { ErrorSerialiser, FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError, UnknownError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/errors'</span>;
+<span class="hljs-keyword">import</span> { ErrorSerialiser, FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -148,15 +148,15 @@
     ExecutionSuccessful,
     ImplementationPending, Name,
     Outcome,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../errors&apos;</span>;
-<span class="hljs-keyword">import</span> { Feature, Hook, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../gherkin&apos;</span>;
-<span class="hljs-keyword">import</span> { Scenario } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../gherkin/model&apos;</span>;
-<span class="hljs-keyword">import</span> { CucumberFormatterOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./CucumberFormatterOptions&apos;</span>;
-<span class="hljs-keyword">import</span> { Dependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Dependencies&apos;</span>;
+<span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../errors'</span>;
+<span class="hljs-keyword">import</span> { Feature, Hook, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'../gherkin'</span>;
+<span class="hljs-keyword">import</span> { Scenario } <span class="hljs-keyword">from</span> <span class="hljs-string">'../gherkin/model'</span>;
+<span class="hljs-keyword">import</span> { CucumberFormatterOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberFormatterOptions'</span>;
+<span class="hljs-keyword">import</span> { Dependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
 
-<span class="hljs-keyword">import</span> { ensure, isDefined } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<span class="hljs-keyword">import</span> { ensure, isDefined } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
 <span class="hljs-keyword">interface</span> Location {
     <span class="hljs-attr">uri</span>: <span class="hljs-built_in">string</span>;
@@ -174,26 +174,26 @@
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cucumberEventProtocolAdapter</span>(<span class="hljs-params">{ serenity, notifier, mapper, cache }: Dependencies</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CucumberEventProtocolAdapter</span> </span>{
 
-        <span class="hljs-comment">// note: exported class expression can&apos;t have private properties</span>
+        <span class="hljs-comment">// note: exported class expression can't have private properties</span>
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> log: <span class="hljs-built_in">any</span>;
 
         <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">{ eventBroadcaster, log }: CucumberFormatterOptions</span>)</span> {
             <span class="hljs-built_in">this</span>.log = log;
 
-            eventBroadcaster.on(<span class="hljs-string">&apos;gherkin-document&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ uri, <span class="hljs-built_in">document</span> }</span>) =&gt;</span> {
-                ensure(<span class="hljs-string">&apos;gherkin-document :: uri&apos;</span>, uri, isDefined());
-                ensure(<span class="hljs-string">&apos;gherkin-document :: document&apos;</span>, <span class="hljs-built_in">document</span>, isDefined());
+            eventBroadcaster.on(<span class="hljs-string">'gherkin-document'</span>, <span class="hljs-function">(<span class="hljs-params">{ uri, <span class="hljs-built_in">document</span> }</span>) =&gt;</span> {
+                ensure(<span class="hljs-string">'gherkin-document :: uri'</span>, uri, isDefined());
+                ensure(<span class="hljs-string">'gherkin-document :: document'</span>, <span class="hljs-built_in">document</span>, isDefined());
 
                 <span class="hljs-keyword">const</span> path = <span class="hljs-keyword">new</span> Path(uri);
                 cache.set(path, mapper.map(<span class="hljs-built_in">document</span>, path));
             });
 
-            eventBroadcaster.on(<span class="hljs-string">&apos;test-case-prepared&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ steps, sourceLocation }: {
+            eventBroadcaster.on(<span class="hljs-string">'test-case-prepared'</span>, <span class="hljs-function">(<span class="hljs-params">{ steps, sourceLocation }: {
                 steps: StepLocations[],
                 sourceLocation: Location,
             }</span>) =&gt;</span> {
-                ensure(<span class="hljs-string">&apos;test-case-prepared :: steps&apos;</span>, steps, isDefined());
-                ensure(<span class="hljs-string">&apos;test-case-prepared :: sourceLocation&apos;</span>, sourceLocation, isDefined());
+                ensure(<span class="hljs-string">'test-case-prepared :: steps'</span>, steps, isDefined());
+                ensure(<span class="hljs-string">'test-case-prepared :: sourceLocation'</span>, sourceLocation, isDefined());
 
                 <span class="hljs-keyword">const</span>
                     path = <span class="hljs-keyword">new</span> Path(sourceLocation.uri),
@@ -233,13 +233,13 @@
 
                 <span class="hljs-keyword">return</span> stepsLocations.map(<span class="hljs-function"><span class="hljs-params">location</span> =&gt;</span>
                     isAHook(location)
-                        ?   <span class="hljs-keyword">new</span> Hook(<span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(location.actionLocation.uri), location.actionLocation.line), <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Setup&apos;</span>))
+                        ?   <span class="hljs-keyword">new</span> Hook(<span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(location.actionLocation.uri), location.actionLocation.line), <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Setup'</span>))
                         :   steps.find(matching(location)),
                 );
             }
 
-            eventBroadcaster.on(<span class="hljs-string">&apos;test-case-started&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ sourceLocation }</span>) =&gt;</span> {
-                ensure(<span class="hljs-string">&apos;test-case-started :: sourceLocation&apos;</span>, sourceLocation, isDefined());
+            eventBroadcaster.on(<span class="hljs-string">'test-case-started'</span>, <span class="hljs-function">(<span class="hljs-params">{ sourceLocation }</span>) =&gt;</span> {
+                ensure(<span class="hljs-string">'test-case-started :: sourceLocation'</span>, sourceLocation, isDefined());
 
                 <span class="hljs-keyword">const</span>
                     map = cache.get(<span class="hljs-keyword">new</span> Path(sourceLocation.uri)),
@@ -254,10 +254,10 @@
                 notifier.scenarioStarts(sceneId, scenario, map.getFirst(Feature));
             });
 
-            eventBroadcaster.on(<span class="hljs-string">&apos;test-step-started&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ index, testCase }</span>) =&gt;</span> {
+            eventBroadcaster.on(<span class="hljs-string">'test-step-started'</span>, <span class="hljs-function">(<span class="hljs-params">{ index, testCase }</span>) =&gt;</span> {
 
-                ensure(<span class="hljs-string">&apos;test-step-started :: index&apos;</span>, index, isDefined());
-                ensure(<span class="hljs-string">&apos;test-step-started :: testCase&apos;</span>, testCase, isDefined());
+                ensure(<span class="hljs-string">'test-step-started :: index'</span>, index, isDefined());
+                ensure(<span class="hljs-string">'test-step-started :: testCase'</span>, testCase, isDefined());
 
                 <span class="hljs-keyword">const</span>
                     map      = cache.get(<span class="hljs-keyword">new</span> Path(testCase.sourceLocation.uri)),
@@ -269,11 +269,11 @@
                 }
             });
 
-            eventBroadcaster.on(<span class="hljs-string">&apos;test-step-finished&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ index, result, testCase }</span>) =&gt;</span> {
+            eventBroadcaster.on(<span class="hljs-string">'test-step-finished'</span>, <span class="hljs-function">(<span class="hljs-params">{ index, result, testCase }</span>) =&gt;</span> {
 
-                ensure(<span class="hljs-string">&apos;test-step-finished :: index&apos;</span>, index, isDefined());
-                ensure(<span class="hljs-string">&apos;test-step-finished :: result&apos;</span>, result, isDefined());
-                ensure(<span class="hljs-string">&apos;test-step-finished :: testCase&apos;</span>, testCase, isDefined());
+                ensure(<span class="hljs-string">'test-step-finished :: index'</span>, index, isDefined());
+                ensure(<span class="hljs-string">'test-step-finished :: result'</span>, result, isDefined());
+                ensure(<span class="hljs-string">'test-step-finished :: testCase'</span>, testCase, isDefined());
 
                 <span class="hljs-keyword">const</span>
                     map      = cache.get(<span class="hljs-keyword">new</span> Path(testCase.sourceLocation.uri)),
@@ -285,10 +285,10 @@
                 }
             });
 
-            eventBroadcaster.on(<span class="hljs-string">&apos;test-case-finished&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ result, sourceLocation }</span>) =&gt;</span> {
+            eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">(<span class="hljs-params">{ result, sourceLocation }</span>) =&gt;</span> {
 
-                ensure(<span class="hljs-string">&apos;test-case-finished :: result&apos;</span>, result, isDefined());
-                ensure(<span class="hljs-string">&apos;test-case-finished :: sourceLocation&apos;</span>, sourceLocation, isDefined());
+                ensure(<span class="hljs-string">'test-case-finished :: result'</span>, result, isDefined());
+                ensure(<span class="hljs-string">'test-case-finished :: sourceLocation'</span>, sourceLocation, isDefined());
 
                 <span class="hljs-keyword">const</span>
                     map             = cache.get(<span class="hljs-keyword">new</span> Path(sourceLocation.uri)),
@@ -297,7 +297,7 @@
 
                 <span class="hljs-keyword">const</span> outcome: Outcome = nonHookSteps.length &gt; <span class="hljs-number">0</span>
                     ? <span class="hljs-built_in">this</span>.outcomeFrom(result)
-                    : <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">`&quot;<span class="hljs-subst">${ scenario.name.value }</span>&quot; has no test steps`</span>));
+                    : <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">`"<span class="hljs-subst">${ scenario.name.value }</span>" has no test steps`</span>));
 
                 notifier.scenarioFinished(scenario, map.getFirst(Feature), outcome);
             });
@@ -308,24 +308,24 @@
 
             <span class="hljs-comment">// tslint:disable:switch-default</span>
             <span class="hljs-keyword">switch</span> (result.status) {
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;undefined&apos;</span>:
-                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">&apos;Step not implemented&apos;</span>));
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'undefined'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step not implemented'</span>));
 
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;ambiguous&apos;</span>:
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;failed&apos;</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'ambiguous'</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'failed'</span>:
                     <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
                         <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> AssertionError:       <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(error <span class="hljs-keyword">as</span> AssertionError);
                         <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> TestCompromisedError: <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionCompromised(error <span class="hljs-keyword">as</span> TestCompromisedError);
                         <span class="hljs-keyword">default</span>:                                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
                     }
 
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;pending&apos;</span>:
-                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">&apos;Step not implemented&apos;</span>));
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'pending'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step not implemented'</span>));
 
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;passed&apos;</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'passed'</span>:
                     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSuccessful();
 
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;skipped&apos;</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'skipped'</span>:
                     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
             }
             <span class="hljs-comment">// tslint:enable:switch-default</span>
@@ -335,7 +335,7 @@
             <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
                 <span class="hljs-keyword">case</span> exception <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>:
                     <span class="hljs-keyword">return</span> exception <span class="hljs-keyword">as</span> <span class="hljs-built_in">Error</span>;
-                <span class="hljs-keyword">case</span> <span class="hljs-keyword">typeof</span> exception === <span class="hljs-string">&apos;string&apos;</span> &amp;&amp; exception.startsWith(<span class="hljs-string">&apos;Multiple step definitions match&apos;</span>):
+                <span class="hljs-keyword">case</span> <span class="hljs-keyword">typeof</span> exception === <span class="hljs-string">'string'</span> &amp;&amp; exception.startsWith(<span class="hljs-string">'Multiple step definitions match'</span>):
                     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AmbiguousStepDefinitionError(exception <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>);
                 <span class="hljs-keyword">default</span>:
                     <span class="hljs-keyword">return</span> ErrorSerialiser.deserialiseFromStackTrace(exception <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>);

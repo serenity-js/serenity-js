@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="active">@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">console-reporter</a></li>
@@ -147,7 +147,7 @@
      * <span class="hljs-doctag">@desc</span>
      *  Prints the `args` to the `stdout`, followed by a new line character (`\n`).
      *
-     *  Please note that this method bypasses any indentation as it&apos;s intended
+     *  Please note that this method bypasses any indentation as it's intended
      *  to be used to print separator lines, etc.
      *
      * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">args</span></span>
@@ -155,7 +155,7 @@
      * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
     <span class="hljs-function"><span class="hljs-title">println</span>(<span class="hljs-params">...args: <span class="hljs-built_in">any</span>[]</span>)</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.print(...args, <span class="hljs-string">&apos;\n&apos;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.print(...args, <span class="hljs-string">'\n'</span>);
     }
 
     <span class="hljs-comment">/**
@@ -169,7 +169,7 @@
      */</span>
     <span class="hljs-function"><span class="hljs-title">print</span>(<span class="hljs-params">...args: <span class="hljs-built_in">any</span>[]</span>)</span> {
         <span class="hljs-built_in">this</span>.stdout.write(
-            <span class="hljs-built_in">this</span>.indentation.indented(<span class="hljs-string">`<span class="hljs-subst">${ args.map(<span class="hljs-built_in">String</span>).join(<span class="hljs-string">&apos;&apos;</span>) }</span>`</span>),
+            <span class="hljs-built_in">this</span>.indentation.indented(<span class="hljs-string">`<span class="hljs-subst">${ args.map(<span class="hljs-built_in">String</span>).join(<span class="hljs-string">''</span>) }</span>`</span>),
         );
     }
 
@@ -214,10 +214,10 @@
     }
 
     <span class="hljs-function"><span class="hljs-title">indented</span>(<span class="hljs-params">...fragments: <span class="hljs-built_in">string</span>[]</span>)</span> {
-        <span class="hljs-keyword">return</span> fragments.join(<span class="hljs-string">&apos;&apos;</span>)
-            .split(<span class="hljs-string">&apos;\n&apos;</span>)
-            .map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> !! line ? <span class="hljs-string">&apos; &apos;</span>.repeat(<span class="hljs-built_in">this</span>.current) + line : <span class="hljs-string">&apos;&apos;</span>)
-            .join(<span class="hljs-string">&apos;\n&apos;</span>);
+        <span class="hljs-keyword">return</span> fragments.join(<span class="hljs-string">''</span>)
+            .split(<span class="hljs-string">'\n'</span>)
+            .map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> !! line ? <span class="hljs-string">' '</span>.repeat(<span class="hljs-built_in">this</span>.current) + line : <span class="hljs-string">''</span>)
+            .join(<span class="hljs-string">'\n'</span>);
     }
 }
 </code></pre>

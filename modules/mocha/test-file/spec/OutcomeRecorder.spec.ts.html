@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="active">@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">mocha</a></li>
@@ -119,14 +119,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/OutcomeRecorder.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { ExecutionSuccessful } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { MochaOutcomeMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src/mappers&apos;</span>;
-<span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src/OutcomeRecorder&apos;</span>;
-<span class="hljs-keyword">import</span> { exampleTest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./exampleTest&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { ExecutionSuccessful } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { MochaOutcomeMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/mappers'</span>;
+<span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/OutcomeRecorder'</span>;
+<span class="hljs-keyword">import</span> { exampleTest } <span class="hljs-keyword">from</span> <span class="hljs-string">'./exampleTest'</span>;
 
-describe(<span class="hljs-string">&apos;OutcomeRecorder&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'OutcomeRecorder'</span>, <span class="hljs-function">() =&gt;</span> {
     <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> MochaOutcomeMapper();
     <span class="hljs-keyword">let</span> recorder: OutcomeRecorder;
 
@@ -134,18 +134,18 @@ describe(<span class="hljs-string">&apos;OutcomeRecorder&apos;</span>, <span cla
         recorder = <span class="hljs-keyword">new</span> OutcomeRecorder();
     });
 
-    it(<span class="hljs-string">&apos;returns no outcome if no outcome was recorded&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'returns no outcome if no outcome was recorded'</span>, <span class="hljs-function">() =&gt;</span> {
         expect(recorder.outcomeOf(exampleTest)).to.equal(<span class="hljs-literal">undefined</span>);
     });
 
-    it(<span class="hljs-string">&apos;returns an outcome recorded for a given test&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'returns an outcome recorded for a given test'</span>, <span class="hljs-function">() =&gt;</span> {
        recorder.started(exampleTest);
        recorder.finished(exampleTest, mapper.outcomeOf(exampleTest));
 
        expect(recorder.outcomeOf(exampleTest)).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
     });
 
-    it(<span class="hljs-string">&apos;allows for a recorded outcome to be erased&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'allows for a recorded outcome to be erased'</span>, <span class="hljs-function">() =&gt;</span> {
         recorder.started(exampleTest);
         recorder.finished(exampleTest, mapper.outcomeOf(exampleTest));
         recorder.erase(exampleTest);

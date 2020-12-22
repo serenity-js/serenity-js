@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -123,12 +123,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/interactions/StreamResponse.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { formatted, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>;
-<span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
-<span class="hljs-keyword">import</span> { DownloadProgressReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../model&apos;</span>;
-<span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { formatted, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+<span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> { DownloadProgressReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
+<span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
@@ -165,19 +165,19 @@
         <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.request)
             .then(<span class="hljs-function">(<span class="hljs-params">config: AxiosRequestConfig</span>) =&gt;</span> CallAnApi.as(actor).request({
                 ...config,
-                <span class="hljs-attr">responseType</span>: <span class="hljs-string">&apos;stream&apos;</span>,
+                <span class="hljs-attr">responseType</span>: <span class="hljs-string">'stream'</span>,
             }).
             then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
 
                 <span class="hljs-keyword">const</span>
-                    totalBytes  = <span class="hljs-built_in">parseInt</span>(response.headers[<span class="hljs-string">&apos;content-length&apos;</span>], <span class="hljs-number">10</span>),
+                    totalBytes  = <span class="hljs-built_in">parseInt</span>(response.headers[<span class="hljs-string">'content-length'</span>], <span class="hljs-number">10</span>),
                     output      = UseFileSystem.as(actor).createWriteStreamTo(<span class="hljs-built_in">this</span>.destination);
 
                 <span class="hljs-keyword">let</span> totalDownloadedBytes  = <span class="hljs-number">0</span>;
 
                 response.data.pipe(output);
 
-                response.data.on(<span class="hljs-string">&apos;data&apos;</span>, <span class="hljs-function"><span class="hljs-params">chunk</span> =&gt;</span> {
+                response.data.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">chunk</span> =&gt;</span> {
                     <span class="hljs-keyword">const</span> downloadedBytes = chunk.length;
                     totalDownloadedBytes += downloadedBytes;
 
@@ -188,12 +188,12 @@
                     }));
                 });
 
-                response.data.on(<span class="hljs-string">&apos;end&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                response.data.on(<span class="hljs-string">'end'</span>, <span class="hljs-function">() =&gt;</span> {
                     output.end();
                     <span class="hljs-keyword">return</span> resolve();
                 });
 
-                response.data.on(<span class="hljs-string">&apos;error&apos;</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> reject(error));
+                response.data.on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> reject(error));
             })));
     }
 

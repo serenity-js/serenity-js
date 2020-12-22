@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
                         <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">cucumber</a></li>
@@ -138,11 +138,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/gherkin/feature-files/FeatureFileParser.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;fs&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
 
-<span class="hljs-keyword">import</span> { GherkinDocument } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../nodes&apos;</span>;
-<span class="hljs-keyword">import</span> { UnableToParseFeatureFileError, UnableToReadFeatureFileError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./errors&apos;</span>;
+<span class="hljs-keyword">import</span> { GherkinDocument } <span class="hljs-keyword">from</span> <span class="hljs-string">'../nodes'</span>;
+<span class="hljs-keyword">import</span> { UnableToParseFeatureFileError, UnableToReadFeatureFileError } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
@@ -156,16 +156,16 @@
             fs.readFile(uri.value, <span class="hljs-function">(<span class="hljs-params">error: NodeJS.ErrnoException | <span class="hljs-literal">undefined</span>, data: Buffer</span>) =&gt;</span> {
                 <span class="hljs-keyword">if</span> (!! error) {
                     <span class="hljs-keyword">return</span> reject(
-                        <span class="hljs-keyword">new</span> UnableToReadFeatureFileError(<span class="hljs-string">`Could not read feature file at &quot;<span class="hljs-subst">${ uri.value }</span>&quot;`</span>, error),
+                        <span class="hljs-keyword">new</span> UnableToReadFeatureFileError(<span class="hljs-string">`Could not read feature file at "<span class="hljs-subst">${ uri.value }</span>"`</span>, error),
                     );
                 }
 
                 <span class="hljs-keyword">try</span> {
-                    <span class="hljs-keyword">return</span> resolve(<span class="hljs-built_in">this</span>.gherkinParser.parse(data.toString(<span class="hljs-string">&apos;utf8&apos;</span>)));
+                    <span class="hljs-keyword">return</span> resolve(<span class="hljs-built_in">this</span>.gherkinParser.parse(data.toString(<span class="hljs-string">'utf8'</span>)));
                 }
                 <span class="hljs-keyword">catch</span> (parseError) {
                     <span class="hljs-keyword">return</span> reject(
-                        <span class="hljs-keyword">new</span> UnableToParseFeatureFileError(<span class="hljs-string">`Could not parse feature file at &quot;<span class="hljs-subst">${ uri.value }</span>&quot;`</span>, parseError),
+                        <span class="hljs-keyword">new</span> UnableToParseFeatureFileError(<span class="hljs-string">`Could not parse feature file at "<span class="hljs-subst">${ uri.value }</span>"`</span>, parseError),
                     );
                 }
             });

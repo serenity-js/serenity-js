@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,13 +175,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/Target.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ElementFinder, Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { NestedTargetBuilder, TargetBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./builders&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetElement&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetElements } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetElements&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetNestedElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetNestedElement&apos;</span>;
-<span class="hljs-keyword">import</span> { TargetNestedElements } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./TargetNestedElements&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { ElementFinder, Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { NestedTargetBuilder, TargetBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./builders'</span>;
+<span class="hljs-keyword">import</span> { TargetElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetElement'</span>;
+<span class="hljs-keyword">import</span> { TargetElements } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetElements'</span>;
+<span class="hljs-keyword">import</span> { TargetNestedElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetNestedElement'</span>;
+<span class="hljs-keyword">import</span> { TargetNestedElements } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetNestedElements'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -192,70 +192,70 @@
  *
  *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Imaginary website under test&lt;/caption&gt;
  *  &lt;body&gt;
- *      &lt;ul id=&quot;basket&quot;&gt;
- *          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Apple&lt;/a&gt;&lt;/li&gt;
- *          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Banana&lt;/a&gt;&lt;/li&gt;
- *          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Coconut&lt;/a&gt;&lt;/li&gt;
+ *      &lt;ul id="basket"&gt;
+ *          &lt;li&gt;&lt;a href="#"&gt;Apple&lt;/a&gt;&lt;/li&gt;
+ *          &lt;li&gt;&lt;a href="#"&gt;Banana&lt;/a&gt;&lt;/li&gt;
+ *          &lt;li&gt;&lt;a href="#"&gt;Coconut&lt;/a&gt;&lt;/li&gt;
  *      &lt;/ul&gt;
- *      &lt;div id=&quot;summary&quot;&gt;&lt;strong class=&quot;out-of-stock&quot;&gt;Coconut&lt;/strong&gt; is not available&lt;/div&gt;
- *      &lt;button type=&quot;submit&quot;&gt;Proceed to Checkout&lt;/button&gt;
+ *      &lt;div id="summary"&gt;&lt;strong class="out-of-stock"&gt;Coconut&lt;/strong&gt; is not available&lt;/div&gt;
+ *      &lt;button type="submit"&gt;Proceed to Checkout&lt;/button&gt;
  *  &lt;/body&gt;
  *
  *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Locating a single element&lt;/caption&gt;
- *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { by } from &apos;protractor&apos;;
+ *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { by } from 'protractor';
  *
  *  const proceedToCheckoutButton =
- *      Target.the(&apos;Proceed to Checkout button&apos;).located(by.css(`button[type=&apos;submit&apos;]`));
+ *      Target.the('Proceed to Checkout button').located(by.css(`button[type='submit']`));
  *
  *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Locating multiple elements&lt;/caption&gt;
- *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { by } from &apos;protractor&apos;;
+ *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { by } from 'protractor';
  *
  *  const basketItems =
- *      Target.all(&apos;items in the basket&apos;).located(by.css(&apos;ul#basket li&apos;));
+ *      Target.all('items in the basket').located(by.css('ul#basket li'));
  *
  *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Locating element relative to another element&lt;/caption&gt;
- *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { by } from &apos;protractor&apos;;
+ *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { by } from 'protractor';
  *
  *  const summary =
- *      Target.the(&apos;summary&apos;).located(by.id(&apos;message&apos;));
+ *      Target.the('summary').located(by.id('message'));
  *
  *  const outOfStockItem =
- *      Target.the(&apos;out of stock item&apos;).of(summary).located(by.css(&apos;.out-of-stock&apos;))
+ *      Target.the('out of stock item').of(summary).located(by.css('.out-of-stock'))
  *
  *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Clicking on an element&lt;/caption&gt;
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Click } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Click } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Jane&apos;)
+ *  actorCalled('Jane')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Click.on(proceedToCheckoutButton),
  *      );
  *
  *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving text of multiple elements and performing an assertion&lt;/caption&gt;
- *  import { Ensure, contain } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Click, Text } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { Ensure, contain } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Click, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { protractor } from 'protractor';
  *
  *  const basketItemNames = Text.ofAll(basketItems);
  *
- *  actorCalled(&apos;Jane&apos;)
+ *  actorCalled('Jane')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
- *          Ensure.that(basketItemNames, contain(&apos;Apple&apos;))
+ *          Ensure.that(basketItemNames, contain('Apple'))
  *      );
  *
  *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Waiting on an element&lt;/caption&gt;
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Click, Text, Wait, isClickable } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Click, Text, Wait, isClickable } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Jane&apos;)
+ *  actorCalled('Jane')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Wait.until(proceedToCheckoutButton, isClickable()),

@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -123,15 +123,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/io/axiosClient.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> axios, { AxiosInstance, AxiosProxyConfig, AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
-<span class="hljs-keyword">import</span> { httpAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios/lib/adapters/http&apos;</span>; <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;fs&apos;</span>;
-<span class="hljs-keyword">import</span> { URL } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;url&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> https <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;https&apos;</span>;
-<span class="hljs-keyword">import</span> { Credentials } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> axios, { AxiosInstance, AxiosProxyConfig, AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> { httpAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios/lib/adapters/http'</span>; <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+<span class="hljs-keyword">import</span> { URL } <span class="hljs-keyword">from</span> <span class="hljs-string">'url'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> https <span class="hljs-keyword">from</span> <span class="hljs-string">'https'</span>;
+<span class="hljs-keyword">import</span> { Credentials } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
 
-<span class="hljs-keyword">const</span> HttpsProxyAgent = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;https-proxy-agent&apos;</span>); <span class="hljs-comment">// tslint:disable-line:no-var-requires ignore problematic type definitions</span>
+<span class="hljs-keyword">const</span> HttpsProxyAgent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https-proxy-agent'</span>); <span class="hljs-comment">// tslint:disable-line:no-var-requires ignore problematic type definitions</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">axiosClient</span>(<span class="hljs-params">
     repository: URL,
@@ -141,10 +141,10 @@
 </span>): <span class="hljs-title">AxiosInstance</span> </span>{
 
     <span class="hljs-keyword">const</span> configuredProxy = isHttps(repository.protocol)
-        ? firstNonEmpty(env, <span class="hljs-string">&apos;npm_config_https_proxy&apos;</span>, <span class="hljs-string">&apos;https_proxy&apos;</span>, <span class="hljs-string">&apos;HTTPS_PROXY&apos;</span>)
-        : firstNonEmpty(env, <span class="hljs-string">&apos;npm_config_proxy&apos;</span>, <span class="hljs-string">&apos;npm_config_http_proxy&apos;</span>, <span class="hljs-string">&apos;http_proxy&apos;</span>, <span class="hljs-string">&apos;HTTP_PROXY&apos;</span>);
+        ? firstNonEmpty(env, <span class="hljs-string">'npm_config_https_proxy'</span>, <span class="hljs-string">'https_proxy'</span>, <span class="hljs-string">'HTTPS_PROXY'</span>)
+        : firstNonEmpty(env, <span class="hljs-string">'npm_config_proxy'</span>, <span class="hljs-string">'npm_config_http_proxy'</span>, <span class="hljs-string">'http_proxy'</span>, <span class="hljs-string">'HTTP_PROXY'</span>);
 
-    <span class="hljs-keyword">const</span> configuredNoProxy = firstNonEmpty(env, <span class="hljs-string">&apos;npm_config_noproxy&apos;</span>, <span class="hljs-string">&apos;no_proxy&apos;</span>, <span class="hljs-string">&apos;NO_PROXY&apos;</span>);
+    <span class="hljs-keyword">const</span> configuredNoProxy = firstNonEmpty(env, <span class="hljs-string">'npm_config_noproxy'</span>, <span class="hljs-string">'no_proxy'</span>, <span class="hljs-string">'NO_PROXY'</span>);
 
     <span class="hljs-keyword">const</span> configuredCa = certificationAuthority(env);
 
@@ -169,30 +169,30 @@
     }
 
     <span class="hljs-keyword">if</span> (env.npm_config_user_agent) {
-        options.headers = { <span class="hljs-string">&apos;User-Agent&apos;</span>: env.npm_config_user_agent };
+        options.headers = { <span class="hljs-string">'User-Agent'</span>: env.npm_config_user_agent };
     }
 
     <span class="hljs-keyword">return</span> axios.create(options);
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shouldProxy</span>(<span class="hljs-params">url: URL, configuredProxy: EnvVar, configuredNoProxy: EnvVar</span>): <span class="hljs-title">boolean</span> </span>{
-    <span class="hljs-comment">// there&apos;s no proxy configured so don&apos;t proxy...</span>
+    <span class="hljs-comment">// there's no proxy configured so don't proxy...</span>
     <span class="hljs-keyword">if</span> (! configuredProxy.value) {
         <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     }
 
-    <span class="hljs-keyword">const</span> noProxyDomains = (configuredNoProxy.value || <span class="hljs-string">&apos;&apos;</span>).split(<span class="hljs-string">&apos;,&apos;</span>).map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _.trim());
+    <span class="hljs-keyword">const</span> noProxyDomains = (configuredNoProxy.value || <span class="hljs-string">''</span>).split(<span class="hljs-string">','</span>).map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _.trim());
 
     <span class="hljs-keyword">return</span> ! noProxyDomains.some(<span class="hljs-function"><span class="hljs-params">noProxyDomain</span> =&gt;</span> {
         <span class="hljs-keyword">if</span> (! noProxyDomain) {
             <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
         }
 
-        <span class="hljs-keyword">if</span> (noProxyDomain === <span class="hljs-string">&apos;*&apos;</span>) {
+        <span class="hljs-keyword">if</span> (noProxyDomain === <span class="hljs-string">'*'</span>) {
             <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
         }
 
-        <span class="hljs-keyword">if</span> (noProxyDomain[<span class="hljs-number">0</span>] === <span class="hljs-string">&apos;.&apos;</span> &amp;&amp; url.hostname.substr(url.hostname.length - noProxyDomain.length) === noProxyDomain) {
+        <span class="hljs-keyword">if</span> (noProxyDomain[<span class="hljs-number">0</span>] === <span class="hljs-string">'.'</span> &amp;&amp; url.hostname.substr(url.hostname.length - noProxyDomain.length) === noProxyDomain) {
             <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
         }
 
@@ -235,7 +235,7 @@
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shouldRejectUnauthorizedCertificates</span>(<span class="hljs-params">env: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> }, ignoreSsl: <span class="hljs-built_in">boolean</span></span>): <span class="hljs-title">boolean</span> </span>{
     <span class="hljs-keyword">return</span> ! ignoreSsl
-        || env.npm_config_strict_ssl === <span class="hljs-string">&apos;true&apos;</span>
+        || env.npm_config_strict_ssl === <span class="hljs-string">'true'</span>
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">proxiedHttpsAgent</span>(<span class="hljs-params">proxyConfig: AxiosProxyConfig, ca: <span class="hljs-built_in">string</span>, rejectUnauthorized: <span class="hljs-built_in">boolean</span></span>) </span>{
@@ -255,7 +255,7 @@
 
     <span class="hljs-keyword">if</span> (env.npm_config_cafile) {
         <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">return</span> fs.readFileSync(env.npm_config_cafile, { <span class="hljs-attr">encoding</span>: <span class="hljs-string">&apos;utf8&apos;</span> });
+            <span class="hljs-keyword">return</span> fs.readFileSync(env.npm_config_cafile, { <span class="hljs-attr">encoding</span>: <span class="hljs-string">'utf8'</span> });
         } <span class="hljs-keyword">catch</span> (error) {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Could not read npm_config_cafile at <span class="hljs-subst">${ env.npm_config_cafile }</span>`</span>, error);
         }
@@ -275,13 +275,13 @@
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSupportedProtocol</span>(<span class="hljs-params">protocol: <span class="hljs-built_in">string</span></span>) </span>{
-    <span class="hljs-keyword">return</span> [ <span class="hljs-string">&apos;http:&apos;</span>, <span class="hljs-string">&apos;https:&apos;</span>, <span class="hljs-string">&apos;socks4:&apos;</span>, <span class="hljs-string">&apos;socks5:&apos;</span> ]
+    <span class="hljs-keyword">return</span> [ <span class="hljs-string">'http:'</span>, <span class="hljs-string">'https:'</span>, <span class="hljs-string">'socks4:'</span>, <span class="hljs-string">'socks5:'</span> ]
         .find(<span class="hljs-function"><span class="hljs-params">supported</span> =&gt;</span> supported === protocol);
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isHttps</span>(<span class="hljs-params">urlOrProtocol: <span class="hljs-built_in">string</span></span>) </span>{
     <span class="hljs-keyword">return</span> urlOrProtocol
-        &amp;&amp; urlOrProtocol.startsWith(<span class="hljs-string">&apos;https:&apos;</span>);
+        &amp;&amp; urlOrProtocol.startsWith(<span class="hljs-string">'https:'</span>);
 }
 </code></pre>
 

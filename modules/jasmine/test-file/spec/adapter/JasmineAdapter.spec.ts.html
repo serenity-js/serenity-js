@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="active">@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">jasmine</a></li>
@@ -123,14 +123,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/adapter/JasmineAdapter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
-<span class="hljs-keyword">import</span> { JasmineAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter&apos;</span>;
-<span class="hljs-keyword">import</span> { FakeJasmineRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./FakeJasmineRunner&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
+<span class="hljs-keyword">import</span> { JasmineAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter'</span>;
+<span class="hljs-keyword">import</span> { FakeJasmineRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FakeJasmineRunner'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test </span>JasmineAdapter */</span>
-describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'JasmineAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> loader: sinon.SinonStubbedInstance&lt;ModuleLoader&gt;;
 
@@ -147,7 +147,7 @@ describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span clas
             },
         };
 
-        loader.require.withArgs(<span class="hljs-string">&apos;jasmine&apos;</span>).returns(FakeJasmineRunner);
+        loader.require.withArgs(<span class="hljs-string">'jasmine'</span>).returns(FakeJasmineRunner);
     });
 
     afterEach(<span class="hljs-function">() =&gt;</span> {
@@ -155,7 +155,7 @@ describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span clas
     });
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test </span>JasmineAdapter#run */</span>
-    it(<span class="hljs-string">&apos;defaults to running tests sequentially rather than in a random order&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'defaults to running tests sequentially rather than in a random order'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
             config = {},
@@ -175,7 +175,7 @@ describe(<span class="hljs-string">&apos;JasmineAdapter&apos;</span>, <span clas
     });
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test </span>JasmineAdapter#run */</span>
-    it(<span class="hljs-string">&apos;configures the default timeout interval if required&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'configures the default timeout interval if required'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
             defaultTimeoutInterval = <span class="hljs-number">5000</span>,

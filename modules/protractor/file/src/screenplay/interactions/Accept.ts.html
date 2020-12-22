@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,9 +175,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Accept.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { AlertPromise } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;selenium-webdriver&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { AlertPromise } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -186,24 +186,24 @@
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example widget&lt;/caption&gt;
  *  &lt;button
- *      data-test=&quot;trigger&quot;
- *      onclick=&quot;alert(&apos;hello!&apos;)&quot;&gt;Trigger Alert&lt;/button&gt;
+ *      data-test="trigger"
+ *      onclick="alert('hello!')"&gt;Trigger Alert&lt;/button&gt;
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object&lt;/caption&gt;
- *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { by } from &apos;protractor&apos;;
+ *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { by } from 'protractor';
  *
  *  class Widget {
- *      static trigger = Target.the(&apos;trigger button&apos;)
- *          .located(by.css(&apos;[data-test=&quot;trigger&quot;]&apos;));
+ *      static trigger = Target.the('trigger button')
+ *          .located(by.css('[data-test="trigger"]'));
  *  }
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Accepting a modal dialog window&lt;/caption&gt;
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { Accept, BrowseTheWeb, Click, ModalDialog } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { Accept, BrowseTheWeb, Click, ModalDialog } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Nick&apos;)
+ *  actorCalled('Nick')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Click.on(Widget.trigger),

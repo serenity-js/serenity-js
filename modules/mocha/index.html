@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="active">@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">mocha</a></li>
@@ -124,17 +124,17 @@ of modern full-stack applications faster, more collaborative and easier to scale
 <h3 id="installation">Installation</h3><p>Install <a href="https://mochajs.org/">Mocha</a> version 8.x or newer:</p>
 <pre><code class="lang-console hljs gherkin">npm install --save-dev mocha<span class="hljs-meta">@8.x</span>
 </code></pre>
-<p>Install the <code>@serenity-js/mocha</code> adaptor, as well as <code>@serenity-js/core</code> and any <a href="https://serenity-js.org/modules/console-reporter/">Serenity/JS reporting modules</a> you&apos;d like to use, for example <a href="https://serenity-js.org/modules/console-reporter/"><code>@serenity-js/console-reporter</code></a>:</p>
+<p>Install the <code>@serenity-js/mocha</code> adaptor, as well as <code>@serenity-js/core</code> and any <a href="https://serenity-js.org/modules/console-reporter/">Serenity/JS reporting modules</a> you'd like to use, for example <a href="https://serenity-js.org/modules/console-reporter/"><code>@serenity-js/console-reporter</code></a>:</p>
 <pre><code class="lang-console hljs typescript">npm install --save-dev <span class="hljs-meta">@serenity</span>-js/mocha <span class="hljs-meta">@serenity</span>-js/core <span class="hljs-meta">@serenity</span>-js/<span class="hljs-built_in">console</span>-reporter
 </code></pre>
 <h3 id="usage-with-standalone-mocha">Usage with standalone Mocha</h3><p>To use Serenity/JS with standalone Mocha, for example to run tests of <a href="https://serenity-js/modules/rest">REST APIs</a>,
-you&apos;ll need a setup file that configures Serenity/JS reporting services.</p>
-<h4 id="javascript">JavaScript</h4><p>If you&apos;re writing your tests in JavaScript, create a <code>setup.js</code> file (for example under <code>spec/support/setup.js</code>, but you can use any location you like):</p>
+you'll need a setup file that configures Serenity/JS reporting services.</p>
+<h4 id="javascript">JavaScript</h4><p>If you're writing your tests in JavaScript, create a <code>setup.js</code> file (for example under <code>spec/support/setup.js</code>, but you can use any location you like):</p>
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// spec/support/setup.js</span>
 
 <span class="hljs-keyword">const</span> 
-    { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>),
-    { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/core&apos;</span>);
+    { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/console-reporter'</span>),
+    { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
 
 configure({
     <span class="hljs-attr">crew</span>: [
@@ -145,24 +145,24 @@ configure({
 <p>Next, run Mocha as follows:</p>
 <pre><code class="lang-console hljs typescript">mocha --reporter=<span class="hljs-meta">@serenity</span>-js/mocha \
       --<span class="hljs-built_in">require</span>=spec/support/setup.js \
-      <span class="hljs-string">&apos;spec/**/*.spec.js&apos;</span>
+      <span class="hljs-string">'spec/**/*.spec.js'</span>
 </code></pre>
-<h4 id="typescript">TypeScript</h4><p>If you&apos;re writing your tests in TypeScript, you might want to run them via <a href="https://www.npmjs.com/package/ts-node"><code>ts-node</code></a>, which transpiles TypeScript in memory without you having to do it before every test run.</p>
+<h4 id="typescript">TypeScript</h4><p>If you're writing your tests in TypeScript, you might want to run them via <a href="https://www.npmjs.com/package/ts-node"><code>ts-node</code></a>, which transpiles TypeScript in memory without you having to do it before every test run.</p>
 <pre><code class="hljs plaintext">npm install --save-dev typescript ts-node
-</code></pre><p>If you haven&apos;t done so already, configure your TypeScript transpiler via <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html"><code>tsconfig.json</code></a>:</p>
+</code></pre><p>If you haven't done so already, configure your TypeScript transpiler via <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html"><code>tsconfig.json</code></a>:</p>
 <pre><code class="lang-json hljs json">{
-  <span class="hljs-attr">&quot;compilerOptions&quot;</span>: {
-    <span class="hljs-attr">&quot;target&quot;</span>: <span class="hljs-string">&quot;es2018&quot;</span>,
-    <span class="hljs-attr">&quot;lib&quot;</span>: [<span class="hljs-string">&quot;es2018&quot;</span>],
-    <span class="hljs-attr">&quot;module&quot;</span>: <span class="hljs-string">&quot;commonjs&quot;</span>
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"target"</span>: <span class="hljs-string">"es2018"</span>,
+    <span class="hljs-attr">"lib"</span>: [<span class="hljs-string">"es2018"</span>],
+    <span class="hljs-attr">"module"</span>: <span class="hljs-string">"commonjs"</span>
   }
 }
 </code></pre>
 <p>Create a <code>setup.ts</code> file (for example under <code>spec/support/setup.ts</code>, but you can use any location you like):</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/support/setup.ts</span>
 
-<span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>;
-<span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
+<span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
 configure({
     <span class="hljs-attr">crew</span>: [
@@ -174,12 +174,12 @@ configure({
 <pre><code class="hljs typescript">mocha --reporter=<span class="hljs-meta">@serenity</span>-js/mocha \
       --<span class="hljs-built_in">require</span>=ts-node/register \
       --<span class="hljs-built_in">require</span>=spec/support/setup.ts \
-      <span class="hljs-string">&apos;spec/**/*.spec.ts&apos;</span>
+      <span class="hljs-string">'spec/**/*.spec.ts'</span>
 </code></pre><h4 id="using-mocha-configuration-file">Using Mocha configuration file</h4><p>Please note that you can use <a href="https://mochajs.org/#configuring-mocha-nodejs">Mocha configuration file</a>
 to simplify your command line execution.</p>
 <p>For example:</p>
 <pre><code class="lang-yaml hljs bash"><span class="hljs-comment"># .mocharc.yml</span>
-reporter: <span class="hljs-string">&apos;@serenity-js/mocha&apos;</span>
+reporter: <span class="hljs-string">'@serenity-js/mocha'</span>
 require:
   - ts-node/register
   - spec/support/setup.ts
@@ -194,11 +194,11 @@ v8-stack-trace-limit: 100
 
 <span class="hljs-built_in">exports</span>.config = {
     <span class="hljs-comment">// Tell Protractor to use the Serenity/JS framework Protractor Adapter</span>
-    <span class="hljs-attr">framework</span>:      <span class="hljs-string">&apos;custom&apos;</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+    <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
     <span class="hljs-attr">serenity</span>: {
-        <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;mocha&apos;</span>,        <span class="hljs-comment">// Use Mocha</span>
+        <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,        <span class="hljs-comment">// Use Mocha</span>
         <span class="hljs-comment">// ... other Serenity/JS-specific configuration</span>
     },
 

@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -123,7 +123,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/io/formatError.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">formatError</span>(<span class="hljs-params">error: RuntimeError | <span class="hljs-built_in">Error</span></span>) </span>{
 
@@ -134,27 +134,27 @@
             <span class="hljs-keyword">return</span> lines(
                 <span class="hljs-string">`Are you behind a proxy or a firewall that needs to be configured?`</span>,
                 ...messages(error),
-                <span class="hljs-string">&apos;&apos;</span>,
+                <span class="hljs-string">''</span>,
                 learnMore,
             );
 
         <span class="hljs-keyword">case</span> <span class="hljs-regexp">/self signed certificate in certificate chain/</span>.test(error.message):
             <span class="hljs-keyword">return</span> lines(
-                <span class="hljs-string">`If you&apos;re using a self-signed certificate please check if it&apos;s configured correctly or use the --ignoreSSL option.`</span>,
-                <span class="hljs-string">&apos;&apos;</span>,
+                <span class="hljs-string">`If you're using a self-signed certificate please check if it's configured correctly or use the --ignoreSSL option.`</span>,
+                <span class="hljs-string">''</span>,
                 learnMore,
             );
 
         <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> RuntimeError:
             <span class="hljs-keyword">return</span> lines(
                 ...messages(error),
-                <span class="hljs-string">&apos;&apos;</span>,
+                <span class="hljs-string">''</span>,
                 learnMore
             );
 
         <span class="hljs-keyword">default</span>:
             <span class="hljs-keyword">return</span> lines(
-                <span class="hljs-string">`I&apos;m terribly sorry, but something didn&apos;t go according to plan:`</span>,
+                <span class="hljs-string">`I'm terribly sorry, but something didn't go according to plan:`</span>,
                 ...messages(error),
             );
     }
@@ -167,7 +167,7 @@
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">lines</span>(<span class="hljs-params">...entries: <span class="hljs-built_in">string</span>[]</span>) </span>{
-    <span class="hljs-keyword">return</span> entries.filter(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line !== <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>).join(<span class="hljs-string">&apos;\n&apos;</span>);
+    <span class="hljs-keyword">return</span> entries.filter(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line !== <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>).join(<span class="hljs-string">'\n'</span>);
 }
 </code></pre>
 

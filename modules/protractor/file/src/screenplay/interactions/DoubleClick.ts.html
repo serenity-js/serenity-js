@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,11 +175,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/DoubleClick.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
-<span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../withAnswerOf&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../withAnswerOf'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -190,47 +190,47 @@
  *  &lt;!--
  *      The editor shows up when the user double-clicks
  *      on one of the properties of their profile
- *      and let&apos;s them change the value of that property.
+ *      and let's them change the value of that property.
  *  --&gt;
- *  &lt;div id=&quot;user-profile&quot;&gt;
+ *  &lt;div id="user-profile"&gt;
  *      &lt;ul&gt;
- *          &lt;li id=&quot;display-name&quot; ondblclick=&quot;edit(this)&quot;&gt;User12345&lt;/li&gt;
- *          &lt;li id=&quot;email-address&quot; ondblclick=&quot;edit(this)&quot;&gt;tester<span class="hljs-doctag">@example</span>.org&lt;/li&gt;
+ *          &lt;li id="display-name" ondblclick="edit(this)"&gt;User12345&lt;/li&gt;
+ *          &lt;li id="email-address" ondblclick="edit(this)"&gt;tester<span class="hljs-doctag">@example</span>.org&lt;/li&gt;
  *      &lt;/ul&gt;
- *      &lt;form id=&quot;editor&quot; class=&quot;hidden&quot;&gt;
- *          &lt;input type=&quot;text&quot; value=&quot;&quot; /&gt;
+ *      &lt;form id="editor" class="hidden"&gt;
+ *          &lt;input type="text" value="" /&gt;
  *      &lt;/form&gt;
  *  &lt;/div&gt;
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
- *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { by } from &apos;protractor&apos;;
+ *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { by } from 'protractor';
  *
  *  class UserProfile {
- *      static displayName = Target.the(&apos;display name&apos;)
- *          .located(by.id(&apos;display-name&apos;));
- *      static emailAddress = Target.the(&apos;email address&apos;)
- *          .located(by.id(&apos;email-address&apos;));
- *      static editor = Target.the(&apos;editor&apos;)
- *          .located(by.id(&apos;editor&apos;));
+ *      static displayName = Target.the('display name')
+ *          .located(by.id('display-name'));
+ *      static emailAddress = Target.the('email address')
+ *          .located(by.id('email-address'));
+ *      static editor = Target.the('editor')
+ *          .located(by.id('editor'));
  *  }
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Double-clicking on an element&lt;/caption&gt;
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, DoubleClick, isVisible, Enter, Text, Wait } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { Ensure, equals, not } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
- *  import { protractor, Key } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, DoubleClick, isVisible, Enter, Text, Wait } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { Ensure, equals, not } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ *  import { protractor, Key } from 'protractor';
  *
- *  actorCalled(&apos;Dorothy&apos;)
+ *  actorCalled('Dorothy')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          DoubleClick.on(UserProfile.displayName),
  *          Wait.until(UserProfile.editor, isVisible()),
  *
- *          Enter.theValue(&apos;New username&apos;).into(UserProfile.editor),
+ *          Enter.theValue('New username').into(UserProfile.editor),
  *          Press.the(Key.ENTER).in(UserProfile.editor),
  *
- *          Ensure.that(Text.of(UserProfile.displayName), equals(&apos;New username&apos;)),
+ *          Ensure.that(Text.of(UserProfile.displayName), equals('New username')),
  *          Ensure.that(UserProfile.editor, not(isVisible()))
  *      );
  *
@@ -276,8 +276,8 @@
      * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
      */</span>
     performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-comment">// Since the deprecation of Webdriver&apos;s ControlFlow,</span>
-        <span class="hljs-comment">// Protractor&apos;s doubleClick might behave incorrectly when promises are used.</span>
+        <span class="hljs-comment">// Since the deprecation of Webdriver's ControlFlow,</span>
+        <span class="hljs-comment">// Protractor's doubleClick might behave incorrectly when promises are used.</span>
         <span class="hljs-comment">// The mouseMove/doubleClick combo works around that problem.</span>
         <span class="hljs-comment">// See https://github.com/angular/protractor/issues/4578</span>
 

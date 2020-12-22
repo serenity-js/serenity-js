@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,50 +175,50 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Hover.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">import</span> { Attribute, Hover, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
-<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
+<span class="hljs-keyword">import</span> { Attribute, Hover, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Hover}</span> </span>*/</span>
-describe(<span class="hljs-string">&apos;Hover&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+describe(<span class="hljs-string">'Hover'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-keyword">const</span> pageWithALink = pageFromTemplate(<span class="hljs-string">`
         &lt;html&gt;
-            &lt;body style=&quot;margin:0; padding:0 0 1024px 0;&quot;&gt;
+            &lt;body style="margin:0; padding:0 0 1024px 0;"&gt;
                 &lt;h1&gt;A page with a link&lt;/h1&gt;
-                &lt;a href=&quot;javascript:void(0)&quot;
-                   class=&quot;off&quot;
-                   onmouseover=&quot;this.className=&apos;on&apos;;&quot; onmouseout=&quot;this.className=&apos;off&apos;;&quot;&gt;link&lt;/a&gt;
+                &lt;a href="javascript:void(0)"
+                   class="off"
+                   onmouseover="this.className='on';" onmouseout="this.className='off';"&gt;link&lt;/a&gt;
             &lt;/body&gt;
         &lt;/html&gt;
     `</span>);
 
     <span class="hljs-keyword">const</span> Page = {
-        <span class="hljs-attr">Header</span>: Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>)),
-        <span class="hljs-attr">Link</span>:   Target.the(<span class="hljs-string">&apos;link&apos;</span>).located(by.css(<span class="hljs-string">&apos;a&apos;</span>)),
+        <span class="hljs-attr">Header</span>: Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'h1'</span>)),
+        <span class="hljs-attr">Link</span>:   Target.the(<span class="hljs-string">'link'</span>).located(by.css(<span class="hljs-string">'a'</span>)),
     };
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Hover.over}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows the actor to position the mouse cursor over a given target&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Mickey&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to position the mouse cursor over a given target'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Mickey'</span>).attemptsTo(
         Navigate.to(pageWithALink),
 
-        Ensure.that(Attribute.of(Page.Link).called(<span class="hljs-string">&apos;class&apos;</span>), equals(<span class="hljs-string">&apos;off&apos;</span>)),
+        Ensure.that(Attribute.of(Page.Link).called(<span class="hljs-string">'class'</span>), equals(<span class="hljs-string">'off'</span>)),
 
         Hover.over(Page.Link),
-        Ensure.that(Attribute.of(Page.Link).called(<span class="hljs-string">&apos;class&apos;</span>), equals(<span class="hljs-string">&apos;on&apos;</span>)),
+        Ensure.that(Attribute.of(Page.Link).called(<span class="hljs-string">'class'</span>), equals(<span class="hljs-string">'on'</span>)),
 
         Hover.over(Page.Header),
-        Ensure.that(Attribute.of(Page.Link).called(<span class="hljs-string">&apos;class&apos;</span>), equals(<span class="hljs-string">&apos;off&apos;</span>)),
+        Ensure.that(Attribute.of(Page.Link).called(<span class="hljs-string">'class'</span>), equals(<span class="hljs-string">'off'</span>)),
     ));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Hover#toString}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Hover.over(Page.Link).toString())
             .to.equal(<span class="hljs-string">`#actor hovers the mouse over the link`</span>);
     });

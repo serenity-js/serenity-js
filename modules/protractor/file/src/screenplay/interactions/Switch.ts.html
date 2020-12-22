@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,9 +175,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Switch.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Question, Task, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Question, Task, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -188,29 +188,29 @@
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing a login form, embedded in an iframe&lt;/caption&gt;
  *
- *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { by } from &apos;protractor&apos;;
+ *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { by } from 'protractor';
  *
  *  class LoginForm {
- *      static iframe           = Target.the(&apos;login form&apos;).located(by.tagName(&apos;iframe&apos;));
- *      static usernameField    = Target.the(&apos;username field&apos;).located(by.css(&apos;[data-test=&quot;username&quot;]&apos;));
- *      static passwordField    = Target.the(&apos;password field&apos;).located(by.css(&apos;[data-test=&quot;password&quot;]&apos;));
- *      static submitButton     = Target.the(&apos;submit button&apos;).located(by.css(`button[type=&apos;submit&apos;]`));
+ *      static iframe           = Target.the('login form').located(by.tagName('iframe'));
+ *      static usernameField    = Target.the('username field').located(by.css('[data-test="username"]'));
+ *      static passwordField    = Target.the('password field').located(by.css('[data-test="password"]'));
+ *      static submitButton     = Target.the('submit button').located(by.css(`button[type='submit']`));
  *  }
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Switch to an iframe and back&lt;/caption&gt;
  *
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Switch, Enter, Click } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Switch, Enter, Click } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Francesca&apos;)
+ *  actorCalled('Francesca')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Switch.toFrame(LoginForm.iframe),
  *
- *          Enter.theValue(&apos;francesca<span class="hljs-doctag">@example</span>.org&apos;).into(LoginForm.usernameField),
- *          Enter.theValue(&apos;correct-horse-battery-staple&apos;).into(LoginForm.passwordField),
+ *          Enter.theValue('francesca<span class="hljs-doctag">@example</span>.org').into(LoginForm.usernameField),
+ *          Enter.theValue('correct-horse-battery-staple').into(LoginForm.passwordField),
  *          Click.on(LoginForm.submitButton),
  *
  *          Switch.toParentFrame(),
@@ -218,16 +218,16 @@
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Perform activities in the context of an iframe&lt;/caption&gt;
  *
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Switch, Enter, Click } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Switch, Enter, Click } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Francesca&apos;)
+ *  actorCalled('Francesca')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Switch.toFrame(LoginForm.iframe).and(
- *              Enter.theValue(&apos;francesca<span class="hljs-doctag">@example</span>.org&apos;).into(LoginForm.usernameField),
- *              Enter.theValue(&apos;correct-horse-battery-staple&apos;).into(LoginForm.passwordField),
+ *              Enter.theValue('francesca<span class="hljs-doctag">@example</span>.org').into(LoginForm.usernameField),
+ *              Enter.theValue('correct-horse-battery-staple').into(LoginForm.passwordField),
  *              Click.on(LoginForm.submitButton),
  *          ),
  *          // Note that Switch.toParentFrame() is invoked automatically
@@ -235,11 +235,11 @@
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Switch to a new window/tab and back&lt;/caption&gt;
  *
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Switch, Close } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Switch, Close } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Francesca&apos;)
+ *  actorCalled('Francesca')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Switch.toNewWindow(), // or: Switch.toWindow(...)
@@ -253,11 +253,11 @@
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Perform activities in the context of a different window/tab&lt;/caption&gt;
  *
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Switch, Close } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Switch, Close } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Francesca&apos;)
+ *  actorCalled('Francesca')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Switch.toNewWindow().and(

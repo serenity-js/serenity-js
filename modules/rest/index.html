@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="active">@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">rest</a></li>
@@ -132,30 +132,30 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="serenity-js">Serenity/JS</h1><p><a href="https://serenity-js.org">Serenity/JS</a> is a Node.js library designed to make acceptance and regression testing
 of modern full-stack applications faster, more collaborative and easier to scale.</p>
-<h2 id="serenity-js-rest">Serenity/JS REST</h2><p>The <code>@serenity-js/rest</code> module let&apos;s you interact with and test HTTP REST APIs.</p>
+<h2 id="serenity-js-rest">Serenity/JS REST</h2><p>The <code>@serenity-js/rest</code> module let's you interact with and test HTTP REST APIs.</p>
 <p>Learn more at <a href="https://serenity-js.org/modules/rest/">serenity-js.org</a>!</p>
-<h3 id="example-test">Example test</h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, DeleteRequest, GetRequest, LastResponse, PostRequest, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>
-<span class="hljs-keyword">import</span> { Ensure, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<h3 id="example-test">Example test</h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { CallAnApi, DeleteRequest, GetRequest, LastResponse, PostRequest, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+<span class="hljs-keyword">import</span> { Ensure, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-<span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">&apos;Apisit&apos;</span>).whoCan(CallAnApi.at(<span class="hljs-string">&apos;https://myapp.com/api&apos;</span>));
+<span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Apisit'</span>).whoCan(CallAnApi.at(<span class="hljs-string">'https://myapp.com/api'</span>));
 
 actor.attemptsTo(
     <span class="hljs-comment">// no users present in the system</span>
-    Send.a(GetRequest.to(<span class="hljs-string">&apos;/users&apos;</span>)),
+    Send.a(GetRequest.to(<span class="hljs-string">'/users'</span>)),
     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
     Ensure.that(LastResponse.body(), equals([])),
 
     <span class="hljs-comment">// create a new test user account</span>
-    Send.a(PostRequest.to(<span class="hljs-string">&apos;/users&apos;</span>).with({
-        <span class="hljs-attr">login</span>: <span class="hljs-string">&apos;tester&apos;</span>,
-        <span class="hljs-attr">password</span>: <span class="hljs-string">&apos;P@ssword1&apos;</span>,
+    Send.a(PostRequest.to(<span class="hljs-string">'/users'</span>).with({
+        <span class="hljs-attr">login</span>: <span class="hljs-string">'tester'</span>,
+        <span class="hljs-attr">password</span>: <span class="hljs-string">'P@ssword1'</span>,
     }),
     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">201</span>)),
-    Ensure.that(LastResponse.header(<span class="hljs-string">&apos;Location&apos;</span>), startsWith(<span class="hljs-string">&apos;/users&apos;</span>)),
+    Ensure.that(LastResponse.header(<span class="hljs-string">'Location'</span>), startsWith(<span class="hljs-string">'/users'</span>)),
 
     <span class="hljs-comment">// delete the test user account</span>
-    Send.a(DeleteRequest.to(LastResponse.header(<span class="hljs-string">&apos;Location&apos;</span>))),
+    Send.a(DeleteRequest.to(LastResponse.header(<span class="hljs-string">'Location'</span>))),
     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
 );
 </code></pre>

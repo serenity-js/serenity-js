@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -123,11 +123,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { CorrelationId } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { CorrelationId } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { EventQueueProcessors, EventQueues } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./processors&apos;</span>;
+<span class="hljs-keyword">import</span> { EventQueueProcessors, EventQueues } <span class="hljs-keyword">from</span> <span class="hljs-string">'./processors'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -136,12 +136,12 @@
  *  can parse to produce HTML reports and living documentation.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
- *  import { ArtifactArchiver, serenity } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { SerenityBDDReporter } from &apos;<span class="hljs-doctag">@serenity</span>-js/serenity-bdd&apos;;
+ *  import { ArtifactArchiver, serenity } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { SerenityBDDReporter } from '<span class="hljs-doctag">@serenity</span>-js/serenity-bdd';
  *
  *  serenity.configure({
  *    crew: [
- *      ArtifactArchiver.storingArtifactsAt(&apos;./target/site/serenity&apos;),
+ *      ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
  *      new SerenityBDDReporter()
  *    ],
  *  });
@@ -149,16 +149,16 @@
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Registering the reporter using Protractor configuration&lt;/caption&gt;
  *  // protractor.conf.js
  *  const
- *    { ArtifactArchiver }    = require(&apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;),
- *    { SerenityBDDReporter } = require(&apos;<span class="hljs-doctag">@serenity</span>-js/serenity-bdd&apos;);
+ *    { ArtifactArchiver }    = require('<span class="hljs-doctag">@serenity</span>-js/core'),
+ *    { SerenityBDDReporter } = require('<span class="hljs-doctag">@serenity</span>-js/serenity-bdd');
  *
  *  exports.config = {
- *    framework:     &apos;custom&apos;,
- *    frameworkPath: require.resolve(&apos;<span class="hljs-doctag">@serenity</span>-js/protractor/adapter&apos;),
+ *    framework:     'custom',
+ *    frameworkPath: require.resolve('<span class="hljs-doctag">@serenity</span>-js/protractor/adapter'),
  *
  *    serenity: {
  *      crew: [
- *        ArtifactArchiver.storingArtifactsAt(&apos;./target/site/serenity&apos;),
+ *        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
  *        new SerenityBDDReporter(),
  *      ],
  *      // other Serenity/JS config
@@ -176,7 +176,7 @@
 
     <span class="hljs-comment">/**
      * A queue for domain events that took place before the SceneStarts event,
-     * for example in Mocha&apos;s `before` hook.
+     * for example in Mocha's `before` hook.
      */</span>
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> eventQueue: DomainEvent[] = [];
 
@@ -234,7 +234,7 @@
     }
 
     <span class="hljs-keyword">private</span> isSceneSpecific(event: DomainEvent): event is DomainEvent &amp; { <span class="hljs-attr">sceneId</span>: CorrelationId } {
-        <span class="hljs-keyword">return</span> event.hasOwnProperty(<span class="hljs-string">&apos;sceneId&apos;</span>);
+        <span class="hljs-keyword">return</span> event.hasOwnProperty(<span class="hljs-string">'sceneId'</span>);
     }
 }
 </code></pre>

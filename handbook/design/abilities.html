@@ -136,12 +136,12 @@
                         </nav>
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="abilities">Abilities</h1>
-<p>An &quot;ability&quot; is one of the five building blocks of the <a href="/handbook/design/screenplay-pattern.html">Screenplay Pattern</a>.
-It&apos;s what enables
+<p>An "ability" is one of the five building blocks of the <a href="/handbook/design/screenplay-pattern.html">Screenplay Pattern</a>.
+It's what enables
 the <a href="/handbook/design/actors.html">actor</a> to interact with the system under test.</p>
 <p>In more technical terms, the <a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html"><code>Ability</code></a>
 is an implementation of <a href="https://en.wikipedia.org/wiki/Adapter_pattern">the adapter pattern</a>.
-An &quot;ability&quot; is a thin wrapper around a lower-level, interface-specific client such as a web browser driver, a HTTP client, a database client and so on, that you&apos;d call from an <a href="/handbook/design/interactions.html">interaction</a> or <a href="/handbook/design/questions.html">question</a> class to access the system under test.</p>
+An "ability" is a thin wrapper around a lower-level, interface-specific client such as a web browser driver, a HTTP client, a database client and so on, that you'd call from an <a href="/handbook/design/interactions.html">interaction</a> or <a href="/handbook/design/questions.html">question</a> class to access the system under test.</p>
 <figure>
 <img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern">
     <figcaption><span>The Screenplay Pattern</span></figcaption>
@@ -169,18 +169,18 @@ An &quot;ability&quot; is a thin wrapper around a lower-level, interface-specifi
     <span class="hljs-comment">// rest omitted for brevity</span>
 }
 </code></pre>
-<p>In order to enable the actor to <code>BrowseTheWeb</code>, we&apos;d give it an instance of said ability, linked with the lower-level client - in this case <code>protractor.browser</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<p>In order to enable the actor to <code>BrowseTheWeb</code>, we'd give it an instance of said ability, linked with the lower-level client - in this case <code>protractor.browser</code>:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Abby&apos;</span>).whoCan(BrowseTheWeb.using(protractor.browser));
+<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Abby'</span>).whoCan(BrowseTheWeb.using(protractor.browser));
 </code></pre>
-<p>So how would our actor make use of their newly acquired ability? That&apos;s what <a href="(/handbook/design/interactions.html">interactions</a> are for!</p>
-<p>Let&apos;s take the below, <em>much simplified</em>, version of the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> interaction, where <code>BrowseTheWeb</code> is used to locate the element of interest and perform the <code>.click()</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<p>So how would our actor make use of their newly acquired ability? That's what <a href="(/handbook/design/interactions.html">interactions</a> are for!</p>
+<p>Let's take the below, <em>much simplified</em>, version of the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> interaction, where <code>BrowseTheWeb</code> is used to locate the element of interest and perform the <code>.click()</code>:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-keyword">const</span> Click = {
     <span class="hljs-attr">onElement</span>: <span class="hljs-function">(<span class="hljs-params">locator: Locator</span>) =&gt;</span>
@@ -192,19 +192,19 @@ An &quot;ability&quot; is a thin wrapper around a lower-level, interface-specifi
 <p>With the interaction in place, we can tell the actor to perform the click as part of their <a href="/handbook/design/actors.html">interaction flow</a>,
 and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
 <pre><code class="lang-typescript hljs typescript">actor.attemptsTo(
-    Click.onElement(by.css(<span class="hljs-string">&apos;button&apos;</span>)),
+    Click.onElement(by.css(<span class="hljs-string">'button'</span>)),
 )
 </code></pre>
-<p>If you&apos;re wondering why you&apos;d want to create a wrapper around the lower-level client you could just call directly from an <a href="(/handbook/design/interactions.html">interaction</a>, think about all the opportunities having a dedicated ability class presents:</p>
+<p>If you're wondering why you'd want to create a wrapper around the lower-level client you could just call directly from an <a href="(/handbook/design/interactions.html">interaction</a>, think about all the opportunities having a dedicated ability class presents:</p>
 <ul>
-<li>an ability can expose an API simpler than the one provided by the client you&apos;re using (i.e. see how <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a> simplifies the API of the <a href="https://www.protractortest.org/#/">Protractor</a> <code>browser</code>)</li>
+<li>an ability can expose an API simpler than the one provided by the client you're using (i.e. see how <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a> simplifies the API of the <a href="https://www.protractortest.org/#/">Protractor</a> <code>browser</code>)</li>
 <li>since <a href="/handbook/design/actors.html">actors</a> are effectively stateless, abilities can be used to store any state (i.e. see how <a href="modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html"><code>TakeNotes</code></a> can be used to store answers to <a href="/handbook/design/questions.html">questions</a> asked during the test)</li>
 <li>abilities can map client-specific errors to <a href="/handbook/design/errors.html">more informative ones</a>, that Serenity/JS can also <a href="/handbook/integration/reporting.html">report on better</a> (i.e. see how <a href="/modules/rest/class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html"><code>CallAnApi</code></a> maps the <a href="/modules/rest/file/src/screenplay/abilities/CallAnApi.ts.html">various kinds</a> of <a href="https://www.npmjs.com/package/axios">Axios</a> errors)</li>
 </ul>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong> This is a simplified implementation of the <code>Click</code> interaction that
-    doesn&apos;t account for the many quirks of the Protractor API and is intended for demonstration purposes only. Please use the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> in your tests instead.</p></div>
+    doesn't account for the many quirks of the Protractor API and is intended for demonstration purposes only. Please use the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> in your tests instead.</p></div>
 </div>
 </body></html>
                         </section>

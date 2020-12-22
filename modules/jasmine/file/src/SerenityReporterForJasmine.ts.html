@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="active">@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">jasmine</a></li>
@@ -123,7 +123,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/SerenityReporterForJasmine.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
     DomainEvent,
     SceneFinished,
@@ -137,8 +137,8 @@
     TestRunnerDetected,
     TestSuiteFinished,
     TestSuiteStarts,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { ErrorSerialiser, FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { ErrorSerialiser, FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> {
     ActivityDetails,
     Category,
@@ -155,8 +155,8 @@
     ProblemIndication,
     ScenarioDetails,
     TestSuiteDetails,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { Expectation, JasmineDoneInfo, SpecResult, SuiteResult } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./jasmine&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { Expectation, JasmineDoneInfo, SpecResult, SuiteResult } <span class="hljs-keyword">from</span> <span class="hljs-string">'./jasmine'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -195,22 +195,22 @@
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneStarts(<span class="hljs-built_in">this</span>.currentSceneId, details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
             <span class="hljs-keyword">new</span> SceneTagged(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-built_in">this</span>.currentFeatureName()), <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Jasmine&apos;</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Jasmine'</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
     }
 
     specDone(result: SpecResult): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
 
         <span class="hljs-comment">/**
-         * Serenity doesn&apos;t allow for more than one failure per activity, but Jasmine does.
-         * If there are multiple failures we wrap them up in fake activities so that they&apos;re all reported correctly.
+         * Serenity doesn't allow for more than one failure per activity, but Jasmine does.
+         * If there are multiple failures we wrap them up in fake activities so that they're all reported correctly.
          */</span>
         <span class="hljs-keyword">if</span> (result.failedExpectations.length &gt; <span class="hljs-number">1</span>) {
             result.failedExpectations.forEach(<span class="hljs-function"><span class="hljs-params">failedExpectation</span> =&gt;</span> {
                 <span class="hljs-keyword">const</span>
                     sceneId = <span class="hljs-built_in">this</span>.serenity.currentSceneId(),
                     activityId = <span class="hljs-built_in">this</span>.serenity.assignNewActivityId();
-                <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Expectation&apos;</span>));
+                <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Expectation'</span>));
 
                 <span class="hljs-built_in">this</span>.emit(
                     <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityId, details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
@@ -300,7 +300,7 @@
     <span class="hljs-keyword">private</span> currentFeatureName(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.describes[<span class="hljs-number">0</span>]
             ? <span class="hljs-built_in">this</span>.describes[<span class="hljs-number">0</span>].description
-            : <span class="hljs-string">&apos;Unknown feature&apos;</span>;
+            : <span class="hljs-string">'Unknown feature'</span>;
     }
 
     <span class="hljs-comment">/**
@@ -321,13 +321,13 @@
      */</span>
     <span class="hljs-keyword">private</span> outcomeFrom(result: SpecResult | SuiteResult): Outcome {
         <span class="hljs-keyword">switch</span> (result.status) {
-            <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;failed&apos;</span>:
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'failed'</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.failureOutcomeFrom(result.failedExpectations[<span class="hljs-number">0</span>]);
-            <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;pending&apos;</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError((result <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).pendingReason || <span class="hljs-string">&apos;&apos;</span>));
-            <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;excluded&apos;</span>:
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'pending'</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError((result <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).pendingReason || <span class="hljs-string">''</span>));
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'excluded'</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
-            <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;passed&apos;</span>:
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'passed'</span>:
             <span class="hljs-keyword">default</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSuccessful();
         }
@@ -373,7 +373,7 @@
     }
 
     <span class="hljs-keyword">private</span> containsCorrectlySerialisedError(failure: Expectation): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> !! failure.stack &amp;&amp; SerenityReporterForJasmine.errorMessagePattern.test(failure.stack.split(<span class="hljs-string">&apos;\n&apos;</span>)[<span class="hljs-number">0</span>]);
+        <span class="hljs-keyword">return</span> !! failure.stack &amp;&amp; SerenityReporterForJasmine.errorMessagePattern.test(failure.stack.split(<span class="hljs-string">'\n'</span>)[<span class="hljs-number">0</span>]);
     }
 
     <span class="hljs-keyword">private</span> containsIncorrectlySerialisedError(failure: Expectation): <span class="hljs-built_in">boolean</span> {
@@ -382,10 +382,10 @@
 
     <span class="hljs-comment">/**
      * It seems like Jasmine mixes up serialisation and display logic,
-     * which means that its &quot;failure.stack&quot; is not really an Error stacktrace,
+     * which means that its "failure.stack" is not really an Error stacktrace,
      * but rather something along the lines of:
-     * &quot;error properties: AssertionError: undefined&quot;
-     * where the error message is lost, and there&apos;s an &quot;error properties:&quot; prefix present.
+     * "error properties: AssertionError: undefined"
+     * where the error message is lost, and there's an "error properties:" prefix present.
      *
      * Probably caused by this:
      * https://github.com/jasmine/jasmine/blob/b4cbe9850fbe192eaffeae450669f96e79a574ed/src/core/ExceptionFormatter.js#L93
@@ -395,8 +395,8 @@
     <span class="hljs-keyword">private</span> repairedStackTraceOf(failure: Expectation): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> [
             failure.message,
-            ...failure.stack.split(<span class="hljs-string">&apos;\n&apos;</span>).slice(<span class="hljs-number">1</span>),
-        ].join(<span class="hljs-string">&apos;\n&apos;</span>);
+            ...failure.stack.split(<span class="hljs-string">'\n'</span>).slice(<span class="hljs-number">1</span>),
+        ].join(<span class="hljs-string">'\n'</span>);
     }
 }
 </code></pre>

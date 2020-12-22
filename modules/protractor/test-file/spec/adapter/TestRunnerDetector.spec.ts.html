@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,16 +175,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/adapter/TestRunnerDetector.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter&apos;</span>;
-<span class="hljs-keyword">import</span> { CucumberTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter/runners/CucumberTestRunner&apos;</span>;
-<span class="hljs-keyword">import</span> { JasmineTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter/runners/JasmineTestRunner&apos;</span>;
-<span class="hljs-keyword">import</span> { MochaTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/adapter/runners/MochaTestRunner&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter'</span>;
+<span class="hljs-keyword">import</span> { CucumberTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/CucumberTestRunner'</span>;
+<span class="hljs-keyword">import</span> { JasmineTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/JasmineTestRunner'</span>;
+<span class="hljs-keyword">import</span> { MochaTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/MochaTestRunner'</span>;
 
-describe(<span class="hljs-string">&apos;TestRunnerDetector&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> detector: TestRunnerDetector;
 
@@ -192,22 +192,22 @@ describe(<span class="hljs-string">&apos;TestRunnerDetector&apos;</span>, <span 
         detector = <span class="hljs-keyword">new</span> TestRunnerDetector(Path.from(__dirname));
     });
 
-    describe(<span class="hljs-string">&apos;when configured with a specific runner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when configured with a specific runner'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">&apos;uses the CucumberTestRunner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the CucumberTestRunner'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;cucumber&apos;</span>,
+                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
                 },
             });
 
             expect(runner).to.be.instanceOf(CucumberTestRunner);
         });
 
-        it(<span class="hljs-string">&apos;uses the CucumberTestRunner even when config for other runners is present as well&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the CucumberTestRunner even when config for other runners is present as well'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;cucumber&apos;</span>,
+                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
                 },
                 <span class="hljs-attr">cucumberOpts</span>: {},
                 <span class="hljs-attr">jasmineNodeOpts</span>: {},
@@ -217,20 +217,20 @@ describe(<span class="hljs-string">&apos;TestRunnerDetector&apos;</span>, <span 
             expect(runner).to.be.instanceOf(CucumberTestRunner);
         });
 
-        it(<span class="hljs-string">&apos;uses the JasmineTestRunner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the JasmineTestRunner'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;jasmine&apos;</span>,
+                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'jasmine'</span>,
                 },
             });
 
             expect(runner).to.be.instanceOf(JasmineTestRunner);
         });
 
-        it(<span class="hljs-string">&apos;uses the JasmineTestRunner even when config for other runners is present as well&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the JasmineTestRunner even when config for other runners is present as well'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;jasmine&apos;</span>,
+                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'jasmine'</span>,
                 },
                 <span class="hljs-attr">cucumberOpts</span>: {},
                 <span class="hljs-attr">jasmineNodeOpts</span>: {},
@@ -240,20 +240,20 @@ describe(<span class="hljs-string">&apos;TestRunnerDetector&apos;</span>, <span 
             expect(runner).to.be.instanceOf(JasmineTestRunner);
         });
 
-        it(<span class="hljs-string">&apos;uses the MochaTestRunner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the MochaTestRunner'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;mocha&apos;</span>,
+                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,
                 },
             });
 
             expect(runner).to.be.instanceOf(MochaTestRunner);
         });
 
-        it(<span class="hljs-string">&apos;uses the MochaTestRunner even when config for other runners is present as well&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the MochaTestRunner even when config for other runners is present as well'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;mocha&apos;</span>,
+                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,
                 },
                 <span class="hljs-attr">cucumberOpts</span>: {},
                 <span class="hljs-attr">jasmineNodeOpts</span>: {},
@@ -264,16 +264,16 @@ describe(<span class="hljs-string">&apos;TestRunnerDetector&apos;</span>, <span 
         });
     });
 
-    describe(<span class="hljs-string">&apos;when no specific test runner is set&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when no specific test runner is set'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">&apos;uses the CucumberTestRunner when cucumberOpts are specified&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the CucumberTestRunner when cucumberOpts are specified'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">cucumberOpts</span>: {
                     <span class="hljs-attr">require</span>: [
-                        <span class="hljs-string">&apos;features/**/*.steps.ts&apos;</span>,
+                        <span class="hljs-string">'features/**/*.steps.ts'</span>,
                     ],
-                    <span class="hljs-string">&apos;require-module&apos;</span>: [
-                        <span class="hljs-string">&apos;ts-node/register&apos;</span>
+                    <span class="hljs-string">'require-module'</span>: [
+                        <span class="hljs-string">'ts-node/register'</span>
                     ]
                 },
             });
@@ -281,26 +281,26 @@ describe(<span class="hljs-string">&apos;TestRunnerDetector&apos;</span>, <span 
             expect(runner).to.be.instanceOf(CucumberTestRunner);
         });
 
-        it(<span class="hljs-string">&apos;uses the JasmineTestRunner when jasmineNodeOpts are specified&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the JasmineTestRunner when jasmineNodeOpts are specified'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">jasmineNodeOpts</span>: {
-                    <span class="hljs-attr">grep</span>: <span class="hljs-string">&apos;some spec.*&apos;</span>,
+                    <span class="hljs-attr">grep</span>: <span class="hljs-string">'some spec.*'</span>,
                 },
             });
 
             expect(runner).to.be.instanceOf(JasmineTestRunner);
         });
 
-        it(<span class="hljs-string">&apos;uses the JasmineTestRunner when no other runners are specified&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the JasmineTestRunner when no other runners are specified'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({});
 
             expect(runner).to.be.instanceOf(JasmineTestRunner);
         });
 
-        it(<span class="hljs-string">&apos;uses the MochaTestRunner when mochaOpts are specified&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'uses the MochaTestRunner when mochaOpts are specified'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> runner = detector.runnerFor({
                 <span class="hljs-attr">mochaOpts</span>: {
-                    <span class="hljs-attr">require</span>: <span class="hljs-string">&apos;ts:ts-node/register&apos;</span>,
+                    <span class="hljs-attr">require</span>: <span class="hljs-string">'ts:ts-node/register'</span>,
                 },
             });
 
@@ -308,13 +308,13 @@ describe(<span class="hljs-string">&apos;TestRunnerDetector&apos;</span>, <span 
         });
     });
 
-    describe(<span class="hljs-string">&apos;to support test runner options specified in the capabilities section&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'to support test runner options specified in the capabilities section'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">&apos;merges the cucumberOpts&apos;</span>);
+        it(<span class="hljs-string">'merges the cucumberOpts'</span>);
 
-        it(<span class="hljs-string">&apos;merges the mochaOpts&apos;</span>);
+        it(<span class="hljs-string">'merges the mochaOpts'</span>);
 
-        it(<span class="hljs-string">&apos;merges the jasmineNodeOpts&apos;</span>);
+        it(<span class="hljs-string">'merges the jasmineNodeOpts'</span>);
     });
 });
 </code></pre>

@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="active">@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">rest</a></li>
@@ -131,45 +131,45 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/ChangeApiUrl.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Changes the base URL the {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}
- *  has been configured with. Useful when we don&apos;t know the URL before the test is started,
+ *  has been configured with. Useful when we don't know the URL before the test is started,
  *  for example when the URL is dynamically generated and needs to be read from the website under test.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Changing the API URL&lt;/caption&gt;
- * import { Actor } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- * import { Navigate, Target, Text } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- * import { CallAnApi, GetRequest, LastResponse, Send } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;
- * import { protractor, by } from &apos;protractor&apos;;
+ * import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ * import { Navigate, Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ * import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
+ * import { protractor, by } from 'protractor';
  *
- * import axios  from &apos;axios&apos;;
+ * import axios  from 'axios';
  *
- * const actor = Actor.named(&apos;Apisit&apos;).whoCan(
+ * const actor = Actor.named('Apisit').whoCan(
  *     BrowseTheWeb.using(protractor.browser),
  *
  *     // Note: no default base URL is given when the axios instance is created
  *     CallAnApi.using(axios.create()),
  * );
  *
- * // Let&apos;s imagine that the website under test displays
- * // a dynamically generated API URL we&apos;d like to use
+ * // Let's imagine that the website under test displays
+ * // a dynamically generated API URL we'd like to use
  * const ApiDetailsWidget = {
- *     Url: Target.the(&apos;API URL&apos;).located(by.id(&apos;api-url&apos;)),
+ *     Url: Target.the('API URL').located(by.id('api-url')),
  * }
  *
  * actor.attemptsTo(
- *     Navigate.to(&apos;/profile&apos;),
+ *     Navigate.to('/profile'),
  *
  *     // We change the API URL based on the text displayed in the widget
  *     // (although we could change it to some arbitrary string too).
  *     ChangeApiUrl.to(Text.of(ApiDetailsWidget.Url)),
  *
  *     // Any subsequent request will be sent to the newly set URL
- *     Send.a(GetRequest.to(&apos;/projects&apos;)),
+ *     Send.a(GetRequest.to('/projects')),
  *     Ensure.that(LastResponse.status(), equals(200)),
  * );
  *

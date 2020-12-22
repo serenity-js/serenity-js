@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,12 +175,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Wait.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Expectation, ExpectationMet, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, AssertionError, Duration, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Expectation, ExpectationMet, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, AssertionError, Duration, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
-<span class="hljs-keyword">import</span> { WaitBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./WaitBuilder&apos;</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="hljs-keyword">import</span> { WaitBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./WaitBuilder'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -188,61 +188,61 @@
  *  wait before proceeding either for a set {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core~Duration}
  *  or until a given {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/assertions~Expectation} is met.
  *
- *  Useful when a test scenario can&apos;t take advantage of automatic synchronisation between
+ *  Useful when a test scenario can't take advantage of automatic synchronisation between
  *  Protractor and Angular (see {<span class="hljs-doctag">@link </span>UseAngular}), or when the application under test is animation-heavy.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example widget&lt;/caption&gt;
  *  &lt;!--
- *      After about 1 second, the text will change from &apos;Loading...&apos; to &apos;Ready!&apos;
+ *      After about 1 second, the text will change from 'Loading...' to 'Ready!'
  *  --&gt;
- *  &lt;h1 id=&quot;status&quot;&gt;Loading...&lt;/h1&gt;
+ *  &lt;h1 id="status"&gt;Loading...&lt;/h1&gt;
  *  &lt;script&gt;
  *      (function () {
  *          setTimeout(function () {
- *              document.getElementById(&apos;status&apos;).textContent = &apos;Ready!&apos;
+ *              document.getElementById('status').textContent = 'Ready!'
  *          }, 1000);
  *      })();
  *  &lt;/script&gt;
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
- *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { by } from &apos;protractor&apos;;
+ *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { by } from 'protractor';
  *
  *  class App {
- *      static status = Target.the(&apos;status widget&apos;)
- *          .located(by.id(&apos;status&apos;));
+ *      static status = Target.the('status widget')
+ *          .located(by.id('status'));
  *  }
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Waiting for a set amount of time&lt;/caption&gt;
- *  import { actorCalled, Duration } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Wait } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled, Duration } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Wait } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Aurora&apos;)
+ *  actorCalled('Aurora')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Wait.for(Duration.ofSeconds(1.5)),
- *          Ensure.that(App.status, equals(&apos;Ready!&apos;)),
+ *          Ensure.that(App.status, equals('Ready!')),
  *      );
  *
  *  // Please note that while the above implementation works,
  *  // this approach is inefficient because at best
  *  // the actor might wait too long and at worst the test
- *  // might become &quot;flaky&quot; if any external interference
+ *  // might become "flaky" if any external interference
  *  // (like network glitches, animations taking a bit too long etc.)
  *  // makes the actor wait not long enough.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Waiting until a condition is met&lt;/caption&gt;
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Wait, Text } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Wait, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Aurora&apos;)
+ *  actorCalled('Aurora')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
- *          Wait.until(Text.of(App.status), equals(&apos;Ready!&apos;)),
+ *          Wait.until(Text.of(App.status), equals('Ready!')),
  *          // app is ready, proceed with the scenario
  *      );
  *
@@ -254,16 +254,16 @@
  *  // the same expectations, like `equals`.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Changing the default timeout&lt;/caption&gt;
- *  import { actorCalled, Duration } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Wait, Text } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled, Duration } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Wait, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Aurora&apos;)
+ *  actorCalled('Aurora')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
  *          Wait.upTo(Duration.ofSeconds(3))
- *              .until(Text.of(App.status), equals(&apos;Ready!&apos;)),
+ *              .until(Text.of(App.status), equals('Ready!')),
  *          // app is ready, proceed with the scenario
  *      );
  *

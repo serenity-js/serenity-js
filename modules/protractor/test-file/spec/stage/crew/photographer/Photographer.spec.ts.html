@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,12 +175,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/photographer/Photographer.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect, givenFollowingEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, TaskFinished, TaskStarts, TestRunFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+<span class="hljs-keyword">import</span> { expect, givenFollowingEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, TaskFinished, TaskStarts, TestRunFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> {
     ActivityDetails,
     Category,
@@ -195,38 +195,38 @@
     Name,
     Outcome,
     ScenarioDetails,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
-<span class="hljs-keyword">import</span> { Photographer, TakePhotosOfFailures } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage&apos;</span>;
-<span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./create&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
+<span class="hljs-keyword">import</span> { Photographer, TakePhotosOfFailures } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">'./create'</span>;
 
-describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'Photographer'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         defaultCardScenario = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Paying with a default card&apos;</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;Online Checkout&apos;</span>),
+            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Paying with a default card'</span>),
+            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Online Checkout'</span>),
             <span class="hljs-keyword">new</span> FileSystemLocation(
                 <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`payments/checkout.feature`</span>),
             ),
         ),
-        pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Pick the default credit card&apos;</span>)),
-        sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;a-scene-id&apos;</span>),
-        activityId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;activity-id&apos;</span>);
+        pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Pick the default credit card'</span>)),
+        sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'a-scene-id'</span>),
+        activityId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'activity-id'</span>);
 
-    it(<span class="hljs-string">&apos;complains when sent DomainEvents before getting assigned to a Stage&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'complains when sent DomainEvents before getting assigned to a Stage'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">new</span> TakePhotosOfFailures());
         expect(<span class="hljs-function">() =&gt;</span> photographer.notifyOf(<span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario)))
             .to.throw(LogicError, <span class="hljs-string">`Photographer needs to be assigned to the Stage before it can be notified of any DomainEvents`</span>);
     });
 
-    describe(<span class="hljs-string">`when there&apos;s no actor in the spotlight`</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">`when there's no actor in the spotlight`</span>, <span class="hljs-function">() =&gt;</span> {
 
         given(
             <span class="hljs-keyword">new</span> ExecutionSkipped(),
             <span class="hljs-keyword">new</span> ExecutionSuccessful(),
         ).
-        it(<span class="hljs-string">&apos;doesn\&apos;t take a picture if everything goes well&apos;</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
+        it(<span class="hljs-string">'doesn\'t take a picture if everything goes well'</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> { stage, recorder } = create();
 
             <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">new</span> TakePhotosOfFailures(), stage);
@@ -246,13 +246,13 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
         });
 
         given(
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;compromised&apos;</span>,               <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionCompromised(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Database is down&apos;</span>))                                                },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;error&apos;</span>,                     <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>())                                                          },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;assertion error&apos;</span>,           <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(<span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">`expected false to equal true`</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)) },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;implementation pending&apos;</span>,    <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">&apos;method missing&apos;</span>))                            },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;ignored&apos;</span>,                   <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionIgnored(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Failed, retrying&apos;</span>))                                                    },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'compromised'</span>,               <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionCompromised(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Database is down'</span>))                                                },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'error'</span>,                     <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>())                                                          },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'assertion error'</span>,           <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(<span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">`expected false to equal true`</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)) },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'implementation pending'</span>,    <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'method missing'</span>))                            },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'ignored'</span>,                   <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionIgnored(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Failed, retrying'</span>))                                                    },
         ).
-        it(<span class="hljs-string">&apos;does nothing, even when a problem occurs&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ outcome }</span>) =&gt;</span> {
+        it(<span class="hljs-string">'does nothing, even when a problem occurs'</span>, <span class="hljs-function">(<span class="hljs-params">{ outcome }</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> { stage, recorder } = create();
 
             <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">new</span> TakePhotosOfFailures(), stage);

@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,15 +175,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Select.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { commaSeparated, formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { inspected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io/inspected&apos;</span>;
-<span class="hljs-keyword">import</span> { Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/screenplay&apos;</span>;
-<span class="hljs-keyword">import</span> { by, ElementFinder, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { promise } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;selenium-webdriver&apos;</span>;
-<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../promiseOf&apos;</span>;
-<span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../withAnswerOf&apos;</span>;
-<span class="hljs-keyword">import</span> { SelectBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SelectBuilder&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { commaSeparated, formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { inspected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io/inspected'</span>;
+<span class="hljs-keyword">import</span> { Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span>;
+<span class="hljs-keyword">import</span> { by, ElementFinder, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { promise } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
+<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../promiseOf'</span>;
+<span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../withAnswerOf'</span>;
+<span class="hljs-keyword">import</span> { SelectBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SelectBuilder'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -203,32 +203,32 @@
      *  for the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to select.
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example widget&lt;/caption&gt;
-     *  &lt;select data-test=&apos;countries&apos;&gt;
-     *      &lt;option value=&apos;UK&apos;&gt;United Kingdom&lt;/option&gt;
-     *      &lt;option value=&apos;PL&apos;&gt;Poland&lt;/option&gt;
-     *      &lt;option value=&apos;US&apos;&gt;United States&lt;/option&gt;
+     *  &lt;select data-test='countries'&gt;
+     *      &lt;option value='UK'&gt;United Kingdom&lt;/option&gt;
+     *      &lt;option value='PL'&gt;Poland&lt;/option&gt;
+     *      &lt;option value='US'&gt;United States&lt;/option&gt;
      *  &lt;/select&gt;
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
-     *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
-     *  import { browser, by } from &apos;protractor&apos;;
+     *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+     *  import { browser, by } from 'protractor';
      *
      *  class Countries {
-     *      static dropdown = Target.the(&apos;countries dropdown&apos;)
-     *          .located(by.css(&apos;[data-test=&quot;countries&quot;]&apos;));
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
      *  }
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving the selected value&lt;/caption&gt;
-     *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
-     *  import { BrowseTheWeb, Select, Selected } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
-     *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
-     *  import { protractor } from &apos;protractor&apos;;
+     *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+     *  import { BrowseTheWeb, Select, Selected } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+     *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+     *  import { protractor } from 'protractor';
      *
-     *  actorCalled(&apos;Nick&apos;)
+     *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
-     *          Select.value(&apos;UK&apos;).from(Countries.dropdown),
-     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals(&apos;UK&apos;)),
+     *          Select.value('UK').from(Countries.dropdown),
+     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),
      *      );
      *
      * <span class="hljs-doctag">@param <span class="hljs-type">{string | Answerable&lt;string&gt;}</span> <span class="hljs-variable">value</span></span>
@@ -258,32 +258,32 @@
      *  for the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to select.
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example widget&lt;/caption&gt;
-     *  &lt;select multiple data-test=&apos;countries&apos;&gt;
-     *      &lt;option value=&apos;UK&apos;&gt;United Kingdom&lt;/option&gt;
-     *      &lt;option value=&apos;PL&apos;&gt;Poland&lt;/option&gt;
-     *      &lt;option value=&apos;US&apos;&gt;United States&lt;/option&gt;
+     *  &lt;select multiple data-test='countries'&gt;
+     *      &lt;option value='UK'&gt;United Kingdom&lt;/option&gt;
+     *      &lt;option value='PL'&gt;Poland&lt;/option&gt;
+     *      &lt;option value='US'&gt;United States&lt;/option&gt;
      *  &lt;/select&gt;
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
-     *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
-     *  import { browser, by } from &apos;protractor&apos;;
+     *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+     *  import { browser, by } from 'protractor';
      *
      *  class Countries {
-     *      static dropdown = Target.the(&apos;countries dropdown&apos;)
-     *          .located(by.css(&apos;[data-test=&quot;countries&quot;]&apos;));
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
      *  }
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving the selected value&lt;/caption&gt;
-     *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
-     *  import { BrowseTheWeb, Select, Selected } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
-     *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
-     *  import { protractor } from &apos;protractor&apos;;
+     *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+     *  import { BrowseTheWeb, Select, Selected } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+     *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+     *  import { protractor } from 'protractor';
      *
-     *  actorCalled(&apos;Nick&apos;)
+     *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
-     *          Select.values(&apos;UK&apos;).from(Countries.dropdown),
-     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ &apos;UK&apos; ])),
+     *          Select.values('UK').from(Countries.dropdown),
+     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),
      *      );
      *
      * <span class="hljs-doctag">@param <span class="hljs-type">{Array&lt;Answerable&lt;string[] | string&gt;&gt;}</span> <span class="hljs-variable">values</span></span>
@@ -312,34 +312,34 @@
      *  for the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to select.
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example widget&lt;/caption&gt;
-     *  &lt;select data-test=&apos;countries&apos;&gt;
-     *      &lt;option value=&apos;UK&apos;&gt;United Kingdom&lt;/option&gt;
-     *      &lt;option value=&apos;PL&apos;&gt;Poland&lt;/option&gt;
-     *      &lt;option value=&apos;US&apos;&gt;United States&lt;/option&gt;
+     *  &lt;select data-test='countries'&gt;
+     *      &lt;option value='UK'&gt;United Kingdom&lt;/option&gt;
+     *      &lt;option value='PL'&gt;Poland&lt;/option&gt;
+     *      &lt;option value='US'&gt;United States&lt;/option&gt;
      *  &lt;/select&gt;
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
-     *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
-     *  import { browser, by } from &apos;protractor&apos;;
+     *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+     *  import { browser, by } from 'protractor';
      *
      *  class Countries {
-     *      static dropdown = Target.the(&apos;countries dropdown&apos;)
-     *          .located(by.css(&apos;[data-test=&quot;countries&quot;]&apos;));
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
      *  }
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving the selected value&lt;/caption&gt;
-     *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
-     *  import { BrowseTheWeb, Select, Selected } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
-     *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
-     *  import { protractor } from &apos;protractor&apos;;
+     *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+     *  import { BrowseTheWeb, Select, Selected } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+     *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+     *  import { protractor } from 'protractor';
      *
-     *  actorCalled(&apos;Nick&apos;)
+     *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
-     *          Select.option(&apos;Poland&apos;).from(Countries.dropdown),
+     *          Select.option('Poland').from(Countries.dropdown),
      *          Ensure.that(
      *              Selected.optionIn(Countries.dropdown),
-     *              equals(&apos;Poland&apos;)
+     *              equals('Poland')
      *          ),
      *      );
      *
@@ -369,34 +369,34 @@
      *  for the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to select.
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example widget&lt;/caption&gt;
-     *  &lt;select multiple data-test=&apos;countries&apos;&gt;
-     *      &lt;option value=&apos;UK&apos;&gt;United Kingdom&lt;/option&gt;
-     *      &lt;option value=&apos;PL&apos;&gt;Poland&lt;/option&gt;
-     *      &lt;option value=&apos;US&apos;&gt;United States&lt;/option&gt;
+     *  &lt;select multiple data-test='countries'&gt;
+     *      &lt;option value='UK'&gt;United Kingdom&lt;/option&gt;
+     *      &lt;option value='PL'&gt;Poland&lt;/option&gt;
+     *      &lt;option value='US'&gt;United States&lt;/option&gt;
      *  &lt;/select&gt;
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
-     *  import { Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
-     *  import { browser, by } from &apos;protractor&apos;;
+     *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+     *  import { browser, by } from 'protractor';
      *
      *  class Countries {
-     *      static dropdown = Target.the(&apos;countries dropdown&apos;)
-     *          .located(by.css(&apos;[data-test=&quot;countries&quot;]&apos;));
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
      *  }
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving the selected value&lt;/caption&gt;
-     *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
-     *  import { BrowseTheWeb, Select, Selected } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
-     *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
-     *  import { protractor } from &apos;protractor&apos;;
+     *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+     *  import { BrowseTheWeb, Select, Selected } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+     *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+     *  import { protractor } from 'protractor';
      *
-     *  actorCalled(&apos;Nick&apos;)
+     *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
-     *          Select.options(&apos;Poland&apos;, &apos;United States&apos;).from(Countries.dropdown),
+     *          Select.options('Poland', 'United States').from(Countries.dropdown),
      *          Ensure.that(
      *              Selected.optionsIn(Countries.dropdown),
-     *              equals([ &apos;Poland&apos;, &apos;United States&apos; ])
+     *              equals([ 'Poland', 'United States' ])
      *          ),
      *      );
      *
@@ -465,12 +465,12 @@
 
                 <span class="hljs-keyword">const</span>
                     hasRequiredValue = <span class="hljs-function">(<span class="hljs-params">option: ElementFinder</span>) =&gt;</span>
-                        option.getAttribute(<span class="hljs-string">&apos;value&apos;</span>).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> !! ~values.indexOf(value)),
+                        option.getAttribute(<span class="hljs-string">'value'</span>).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> !! ~values.indexOf(value)),
                     select = <span class="hljs-function">(<span class="hljs-params">option: ElementFinder</span>) =&gt;</span> option.click();
 
                 <span class="hljs-keyword">return</span> promiseOf(
                     withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function">(<span class="hljs-params">element: ElementFinder</span>) =&gt;</span>
-                        element.all(by.css(<span class="hljs-string">&apos;option&apos;</span>))
+                        element.all(by.css(<span class="hljs-string">'option'</span>))
                             .filter(optionsToSelect(hasRequiredValue))
                             .each(select)
                     )
@@ -499,7 +499,7 @@
             .then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
                 <span class="hljs-keyword">return</span> promiseOf(withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function">(<span class="hljs-params">element: ElementFinder</span>) =&gt;</span>
                     element
-                        .element(by.cssContainingText(<span class="hljs-string">&apos;option&apos;</span>, value)))
+                        .element(by.cssContainingText(<span class="hljs-string">'option'</span>, value)))
                         .click());
             });
     }
@@ -532,7 +532,7 @@
 
                 <span class="hljs-keyword">return</span> promiseOf(
                     withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function">(<span class="hljs-params">element: ElementFinder</span>) =&gt;</span>
-                        element.all(by.css(<span class="hljs-string">&apos;option&apos;</span>))
+                        element.all(by.css(<span class="hljs-string">'option'</span>))
                             .filter(optionsToSelect(hasRequiredText))
                             .each(select)
                     )

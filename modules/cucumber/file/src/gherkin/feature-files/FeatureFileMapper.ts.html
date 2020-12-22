@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
                         <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">cucumber</a></li>
@@ -138,12 +138,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/gherkin/feature-files/FeatureFileMapper.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, Description, Name, ScenarioParameters, Tag, Tags } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { ArbitraryTag, Description, Name, ScenarioParameters, Tag, Tags } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { Background, Feature, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../model&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodes <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../nodes&apos;</span>;
-<span class="hljs-keyword">import</span> { FeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./FeatureFileMap&apos;</span>;
+<span class="hljs-keyword">import</span> { Background, Feature, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodes <span class="hljs-keyword">from</span> <span class="hljs-string">'../nodes'</span>;
+<span class="hljs-keyword">import</span> { FeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileMap'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
@@ -162,7 +162,7 @@
         <span class="hljs-built_in">document</span>.feature.children.forEach(<span class="hljs-function"><span class="hljs-params">scenarioDefinition</span> =&gt;</span> {
             <span class="hljs-keyword">switch</span> (scenarioDefinition.type) {
 
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;Background&apos;</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'Background'</span>:
 
                     background = <span class="hljs-keyword">new</span> Background(
                         <span class="hljs-keyword">new</span> FileSystemLocation(
@@ -179,7 +179,7 @@
 
                     <span class="hljs-keyword">break</span>;
 
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;Scenario&apos;</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'Scenario'</span>:
 
                     map.set(<span class="hljs-keyword">new</span> Scenario(
                         <span class="hljs-keyword">new</span> FileSystemLocation(
@@ -195,7 +195,7 @@
 
                     <span class="hljs-keyword">break</span>;
 
-                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;ScenarioOutline&apos;</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'ScenarioOutline'</span>:
 
                     <span class="hljs-keyword">const</span>
                         outline = scenarioDefinition <span class="hljs-keyword">as</span> nodes.ScenarioOutline,
@@ -229,14 +229,14 @@
                                         scenarioOutlineStep.keyword,
                                         interpolatedStepText,
                                         interpolatedStepArgument,
-                                    ].filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).join(<span class="hljs-string">&apos;&apos;</span>)),
+                                    ].filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).join(<span class="hljs-string">''</span>)),
                                 ));
                             });
 
                             <span class="hljs-keyword">const</span> scenarioParameters = variableCells
                                 .map(<span class="hljs-function">(<span class="hljs-params">cell, i</span>) =&gt;</span> ({ [cell.value]: valueCells[i].value }))
                                 .reduce(<span class="hljs-function">(<span class="hljs-params">acc, current</span>) =&gt;</span> {
-                                    <span class="hljs-comment">// tslint:disable-next-line:prefer-object-spread Esdoc doesn&apos;t understand object spreads</span>
+                                    <span class="hljs-comment">// tslint:disable-next-line:prefer-object-spread Esdoc doesn't understand object spreads</span>
                                     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign(
                                         {},
                                         acc,
@@ -310,7 +310,7 @@
                 step.keyword,
                 step.text,
                 <span class="hljs-built_in">this</span>.interpolateStepArgument(step.argument, variableCells, valueCells),
-            ].filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).join(<span class="hljs-string">&apos;&apos;</span>)),
+            ].filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).join(<span class="hljs-string">''</span>)),
         );
     }
 
@@ -326,18 +326,18 @@
 
     <span class="hljs-keyword">private</span> interpolateStepArgument(argument: nodes.StepArgument, <span class="hljs-attr">variableCells</span>: nodes.TableCell[], <span class="hljs-attr">valueCells</span>: nodes.TableCell[]): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> argument &amp;&amp; argument.type === <span class="hljs-string">&apos;DocString&apos;</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;\n&apos;</span> + <span class="hljs-built_in">this</span>.interpolate((argument <span class="hljs-keyword">as</span> nodes.DocString).content, variableCells, valueCells) ;
-            <span class="hljs-keyword">case</span> argument &amp;&amp; argument.type === <span class="hljs-string">&apos;DataTable&apos;</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;\n&apos;</span> + <span class="hljs-built_in">this</span>.interpolate(
+            <span class="hljs-keyword">case</span> argument &amp;&amp; argument.type === <span class="hljs-string">'DocString'</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'\n'</span> + <span class="hljs-built_in">this</span>.interpolate((argument <span class="hljs-keyword">as</span> nodes.DocString).content, variableCells, valueCells) ;
+            <span class="hljs-keyword">case</span> argument &amp;&amp; argument.type === <span class="hljs-string">'DataTable'</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'\n'</span> + <span class="hljs-built_in">this</span>.interpolate(
                     (argument <span class="hljs-keyword">as</span> nodes.DataTable).rows
-                        .map(<span class="hljs-function"><span class="hljs-params">row</span> =&gt;</span> <span class="hljs-string">`| <span class="hljs-subst">${ row.cells.map(cell =&gt; cell.value).join(<span class="hljs-string">&apos; | &apos;</span>) }</span> |`</span>)
-                        .join(<span class="hljs-string">&apos;\n&apos;</span>),
+                        .map(<span class="hljs-function"><span class="hljs-params">row</span> =&gt;</span> <span class="hljs-string">`| <span class="hljs-subst">${ row.cells.map(cell =&gt; cell.value).join(<span class="hljs-string">' | '</span>) }</span> |`</span>)
+                        .join(<span class="hljs-string">'\n'</span>),
                     variableCells,
                     valueCells,
                 );
             <span class="hljs-keyword">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;&apos;</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
         }
     }
 
@@ -345,10 +345,10 @@
     <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">interpolate</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, variableCells: nodes.TableCell[], valueCells: nodes.TableCell[]</span>)</span> {
         variableCells.forEach(<span class="hljs-function">(<span class="hljs-params">variableCell, n</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> valueCell = valueCells[n];
-            <span class="hljs-keyword">const</span> search = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&apos;&lt;&apos;</span> + variableCell.value + <span class="hljs-string">&apos;&gt;&apos;</span>, <span class="hljs-string">&apos;g&apos;</span>);
+            <span class="hljs-keyword">const</span> search = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'&lt;'</span> + variableCell.value + <span class="hljs-string">'&gt;'</span>, <span class="hljs-string">'g'</span>);
             <span class="hljs-comment">// JS Specific - dollar sign needs to be escaped with another dollar sign</span>
             <span class="hljs-comment">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter</span>
-            <span class="hljs-keyword">const</span> replacement = valueCell.value.replace(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&apos;\\$&apos;</span>, <span class="hljs-string">&apos;g&apos;</span>), <span class="hljs-string">&apos;$$$$&apos;</span>);
+            <span class="hljs-keyword">const</span> replacement = valueCell.value.replace(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'\\$'</span>, <span class="hljs-string">'g'</span>), <span class="hljs-string">'$$$$'</span>);
             text = text.replace(search, replacement);
         });
         <span class="hljs-keyword">return</span> text;

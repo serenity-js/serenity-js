@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="active">@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">rest</a></li>
@@ -131,23 +131,23 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/ChangeAPIConfig.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
-<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../actors&apos;</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actors'</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span> </span>*/</span>
-describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'ChangeApiConfig'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        originalUrl             = <span class="hljs-string">&apos;http://localhost/&apos;</span>,
-        newUrl                  = <span class="hljs-string">&apos;http://example.com/&apos;</span>,
-        originalUrlWithNewPort  = <span class="hljs-string">&apos;http://localhost:8080/&apos;</span>;
+        originalUrl             = <span class="hljs-string">'http://localhost/'</span>,
+        newUrl                  = <span class="hljs-string">'http://example.com/'</span>,
+        originalUrlWithNewPort  = <span class="hljs-string">'http://localhost:8080/'</span>;
 
-    describe(<span class="hljs-string">&apos;when changing the API URL&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when changing the API URL'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance({ <span class="hljs-attr">baseURL</span>: originalUrl });
 
@@ -162,17 +162,17 @@ describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span cla
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setUrlTo}</span></span>
          */</span>
-        it(<span class="hljs-string">&apos;changes the base URL used by any subsequent requests&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
-            Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
+        it(<span class="hljs-string">'changes the base URL used by any subsequent requests'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
+            Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
             Ensure.that(LastResponse.status(), equals(<span class="hljs-number">500</span>)),
 
             ChangeApiConfig.setUrlTo(newUrl),
-            Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
+            Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
             Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
         ));
     });
 
-    describe(<span class="hljs-string">&apos;when changing the API port&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when changing the API port'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance({ <span class="hljs-attr">baseURL</span>: originalUrl });
 
@@ -187,12 +187,12 @@ describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span cla
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
          */</span>
-        it(<span class="hljs-string">&apos;changes the base URL used by any subsequent requests&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
-            Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
+        it(<span class="hljs-string">'changes the base URL used by any subsequent requests'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
+            Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
             Ensure.that(LastResponse.status(), equals(<span class="hljs-number">500</span>)),
 
             ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
-            Send.a(GetRequest.to(<span class="hljs-string">&apos;/&apos;</span>)),
+            Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
             Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
         ));
 
@@ -200,17 +200,17 @@ describe(<span class="hljs-string">&apos;ChangeApiConfig&apos;</span>, <span cla
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
          */</span>
-        it(<span class="hljs-string">&apos;complains if the url has not been set prior to attempted port change&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
+        it(<span class="hljs-string">'complains if the url has not been set prior to attempted port change'</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
             ChangeApiConfig.setUrlTo(<span class="hljs-literal">undefined</span>),
             ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
-        )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Can&apos;t change the port of a baseURL that has not been set.`</span>));
+        )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Can't change the port of a baseURL that has not been set.`</span>));
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
          */</span>
-        it(<span class="hljs-string">&apos;complains if the url to be changed is invalid&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
-            ChangeApiConfig.setUrlTo(<span class="hljs-string">&apos;invalid&apos;</span>),
+        it(<span class="hljs-string">'complains if the url to be changed is invalid'</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
+            ChangeApiConfig.setUrlTo(<span class="hljs-string">'invalid'</span>),
             ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
         )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Could not change the API port`</span>));
     });

@@ -137,13 +137,13 @@
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="contributing">Contributing</h1>
 <p>Thanks for considering contributing your time and talent to help Serenity/JS move forward!</p>
-<p>You&apos;re awesome &#x1F60A;</p>
+<p>You're awesome 😊</p>
 <h2 id="the-serenity-js-handbook">The Serenity/JS Handbook</h2>
 <p>The Serenity/JS Handbook is an evolving project and there are parts of the book that you might find incomplete, or simply not written yet.</p>
 <p>You can contribute to the evolution of the Serenity/JS Handbook by:</p>
 <ul>
 <li>correcting any errors you find - via <i class="far fa-edit"></i> Edit on Github</li>
-<li>sharing your ideas for topics you&apos;d like to see covered - via <a href="https://github.com/serenity-js/serenity-js/issues/new">Github issues</a></li>
+<li>sharing your ideas for topics you'd like to see covered - via <a href="https://github.com/serenity-js/serenity-js/issues/new">Github issues</a></li>
 <li>sponsoring the Serenity/JS project - via <a href="https://github.com/sponsors/serenity-js">Github Sponsors</a></li>
 </ul>
 <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
@@ -155,43 +155,43 @@
 <ul>
 <li>Give the ticket a succinct yet descriptive <strong>title</strong> (i.e. Feature X is broken vs, Feature X is not triggered upon event Y)</li>
 <li>Mention the <strong>environment</strong> where you <a href="https://cartoontester.blogspot.com/2012/02/art-of-bug-reporting.html">spotted the bug</a>. What was the browser and operating system? What versions of <a href="/handbook/integration/runtime-dependencies.html">runtime dependencies</a> did you use?</li>
-<li>Provide a <strong>detailed description</strong> of what happened and don&#x2019;t leave any important facts out. That said, try not to include any extraneous details that could derail or distract the people trying to help reproduce the issue you found.</li>
+<li>Provide a <strong>detailed description</strong> of what happened and don’t leave any important facts out. That said, try not to include any extraneous details that could derail or distract the people trying to help reproduce the issue you found.</li>
 <li>Explain how the behaviour you observed is different from what you believe should have happened instead</li>
 <li>Provide supplementary information:<ul>
 <li>If you can reproduce and isolate the issue, use one of the Serenity/JS template repositories to create a minimalistic example that demonstrates the problem and attach a link to it to your ticket. While this requires a bit more work on your side, it will help us sort out the problem much quicker.</li>
-<li>If you can reproduce the issue, but can&apos;t isolate it, add the <a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code></a> to your Serenity/JS stage crew, run the test again to trigger the bug, and attach the <a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code>&apos;s</a>  log to your ticket</li>
-<li>If you can&apos;t reproduce the issue, please attach any additional information that might help us figure out what happened - screenshots and test execution logs are particularly useful. </li>
+<li>If you can reproduce the issue, but can't isolate it, add the <a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code></a> to your Serenity/JS stage crew, run the test again to trigger the bug, and attach the <a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code>'s</a>  log to your ticket</li>
+<li>If you can't reproduce the issue, please attach any additional information that might help us figure out what happened - screenshots and test execution logs are particularly useful. </li>
 </ul>
 </li>
 </ul>
 <h3 id="proposing-enhancements">Proposing enhancements</h3>
-<p>Serenity/JS is an open source project that&apos;s open to your contributions and <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull requests</a>.</p>
+<p>Serenity/JS is an open source project that's open to your contributions and <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull requests</a>.</p>
 <p>Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on <a href="https://github.com/serenity-js/serenity-js/issues/new">Serenity/JS Github</a> or <a href="https://gitter.im/serenity-js/Lobby">chatting with the development</a> team on Gitter.</p>
 <h4 id="working-with-the-serenity-js-code-base">Working with the Serenity/JS code base</h4>
-<p>If you have decided to raise a pull request, you&apos;ll need to:</p>
+<p>If you have decided to raise a pull request, you'll need to:</p>
 <ul>
 <li><a href="https://help.github.com/en/github/getting-started-with-github/fork-a-repo">Fork</a> the <a href="https://github.com/serenity-js/serenity-js">Serenity/JS mono-repo</a> to your Github account</li>
 <li><a href="https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository">Clone</a> your fork to your machine</li>
 <li>Make sure you have the <a href="/handbook/integration/runtime-dependencies.html">runtime dependencies</a> installed</li>
-<li>Install the Node.js dependencies by running <code>npm ci</code> in the project root. Serenity/JS uses <a href="https://github.com/lerna/lerna">Lerna.js</a> to manage the <code>@serenity-js/*</code> modules you&apos;ll find in the mono-repo, so it will take care of propagating the <code>npm ci</code> and other commands to the modules.</li>
+<li>Install the Node.js dependencies by running <code>npm ci</code> in the project root. Serenity/JS uses <a href="https://github.com/lerna/lerna">Lerna.js</a> to manage the <code>@serenity-js/*</code> modules you'll find in the mono-repo, so it will take care of propagating the <code>npm ci</code> and other commands to the modules.</li>
 <li>Make sure you can build the Serenity/JS project on your machine and all the unit- and integration tests are passing before introducing any changes</li>
 <li>Introduce the changes you wish to propose and update or introduce any unit- and integration tests that might be affected.</li>
 <li>Run the <strong>full local build</strong> before committing</li>
-<li>Commit your changes using <code>npm run commit</code> and describe them using the <a href="https://github.com/commitizen">Commitizen wizard</a>. Serenity/JS uses an automated release process so it&apos;s important that your commit messages follow the required format, which Commitizen can generate for you.</li>
+<li>Commit your changes using <code>npm run commit</code> and describe them using the <a href="https://github.com/commitizen">Commitizen wizard</a>. Serenity/JS uses an automated release process so it's important that your commit messages follow the required format, which Commitizen can generate for you.</li>
 </ul>
 <h4 id="project-structure">Project structure</h4>
-<p>In the project root directory, you&apos;ll find the following sub-directories</p>
+<p>In the project root directory, you'll find the following sub-directories</p>
 <ul>
 <li><code>packages</code> - this is where all the <a href="/modules">Serenity/JS modules</a> and their associated unit tests live</li>
-<li><code>integration</code> - this is the home of integration tests that exercise the Serenity/JS modules once they&apos;re transpiled from TypeScript to JavaScript</li>
-<li><code>examples</code> - when the changes you want to introduce pass their unit tests and integration tests, you can use the mini-projects located here for exploratory testing and experimentation. Those example projects simulate the framework&apos;s target execution environment, so you can use them to look at your changes from the perspective of people who&apos;ll be using them soon!  </li>
+<li><code>integration</code> - this is the home of integration tests that exercise the Serenity/JS modules once they're transpiled from TypeScript to JavaScript</li>
+<li><code>examples</code> - when the changes you want to introduce pass their unit tests and integration tests, you can use the mini-projects located here for exploratory testing and experimentation. Those example projects simulate the framework's target execution environment, so you can use them to look at your changes from the perspective of people who'll be using them soon!  </li>
 </ul>
 <h4 id="building-serenity-js">Building Serenity/JS</h4>
 <p>Serenity/JS <a href="https://github.com/serenity-js/serenity-js/blob/master/Makefile">Makefile</a> drives the entire build process. </p>
-<p>Here&apos;s a list of commands you&apos;ll need to build and test Serenity/JS locally:</p>
+<p>Here's a list of commands you'll need to build and test Serenity/JS locally:</p>
 <ul>
 <li><code>make clean</code> - removes any build and test artifacts.</li>
-<li><code>make clean test</code> - removes build artifacts and executes the unit tests located under <code>packages/*/spec</code> in memory using <a href="https://github.com/TypeStrong/ts-node">ts-node</a>. This is so that you don&apos;t have to transpile TypeScript to JavaScript before running the tests</li>
+<li><code>make clean test</code> - removes build artifacts and executes the unit tests located under <code>packages/*/spec</code> in memory using <a href="https://github.com/TypeStrong/ts-node">ts-node</a>. This is so that you don't have to transpile TypeScript to JavaScript before running the tests</li>
 <li><code>make clean verify</code> - removes build artifacts, runs the linter, transpiles TypeScript to JavaScript, runs the unit tests, runs the integration tests located under <code>integration/*/</code> </li>
 <li><code>make clean verify report site</code> - same as verify, but additionally generates test reports and produces the serenity-js.org website. This is the <strong>full local build</strong> you should run at least once before committing your changes and submitting the pull request.</li>
 </ul>

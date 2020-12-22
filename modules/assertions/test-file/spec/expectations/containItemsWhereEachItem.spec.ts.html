@@ -91,15 +91,15 @@
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="active">@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">assertions</a></li>
@@ -117,7 +117,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationMet.html">ExpectationMet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationNotMet.html">ExpectationNotMet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Predicate&lt;A,E&gt;">Predicate&lt;A,E&gt;</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Predicate<A,E>">Predicate&lt;A,E&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-and">and</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-contain">contain</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-containAtLeastOneItemThat">containAtLeastOneItemThat</a></span></span></li>
@@ -143,24 +143,24 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/expectations/containItemsWhereEachItem.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled, AssertionError, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { containItemsWhereEachItem, Ensure, equals, isGreaterThan } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, AssertionError, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { containItemsWhereEachItem, Ensure, equals, isGreaterThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src'</span>;
 
-describe(<span class="hljs-string">&apos;containItemsWhereEachItem&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'containItemsWhereEachItem'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{containItemsWhereEachItem}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows for the actor flow to continue when the &quot;actual&quot; includes only those items that meet the expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">return</span> actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows for the actor flow to continue when the "actual" includes only those items that meet the expectation'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
             Ensure.that([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ], containItemsWhereEachItem(isGreaterThan(<span class="hljs-number">0</span>))),
         );
     });
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{containItemsWhereEachItem}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; contains at least one item that does not meet the expectation&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'breaks the actor flow when "actual" contains at least one item that does not meet the expectation'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
             Ensure.that([ <span class="hljs-number">7</span>, <span class="hljs-number">7</span>, <span class="hljs-number">2</span> ], containItemsWhereEachItem(equals(<span class="hljs-number">7</span>))),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ 7, 7, 2 ] to contain items where each item does equal 7`</span>)
             .then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
@@ -170,8 +170,8 @@ describe(<span class="hljs-string">&apos;containItemsWhereEachItem&apos;</span>,
     });
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{containItemsWhereEachItem}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;breaks the actor flow when &quot;actual&quot; is an empty list&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">&apos;Astrid&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'breaks the actor flow when "actual" is an empty list'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
             Ensure.that([], containItemsWhereEachItem(equals(<span class="hljs-number">42</span>))),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ ] to contain items where each item does equal 42`</span>)
             .then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
@@ -181,8 +181,8 @@ describe(<span class="hljs-string">&apos;containItemsWhereEachItem&apos;</span>,
     });
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{atLeastOne}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;contributes to a human-readable description&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> numbers = <span class="hljs-function">() =&gt;</span> Question.about(<span class="hljs-string">&apos;list of numbers&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ]);
+    it(<span class="hljs-string">'contributes to a human-readable description'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> numbers = <span class="hljs-function">() =&gt;</span> Question.about(<span class="hljs-string">'list of numbers'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ]);
 
         expect(Ensure.that(numbers(), containItemsWhereEachItem(isGreaterThan(<span class="hljs-number">1</span>))).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that list of numbers does contain items where each item does have value greater than 1`</span>);

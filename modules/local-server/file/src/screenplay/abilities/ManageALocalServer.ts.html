@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="active">@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">local-server</a></li>
@@ -125,12 +125,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/ManageALocalServer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, ConfigurationError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;http&apos;</span>;
-<span class="hljs-keyword">import</span> withShutdownSupport = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;http-shutdown&apos;</span>);
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> https <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;https&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> net <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;net&apos;</span>;
-<span class="hljs-keyword">import</span> { getPortPromise } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;portfinder&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, ConfigurationError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">'http'</span>;
+<span class="hljs-keyword">import</span> withShutdownSupport = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http-shutdown'</span>);
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> https <span class="hljs-keyword">from</span> <span class="hljs-string">'https'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> net <span class="hljs-keyword">from</span> <span class="hljs-string">'net'</span>;
+<span class="hljs-keyword">import</span> { getPortPromise } <span class="hljs-keyword">from</span> <span class="hljs-string">'portfinder'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -138,20 +138,20 @@
  *  to manage a local [Node.js](https://nodejs.org/) server.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using a raw Node.js server&lt;/caption&gt;
- * import { Actor } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- * import { CallAnApi, GetRequest, Send } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;;
- * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from &apos;<span class="hljs-doctag">@serenity</span>-js/local-server&apos;
- * import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
+ * import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ * import { CallAnApi, GetRequest, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest';
+ * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from '<span class="hljs-doctag">@serenity</span>-js/local-server'
+ * import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
- * import axios from &apos;axios&apos;;
- * import * as http from &apos;http&apos;;
+ * import axios from 'axios';
+ * import * as http from 'http';
  *
  * const server = http.createServer(function (request, response) {
- *     response.setHeader(&apos;Connection&apos;, &apos;close&apos;);
- *     response.end(&apos;Hello!&apos;);
+ *     response.setHeader('Connection', 'close');
+ *     response.end('Hello!');
  * })
  *
- * const actor = Actor.named(&apos;Apisit&apos;).whoCan(
+ * const actor = Actor.named('Apisit').whoCan(
  *     ManageALocalServer.using(server),
  *     CallAnApi.using(axios.create()),
  * );
@@ -160,7 +160,7 @@
  *     StartLocalTestServer.onRandomPort(),
  *     Send.a(GetRequest.to(LocalServer.url())),
  *     Ensure.that(LastResponse.status(), equals(200)),
- *     Ensure.that(LastResponse.body&lt;string&gt;(), equals(&apos;Hello!&apos;)),
+ *     Ensure.that(LastResponse.body&lt;string&gt;(), equals('Hello!')),
  *     StopLocalTestServer.ifRunning(),
  * );
  *
@@ -181,7 +181,7 @@
      * <span class="hljs-doctag">@returns <span class="hljs-type">{ManageALocalServer}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">runningAHttpListener</span>(<span class="hljs-params">listener: RequestListener | net.Server</span>)</span> {
-        <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">&apos;function&apos;</span>
+        <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">'function'</span>
             ? http.createServer(listener)
             : listener;
 
@@ -199,7 +199,7 @@
      * <span class="hljs-doctag">@see </span>https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
      */</span>
     <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">runningAHttpsListener</span>(<span class="hljs-params">listener: RequestListener | https.Server, options: https.ServerOptions = {}</span>)</span> {
-        <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">&apos;function&apos;</span>
+        <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">'function'</span>
             ? https.createServer(options, listener)
             : listener;
 
@@ -208,7 +208,7 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Used to access the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}&apos;s {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}  to {<span class="hljs-doctag">@link </span>ManageALocalServer}
+     *  Used to access the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}'s {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}  to {<span class="hljs-doctag">@link </span>ManageALocalServer}
      *  from within the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} classes,
      *  such as {<span class="hljs-doctag">@link </span>StartLocalServer}.
      *
@@ -246,17 +246,17 @@
         <span class="hljs-keyword">return</span> getPortPromise({ <span class="hljs-attr">port</span>: preferredPort, <span class="hljs-attr">stopPort</span>: highestPort })
             .then(<span class="hljs-function"><span class="hljs-params">port</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
                 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">errorHandler</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span> &amp; {code: <span class="hljs-built_in">string</span>}</span>) </span>{
-                    <span class="hljs-keyword">if</span> (error.code === <span class="hljs-string">&apos;EADDRINUSE&apos;</span>) {
+                    <span class="hljs-keyword">if</span> (error.code === <span class="hljs-string">'EADDRINUSE'</span>) {
                         <span class="hljs-keyword">return</span> reject(<span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Server address is in use. Is there another server running on port <span class="hljs-subst">${ port }</span>?`</span>, error));
                     }
 
                     <span class="hljs-keyword">return</span> reject(error);
                 }
 
-                <span class="hljs-built_in">this</span>.server.once(<span class="hljs-string">&apos;error&apos;</span>, errorHandler);
+                <span class="hljs-built_in">this</span>.server.once(<span class="hljs-string">'error'</span>, errorHandler);
 
-                <span class="hljs-built_in">this</span>.server.listen(port, <span class="hljs-string">&apos;127.0.0.1&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                    <span class="hljs-built_in">this</span>.server.removeListener(<span class="hljs-string">&apos;error&apos;</span>, errorHandler);
+                <span class="hljs-built_in">this</span>.server.listen(port, <span class="hljs-string">'127.0.0.1'</span>, <span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-built_in">this</span>.server.removeListener(<span class="hljs-string">'error'</span>, errorHandler);
 
                     resolve();
                 });
@@ -277,7 +277,7 @@
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  A `requestListener` function that Node&apos;s
+ *  A `requestListener` function that Node's
  *  [`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener)
  *  or [`https.createServer`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)
  *  would accept.
@@ -317,8 +317,8 @@
  * <span class="hljs-doctag">@property <span class="hljs-type">{string}</span> <span class="hljs-variable">HTTPS</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-built_in">enum</span> SupportedProtocols {
-    HTTP = <span class="hljs-string">&apos;http&apos;</span>,
-    HTTPS = <span class="hljs-string">&apos;https&apos;</span>,
+    HTTP = <span class="hljs-string">'http'</span>,
+    HTTPS = <span class="hljs-string">'https'</span>,
 }
 </code></pre>
 

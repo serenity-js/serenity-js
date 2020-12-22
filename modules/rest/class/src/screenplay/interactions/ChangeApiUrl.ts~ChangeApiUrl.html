@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="active">@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">rest</a></li>
@@ -131,7 +131,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ChangeApiUrl} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest/lib/screenplay/interactions&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ChangeApiUrl} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -146,13 +146,13 @@
   
 
   <div class="description" data-ice="description"><p> Changes the base URL the <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span> <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span>
- has been configured with. Useful when we don&apos;t know the URL before the test is started,
+ has been configured with. Useful when we don't know the URL before the test is started,
  for example when the URL is dynamically generated and needs to be read from the website under test.</p>
 </div>
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> &#x2192; ChangeApiUrl</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> → ChangeApiUrl</div></div>
   
   
   
@@ -169,35 +169,35 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Changing the API URL</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/rest&apos;</span>
-<span class="hljs-keyword">import</span> { protractor, by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+<span class="hljs-keyword">import</span> { protractor, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;axios&apos;</span>;
+<span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Apisit&apos;</span>).whoCan(
+<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
     BrowseTheWeb.using(protractor.browser),
 
     <span class="hljs-comment">// Note: no default base URL is given when the axios instance is created</span>
     CallAnApi.using(axios.create()),
 );
 
-<span class="hljs-comment">// Let&apos;s imagine that the website under test displays</span>
-<span class="hljs-comment">// a dynamically generated API URL we&apos;d like to use</span>
+<span class="hljs-comment">// Let's imagine that the website under test displays</span>
+<span class="hljs-comment">// a dynamically generated API URL we'd like to use</span>
 <span class="hljs-keyword">const</span> ApiDetailsWidget = {
-    <span class="hljs-attr">Url</span>: Target.the(<span class="hljs-string">&apos;API URL&apos;</span>).located(by.id(<span class="hljs-string">&apos;api-url&apos;</span>)),
+    <span class="hljs-attr">Url</span>: Target.the(<span class="hljs-string">'API URL'</span>).located(by.id(<span class="hljs-string">'api-url'</span>)),
 }
 
 actor.attemptsTo(
-    Navigate.to(<span class="hljs-string">&apos;/profile&apos;</span>),
+    Navigate.to(<span class="hljs-string">'/profile'</span>),
 
     <span class="hljs-comment">// We change the API URL based on the text displayed in the widget</span>
     <span class="hljs-comment">// (although we could change it to some arbitrary string too).</span>
     ChangeApiUrl.to(Text.of(ApiDetailsWidget.Url)),
 
     <span class="hljs-comment">// Any subsequent request will be sent to the newly set URL</span>
-    Send.a(GetRequest.to(<span class="hljs-string">&apos;/projects&apos;</span>)),
+    Send.a(GetRequest.to(<span class="hljs-string">'/projects'</span>)),
     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
 );</code></pre>
     </div>

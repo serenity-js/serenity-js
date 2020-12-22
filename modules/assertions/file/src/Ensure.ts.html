@@ -91,15 +91,15 @@
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="active">@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">assertions</a></li>
@@ -117,7 +117,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationMet.html">ExpectationMet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationNotMet.html">ExpectationNotMet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Predicate&lt;A,E&gt;">Predicate&lt;A,E&gt;</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Predicate<A,E>">Predicate&lt;A,E&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-and">and</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-contain">contain</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-containAtLeastOneItemThat">containAtLeastOneItemThat</a></span></span></li>
@@ -143,14 +143,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/Ensure.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, AssertionError, CollectsArtifacts, Interaction, LogicError, RuntimeError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { inspected } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io/inspected&apos;</span>;
-<span class="hljs-keyword">import</span> { Artifact, AssertionReport, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { match } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, AssertionError, CollectsArtifacts, Interaction, LogicError, RuntimeError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { inspected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io/inspected'</span>;
+<span class="hljs-keyword">import</span> { Artifact, AssertionReport, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { match } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Expectation&apos;</span>;
-<span class="hljs-keyword">import</span> { ExpectationMet, ExpectationNotMet, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./outcomes&apos;</span>;
+<span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
+<span class="hljs-keyword">import</span> { ExpectationMet, ExpectationNotMet, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'./outcomes'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -160,37 +160,37 @@
  *  state and ensures that its value meets the {<span class="hljs-doctag">@link </span>Expectation}s provided.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with static values&lt;/caption&gt;
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
- *  const actor = actorCalled(&apos;Erica&apos;);
+ *  const actor = actorCalled('Erica');
  *
  *  actor.attemptsTo(
- *    Ensure.that(&apos;Hello world!&apos;, equals(&apos;Hello world!&apos;))
+ *    Ensure.that('Hello world!', equals('Hello world!'))
  *  );
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Composing expectations with `and`&lt;/caption&gt;
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { and, Ensure, startsWith, endsWith } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { and, Ensure, startsWith, endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
- *  const actor = actorCalled(&apos;Erica&apos;);
+ *  const actor = actorCalled('Erica');
  *
  *  actor.attemptsTo(
- *    Ensure.that(&apos;Hello world!&apos;, and(startsWith(&apos;Hello&apos;), endsWith(&apos;!&apos;))
+ *    Ensure.that('Hello world!', and(startsWith('Hello'), endsWith('!'))
  *  );
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Overriding the type of Error thrown upon assertion failure&lt;/caption&gt;
- *  import { actorCalled, TestCompromisedError } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { and, Ensure, startsWith, endsWith } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
- *  import { CallAnApi, GetRequest, LastResponse, Send } from &apos;<span class="hljs-doctag">@serenity</span>-js/rest&apos;;
+ *  import { actorCalled, TestCompromisedError } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { and, Ensure, startsWith, endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest';
  *
- *  const actor = actorCalled(&apos;Erica&apos;)
- *      .whoCan(CallAnApi.at(&apos;https://example.com&apos;));
+ *  const actor = actorCalled('Erica')
+ *      .whoCan(CallAnApi.at('https://example.com'));
  *
  *  actor.attemptsTo(
- *    Send.a(GetRequest.to(&apos;/api/health&apos;)),
+ *    Send.a(GetRequest.to('/api/health')),
  *    Ensure.that(LastResponse.status(), equals(200))
- *      .otherwiseFailWith(TestCompromisedError, &apos;The server is down, please cheer it up!&apos;)
+ *      .otherwiseFailWith(TestCompromisedError, 'The server is down, please cheer it up!')
  *  );
  *
  * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>

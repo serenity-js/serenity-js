@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -177,32 +177,32 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/BrowseTheWeb.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">// tslint:disable:member-ordering</span>
 
-<span class="hljs-keyword">import</span> { Ability, ConfigurationError, LogicError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { AlertPromise, Capabilities, Navigation, Options, WebElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;selenium-webdriver&apos;</span>;
-<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../promiseOf&apos;</span>;
+<span class="hljs-keyword">import</span> { Ability, ConfigurationError, LogicError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { AlertPromise, Capabilities, Navigation, Options, WebElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
+<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../promiseOf'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} that enables the {<span class="hljs-doctag">@link </span>Actor} to interact with web front-ends using {<span class="hljs-doctag">@link </span>protractor}.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using the protractor.browser&lt;/caption&gt;
- *  import { Actor } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Navigate, Target } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;
- *  import { Ensure, equals } from &apos;<span class="hljs-doctag">@serenity</span>-js/assertions&apos;;
- *  import { by, protractor } from &apos;protractor&apos;;
+ *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Navigate, Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor'
+ *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ *  import { by, protractor } from 'protractor';
  *
- *  const actor = Actor.named(&apos;Wendy&apos;).whoCan(
+ *  const actor = Actor.named('Wendy').whoCan(
  *      BrowseTheWeb.using(protractor.browser),
  *  );
  *
  *  const HomePage = {
- *      Title: Target.the(&apos;title&apos;).located(by.css(&apos;h1&apos;)),
+ *      Title: Target.the('title').located(by.css('h1')),
  *  };
  *
  *  actor.attemptsTo(
  *      Navigate.to(`https://serenity-js.org`),
- *      Ensure.that(Text.of(HomePage.Title), equals(&apos;Serenity/JS&apos;)),
+ *      Ensure.that(Text.of(HomePage.Title), equals('Serenity/JS')),
  *  );
  *
  * <span class="hljs-doctag">@see </span>https://www.protractortest.org/
@@ -236,7 +236,7 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Used to access the Actor&apos;s ability to {<span class="hljs-doctag">@link </span>BrowseTheWeb} from within the {<span class="hljs-doctag">@link </span>Interaction} classes,
+     *  Used to access the Actor's ability to {<span class="hljs-doctag">@link </span>BrowseTheWeb} from within the {<span class="hljs-doctag">@link </span>Interaction} classes,
      *  such as {<span class="hljs-doctag">@link </span>Navigate}.
      *
      * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
@@ -307,7 +307,7 @@
         <span class="hljs-comment">/*
         this.browser.manage().deleteCookie();
         this.browser.manage().deleteAllCookies();
-        return this.browser.manage().getCookie(&apos;asd&apos;);
+        return this.browser.manage().getCookie('asd');
          */</span>
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.manage();
@@ -362,7 +362,7 @@
      * <span class="hljs-doctag">@desc</span>
      *  Switches the focus from any [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame)
      *  or [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) back to default content,
-     *  a.k.a. &quot;the main window&quot;.
+     *  a.k.a. "the main window".
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      */</span>
@@ -380,7 +380,7 @@
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      */</span>
     switchToWindow(nameOrHandleOrIndex: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> nameOrHandleOrIndex === <span class="hljs-string">&apos;string&apos;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> nameOrHandleOrIndex === <span class="hljs-string">'string'</span>
             ? <span class="hljs-built_in">this</span>.switchToWindowByNameOrHandle(nameOrHandleOrIndex)
             : <span class="hljs-built_in">this</span>.switchToWindowByIndex(nameOrHandleOrIndex);
     }
@@ -402,7 +402,7 @@
             <span class="hljs-keyword">const</span> handle = handles[index];
 
             <span class="hljs-keyword">if</span> (! handle) {
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Window <span class="hljs-subst">${ index }</span> doesn&apos;t exist`</span>)
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Window <span class="hljs-subst">${ index }</span> doesn't exist`</span>)
             }
 
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.switchTo().window(handle);
@@ -504,7 +504,7 @@
      * - you need to switch to a non-Angular app during your tests (i.e. SSO login gateway)
      * - your app continuously polls an API with $timeout
      *
-     * If you&apos;re not testing an Angular app, it&apos;s better to disable Angular synchronisation completely
+     * If you're not testing an Angular app, it's better to disable Angular synchronisation completely
      * in protractor configuration:
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;protractor.conf.js&lt;/caption&gt;
@@ -537,7 +537,7 @@
      *  to the types previously mentioned.
      *
      *  The script may refer to any variables accessible from the current window.
-     *  Furthermore, the script will execute in the window&apos;s context, thus `document` may be used to refer
+     *  Furthermore, the script will execute in the window's context, thus `document` may be used to refer
      *  to the current document. Any local variables will not be available once the script has finished executing,
      *  though global variables will persist.
      *
@@ -553,7 +553,7 @@
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Perform a sleep in the browser under test&lt;/caption&gt;
      * BrowseTheWeb.as(actor).executeAsyncScript(`
      *   return arguments[0].tagName;
-     * `, Target.the(&apos;header&apos;).located(by.css(h1))
+     * `, Target.the('header').located(by.css(h1))
      *
      * <span class="hljs-doctag">@see </span>https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeScript
      * <span class="hljs-doctag">@see </span>https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeScript-java.lang.String-java.lang.Object...-
@@ -595,7 +595,7 @@
      *  and thus may be referenced with `arguments[arguments.length - 1]`.
      *
      *  The following steps will be taken for resolving this functions return value against
-     *  the first argument to the script&apos;s callback function:
+     *  the first argument to the script's callback function:
      *
      *  - For a HTML element, the value will resolve to a WebElement
      *  - Null and undefined return values will resolve to null
@@ -615,7 +615,7 @@
      * BrowseTheWeb.as(actor).executeAsyncScript(`
      *   var callback = arguments[arguments.length - 1];
      *
-     *   callback(&apos;some return value&apos;)
+     *   callback('some return value')
      * `).then(value =&gt; doSomethingWithThe(value))
      *
      * <span class="hljs-doctag">@see </span>https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeAsyncScript
@@ -737,7 +737,7 @@
      *  exports.config = {
      *    params: {
      *        login: {
-     *            username: &apos;jane<span class="hljs-doctag">@example</span>.org&apos;
+     *            username: 'jane<span class="hljs-doctag">@example</span>.org'
      *            password: process.env.PASSWORD
      *        }
      *    }
@@ -745,10 +745,10 @@
      * }
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving config param by name&lt;/caption&gt;
-     *  BrowseTheWeb.as(actor).param(&apos;login&apos;) // returns object with username and password
+     *  BrowseTheWeb.as(actor).param('login') // returns object with username and password
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving config param by path&lt;/caption&gt;
-     *  BrowseTheWeb.as(actor).param(&apos;login.username&apos;) // returns string &apos;jane<span class="hljs-doctag">@example</span>.org&apos;
+     *  BrowseTheWeb.as(actor).param('login.username') // returns string 'jane<span class="hljs-doctag">@example</span>.org'
      *
      * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">path</span></span>
      *  Either a name or a dot-delimited path to the param.
@@ -759,10 +759,10 @@
      *  Throws a `ConfigurationError` if the parameter is `undefined`
      */</span>
     param&lt;T = <span class="hljs-built_in">any</span>&gt;(path: <span class="hljs-built_in">string</span>): T {
-        <span class="hljs-keyword">return</span> path.split(<span class="hljs-string">&apos;.&apos;</span>)
+        <span class="hljs-keyword">return</span> path.split(<span class="hljs-string">'.'</span>)
             .reduce(<span class="hljs-function">(<span class="hljs-params">config, segment</span>) =&gt;</span> {
                 <span class="hljs-keyword">if</span> (! (config &amp;&amp; config[segment] !== <span class="hljs-literal">undefined</span>)) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Protractor param &apos;<span class="hljs-subst">${ path }</span>&apos; is undefined`</span>);
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Protractor param '<span class="hljs-subst">${ path }</span>' is undefined`</span>);
                 }
 
                 <span class="hljs-keyword">return</span> config[segment];

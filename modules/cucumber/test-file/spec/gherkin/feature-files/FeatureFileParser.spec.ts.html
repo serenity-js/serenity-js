@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
                         <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">cucumber</a></li>
@@ -138,48 +138,48 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/gherkin/feature-files/FeatureFileParser.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> Gherkin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;gherkin&apos;</span>); <span class="hljs-comment">// ts-node:disable-line:no-var-requires     No type definitions available</span>
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> Gherkin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gherkin'</span>); <span class="hljs-comment">// ts-node:disable-line:no-var-requires     No type definitions available</span>
 
-<span class="hljs-keyword">import</span> { FeatureFileParser } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src/gherkin&apos;</span>;
+<span class="hljs-keyword">import</span> { FeatureFileParser } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/gherkin'</span>;
 
-describe(<span class="hljs-string">&apos;FeatureFileParser&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'FeatureFileParser'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        sampleFeature = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;fixtures&apos;</span>)).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;sample.feature&apos;</span>)),
-        brokenFeature = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;fixtures&apos;</span>)).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;broken.feature&apos;</span>));
+        sampleFeature = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'fixtures'</span>)).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'sample.feature'</span>)),
+        brokenFeature = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'fixtures'</span>)).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'broken.feature'</span>));
 
-    it(<span class="hljs-string">&apos;loads a GherkinDocument from a file&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'loads a GherkinDocument from a file'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser());
 
         <span class="hljs-keyword">return</span> loader.parse(sampleFeature)
             .then(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> {
                 expect(<span class="hljs-built_in">document</span>).to.deep.equal({
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;GherkinDocument&apos;</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'GherkinDocument'</span>,
                         <span class="hljs-attr">feature</span>: {
-                            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;Feature&apos;</span>,
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">'Feature'</span>,
                             <span class="hljs-attr">tags</span>: [],
                             <span class="hljs-attr">location</span>: { <span class="hljs-attr">line</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">1</span> },
-                            <span class="hljs-attr">language</span>: <span class="hljs-string">&apos;en&apos;</span>,
-                            <span class="hljs-attr">keyword</span>: <span class="hljs-string">&apos;Feature&apos;</span>,
-                            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Sample feature&apos;</span>,
-                            <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;  Description of the feature&apos;</span>,
+                            <span class="hljs-attr">language</span>: <span class="hljs-string">'en'</span>,
+                            <span class="hljs-attr">keyword</span>: <span class="hljs-string">'Feature'</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">'Sample feature'</span>,
+                            <span class="hljs-attr">description</span>: <span class="hljs-string">'  Description of the feature'</span>,
                             <span class="hljs-attr">children</span>: [ {
-                                <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;Scenario&apos;</span>,
+                                <span class="hljs-attr">type</span>: <span class="hljs-string">'Scenario'</span>,
                                 <span class="hljs-attr">tags</span>: [],
                                 <span class="hljs-attr">location</span>: { <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">3</span> },
-                                <span class="hljs-attr">keyword</span>: <span class="hljs-string">&apos;Scenario&apos;</span>,
-                                <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Sample scenario&apos;</span>,
-                                <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;    Description of a scenario&apos;</span>,
+                                <span class="hljs-attr">keyword</span>: <span class="hljs-string">'Scenario'</span>,
+                                <span class="hljs-attr">name</span>: <span class="hljs-string">'Sample scenario'</span>,
+                                <span class="hljs-attr">description</span>: <span class="hljs-string">'    Description of a scenario'</span>,
                                 <span class="hljs-attr">steps</span>: [ {
                                     <span class="hljs-attr">argument</span>: <span class="hljs-literal">undefined</span>,
-                                    <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;Step&apos;</span>,
+                                    <span class="hljs-attr">type</span>: <span class="hljs-string">'Step'</span>,
                                     <span class="hljs-attr">location</span>: { <span class="hljs-attr">line</span>: <span class="hljs-number">9</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">5</span> },
-                                    <span class="hljs-attr">keyword</span>: <span class="hljs-string">&apos;Given &apos;</span>,
-                                    <span class="hljs-attr">text</span>: <span class="hljs-string">&apos;some step&apos;</span>,
+                                    <span class="hljs-attr">keyword</span>: <span class="hljs-string">'Given '</span>,
+                                    <span class="hljs-attr">text</span>: <span class="hljs-string">'some step'</span>,
                                 } ],
                             } ],
                         },
@@ -189,18 +189,18 @@ describe(<span class="hljs-string">&apos;FeatureFileParser&apos;</span>, <span c
             });
     });
 
-    it(<span class="hljs-string">&apos;complains if the feature file does not exist&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'complains if the feature file does not exist'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser());
 
-        <span class="hljs-keyword">return</span> expect(loader.parse(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&apos;path/to/invalid.feature&apos;</span>)))
-            .to.be.rejectedWith(<span class="hljs-string">&apos;Could not read feature file at &quot;path/to/invalid.feature&quot;&apos;</span>);
+        <span class="hljs-keyword">return</span> expect(loader.parse(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'path/to/invalid.feature'</span>)))
+            .to.be.rejectedWith(<span class="hljs-string">'Could not read feature file at "path/to/invalid.feature"'</span>);
     });
 
-    it(<span class="hljs-string">&apos;complains if the feature file could not be parsed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'complains if the feature file could not be parsed'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser());
 
         <span class="hljs-keyword">return</span> expect(loader.parse(brokenFeature))
-            .to.be.rejectedWith(<span class="hljs-string">&apos;Could not parse feature file&apos;</span>);
+            .to.be.rejectedWith(<span class="hljs-string">'Could not parse feature file'</span>);
     });
 });
 </code></pre>

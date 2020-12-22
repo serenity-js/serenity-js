@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="active">@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">rest</a></li>
@@ -131,51 +131,51 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/model/PostRequest.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
-<span class="hljs-keyword">import</span> { PostRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/model&apos;</span>;
-<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../actors&apos;</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../expect&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<span class="hljs-keyword">import</span> { PostRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
+<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actors'</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{PostRequest}</span> </span>*/</span>
-describe(<span class="hljs-string">&apos;PostRequest&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'PostRequest'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> { actor } = actorUsingAMockedAxiosInstance();
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{PostRequest.to}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;represents an Axios request&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PostRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>)))
+    it(<span class="hljs-string">'represents an Axios request'</span>, <span class="hljs-function">() =&gt;</span>
+        expect(actor.answer(PostRequest.to(<span class="hljs-string">'/products/2'</span>)))
             .to.eventually.deep.equal({
-                <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;POST&apos;</span>,
-                <span class="hljs-attr">url</span>: <span class="hljs-string">&apos;/products/2&apos;</span>,
+                <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+                <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
             }));
 
-    it(<span class="hljs-string">&apos;can have a request body&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PostRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).with({ <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;apple&apos;</span> })))
+    it(<span class="hljs-string">'can have a request body'</span>, <span class="hljs-function">() =&gt;</span>
+        expect(actor.answer(PostRequest.to(<span class="hljs-string">'/products/2'</span>).with({ <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> })))
             .to.eventually.deep.equal({
-            <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;POST&apos;</span>,
-            <span class="hljs-attr">url</span>: <span class="hljs-string">&apos;/products/2&apos;</span>,
-            <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;apple&apos;</span> },
+            <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+            <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
+            <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> },
         }));
 
-    it(<span class="hljs-string">&apos;allows for additional request properties to be specified&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(PostRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).with({ <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;apple&apos;</span> }).using({
+    it(<span class="hljs-string">'allows for additional request properties to be specified'</span>, <span class="hljs-function">() =&gt;</span>
+        expect(actor.answer(PostRequest.to(<span class="hljs-string">'/products/2'</span>).with({ <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> }).using({
                 <span class="hljs-attr">headers</span>: {
-                    <span class="hljs-attr">Accept</span>: <span class="hljs-string">&apos;application/json&apos;</span>,
+                    <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
                 },
             })))
             .to.eventually.deep.equal({
-                <span class="hljs-attr">method</span>: <span class="hljs-string">&apos;POST&apos;</span>,
-                <span class="hljs-attr">url</span>: <span class="hljs-string">&apos;/products/2&apos;</span>,
+                <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+                <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
                 <span class="hljs-attr">headers</span>: {
-                    <span class="hljs-attr">Accept</span>: <span class="hljs-string">&apos;application/json&apos;</span>,
+                    <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
                 },
-                <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;apple&apos;</span> },
+                <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> },
             }));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{PostRequest#toString}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(PostRequest.to(<span class="hljs-string">&apos;/products/2&apos;</span>).toString())
-            .to.equal(<span class="hljs-string">`a POST request to &apos;/products/2&apos;`</span>);
+    it(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+        expect(PostRequest.to(<span class="hljs-string">'/products/2'</span>).toString())
+            .to.equal(<span class="hljs-string">`a POST request to '/products/2'`</span>);
     });
 });
 </code></pre>

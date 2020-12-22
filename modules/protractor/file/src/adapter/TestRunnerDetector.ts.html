@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,13 +175,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/TestRunnerDetector.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileFinder, ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { isPlainObject } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;is-plain-object&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;path&apos;</span>
-<span class="hljs-keyword">import</span> { Config } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;deepmerge&apos;</span>);
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileFinder, ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { isPlainObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'is-plain-object'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>
+<span class="hljs-keyword">import</span> { Config } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">'deepmerge'</span>);
 
-<span class="hljs-keyword">import</span> { TestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./runners/TestRunner&apos;</span>;
+<span class="hljs-keyword">import</span> { TestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'./runners/TestRunner'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
@@ -193,9 +193,9 @@
 
     <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">protractorCliOptions</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> [
-            <span class="hljs-string">&apos;cucumberOpts&apos;</span>,
-            <span class="hljs-string">&apos;jasmineNodeOpts&apos;</span>,
-            <span class="hljs-string">&apos;mochaOpts&apos;</span>,
+            <span class="hljs-string">'cucumberOpts'</span>,
+            <span class="hljs-string">'jasmineNodeOpts'</span>,
+            <span class="hljs-string">'mochaOpts'</span>,
         ];
     }
 
@@ -212,7 +212,7 @@
     <span class="hljs-comment">//      )</span>
     runnerFor(config: Config): TestRunner {
 
-        <span class="hljs-comment">// todo: simplify and introduce a config object with &quot;as(String)&quot;, &quot;as(Object)&quot;, etc. to avoid issues with undefined</span>
+        <span class="hljs-comment">// todo: simplify and introduce a config object with "as(String)", "as(Object)", etc. to avoid issues with undefined</span>
         <span class="hljs-comment">// todo: and config merge too, using on deepmerge</span>
 
         <span class="hljs-keyword">const</span>
@@ -222,11 +222,11 @@
                 config.serenity.runner === <span class="hljs-keyword">type</span>;
 
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">&apos;cucumber&apos;</span>):
+            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">'cucumber'</span>):
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useCucumber(config);
-            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">&apos;jasmine&apos;</span>):
+            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">'jasmine'</span>):
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useJasmine(config);
-            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">&apos;mocha&apos;</span>):
+            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">'mocha'</span>):
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useMocha(config);
             <span class="hljs-keyword">case</span> !! config.cucumberOpts:
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useCucumber(config);
@@ -239,11 +239,11 @@
     }
 
     <span class="hljs-keyword">private</span> useCucumber(config: Config): TestRunner {
-        <span class="hljs-keyword">const</span> { CucumberTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./runners/CucumberTestRunner&apos;</span>);
+        <span class="hljs-keyword">const</span> { CucumberTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./runners/CucumberTestRunner'</span>);
 
         <span class="hljs-keyword">const</span> correctedConfig = <span class="hljs-built_in">this</span>.withTransformedField(
             config.cucumberOpts || {},
-            <span class="hljs-string">&apos;require&apos;</span>,
+            <span class="hljs-string">'require'</span>,
             <span class="hljs-function"><span class="hljs-params">requires</span> =&gt;</span> <span class="hljs-built_in">this</span>.asAbsolutePaths(requires),
         );
 
@@ -254,12 +254,12 @@
     }
 
     <span class="hljs-keyword">private</span> useJasmine(config: Config): TestRunner {
-        <span class="hljs-keyword">const</span> { JasmineTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./runners/JasmineTestRunner&apos;</span>);
+        <span class="hljs-keyword">const</span> { JasmineTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./runners/JasmineTestRunner'</span>);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> JasmineTestRunner(config.jasmineNodeOpts, <span class="hljs-built_in">this</span>.loader);
     }
 
     <span class="hljs-keyword">private</span> useMocha(config: Config): TestRunner {
-        <span class="hljs-keyword">const</span> { MochaTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./runners/MochaTestRunner&apos;</span>);
+        <span class="hljs-keyword">const</span> { MochaTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./runners/MochaTestRunner'</span>);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MochaTestRunner(config.mochaOpts, <span class="hljs-built_in">this</span>.loader);
     }
 

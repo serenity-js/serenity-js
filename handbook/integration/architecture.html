@@ -153,14 +153,14 @@
 
 <h2 id="serenity-js-modules">Serenity/JS Modules</h2>
 <p>Serenity/JS Framework is a collection of <a href="/modules">modules</a> you compose together to support the type of testing you want to do.
-If you wish, you could also extend Serenity/JS to use a different integration library or interact with an interface that the framework itself doesn&apos;t support yet.</p>
+If you wish, you could also extend Serenity/JS to use a different integration library or interact with an interface that the framework itself doesn't support yet.</p>
 <figure>
 <img src="/images/architecture.png" alt="Serenity/JS modules">
     <figcaption><span>Serenity/JS Modules</span></figcaption>
 </figure>
 
 <h3 id="the-core">The Core</h3>
-<p>No matter the type of testing you&apos;d like Serenity/JS to help you with, you&apos;ll always need the <a href="/modules/core"><code>@serenity-js/core</code></a> module
+<p>No matter the type of testing you'd like Serenity/JS to help you with, you'll always need the <a href="/modules/core"><code>@serenity-js/core</code></a> module
 in your project.</p>
 <p>The <code>core</code> is what provides a channel for other modules to communicate, and what gives you the building blocks of the <a href="/handbook/thinking-in-serenity-js/screenplay-pattern.html">Screenplay Pattern</a>.</p>
 <h3 id="test-runner-adapters">Test runner adapters</h3>
@@ -171,10 +171,10 @@ in your project.</p>
 <li>all major versions of Cucumber.js - <a href="/modules/cucumber"><code>@serenity-js/cucumber</code></a></li>
 </ul>
 <h3 id="testing-web-interfaces">Testing web interfaces</h3>
-<p>If you&apos;d like to test a web interface, you&apos;ll need the <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> module
+<p>If you'd like to test a web interface, you'll need the <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> module
 in addition to one of the test runner adapters mentioned above.</p>
-<p>Protractor manages the web browsers used in your tests but delegates the task of actually <em>running</em> the tests to <a href="https://github.com/angular/protractor/blob/master/docs/frameworks.md">&quot;Protractor Frameworks&quot;</a>. While in the past Protractor used to ship with adapters for several different test runners, more recently the project has limited its support to Jasmine and relies on community-supported modules to integrate the tool with other test runners.</p>
-<p>Since <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> acts as a &quot;Protractor Framework&quot; it replaces the default &quot;Jasmine Framework&quot; and takes on the responsibility of delegating the task of running the test either to Jasmine, Cucumber.js, or another test runner Serenity/JS might support in the future.</p>
+<p>Protractor manages the web browsers used in your tests but delegates the task of actually <em>running</em> the tests to <a href="https://github.com/angular/protractor/blob/master/docs/frameworks.md">"Protractor Frameworks"</a>. While in the past Protractor used to ship with adapters for several different test runners, more recently the project has limited its support to Jasmine and relies on community-supported modules to integrate the tool with other test runners.</p>
+<p>Since <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> acts as a "Protractor Framework" it replaces the default "Jasmine Framework" and takes on the responsibility of delegating the task of running the test either to Jasmine, Cucumber.js, or another test runner Serenity/JS might support in the future.</p>
 <p>This means that in order to run a web-based test you need two Serenity/JS modules - <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> and either <a href="/modules/jasmine"><code>@serenity-js/jasmine</code></a> or <a href="/modules/cucumber"><code>@serenity-js/cucumber</code></a>.</p>
 <h3 id="testing-rest-interfaces">Testing REST interfaces</h3>
 <p>The <a href="/modules/rest"><code>@serenity-js/rest</code></a> module provides a library of Screenplay Pattern-style interactions, questions and abilities to let your test actors interact with REST and HTTP APIs.</p>
@@ -190,7 +190,7 @@ in addition to one of the test runner adapters mentioned above.</p>
 <p>The <a href="/modules/local-server"><code>@serenity-js/local-server</code></a> provides adapters for popular HTTP and HTTPs Node.js servers you can use to manage their lifecycle in your tests.</p>
 <h3 id="what-modules-should-i-choose-">What modules should I choose?</h3>
 <p>That depends on the type of tests you want to write and the lower-level tools you want to integrate.</p>
-<p>For example, if you wanted to create a test suite that exercised a REST API and didn&apos;t need to touch the UI, you&apos;d use:</p>
+<p>For example, if you wanted to create a test suite that exercised a REST API and didn't need to touch the UI, you'd use:</p>
 <ul>
 <li><a href="/modules/core"><code>@serenity-js/core</code></a></li>
 <li><a href="/modules/assertions"><code>@serenity-js/assertions</code></a></li>

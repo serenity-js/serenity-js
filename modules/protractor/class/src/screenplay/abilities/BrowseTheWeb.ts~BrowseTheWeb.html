@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,7 +175,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {BrowseTheWeb} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor/lib/screenplay/abilities&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {BrowseTheWeb} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/abilities'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -211,22 +211,22 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using the protractor.browser</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
- <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
+ <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">&apos;Wendy&apos;</span>).whoCan(
+ <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Wendy'</span>).whoCan(
      BrowseTheWeb.using(protractor.browser),
  );
 
  <span class="hljs-keyword">const</span> HomePage = {
-     <span class="hljs-attr">Title</span>: Target.the(<span class="hljs-string">&apos;title&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>)),
+     <span class="hljs-attr">Title</span>: Target.the(<span class="hljs-string">'title'</span>).located(by.css(<span class="hljs-string">'h1'</span>)),
  };
 
  actor.attemptsTo(
      Navigate.to(<span class="hljs-string">`https://serenity-js.org`</span>),
-     Ensure.that(Text.of(HomePage.Title), equals(<span class="hljs-string">&apos;Serenity/JS&apos;</span>)),
+     Ensure.that(Text.of(HomePage.Title), equals(<span class="hljs-string">'Serenity/JS'</span>)),
  );</code></pre>
     </div>
 </div>
@@ -264,7 +264,7 @@
       <div>
         
         
-        <div data-ice="description"><p> Used to access the Actor&apos;s ability to <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span> from within the <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> classes,
+        <div data-ice="description"><p> Used to access the Actor's ability to <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span> from within the <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> classes,
  such as <span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span>.</p>
 </div>
       </div>
@@ -1169,7 +1169,7 @@ tasks to complete before interacting with the browser.</p>
   
   
   
-  <div data-ice="description"><p> Used to access the Actor&apos;s ability to <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span> from within the <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> classes,
+  <div data-ice="description"><p> Used to access the Actor's ability to <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span> from within the <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> classes,
  such as <span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span>.</p>
 </div>
 
@@ -1563,7 +1563,7 @@ tasks to complete before interacting with the browser.</p>
 <li>you need to switch to a non-Angular app during your tests (i.e. SSO login gateway)</li>
 <li>your app continuously polls an API with $timeout</li>
 </ul>
-<p>If you&apos;re not testing an Angular app, it&apos;s better to disable Angular synchronisation completely
+<p>If you're not testing an Angular app, it's better to disable Angular synchronisation completely
 in protractor configuration:</p>
 </div>
 
@@ -1662,7 +1662,7 @@ in protractor configuration:</p>
 <p> This callback will always be injected into the executed function as the last argument,
  and thus may be referenced with <code>arguments[arguments.length - 1]</code>.</p>
 <p> The following steps will be taken for resolving this functions return value against
- the first argument to the script&apos;s callback function:</p>
+ the first argument to the script's callback function:</p>
 <ul>
 <li>For a HTML element, the value will resolve to a WebElement</li>
 <li>Null and undefined return values will resolve to null</li>
@@ -1738,7 +1738,7 @@ in protractor configuration:</p>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
   var callback = arguments[arguments.length - 1];
 
-  callback(&apos;some return value&apos;)
+  callback('some return value')
 `</span>).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> doSomethingWithThe(value))</code></pre>
     </div>
 </div>
@@ -1778,7 +1778,7 @@ in protractor configuration:</p>
  Arrays and objects may also be used as script arguments as long as each item adheres
  to the types previously mentioned.</p>
 <p> The script may refer to any variables accessible from the current window.
- Furthermore, the script will execute in the window&apos;s context, thus <code>document</code> may be used to refer
+ Furthermore, the script will execute in the window's context, thus <code>document</code> may be used to refer
  to the current document. Any local variables will not be available once the script has finished executing,
  though global variables will persist.</p>
 <p> If the script has a return value (i.e. if the script contains a <code>return</code> statement),
@@ -1855,7 +1855,7 @@ in protractor configuration:</p>
       <div class="example-caption" data-ice="exampleCaption">Perform a sleep in the browser under test</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
   return arguments[0].tagName;
-`</span>, Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(h1))</code></pre>
+`</span>, Target.the(<span class="hljs-string">'header'</span>).located(by.css(h1))</code></pre>
     </div>
 </div>
 
@@ -2691,7 +2691,7 @@ in protractor configuration:</p>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">exports</span>.config = {
    <span class="hljs-attr">params</span>: {
        <span class="hljs-attr">login</span>: {
-           <span class="hljs-attr">username</span>: <span class="hljs-string">&apos;jane@example.org&apos;</span>
+           <span class="hljs-attr">username</span>: <span class="hljs-string">'jane@example.org'</span>
            <span class="hljs-attr">password</span>: process.env.PASSWORD
        }
    }
@@ -2700,11 +2700,11 @@ in protractor configuration:</p>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving config param by name</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> BrowseTheWeb.as(actor).param(<span class="hljs-string">&apos;login&apos;</span>) <span class="hljs-comment">// returns object with username and password</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> BrowseTheWeb.as(actor).param(<span class="hljs-string">'login'</span>) <span class="hljs-comment">// returns object with username and password</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving config param by path</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> BrowseTheWeb.as(actor).param(<span class="hljs-string">&apos;login.username&apos;</span>) <span class="hljs-comment">// returns string &apos;jane@example.org&apos;</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> BrowseTheWeb.as(actor).param(<span class="hljs-string">'login.username'</span>) <span class="hljs-comment">// returns string 'jane@example.org'</span></code></pre>
     </div>
 </div>
 
@@ -2806,7 +2806,7 @@ in protractor configuration:</p>
   
   <div data-ice="description"><p> Switches the focus from any <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame"><code>frame</code></a>
  or <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe"><code>iframe</code></a> back to default content,
- a.k.a. &quot;the main window&quot;.</p>
+ a.k.a. "the main window".</p>
 </div>
 
   

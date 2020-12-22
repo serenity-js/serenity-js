@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
                         <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">cucumber</a></li>
@@ -154,12 +154,12 @@
     TestRunFinished,
     TestRunFinishes,
     TestRunnerDetected,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/Serenity&apos;</span>;
-<span class="hljs-keyword">import</span> { Feature, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../gherkin&apos;</span>;
-<span class="hljs-keyword">import</span> { FeatureFileNode } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../gherkin/model/FeatureFileNode&apos;</span>;
+<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/Serenity'</span>;
+<span class="hljs-keyword">import</span> { Feature, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'../gherkin'</span>;
+<span class="hljs-keyword">import</span> { FeatureFileNode } <span class="hljs-keyword">from</span> <span class="hljs-string">'../gherkin/model/FeatureFileNode'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">notEmpty</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">list: T[]</span>) </span>{
     <span class="hljs-keyword">return</span> list.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> !! item);
@@ -180,7 +180,7 @@
         <span class="hljs-keyword">const</span>
             outlineDetails  = <span class="hljs-built_in">this</span>.detailsOf(outline, feature),
             scenarioDetails = <span class="hljs-built_in">this</span>.detailsOf(scenario, feature),
-            template        = outline.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> step.name.value).join(<span class="hljs-string">&apos;\n&apos;</span>);
+            template        = outline.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> step.name.value).join(<span class="hljs-string">'\n'</span>);
 
         <span class="hljs-built_in">this</span>.emit(...notEmpty([
             <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneId, outlineDetails, <span class="hljs-built_in">this</span>.serenity.currentTime()),
@@ -206,7 +206,7 @@
         <span class="hljs-built_in">this</span>.emit(...notEmpty([
             <span class="hljs-keyword">new</span> SceneStarts(<span class="hljs-built_in">this</span>.currentSceneId, details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
             feature.description &amp;&amp; <span class="hljs-keyword">new</span> FeatureNarrativeDetected(<span class="hljs-built_in">this</span>.currentSceneId, feature.description, <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Cucumber&apos;</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
+            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
             ...this.scenarioHierarchyTagsFor(feature).map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> SceneTagged(<span class="hljs-built_in">this</span>.currentSceneId, tag, <span class="hljs-built_in">this</span>.serenity.currentTime())),
             !! scenario.description &amp;&amp; <span class="hljs-keyword">new</span> SceneDescriptionDetected(<span class="hljs-built_in">this</span>.currentSceneId, scenario.description, <span class="hljs-built_in">this</span>.serenity.currentTime()),
             ...scenario.tags.map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> SceneTagged(<span class="hljs-built_in">this</span>.currentSceneId, tag, <span class="hljs-built_in">this</span>.serenity.currentTime())),
@@ -292,7 +292,7 @@
     <span class="hljs-keyword">private</span> scenarioHierarchyTagsFor(feature: Feature): Tag[] {
         <span class="hljs-keyword">const</span>
             directories     = notEmpty(feature.location.path.directory().split()),
-            featuresIndex   = directories.indexOf(<span class="hljs-string">&apos;features&apos;</span>),
+            featuresIndex   = directories.indexOf(<span class="hljs-string">'features'</span>),
             hierarchy       = [ ...directories.slice(featuresIndex + <span class="hljs-number">1</span>), feature.name.value ] <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>[];
 
         <span class="hljs-keyword">const</span> [ featureName, capabilityName, themeName ]: <span class="hljs-built_in">string</span>[] = hierarchy.reverse();

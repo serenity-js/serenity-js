@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,24 +175,24 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, Photo } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/stage&apos;</span>;
-<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { CorrelationId, Photo } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
+<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">import</span> { Photographer, TakePhotosBeforeAndAfterInteractions } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src/stage&apos;</span>;
-<span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../create&apos;</span>;
-<span class="hljs-keyword">import</span> { Perform } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../fixtures&apos;</span>;
+<span class="hljs-keyword">import</span> { Photographer, TakePhotosBeforeAndAfterInteractions } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">'../create'</span>;
+<span class="hljs-keyword">import</span> { Perform } <span class="hljs-keyword">from</span> <span class="hljs-string">'../fixtures'</span>;
 
-describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+describe(<span class="hljs-string">'Photographer'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-built_in">this</span>.timeout(<span class="hljs-number">5000</span>);
 
-    describe(<span class="hljs-string">&apos;when instructed to take photos before and after all interactions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when instructed to take photos before and after all interactions'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">let</span> photographer: Photographer,
             <span class="hljs-attr">stage</span>: Stage,
@@ -207,8 +207,8 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
             stage.assign(photographer);
         });
 
-        it(<span class="hljs-string">&apos;takes a before and after photo when the interaction goes well&apos;</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">'takes a before and after photo when the interaction goes well'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
                 Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
             )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
@@ -223,8 +223,8 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">&apos;takes a photo when a problem occurs&apos;</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">'takes a photo when a problem occurs'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
                 Perform.interactionThatFailsWith(<span class="hljs-built_in">Error</span>),
             )).to.be.rejected.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
 
@@ -239,8 +239,8 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">&apos;takes a photo before and after Interaction, even though nested tasks might all be marked as failing&apos;</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">'takes a photo before and after Interaction, even though nested tasks might all be marked as failing'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
                 Perform.taskWith(
                     Perform.taskWith(
                         Perform.interactionThatFailsWith(<span class="hljs-built_in">TypeError</span>),
@@ -259,8 +259,8 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">&apos;takes two photos per interaction&apos;</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">'takes two photos per interaction'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
                 Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
                 Perform.interactionThatSucceeds(<span class="hljs-number">2</span>),
             )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
@@ -300,8 +300,8 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                     });
             })));
 
-        it(<span class="hljs-string">&apos;includes the browser context in the name of the emitted artifact&apos;</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">&apos;Betty&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">'includes the browser context in the name of the emitted artifact'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
                 Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
             )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().
             then(<span class="hljs-function">() =&gt;</span> protractor.browser.getCapabilities()).
@@ -310,13 +310,13 @@ describe(<span class="hljs-string">&apos;Photographer&apos;</span>, <span class=
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                         expect(event.name.value).to.equal(
-                            <span class="hljs-string">`<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">&apos;platform&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">&apos;browserName&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">&apos;version&apos;</span>) }</span>-Before Betty succeeds (#1)`</span>,
+                            <span class="hljs-string">`<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'platform'</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'browserName'</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'version'</span>) }</span>-Before Betty succeeds (#1)`</span>,
                         );
                         expect(event.artifact).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                         expect(event.name.value).to.equal(
-                            <span class="hljs-string">`<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">&apos;platform&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">&apos;browserName&apos;</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">&apos;version&apos;</span>) }</span>-After Betty succeeds (#1)`</span>,
+                            <span class="hljs-string">`<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'platform'</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'browserName'</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'version'</span>) }</span>-After Betty succeeds (#1)`</span>,
                         );
                         expect(event.artifact).to.be.instanceof(Photo);
                     });

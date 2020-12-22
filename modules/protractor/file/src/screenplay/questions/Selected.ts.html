@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,11 +175,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Selected.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions, Question, UsesAbilities } from &apos;@serenity-js/core&apos;;
-import { formatted } from &apos;@serenity-js/core/lib/io&apos;;
-import { ElementFinder } from &apos;protractor&apos;;
-import { promiseOf } from &apos;../../promiseOf&apos;;
-import { withAnswerOf } from &apos;../withAnswerOf&apos;;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { formatted } from '@serenity-js/core/lib/io';
+import { ElementFinder } from 'protractor';
+import { promiseOf } from '../../promiseOf';
+import { withAnswerOf } from '../withAnswerOf';
 
 /**
  * @desc
@@ -196,32 +196,32 @@ export class Selected {
      *  [HTML `&lt;select&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
      *
      * @example &lt;caption&gt;Example widget&lt;/caption&gt;
-     *  &lt;select data-test=&apos;countries&apos;&gt;
-     *      &lt;option value=&apos;UK&apos;&gt;United Kingdom&lt;/option&gt;
-     *      &lt;option value=&apos;PL&apos;&gt;Poland&lt;/option&gt;
-     *      &lt;option value=&apos;US&apos;&gt;United States&lt;/option&gt;
+     *  &lt;select data-test='countries'&gt;
+     *      &lt;option value='UK'&gt;United Kingdom&lt;/option&gt;
+     *      &lt;option value='PL'&gt;Poland&lt;/option&gt;
+     *      &lt;option value='US'&gt;United States&lt;/option&gt;
      *  &lt;/select&gt;
      *
      * @example &lt;caption&gt;Lean Page Object&lt;/caption&gt;
-     *  import { Target } from &apos;@serenity-js/protractor&apos;;
-     *  import { browser, by } from &apos;protractor&apos;;
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
      *
      *  class Countries {
-     *      static dropdown = Target.the(&apos;countries dropdown&apos;)
-     *          .located(by.css(&apos;[data-test=&quot;countries&quot;]&apos;));
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
      *  }
      *
      * @example &lt;caption&gt;Retrieving the selected value&lt;/caption&gt;
-     *  import { actorCalled } from &apos;@serenity-js/core&apos;;
-     *  import { Accept, BrowseTheWeb, Select, Selected } from &apos;@serenity-js/protractor&apos;;
-     *  import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
-     *  import { protractor } from &apos;protractor&apos;;
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
      *
-     *  actorCalled(&apos;Nick&apos;)
+     *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
-     *          Select.value(&apos;UK&apos;).from(Countries.dropdown),
-     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals(&apos;UK&apos;)),
+     *          Select.value('UK').from(Countries.dropdown),
+     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),
      *      );
      *
      * @param {Question&lt;ElementFinder&gt; | ElementFinder} target
@@ -241,32 +241,32 @@ export class Selected {
      *  [HTML `&lt;select multiple&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * @example &lt;caption&gt;Example widget&lt;/caption&gt;
-     *  &lt;select multiple data-test=&apos;countries&apos;&gt;
-     *      &lt;option value=&apos;UK&apos;&gt;United Kingdom&lt;/option&gt;
-     *      &lt;option value=&apos;PL&apos;&gt;Poland&lt;/option&gt;
-     *      &lt;option value=&apos;US&apos;&gt;United States&lt;/option&gt;
+     *  &lt;select multiple data-test='countries'&gt;
+     *      &lt;option value='UK'&gt;United Kingdom&lt;/option&gt;
+     *      &lt;option value='PL'&gt;Poland&lt;/option&gt;
+     *      &lt;option value='US'&gt;United States&lt;/option&gt;
      *  &lt;/select&gt;
      *
      * @example &lt;caption&gt;Lean Page Object&lt;/caption&gt;
-     *  import { Target } from &apos;@serenity-js/protractor&apos;;
-     *  import { browser, by } from &apos;protractor&apos;;
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
      *
      *  class Countries {
-     *      static dropdown = Target.the(&apos;countries dropdown&apos;)
-     *          .located(by.css(&apos;[data-test=&quot;countries&quot;]&apos;));
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
      *  }
      *
      * @example &lt;caption&gt;Retrieving the selected value&lt;/caption&gt;
-     *  import { actorCalled } from &apos;@serenity-js/core&apos;;
-     *  import { Accept, BrowseTheWeb, Select, Selected } from &apos;@serenity-js/protractor&apos;;
-     *  import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
-     *  import { protractor } from &apos;protractor&apos;;
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
      *
-     *  actorCalled(&apos;Nick&apos;)
+     *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
-     *          Select.values(&apos;UK&apos;).from(Countries.dropdown),
-     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ &apos;UK&apos; ])),
+     *          Select.values('UK').from(Countries.dropdown),
+     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),
      *      );
      *
      * @param {Question&lt;ElementFinder&gt; | ElementFinder} target
@@ -286,34 +286,34 @@ export class Selected {
      *  [HTML `&lt;select&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * @example &lt;caption&gt;Example widget&lt;/caption&gt;
-     *  &lt;select data-test=&apos;countries&apos;&gt;
-     *      &lt;option value=&apos;UK&apos;&gt;United Kingdom&lt;/option&gt;
-     *      &lt;option value=&apos;PL&apos;&gt;Poland&lt;/option&gt;
-     *      &lt;option value=&apos;US&apos;&gt;United States&lt;/option&gt;
+     *  &lt;select data-test='countries'&gt;
+     *      &lt;option value='UK'&gt;United Kingdom&lt;/option&gt;
+     *      &lt;option value='PL'&gt;Poland&lt;/option&gt;
+     *      &lt;option value='US'&gt;United States&lt;/option&gt;
      *  &lt;/select&gt;
      *
      * @example &lt;caption&gt;Lean Page Object&lt;/caption&gt;
-     *  import { Target } from &apos;@serenity-js/protractor&apos;;
-     *  import { browser, by } from &apos;protractor&apos;;
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
      *
      *  class Countries {
-     *      static dropdown = Target.the(&apos;countries dropdown&apos;)
-     *          .located(by.css(&apos;[data-test=&quot;countries&quot;]&apos;));
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
      *  }
      *
      * @example &lt;caption&gt;Retrieving the selected value&lt;/caption&gt;
-     *  import { actorCalled } from &apos;@serenity-js/core&apos;;
-     *  import { Accept, BrowseTheWeb, Select, Selected } from &apos;@serenity-js/protractor&apos;;
-     *  import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
-     *  import { protractor } from &apos;protractor&apos;;
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
      *
-     *  actorCalled(&apos;Nick&apos;)
+     *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
-     *          Select.option(&apos;Poland&apos;).from(Countries.dropdown),
+     *          Select.option('Poland').from(Countries.dropdown),
      *          Ensure.that(
      *              Selected.optionIn(Countries.dropdown),
-     *              equals(&apos;Poland&apos;)
+     *              equals('Poland')
      *          ),
      *      );
      *
@@ -334,34 +334,34 @@ export class Selected {
      *  [HTML `&lt;select multiple&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * @example &lt;caption&gt;Example widget&lt;/caption&gt;
-     *  &lt;select multiple data-test=&apos;countries&apos;&gt;
-     *      &lt;option value=&apos;UK&apos;&gt;United Kingdom&lt;/option&gt;
-     *      &lt;option value=&apos;PL&apos;&gt;Poland&lt;/option&gt;
-     *      &lt;option value=&apos;US&apos;&gt;United States&lt;/option&gt;
+     *  &lt;select multiple data-test='countries'&gt;
+     *      &lt;option value='UK'&gt;United Kingdom&lt;/option&gt;
+     *      &lt;option value='PL'&gt;Poland&lt;/option&gt;
+     *      &lt;option value='US'&gt;United States&lt;/option&gt;
      *  &lt;/select&gt;
      *
      * @example &lt;caption&gt;Lean Page Object&lt;/caption&gt;
-     *  import { Target } from &apos;@serenity-js/protractor&apos;;
-     *  import { browser, by } from &apos;protractor&apos;;
+     *  import { Target } from '@serenity-js/protractor';
+     *  import { browser, by } from 'protractor';
      *
      *  class Countries {
-     *      static dropdown = Target.the(&apos;countries dropdown&apos;)
-     *          .located(by.css(&apos;[data-test=&quot;countries&quot;]&apos;));
+     *      static dropdown = Target.the('countries dropdown')
+     *          .located(by.css('[data-test="countries"]'));
      *  }
      *
      * @example &lt;caption&gt;Retrieving the selected value&lt;/caption&gt;
-     *  import { actorCalled } from &apos;@serenity-js/core&apos;;
-     *  import { Accept, BrowseTheWeb, Select, Selected } from &apos;@serenity-js/protractor&apos;;
-     *  import { Ensure, equals } from &apos;@serenity-js/assertions&apos;;
-     *  import { protractor } from &apos;protractor&apos;;
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { Accept, BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
+     *  import { Ensure, equals } from '@serenity-js/assertions';
+     *  import { protractor } from 'protractor';
      *
-     *  actorCalled(&apos;Nick&apos;)
+     *  actorCalled('Nick')
      *      .whoCan(BrowseTheWeb.using(protractor.browser))
      *      .attemptsTo(
-     *          Select.options(&apos;Poland&apos;, &apos;United States&apos;).from(Countries.dropdown),
+     *          Select.options('Poland', 'United States').from(Countries.dropdown),
      *          Ensure.that(
      *              Selected.optionsIn(Countries.dropdown),
-     *              equals([ &apos;Poland&apos;, &apos;United States&apos; ])
+     *              equals([ 'Poland', 'United States' ])
      *          ),
      *      );
      *
@@ -388,7 +388,7 @@ class SelectedValue extends Question&lt;Promise&lt;string&gt;&gt; {
 
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string&gt; {
         const value = withAnswerOf(actor, this.target, (element: ElementFinder) =&gt;
-            element.$(&apos;option:checked&apos;).getAttribute(&apos;value&apos;)
+            element.$('option:checked').getAttribute('value')
         );
 
         return promiseOf(value);
@@ -405,10 +405,10 @@ class SelectedValues extends Question&lt;Promise&lt;string[]&gt;&gt; {
     }
 
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string[]&gt; {
-        const options = withAnswerOf(actor, this.target, (element: ElementFinder) =&gt; element.$$(&apos;option&apos;)
+        const options = withAnswerOf(actor, this.target, (element: ElementFinder) =&gt; element.$$('option')
             .filter(option =&gt; option.isSelected()));
 
-        return promiseOf(options.map(option =&gt; option.getAttribute(&apos;value&apos;)));
+        return promiseOf(options.map(option =&gt; option.getAttribute('value')));
     }
 }
 
@@ -422,7 +422,7 @@ class SelectedOption extends Question&lt;Promise&lt;string&gt;&gt; {
     }
 
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string&gt; {
-        return promiseOf(withAnswerOf(actor, this.target, element =&gt; element.$(&apos;option:checked&apos;).getText()));
+        return promiseOf(withAnswerOf(actor, this.target, element =&gt; element.$('option:checked').getText()));
     }
 }
 
@@ -436,7 +436,7 @@ class SelectedOptions extends Question&lt;Promise&lt;string[]&gt;&gt; {
     }
 
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string[]&gt; {
-        return promiseOf(withAnswerOf(actor, this.target, element =&gt; element.$$(&apos;option&apos;)
+        return promiseOf(withAnswerOf(actor, this.target, element =&gt; element.$$('option')
             .filter(option =&gt; option.isSelected())
             .map(elements =&gt; elements.getText())));
     }

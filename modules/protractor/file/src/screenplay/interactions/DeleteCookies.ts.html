@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,10 +175,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/DeleteCookies.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../promiseOf&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../promiseOf'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -186,23 +186,23 @@
  *  remove cookies from the browser.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Removing a single cookie&lt;/caption&gt;
- *  import { actorCalled } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { BrowseTheWeb, Navigate, DeleteCookies } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { protractor } from &apos;protractor&apos;;
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { BrowseTheWeb, Navigate, DeleteCookies } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { protractor } from 'protractor';
  *
- *  actorCalled(&apos;Sid&apos;)
+ *  actorCalled('Sid')
  *      .whoCan(BrowseTheWeb.using(protractor.browser))
  *      .attemptsTo(
- *          Navigate.to(&apos;/login&apos;),
- *          DeleteCookies.called(&apos;jwt_token&apos;),
+ *          Navigate.to('/login'),
+ *          DeleteCookies.called('jwt_token'),
  *          Navigate.reloadPage(),
  *      );
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Removing all cookies before each Jasmine test&lt;/caption&gt;
- *  import &apos;jasmine&apos;;
+ *  import 'jasmine';
  *
- *  import { actorInTheSpotlight } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { DeleteCookies } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
+ *  import { actorInTheSpotlight } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { DeleteCookies } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *
  *  before(() =&gt;
  *      actorInTheSpotlight().attemptsTo(
@@ -210,10 +210,10 @@
  *      ));
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Removing all cookies before each Mocha test&lt;/caption&gt;
- *  import &apos;mocha&apos;;
+ *  import 'mocha';
  *
- *  import { actorInTheSpotlight } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { DeleteCookies } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
+ *  import { actorInTheSpotlight } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { DeleteCookies } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *
  *  before(() =&gt;
  *      actorInTheSpotlight().attemptsTo(
@@ -221,9 +221,9 @@
  *      ));
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Removing all cookies before each Cucumber scenario&lt;/caption&gt;
- *  import { actorInTheSpotlight } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { DeleteCookies } from &apos;<span class="hljs-doctag">@serenity</span>-js/protractor&apos;;
- *  import { Before } from &apos;cucumber&apos;;
+ *  import { actorInTheSpotlight } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { DeleteCookies } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ *  import { Before } from 'cucumber';
  *
  *  Before(() =&gt;
  *      actorInTheSpotlight().attemptsTo(
@@ -291,7 +291,7 @@
      * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
     toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor deletes the &quot;<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span>&quot; cookie`</span>;
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor deletes the "<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span>" cookie`</span>;
     }
 }
 

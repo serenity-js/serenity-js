@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="active">@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">local-server</a></li>
@@ -125,11 +125,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/LocalServer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { LogicError, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { ManageALocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../abilities&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { LogicError, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { ManageALocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
-<span class="hljs-keyword">import</span> { AddressInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;net&apos;</span>;
-<span class="hljs-keyword">import</span> { parse } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;url&apos;</span>;
+<span class="hljs-keyword">import</span> { AddressInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">'net'</span>;
+<span class="hljs-keyword">import</span> { parse } <span class="hljs-keyword">from</span> <span class="hljs-string">'url'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LocalServer</span> </span>{
 
@@ -146,7 +146,7 @@
      * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;string&gt;}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> url(): Question&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">&apos;the URL of the local server&apos;</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+        <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'the URL of the local server'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
             <span class="hljs-keyword">return</span> ManageALocalServer.as(actor).mapInstance(<span class="hljs-function">(<span class="hljs-params">server, protocol</span>) =&gt;</span> {
                 <span class="hljs-keyword">const</span> info = server.address();
 
@@ -160,11 +160,11 @@
 
                 <span class="hljs-keyword">return</span> [
                     protocol,
-                    <span class="hljs-string">&apos;://&apos;</span>,
-                    <span class="hljs-string">`<span class="hljs-subst">${ info.family }</span>`</span>.toLowerCase() === <span class="hljs-string">&apos;ipv6&apos;</span> ? <span class="hljs-string">`[<span class="hljs-subst">${ info.address }</span>]`</span> : info.address,
-                    <span class="hljs-string">&apos;:&apos;</span>,
+                    <span class="hljs-string">'://'</span>,
+                    <span class="hljs-string">`<span class="hljs-subst">${ info.family }</span>`</span>.toLowerCase() === <span class="hljs-string">'ipv6'</span> ? <span class="hljs-string">`[<span class="hljs-subst">${ info.address }</span>]`</span> : info.address,
+                    <span class="hljs-string">':'</span>,
                     info.port,
-                ].join(<span class="hljs-string">&apos;&apos;</span>);
+                ].join(<span class="hljs-string">''</span>);
             });
         });
     }
@@ -195,7 +195,7 @@
  * <span class="hljs-doctag">@private</span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAddressInfo</span>(<span class="hljs-params">maybeAddressInfo: AddressInfo | <span class="hljs-built_in">string</span></span>): <span class="hljs-title">maybeAddressInfo</span> <span class="hljs-title">is</span> <span class="hljs-title">AddressInfo</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> maybeAddressInfo !== <span class="hljs-string">&apos;string&apos;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> maybeAddressInfo !== <span class="hljs-string">'string'</span>
         &amp;&amp; !! maybeAddressInfo.address
         &amp;&amp; !! maybeAddressInfo.family
         &amp;&amp; !! maybeAddressInfo.port;

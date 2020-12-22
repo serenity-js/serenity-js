@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="active">@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">mocha</a></li>
@@ -119,10 +119,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/mappers/MochaOutcomeMapper.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { AssertionError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { AssertionError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -132,29 +132,29 @@
     ExecutionSuccessful,
     ImplementationPending,
     ProblemIndication,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { strictEqual } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;assert&apos;</span>;
-<span class="hljs-keyword">import</span> { Test } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha&apos;</span>; <span class="hljs-comment">// tslint:disable-line:no-duplicate-imports</span>
-<span class="hljs-keyword">import</span> { MochaOutcomeMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/mappers&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { strictEqual } <span class="hljs-keyword">from</span> <span class="hljs-string">'assert'</span>;
+<span class="hljs-keyword">import</span> { Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>; <span class="hljs-comment">// tslint:disable-line:no-duplicate-imports</span>
+<span class="hljs-keyword">import</span> { MochaOutcomeMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/mappers'</span>;
 
-describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'MochaTestMapper'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> MochaOutcomeMapper();
     <span class="hljs-keyword">const</span> someScenario = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
 
-    it(<span class="hljs-string">&apos;recognises passing tests&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'recognises passing tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;example&apos;</span>, someScenario);
-        test.state = <span class="hljs-string">&apos;passed&apos;</span>;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
+        test.state = <span class="hljs-string">'passed'</span>;
 
         <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
 
         expect(outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
     });
 
-    it(<span class="hljs-string">&apos;recognises pending tests&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'recognises pending tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-literal">undefined</span>);
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, <span class="hljs-literal">undefined</span>);
         test.pending = <span class="hljs-literal">true</span>;
 
         <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
@@ -162,9 +162,9 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
         expect(outcome).to.be.instanceof(ImplementationPending);
     });
 
-    it(<span class="hljs-string">&apos;recognises skipped tests&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'recognises skipped tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;example&apos;</span>, someScenario);
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
         test.pending = <span class="hljs-literal">true</span>;
 
         <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
@@ -172,12 +172,12 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
         expect(outcome).to.be.instanceof(ExecutionSkipped);
     });
 
-    it(<span class="hljs-string">&apos;recognises compromised tests&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'recognises compromised tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">&apos;DB is down&apos;</span>);
+        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">'DB is down'</span>);
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;example&apos;</span>, someScenario);
-        test.state = <span class="hljs-string">&apos;failed&apos;</span>;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
+        test.state = <span class="hljs-string">'failed'</span>;
         test.err = error;
 
         <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
@@ -186,12 +186,12 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
         expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error).to.equal(error);
     });
 
-    it(<span class="hljs-string">&apos;recognises tests that failed with a Serenity/JS AssertionError&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'recognises tests that failed with a Serenity/JS AssertionError'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">&apos;Expected false to be true&apos;</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>);
+        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">'Expected false to be true'</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>);
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;example&apos;</span>, someScenario);
-        test.state = <span class="hljs-string">&apos;failed&apos;</span>;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
+        test.state = <span class="hljs-string">'failed'</span>;
         test.err = error;
 
         <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
@@ -200,15 +200,15 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
         expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error).to.equal(error);
     });
 
-    it(<span class="hljs-string">&apos;recognises tests that failed with a generic AssertionError&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    it(<span class="hljs-string">'recognises tests that failed with a generic AssertionError'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
         <span class="hljs-keyword">try</span> {
             strictEqual(<span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
 
             <span class="hljs-built_in">this</span>.fail()
         } <span class="hljs-keyword">catch</span> (error) {
-            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;example&apos;</span>, someScenario);
-            test.state = <span class="hljs-string">&apos;failed&apos;</span>;
+            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
+            test.state = <span class="hljs-string">'failed'</span>;
             test.err = error;
 
             <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
@@ -218,12 +218,12 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
         }
     });
 
-    it(<span class="hljs-string">&apos;recognises tests that failed with an Error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'recognises tests that failed with an Error'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`We&apos;re sorry, something happened`</span>);
+        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`We're sorry, something happened`</span>);
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;example&apos;</span>, someScenario);
-        test.state = <span class="hljs-string">&apos;failed&apos;</span>;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
+        test.state = <span class="hljs-string">'failed'</span>;
         test.err = error;
 
         <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
@@ -232,14 +232,14 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
         expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error).to.equal(error);
     });
 
-    describe(<span class="hljs-string">&apos;when working with retryable tests&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when working with retryable tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> errorThrownInTest = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Something happened`</span>)
 
-        it(<span class="hljs-string">&apos;ignores the failure as long as execution is going to be retried&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        it(<span class="hljs-string">'ignores the failure as long as execution is going to be retried'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;has retries left&apos;</span>, someScenario);
-            test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don&apos;t have the `err` property</span>
+            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'has retries left'</span>, someScenario);
+            test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
             test.isPending = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
             test.isPassed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
             test.isFailed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
@@ -249,14 +249,14 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
             <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test, errorThrownInTest);
 
             expect(outcome).to.be.instanceof(ExecutionIgnored);
-            expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message).to.equal(<span class="hljs-string">&apos;Something happened&apos;</span>);
+            expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message).to.equal(<span class="hljs-string">'Something happened'</span>);
         });
 
-        describe(<span class="hljs-string">&apos;when there are no retries left&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-            it(<span class="hljs-string">`marks execution as failed if there&apos;s an error`</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'when there are no retries left'</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">`marks execution as failed if there's an error`</span>, <span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;has no retries left&apos;</span>, someScenario);
-                test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don&apos;t have the `err` property</span>
+                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'has no retries left'</span>, someScenario);
+                test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
                 test.isPending = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
                 test.isPassed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
                 test.isFailed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
@@ -266,15 +266,15 @@ describe(<span class="hljs-string">&apos;MochaTestMapper&apos;</span>, <span cla
                 <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test, errorThrownInTest);
 
                 expect(outcome).to.be.instanceof(ExecutionFailedWithError);
-                expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message).to.equal(<span class="hljs-string">&apos;Something happened&apos;</span>);
+                expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message).to.equal(<span class="hljs-string">'Something happened'</span>);
             });
 
             it(<span class="hljs-string">`marks execution as successful if there are no errors`</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">const</span> noError = <span class="hljs-literal">undefined</span>;
 
-                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">&apos;has no retries left&apos;</span>, someScenario);
-                test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don&apos;t have the `err` property</span>
+                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'has no retries left'</span>, someScenario);
+                test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
                 test.isPending = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
                 test.isPassed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
                 test.isFailed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;

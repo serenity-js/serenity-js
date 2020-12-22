@@ -89,6 +89,7 @@
                 <aside id="sidebar" class="col-lg-3 col-md-12">
                     <nav class="toc navigation text-truncate">
                         <ul>
+                            <li><a href="changelog.html#2-19-10-2020-12-22-">2.19.10 (2020-12-22)</a></li>
                             <li><a href="changelog.html#2-19-9-2020-12-15-">2.19.9 (2020-12-15)</a></li>
                             <li><a href="changelog.html#2-19-8-2020-12-15-">2.19.8 (2020-12-15)</a></li>
                             <li><a href="changelog.html#2-19-7-2020-12-10-">2.19.7 (2020-12-10)</a></li>
@@ -297,6 +298,11 @@
                     <article class="content"><html><head></head><body><h1 id="change-log">Change Log</h1>
 <p>All notable changes to this project will be documented in this file.
 See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
+<h2 id="2-19-10-2020-12-22-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.19.9...v2.19.10">2.19.10</a> (2020-12-22)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li><strong>core:</strong> reduced the max length of an artifact file name to better support Windows OS (<a href="https://github.com/serenity-js/serenity-js/commit/e771362af018641ea157036261a4de1190693ac9">e771362</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/714">#714</a></li>
+</ul>
 <h2 id="2-19-9-2020-12-15-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.19.8...v2.19.9">2.19.9</a> (2020-12-15)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
@@ -319,7 +325,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-19-5-2020-12-10-">2.19.5 (2020-12-10)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>core:</strong> exported <code>q</code> so that it&apos;s available under @serenity-js/core (<a href="https://github.com/serenity-js/serenity-js/commit/49d4f813d3e8f1afcc159c31f4c6b476a2a0a0a0">49d4f81</a>)</li>
+<li><strong>core:</strong> exported <code>q</code> so that it's available under @serenity-js/core (<a href="https://github.com/serenity-js/serenity-js/commit/49d4f813d3e8f1afcc159c31f4c6b476a2a0a0a0">49d4f81</a>)</li>
 <li><strong>core:</strong> removed unnecessary quotes surrounding the name of the note in TakeNote.toString (<a href="https://github.com/serenity-js/serenity-js/commit/faddee835a280fca066088b2b9b6e0500cb5811a">faddee8</a>)</li>
 <li><strong>protractor:</strong> cucumberOpts.require patterns are now resolved relative to protractor config dir (<a href="https://github.com/serenity-js/serenity-js/commit/9d9973f984445c5ddb33e1ce9902b2b3890f2c20">9d9973f</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/632">#632</a></li>
 </ul>
@@ -346,7 +352,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <ul>
 <li><strong>protractor:</strong> EXPERIMENTAL: Custom extensions can be mixed into BrowseTheWeb (<a href="https://github.com/serenity-js/serenity-js/commit/3b26baab1f2c2108648d2c3093e69326aaa1dfc4">3b26baa</a>)</li>
 <li><strong>core</strong> abilities can be initialised and discarded automatically (<a href="https://github.com/serenity-js/serenity-js/commit/e537ae9147478404f77845a994951fbebc3b1f83">e537ae9</a>)</li>
-<li><strong>protractor</strong> navigate.to marks test as compromised if the page couldn&apos;t be navigated to (<a href="https://github.com/serenity-js/serenity-js/commit/9823ff8600c7aafeb41438f313f14258b4287988">9823ff8</a>)</li>
+<li><strong>protractor</strong> navigate.to marks test as compromised if the page couldn't be navigated to (<a href="https://github.com/serenity-js/serenity-js/commit/9823ff8600c7aafeb41438f313f14258b4287988">9823ff8</a>)</li>
 </ul>
 <h2 id="2-18-2-2020-11-22-">2.18.2 (2020-11-22)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
@@ -404,8 +410,8 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
 <li><strong>core:</strong> all Activity-related events can be correlated with the Scene they originate from (<a href="https://github.com/serenity-js/serenity-js/commit/6cf0eca7670db01ac317587996fc3ea5984de059">6cf0eca</a>)</li>
-<li><strong>core:</strong> it&apos;s easier for reporters to associate artifacts with scenes they&apos;ve originated from (<a href="https://github.com/serenity-js/serenity-js/commit/1ccdc998af4049d6c91dc263b16a7d8c7d84bbfa">1ccdc99</a>)</li>
-<li><strong>core:</strong> refactored the internal domain events so that they&apos;re easier to aggregate and correlate (<a href="https://github.com/serenity-js/serenity-js/commit/943c016ed3e404c9c1aacf8342e42626d4d85d04">943c016</a>)</li>
+<li><strong>core:</strong> it's easier for reporters to associate artifacts with scenes they've originated from (<a href="https://github.com/serenity-js/serenity-js/commit/1ccdc998af4049d6c91dc263b16a7d8c7d84bbfa">1ccdc99</a>)</li>
+<li><strong>core:</strong> refactored the internal domain events so that they're easier to aggregate and correlate (<a href="https://github.com/serenity-js/serenity-js/commit/943c016ed3e404c9c1aacf8342e42626d4d85d04">943c016</a>)</li>
 <li><strong>protractor:</strong> photographer ignores closed browser windows (<a href="https://github.com/serenity-js/serenity-js/commit/8991f07d8238ad91763eadc42ba7688c0da83b04">8991f07</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/680">#680</a> <a href="https://github.com/serenity-js/serenity-js/issues/506">#506</a></li>
 <li><strong>serenity-bdd:</strong> reporter is capable of rendering errors with no stack trace (<a href="https://github.com/serenity-js/serenity-js/commit/ac38585f98b6d857b8a786522ab628aa99fbdb0c">ac38585</a>)</li>
 <li><strong>serenity-bdd:</strong> support for out-of-order events in SerenityBDDReporter (<a href="https://github.com/serenity-js/serenity-js/commit/77db83e722602b1f39aba7cde113bfb5724842b5">77db83e</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/518">#518</a></li>
@@ -430,7 +436,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h3 id="features">Features</h3>
 <ul>
 <li><strong>core:</strong> Question#map() and mapping functions for Answerable<string> (<a href="https://github.com/serenity-js/serenity-js/commit/e5bb82548f399557387cb24028bb9c8dd1dd5393">e5bb825</a>)</string></li>
-<li><strong>core:</strong> the name of a Question&apos;s subject can be overridden (<a href="https://github.com/serenity-js/serenity-js/commit/8ec5ab7c901a395a81d2ee5db0c653b163a586a7">8ec5ab7</a>)</li>
+<li><strong>core:</strong> the name of a Question's subject can be overridden (<a href="https://github.com/serenity-js/serenity-js/commit/8ec5ab7c901a395a81d2ee5db0c653b163a586a7">8ec5ab7</a>)</li>
 </ul>
 <h1 id="2-15-0-2020-08-27-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.14.0...v2.15.0">2.15.0</a> (2020-08-27)</h1>
 <h3 id="features">Features</h3>
@@ -479,7 +485,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
 <li><strong>core:</strong> stageManager can be used to replay test suites from event logs for diagnostics (<a href="https://github.com/serenity-js/serenity-js/commit/cb051b8b09db70a846b6231ebfc5d3db04e097b5">cb051b8</a>)</li>
-<li><strong>serenity-bdd:</strong> serenityBDDReporter reports events that occured in Mocha&apos;s before and after hooks (<a href="https://github.com/serenity-js/serenity-js/commit/a8e0ccb20aa4bd8fed4c63816b4a09254fa09c24">a8e0ccb</a>)</li>
+<li><strong>serenity-bdd:</strong> serenityBDDReporter reports events that occured in Mocha's before and after hooks (<a href="https://github.com/serenity-js/serenity-js/commit/a8e0ccb20aa4bd8fed4c63816b4a09254fa09c24">a8e0ccb</a>)</li>
 </ul>
 <h2 id="2-11-2-2020-07-04-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.11.1...v2.11.2">2.11.2</a> (2020-07-04)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
@@ -491,7 +497,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-11-1-2020-06-30-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.11.0...v2.11.1">2.11.1</a> (2020-06-30)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>serenity-bdd:</strong> changed the default location of the cache directory so that npm doesn&apos;t prune it (<a href="https://github.com/serenity-js/serenity-js/commit/54d6dd4eb9c380c8fa917ffc4f2f23f98c9afcba">54d6dd4</a>), closes <a href="https://github.com/npm/npm/issues/16853">npm/npm#16853</a></li>
+<li><strong>serenity-bdd:</strong> changed the default location of the cache directory so that npm doesn't prune it (<a href="https://github.com/serenity-js/serenity-js/commit/54d6dd4eb9c380c8fa917ffc4f2f23f98c9afcba">54d6dd4</a>), closes <a href="https://github.com/npm/npm/issues/16853">npm/npm#16853</a></li>
 </ul>
 <h1 id="2-11-0-2020-06-20-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.10.3...v2.11.0">2.11.0</a> (2020-06-20)</h1>
 <h3 id="bug-fixes">Bug Fixes</h3>
@@ -579,7 +585,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h1 id="2-5-0-2020-05-14-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.4.1...v2.5.0">2.5.0</a> (2020-05-14)</h1>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>npm:</strong> esport ES2018 instead of ES5 since we&apos;re supporting Node &gt;= 10 (<a href="https://github.com/serenity-js/serenity-js/commit/a77091aa779736172a60b6ac99ec1b869aaea816">a77091a</a>)</li>
+<li><strong>npm:</strong> esport ES2018 instead of ES5 since we're supporting Node &gt;= 10 (<a href="https://github.com/serenity-js/serenity-js/commit/a77091aa779736172a60b6ac99ec1b869aaea816">a77091a</a>)</li>
 </ul>
 <h3 id="features">Features</h3>
 <ul>
@@ -651,7 +657,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-1-2-2020-02-08-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.1.1...v2.1.2">2.1.2</a> (2020-02-08)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>protractor:</strong> distinguish between regular and &apos;mobile emulation&apos; test runs (<a href="https://github.com/serenity-js/serenity-js/commit/fcd7101939fddd855f45aa99b75e309b382b6b73">fcd7101</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/323">#323</a></li>
+<li><strong>protractor:</strong> distinguish between regular and 'mobile emulation' test runs (<a href="https://github.com/serenity-js/serenity-js/commit/fcd7101939fddd855f45aa99b75e309b382b6b73">fcd7101</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/323">#323</a></li>
 </ul>
 <h2 id="2-1-1-2020-02-08-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.1.0...v2.1.1">2.1.1</a> (2020-02-08)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
@@ -684,7 +690,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-0-2-2020-02-04-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.0.1...v2.0.2">2.0.2</a> (2020-02-04)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>console-reporter:</strong> advises the developer if they&apos;ve instantiated the reporter incorrectly (<a href="https://github.com/serenity-js/serenity-js/commit/5709e76c7a97273f21b122f90c21fd8e8d3e1389">5709e76</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/413">#413</a></li>
+<li><strong>console-reporter:</strong> advises the developer if they've instantiated the reporter incorrectly (<a href="https://github.com/serenity-js/serenity-js/commit/5709e76c7a97273f21b122f90c21fd8e8d3e1389">5709e76</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/413">#413</a></li>
 <li><strong>console-reporter:</strong> corrected the padding on longer category names (<a href="https://github.com/serenity-js/serenity-js/commit/d193b7d7d611cfc81b10a491554e1fa12e8d6418">d193b7d</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/375">#375</a></li>
 </ul>
 <h2 id="2-0-1-2020-02-03-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.0.1-alpha.132...v2.0.1">2.0.1</a> (2020-02-03)</h2>
@@ -734,7 +740,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-0-1-alpha-116-2020-01-29-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.115...v2.0.1-alpha.116">2.0.1-alpha.116</a> (2020-01-29)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>core:</strong> actor throws ConfigurationError when it&apos;s not given the abilities needed to run the test (<a href="https://github.com/jan-molak/serenity-js/commit/d99ac88b2024b70e1d0d16420613a0b941fc1a99">d99ac88</a>)</li>
+<li><strong>core:</strong> actor throws ConfigurationError when it's not given the abilities needed to run the test (<a href="https://github.com/jan-molak/serenity-js/commit/d99ac88b2024b70e1d0d16420613a0b941fc1a99">d99ac88</a>)</li>
 </ul>
 <h2 id="2-0-1-alpha-115-2020-01-27-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.114...v2.0.1-alpha.115">2.0.1-alpha.115</a> (2020-01-27)</h2>
 <p><strong>Note:</strong> Version bump only for package serenity-js-monorepo</p>
@@ -783,7 +789,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-0-1-alpha-106-2020-01-19-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.105...v2.0.1-alpha.106">2.0.1-alpha.106</a> (2020-01-19)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>local-server:</strong> trying to access data of a server that&apos;s not running throws a meaningful error (<a href="https://github.com/jan-molak/serenity-js/commit/ff6d012fd6e7c0b069a0afd3cc76250d8b828dfe">ff6d012</a>)</li>
+<li><strong>local-server:</strong> trying to access data of a server that's not running throws a meaningful error (<a href="https://github.com/jan-molak/serenity-js/commit/ff6d012fd6e7c0b069a0afd3cc76250d8b828dfe">ff6d012</a>)</li>
 </ul>
 <h2 id="2-0-1-alpha-105-2020-01-16-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.104...v2.0.1-alpha.105">2.0.1-alpha.105</a> (2020-01-16)</h2>
 <p><strong>Note:</strong> Version bump only for package serenity-js-monorepo</p>
@@ -838,7 +844,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-0-1-alpha-103-2019-11-25-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.103...v2.0.1-alpha.103">2.0.1-alpha.103</a> (2019-11-25)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>assertions:</strong> Ensure correct &apos;actual&apos; and &apos;expected&apos; values are captured when an Expectation fail (<a href="https://github.com/jan-molak/serenity-js/commit/e503e55">e503e55</a>)</li>
+<li><strong>assertions:</strong> Ensure correct 'actual' and 'expected' values are captured when an Expectation fail (<a href="https://github.com/jan-molak/serenity-js/commit/e503e55">e503e55</a>)</li>
 <li><strong>core:</strong> ErrorSerialiser correctly interprets assertion errors reported by Jasmine (<a href="https://github.com/jan-molak/serenity-js/commit/55451da">55451da</a>)</li>
 <li><strong>jasmine:</strong> Report AssertionErrors correctly (<a href="https://github.com/jan-molak/serenity-js/commit/5eae90b">5eae90b</a>)</li>
 <li><strong>jasmine:</strong> Scenarios failed due to an AssertionError are marked as such (<a href="https://github.com/jan-molak/serenity-js/commit/da3eaa3">da3eaa3</a>)</li>
@@ -895,14 +901,14 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h3 id="features">Features</h3>
 <ul>
 <li><strong>protractor:</strong> Photographer.whoWill(..) factory method to make instantiation of the Photographer (<a href="https://github.com/jan-molak/serenity-js/commit/2880116">2880116</a>), closes <a href="https://github.com/jan-molak/serenity-js/issues/335">#335</a></li>
-<li><strong>serenity-bdd:</strong> &quot;serenity-bdd run&quot; command can be configured with &quot;--log&quot; to specify the amount (<a href="https://github.com/jan-molak/serenity-js/commit/05cd487">05cd487</a>)</li>
+<li><strong>serenity-bdd:</strong> "serenity-bdd run" command can be configured with "--log" to specify the amount (<a href="https://github.com/jan-molak/serenity-js/commit/05cd487">05cd487</a>)</li>
 <li><strong>serenity-bdd:</strong> Extracted the SerenityBDDReporter into a separate module (<a href="https://github.com/jan-molak/serenity-js/commit/fe7cfca">fe7cfca</a>)</li>
 </ul>
 <h2 id="2-0-1-alpha-103-2019-08-05-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.103...v2.0.1-alpha.103">2.0.1-alpha.103</a> (2019-08-05)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>core:</strong> Renamed Log.info(answerable) to Log.the(answerable), since it&apos;s all getting logged to std out anyway. (<a href="https://github.com/jan-molak/serenity-js/commit/8705efd">8705efd</a>)</li>
-<li><strong>core:</strong> Renamed Log.info(answerable) to Log.the(answerable), since it&apos;s all getting logged to std out anyway. (<a href="https://github.com/jan-molak/serenity-js/commit/5290c8b">5290c8b</a>)</li>
+<li><strong>core:</strong> Renamed Log.info(answerable) to Log.the(answerable), since it's all getting logged to std out anyway. (<a href="https://github.com/jan-molak/serenity-js/commit/8705efd">8705efd</a>)</li>
+<li><strong>core:</strong> Renamed Log.info(answerable) to Log.the(answerable), since it's all getting logged to std out anyway. (<a href="https://github.com/jan-molak/serenity-js/commit/5290c8b">5290c8b</a>)</li>
 </ul>
 <h3 id="features">Features</h3>
 <ul>
@@ -1045,7 +1051,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-0-1-alpha-46-2019-04-05-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.45...v2.0.1-alpha.46">2.0.1-alpha.46</a> (2019-04-05)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>core:</strong> Reverted the peerDependencies change as Lerna can&apos;t support it (<a href="https://github.com/jan-molak/serenity-js/commit/e27f55f">e27f55f</a>)</li>
+<li><strong>core:</strong> Reverted the peerDependencies change as Lerna can't support it (<a href="https://github.com/jan-molak/serenity-js/commit/e27f55f">e27f55f</a>)</li>
 </ul>
 <h2 id="2-0-1-alpha-45-2019-04-05-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.44...v2.0.1-alpha.45">2.0.1-alpha.45</a> (2019-04-05)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
@@ -1064,7 +1070,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 </ul>
 <h3 id="features">Features</h3>
 <ul>
-<li><strong>core:</strong> Actor.named(&apos;name&apos;) allows for instantiating an Actor without explicitly providing the S (<a href="https://github.com/jan-molak/serenity-js/commit/581a6ba">581a6ba</a>)</li>
+<li><strong>core:</strong> Actor.named('name') allows for instantiating an Actor without explicitly providing the S (<a href="https://github.com/jan-molak/serenity-js/commit/581a6ba">581a6ba</a>)</li>
 </ul>
 <h2 id="2-0-1-alpha-42-2019-03-29-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.41...v2.0.1-alpha.42">2.0.1-alpha.42</a> (2019-03-29)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
@@ -1094,7 +1100,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-0-1-alpha-37-2019-03-25-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.36...v2.0.1-alpha.37">2.0.1-alpha.37</a> (2019-03-25)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>core:</strong> All interactions extend Interaction rather than implement it to ensure they&apos;re correctly (<a href="https://github.com/jan-molak/serenity-js/commit/cef97af">cef97af</a>)</li>
+<li><strong>core:</strong> All interactions extend Interaction rather than implement it to ensure they're correctly (<a href="https://github.com/jan-molak/serenity-js/commit/cef97af">cef97af</a>)</li>
 </ul>
 <h2 id="2-0-1-alpha-36-2019-03-25-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.35...v2.0.1-alpha.36">2.0.1-alpha.36</a> (2019-03-25)</h2>
 <h3 id="features">Features</h3>
@@ -1159,7 +1165,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <h2 id="2-0-1-alpha-24-2019-03-02-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.23...v2.0.1-alpha.24">2.0.1-alpha.24</a> (2019-03-02)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
-<li><strong>protractor:</strong> <code>target</code> package renamed to <code>targets</code> so that it&apos;s correctly included in git and np (<a href="https://github.com/jan-molak/serenity-js/commit/0d1ea52">0d1ea52</a>)</li>
+<li><strong>protractor:</strong> <code>target</code> package renamed to <code>targets</code> so that it's correctly included in git and np (<a href="https://github.com/jan-molak/serenity-js/commit/0d1ea52">0d1ea52</a>)</li>
 </ul>
 <h2 id="2-0-1-alpha-23-2019-03-02-"><a href="https://github.com/jan-molak/serenity-js/compare/v2.0.1-alpha.22...v2.0.1-alpha.23">2.0.1-alpha.23</a> (2019-03-02)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
@@ -1311,7 +1317,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <li><strong>integration:</strong> cleanup of TestFrameworkAdapter interfaces (<a href="https://github.com/jan-molak/serenity-js/commit/873c19c">873c19c</a>)</li>
 <li><strong>node version:</strong> update the node version with &gt;= 6.9.0 to support node v6.10.0 (<a href="https://github.com/jan-molak/serenity-js/commit/6867a90">6867a90</a>)</li>
 <li><strong>npm:</strong> corrected the npm publish configuration (<a href="https://github.com/jan-molak/serenity-js/commit/fc7099d">fc7099d</a>)</li>
-<li><strong>protractor:</strong> a Target&apos;s name can use the &quot;{0}&quot; token, same as the locator (<a href="https://github.com/jan-molak/serenity-js/commit/6a03291">6a03291</a>)</li>
+<li><strong>protractor:</strong> a Target's name can use the "{0}" token, same as the locator (<a href="https://github.com/jan-molak/serenity-js/commit/6a03291">6a03291</a>)</li>
 <li><strong>protractor:</strong> corrected the Enter interaction so that the entered value is reported (<a href="https://github.com/jan-molak/serenity-js/commit/fe58c2a">fe58c2a</a>)</li>
 <li><strong>protractor:</strong> executeScript and ExecuteAsyncScript will accept any type of arguments (not only Ta (<a href="https://github.com/jan-molak/serenity-js/commit/3778a32">3778a32</a>)</li>
 <li><strong>protractor:</strong> hit interaction reports the name of the actor correctly (<a href="https://github.com/jan-molak/serenity-js/commit/bcf6151">bcf6151</a>)</li>
@@ -1319,7 +1325,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <li><strong>protractor:</strong> target.of() Dynamic selector accepts both string and number arguments (<a href="https://github.com/jan-molak/serenity-js/commit/a710f61">a710f61</a>), closes <a href="https://github.com/jan-molak/serenity-js/issues/93">#93</a></li>
 <li><strong>reporting:</strong> <a href="https://github.com/manual">@manual</a> tags are correctly represented in the report (<a href="https://github.com/jan-molak/serenity-js/commit/babc587">babc587</a>), closes <a href="https://github.com/jan-molak/serenity-js/issues/67">#67</a></li>
 <li><strong>reporting:</strong> corrected promise and fs handling in SerenityBDDReporter/FileSystem (<a href="https://github.com/jan-molak/serenity-js/commit/6a36d94">6a36d94</a>)</li>
-<li><strong>reporting:</strong> do not include the tags in the name of the json report if the scenario doesn&apos;t have (<a href="https://github.com/jan-molak/serenity-js/commit/1b0371e">1b0371e</a>)</li>
+<li><strong>reporting:</strong> do not include the tags in the name of the json report if the scenario doesn't have (<a href="https://github.com/jan-molak/serenity-js/commit/1b0371e">1b0371e</a>)</li>
 <li><strong>reporting:</strong> execution context of a scenario is considered when generating the scenario ID and na (<a href="https://github.com/jan-molak/serenity-js/commit/cd71d71">cd71d71</a>), closes <a href="https://github.com/jan-molak/serenity-js/issues/75">#75</a></li>
 <li><strong>reporting:</strong> stacktrace-js seems to not recognise the origin of the stack frame under some condit (<a href="https://github.com/jan-molak/serenity-js/commit/4827c9b">4827c9b</a>), closes <a href="https://github.com/jan-molak/serenity-js/issues/64">#64</a></li>
 <li><strong>reporting:</strong> support for Node 8.x (<a href="https://github.com/jan-molak/serenity-js/commit/eb9c458">eb9c458</a>), closes <a href="https://github.com/jan-molak/serenity-js/issues/122">#122</a></li>
@@ -1371,10 +1377,10 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <li><strong>cucumber-2:</strong> cucumber-2 module no longer depends on protractor. (<a href="https://github.com/jan-molak/serenity-js/commit/799bde6">799bde6</a>)</li>
 <li><strong>cucumber-2:</strong> cucumber-2 module will be released as <a href="https://github.com/serenity-js">@serenity-js</a>/cucumber-2 (<a href="https://github.com/jan-molak/serenity-js/commit/b5db674">b5db674</a>)</li>
 <li><strong>cucumber-2:</strong> test release of the cucumber-2 module (<a href="https://github.com/jan-molak/serenity-js/commit/10ee900">10ee900</a>)</li>
-<li><strong>interactions:</strong> new &quot;Patch&quot; interaction plus the CallAnApi ability returns axios responses so th (<a href="https://github.com/jan-molak/serenity-js/commit/747580b">747580b</a>)</li>
+<li><strong>interactions:</strong> new "Patch" interaction plus the CallAnApi ability returns axios responses so th (<a href="https://github.com/jan-molak/serenity-js/commit/747580b">747580b</a>)</li>
 <li><strong>interactions:</strong> useAngular.disableSynchronisation() and UseAngular.enableSynchronisation() inter (<a href="https://github.com/jan-molak/serenity-js/commit/3b1a3b5">3b1a3b5</a>)</li>
 <li><strong>local-server:</strong> the new local-server module (<a href="https://github.com/jan-molak/serenity-js/commit/29b2527">29b2527</a>)</li>
-<li><strong>protractor:</strong> &apos;serenity-js/protractor&apos; gives easy access to &apos;serenity-js/lib/screenplay-protractor&apos; (<a href="https://github.com/jan-molak/serenity-js/commit/029e5f4">029e5f4</a>)</li>
+<li><strong>protractor:</strong> 'serenity-js/protractor' gives easy access to 'serenity-js/lib/screenplay-protractor' (<a href="https://github.com/jan-molak/serenity-js/commit/029e5f4">029e5f4</a>)</li>
 <li><strong>protractor:</strong> `Scroll.to(target)` moves the browser view port to a specific target. (<a href="https://github.com/jan-molak/serenity-js/commit/48239b3">48239b3</a>)</li>
 <li><strong>protractor:</strong> JetBrains tools should be able to report scenario duration (<a href="https://github.com/jan-molak/serenity-js/commit/3afb8fc">3afb8fc</a>)</li>
 <li><strong>protractor:</strong> support for multi-capability tests (<a href="https://github.com/jan-molak/serenity-js/commit/bdeb5fb">bdeb5fb</a>), closes <a href="https://github.com/jan-molak/serenity-js/issues/61">#61</a></li>

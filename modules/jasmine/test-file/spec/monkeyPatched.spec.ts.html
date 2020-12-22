@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="active">@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">jasmine</a></li>
@@ -123,12 +123,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/monkeyPatched.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
-<span class="hljs-keyword">import</span> serenityReporterForJasmine = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../src&apos;</span>);
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
+<span class="hljs-keyword">import</span> serenityReporterForJasmine = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../src'</span>);
 
-describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'@serenity-js/jasmine'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> jasmine: <span class="hljs-built_in">any</span>;
     <span class="hljs-keyword">let</span> attrs: <span class="hljs-built_in">any</span>;
@@ -156,21 +156,21 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
         };
     });
 
-    describe(<span class="hljs-string">&apos;monkey-patches Jasmine&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'monkey-patches Jasmine'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">&apos;so that the Spec&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'so that the Spec'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{bootstrap}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{monkeyPatched}</span></span>
              */</span>
-            it(<span class="hljs-string">&apos;defaults to an unknown location if the real one could not be determined&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'defaults to an unknown location if the real one could not be determined'</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-comment">// detecting the real location is done in Jasmine integration tests</span>
                 serenityReporterForJasmine(jasmine);
 
                 <span class="hljs-keyword">const</span> spec = <span class="hljs-keyword">new</span> jasmine.Spec(attrs);
 
-                expect(spec.result.location.path).to.equal(<span class="hljs-string">&apos;unknown&apos;</span>);
+                expect(spec.result.location.path).to.equal(<span class="hljs-string">'unknown'</span>);
                 expect(spec.result.location.line).to.equal(<span class="hljs-number">0</span>);
                 expect(spec.result.location.column).to.equal(<span class="hljs-number">0</span>);
             });
@@ -179,30 +179,30 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
              * <span class="hljs-doctag">@test <span class="hljs-type">{bootstrap}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{monkeyPatched}</span></span>
              */</span>
-            it(<span class="hljs-string">&apos;has all the static members of the original constructor function&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'has all the static members of the original constructor function'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                jasmine.Spec.pendingSpecExceptionMessage = <span class="hljs-string">&apos;=&gt; marked Pending&apos;</span>;
+                jasmine.Spec.pendingSpecExceptionMessage = <span class="hljs-string">'=&gt; marked Pending'</span>;
 
                 serenityReporterForJasmine(jasmine);
 
-                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal(<span class="hljs-string">&apos;=&gt; marked Pending&apos;</span>);
+                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal(<span class="hljs-string">'=&gt; marked Pending'</span>);
             });
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{bootstrap}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{monkeyPatched}</span></span>
              */</span>
-            it(<span class="hljs-string">&apos;has all the static members of the original constructor function&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'has all the static members of the original constructor function'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                jasmine.Spec.pendingSpecExceptionMessage = <span class="hljs-string">&apos;=&gt; marked Pending&apos;</span>;
+                jasmine.Spec.pendingSpecExceptionMessage = <span class="hljs-string">'=&gt; marked Pending'</span>;
 
                 serenityReporterForJasmine(jasmine);
 
-                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal(<span class="hljs-string">&apos;=&gt; marked Pending&apos;</span>);
+                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal(<span class="hljs-string">'=&gt; marked Pending'</span>);
             });
 
-            it(<span class="hljs-string">&apos;correctly reports the stacktrace of an error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">&apos;DB is down&apos;</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Connection error&apos;</span>));
+            it(<span class="hljs-string">'correctly reports the stacktrace of an error'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">'DB is down'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Connection error'</span>));
 
                 serenityReporterForJasmine(jasmine);
 
@@ -210,31 +210,31 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
 
                 <span class="hljs-keyword">const</span> result = attrs.expectationResultFactory({ <span class="hljs-attr">passing</span>: <span class="hljs-literal">false</span>, error });
 
-                <span class="hljs-keyword">const</span> frames = result.stack.split(<span class="hljs-string">&apos;\n&apos;</span>);
-                expect(frames[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">&apos;TestCompromisedError: DB is down&apos;</span>);
-                expect(frames).to.include(<span class="hljs-string">&apos;Caused by: Error: Connection error&apos;</span>);
+                <span class="hljs-keyword">const</span> frames = result.stack.split(<span class="hljs-string">'\n'</span>);
+                expect(frames[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">'TestCompromisedError: DB is down'</span>);
+                expect(frames).to.include(<span class="hljs-string">'Caused by: Error: Connection error'</span>);
             });
         });
 
-        describe(<span class="hljs-string">&apos;so that the Suite&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'so that the Suite'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{bootstrap}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{monkeyPatched}</span></span>
              */</span>
-            it(<span class="hljs-string">&apos;defaults to an unknown location if the real one could not be determined&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'defaults to an unknown location if the real one could not be determined'</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-comment">// detecting the real location is done in Jasmine integration tests</span>
                 serenityReporterForJasmine(jasmine);
 
                 <span class="hljs-keyword">const</span> suite = <span class="hljs-keyword">new</span> jasmine.Suite(attrs);
 
-                expect(suite.result.location.path).to.equal(<span class="hljs-string">&apos;unknown&apos;</span>);
+                expect(suite.result.location.path).to.equal(<span class="hljs-string">'unknown'</span>);
                 expect(suite.result.location.line).to.equal(<span class="hljs-number">0</span>);
                 expect(suite.result.location.column).to.equal(<span class="hljs-number">0</span>);
             });
 
-            it(<span class="hljs-string">&apos;correctly reports the stacktrace of an error&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">&apos;DB is down&apos;</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Connection error&apos;</span>));
+            it(<span class="hljs-string">'correctly reports the stacktrace of an error'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">'DB is down'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Connection error'</span>));
 
                 serenityReporterForJasmine(jasmine);
 
@@ -242,9 +242,9 @@ describe(<span class="hljs-string">&apos;@serenity-js/jasmine&apos;</span>, <spa
 
                 <span class="hljs-keyword">const</span> result = attrs.expectationResultFactory({ <span class="hljs-attr">passing</span>: <span class="hljs-literal">false</span>, error });
 
-                <span class="hljs-keyword">const</span> frames = result.stack.split(<span class="hljs-string">&apos;\n&apos;</span>);
-                expect(frames[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">&apos;TestCompromisedError: DB is down&apos;</span>);
-                expect(frames).to.include(<span class="hljs-string">&apos;Caused by: Error: Connection error&apos;</span>);
+                <span class="hljs-keyword">const</span> frames = result.stack.split(<span class="hljs-string">'\n'</span>);
+                expect(frames[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">'TestCompromisedError: DB is down'</span>);
+                expect(frames).to.include(<span class="hljs-string">'Caused by: Error: Connection error'</span>);
             });
         });
     });

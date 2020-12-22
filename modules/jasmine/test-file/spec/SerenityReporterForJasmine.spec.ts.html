@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="active">@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">jasmine</a></li>
@@ -123,10 +123,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/SerenityReporterForJasmine.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
     DomainEvent,
     SceneFinished,
@@ -137,8 +137,8 @@
     TestRunnerDetected,
     TestSuiteFinished,
     TestSuiteStarts,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> {
     CorrelationId, ExecutionCompromised, ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -149,17 +149,17 @@
     Name,
     TestSuiteDetails,
     Timestamp,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { SerenityReporterForJasmine } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../src/SerenityReporterForJasmine&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { SerenityReporterForJasmine } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/SerenityReporterForJasmine'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine}</span> </span>*/</span>
-describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> serenity: Serenity,
         <span class="hljs-attr">reporter</span>: SerenityReporterForJasmine,
         <span class="hljs-attr">listener</span>: Listener;
 
-    <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&apos;1970-01-01T00:00:00Z&apos;</span>);
+    <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1970-01-01T00:00:00Z'</span>);
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         serenity = <span class="hljs-keyword">new</span> Serenity(<span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> now));
@@ -169,17 +169,17 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
         serenity.configure({ <span class="hljs-attr">crew</span>: [ listener ] });
     });
 
-    describe(<span class="hljs-string">&apos;notifies Serenity when&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'notifies Serenity when'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">&apos;the test run&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'the test run'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#jasmineDone}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;ends&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+            it(<span class="hljs-string">'ends'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                 <span class="hljs-keyword">await</span> reporter.jasmineDone({
-                    <span class="hljs-attr">overallStatus</span>: <span class="hljs-string">&apos;passed&apos;</span>,
+                    <span class="hljs-attr">overallStatus</span>: <span class="hljs-string">'passed'</span>,
                     <span class="hljs-attr">incompleteReason</span>: <span class="hljs-literal">undefined</span>,
                     <span class="hljs-attr">order</span>: {
                         <span class="hljs-attr">random</span>: <span class="hljs-literal">true</span>,
-                        <span class="hljs-attr">seed</span>: <span class="hljs-string">&apos;14552&apos;</span>,
+                        <span class="hljs-attr">seed</span>: <span class="hljs-string">'14552'</span>,
                         <span class="hljs-attr">sort</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
                     },
                     <span class="hljs-attr">failedExpectations</span>: [],
@@ -191,20 +191,20 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
             });
         });
 
-        describe(<span class="hljs-string">&apos;the test suite&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'the test suite'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span> </span>*/</span>
-            it(<span class="hljs-string">&apos;starts&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'starts'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">const</span> jasmineEvent = {
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite1&apos;</span>,
-                    <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
-                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
+                    <span class="hljs-attr">description</span>: <span class="hljs-string">'Jasmine'</span>,
+                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine'</span>,
                     <span class="hljs-attr">failedExpectations</span>: [],
                     <span class="hljs-attr">deprecationWarnings</span>: [],
                     <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                     <span class="hljs-attr">location</span>: {
-                        <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                        <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                         <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>,
                         <span class="hljs-attr">column</span>: <span class="hljs-number">9</span>,
                     },
@@ -216,7 +216,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                 expect(listener.events[<span class="hljs-number">0</span>]).to.equal(
                     <span class="hljs-keyword">new</span> TestSuiteStarts(
                         <span class="hljs-keyword">new</span> TestSuiteDetails(
-                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Jasmine&apos;</span>),
+                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Jasmine'</span>),
                             FileSystemLocation.fromJSON(jasmineEvent.location),
                             CorrelationId.fromJSON(jasmineEvent.id),
                         ),
@@ -229,48 +229,48 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteDone}</span></span>
              */</span>
-            it(<span class="hljs-string">&apos;ends&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'ends'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 reporter.suiteStarted({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite1&apos;</span>,
-                    <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
-                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
+                    <span class="hljs-attr">description</span>: <span class="hljs-string">'Jasmine'</span>,
+                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine'</span>,
                     <span class="hljs-attr">failedExpectations</span>: [],
                     <span class="hljs-attr">deprecationWarnings</span>: [],
                     <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                     <span class="hljs-attr">location</span>: {
-                        <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                        <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                         <span class="hljs-attr">line</span>: <span class="hljs-number">1</span>,
                         <span class="hljs-attr">column</span>: <span class="hljs-number">1</span>,
                     },
                 });
 
                 reporter.suiteDone({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite1&apos;</span>,
-                    <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
-                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
+                    <span class="hljs-attr">description</span>: <span class="hljs-string">'Jasmine'</span>,
+                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine'</span>,
                     <span class="hljs-attr">failedExpectations</span>: [],
                     <span class="hljs-attr">deprecationWarnings</span>: [],
                     <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
                     <span class="hljs-attr">location</span>: {
-                        <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                        <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                         <span class="hljs-attr">line</span>: <span class="hljs-number">1</span>,
                         <span class="hljs-attr">column</span>: <span class="hljs-number">1</span>,
                     },
-                    <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;passed&apos;</span>,
+                    <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
                 });
 
                 PickEvent.from(listener.events)
                     .next(TestSuiteFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event).to.equal(
                         <span class="hljs-keyword">new</span> TestSuiteFinished(
                             <span class="hljs-keyword">new</span> TestSuiteDetails(
-                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Jasmine&apos;</span>),
+                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Jasmine'</span>),
                                 FileSystemLocation.fromJSON({
-                                    <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                                    <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                                     <span class="hljs-attr">line</span>: <span class="hljs-number">1</span>,
                                     <span class="hljs-attr">column</span>: <span class="hljs-number">1</span>,
                                 }),
-                                CorrelationId.fromJSON(<span class="hljs-string">&apos;suite1&apos;</span>),
+                                CorrelationId.fromJSON(<span class="hljs-string">'suite1'</span>),
                             ),
                             <span class="hljs-keyword">new</span> ExecutionSuccessful(),
                             <span class="hljs-keyword">new</span> Timestamp(now),
@@ -282,56 +282,56 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteDone}</span></span>
              */</span>
-            it(<span class="hljs-string">&apos;ends with an error, reporting the first error that has occurred&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'ends with an error, reporting the first error that has occurred'</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-comment">/*
                  * A test suite will be marked as failing only when beforeAll or afterAll blocks are used.
                  */</span>
                 reporter.suiteStarted({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite1&apos;</span>,
-                    <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;a suite&apos;</span>,
-                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;a suite&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
+                    <span class="hljs-attr">description</span>: <span class="hljs-string">'a suite'</span>,
+                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">'a suite'</span>,
                     <span class="hljs-attr">failedExpectations</span>: [],
                     <span class="hljs-attr">deprecationWarnings</span>: [],
                     <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                     <span class="hljs-attr">location</span>: {
-                        <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                        <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                         <span class="hljs-attr">line</span>: <span class="hljs-number">9</span>,
                         <span class="hljs-attr">column</span>: <span class="hljs-number">1</span>,
                     },
                 });
 
                 reporter.suiteDone({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite1&apos;</span>,
-                    <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;a suite&apos;</span>,
-                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;a suite&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
+                    <span class="hljs-attr">description</span>: <span class="hljs-string">'a suite'</span>,
+                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">'a suite'</span>,
                     <span class="hljs-attr">failedExpectations</span>: [
                         {
-                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;&apos;</span>,
-                            <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;Failed: suite beforeAll&apos;</span>,
+                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">''</span>,
+                            <span class="hljs-attr">message</span>: <span class="hljs-string">'Failed: suite beforeAll'</span>,
                             <span class="hljs-attr">stack</span>:
-                                <span class="hljs-string">&apos;Error: Failed: suite beforeAll\n    at &lt;Jasmine&gt;\n    at UserContext.&lt;anonymous&gt; (/path/to/spec.js:11:9)\n    at &lt;Jasmine&gt;&apos;</span>,
+                                <span class="hljs-string">'Error: Failed: suite beforeAll\n    at &lt;Jasmine&gt;\n    at UserContext.&lt;anonymous&gt; (/path/to/spec.js:11:9)\n    at &lt;Jasmine&gt;'</span>,
                             <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
-                            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;&apos;</span>,
-                            <span class="hljs-attr">actual</span>: <span class="hljs-string">&apos;&apos;</span>,
+                            <span class="hljs-attr">expected</span>: <span class="hljs-string">''</span>,
+                            <span class="hljs-attr">actual</span>: <span class="hljs-string">''</span>,
                         }, {
-                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;&apos;</span>,
-                            <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;Failed: suite afterAll&apos;</span>,
+                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">''</span>,
+                            <span class="hljs-attr">message</span>: <span class="hljs-string">'Failed: suite afterAll'</span>,
                             <span class="hljs-attr">stack</span>:
-                                <span class="hljs-string">&apos;Error: Failed: suite afterAll\n    at &lt;Jasmine&gt;\n    at UserContext.&lt;anonymous&gt; (/path/to/spec.js:15:9)\n    at &lt;Jasmine&gt;&apos;</span>,
+                                <span class="hljs-string">'Error: Failed: suite afterAll\n    at &lt;Jasmine&gt;\n    at UserContext.&lt;anonymous&gt; (/path/to/spec.js:15:9)\n    at &lt;Jasmine&gt;'</span>,
                             <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
-                            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;&apos;</span>,
-                            <span class="hljs-attr">actual</span>: <span class="hljs-string">&apos;&apos;</span>,
+                            <span class="hljs-attr">expected</span>: <span class="hljs-string">''</span>,
+                            <span class="hljs-attr">actual</span>: <span class="hljs-string">''</span>,
                         },
                     ],
                     <span class="hljs-attr">deprecationWarnings</span>: [],
                     <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
                     <span class="hljs-attr">location</span>:
                         {
-                            <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                            <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                             <span class="hljs-attr">line</span>: <span class="hljs-number">9</span>,
                             <span class="hljs-attr">column</span>: <span class="hljs-number">1</span>,
                         },
-                    <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;failed&apos;</span>,
+                    <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                 });
 
                 PickEvent.from(listener.events)
@@ -339,7 +339,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                         <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError;
 
                         expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
-                        expect(outcome.error.message).to.equal(<span class="hljs-string">&apos;Failed: suite beforeAll&apos;</span>);
+                        expect(outcome.error.message).to.equal(<span class="hljs-string">'Failed: suite beforeAll'</span>);
                     });
             });
 
@@ -347,34 +347,34 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteDone}</span></span>
              */</span>
-            it(<span class="hljs-string">&apos;is pending&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'is pending'</span>, <span class="hljs-function">() =&gt;</span> {
                 reporter.suiteStarted({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite3&apos;</span>,
-                    <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;pending suite&apos;</span>,
-                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;pending suite&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">'suite3'</span>,
+                    <span class="hljs-attr">description</span>: <span class="hljs-string">'pending suite'</span>,
+                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">'pending suite'</span>,
                     <span class="hljs-attr">failedExpectations</span>: [],
                     <span class="hljs-attr">deprecationWarnings</span>: [],
                     <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                     <span class="hljs-attr">location</span>: {
-                        <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                        <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                         <span class="hljs-attr">line</span>: <span class="hljs-number">8</span>,
                         <span class="hljs-attr">column</span>: <span class="hljs-number">5</span>,
                     },
                 });
 
                 reporter.suiteDone({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite3&apos;</span>,
-                    <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;pending suite&apos;</span>,
-                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;pending suite&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">'suite3'</span>,
+                    <span class="hljs-attr">description</span>: <span class="hljs-string">'pending suite'</span>,
+                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">'pending suite'</span>,
                     <span class="hljs-attr">failedExpectations</span>: [],
                     <span class="hljs-attr">deprecationWarnings</span>: [],
                     <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
                     <span class="hljs-attr">location</span>: {
-                        <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                        <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                         <span class="hljs-attr">line</span>: <span class="hljs-number">8</span>,
                         <span class="hljs-attr">column</span>: <span class="hljs-number">5</span>,
                     },
-                    <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;pending&apos;</span>,
+                    <span class="hljs-attr">status</span>: <span class="hljs-string">'pending'</span>,
                 });
 
                 PickEvent.from(listener.events)
@@ -383,111 +383,111 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
 
                         expect(outcome).to.be.instanceOf(ImplementationPending);
                         expect(outcome.error).to.be.instanceOf(ImplementationPendingError);
-                        expect(outcome.error.message).to.equal(<span class="hljs-string">&apos;&apos;</span>);
+                        expect(outcome.error.message).to.equal(<span class="hljs-string">''</span>);
                     });
             });
         });
 
-        describe(<span class="hljs-string">&apos;the test spec&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'the test spec'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            describe(<span class="hljs-string">&apos;starts and&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            describe(<span class="hljs-string">'starts and'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
                     reporter.suiteStarted({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite1&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'Jasmine'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                         <span class="hljs-attr">location</span>: {
-                            <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                            <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                             <span class="hljs-attr">line</span>: <span class="hljs-number">1</span>,
                             <span class="hljs-attr">column</span>: <span class="hljs-number">1</span>,
                         },
                     });
 
                     reporter.suiteStarted({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite2&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;A scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;Jasmine A scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'suite2'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'A scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine A scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                         <span class="hljs-attr">location</span>: {
-                            <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                            <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                             <span class="hljs-attr">line</span>: <span class="hljs-number">3</span>,
                             <span class="hljs-attr">column</span>: <span class="hljs-number">5</span>,
                         },
                     });
 
                     reporter.specStarted({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;passes&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;Jasmine A scenario passes&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'passes'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine A scenario passes'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [],
                         <span class="hljs-attr">passedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                         <span class="hljs-attr">location</span>: {
-                            <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                            <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                             <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>,
                             <span class="hljs-attr">column</span>: <span class="hljs-number">9</span>,
                         },
                     });
 
                     <span class="hljs-keyword">await</span> reporter.specDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;passes&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;Jasmine A scenario passes&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'passes'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine A scenario passes'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [],
                         <span class="hljs-attr">passedExpectations</span>:
                             [{
-                                <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;toBe&apos;</span>,
-                                <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;Passed.&apos;</span>,
-                                <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;&apos;</span>,
+                                <span class="hljs-attr">matcherName</span>: <span class="hljs-string">'toBe'</span>,
+                                <span class="hljs-attr">message</span>: <span class="hljs-string">'Passed.'</span>,
+                                <span class="hljs-attr">stack</span>: <span class="hljs-string">''</span>,
                                 <span class="hljs-attr">passed</span>: <span class="hljs-literal">true</span>,
                             }],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                         <span class="hljs-attr">location</span>: {
-                            <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                            <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                             <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>,
                             <span class="hljs-attr">column</span>: <span class="hljs-number">9</span>,
                         },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;passed&apos;</span>,
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
                     });
 
                     reporter.suiteDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite2&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;A scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;Jasmine A scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'suite2'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'A scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine A scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
                         <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
                         <span class="hljs-attr">location</span>: {
-                            <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                            <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                             <span class="hljs-attr">line</span>: <span class="hljs-number">3</span>,
                             <span class="hljs-attr">column</span>: <span class="hljs-number">5</span>,
                         },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;passed&apos;</span>,
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
                     });
 
                     reporter.suiteDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;suite1&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;Jasmine&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'Jasmine'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
                         <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
                         <span class="hljs-attr">location</span>: {
-                            <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                            <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                             <span class="hljs-attr">line</span>: <span class="hljs-number">1</span>,
                             <span class="hljs-attr">column</span>: <span class="hljs-number">1</span>,
                         },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;passed&apos;</span>,
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
                     });
                 });
 
@@ -497,10 +497,10 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;derives the name of the scenario from the nested `describe` blocks&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'derives the name of the scenario from the nested `describe` blocks'</span>, <span class="hljs-function">() =&gt;</span> {
                     PickEvent.from(listener.events)
-                        .next(SceneStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">&apos;A scenario passes&apos;</span>))
-                        .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">&apos;A scenario passes&apos;</span>));
+                        .next(SceneStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">'A scenario passes'</span>))
+                        .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">'A scenario passes'</span>));
                 });
 
                 <span class="hljs-comment">/**
@@ -509,9 +509,9 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;derives the name of the feature from the outer-most `describe` block&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'derives the name of the feature from the outer-most `describe` block'</span>, <span class="hljs-function">() =&gt;</span> {
                     PickEvent.from(listener.events)
-                        .next(SceneTagged,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Jasmine&apos;</span>)));
+                        .next(SceneTagged,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Jasmine'</span>)));
                 });
 
                 <span class="hljs-comment">/**
@@ -520,43 +520,43 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;detects the test runner&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'detects the test runner'</span>, <span class="hljs-function">() =&gt;</span> {
                     PickEvent.from(listener.events)
-                        .next(TestRunnerDetected,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Jasmine&apos;</span>)));
+                        .next(TestRunnerDetected,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Jasmine'</span>)));
                 });
             });
 
-            describe(<span class="hljs-string">&apos;ends and&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            describe(<span class="hljs-string">'ends and'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 beforeEach(<span class="hljs-function">() =&gt;</span> {
                     reporter.specStarted({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [],
                         <span class="hljs-attr">passedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
-                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
+                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
                     });
                 });
 
                 <span class="hljs-comment">/**
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;has been excluded&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                it(<span class="hljs-string">'has been excluded'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                     <span class="hljs-keyword">await</span> reporter.specDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [],
                         <span class="hljs-attr">passedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
-                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;excluded&apos;</span>,
+                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'excluded'</span>,
                     });
 
                     PickEvent.from(listener.events)
@@ -566,49 +566,49 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                 <span class="hljs-comment">/**
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;is marked as pending&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                it(<span class="hljs-string">'is marked as pending'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                     <span class="hljs-keyword">await</span> reporter.specDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [],
                         <span class="hljs-attr">passedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;Temporarily disabled with xit&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">'Temporarily disabled with xit'</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
-                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;pending&apos;</span>,
+                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'pending'</span>,
                     });
 
                     PickEvent.from(listener.events)
                         .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                             <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ImplementationPending;
                             expect(outcome).to.be.instanceOf(ImplementationPending);
-                            expect(outcome.error.message).to.equal(<span class="hljs-string">&apos;Temporarily disabled with xit&apos;</span>);
+                            expect(outcome.error.message).to.equal(<span class="hljs-string">'Temporarily disabled with xit'</span>);
                         });
                 });
 
                 <span class="hljs-comment">/**
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;has failed with an error&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                it(<span class="hljs-string">'has failed with an error'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                     <span class="hljs-keyword">await</span> reporter.specDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>:
-                         [ { <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;&apos;</span>,
-                             <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;Error: Something happened&apos;</span>,
-                             <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;Error: Something happened\n    at UserContext.it (/path/to/spec.js:6:19)\n&apos;</span>,
+                         [ { <span class="hljs-attr">matcherName</span>: <span class="hljs-string">''</span>,
+                             <span class="hljs-attr">message</span>: <span class="hljs-string">'Error: Something happened'</span>,
+                             <span class="hljs-attr">stack</span>: <span class="hljs-string">'Error: Something happened\n    at UserContext.it (/path/to/spec.js:6:19)\n'</span>,
                              <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
-                             <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;&apos;</span>,
-                             <span class="hljs-attr">actual</span>: <span class="hljs-string">&apos;&apos;</span> } ],
+                             <span class="hljs-attr">expected</span>: <span class="hljs-string">''</span>,
+                             <span class="hljs-attr">actual</span>: <span class="hljs-string">''</span> } ],
                         <span class="hljs-attr">passedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
-                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;failed&apos;</span>,
+                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
                     PickEvent.from(listener.events)
@@ -616,28 +616,28 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                             <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError;
                             expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
                             expect(outcome.error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
-                            expect(outcome.error.message).to.equal(<span class="hljs-string">&apos;Something happened&apos;</span>);
+                            expect(outcome.error.message).to.equal(<span class="hljs-string">'Something happened'</span>);
                         });
                 });
 
-                it(<span class="hljs-string">&apos;as compromised&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                it(<span class="hljs-string">'as compromised'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                     <span class="hljs-keyword">await</span> reporter.specDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>:
-                            [ { <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;&apos;</span>,
-                                <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;TestCompromisedError: The API call has failed&apos;</span>,
-                                <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;error properties: TestCompromisedError: undefined\n    at &lt;Jasmine&gt;\n&apos;</span>,
+                            [ { <span class="hljs-attr">matcherName</span>: <span class="hljs-string">''</span>,
+                                <span class="hljs-attr">message</span>: <span class="hljs-string">'TestCompromisedError: The API call has failed'</span>,
+                                <span class="hljs-attr">stack</span>: <span class="hljs-string">'error properties: TestCompromisedError: undefined\n    at &lt;Jasmine&gt;\n'</span>,
                                 <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
-                                <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;&apos;</span>,
-                                <span class="hljs-attr">actual</span>: <span class="hljs-string">&apos;&apos;</span> } ],
+                                <span class="hljs-attr">expected</span>: <span class="hljs-string">''</span>,
+                                <span class="hljs-attr">actual</span>: <span class="hljs-string">''</span> } ],
                         <span class="hljs-attr">passedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
-                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;failed&apos;</span>,
+                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
                     PickEvent.from(listener.events)
@@ -645,31 +645,31 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                             <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionCompromised;
                             expect(outcome).to.be.instanceOf(ExecutionCompromised);
                             expect(outcome.error).to.be.instanceOf(TestCompromisedError);
-                            expect(outcome.error.message).to.equal(<span class="hljs-string">&apos;The API call has failed&apos;</span>);
+                            expect(outcome.error.message).to.equal(<span class="hljs-string">'The API call has failed'</span>);
                         });
                 });
 
                 <span class="hljs-comment">/**
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;has failed with no stack trace&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                it(<span class="hljs-string">'has failed with no stack trace'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                     <span class="hljs-keyword">await</span> reporter.specDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>:
-                            [ { <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;&apos;</span>,
-                                <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;Someone throws a string just because they can...&apos;</span>,
+                            [ { <span class="hljs-attr">matcherName</span>: <span class="hljs-string">''</span>,
+                                <span class="hljs-attr">message</span>: <span class="hljs-string">'Someone throws a string just because they can...'</span>,
                                 <span class="hljs-attr">stack</span>: <span class="hljs-literal">null</span>,
                                 <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
-                                <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;&apos;</span>,
-                                <span class="hljs-attr">actual</span>: <span class="hljs-string">&apos;&apos;</span> } ],
+                                <span class="hljs-attr">expected</span>: <span class="hljs-string">''</span>,
+                                <span class="hljs-attr">actual</span>: <span class="hljs-string">''</span> } ],
                         <span class="hljs-attr">passedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
-                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;failed&apos;</span>,
+                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
                     PickEvent.from(listener.events)
@@ -677,31 +677,31 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
                             <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError;
                             expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
                             expect(outcome.error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
-                            expect(outcome.error.message).to.equal(<span class="hljs-string">&apos;Someone throws a string just because they can...&apos;</span>);
+                            expect(outcome.error.message).to.equal(<span class="hljs-string">'Someone throws a string just because they can...'</span>);
                         });
                 });
 
                 <span class="hljs-comment">/**
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;has failed with an assertion error&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                it(<span class="hljs-string">'has failed with an assertion error'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                     <span class="hljs-keyword">await</span> reporter.specDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>:
-                            [ { <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;toEqual&apos;</span>,
-                                <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;Expected false to equal true.&apos;</span>,
-                                <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;Error: Expected false to equal true.\n    at &lt;Jasmine&gt;\n    at UserContext.it (/path/to/spec.js:6:27)\n    at &lt;Jasmine&gt;&apos;</span>,
+                            [ { <span class="hljs-attr">matcherName</span>: <span class="hljs-string">'toEqual'</span>,
+                                <span class="hljs-attr">message</span>: <span class="hljs-string">'Expected false to equal true.'</span>,
+                                <span class="hljs-attr">stack</span>: <span class="hljs-string">'Error: Expected false to equal true.\n    at &lt;Jasmine&gt;\n    at UserContext.it (/path/to/spec.js:6:27)\n    at &lt;Jasmine&gt;'</span>,
                                 <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
                                 <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>,
                                 <span class="hljs-attr">actual</span>: <span class="hljs-literal">false</span> } ],
                         <span class="hljs-attr">passedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
-                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;failed&apos;</span>,
+                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
                     PickEvent.from(listener.events)
@@ -711,65 +711,65 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
 
                             <span class="hljs-keyword">const</span> error = outcome.error <span class="hljs-keyword">as</span> AssertionError;
                             expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal(<span class="hljs-string">&apos;Expected false to equal true.&apos;</span>);
+                            expect(error.message).to.equal(<span class="hljs-string">'Expected false to equal true.'</span>);
                             expect(error.actual).to.equal(<span class="hljs-literal">false</span>);
                             expect(error.expected).to.equal(<span class="hljs-literal">true</span>);
                         });
                 });
 
                 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span> </span>*/</span>
-                it(<span class="hljs-string">&apos;has failed with multiple errors&apos;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                it(<span class="hljs-string">'has failed with multiple errors'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                     <span class="hljs-comment">// The failure with multiple errors could only happen when someone has</span>
                     <span class="hljs-comment">// a bare-bones protractor/jasmine setup and uses Serenity/JS just for the reporting</span>
                     <span class="hljs-keyword">await</span> reporter.specDone({
-                        <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                        <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
-                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;scenario&apos;</span>,
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
+                        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">failedExpectations</span>: [ {
-                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;toEqual&apos;</span>,
-                            <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;Expected false to equal true.&apos;</span>,
-                            <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;Error: Expected false to equal true.\n    at &lt;Jasmine&gt;\n    at UserContext.it (/path/to/spec.js:6:27)\n    at &lt;Jasmine&gt;&apos;</span>,
+                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">'toEqual'</span>,
+                            <span class="hljs-attr">message</span>: <span class="hljs-string">'Expected false to equal true.'</span>,
+                            <span class="hljs-attr">stack</span>: <span class="hljs-string">'Error: Expected false to equal true.\n    at &lt;Jasmine&gt;\n    at UserContext.it (/path/to/spec.js:6:27)\n    at &lt;Jasmine&gt;'</span>,
                             <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
                             <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>,
                             <span class="hljs-attr">actual</span>: <span class="hljs-literal">false</span>,
                         },  {
-                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;toEqual&apos;</span>,
-                            <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;Expected &quot;hello&quot; to equal &quot;hey&quot;.&apos;</span>,
-                            <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;Error: Expected &quot;hello&quot; to equal &quot;hey&quot;.\n    at &lt;Jasmine&gt;\n    at UserContext.it (/path/to/spec.js:6:27)\n    at &lt;Jasmine&gt;&apos;</span>,
+                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">'toEqual'</span>,
+                            <span class="hljs-attr">message</span>: <span class="hljs-string">'Expected "hello" to equal "hey".'</span>,
+                            <span class="hljs-attr">stack</span>: <span class="hljs-string">'Error: Expected "hello" to equal "hey".\n    at &lt;Jasmine&gt;\n    at UserContext.it (/path/to/spec.js:6:27)\n    at &lt;Jasmine&gt;'</span>,
                             <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
-                            <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;hey&apos;</span>,
-                            <span class="hljs-attr">actual</span>: <span class="hljs-string">&apos;hello&apos;</span>,
+                            <span class="hljs-attr">expected</span>: <span class="hljs-string">'hey'</span>,
+                            <span class="hljs-attr">actual</span>: <span class="hljs-string">'hello'</span>,
                         }],
                         <span class="hljs-attr">passedExpectations</span>: [],
                         <span class="hljs-attr">deprecationWarnings</span>: [],
-                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                        <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
-                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
-                        <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;failed&apos;</span>,
+                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>, <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">9</span> },
+                        <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
                     PickEvent.from(listener.events)
-                        .next(TaskStarts,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Expectation&apos;</span>)))
+                        .next(TaskStarts,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Expectation'</span>)))
                         .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                             <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithAssertionError;
                             expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
 
                             <span class="hljs-keyword">const</span> error = outcome.error <span class="hljs-keyword">as</span> AssertionError;
                             expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal(<span class="hljs-string">&apos;Expected false to equal true.&apos;</span>);
+                            expect(error.message).to.equal(<span class="hljs-string">'Expected false to equal true.'</span>);
                             expect(error.actual).to.equal(<span class="hljs-literal">false</span>);
                             expect(error.expected).to.equal(<span class="hljs-literal">true</span>);
                         })
-                        .next(TaskStarts,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Expectation&apos;</span>)))
+                        .next(TaskStarts,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Expectation'</span>)))
                         .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                             <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithAssertionError;
                             expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
 
                             <span class="hljs-keyword">const</span> error = outcome.error <span class="hljs-keyword">as</span> AssertionError;
                             expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal(<span class="hljs-string">&apos;Expected &quot;hello&quot; to equal &quot;hey&quot;.&apos;</span>);
-                            expect(error.actual).to.equal(<span class="hljs-string">&apos;hello&apos;</span>);
-                            expect(error.expected).to.equal(<span class="hljs-string">&apos;hey&apos;</span>);
+                            expect(error.message).to.equal(<span class="hljs-string">'Expected "hello" to equal "hey".'</span>);
+                            expect(error.actual).to.equal(<span class="hljs-string">'hello'</span>);
+                            expect(error.expected).to.equal(<span class="hljs-string">'hey'</span>);
                         })
                         .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                             <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithAssertionError;
@@ -777,7 +777,7 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
 
                             <span class="hljs-keyword">const</span> error = outcome.error <span class="hljs-keyword">as</span> AssertionError;
                             expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal(<span class="hljs-string">&apos;Expected false to equal true.&apos;</span>);
+                            expect(error.message).to.equal(<span class="hljs-string">'Expected false to equal true.'</span>);
                             expect(error.actual).to.equal(<span class="hljs-literal">false</span>);
                             expect(error.expected).to.equal(<span class="hljs-literal">true</span>);
                         });
@@ -785,46 +785,46 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
             });
         });
 
-        describe(<span class="hljs-string">&apos;the `it` block is not nested within a `describe` block and&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'the `it` block is not nested within a `describe` block and'</span>, <span class="hljs-function">() =&gt;</span> {
 
             beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
                 reporter.specStarted({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                    <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;A scenario passes&apos;</span>,
-                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;A scenario passes&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                    <span class="hljs-attr">description</span>: <span class="hljs-string">'A scenario passes'</span>,
+                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">'A scenario passes'</span>,
                     <span class="hljs-attr">failedExpectations</span>: [],
                     <span class="hljs-attr">passedExpectations</span>: [],
                     <span class="hljs-attr">deprecationWarnings</span>: [],
-                    <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                    <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                     <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                     <span class="hljs-attr">location</span>: {
-                        <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                        <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                         <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>,
                         <span class="hljs-attr">column</span>: <span class="hljs-number">9</span>,
                     },
                 });
 
                 <span class="hljs-keyword">await</span> reporter.specDone({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">&apos;spec0&apos;</span>,
-                    <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;A scenario passes&apos;</span>,
-                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">&apos;A scenario passes&apos;</span>,
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
+                    <span class="hljs-attr">description</span>: <span class="hljs-string">'A scenario passes'</span>,
+                    <span class="hljs-attr">fullName</span>: <span class="hljs-string">'A scenario passes'</span>,
                     <span class="hljs-attr">failedExpectations</span>: [],
                     <span class="hljs-attr">passedExpectations</span>:
                         [{
-                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">&apos;toBe&apos;</span>,
-                            <span class="hljs-attr">message</span>: <span class="hljs-string">&apos;Passed.&apos;</span>,
-                            <span class="hljs-attr">stack</span>: <span class="hljs-string">&apos;&apos;</span>,
+                            <span class="hljs-attr">matcherName</span>: <span class="hljs-string">'toBe'</span>,
+                            <span class="hljs-attr">message</span>: <span class="hljs-string">'Passed.'</span>,
+                            <span class="hljs-attr">stack</span>: <span class="hljs-string">''</span>,
                             <span class="hljs-attr">passed</span>: <span class="hljs-literal">true</span>,
                         }],
                     <span class="hljs-attr">deprecationWarnings</span>: [],
-                    <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">&apos;&apos;</span>,
+                    <span class="hljs-attr">pendingReason</span>: <span class="hljs-string">''</span>,
                     <span class="hljs-attr">duration</span>: <span class="hljs-literal">null</span>,
                     <span class="hljs-attr">location</span>: {
-                        <span class="hljs-attr">path</span>: <span class="hljs-string">&apos;/path/to/spec.js&apos;</span>,
+                        <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                         <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>,
                         <span class="hljs-attr">column</span>: <span class="hljs-number">9</span>,
                     },
-                    <span class="hljs-attr">status</span>: <span class="hljs-string">&apos;passed&apos;</span>,
+                    <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
                 });
             });
 
@@ -832,19 +832,19 @@ describe(<span class="hljs-string">&apos;SerenityReporterForJasmine&apos;</span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
              */</span>
-            it(<span class="hljs-string">&apos;tags the feature as &quot;unknown&quot;&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'tags the feature as "unknown"'</span>, <span class="hljs-function">() =&gt;</span> {
                 PickEvent.from(listener.events)
-                    .next(SceneTagged,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Unknown feature&apos;</span>)));
+                    .next(SceneTagged,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Unknown feature'</span>)));
             });
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
              */</span>
-            it(<span class="hljs-string">&apos;correctly derives the name of the spec&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'correctly derives the name of the spec'</span>, <span class="hljs-function">() =&gt;</span> {
                 PickEvent.from(listener.events)
-                    .next(SceneStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">&apos;A scenario passes&apos;</span>))
-                    .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">&apos;A scenario passes&apos;</span>));
+                    .next(SceneStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">'A scenario passes'</span>))
+                    .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">'A scenario passes'</span>));
             });
         });
     });

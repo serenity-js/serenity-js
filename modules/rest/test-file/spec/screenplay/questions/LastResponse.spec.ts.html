@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="active">@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">rest</a></li>
@@ -131,22 +131,22 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/LastResponse.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
-<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../actors&apos;</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../expect&apos;</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actors'</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span> </span>*/</span>
-describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'LastResponse'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance();
 
     afterEach(<span class="hljs-function">() =&gt;</span>  mock.reset());
 
-    describe(<span class="hljs-string">&apos;when asserting on the response to the last HTTP request&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when asserting on the response to the last HTTP request'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">interface</span> Product {
             <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
@@ -154,9 +154,9 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
         }
 
         <span class="hljs-keyword">const</span>
-            url     = <span class="hljs-string">&apos;/products/2&apos;</span>,
-            body    = { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;apple&apos;</span> },
-            headers = { <span class="hljs-string">&apos;Content-Type&apos;</span>: <span class="hljs-string">&apos;application/json;charset=utf-8&apos;</span> };
+            url     = <span class="hljs-string">'/products/2'</span>,
+            body    = { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> },
+            headers = { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json;charset=utf-8'</span> };
 
         beforeEach(<span class="hljs-function">() =&gt;</span>  mock.onGet(url).reply(<span class="hljs-number">200</span>, body, headers));
 
@@ -164,7 +164,7 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
          * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.status}</span></span>
          */</span>
-        it(<span class="hljs-string">&apos;enables access to the response status&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
+        it(<span class="hljs-string">'enables access to the response status'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(url)),
             Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
         ));
@@ -173,7 +173,7 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
          * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.body}</span></span>
          */</span>
-        it(<span class="hljs-string">&apos;enables access to the response body&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
+        it(<span class="hljs-string">'enables access to the response body'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(url)),
             Ensure.that(LastResponse.body&lt;Product&gt;(), equals(body)),
         ));
@@ -182,16 +182,16 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
          * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.header}</span></span>
          */</span>
-        it(<span class="hljs-string">&apos;enables access to a specific response header&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
+        it(<span class="hljs-string">'enables access to a specific response header'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(url)),
-            Ensure.that(LastResponse.header(<span class="hljs-string">&apos;Content-Type&apos;</span>), equals(headers[<span class="hljs-string">&apos;Content-Type&apos;</span>])),
+            Ensure.that(LastResponse.header(<span class="hljs-string">'Content-Type'</span>), equals(headers[<span class="hljs-string">'Content-Type'</span>])),
         ));
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.headers}</span></span>
          */</span>
-        it(<span class="hljs-string">&apos;enables access to all response headers&apos;</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
+        it(<span class="hljs-string">'enables access to all response headers'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
             Send.a(GetRequest.to(url)),
             Ensure.that(LastResponse.headers(), equals(headers)),
         ));
@@ -200,10 +200,10 @@ describe(<span class="hljs-string">&apos;LastResponse&apos;</span>, <span class=
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.mapLastResponse}</span></span>
      */</span>
-    it(<span class="hljs-string">&apos;complains if the last response is attempted to be retrieved without making a request first&apos;</span>, <span class="hljs-function">() =&gt;</span>
+    it(<span class="hljs-string">'complains if the last response is attempted to be retrieved without making a request first'</span>, <span class="hljs-function">() =&gt;</span>
         expect(actor.attemptsTo(
             Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-        )).to.be.rejectedWith(LogicError, <span class="hljs-string">&apos;Make sure to perform a HTTP API call before checking on the response&apos;</span>),
+        )).to.be.rejectedWith(LogicError, <span class="hljs-string">'Make sure to perform a HTTP API call before checking on the response'</span>),
     );
 });
 </code></pre>

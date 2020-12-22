@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,34 +175,34 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Enter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">import</span> { Enter, Navigate, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
-<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
+<span class="hljs-keyword">import</span> { Enter, Navigate, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
-describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'Enter'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Form = {
-        <span class="hljs-attr">Field</span>: Target.the(<span class="hljs-string">&apos;name field&apos;</span>).located(by.id(<span class="hljs-string">&apos;field&apos;</span>)),
-        <span class="hljs-attr">Result</span>: Target.the(<span class="hljs-string">&apos;result&apos;</span>).located(by.id(<span class="hljs-string">&apos;result&apos;</span>)),
+        <span class="hljs-attr">Field</span>: Target.the(<span class="hljs-string">'name field'</span>).located(by.id(<span class="hljs-string">'field'</span>)),
+        <span class="hljs-attr">Result</span>: Target.the(<span class="hljs-string">'result'</span>).located(by.id(<span class="hljs-string">'result'</span>)),
     };
 
     <span class="hljs-keyword">const</span> page = pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
                     &lt;form&gt;
-                        &lt;input type=&quot;text&quot; id=&quot;field&quot; onkeyup=&quot;update()&quot; /&gt;
-                        &lt;div id=&quot;result&quot; /&gt;
+                        &lt;input type="text" id="field" onkeyup="update()" /&gt;
+                        &lt;div id="result" /&gt;
                     &lt;/form&gt;
                     &lt;script&gt;
                     function update() {
-                      document.getElementById(&quot;result&quot;).textContent = document.getElementById(&quot;field).value;
+                      document.getElementById("result").textContent = document.getElementById("field).value;
                     }
                     &lt;/script&gt;
                 &lt;/body&gt;
@@ -211,28 +211,28 @@ describe(<span class="hljs-string">&apos;Enter&apos;</span>, <span class="hljs-f
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter.theValue}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows the actor to enter the value into an input field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to enter the value into an input field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(page),
 
-        Enter.theValue(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).name).into(Form.Field),
+        Enter.theValue(actorCalled(<span class="hljs-string">'Bernie'</span>).name).into(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).name)),
+        Ensure.that(Value.of(Form.Field), equals(actorCalled(<span class="hljs-string">'Bernie'</span>).name)),
     ));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter.theValue}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows the actor to enter the value into a number field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to enter the value into a number field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(page),
 
         Enter.theValue(<span class="hljs-number">123</span>).into(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;123&apos;</span>)),
+        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">'123'</span>)),
     ));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter#toString}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(Enter.theValue(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).name).into(Form.Field).toString())
-            .to.equal(<span class="hljs-string">`#actor enters &apos;Bernie&apos; into the name field`</span>);
+    it(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+        expect(Enter.theValue(actorCalled(<span class="hljs-string">'Bernie'</span>).name).into(Form.Field).toString())
+            .to.equal(<span class="hljs-string">`#actor enters 'Bernie' into the name field`</span>);
     });
 });
 </code></pre>

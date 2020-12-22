@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -123,9 +123,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/bootstrap.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;yargs&apos;</span>);             <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>);             <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
 
-<span class="hljs-keyword">const</span> pkg = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../../package.json&apos;</span>);  <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
+<span class="hljs-keyword">const</span> pkg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../package.json'</span>);  <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -151,13 +151,13 @@
     yargs()
         .version(pkg.version)
         .demand(<span class="hljs-number">1</span>)
-        .usage(<span class="hljs-string">&apos;Usage: $0 &lt;command&gt; [options]&apos;</span>)
-        .example(<span class="hljs-string">&apos;$0 update [options]&apos;</span>, <span class="hljs-string">&apos;updates the Serenity jar to the latest version&apos;</span>)
-        .example(<span class="hljs-string">&apos;$0 run [options]&apos;</span>,    <span class="hljs-string">&apos;generates the HTML report from JSON reports produced by Serenity/JS&apos;</span>)
-        .example(<span class="hljs-string">&apos;$0 &lt;command&gt; --help&apos;</span>, <span class="hljs-string">&apos;shows the available parameters&apos;</span>)
+        .usage(<span class="hljs-string">'Usage: $0 &lt;command&gt; [options]'</span>)
+        .example(<span class="hljs-string">'$0 update [options]'</span>, <span class="hljs-string">'updates the Serenity jar to the latest version'</span>)
+        .example(<span class="hljs-string">'$0 run [options]'</span>,    <span class="hljs-string">'generates the HTML report from JSON reports produced by Serenity/JS'</span>)
+        .example(<span class="hljs-string">'$0 &lt;command&gt; --help'</span>, <span class="hljs-string">'shows the available parameters'</span>)
         .epilog(<span class="hljs-string">`copyright (C) 2016-<span class="hljs-subst">${ <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getFullYear() }</span> <span class="hljs-subst">${ pkg.author.name }</span> &lt;<span class="hljs-subst">${ pkg.author.email }</span>&gt;`</span>)
-        .commandDir(<span class="hljs-string">&apos;./commands&apos;</span>)
-        .alias(<span class="hljs-string">&apos;h&apos;</span>, <span class="hljs-string">&apos;help&apos;</span>).help()
+        .commandDir(<span class="hljs-string">'./commands'</span>)
+        .alias(<span class="hljs-string">'h'</span>, <span class="hljs-string">'help'</span>).help()
         .parse(argv, { }, interceptor);
 }
 </code></pre>

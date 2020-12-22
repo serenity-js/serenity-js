@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="active">@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">console-reporter</a></li>
@@ -125,8 +125,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/ConsoleReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib'</span>;
 <span class="hljs-keyword">import</span> {
     ActivityRelatedArtifactGenerated,
     DomainEvent,
@@ -137,7 +137,7 @@
     TaskFinished,
     TaskStarts,
     TestRunFinished,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> {
     AssertionReport,
     CorrelationId,
@@ -154,13 +154,13 @@
     Outcome,
     ProblemIndication,
     Timestamp,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { Instance <span class="hljs-keyword">as</span> ChalkInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;chalk&apos;</span>;
-<span class="hljs-keyword">import</span> { ensure, isDefined, match } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
-<span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Printer&apos;</span>;
-<span class="hljs-keyword">import</span> { Summary } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./Summary&apos;</span>;
-<span class="hljs-keyword">import</span> { SummaryFormatter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./SummaryFormatter&apos;</span>;
-<span class="hljs-keyword">import</span> { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTerminals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./themes&apos;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { Instance <span class="hljs-keyword">as</span> ChalkInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'chalk'</span>;
+<span class="hljs-keyword">import</span> { ensure, isDefined, match } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Printer'</span>;
+<span class="hljs-keyword">import</span> { Summary } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Summary'</span>;
+<span class="hljs-keyword">import</span> { SummaryFormatter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SummaryFormatter'</span>;
+<span class="hljs-keyword">import</span> { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTerminals } <span class="hljs-keyword">from</span> <span class="hljs-string">'./themes'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -168,12 +168,12 @@
  *  to report on progress of your Serenity/JS acceptance tests.
  *
  *  `ConsoleReporter` ships with colour themes for both dark and light terminals,
- *  as well as a monochromatic theme for those moments when you&apos;re in a noir mood
- *  (or have a terminal that doesn&apos;t support colours, like the good old `cmd.exe` on Windows).
+ *  as well as a monochromatic theme for those moments when you're in a noir mood
+ *  (or have a terminal that doesn't support colours, like the good old `cmd.exe` on Windows).
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
- *  import { serenity } from &apos;<span class="hljs-doctag">@serenity</span>-js/core&apos;;
- *  import { ConsoleReporter } from &apos;<span class="hljs-doctag">@serenity</span>-js/console-reporter&apos;;
+ *  import { serenity } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { ConsoleReporter } from '<span class="hljs-doctag">@serenity</span>-js/console-reporter';
  *
  *  serenity.configure({
  *      crew: [ ConsoleReporter.withDefaultColourSupport() ],
@@ -181,11 +181,11 @@
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Registering the reporter using Protractor configuration&lt;/caption&gt;
  *  // protractor.conf.js
- *  const { ConsoleReporter } = require(&apos;<span class="hljs-doctag">@serenity</span>-js/console-reporter&apos;);
+ *  const { ConsoleReporter } = require('<span class="hljs-doctag">@serenity</span>-js/console-reporter');
  *
  *  exports.config = {
- *    framework:     &apos;custom&apos;,
- *    frameworkPath: require.resolve(&apos;<span class="hljs-doctag">@serenity</span>-js/protractor/adapter&apos;),
+ *    framework:     'custom',
+ *    frameworkPath: require.resolve('<span class="hljs-doctag">@serenity</span>-js/protractor/adapter'),
  *
  *    serenity: {
  *      crew: [
@@ -211,13 +211,13 @@
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Instantiates a `ConsoleReporter` that auto-detects
-     *  your terminal&apos;s support for colours and use a colour theme
+     *  your terminal's support for colours and use a colour theme
      *  for dark terminals if successful.
      *
      *  Please note that spawning your test process from another process
      *  (by using [npm-failsafe](https://www.npmjs.com/package/npm-failsafe), for example)
      *  causes the `ConsoleReporter` to use the monochromatic colour scheme,
-     *  as colour support can&apos;t be detected in child processes.
+     *  as colour support can't be detected in child processes.
      *
      *  If the above describes your setup, use {<span class="hljs-doctag">@link </span>ConsoleReporter#forDarkTerminals}
      *  or {<span class="hljs-doctag">@link </span>ConsoleReporter#forLightTerminals} to make the sub-process produce colour output.
@@ -283,8 +283,8 @@
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
     </span>)</span> {
-        ensure(<span class="hljs-string">&apos;printer&apos;</span>, printer, isDefined());
-        ensure(<span class="hljs-string">&apos;theme&apos;</span>, theme, isDefined());
+        ensure(<span class="hljs-string">'printer'</span>, printer, isDefined());
+        ensure(<span class="hljs-string">'theme'</span>, theme, isDefined());
 
         <span class="hljs-built_in">this</span>.summaryFormatter = <span class="hljs-keyword">new</span> SummaryFormatter(<span class="hljs-built_in">this</span>.theme);
     }
@@ -320,10 +320,10 @@
                 <span class="hljs-built_in">this</span>.startTimes.recordStartOf(e);
 
                 <span class="hljs-comment">// Print scenario header</span>
-                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">&apos;-&apos;</span>));
-                <span class="hljs-built_in">this</span>.printer.println(e.details.location.path.value, e.details.location.line ? <span class="hljs-string">`:<span class="hljs-subst">${ e.details.location.line }</span>`</span> : <span class="hljs-string">&apos;&apos;</span>);
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">'-'</span>));
+                <span class="hljs-built_in">this</span>.printer.println(e.details.location.path.value, e.details.location.line ? <span class="hljs-string">`:<span class="hljs-subst">${ e.details.location.line }</span>`</span> : <span class="hljs-string">''</span>);
                 <span class="hljs-built_in">this</span>.printer.println();
-                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.heading(e.details.category.value, <span class="hljs-string">&apos;: &apos;</span>, e.details.name.value));
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.heading(e.details.category.value, <span class="hljs-string">': '</span>, e.details.name.value));
                 <span class="hljs-built_in">this</span>.printer.println();
 
             })
@@ -383,7 +383,7 @@
                         <span class="hljs-keyword">const</span> details = evt.artifact.map(<span class="hljs-function">(<span class="hljs-params">artifactContents: { data: <span class="hljs-built_in">string</span> }</span>) =&gt;</span> artifactContents.data);
 
                         <span class="hljs-keyword">if</span> (evt.name.value !== details) {
-                            <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.log(evt.name.value, <span class="hljs-string">&apos;:&apos;</span>));
+                            <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.log(evt.name.value, <span class="hljs-string">':'</span>));
                         }
 
                         <span class="hljs-built_in">this</span>.printer.println(details);
@@ -447,11 +447,11 @@
                 <span class="hljs-built_in">this</span>.artifacts.clear();
             })
             .when(TestRunFinished, <span class="hljs-function">(<span class="hljs-params">e: TestRunFinished</span>) =&gt;</span> {
-                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">&apos;=&apos;</span>));
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">'='</span>));
 
                 <span class="hljs-built_in">this</span>.printer.print(<span class="hljs-built_in">this</span>.summaryFormatter.format(<span class="hljs-built_in">this</span>.summary.aggregated()));
 
-                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">&apos;=&apos;</span>));
+                <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">'='</span>));
             })
             .else(<span class="hljs-function">(<span class="hljs-params">e: DomainEvent</span>) =&gt;</span> {
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
@@ -469,7 +469,7 @@
     }
 
     <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">deCamelCased</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-keyword">const</span> deCamelCased = name.replace(<span class="hljs-regexp">/([^A-Z])([A-Z])/g</span>, <span class="hljs-string">&apos;$1 $2&apos;</span>);
+        <span class="hljs-keyword">const</span> deCamelCased = name.replace(<span class="hljs-regexp">/([^A-Z])([A-Z])/g</span>, <span class="hljs-string">'$1 $2'</span>);
 
         <span class="hljs-keyword">return</span> deCamelCased.charAt(<span class="hljs-number">0</span>).toUpperCase() + deCamelCased.slice(<span class="hljs-number">1</span>).toLocaleLowerCase();
     }
@@ -479,17 +479,17 @@
             <span class="hljs-keyword">case</span> ExecutionCompromised:
             <span class="hljs-keyword">case</span> ExecutionFailedWithError:
             <span class="hljs-keyword">case</span> ExecutionFailedWithAssertionError:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;&#x2717; &apos;</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'✗ '</span>;
             <span class="hljs-keyword">case</span> ImplementationPending:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;&#x2615;&apos;</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'☕'</span>;
             <span class="hljs-keyword">case</span> ExecutionSkipped:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;&#x21E2; &apos;</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'⇢ '</span>;
             <span class="hljs-keyword">case</span> ExecutionIgnored:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;? &apos;</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'? '</span>;
             <span class="hljs-keyword">case</span> ExecutionSuccessful:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;&#x2713; &apos;</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'✓ '</span>;
             <span class="hljs-keyword">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;&apos;</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
         }
     }
 }

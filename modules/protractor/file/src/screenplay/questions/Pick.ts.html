@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,10 +175,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Pick.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { Expectation, ExpectationMet } from &apos;@serenity-js/assertions&apos;;
-import { AnswersQuestions, Question, UsesAbilities } from &apos;@serenity-js/core&apos;;
-import { formatted } from &apos;@serenity-js/core/lib/io&apos;;
-import { RelativeQuestion } from &apos;./RelativeQuestion&apos;;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { Expectation, ExpectationMet } from '@serenity-js/assertions';
+import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { formatted } from '@serenity-js/core/lib/io';
+import { RelativeQuestion } from './RelativeQuestion';
 
 export interface Collection&lt;T&gt; {
     filter(fn: (item: T, index?: number) =&gt; boolean | Promise&lt;boolean&gt;): Collection&lt;T&gt;;
@@ -242,15 +242,15 @@ class Filters&lt;Item_Type, Collection_Type extends Collection&lt;Item_Type&gt;&
     extends Question&lt;(ct: Collection_Type) =&gt; Collection_Type&gt;
 {
     constructor(private readonly filters: Array&lt;Filter&lt;Item_Type, Collection_Type, any&gt;&gt; = []) {
-        super(&apos;&apos;);
+        super('');
 
         const fullDescription = this.filters
             .reduce((description, filter) =&gt; description.concat(filter.toString()), [ ])
-            .join(&apos; and &apos;);
+            .join(' and ');
 
         this.subject = fullDescription.length &gt; 0
             ? `where ${ fullDescription }`
-            : &apos;&apos;;
+            : '';
     }
 
     append(filter: Filter&lt;Item_Type, Collection_Type, any&gt;) {
@@ -362,7 +362,7 @@ class NumberOfMatchingItems&lt;IT, CT extends Collection&lt;IT&gt;&gt;
     extends QuestionAboutCollectionItems&lt;IT, CT, Promise&lt;number&gt;&gt;
 {
     constructor(collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;) {
-        super(collection, filters, &apos;the number of&apos;);
+        super(collection, filters, 'the number of');
     }
 
     /**
@@ -388,7 +388,7 @@ class NumberOfMatchingItems&lt;IT, CT extends Collection&lt;IT&gt;&gt;
 class AllMatchingItems&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends QuestionAboutCollectionItems&lt;IT, CT, CT&gt; {
 
     constructor(collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;) {
-        super(collection, filters, &apos;&apos;);
+        super(collection, filters, '');
     }
 
     /**
@@ -414,7 +414,7 @@ class AllMatchingItems&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends Questi
 class FirstMatchingItem&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends QuestionAboutCollectionItems&lt;IT, CT, IT&gt; {
 
     constructor(collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;) {
-        super(collection, filters, &apos;the first of&apos;);
+        super(collection, filters, 'the first of');
     }
 
     /**
@@ -440,7 +440,7 @@ class FirstMatchingItem&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends Quest
 class LastMatchingItem&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends QuestionAboutCollectionItems&lt;IT, CT, IT&gt; {
 
     constructor(collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;) {
-        super(collection, filters, &apos;the last of&apos;);
+        super(collection, filters, 'the last of');
     }
 
     /**
@@ -471,13 +471,13 @@ class NthMatchingItem&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends Questio
 
         switch (true) {
             case (j === 1 &amp;&amp; k !== 11):
-                return index + &apos;st&apos;;
+                return index + 'st';
             case (j === 2 &amp;&amp; k !== 12):
-                return index + &apos;nd&apos;;
+                return index + 'nd';
             case (j === 3 &amp;&amp; k !== 13):
-                return index + &apos;rd&apos;;
+                return index + 'rd';
             default:
-                return index + &apos;th&apos;;
+                return index + 'th';
         }
     }
 

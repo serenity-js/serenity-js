@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -123,17 +123,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/model/GAV.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { ensure, isDefined, isInRange, isInteger, matches, Predicate, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;tiny-types&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { ensure, isDefined, isInRange, isInteger, matches, Predicate, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GAV</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
     <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromString</span>(<span class="hljs-params">gav: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-keyword">const</span> parts = gav.split(<span class="hljs-string">&apos;:&apos;</span>);
+        <span class="hljs-keyword">const</span> parts = gav.split(<span class="hljs-string">':'</span>);
 
-        ensure(<span class="hljs-string">&apos;GAV segments&apos;</span>, parts, property(<span class="hljs-string">&apos;length&apos;</span>, isInteger(), isInRange(<span class="hljs-number">3</span>, <span class="hljs-number">5</span>)));
+        ensure(<span class="hljs-string">'GAV segments'</span>, parts, property(<span class="hljs-string">'length'</span>, isInteger(), isInRange(<span class="hljs-number">3</span>, <span class="hljs-number">5</span>)));
 
         <span class="hljs-keyword">switch</span> (parts.length) {
             <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GAV(parts[<span class="hljs-number">0</span>], parts[<span class="hljs-number">1</span>], parts[<span class="hljs-number">4</span>], parts[<span class="hljs-number">2</span>], parts[<span class="hljs-number">3</span>]);
@@ -146,14 +146,14 @@
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> groupId: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> artifactId: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> version: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> extension: <span class="hljs-built_in">string</span> = <span class="hljs-string">&apos;jar&apos;</span>,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> extension: <span class="hljs-built_in">string</span> = <span class="hljs-string">'jar'</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> classifier?: <span class="hljs-built_in">string</span>,
     </span>)</span> {
         <span class="hljs-built_in">super</span>();
-        ensure(<span class="hljs-string">&apos;groupId&apos;</span>, groupId, isDefined(), matches(<span class="hljs-regexp">/^[a-z][a-z0-9_-]+(?:\.[a-z0-9_-]+)+[0-9a-z_-]$/</span>));
-        ensure(<span class="hljs-string">&apos;artifactId&apos;</span>, artifactId, isDefined(), matches(<span class="hljs-regexp">/^[a-z0-9_-]+$/</span>));
-        ensure(<span class="hljs-string">&apos;version&apos;</span>, version, isDefined(), matches(<span class="hljs-regexp">/^(?:\d+\.?){3}$/</span>));
-        ensure(<span class="hljs-string">&apos;extension&apos;</span>, extension, isDefined(), matches(<span class="hljs-regexp">/^[a-z]+$/</span>));
+        ensure(<span class="hljs-string">'groupId'</span>, groupId, isDefined(), matches(<span class="hljs-regexp">/^[a-z][a-z0-9_-]+(?:\.[a-z0-9_-]+)+[0-9a-z_-]$/</span>));
+        ensure(<span class="hljs-string">'artifactId'</span>, artifactId, isDefined(), matches(<span class="hljs-regexp">/^[a-z0-9_-]+$/</span>));
+        ensure(<span class="hljs-string">'version'</span>, version, isDefined(), matches(<span class="hljs-regexp">/^(?:\d+\.?){3}$/</span>));
+        ensure(<span class="hljs-string">'extension'</span>, extension, isDefined(), matches(<span class="hljs-regexp">/^[a-z]+$/</span>));
     }
 
     toPath(): Path {
@@ -161,7 +161,7 @@
             <span class="hljs-built_in">this</span>.artifactId,
             <span class="hljs-built_in">this</span>.version,
             <span class="hljs-built_in">this</span>.classifier,
-        ].filter(<span class="hljs-function"><span class="hljs-params">s</span> =&gt;</span> !!s).join(<span class="hljs-string">&apos;-&apos;</span>);
+        ].filter(<span class="hljs-function"><span class="hljs-params">s</span> =&gt;</span> !!s).join(<span class="hljs-string">'-'</span>);
 
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`<span class="hljs-subst">${ name }</span>.<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.extension}</span>`</span>);
     }

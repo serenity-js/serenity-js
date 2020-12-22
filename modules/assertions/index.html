@@ -91,15 +91,15 @@
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="active">@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">assertions</a></li>
@@ -117,7 +117,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationMet.html">ExpectationMet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationNotMet.html">ExpectationNotMet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Predicate&lt;A,E&gt;">Predicate&lt;A,E&gt;</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Predicate<A,E>">Predicate&lt;A,E&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-and">and</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-contain">contain</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-containAtLeastOneItemThat">containAtLeastOneItemThat</a></span></span></li>
@@ -145,47 +145,47 @@
                 <article class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="serenity-js">Serenity/JS</h1><p><a href="https://serenity-js.org">Serenity/JS</a> is a Node.js library designed to make acceptance and regression testing
 of modern full-stack applications faster, more collaborative and easier to scale.</p>
 <h2 id="serenity-js-assertions">Serenity/JS Assertions</h2><p>An assertion library implementing the Screenplay Pattern.</p>
-<h3 id="performing-verifications-using--code-ensure--code-">Performing verifications using <code>Ensure</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Ensure, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { Website } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<h3 id="performing-verifications-using--code-ensure--code-">Performing verifications using <code>Ensure</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Ensure, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { Website } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
-<span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">&apos;Erica&apos;</span>);
+<span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Erica'</span>);
 
 actor.attemptsTo(
-    Ensure.that(Website.title(), endsWith(<span class="hljs-string">&apos;Serenity/JS&apos;</span>))
+    Ensure.that(Website.title(), endsWith(<span class="hljs-string">'Serenity/JS'</span>))
 );
 </code></pre>
-<h3 id="controlling-execution-flow-using--code-check--code-">Controlling execution flow using <code>Check</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Check } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>; 
-<span class="hljs-keyword">import</span> { Click, isVisible } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<h3 id="controlling-execution-flow-using--code-check--code-">Controlling execution flow using <code>Check</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Check } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>; 
+<span class="hljs-keyword">import</span> { Click, isVisible } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
-actorCalled(<span class="hljs-string">&apos;Erica&apos;</span>).attemptsTo(
+actorCalled(<span class="hljs-string">'Erica'</span>).attemptsTo(
     Check.whether(NewsletterModal, isVisible())
         .andIfSo(Click.on(CloseModalButton)),
 );
 </code></pre>
-<h3 id="synchronising-the-test-with-the-system-under-test-using--code-wait--code-">Synchronising the test with the System Under Test using <code>Wait</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Click, isVisible, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<h3 id="synchronising-the-test-with-the-system-under-test-using--code-wait--code-">Synchronising the test with the System Under Test using <code>Wait</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Click, isVisible, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
-actorCalled(<span class="hljs-string">&apos;Erica&apos;</span>).attemptsTo(
+actorCalled(<span class="hljs-string">'Erica'</span>).attemptsTo(
     Wait.until(CloseModalButton, isVisible()),
     Click.on(CloseModalButton)
 );
 </code></pre>
-<h3 id="defining-custom-expectations-using--code-expectation-thatactualshould--code-">Defining custom expectations using <code>Expectation.thatActualShould</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Expectation, Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<h3 id="defining-custom-expectations-using--code-expectation-thatactualshould--code-">Defining custom expectations using <code>Expectation.thatActualShould</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Expectation, Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isDivisibleBy</span>(<span class="hljs-params">expected: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">number</span>&gt; </span>{
-    <span class="hljs-keyword">return</span> Expectation.thatActualShould&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">&apos;have value divisible by&apos;</span>, expected)
+    <span class="hljs-keyword">return</span> Expectation.thatActualShould&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">'have value divisible by'</span>, expected)
         .soThat(<span class="hljs-function">(<span class="hljs-params">actualValue, expectedValue</span>) =&gt;</span> actualValue % expectedValue === <span class="hljs-number">0</span>);
 }
 
-actorCalled(<span class="hljs-string">&apos;Erica&apos;</span>).attemptsTo(
+actorCalled(<span class="hljs-string">'Erica'</span>).attemptsTo(
     Ensure.that(<span class="hljs-number">4</span>, isDivisibleBy(<span class="hljs-number">2</span>)),
 );
 </code></pre>
-<h3 id="composing-expectations-using--code-expectation-to--code-">Composing expectations using <code>Expectation.to</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<h3 id="composing-expectations-using--code-expectation-to--code-">Composing expectations using <code>Expectation.to</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isWithin</span>(<span class="hljs-params">lowerBound: <span class="hljs-built_in">number</span>, upperBound: <span class="hljs-built_in">number</span></span>) </span>{
     <span class="hljs-keyword">return</span> Expectation
@@ -196,7 +196,7 @@ actorCalled(<span class="hljs-string">&apos;Erica&apos;</span>).attemptsTo(
         ));
 }
 
-actorCalled(<span class="hljs-string">&apos;Erica&apos;</span>).attemptsTo(
+actorCalled(<span class="hljs-string">'Erica'</span>).attemptsTo(
     Ensure.that(<span class="hljs-number">5</span>, isWithin(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)),
 );
 </code></pre>

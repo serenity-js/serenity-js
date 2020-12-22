@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="active">@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">console-reporter</a></li>
@@ -125,37 +125,37 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/console-reporter/SummaryFormatter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path, trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> { Summary } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage/crew/console-reporter/Summary&apos;</span>;
-<span class="hljs-keyword">import</span> { SummaryFormatter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage/crew/console-reporter/SummaryFormatter&apos;</span>;
-<span class="hljs-keyword">import</span> { ThemeForMonochromaticTerminals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../src/stage/crew/console-reporter/themes&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { FileSystemLocation, Path, trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { Summary } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/Summary'</span>;
+<span class="hljs-keyword">import</span> { SummaryFormatter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/SummaryFormatter'</span>;
+<span class="hljs-keyword">import</span> { ThemeForMonochromaticTerminals } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/themes'</span>;
 
-describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'SummaryFormatter'</span>, <span class="hljs-function">() =&gt;</span> {
     <span class="hljs-keyword">const</span>
         defaultCardPayment = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Default card payment&apos;</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;Checkout&apos;</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">&apos;features/checkout.feature&apos;</span>)),
+            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Default card payment'</span>),
+            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Checkout'</span>),
+            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">'features/checkout.feature'</span>)),
         ),
         addingProductToBasket = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Adding product to a basket&apos;</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;Basket&apos;</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">&apos;features/basket.feature&apos;</span>)),
+            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Adding product to a basket'</span>),
+            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Basket'</span>),
+            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">'features/basket.feature'</span>)),
         ),
         removingProductToBasket = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Removing product from a basket&apos;</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;Basket&apos;</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">&apos;features/basket.feature&apos;</span>)),
+            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Removing product from a basket'</span>),
+            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Basket'</span>),
+            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">'features/basket.feature'</span>)),
         ),
         longCategoryName = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">&apos;Recording customer details&apos;</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">&apos;Know-Your-Customer and Anti Money Laundering requirements&apos;</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">&apos;features/registration.feature&apos;</span>)),
+            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Recording customer details'</span>),
+            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Know-Your-Customer and Anti Money Laundering requirements'</span>),
+            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">'features/registration.feature'</span>)),
         );
 
     <span class="hljs-keyword">let</span> summary: Summary,
@@ -166,7 +166,7 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         formatter = <span class="hljs-keyword">new</span> SummaryFormatter(<span class="hljs-keyword">new</span> ThemeForMonochromaticTerminals());
     });
 
-    it(<span class="hljs-string">&apos;provides an empty description if no tests are recorded&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'provides an empty description if no tests are recorded'</span>, <span class="hljs-function">() =&gt;</span> {
 
         expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
             | Execution Summary
@@ -177,7 +177,7 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         `</span>);
     });
 
-    it(<span class="hljs-string">&apos;provides summary of a single successful category&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'provides summary of a single successful category'</span>, <span class="hljs-function">() =&gt;</span> {
 
         summary.record(defaultCardPayment, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
 
@@ -191,10 +191,10 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         `</span>);
     });
 
-    it(<span class="hljs-string">&apos;aggregates results per category&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'aggregates results per category'</span>, <span class="hljs-function">() =&gt;</span> {
         summary.record(defaultCardPayment, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
         summary.record(addingProductToBasket, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">10</span>));
-        summary.record(removingProductToBasket, <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;boom&apos;</span>)), Duration.ofMilliseconds(<span class="hljs-number">100</span>));
+        summary.record(removingProductToBasket, <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'boom'</span>)), Duration.ofMilliseconds(<span class="hljs-number">100</span>));
 
         expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
             | Execution Summary
@@ -207,7 +207,7 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         `</span>);
     });
 
-    it(<span class="hljs-string">&apos;caps the category name at 30 characters&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'caps the category name at 30 characters'</span>, <span class="hljs-function">() =&gt;</span> {
         summary.record(longCategoryName, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
 
         expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
@@ -220,7 +220,7 @@ describe(<span class="hljs-string">&apos;SummaryFormatter&apos;</span>, <span cl
         `</span>);
     });
 
-    it(<span class="hljs-string">&apos;keeps the padding consistent between longer and shorter category names&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'keeps the padding consistent between longer and shorter category names'</span>, <span class="hljs-function">() =&gt;</span> {
         summary.record(addingProductToBasket, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">10</span>));
         summary.record(longCategoryName, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
 

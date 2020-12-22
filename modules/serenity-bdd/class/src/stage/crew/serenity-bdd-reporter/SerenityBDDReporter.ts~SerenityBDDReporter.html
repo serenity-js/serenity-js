@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -123,7 +123,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {SerenityBDDReporter} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter&apos;</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {SerenityBDDReporter} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -161,12 +161,12 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Registering the reporter programmatically</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { ArtifactArchiver, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
- <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/serenity-bdd&apos;</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { ArtifactArchiver, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/serenity-bdd'</span>;
 
  serenity.configure({
    <span class="hljs-attr">crew</span>: [
-     ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
+     ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
      <span class="hljs-keyword">new</span> SerenityBDDReporter()
    ],
  });</code></pre>
@@ -175,16 +175,16 @@
       <div class="example-caption" data-ice="exampleCaption">Registering the reporter using Protractor configuration</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-comment">// protractor.conf.js</span>
  <span class="hljs-keyword">const</span>
-   { ArtifactArchiver }    = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/core&apos;</span>),
-   { SerenityBDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/serenity-bdd&apos;</span>);
+   { ArtifactArchiver }    = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>),
+   { SerenityBDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/serenity-bdd'</span>);
 
  <span class="hljs-built_in">exports</span>.config = {
-   <span class="hljs-attr">framework</span>:     <span class="hljs-string">&apos;custom&apos;</span>,
-   <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+   <span class="hljs-attr">framework</span>:     <span class="hljs-string">'custom'</span>,
+   <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
    <span class="hljs-attr">serenity</span>: {
      <span class="hljs-attr">crew</span>: [
-       ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
+       ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
        <span class="hljs-keyword">new</span> SerenityBDDReporter(),
      ],
      <span class="hljs-comment">// other Serenity/JS config</span>
@@ -230,7 +230,7 @@
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber183">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the start time of the scenario</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber194">SerenityBDDReporter produces a SerenityBDDReport that at the scenario level contains the duration of the scenario</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber214">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has finished with success</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber233">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that hasn&apos;t been implemented yet</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber233">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that hasn't been implemented yet</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber252">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been ignored</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber271">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has been skipped</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts.html#lineNumber290">SerenityBDDReporter produces a SerenityBDDReport that describes the result of scenario execution that has failed with an assertion error</a></span></li>

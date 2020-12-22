@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
                         <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">cucumber</a></li>
@@ -138,130 +138,130 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/cli/CucumberOptions.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/io&apos;</span>;
-<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
-<span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../src/cli/CucumberOptions&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
+<span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/cli/CucumberOptions'</span>;
 
-describe(<span class="hljs-string">&apos;CucumberOptions&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'CucumberOptions'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">&apos;when used to produce command line arguments for Cucumber CLI&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'when used to produce command line arguments for Cucumber CLI'</span>, <span class="hljs-function">() =&gt;</span> {
 
         given([
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;1.0.0&apos;</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;2.0.0&apos;</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;3.0.0&apos;</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;4.0.0&apos;</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;5.0.0&apos;</span>),
+            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.0.0'</span>),
+            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>),
+            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'3.0.0'</span>),
+            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'4.0.0'</span>),
+            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>),
         ]).
-        it(<span class="hljs-string">&apos;returns no additional arguments when the config is empty&apos;</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
+        it(<span class="hljs-string">'returns no additional arguments when the config is empty'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({});
 
-            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([<span class="hljs-string">&apos;node&apos;</span>, <span class="hljs-string">&apos;cucumber-js&apos;</span>]);
+            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>]);
         });
 
-        describe(<span class="hljs-string">&apos;tags&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'tags'</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
-                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;2.0.0&apos;</span>),
-                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;3.0.0&apos;</span>),
-                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;4.0.0&apos;</span>),
-                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;5.0.0&apos;</span>),
+                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>),
+                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'3.0.0'</span>),
+                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'4.0.0'</span>),
+                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>),
             ]).
-            it(<span class="hljs-string">&apos;converts a list of tags into a Cucumber expression for Cucumber 2.x and newer&apos;</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
+            it(<span class="hljs-string">'converts a list of tags into a Cucumber expression for Cucumber 2.x and newer'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
                 <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
                     <span class="hljs-attr">tags</span>: [
-                        <span class="hljs-string">&apos;@smoke-test&apos;</span>,
-                        <span class="hljs-string">&apos;~@wip&apos;</span>,
-                        <span class="hljs-string">&apos;not @failing and ~@flaky&apos;</span>,
+                        <span class="hljs-string">'@smoke-test'</span>,
+                        <span class="hljs-string">'~@wip'</span>,
+                        <span class="hljs-string">'not @failing and ~@flaky'</span>,
                     ],
                 });
 
                 expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([
-                    <span class="hljs-string">&apos;node&apos;</span>, <span class="hljs-string">&apos;cucumber-js&apos;</span>, <span class="hljs-string">&apos;--tags&apos;</span>, <span class="hljs-string">&apos;@smoke-test&apos;</span>, <span class="hljs-string">&apos;--tags&apos;</span>, <span class="hljs-string">&apos;not @wip&apos;</span>, <span class="hljs-string">&apos;--tags&apos;</span>, <span class="hljs-string">&apos;not @failing and not @flaky&apos;</span>,
+                    <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'@smoke-test'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'not @wip'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'not @failing and not @flaky'</span>,
                 ]);
             });
 
-            it(<span class="hljs-string">&apos;passes the tags individually to Cucumber 1.x&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            it(<span class="hljs-string">'passes the tags individually to Cucumber 1.x'</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
                     <span class="hljs-attr">tags</span>: [
-                        <span class="hljs-string">&apos;@smoke-test&apos;</span>,
-                        <span class="hljs-string">&apos;~@wip&apos;</span>,
-                        <span class="hljs-string">&apos;~@failing&apos;</span>,
+                        <span class="hljs-string">'@smoke-test'</span>,
+                        <span class="hljs-string">'~@wip'</span>,
+                        <span class="hljs-string">'~@failing'</span>,
                     ],
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;1.0.0&apos;</span>))).to.deep.equal([
-                    <span class="hljs-string">&apos;node&apos;</span>, <span class="hljs-string">&apos;cucumber-js&apos;</span>, <span class="hljs-string">&apos;--tags&apos;</span>, <span class="hljs-string">&apos;@smoke-test&apos;</span>, <span class="hljs-string">&apos;--tags&apos;</span>, <span class="hljs-string">&apos;~@wip&apos;</span>, <span class="hljs-string">&apos;--tags&apos;</span>, <span class="hljs-string">&apos;~@failing&apos;</span>,
+                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.0.0'</span>))).to.deep.equal([
+                    <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'@smoke-test'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'~@wip'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'~@failing'</span>,
                 ]);
             });
         });
 
-        describe(<span class="hljs-string">&apos;flags&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'flags'</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;backtrace off&apos;</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;backtrace&apos;</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-backtrace&apos;</span>   },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;backtrace on&apos;</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;backtrace&apos;</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--backtrace&apos;</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;dry-run off&apos;</span>,      <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;dry-run&apos;</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-dry-run&apos;</span>     },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;dry-run on&apos;</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;dry-run&apos;</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--dry-run&apos;</span>        },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;exit off&apos;</span>,         <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;exit&apos;</span>,         <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-exit&apos;</span>        },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;exit on&apos;</span>,          <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;exit&apos;</span>,         <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--exit&apos;</span>           },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;fail-fast off&apos;</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;fail-fast&apos;</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-fail-fast&apos;</span>   },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;fail-fast on&apos;</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;fail-fast&apos;</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--fail-fast&apos;</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;strict off&apos;</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;strict&apos;</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-strict&apos;</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;strict on&apos;</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;strict&apos;</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--strict&apos;</span>         },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;colors off&apos;</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;colors&apos;</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-colors&apos;</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;colors on&apos;</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;colors&apos;</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--colors&apos;</span>         },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'backtrace off'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'backtrace'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-backtrace'</span>   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'backtrace on'</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">'backtrace'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">'--backtrace'</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'dry-run off'</span>,      <span class="hljs-attr">option</span>: <span class="hljs-string">'dry-run'</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-dry-run'</span>     },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'dry-run on'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'dry-run'</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">'--dry-run'</span>        },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'exit off'</span>,         <span class="hljs-attr">option</span>: <span class="hljs-string">'exit'</span>,         <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-exit'</span>        },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'exit on'</span>,          <span class="hljs-attr">option</span>: <span class="hljs-string">'exit'</span>,         <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">'--exit'</span>           },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'fail-fast off'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'fail-fast'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-fail-fast'</span>   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'fail-fast on'</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">'fail-fast'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">'--fail-fast'</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'strict off'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'strict'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-strict'</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'strict on'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'strict'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">'--strict'</span>         },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'colors off'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'colors'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-colors'</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'colors on'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'colors'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">'--colors'</span>         },
             ]).
-            it(<span class="hljs-string">&apos;correctly interprets boolean options&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ option, state, expected }</span>) =&gt;</span> {
+            it(<span class="hljs-string">'correctly interprets boolean options'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, state, expected }</span>) =&gt;</span> {
                 <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
                     [option]: state,
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;5.0.0&apos;</span>))).to.deep.equal([
-                    <span class="hljs-string">&apos;node&apos;</span>, <span class="hljs-string">&apos;cucumber-js&apos;</span>, expected,
+                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>))).to.deep.equal([
+                    <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, expected,
                 ]);
             });
 
             given([
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;backtrace off&apos;</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-backtrace&apos;</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-backtrace&apos;</span>   },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;backtrace on&apos;</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-backtrace&apos;</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--backtrace&apos;</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;dry-run off&apos;</span>,      <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-dry-run&apos;</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-dry-run&apos;</span>     },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;dry-run on&apos;</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-dry-run&apos;</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--dry-run&apos;</span>        },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;exit off&apos;</span>,         <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-exit&apos;</span>,         <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-exit&apos;</span>        },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;exit on&apos;</span>,          <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-exit&apos;</span>,         <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--exit&apos;</span>           },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;fail-fast off&apos;</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-fail-fast&apos;</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-fail-fast&apos;</span>   },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;fail-fast on&apos;</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-fail-fast&apos;</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--fail-fast&apos;</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;strict off&apos;</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-strict&apos;</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-strict&apos;</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;strict on&apos;</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-strict&apos;</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--strict&apos;</span>         },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;colors off&apos;</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-colors&apos;</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--no-colors&apos;</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;colors on&apos;</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;no-colors&apos;</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">&apos;--colors&apos;</span>         },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'backtrace off'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'no-backtrace'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-backtrace'</span>   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'backtrace on'</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">'no-backtrace'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">'--backtrace'</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'dry-run off'</span>,      <span class="hljs-attr">option</span>: <span class="hljs-string">'no-dry-run'</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-dry-run'</span>     },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'dry-run on'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'no-dry-run'</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">'--dry-run'</span>        },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'exit off'</span>,         <span class="hljs-attr">option</span>: <span class="hljs-string">'no-exit'</span>,         <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-exit'</span>        },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'exit on'</span>,          <span class="hljs-attr">option</span>: <span class="hljs-string">'no-exit'</span>,         <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">'--exit'</span>           },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'fail-fast off'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'no-fail-fast'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-fail-fast'</span>   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'fail-fast on'</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">'no-fail-fast'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">'--fail-fast'</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'strict off'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'no-strict'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-strict'</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'strict on'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'no-strict'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">'--strict'</span>         },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'colors off'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'no-colors'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-colors'</span>      },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'colors on'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'no-colors'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">'--colors'</span>         },
             ]).
-            it(<span class="hljs-string">&apos;correctly interprets negated boolean options&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ option, state, expected }</span>) =&gt;</span> {
+            it(<span class="hljs-string">'correctly interprets negated boolean options'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, state, expected }</span>) =&gt;</span> {
                 <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
                     [option]: state,
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;5.0.0&apos;</span>))).to.deep.equal([
-                    <span class="hljs-string">&apos;node&apos;</span>, <span class="hljs-string">&apos;cucumber-js&apos;</span>, expected,
+                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>))).to.deep.equal([
+                    <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, expected,
                 ]);
             });
         });
 
-        describe(<span class="hljs-string">&apos;other options&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'other options'</span>, <span class="hljs-function">() =&gt;</span> {
 
             given([
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;profile&apos;</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;profile&apos;</span>,    <span class="hljs-attr">value</span>: [<span class="hljs-string">&apos;dry&apos;</span>, <span class="hljs-string">&apos;progress&apos;</span>],          <span class="hljs-attr">expected</span>: [ <span class="hljs-string">&apos;--profile&apos;</span>, <span class="hljs-string">&apos;dry&apos;</span>, <span class="hljs-string">&apos;--profile&apos;</span>, <span class="hljs-string">&apos;progress&apos;</span> ] },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;require&apos;</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;require&apos;</span>,    <span class="hljs-attr">value</span>: [ <span class="hljs-string">&apos;features/**/*.ts&apos;</span> ],       <span class="hljs-attr">expected</span>: [ <span class="hljs-string">&apos;--require&apos;</span>, <span class="hljs-string">&apos;features/**/*.ts&apos;</span> ] },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;name&apos;</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">&apos;name&apos;</span>,       <span class="hljs-attr">value</span>: [ <span class="hljs-string">&apos;checkout.*&apos;</span>, <span class="hljs-string">&apos;smoke.*&apos;</span> ],  <span class="hljs-attr">expected</span>: [ <span class="hljs-string">&apos;--name&apos;</span>, <span class="hljs-string">&apos;checkout.*&apos;</span>,  <span class="hljs-string">&apos;--name&apos;</span>, <span class="hljs-string">&apos;smoke.*&apos;</span>  ] },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'profile'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'profile'</span>,    <span class="hljs-attr">value</span>: [<span class="hljs-string">'dry'</span>, <span class="hljs-string">'progress'</span>],          <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--profile'</span>, <span class="hljs-string">'dry'</span>, <span class="hljs-string">'--profile'</span>, <span class="hljs-string">'progress'</span> ] },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'require'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'require'</span>,    <span class="hljs-attr">value</span>: [ <span class="hljs-string">'features/**/*.ts'</span> ],       <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--require'</span>, <span class="hljs-string">'features/**/*.ts'</span> ] },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'name'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'name'</span>,       <span class="hljs-attr">value</span>: [ <span class="hljs-string">'checkout.*'</span>, <span class="hljs-string">'smoke.*'</span> ],  <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--name'</span>, <span class="hljs-string">'checkout.*'</span>,  <span class="hljs-string">'--name'</span>, <span class="hljs-string">'smoke.*'</span>  ] },
             ]).
-            it(<span class="hljs-string">&apos;includes any other options&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value, expected }</span>) =&gt;</span> {
+            it(<span class="hljs-string">'includes any other options'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value, expected }</span>) =&gt;</span> {
                 <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
                     [option]: value,
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">&apos;5.0.0&apos;</span>))).to.deep.equal(
-                    [<span class="hljs-string">&apos;node&apos;</span>, <span class="hljs-string">&apos;cucumber-js&apos;</span>].concat(expected),
+                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>))).to.deep.equal(
+                    [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>].concat(expected),
                 );
             });
         });

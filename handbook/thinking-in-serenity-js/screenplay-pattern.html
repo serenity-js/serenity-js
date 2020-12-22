@@ -137,8 +137,8 @@
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="the-screenplay-pattern">The Screenplay Pattern</h1>
 <p>The Screenplay Pattern is a <a href="https://en.wikipedia.org/wiki/User-centered_design">user-centred</a> approach to writing high-quality automated acceptance tests. It steers you towards an effective use of layers of abstraction, helps your tests capture the business vernacular, and encourages good testing and software engineering habits.</p>
-<p>Instead of focusing on low-level, interface-centric interactions, you describe your test scenarios in a similar way you&apos;d describe them to a human being - an <em>actor</em> in Screenplay-speak. You write simple, readable and highly-reusable code that instructs the <em>actors</em> what activities to perform and what things to check. The domain-specific test language you create is used to express <em>screenplays</em> - the activities for the actors to perform in a given test scenario.</p>
-<p>The Screenplay Pattern is one of the core design patterns behind Serenity/JS and in this chapter we&apos;ll look into how to apply it in practice.</p>
+<p>Instead of focusing on low-level, interface-centric interactions, you describe your test scenarios in a similar way you'd describe them to a human being - an <em>actor</em> in Screenplay-speak. You write simple, readable and highly-reusable code that instructs the <em>actors</em> what activities to perform and what things to check. The domain-specific test language you create is used to express <em>screenplays</em> - the activities for the actors to perform in a given test scenario.</p>
+<p>The Screenplay Pattern is one of the core design patterns behind Serenity/JS and in this chapter we'll look into how to apply it in practice.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
@@ -147,13 +147,13 @@
     describing how the actors should go about performing their activities
     while interacting with the system under test.</p>
     <p>
-    The &quot;screen&quot; in &quot;screenplay&quot; has nothing to do with the computer screen.
+    The "screen" in "screenplay" has nothing to do with the computer screen.
     On the contrary, the Screenplay Pattern is a general method of modelling acceptance tests interacting with <em>any</em> external interface of your system. In fact, the Serenity/JS implementation of the Screenplay Pattern can help you break free from UI-only-based testing!
     </p></div>
 </div>
 
 <h2 id="the-five-elements">The Five Elements</h2>
-<p>The Screenplay Pattern is beautiful in its simplicity. It&apos;s made up of five elements, five types of building blocks that Serenity/JS gives you to design any functional acceptance test you need, no matter how sophisticated or how simple. </p>
+<p>The Screenplay Pattern is beautiful in its simplicity. It's made up of five elements, five types of building blocks that Serenity/JS gives you to design any functional acceptance test you need, no matter how sophisticated or how simple. </p>
 <p>The key elements of the pattern are: actors, abilities, interactions, questions, and tasks.</p>
 <figure>
 <img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern">
@@ -161,11 +161,11 @@
 </figure>
 
 <h2 id="screenplay-by-example">Screenplay by example</h2>
-<p>The best way to illustrate the Screenplay Pattern is through a practical example, so let&apos;s continue experimenting with the <a href="http://todomvc.com/examples/angularjs/#/">TodoMVC application</a> we&apos;ve introduced in the <a href="handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html">previous chapter</a>. And while Serenity/JS supports <a href="http://todomvc.com/examples/angularjs/#/">several test runners</a> (including <a href="/modules/cucumber/">Cucumber.js</a>, which we&apos;ll look into later on in the book), we&apos;ll use <a href="http://localhost:3000/modules/jasmine/">Jasmine</a> for now to keep things simple.</p>
+<p>The best way to illustrate the Screenplay Pattern is through a practical example, so let's continue experimenting with the <a href="http://todomvc.com/examples/angularjs/#/">TodoMVC application</a> we've introduced in the <a href="handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html">previous chapter</a>. And while Serenity/JS supports <a href="http://todomvc.com/examples/angularjs/#/">several test runners</a> (including <a href="/modules/cucumber/">Cucumber.js</a>, which we'll look into later on in the book), we'll use <a href="http://localhost:3000/modules/jasmine/">Jasmine</a> for now to keep things simple.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you&apos;d like to follow along with the coding, please use the <a href="https://github.com/serenity-js/serenity-js-jasmine-protractor-template">Serenity/JS-Jasmine-Protractor template</a>.
+        If you'd like to follow along with the coding, please use the <a href="https://github.com/serenity-js/serenity-js-jasmine-protractor-template">Serenity/JS-Jasmine-Protractor template</a>.
     </p></div>
 </div>
 
@@ -175,22 +175,22 @@ Actors are a key element of the pattern as they are the ones performing the test
 <p>In Serenity/JS, an <a href="/modules/core/function/index.html#static-function-actorCalled"><code>Actor</code></a> is defined using an <a href="/modules/core/function/index.html#static-function-actorCalled"><code>actorCalled</code></a> convenience method:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 
-<span class="hljs-keyword">import</span> { Actor, actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">const</span> James: Actor = actorCalled(<span class="hljs-string">&apos;James&apos;</span>);
+<span class="hljs-keyword">const</span> James: Actor = actorCalled(<span class="hljs-string">'James'</span>);
 </code></pre>
-<p>You&apos;ll notice that in the code sample above I called the actor <code>James</code>. While you can give your actors whatever names you like,
-a good pattern to follow is to give them names indicating the <a href="https://articles.uie.com/goodwin_interview/">personae</a> they represent or the role they play in the system. This way you can help people working on the tests quickly recall the context, constraints and affordances of a given actor by associating the name of the actor with a persona they&apos;re already familiar with. </p>
-<p>In this case, let&apos;s say that our actor represents the persona of &quot;James&quot;, a &quot;just-in-time kinda guy&quot;, who&apos;s trying to get himself organised with our to-do list app.</p>
+<p>You'll notice that in the code sample above I called the actor <code>James</code>. While you can give your actors whatever names you like,
+a good pattern to follow is to give them names indicating the <a href="https://articles.uie.com/goodwin_interview/">personae</a> they represent or the role they play in the system. This way you can help people working on the tests quickly recall the context, constraints and affordances of a given actor by associating the name of the actor with a persona they're already familiar with. </p>
+<p>In this case, let's say that our actor represents the persona of "James", a "just-in-time kinda guy", who's trying to get himself organised with our to-do list app.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    Just like the five core elements of the Screenplay Pattern, the term &quot;role&quot; comes from the <a href="https://wiki.c2.com/?SystemMetaphor">system metaphor</a> of a stage performance. It should be interpreted as the role a given actor plays in the performance,
-    the role they play in the system - &quot;a doctor&quot;, &quot;a trader&quot;, &quot;a writer&quot; are all good examples of actor roles.
+    Just like the five core elements of the Screenplay Pattern, the term "role" comes from the <a href="https://wiki.c2.com/?SystemMetaphor">system metaphor</a> of a stage performance. It should be interpreted as the role a given actor plays in the performance,
+    the role they play in the system - "a doctor", "a trader", "a writer" are all good examples of actor roles.
     </p>
     <p>
-    While a &quot;role&quot; often implies the <em>permissions</em> a given actor has in the system they interact with (i.e. a &quot;writer&quot; writes articles, a &quot;publisher&quot; publishes articles), this is not a mechanism to <em>prevent</em> the actor from performing activities inconsistent with their role.
-    In particular, Serenity/JS will not prevent you from writing scenarios where a &quot;writer&quot; tries to impersonate a &quot;publisher&quot;
+    While a "role" often implies the <em>permissions</em> a given actor has in the system they interact with (i.e. a "writer" writes articles, a "publisher" publishes articles), this is not a mechanism to <em>prevent</em> the actor from performing activities inconsistent with their role.
+    In particular, Serenity/JS will not prevent you from writing scenarios where a "writer" tries to impersonate a "publisher"
     and publish an article. If it did, you would not be able to test if your system correctly implemented its access control mechanisms!
     </p>
     </div>
@@ -202,72 +202,72 @@ a good pattern to follow is to give them names indicating the <a href="https://a
 <p>This series of interactions, provided as arguments to the <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo"><code>actor.attemptsTo(..)</code></a> method, constitutes a test scenario (also referred to as an <em>actor flow</em>):</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
-describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">&apos;James&apos;</span>).attemptsTo(
-            Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>)
+    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">'James'</span>).attemptsTo(
+            Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>)
         ));
 });
 </code></pre>
 <p>In the example above, you see an actor performing an <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html"><code>Interaction</code></a> to <a href="/modules/protractor/class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-to"><code>Navigate.to</code></a>
-the <a href="&apos;http://todomvc.com/examples/angularjs/&apos;">TodoMVC app</a>.</p>
+the <a href="'http://todomvc.com/examples/angularjs/'">TodoMVC app</a>.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you&apos;re following along with the coding, you can implement the above scenario under <code>spec/todo.spec.ts</code>.
+        If you're following along with the coding, you can implement the above scenario under <code>spec/todo.spec.ts</code>.
     </p></div>
 </div>
 
-<p>There are two interesting points about the scenario above that I&apos;d like to draw your attention to:</p>
+<p>There are two interesting points about the scenario above that I'd like to draw your attention to:</p>
 <ol>
-<li>The <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo"><code>actor.attemptsTo(..)</code></a> method returns a standard JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a>, which allows Jasmine to <a href="https://jasmine.github.io/tutorials/async#promises">synchronise</a> the chain of actor&apos;s interactions with the test runner. Serenity/JS does not try to pretend that the world of JavaScript is not asynchronous. Instead, it gives you patterns and tools to deal with this in an elegant way.</li>
-<li>The interaction to <a href="/modules/protractor/class/src/screenplay/interactions/Navigate.ts~Navigate.html"><code>Navigate</code></a>, just like many other common interactions you&apos;ll need to write your Web tests, ships as part of the <a href="/modules/protractor/"><code>@serenity-js/protractor</code></a> module. Serenity/JS <a href="/modules">modules</a> provide dozens of interactions to cover most of your test automation needs, and if there are any missing you can <a href="/handbook/design/interactions.html">easily create them yourself</a> and <a href="/contributing.html">contribute back</a> to the community &#x1F60A;</li>
+<li>The <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo"><code>actor.attemptsTo(..)</code></a> method returns a standard JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a>, which allows Jasmine to <a href="https://jasmine.github.io/tutorials/async#promises">synchronise</a> the chain of actor's interactions with the test runner. Serenity/JS does not try to pretend that the world of JavaScript is not asynchronous. Instead, it gives you patterns and tools to deal with this in an elegant way.</li>
+<li>The interaction to <a href="/modules/protractor/class/src/screenplay/interactions/Navigate.ts~Navigate.html"><code>Navigate</code></a>, just like many other common interactions you'll need to write your Web tests, ships as part of the <a href="/modules/protractor/"><code>@serenity-js/protractor</code></a> module. Serenity/JS <a href="/modules">modules</a> provide dozens of interactions to cover most of your test automation needs, and if there are any missing you can <a href="/handbook/design/interactions.html">easily create them yourself</a> and <a href="/contributing.html">contribute back</a> to the community 😊</li>
 </ol>
 <p>Check out the <a href="/handbook/design">Design Guide</a> to <a href="/handbook/design/interactions.html">learn more about interactions</a>. </p>
 <h2 id="abilities">Abilities</h2>
 <p>If Serenity/JS is a full-stack acceptance testing framework that allows you to interact with any interface of the system, how does it know what interfaces you <em>actually need</em> to exercise in your test? How does it know how to connect your actors to those interfaces? 
-Well, it doesn&apos;t unless you tell it, and that&apos;s where <em>abilities</em> come into play.</p>
-<p>You can think of an <a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html"><code>Ability</code></a> as a thin wrapper around a client of a specific interface you&apos;d like the actor to use.
+Well, it doesn't unless you tell it, and that's where <em>abilities</em> come into play.</p>
+<p>You can think of an <a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html"><code>Ability</code></a> as a thin wrapper around a client of a specific interface you'd like the actor to use.
 Those abilities is what the interactions use under the hood and what enables the actor to perform interactions with the system under test.</p>
-<p>For example, here&apos;s an ability that enables the actor to browse the Web using <code>protractor.browser</code> and enables Web-specific interactions such as <code>Navigate</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ability } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<p>For example, here's an ability that enables the actor to browse the Web using <code>protractor.browser</code> and enables Web-specific interactions such as <code>Navigate</code>:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ability } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-keyword">const</span> browseTheWeb: Ability = BrowseTheWeb.using(protractor.browser);
 </code></pre>
 <p>Now, you <em>could</em> give an actor this ability directly, using the <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan"><code>actor.whoCan(..)</code></a> API:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">&apos;James&apos;</span>)
+    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">'James'</span>)
             .whoCan(BrowseTheWeb.using(protractor.browser))
             .attemptsTo(
-                Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>)
+                Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>)
             ));
 });
 </code></pre>
-<p>However, there&apos;s a more elegant way to do it that doesn&apos;t require you to <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">repeat yourself</a> in every test you write.</p>
+<p>However, there's a more elegant way to do it that doesn't require you to <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">repeat yourself</a> in every test you write.</p>
 <p>The alternative is to <a href="/modules/core/function/index.html#static-function-engage"><code>engage(..)</code></a> a <a href="/modules/core/class/src/stage/Cast.ts~Cast.html"><code>Cast</code></a> of actors, who gain their abilities when they prepare for the performance before the scenario starts:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {
@@ -277,20 +277,20 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
     }
 }
 
-describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
     beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">&apos;James&apos;</span>).attemptsTo(
-            Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>)
+    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">'James'</span>).attemptsTo(
+            Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>)
         ));
 });
 </code></pre>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you&apos;re following along with the coding, you can execute the test you&apos;ve just implemented by running <code>npm test</code> in your terminal.
+        If you're following along with the coding, you can execute the test you've just implemented by running <code>npm test</code> in your terminal.
     </p></div>
 </div>
 
@@ -299,51 +299,51 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
 <p>The fourth building block of the Screenplay Pattern is <em>questions</em>, and just like with interactions, questions are interface-specific and enabled by abilities.
 Answering a <a href="/modules/core/class/src/screenplay/Question.ts~Question.html"><code>Question</code></a> provides actor with information about the state of the system under test.</p>
 <p>For example, you have a question that retrieves the <a href="/modules/protractor/class/src/screenplay/questions/Website.ts~Website.html#static-method-title">title of the website</a>: </p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Website } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Website } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
 <span class="hljs-keyword">const</span> title: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Website.title()
 </code></pre>
-<p>Or the one that <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html">retrieves a web element</a> for the actor&apos;s interactions to target:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { by, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<p>Or the one that <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html">retrieves a web element</a> for the actor's interactions to target:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { by, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">const</span> header: Question&lt;ElementFinder&gt; = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>));
+<span class="hljs-keyword">const</span> header: Question&lt;ElementFinder&gt; = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'h1'</span>));
 </code></pre>
 <p>You also have higher-order questions that can be passed other questions as arguments.</p>
 <p>For example, this is how you retrieve the text of the header web element from the sample above:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
 <span class="hljs-keyword">const</span> headerText: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Text.of(header);
 </code></pre>
 <p>So what can you do with those questions? A great many things!</p>
 <p>You can use them with most Serenity/JS interactions, such as the one that <a href="/modules/core/class/src/screenplay/interactions/Log.ts~Log.html">logs the answer</a> to the question so that it can be <a href="/modules/console-reporter/">printed to the terminal</a> (useful when debugging your test scenarios):</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Log } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Log } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
 Log.the(headerText)
 </code></pre>
 <p>More importantly, you can also use them with <a href="/modules/assertions/">assertions</a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-Ensure.that(headerText, equals(<span class="hljs-string">&apos;todos&apos;</span>))
+Ensure.that(headerText, equals(<span class="hljs-string">'todos'</span>))
 </code></pre>
 <p>As well as for <a href="/modules/protractor/class/src/screenplay/interactions/Wait.ts~Wait.html">synchronising your tests with the UI</a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Wait, isPresent } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Wait, isPresent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
 Wait.until(header, isPresent())
-Wait.until(headerText, equals(<span class="hljs-string">&apos;todos&apos;</span>))
+Wait.until(headerText, equals(<span class="hljs-string">'todos'</span>))
 </code></pre>
 <p>If you wanted to experiment with some of the above questions, you could expand the original test scenario as follows:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {
@@ -355,55 +355,55 @@ Wait.until(headerText, equals(<span class="hljs-string">&apos;todos&apos;</span>
 
 <span class="hljs-comment">// this is what I call a Lean Page Object, more on those later on in the book</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoListApp</span> </span>{
-    <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>));
+    <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'h1'</span>));
 }
 
-describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
     beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">&apos;James&apos;</span>).attemptsTo(
-            Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>),
+    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">'James'</span>).attemptsTo(
+            Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>),
             Wait.until(TodoListApp.header, isVisible()),
-            Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">&apos;todos&apos;</span>)),
+            Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">'todos'</span>)),
         ));
 });
 </code></pre>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you&apos;d like to see the above scenario in action, paste the code above in <code>spec/todo.spec.ts</code> and run <code>npm test</code> in your terminal.
+        If you'd like to see the above scenario in action, paste the code above in <code>spec/todo.spec.ts</code> and run <code>npm test</code> in your terminal.
     </p></div>
 </div>
 
 <p>Check out the <a href="/handbook/design">Design Guide</a> to <a href="/handbook/design/questions.html">learn more about questions</a>.</p>
 <h2 id="tasks">Tasks</h2>
 <p>The final piece of the puzzle is <em>tasks</em>. <a href="/modules/core/class/src/screenplay/Task.ts~Task.html"><code>Tasks</code></a> are the <a href="https://janmolak.com/user-centred-design-how-a-50-year-old-technique-became-the-key-to-scalable-test-automation-66a658a36555">higher-level abstractions</a> that model the activities an actor needs to perform in business domain terms.</p>
-<p>For example, the three interactions we&apos;ve just discussed could be modelled as a task to &quot;launch the app&quot;:</p>
+<p>For example, the three interactions we've just discussed could be modelled as a task to "launch the app":</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { isVisible, Navigate, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { isVisible, Navigate, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
 <span class="hljs-keyword">const</span> LaunchTheApp = <span class="hljs-function">() =&gt;</span>
     Task.where(<span class="hljs-string">`#actor launches the app`</span>, 
-        Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>),
+        Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>),
         Wait.until(TodoListApp.header, isVisible()),
-        Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">&apos;todos&apos;</span>)),
+        Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">'todos'</span>)),
     )
 </code></pre>
 <p>To make an actor perform a task, you pass it to the <code>attemptsTo(..)</code> method, just like we did with the interactions.</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;jasmine&apos;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, engage, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, engage, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
     prepare(actor: Actor): Actor {
@@ -415,43 +415,43 @@ describe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class
 
 <span class="hljs-comment">// this is what I call a Lean Page Object, more on those later on in the book</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoListApp</span> </span>{
-    <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>));
+    <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'h1'</span>));
 }
 
 <span class="hljs-keyword">const</span> LaunchTheApp = <span class="hljs-function">() =&gt;</span>
     Task.where(<span class="hljs-string">`#actor launches the app`</span>,
-        Navigate.to(<span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span>),
+        Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>),
         Wait.until(TodoListApp.header, isVisible()),
-        Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">&apos;todos&apos;</span>)),
+        Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">'todos'</span>)),
     )
 
-fdescribe(<span class="hljs-string">&apos;Todo List App&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+fdescribe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
     beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
 
-    it(<span class="hljs-string">&apos;helps engineers learn Serenity/JS&apos;</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">&apos;James&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">'James'</span>).attemptsTo(
             LaunchTheApp(),
             <span class="hljs-comment">// perform other tasks, like adding items to the list</span>
         ));
 });
 </code></pre>
-<p>The great thing about Serenity/JS tasks is that you can use them to compose not just the interactions, but other tasks too! I&apos;ll show you how to do it later on in the book.</p>
+<p>The great thing about Serenity/JS tasks is that you can use them to compose not just the interactions, but other tasks too! I'll show you how to do it later on in the book.</p>
 <p>For now, you can paste the code above in <code>spec/todo.spec.ts</code> and run <code>npm test</code> in your terminal to see output similar to the below:</p>
 <pre><code class="hljs typescript">/Users/jan/serenity-js-experiments/spec/todo.spec.ts:<span class="hljs-number">32</span>
 
 Todo List App: helps engineers learn Serenity/JS
 
   James launches the app
-    &#x2713; James navigates to <span class="hljs-string">&apos;http://todomvc.com/examples/angularjs/&apos;</span> (840ms)
-    &#x2713; James waits up to 5s until the header does become visible (155ms)
-    &#x2713; James ensures that the text <span class="hljs-keyword">of</span> the header does equal <span class="hljs-string">&apos;todos&apos;</span> (18ms)
+    ✓ James navigates to <span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span> (840ms)
+    ✓ James waits up to 5s until the header does become visible (155ms)
+    ✓ James ensures that the text <span class="hljs-keyword">of</span> the header does equal <span class="hljs-string">'todos'</span> (18ms)
 
-&#x2713; Execution successful (1s 39ms)
+✓ Execution successful (1s 39ms)
 </code></pre><p>Check out the <a href="/handbook/design">Design Guide</a> to <a href="/handbook/design/tasks.html">learn more about tasks</a>.</p>
 <hr>
-<p>Now that you understand one of the core patterns behind Serenity/JS it&apos;s time to move on to the next one, the <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Objects</a>.</p>
-<p>In this <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">next article</a>) we&apos;ll improve the test we&apos;ve just written and look at ways to structure our code better.</p>
+<p>Now that you understand one of the core patterns behind Serenity/JS it's time to move on to the next one, the <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Objects</a>.</p>
+<p>In this <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">next article</a>) we'll improve the test we've just written and look at ways to structure our code better.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
@@ -464,14 +464,14 @@ Todo List App: helps engineers learn Serenity/JS
             It all started at the Agile Alliance Functional Testing Tools workshop (AAFTT) back in 2007.
         </p>
         <p>
-            <a href="http://www.developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html">&quot;In praise of abstraction&quot;</a>, a talk given by Kevin Lawrence, inspired <a href="http://antonymarcano.com/Site/Home.html">Antony Marcano</a>
-            to implement a fluent DSL based on Kevin&apos;s idea to use the language of Interaction Designers to model the layers of abstraction in an acceptance test.
+            <a href="http://www.developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html">"In praise of abstraction"</a>, a talk given by Kevin Lawrence, inspired <a href="http://antonymarcano.com/Site/Home.html">Antony Marcano</a>
+            to implement a fluent DSL based on Kevin's idea to use the language of Interaction Designers to model the layers of abstraction in an acceptance test.
             With the help of <a href="http://andypalmer.com">Andy Palmer</a>, this fluent DSL is what became
             <a href="https://bitbucket.org/testingreflections/jnarrate/wiki/Home">JNarrate</a> a year later (2008).
         </p>
         <p>
             In the late 2012, Antony and Andy joined forces with <a href="https://janmolak.com/">Jan Molak</a>.
-            Their experiments with Kevin&apos;s model, combined with a desire to address problems with shortcomings of the <a href="https://github.com/SeleniumHQ/selenium/wiki/PageObjects">PageObject Pattern</a> and apply <a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID design principles</a>
+            Their experiments with Kevin's model, combined with a desire to address problems with shortcomings of the <a href="https://github.com/SeleniumHQ/selenium/wiki/PageObjects">PageObject Pattern</a> and apply <a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID design principles</a>
             to acceptance testing is what <a href="http://www.slideshare.net/RiverGlide/a-journey-beyond-the-page-object-pattern">became known in 2013</a>
             as <a href="https://github.com/screenplay/screenplay-jvm">screenplay-jvm</a>.
         </p>
@@ -482,10 +482,10 @@ Todo List App: helps engineers learn Serenity/JS
             In 2016, you can use both the Screenplay Pattern and the powerful Serenity BDD reports on JavaScript projects thanks to Serenity/JS!
         </p>
         <p>
-            If you&apos;d like to find out more about the thought process behind the Screenplay Pattern, check out:
+            If you'd like to find out more about the thought process behind the Screenplay Pattern, check out:
             </p><ul>
-                <li><a href="https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay">&quot;Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern&quot;</a> by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, InfoQ, 2016.</li>
-                <li><a href="https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp">&quot;Page Objects Refactored: SOLID Steps to the Screenplay Pattern&quot;</a> by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, DZone, 2016.</li>
+                <li><a href="https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay">"Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern"</a> by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, InfoQ, 2016.</li>
+                <li><a href="https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp">"Page Objects Refactored: SOLID Steps to the Screenplay Pattern"</a> by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, DZone, 2016.</li>
              </ul>
         <p></p>
     </div>

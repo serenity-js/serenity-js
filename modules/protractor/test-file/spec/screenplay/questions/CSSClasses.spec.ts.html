@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,28 +175,28 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/CSSClasses.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { contain, Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;mocha-testdata&apos;</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<span class="hljs-keyword">import</span> { contain, Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">import</span> { CSSClasses, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
-<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
+<span class="hljs-keyword">import</span> { CSSClasses, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
 
-describe(<span class="hljs-string">&apos;CSSClasses&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'CSSClasses'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> testPage = pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
             &lt;body&gt;
                 &lt;ul&gt;
-                    &lt;li id=&quot;no-class-attribute&quot;&gt;&lt;/li&gt;
-                    &lt;li id=&quot;empty-class-attribute&quot; class=&quot;&quot;&gt;&lt;/li&gt;
-                    &lt;li id=&quot;class-attribute-with-whitespace-only&quot; class=&quot;   &quot;&gt;&lt;/li&gt;
-                    &lt;li id=&quot;single-class&quot; class=&quot;pretty&quot;&gt;&lt;/li&gt;
-                    &lt;li id=&quot;several-classes&quot; class=&quot;pretty css classes&quot;&gt;&lt;/li&gt;
-                    &lt;li id=&quot;several-classes-with-whitespace&quot; class=&quot;  pretty   css  classes     &quot;&gt;&lt;/li&gt;
+                    &lt;li id="no-class-attribute"&gt;&lt;/li&gt;
+                    &lt;li id="empty-class-attribute" class=""&gt;&lt;/li&gt;
+                    &lt;li id="class-attribute-with-whitespace-only" class="   "&gt;&lt;/li&gt;
+                    &lt;li id="single-class" class="pretty"&gt;&lt;/li&gt;
+                    &lt;li id="several-classes" class="pretty css classes"&gt;&lt;/li&gt;
+                    &lt;li id="several-classes-with-whitespace" class="  pretty   css  classes     "&gt;&lt;/li&gt;
                 &lt;/ul&gt;
             &lt;/body&gt;
             &lt;/html&gt;
@@ -204,18 +204,18 @@ describe(<span class="hljs-string">&apos;CSSClasses&apos;</span>, <span class="h
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses.of}</span> </span>*/</span>
-    describe(<span class="hljs-string">&apos;of&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'of'</span>, <span class="hljs-function">() =&gt;</span> {
 
         given([
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;no-class-attribute&apos;</span>,                    <span class="hljs-attr">expected</span>: []                            },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;no-class-attribute&apos;</span>,                    <span class="hljs-attr">expected</span>: []                            },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;class-attribute-with-whitespace-only&apos;</span>,  <span class="hljs-attr">expected</span>: []                            },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;single-class&apos;</span>,                          <span class="hljs-attr">expected</span>: [<span class="hljs-string">&apos;pretty&apos;</span>]                    },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;several-classes&apos;</span>,                       <span class="hljs-attr">expected</span>: [<span class="hljs-string">&apos;pretty&apos;</span>, <span class="hljs-string">&apos;css&apos;</span>, <span class="hljs-string">&apos;classes&apos;</span>]  },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">&apos;several-classes-with-whitespace&apos;</span>,       <span class="hljs-attr">expected</span>: [<span class="hljs-string">&apos;pretty&apos;</span>, <span class="hljs-string">&apos;css&apos;</span>, <span class="hljs-string">&apos;classes&apos;</span>]  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'no-class-attribute'</span>,                    <span class="hljs-attr">expected</span>: []                            },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'no-class-attribute'</span>,                    <span class="hljs-attr">expected</span>: []                            },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'class-attribute-with-whitespace-only'</span>,  <span class="hljs-attr">expected</span>: []                            },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'single-class'</span>,                          <span class="hljs-attr">expected</span>: [<span class="hljs-string">'pretty'</span>]                    },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'several-classes'</span>,                       <span class="hljs-attr">expected</span>: [<span class="hljs-string">'pretty'</span>, <span class="hljs-string">'css'</span>, <span class="hljs-string">'classes'</span>]  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'several-classes-with-whitespace'</span>,       <span class="hljs-attr">expected</span>: [<span class="hljs-string">'pretty'</span>, <span class="hljs-string">'css'</span>, <span class="hljs-string">'classes'</span>]  },
         ]).
-        it(<span class="hljs-string">&apos;allows the actor to read the css classes of a DOM element matching the locator&apos;</span>, <span class="hljs-function">(<span class="hljs-params">{ description, expected }</span>) =&gt;</span>
-            actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">'allows the actor to read the css classes of a DOM element matching the locator'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, expected }</span>) =&gt;</span>
+            actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
                 Navigate.to(testPage),
 
                 Ensure.that(
@@ -226,14 +226,14 @@ describe(<span class="hljs-string">&apos;CSSClasses&apos;</span>, <span class="h
 
         <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses}</span> </span>*/</span>
         <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CSSClasses#of}</span> </span>*/</span>
-        it(<span class="hljs-string">&apos;allows for a question relative to another target to be asked&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+        it(<span class="hljs-string">'allows for a question relative to another target to be asked'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
             Navigate.to(testPage),
 
             Ensure.that(
                 CSSClasses.of(
-                    Target.the(<span class="hljs-string">`Element with single-class`</span>).located(by.id(<span class="hljs-string">&apos;single-class&apos;</span>)),
-                ).of(Target.the(<span class="hljs-string">`list`</span>).located(by.tagName(<span class="hljs-string">&apos;ul&apos;</span>))),
-                contain(<span class="hljs-string">&apos;pretty&apos;</span>),
+                    Target.the(<span class="hljs-string">`Element with single-class`</span>).located(by.id(<span class="hljs-string">'single-class'</span>)),
+                ).of(Target.the(<span class="hljs-string">`list`</span>).located(by.tagName(<span class="hljs-string">'ul'</span>))),
+                contain(<span class="hljs-string">'pretty'</span>),
             ),
         ));
     });

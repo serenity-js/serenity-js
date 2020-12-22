@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -175,30 +175,30 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Clear.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { actorCalled, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { Clear, Navigate, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../src&apos;</span>;
-<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../fixtures&apos;</span>;
+<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { Clear, Navigate, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
 
-describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'Clear'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> Form = {
-        <span class="hljs-attr">Field</span>: Target.the(<span class="hljs-string">&apos;input field&apos;</span>).located(by.id(<span class="hljs-string">&apos;field&apos;</span>)),
+        <span class="hljs-attr">Field</span>: Target.the(<span class="hljs-string">'input field'</span>).located(by.id(<span class="hljs-string">'field'</span>)),
     };
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows the actor to clear the value of an empty input field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to clear the value of an empty input field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
                     &lt;form&gt;
-                        &lt;input type=&quot;text&quot; id=&quot;field&quot; value=&quot;&quot; /&gt;
+                        &lt;input type="text" id="field" value="" /&gt;
                     &lt;/form&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
@@ -206,17 +206,17 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
 
         Clear.theValueOf(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
+        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">''</span>)),
     ));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows the actor to clear the value of an empty input with no &quot;value&quot; attribute&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to clear the value of an empty input with no "value" attribute'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
                     &lt;form&gt;
-                        &lt;input type=&quot;text&quot; id=&quot;field&quot; /&gt;
+                        &lt;input type="text" id="field" /&gt;
                     &lt;/form&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
@@ -224,17 +224,17 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
 
         Clear.theValueOf(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
+        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">''</span>)),
     ));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows the actor to clear the value of an input field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to clear the value of an input field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
                     &lt;form&gt;
-                        &lt;input type=&quot;text&quot; id=&quot;field&quot; value=&quot;Jan&quot; /&gt;
+                        &lt;input type="text" id="field" value="Jan" /&gt;
                     &lt;/form&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
@@ -242,17 +242,17 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
 
         Clear.theValueOf(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
+        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">''</span>)),
     ));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows the actor to clear the value of an number field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to clear the value of an number field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
                     &lt;form&gt;
-                        &lt;input type=&quot;number&quot; id=&quot;field&quot; value=&quot;42&quot; &gt;
+                        &lt;input type="number" id="field" value="42" &gt;
                     &lt;/form&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
@@ -260,17 +260,17 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
 
         Clear.theValueOf(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
+        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">''</span>)),
     ));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows the actor to clear the value of a date field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to clear the value of a date field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
                     &lt;form&gt;
-                        &lt;input type=&quot;date&quot; id=&quot;field&quot; value=&quot;2019-09-22&quot; /&gt;
+                        &lt;input type="date" id="field" value="2019-09-22" /&gt;
                     &lt;/form&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
@@ -278,17 +278,17 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
 
         Clear.theValueOf(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
+        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">''</span>)),
     ));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;allows the actor to clear the value of an RTL input field&apos;</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to clear the value of an RTL input field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
-            &lt;html dir=&quot;rtl&quot;&gt;
+            &lt;html dir="rtl"&gt;
                 &lt;body&gt;
                     &lt;form&gt;
-                        &lt;input type=&quot;text&quot; id=&quot;field&quot; value=&quot;&#x5E9;&#x5DC;&#x5D5;&#x5DD; &#x5E2;&#x5D5;&#x5DC;&#x5DD;&quot; dir=&quot;rtl&quot; /&gt;
+                        &lt;input type="text" id="field" value="שלום עולם" dir="rtl" /&gt;
                     &lt;/form&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
@@ -296,27 +296,27 @@ describe(<span class="hljs-string">&apos;Clear&apos;</span>, <span class="hljs-f
 
         Clear.theValueOf(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">&apos;&apos;</span>)),
+        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">''</span>)),
     ));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;complains if the element cannot be cleared&apos;</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">&apos;Bernie&apos;</span>).attemptsTo(
+    it(<span class="hljs-string">'complains if the element cannot be cleared'</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
-            &lt;html dir=&quot;rtl&quot;&gt;
+            &lt;html dir="rtl"&gt;
                 &lt;body&gt;
-                    &lt;div id=&quot;field&quot;&gt;Hello World!&lt;/div&gt;
+                    &lt;div id="field"&gt;Hello World!&lt;/div&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
         `</span>)),
 
         Clear.theValueOf(Form.Field),
-    )).to.be.rejectedWith(LogicError, <span class="hljs-string">`The input field doesn&apos;t seem to have a &apos;value&apos; attribute that could be cleared.`</span>));
+    )).to.be.rejectedWith(LogicError, <span class="hljs-string">`The input field doesn't seem to have a 'value' attribute that could be cleared.`</span>));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear#toString}</span> </span>*/</span>
-    it(<span class="hljs-string">&apos;provides a sensible description of the interaction being performed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Clear.theValueOf(Form.Field).toString())
-            .to.equal(<span class="hljs-string">&apos;#actor clears the value of the input field&apos;</span>);
+            .to.equal(<span class="hljs-string">'#actor clears the value of the input field'</span>);
     });
 });
 </code></pre>

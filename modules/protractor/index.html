@@ -90,16 +90,16 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
-                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class>@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -179,26 +179,26 @@ of modern full-stack applications faster, more collaborative and easier to scale
 <h2 id="serenity-js-protractor">Serenity/JS Protractor</h2><p>The <code>@serenity-js/protractor</code> module is a Screenplay Patter-style adapter for the <a href="https://www.protractortest.org/">Protractor framework</a>, which helps with testing Angular, React, Vue and other frontend web apps.</p>
 <h3 id="configuring-protractor">Configuring Protractor</h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
 
-<span class="hljs-comment">// Import the Serenity/JS reporting services, a.k.a. the &quot;Stage Crew Members&quot;</span>
+<span class="hljs-comment">// Import the Serenity/JS reporting services, a.k.a. the "Stage Crew Members"</span>
 <span class="hljs-keyword">const</span>
-    { ArtifactArchiver } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/core&apos;</span>),
-    { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/console-reporter&apos;</span>),
-    { Photographer, TakePhotosOfFailures, TakePhotosOfInteractions } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>),
-    { SerenityBDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@serenity-js/serenity-bdd&apos;</span>);
+    { ArtifactArchiver } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>),
+    { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/console-reporter'</span>),
+    { Photographer, TakePhotosOfFailures, TakePhotosOfInteractions } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/protractor'</span>),
+    { SerenityBDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/serenity-bdd'</span>);
 
 <span class="hljs-built_in">exports</span>.config = {
     <span class="hljs-comment">// Tell Protractor to use the Serenity/JS framework Protractor Adapter</span>
-    <span class="hljs-attr">framework</span>:      <span class="hljs-string">&apos;custom&apos;</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">&apos;@serenity-js/protractor/adapter&apos;</span>),
+    <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
     <span class="hljs-comment">// Configure Serenity/JS to use an appropriate test runner</span>
-    <span class="hljs-comment">// and the Stage Crew Members we&apos;ve imported at the top of this file</span>
+    <span class="hljs-comment">// and the Stage Crew Members we've imported at the top of this file</span>
     <span class="hljs-attr">serenity</span>: {
-        <span class="hljs-attr">runner</span>: <span class="hljs-string">&apos;jasmine&apos;</span>,
-        <span class="hljs-comment">// runner: &apos;cucumber&apos;,</span>
-        <span class="hljs-comment">// runner: &apos;mocha&apos;,</span>
+        <span class="hljs-attr">runner</span>: <span class="hljs-string">'jasmine'</span>,
+        <span class="hljs-comment">// runner: 'cucumber',</span>
+        <span class="hljs-comment">// runner: 'mocha',</span>
         <span class="hljs-attr">crew</span>: [
-            ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">&apos;./target/site/serenity&apos;</span>),
+            ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
             ConsoleReporter.forDarkTerminals(),
             Photographer.whoWill(TakePhotosOfFailures),     <span class="hljs-comment">// or Photographer.whoWill(TakePhotosOfInteractions),</span>
             <span class="hljs-keyword">new</span> SerenityBDDReporter(),
@@ -230,22 +230,22 @@ of modern full-stack applications faster, more collaborative and easier to scale
 <li><a href="https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html">Mocha configuration options</a></li>
 <li><a href="https://github.com/angular/protractor/blob/master/lib/config.ts">Protractor configuration file</a>.</li>
 </ul>
-<h3 id="interacting-with-websites-and-web-apps">Interacting with websites and web apps</h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/assertions&apos;</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/protractor&apos;</span>;
-<span class="hljs-keyword">import</span> { protractor, by } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;protractor&apos;</span>;
+<h3 id="interacting-with-websites-and-web-apps">Interacting with websites and web apps</h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { protractor, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SerenityJSWebsite</span> </span>{
-    <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">&apos;header&apos;</span>).located(by.css(<span class="hljs-string">&apos;h1&apos;</span>));
+    <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'h1'</span>));
 }
 
-actorCalled(<span class="hljs-string">&apos;Priya&apos;</span>)
+actorCalled(<span class="hljs-string">'Priya'</span>)
     .whoCan(
         BrowseTheWeb.using(protractor.browser_download_url)
     )
     .attemptsTo(
-        Navigate.to(<span class="hljs-string">&apos;https://serenity-js.org&apos;</span>),
-        Ensure.that(Text.of(SerenityJSWebsite.header), equals(<span class="hljs-string">&apos;Next generation acceptance testing&apos;</span>)),
+        Navigate.to(<span class="hljs-string">'https://serenity-js.org'</span>),
+        Ensure.that(Text.of(SerenityJSWebsite.header), equals(<span class="hljs-string">'Next generation acceptance testing'</span>)),
 )
 </code></pre>
 <h3 id="template-repositories">Template Repositories</h3><p>The easiest way for you to start writing web-based acceptance tests using Serenity/JS, Protractor and either <a href="https://mochajs.org/">Mocha</a>, <a href="https://github.com/cucumber/cucumber-js">Cucumber</a> or <a href="https://jasmine.github.io/">Jasmine</a> is by using one of the below template repositories:</p>

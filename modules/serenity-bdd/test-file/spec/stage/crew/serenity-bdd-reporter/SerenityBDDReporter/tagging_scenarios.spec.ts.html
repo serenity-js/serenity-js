@@ -90,15 +90,15 @@
                 <nav class="toc navigation text-truncate" data-ice="nav">
                     <ul class="summary">
                         <li class="header"><a href="/modules">Modules</a></li>
-                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class>@serenity-js/assertions</a></li>
-                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class>@serenity-js/console-reporter</a></li>
-                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class>@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class>@serenity-js/cucumber</a></li>
-                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class>@serenity-js/jasmine</a></li>
-                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class>@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class>@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class>@serenity-js/protractor</a></li>
-                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class>@serenity-js/rest</a></li>
+                        <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
+                        <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
+                        <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
+                        <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="active">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
@@ -123,26 +123,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;mocha&apos;</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@integration/testing-tools&apos;</span>;
-<span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core&apos;</span>;
-<span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/events&apos;</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@serenity-js/core/lib/model&apos;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;sinon&apos;</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src/stage&apos;</span>;
-<span class="hljs-keyword">import</span> { SerenityBDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema&apos;</span>;
-<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../given&apos;</span>;
-<span class="hljs-keyword">import</span> { defaultCardScenario } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../samples&apos;</span>;
-<span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../create&apos;</span>;
+<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { SerenityBDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span>;
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../given'</span>;
+<span class="hljs-keyword">import</span> { defaultCardScenario } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../samples'</span>;
+<span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">'../create'</span>;
 
-describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">let</span> stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
         reporter: SerenityBDDReporter;
 
-    <span class="hljs-keyword">const</span> sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">&apos;a-scene-id&apos;</span>);
+    <span class="hljs-keyword">const</span> sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'a-scene-id'</span>);
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> env = create();
@@ -151,11 +151,11 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
         reporter        = env.reporter;
     });
 
-    describe(<span class="hljs-string">&apos;produces a SerenityBDDReport that&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+    describe(<span class="hljs-string">'produces a SerenityBDDReport that'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">let</span> report: SerenityBDDReport;
 
-        describe(<span class="hljs-string">&apos;can be tagged&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+        describe(<span class="hljs-string">'can be tagged'</span>, <span class="hljs-function">() =&gt;</span> {
 
             beforeEach(<span class="hljs-function">() =&gt;</span> {
                 given(reporter).isNotifiedOfFollowingEvents(
@@ -163,7 +163,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                 );
             });
 
-            describe(<span class="hljs-string">&apos;@manual&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            describe(<span class="hljs-string">'@manual'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/**
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
@@ -172,7 +172,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                  * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;is marked as automated (non-manual) by default&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'is marked as automated (non-manual) by default'</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
                         <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
@@ -192,7 +192,7 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                  * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{ManualTag}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;can be optionally tagged as manual&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'can be optionally tagged as manual'</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
                         <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ManualTag()),
                         <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
@@ -203,14 +203,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
 
                     expect(report.manual).to.equal(<span class="hljs-literal">true</span>);
                     expect(report.tags).to.deep.include.members([{
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Manual&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Manual&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;External Tests&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'Manual'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'Manual'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'External Tests'</span>,
                     }]);
                 });
             });
 
-            describe(<span class="hljs-string">&apos;@issue&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            describe(<span class="hljs-string">'@issue'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/**
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
@@ -221,10 +221,10 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                  * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{IssueTag}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;can be tagged with an issue number&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'can be tagged with an issue number'</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">&apos;ABC-1234&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">&apos;DEF-5678&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">'ABC-1234'</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">'DEF-5678'</span>)),
                         <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
@@ -232,28 +232,28 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        <span class="hljs-attr">name</span>:        <span class="hljs-string">&apos;ABC-1234&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;ABC-1234&apos;</span>,
-                        <span class="hljs-attr">type</span>:        <span class="hljs-string">&apos;issue&apos;</span>,
+                        <span class="hljs-attr">name</span>:        <span class="hljs-string">'ABC-1234'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'ABC-1234'</span>,
+                        <span class="hljs-attr">type</span>:        <span class="hljs-string">'issue'</span>,
                     }, {
-                        <span class="hljs-attr">name</span>:        <span class="hljs-string">&apos;DEF-5678&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;DEF-5678&apos;</span>,
-                        <span class="hljs-attr">type</span>:        <span class="hljs-string">&apos;issue&apos;</span>,
+                        <span class="hljs-attr">name</span>:        <span class="hljs-string">'DEF-5678'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'DEF-5678'</span>,
+                        <span class="hljs-attr">type</span>:        <span class="hljs-string">'issue'</span>,
                     }]);
 
                     expect(report.issues).to.deep.equal([
-                        <span class="hljs-string">&apos;ABC-1234&apos;</span>,
-                        <span class="hljs-string">&apos;DEF-5678&apos;</span>,
+                        <span class="hljs-string">'ABC-1234'</span>,
+                        <span class="hljs-string">'DEF-5678'</span>,
                     ]);
 
                     expect(report.additionalIssues).to.deep.equal([
-                        <span class="hljs-string">&apos;ABC-1234&apos;</span>,
-                        <span class="hljs-string">&apos;DEF-5678&apos;</span>,
+                        <span class="hljs-string">'ABC-1234'</span>,
+                        <span class="hljs-string">'DEF-5678'</span>,
                     ]);
                 });
             });
 
-            describe(<span class="hljs-string">&apos;@arbitrary-tag&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            describe(<span class="hljs-string">'@arbitrary-tag'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/**
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
@@ -264,9 +264,9 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                  * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{ArbitraryTag}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;can be tagged with an arbitrary tag&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'can be tagged with an arbitrary tag'</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">&apos;regression&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'regression'</span>)),
                         <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
@@ -274,14 +274,14 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        <span class="hljs-attr">name</span>:        <span class="hljs-string">&apos;regression&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;regression&apos;</span>,
-                        <span class="hljs-attr">type</span>:        <span class="hljs-string">&apos;tag&apos;</span>,
+                        <span class="hljs-attr">name</span>:        <span class="hljs-string">'regression'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'regression'</span>,
+                        <span class="hljs-attr">type</span>:        <span class="hljs-string">'tag'</span>,
                     }]);
                 });
             });
 
-            describe(<span class="hljs-string">&apos;to indicate that a scenario&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+            describe(<span class="hljs-string">'to indicate that a scenario'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">/**
                  * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
@@ -292,9 +292,9 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                  * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{FeatureTag}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;belongs to a feature&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'belongs to a feature'</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Checkout&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Checkout'</span>)),
                         <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
@@ -302,15 +302,15 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'Checkout'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'feature'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'Checkout'</span>,
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'Checkout'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'feature'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'Checkout'</span>,
                     });
                 });
 
@@ -324,10 +324,10 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                  * <span class="hljs-doctag">@test <span class="hljs-type">{FeatureTag}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{CapabilityTag}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;belongs to a capability&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'belongs to a capability'</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">&apos;E-Commerce&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Checkout&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">'E-Commerce'</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Checkout'</span>)),
                         <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
@@ -335,19 +335,19 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;capability&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'E-Commerce'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'capability'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'E-Commerce'</span>,
                     }, {
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'E-Commerce/Checkout'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'feature'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'Checkout'</span>,
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'E-Commerce/Checkout'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'feature'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'Checkout'</span>,
                     });
                 });
 
@@ -362,11 +362,11 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                  * <span class="hljs-doctag">@test <span class="hljs-type">{CapabilityTag}</span></span>
                  * <span class="hljs-doctag">@test <span class="hljs-type">{ThemeTag}</span></span>
                  */</span>
-                it(<span class="hljs-string">&apos;belongs to a theme&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                it(<span class="hljs-string">'belongs to a theme'</span>, <span class="hljs-function">() =&gt;</span> {
                     given(reporter).isNotifiedOfFollowingEvents(
-                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ThemeTag(<span class="hljs-string">&apos;Digital&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">&apos;E-Commerce&apos;</span>)),
-                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">&apos;Checkout&apos;</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ThemeTag(<span class="hljs-string">'Digital'</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">'E-Commerce'</span>)),
+                        <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Checkout'</span>)),
                         <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                         <span class="hljs-keyword">new</span> TestRunFinishes(),
                     );
@@ -374,27 +374,27 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                     report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
                     expect(report.tags).to.deep.include.members([{
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Digital&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;theme&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Digital&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'Digital'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'theme'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'Digital'</span>,
                     }, {
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;Digital/E-Commerce&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;capability&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;E-Commerce&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'Digital/E-Commerce'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'capability'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'E-Commerce'</span>,
                     }, {
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'E-Commerce/Checkout'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'feature'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'Checkout'</span>,
                     }]);
 
                     expect(report.featureTag).to.deep.equal({
-                        <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;E-Commerce/Checkout&apos;</span>,
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;feature&apos;</span>,
-                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;Checkout&apos;</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'E-Commerce/Checkout'</span>,
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'feature'</span>,
+                        <span class="hljs-attr">displayName</span>: <span class="hljs-string">'Checkout'</span>,
                     });
                 });
 
-                describe(<span class="hljs-string">&apos;is executed in the context and&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                describe(<span class="hljs-string">'is executed in the context and'</span>, <span class="hljs-function">() =&gt;</span> {
 
                     <span class="hljs-comment">/**
                      * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
@@ -405,23 +405,23 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                      * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
                      * <span class="hljs-doctag">@test <span class="hljs-type">{BrowserTag}</span></span>
                      */</span>
-                    it(<span class="hljs-string">&apos;indicates the web browser where the test was executed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                    it(<span class="hljs-string">'indicates the web browser where the test was executed'</span>, <span class="hljs-function">() =&gt;</span> {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;chrome&apos;</span>, <span class="hljs-string">&apos;80.0.3987.87&apos;</span>)),
+                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">'chrome'</span>, <span class="hljs-string">'80.0.3987.87'</span>)),
                             <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                             <span class="hljs-keyword">new</span> TestRunFinishes(),
                         );
 
                         report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-                        expect(report.context).to.equal(<span class="hljs-string">&apos;chrome&apos;</span>);
+                        expect(report.context).to.equal(<span class="hljs-string">'chrome'</span>);
 
                         expect(report.tags).to.deep.include.members([{
-                            <span class="hljs-attr">browserName</span>: <span class="hljs-string">&apos;chrome&apos;</span>,
-                            <span class="hljs-attr">browserVersion</span>: <span class="hljs-string">&apos;80.0.3987.87&apos;</span>,
-                            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;chrome 80.0.3987.87&apos;</span>,
-                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;chrome 80.0.3987.87&apos;</span>,
-                            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
+                            <span class="hljs-attr">browserName</span>: <span class="hljs-string">'chrome'</span>,
+                            <span class="hljs-attr">browserVersion</span>: <span class="hljs-string">'80.0.3987.87'</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">'chrome 80.0.3987.87'</span>,
+                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">'chrome 80.0.3987.87'</span>,
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">'browser'</span>,
                         }]);
                     });
 
@@ -434,21 +434,21 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                      * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
                      * <span class="hljs-doctag">@test <span class="hljs-type">{ContextTag}</span></span>
                      */</span>
-                    it(<span class="hljs-string">&apos;indicates the operating system where the test was executed&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                    it(<span class="hljs-string">'indicates the operating system where the test was executed'</span>, <span class="hljs-function">() =&gt;</span> {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ContextTag(<span class="hljs-string">&apos;iphone&apos;</span>)),
+                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ContextTag(<span class="hljs-string">'iphone'</span>)),
                             <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                             <span class="hljs-keyword">new</span> TestRunFinishes(),
                         );
 
                         report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-                        expect(report.context).to.equal(<span class="hljs-string">&apos;iphone&apos;</span>);
+                        expect(report.context).to.equal(<span class="hljs-string">'iphone'</span>);
 
                         expect(report.tags).to.deep.include.members([{
-                            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;iphone&apos;</span>,
-                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;iphone&apos;</span>,
-                            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;context&apos;</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">'iphone'</span>,
+                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">'iphone'</span>,
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">'context'</span>,
                         }]);
                     });
 
@@ -462,28 +462,28 @@ describe(<span class="hljs-string">&apos;SerenityBDDReporter&apos;</span>, <span
                      * <span class="hljs-doctag">@test <span class="hljs-type">{BrowserTag}</span></span>
                      * <span class="hljs-doctag">@test <span class="hljs-type">{ContextTag}</span></span>
                      */</span>
-                    it(<span class="hljs-string">&apos;ensures that the user-specified context takes precedence over browser context&apos;</span>, <span class="hljs-function">() =&gt;</span> {
+                    it(<span class="hljs-string">'ensures that the user-specified context takes precedence over browser context'</span>, <span class="hljs-function">() =&gt;</span> {
                         given(reporter).isNotifiedOfFollowingEvents(
-                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">&apos;safari&apos;</span>, <span class="hljs-string">&apos;13.0.5&apos;</span>)),
-                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ContextTag(<span class="hljs-string">&apos;iphone&apos;</span>)),
+                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> BrowserTag(<span class="hljs-string">'safari'</span>, <span class="hljs-string">'13.0.5'</span>)),
+                            <span class="hljs-keyword">new</span> SceneTagged(sceneId, <span class="hljs-keyword">new</span> ContextTag(<span class="hljs-string">'iphone'</span>)),
                             <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                             <span class="hljs-keyword">new</span> TestRunFinishes(),
                         );
 
                         report = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-                        expect(report.context).to.equal(<span class="hljs-string">&apos;iphone&apos;</span>);
+                        expect(report.context).to.equal(<span class="hljs-string">'iphone'</span>);
 
                         expect(report.tags).to.deep.include.members([{
-                            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;safari 13.0.5&apos;</span>,
-                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;safari 13.0.5&apos;</span>,
-                            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;browser&apos;</span>,
-                            <span class="hljs-attr">browserName</span>: <span class="hljs-string">&apos;safari&apos;</span>,
-                            <span class="hljs-attr">browserVersion</span>: <span class="hljs-string">&apos;13.0.5&apos;</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">'safari 13.0.5'</span>,
+                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">'safari 13.0.5'</span>,
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">'browser'</span>,
+                            <span class="hljs-attr">browserName</span>: <span class="hljs-string">'safari'</span>,
+                            <span class="hljs-attr">browserVersion</span>: <span class="hljs-string">'13.0.5'</span>,
                         }, {
-                            <span class="hljs-attr">name</span>: <span class="hljs-string">&apos;iphone&apos;</span>,
-                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">&apos;iphone&apos;</span>,
-                            <span class="hljs-attr">type</span>: <span class="hljs-string">&apos;context&apos;</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">'iphone'</span>,
+                            <span class="hljs-attr">displayName</span>: <span class="hljs-string">'iphone'</span>,
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">'context'</span>,
                         }]);
                     });
                 });
