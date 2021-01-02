@@ -1,3 +1,5 @@
+import { EventEmitter } from 'events';
+
 /**
  * @private
  */
@@ -5,7 +7,7 @@ export interface CucumberFormatterOptions {
     colorFns: any;
     cwd: any;
     eventDataCollector: any;
-    eventBroadcaster: any;
+    eventBroadcaster: EventEmitter;
     log: typeof process.stdout.write;
     snippetBuilder: any;
     stream: any;
