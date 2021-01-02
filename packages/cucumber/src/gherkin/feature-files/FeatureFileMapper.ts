@@ -66,7 +66,7 @@ export class FeatureFileMapper {
 
                         const
                             exampleSetName = new Name(examples.name),
-                            exampleSetDescription = examples.description && new Description(examples.description),
+                            exampleSetDescription = new Description(examples.description || ''),
                             variableCells = examples.tableHeader.cells;
 
                         examples.tableBody.forEach(values => {

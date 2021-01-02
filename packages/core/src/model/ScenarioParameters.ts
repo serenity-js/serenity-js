@@ -7,7 +7,7 @@ export class ScenarioParameters extends TinyType {
     public static fromJSON(o: JSONObject) {
         return new ScenarioParameters(
             Name.fromJSON(o.name as string),
-            o.description && Description.fromJSON(o.description as string),
+            Description.fromJSON(o.description as string),
             (o as any).values,
         );
     }
@@ -20,6 +20,7 @@ export class ScenarioParameters extends TinyType {
         super();
 
         ensure('name', name, isDefined());
+        ensure('description', description, isDefined());
         ensure('values', values, isDefined());
     }
 }
