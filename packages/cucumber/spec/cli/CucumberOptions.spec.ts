@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { Version } from '@serenity-js/core/lib/io';
 import { given } from 'mocha-testdata';
