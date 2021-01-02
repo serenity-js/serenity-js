@@ -267,7 +267,7 @@ describe('FeatureFileMapper', () => {
             ));
             expect(outline.parameters[49]).to.equal(new ScenarioParameters(
                 new Name(''),
-                undefined,
+                new Description(''),
                 { parameter: 'value one' },
             ));
 
@@ -291,12 +291,12 @@ describe('FeatureFileMapper', () => {
                 ));
             expect(outline.parameters[60]).to.equal(new ScenarioParameters(
                 new Name(''),
-                undefined,
+                new Description(''),
                 { username: 'admin', password: 'P@ssw0rd1' },
             ));
             expect(outline.parameters[61]).to.equal(new ScenarioParameters(
                 new Name(''),
-                undefined,
+                new Description(''),
                 { username: 'editor', password: 'P@ssw0rd2' },
             ));
 
