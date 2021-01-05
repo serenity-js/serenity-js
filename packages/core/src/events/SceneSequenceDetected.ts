@@ -18,6 +18,7 @@ export class SceneSequenceDetected extends DomainEvent {
         timestamp?: Timestamp,
     ) {
         super(timestamp);
+        ensure('sceneId', sceneId, isDefined());
         ensure('details', details, isDefined());
     }
 }

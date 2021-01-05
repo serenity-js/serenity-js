@@ -22,7 +22,6 @@ export class ActivityRelatedArtifactGenerated extends ArtifactGenerated {
         timestamp?: Timestamp,
     ) {
         super(sceneId, name, artifact, timestamp);
-        ensure('sceneId', sceneId, isDefined());
         ensure('activityId', activityId, isDefined());
     }
 }
