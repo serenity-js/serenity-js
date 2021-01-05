@@ -1,6 +1,16 @@
 {
   "lerna": "3.22.1",
   "loglevel": "info",
+  "hoist": true,
+  "nohoist": [
+    "@types/jasmine",
+    "@types/mocha",
+    "@types/cucumber",
+    "@cucumber/create-meta",
+    "@cucumber/cucumber",
+    "@cucumber/messages",
+    "cucumber"
+  ],
   "packages": [
     "documentation/*",
     "examples/*",
