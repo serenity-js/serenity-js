@@ -1,4 +1,4 @@
-import { JSONObject } from 'tiny-types';
+import { ensure, isDefined, JSONObject } from 'tiny-types';
 import { CorrelationId, Description, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
@@ -17,5 +17,7 @@ export class AsyncOperationCompleted extends DomainEvent {
         timestamp?: Timestamp,
     ) {
         super(timestamp);
+        ensure('taskDescription', taskDescription, isDefined());
+        ensure('correlationId', correlationId, isDefined());
     }
 }

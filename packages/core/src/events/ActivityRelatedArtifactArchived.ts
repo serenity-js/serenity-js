@@ -28,7 +28,6 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
         timestamp?: Timestamp,
     ) {
         super(sceneId, name, type, path, timestamp);
-        ensure('sceneId', sceneId, isDefined());
         ensure('activityId', activityId, isDefined());
     }
 

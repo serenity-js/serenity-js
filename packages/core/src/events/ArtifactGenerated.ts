@@ -20,6 +20,8 @@ export class ArtifactGenerated extends DomainEvent {
         timestamp?: Timestamp,
     ) {
         super(timestamp);
-        ensure('value', artifact, isDefined());
+        ensure('sceneId', sceneId, isDefined());
+        ensure('name', name, isDefined());
+        ensure('artifact', artifact, isDefined());
     }
 }

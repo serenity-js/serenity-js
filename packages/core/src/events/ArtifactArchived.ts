@@ -24,6 +24,7 @@ export class ArtifactArchived extends DomainEvent {
     ) {
         super(timestamp);
 
+        ensure('sceneId', sceneId, isDefined());
         ensure('name', name, isDefined());
         ensure('type', type, isDefined());
         ensure('path', path, isDefined());
