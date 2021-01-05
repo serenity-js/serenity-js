@@ -7,6 +7,7 @@ export * from './ArtifactGenerated';
 export * from './AsyncOperationAttempted';
 export * from './AsyncOperationCompleted';
 export * from './AsyncOperationFailed';
+export * from './BusinessRuleDetected';
 export * from './DomainEvent';
 export * from './FeatureNarrativeDetected';
 export * from './InteractionFinished';
