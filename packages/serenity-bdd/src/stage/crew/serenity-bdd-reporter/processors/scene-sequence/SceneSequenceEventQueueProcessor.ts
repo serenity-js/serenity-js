@@ -1,8 +1,10 @@
+import { match } from 'tiny-types';
 import {
     ActivityFinished,
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
+    BusinessRuleDetected,
     DomainEvent,
     FeatureNarrativeDetected,
     SceneBackgroundDetected,
@@ -15,20 +17,12 @@ import {
     SceneTemplateDetected,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import { match } from 'tiny-types';
 
 import { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
 import { EventQueue } from '../EventQueue';
 import { EventQueueProcessor } from '../EventQueueProcessor';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
-import {
-    activityFinished,
-    activityStarted,
-    executionFinishedAt,
-    executionStartedAt,
-    reportIdIncluding,
-    scenarioDetailsOf,
-} from '../transformations';
+import { activityFinished, activityStarted, executionFinishedAt, executionStartedAt, reportIdIncluding, scenarioDetailsOf } from '../transformations';
 import { SceneSequenceReportContext } from './SceneSequenceReportContext';
 import { scenarioOutlineOf, sceneSequenceOverallResult } from './transformations';
 import { scenarioParameterResult } from './transformations/scenarioParameterResult';
@@ -54,6 +48,7 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
                 .when(FeatureNarrativeDetected,         this.onFeatureNarrativeDetected(context))
                 .when(SceneBackgroundDetected,          this.onSceneBackgroundDetected(context))
                 .when(SceneDescriptionDetected,         this.onSceneDescriptionDetected(context))
+                .when(BusinessRuleDetected,             this.onBusinessRuleDetected(context))
                 .when(TestRunnerDetected,               this.onTestRunnerDetected(context))
                 .when(SceneTagged,                      this.onSceneTagged(context))
                 .when(ActivityStarts,                   this.onActivityStarts(context))
@@ -114,4 +109,3 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
                 .with(executionFinishedAt(event.timestamp))
     }
 }
-
