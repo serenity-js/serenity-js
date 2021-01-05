@@ -3,6 +3,7 @@ export * from './activityRelatedArtifact';
 export * from './archivedActivityRelatedArtifact';
 export * from './activityStarted';
 export * from './backgroundOf';
+export * from './businessRuleOf';
 export * from './descriptionOf';
 export * from './executionFinishedAt';
 export * from './executionFinishedWith';

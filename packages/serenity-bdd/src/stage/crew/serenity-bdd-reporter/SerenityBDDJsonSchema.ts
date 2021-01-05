@@ -19,6 +19,7 @@ export interface SerenityBDDReport extends JSONObject {
     tags: Tag[];                        // done [x]
     startTime: number;                  // done [x]
     duration: number;                   // done [x]
+    rule: string;
     projectKey: string;                 // todo [ ]     protractor                                                  <- this typically comes from an env variable
     sessionId?: string;                 // todo [ ]     protractor                                                  <- how is this used?
     driver?: string;                    // todo [ ]     protractor     'chrome:jill'                                <- how is this used?
