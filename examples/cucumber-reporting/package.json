@@ -19,7 +19,7 @@
     "clean": "rimraf target",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
-    "test:acceptance": "cucumber-js --require-module ts-node/register --format node_modules/@serenity-js/cucumber --require ./features/step_definitions/sample.steps.ts --require ./features/support/configure_serenity.ts",
+    "test:acceptance": "cucumber-js --publish-quiet --require-module 'ts-node/register' --format '@serenity-js/cucumber' --require './features/step_definitions/*.steps.ts' --require './features/support/configure_serenity.ts'",
     "test:report": "serenity-bdd run",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "verify": "npm test || true"
@@ -41,8 +41,7 @@
     "@serenity-js/cucumber": "2.19.9",
     "@serenity-js/rest": "2.19.9",
     "@serenity-js/serenity-bdd": "2.19.9",
-    "@types/cucumber": "^6.0.1",
-    "cucumber": "^6.0.5",
+    "@cucumber/cucumber": "^7.0.0",
     "npm-failsafe": "^0.4.3",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
