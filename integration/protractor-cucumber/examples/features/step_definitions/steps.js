@@ -1,4 +1,4 @@
-const { Given } = require('cucumber');
+const { Given } = require('@cucumber/cucumber');
 
 Given('a passing step', () => {
 
