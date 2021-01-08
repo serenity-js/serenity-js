@@ -1,19 +1,9 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { trim } from '@serenity-js/core';
-import {
-    ActivityFinished,
-    ActivityStarts, BusinessRuleDetected,
-    FeatureNarrativeDetected,
-    SceneDescriptionDetected,
-    SceneFinished,
-    SceneStarts,
-    SceneTagged,
-    TestRunnerDetected,
-} from '@serenity-js/core/lib/events';
+import { BusinessRuleDetected, FeatureNarrativeDetected, SceneDescriptionDetected, SceneFinished, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
-import { BusinessRule, Description, ExecutionSuccessful, FeatureTag, ImplementationPending, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import { BusinessRule, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', () => {
