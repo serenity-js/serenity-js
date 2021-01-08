@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.19.10](https://github.com/serenity-js/serenity-js/compare/v2.19.9...v2.19.10) (2020-12-22)
+
+
+### Bug Fixes
+
+* **core:** reduced the max length of an artifact file name to better support Windows OS ([e771362](https://github.com/serenity-js/serenity-js/commit/e771362af018641ea157036261a4de1190693ac9)), closes [#714](https://github.com/serenity-js/serenity-js/issues/714)
+
+
+
+
+
 ## [2.19.9](https://github.com/serenity-js/serenity-js/compare/v2.19.8...v2.19.9) (2020-12-15)
 
 
