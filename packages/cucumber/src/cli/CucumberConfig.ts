@@ -1,4 +1,9 @@
 /**
+ * @desc
+ *  Configuration options to be passed to [Cucumber CLI](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md).
+ *  You can specify the options using either camelCase (i.e. `retryTagFilter`) or kebab-case (i.e. `retry-tag-filter`)
+ *  as Serenity/JS will convert them to an appropriate format for you.
+ *
  * @public
  */
 export interface CucumberConfig {
@@ -7,7 +12,7 @@ export interface CucumberConfig {
      *  Step definitions and support files can be written in languages that transpile to JavaScript.
      *  To do set the `compiler` option to <file_extension>:<module_name>
      *
-     *  For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.
+     *  **Please note** For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.
      *
      * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>
      *  compiler: 'ts:ts-node/register'
@@ -67,9 +72,42 @@ export interface CucumberConfig {
      */
     profile?: string[];
 
+
     /**
      * @desc
-     *  Require files before executing features
+     *  The number of times to retry a failing scenario before marking it as failed.
+     *
+     * @example <caption>Cucumber 7.x</caption>
+     *  retry: 3
+     *
+     * @type {number}
+     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests
+     *
+     * @version 7.x
+     */
+    retry?: number;
+
+    /**
+     * @desc
+     *  Only retry tests matching the given [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).
+     *
+     * @example <caption>Cucumber 7.x</caption>
+     *  retry: 3,
+     *  retryTagFilter: '@flaky',
+     *
+     * @type {string}
+     * @see  https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests
+     *
+     * @version 7.x
+     */
+    retryTagFilter?: string
+
+    /**
+     * @desc
+     *  Require files or node modules before executing features
+     *
+     * @example <caption>Enable TypeScript support in Cucumber 4.x and above</caption>
+     *  require: 'ts:ts-node/register'
      *
      * @type {string}
      * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files
@@ -78,18 +116,23 @@ export interface CucumberConfig {
 
     /**
      * @desc
-     *  Cucumber 1.x requires the `tags` option to be an array of Cucumber tags.
-     *  For example, to run all scenarios tagged with `@smoketest`, but not with `@wip`:
+     *  Only run scenarios that match the given tags.
+     *
+     *  **Please note**: Cucumber 1.x requires the `tags` option to be an array of Cucumber tags,
+     *  while Cucumber 2.x and above uses a `string` with a [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).
      *
      * @example <caption>Cucumber 1.x</caption>
+     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:
      * tag: [ '@smoketest', '~@wip' ]
      *
      * @example <caption>Cucumber >= 2.x</caption>
+     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:
      * tag: '@smoketest and not @wip'
      *
      * @type {string[]|string}
      * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags
      * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags
+     * @see https://github.com/cucumber/cucumber/tree/master/tag-expressions
      */
     tags?: string[] | string;
 
