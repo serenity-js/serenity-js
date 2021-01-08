@@ -22,14 +22,31 @@ export class CucumberOptions {
     }
 
     private optionToValues<O extends keyof CucumberConfig>(option: O, value: CucumberConfig[O], version: Version): string[] {
+        const cliOption = this.asCliOptionName(option);
+
         switch (true) {
             case typeof value === 'boolean':
-                return listOf(this.flagToArg(option, value as boolean));
-            case option === 'tags' && version.isAtLeast(new Version('2.0.0')):
-                return this.valuesToArgs(option, this.tagsToCucumberExpressions(listOf(value as string | string[])));
+                return listOf(this.flagToArg(cliOption, value as boolean));
+            case cliOption === 'tags' && version.isAtLeast(new Version('2.0.0')):
+                return this.valuesToArgs(cliOption, this.tagsToCucumberExpressions(listOf(value as string | string[])));
             default:
-                return this.valuesToArgs(option, listOf(value as string | string[]));
+                return this.valuesToArgs(cliOption, listOf(value as string | string[]));
         }
+    }
+
+    /**
+     * @desc
+     *  Converts camelCase option names to kebab-case.
+     *
+     * @param {string} option
+     * @returns {string}
+     *
+     * @private
+     */
+    private asCliOptionName(option: string): string {
+        return option
+            .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
+            .toLowerCase();
     }
 
     private tagsToCucumberExpressions(tags: string[]): string[] {

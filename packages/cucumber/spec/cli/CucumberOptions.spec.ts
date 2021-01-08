@@ -5,6 +5,7 @@ import { Version } from '@serenity-js/core/lib/io';
 import { given } from 'mocha-testdata';
 import { CucumberOptions } from '../../src/cli/CucumberOptions';
 
+/** @test {CucumberOptions} */
 describe('CucumberOptions', () => {
 
     describe('when used to produce command line arguments for Cucumber CLI', () => {
@@ -123,6 +124,25 @@ describe('CucumberOptions', () => {
                 });
 
                 expect(options.asArgumentsForCucumber(new Version('5.0.0'))).to.deep.equal(
+                    ['node', 'cucumber-js'].concat(expected),
+                );
+            });
+        });
+
+        describe('camelCase to kebab-case', () => {
+
+            given([
+                { description: 'dryRun on',         option: 'dryRun',           value: true,        expected: [ '--dry-run' ] },
+                { description: 'dryRun off',        option: 'dryRun',           value: false,       expected: [ '--no-dry-run' ] },
+                { description: 'noFailFast',        option: 'noFailFast',       value: true,        expected: [ '--no-fail-fast' ] },
+                { description: 'retryTagFilter',    option: 'retryTagFilter',   value: '@flaky',    expected: [ '--retry-tag-filter', '@flaky' ] },
+            ]).
+            it('converts camelCased options to kebab-case', ({ option, value, expected }) => {
+                const options = new CucumberOptions({
+                    [option]: value,
+                });
+
+                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(
                     ['node', 'cucumber-js'].concat(expected),
                 );
             });
