@@ -310,9 +310,14 @@ export class ConsoleReporter implements StageCrewMember {
                 if (e.outcome instanceof ProblemIndication) {
 
                     this.printer.println();
+
                     this.printer.indent();
 
-                    this.printer.println(e.outcome.error.stack);
+                    if (e.outcome instanceof ImplementationPending) {
+                        this.printer.println(`${ e.outcome.error.name }: ${ e.outcome.error.message }`);
+                    } else {
+                        this.printer.println(e.outcome.error.stack);
+                    }
 
                     this.printer.outdent();
                 }
