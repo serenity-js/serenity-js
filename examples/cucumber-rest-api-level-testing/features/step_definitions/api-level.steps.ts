@@ -1,8 +1,8 @@
+import { After, Before, Then, When } from '@cucumber/cucumber';
 import { equals } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { ChangeApiUrl, LastResponse } from '@serenity-js/rest';
-import { After, Before, Then, When } from 'cucumber';
 import { RequestCalculationOf, VerifyResultAt } from '../support/screenplay';
 
 Before(() =>
