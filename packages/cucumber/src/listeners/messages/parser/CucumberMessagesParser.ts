@@ -51,7 +51,6 @@ import { ExtractedScenario, ExtractedScenarioOutline } from './types';
 export class CucumberMessagesParser {
     private readonly testStepFormatter = new TestStepFormatter();
 
-    private currentSceneId: CorrelationId;
     private currentScenario: ScenarioDetails;
     private currentStepActivityId: CorrelationId;
 
@@ -78,9 +77,9 @@ export class CucumberMessagesParser {
     }
 
     parseTestCaseStarted(message: messages.ITestCaseStarted): DomainEvent[] {
-        const testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.id);
-
-        this.currentSceneId = CorrelationId.create();
+        const
+            testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.id),
+            currentSceneId = this.serenity.assignNewSceneId();
 
         this.currentScenario = this.scenarioDetailsFor(
             testCaseAttempt.gherkinDocument,
@@ -90,10 +89,10 @@ export class CucumberMessagesParser {
 
         return [
             ...this.extract(this.outlineFrom(testCaseAttempt), outline => [
-                new SceneSequenceDetected(this.currentSceneId, outline.details, this.serenity.currentTime()),
-                new SceneTemplateDetected(this.currentSceneId, outline.template, this.serenity.currentTime()),
+                new SceneSequenceDetected(currentSceneId, outline.details, this.serenity.currentTime()),
+                new SceneTemplateDetected(currentSceneId, outline.template, this.serenity.currentTime()),
                 new SceneParametersDetected(
-                    this.currentSceneId,
+                    currentSceneId,
                     this.currentScenario,
                     outline.parameters,
                     this.serenity.currentTime(),
@@ -101,12 +100,12 @@ export class CucumberMessagesParser {
             ]),
 
             ...this.extract(this.scenarioFrom(testCaseAttempt), ({ featureDescription, rule, scenarioDescription, tags, testRunnerName }) => [
-                new SceneStarts(this.currentSceneId, this.currentScenario, this.serenity.currentTime()),
-                featureDescription && new FeatureNarrativeDetected(this.currentSceneId, featureDescription, this.serenity.currentTime()),
-                new TestRunnerDetected(this.currentSceneId, testRunnerName, this.serenity.currentTime()),
-                !! scenarioDescription && new SceneDescriptionDetected(this.currentSceneId, scenarioDescription, this.serenity.currentTime()),
-                !! rule && new BusinessRuleDetected(this.currentSceneId, this.currentScenario, rule, this.serenity.currentTime()),
-                ...tags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
+                new SceneStarts(currentSceneId, this.currentScenario, this.serenity.currentTime()),
+                featureDescription && new FeatureNarrativeDetected(currentSceneId, featureDescription, this.serenity.currentTime()),
+                new TestRunnerDetected(currentSceneId, testRunnerName, this.serenity.currentTime()),
+                !! scenarioDescription && new SceneDescriptionDetected(currentSceneId, scenarioDescription, this.serenity.currentTime()),
+                !! rule && new BusinessRuleDetected(currentSceneId, this.currentScenario, rule, this.serenity.currentTime()),
+                ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
             ]),
         ];
     }
@@ -117,7 +116,7 @@ export class CucumberMessagesParser {
 
             if (this.shouldReportStep(step)) {
                 return new TaskStarts(
-                    this.currentSceneId,
+                    this.serenity.currentSceneId(),
                     this.currentStepActivityId,
                     this.activityDetailsFor(step),
                     this.serenity.currentTime()
@@ -130,7 +129,7 @@ export class CucumberMessagesParser {
         return this.extract(this.stepFrom(message), step => {
             if (this.shouldReportStep(step)) {
                 return new TaskFinished(
-                    this.currentSceneId,
+                    this.serenity.currentSceneId(),
                     this.currentStepActivityId,
                     this.activityDetailsFor(step),
                     this.outcomeFrom(step.result, step),
@@ -141,12 +140,14 @@ export class CucumberMessagesParser {
     }
 
     parseTestCaseFinished(message: messages.ITestStepStarted): DomainEvent[] {
-        const testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.testCaseStartedId);
+        const
+            testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.testCaseStartedId),
+            currentSceneId  = this.serenity.currentSceneId();
 
         return this.extract(this.scenarioOutcomeFrom(testCaseAttempt), ({ outcome, tags }) => [
-            ...tags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
+            ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
             new SceneFinished(
-                this.currentSceneId,
+                currentSceneId,
                 this.currentScenario,
                 outcome,
                 this.serenity.currentTime()
@@ -155,7 +156,7 @@ export class CucumberMessagesParser {
     }
 
     sceneFinishes(): DomainEvent {
-        return new SceneFinishes(this.currentSceneId, this.currentScenario, this.serenity.currentTime());
+        return new SceneFinishes(this.serenity.currentSceneId(), this.currentScenario, this.serenity.currentTime());
     }
 
     // ---
