@@ -1,5 +1,5 @@
-import { defineParameterType, After, Before, Then, When } from '@cucumber/cucumber';
-import { Actor, actorCalled, actorInTheSpotlight, Cast, engage, Interaction, serenity } from '@serenity-js/core';
+import { After, Before, defineParameterType, Then, When } from '@cucumber/cucumber';
+import { Actor, actorCalled, actorInTheSpotlight, Interaction } from '@serenity-js/core';
 
 const
     MakeAnArrow     = () => Interaction.where(`#actor makes an arrow`, actor => void 0),
@@ -25,7 +25,7 @@ defineParameterType({
 });
 
 Before(() =>
-    serenity.theActorCalled('Lara').attemptsTo(
+    actorCalled('Lara').attemptsTo(
         MakeAnArrow(),
     ));
 
