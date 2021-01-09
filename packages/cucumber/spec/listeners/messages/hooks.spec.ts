@@ -16,7 +16,7 @@ describe('CucumberMessagesListener', () => {
                 '--require', './examples/step_definitions/hooks.steps.ts',
                 './examples/features/hooks.feature',
             )
-            .then(ifExitCodeIsOtherThan(10, logOutput))
+            .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(res => {
                 expect(res.exitCode).to.equal(0);
 
