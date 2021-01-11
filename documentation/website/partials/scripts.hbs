@@ -31,3 +31,23 @@
         data-close-text="Got it!"
 >
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
+</script>
