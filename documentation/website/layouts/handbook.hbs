@@ -35,6 +35,11 @@
                         <section class="github-markdown">
                             {{{ contents }}}
                         </section>
+
+                        {{#if cta}}
+                            {{> (lookup . 'cta') }}
+                        {{/if}}
+
                         <footer class="d-print-none">
                             {{#if previous}}
                                 <a class="previous" href="{{ previous.href }}">
