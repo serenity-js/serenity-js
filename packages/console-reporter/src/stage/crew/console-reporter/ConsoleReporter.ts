@@ -45,10 +45,10 @@ import { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForM
  *  (or have a terminal that doesn't support colours, like the good old `cmd.exe` on Windows).
  *
  * @example <caption>Registering the reporter programmatically</caption>
- *  import { serenity } from '@serenity-js/core';
+ *  import { configure } from '@serenity-js/core';
  *  import { ConsoleReporter } from '@serenity-js/console-reporter';
  *
- *  serenity.configure({
+ *  configure({
  *      crew: [ ConsoleReporter.withDefaultColourSupport() ],
  *  });
  *
@@ -113,7 +113,7 @@ export class ConsoleReporter implements StageCrewMember {
      *
      * @returns {ConsoleReporter}
      */
-    static forMonochromaticTerminals() {
+    static forMonochromaticTerminals(): StageCrewMember {
         return new ConsoleReporter(
             new Printer(process.stdout),
             new ThemeForMonochromaticTerminals(),
@@ -126,7 +126,7 @@ export class ConsoleReporter implements StageCrewMember {
      *
      * @returns {ConsoleReporter}
      */
-    static forDarkTerminals() {
+    static forDarkTerminals(): StageCrewMember {
         return new ConsoleReporter(
             new Printer(process.stdout),
             new ThemeForDarkTerminals(new ChalkInstance({ level: 2 })),
@@ -139,7 +139,7 @@ export class ConsoleReporter implements StageCrewMember {
      *
      * @returns {ConsoleReporter}
      */
-    static forLightTerminals() {
+    static forLightTerminals(): StageCrewMember {
         return new ConsoleReporter(
             new Printer(process.stdout),
             new ThemeForLightTerminals(new ChalkInstance({ level: 2 })),
@@ -149,7 +149,7 @@ export class ConsoleReporter implements StageCrewMember {
     /**
      * @param {Printer} printer
      * @param {TerminalTheme} theme
-     * @param {@serenity-js/core/lib/stage~Stage} stage
+     * @param {@serenity-js/core/lib/stage~Stage} [stage=null]
      */
     constructor(
         private readonly printer: Printer,
@@ -181,6 +181,8 @@ export class ConsoleReporter implements StageCrewMember {
      *  Handles {@link @serenity-js/core/lib/events~DomainEvent} objects emitted by the {@link @serenity-js/core/lib/stage~StageCrewMember}.
      *
      * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
+     *
+     * @listens {@serenity-js/core/lib/events~DomainEvent}
      *
      * @param {@serenity-js/core/lib/events~DomainEvent} event
      * @returns {void}
