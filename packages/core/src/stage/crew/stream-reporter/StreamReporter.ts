@@ -6,23 +6,45 @@ import { StageCrewMember } from '../../StageCrewMember';
 /**
  * @desc
  *  Serialises all the {@link DomainEvent} objects it receives and streams
- *  them as [ndjson](http://ndjson.org/)
- *  to the output stream.
+ *  them as [ndjson](http://ndjson.org/) to the output stream.
  *
  * @example <caption>Writing DomainEvents to standard output</caption>
- * import { serenity, StreamReporter } from '@serenity-js/core';
+ *  import { configure, StreamReporter } from '@serenity-js/core';
  *
- * serenity.configure({
- *     crew: [ new StreamReporter(process.stdout) ],
- * });
+ *  configure({
+ *      crew: [
+ *          new StreamReporter(process.stdout)
+ *      ],
+ *  });
  *
  * @example <caption>Writing DomainEvents to a file</caption>
- * import { serenity, StreamReporter } from '@serenity-js/core';
- * import fs = require('fs');
+ *  import { configure, StreamReporter } from '@serenity-js/core';
+ *  import fs = require('fs');
  *
- * serenity.configure({
- *     crew: [ new StreamReporter(fs.createWriteStream('./events.ndjson')) ],
- * });
+ *  configure({
+ *      crew: [
+ *          new StreamReporter(fs.createWriteStream('./events.ndjson'))
+ *      ],
+ *  });
+ *
+ * @example <caption>Registering StreamReporter using Protractor configuration</caption>
+ *  // protractor.conf.js
+ *  const { StreamReporter } = require('@serenity-js/core');
+ *
+ *  exports.config = {
+ *    framework:     'custom',
+ *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ *
+ *    serenity: {
+ *      crew: [
+ *        new StreamReporter(process.stdout),
+ *      ],
+ *      // other Serenity/JS config
+ *    },
+ *
+ *    // other Protractor config
+ *  };
+ *
  *
  * @implements {StageCrewMember}
  */
@@ -56,6 +78,8 @@ export class StreamReporter implements StageCrewMember {
      *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.
      *
      * @see {@link StageCrewMember}
+     *
+     * @listens {DomainEvent}
      *
      * @param {DomainEvent} event
      * @returns {void}
