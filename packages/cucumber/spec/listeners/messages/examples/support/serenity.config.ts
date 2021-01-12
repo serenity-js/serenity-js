@@ -1,7 +1,7 @@
 import { ChildProcessReporter } from '@integration/testing-tools';
-import { Cast, serenity, StreamReporter } from '@serenity-js/core';
+import { Cast, configure, StreamReporter } from '@serenity-js/core';
 
-serenity.configure({
+configure({
     actors: Cast.whereEveryoneCan(/* do nothing much */),
     crew: [
         new ChildProcessReporter(),
