@@ -11,10 +11,10 @@ import { EventQueueProcessors, EventQueues } from './processors';
  *  can parse to produce HTML reports and living documentation.
  *
  * @example <caption>Registering the reporter programmatically</caption>
- *  import { ArtifactArchiver, serenity } from '@serenity-js/core';
+ *  import { ArtifactArchiver, configure } from '@serenity-js/core';
  *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
  *
- *  serenity.configure({
+ *  configure({
  *    crew: [
  *      ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
  *      new SerenityBDDReporter()
