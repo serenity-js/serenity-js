@@ -1,5 +1,8 @@
 import { RuntimeError } from '@serenity-js/core';
 
+/**
+ * @package
+ */
 export function formatError(error: RuntimeError | Error) {
 
     const learnMore = `Learn more at https://serenity-js.org/modules/serenity-bdd`;
