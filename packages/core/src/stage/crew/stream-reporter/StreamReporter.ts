@@ -1,4 +1,4 @@
-import WriteStream = NodeJS.WriteStream;
+import { Writable } from 'stream';
 import { DomainEvent } from '../../../events';
 import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
@@ -45,17 +45,19 @@ import { StageCrewMember } from '../../StageCrewMember';
  *    // other Protractor config
  *  };
  *
- *
  * @implements {StageCrewMember}
  */
 export class StreamReporter implements StageCrewMember {
 
     /**
-     * @param {WriteStream} output - A WriteStream that should receive the output
-     * @param {Stage} [stage=null] - The stage this {@link StageCrewMember} should be assigned to
+     * @param {stream~Writable} output
+     *  A Writable stream that should receive the output
+     *
+     * @param {Stage} [stage=null]
+     *  The stage this {@link StageCrewMember} should be assigned to
      */
     constructor(
-        private readonly output: WriteStream = process.stdout,
+        private readonly output: Writable = process.stdout,
         private readonly stage: Stage = null,
     ) {
     }
