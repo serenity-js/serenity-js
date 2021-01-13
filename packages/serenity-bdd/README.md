@@ -13,7 +13,7 @@ can then turn into world-class, illustrated test reports and living documentatio
 ### Installation
 
 ```console
-npm install --save-dev @serenity-js/core @serenity-js/serenity-bdd
+npm install --save-dev @serenity-js/{core,serenity-bdd}
 ```
 
 ### SerenityBDDReporter

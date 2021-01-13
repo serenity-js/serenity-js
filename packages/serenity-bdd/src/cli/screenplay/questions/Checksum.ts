@@ -3,6 +3,9 @@ import { Path } from '@serenity-js/core/lib/io';
 import { createHash } from 'crypto';
 import { UseFileSystem } from '../abilities';
 
+/**
+ * @package
+ */
 export const Checksum = {
     of: (destination: Path) => ({
         calculatedUsing: (hashingAlgorithm: string) =>
