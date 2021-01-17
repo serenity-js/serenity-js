@@ -152,8 +152,8 @@ export interface CucumberConfig {
      * @example <caption>Cucumber 1.x</caption>
      * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })
      *
-     * @type {string}
+     * @type {object}
      * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters
      */
-    worldParameters?: string;
+    worldParameters?: object;
 }
