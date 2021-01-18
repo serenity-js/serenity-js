@@ -29,7 +29,6 @@ exports.config = {
     jasmineNodeOpts: {
         requires: [
             'ts-node/register',
-            path.resolve(__dirname, 'node_modules/@serenity-js/jasmine'),
         ],
         helpers: [
             'spec/config/*.ts'
