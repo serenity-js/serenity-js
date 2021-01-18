@@ -17,6 +17,10 @@
     <base href="/modules/core/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title> | Serenity/JS</title>
+    <meta property="og:title" content=" | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -93,7 +100,7 @@
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
                         <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="active">@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 7.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
@@ -134,6 +141,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/AsyncOperationAttempted.ts~AsyncOperationAttempted.html">AsyncOperationAttempted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/AsyncOperationCompleted.ts~AsyncOperationCompleted.html">AsyncOperationCompleted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html">AsyncOperationFailed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html">BusinessRuleDetected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html">FeatureNarrativeDetected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/InteractionFinished.ts~InteractionFinished.html">InteractionFinished</a></span></span></li>
@@ -159,7 +167,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileFinder.ts~FileFinder.html">FileFinder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystemLocation.ts~FileSystemLocation.html">FileSystemLocation</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Path.ts~Path.html">Path</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~SerialisedError.html">SerialisedError</a></span></span></li>
@@ -175,6 +182,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringify">stringify</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model">model</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/ActivityDetails.ts~ActivityDetails.html">ActivityDetails</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Artifact.ts~Artifact.html">Artifact</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/BusinessRule.ts~BusinessRule.html">BusinessRule</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Category.ts~Category.html">Category</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Description.ts~Description.html">Description</a></span></span></li>
@@ -271,7 +279,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber30">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber59">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -279,7 +287,7 @@
 
   
 
-  <div class="description" data-ice="description"><p>Stores any <span><a href="class/src/model/Artifact.ts~Artifact.html">Artifact</a></span>s emitted through <span><a href="class/src/events/ArtifactGenerated.ts~ArtifactGenerated.html">ArtifactGenerated</a></span> events on the <span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></p>
+  <div class="description" data-ice="description"><p> Stores any <span><a href="class/src/model/Artifact.ts~Artifact.html">Artifact</a></span>s emitted via <span><a href="class/src/events/ArtifactGenerated.ts~ArtifactGenerated.html">ArtifactGenerated</a></span> events on the <span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></p>
 </div>
 
   
@@ -287,16 +295,48 @@
   
   
   
-  
-  
-  
-  
-
+  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></li></ul></div>
   
   
   
 
   
+  
+  
+
+  <div data-ice="exampleDocs">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Registering ArtifactArchiver programmatically</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { configure, StreamReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+
+ configure({
+     <span class="hljs-attr">crew</span>: [
+         ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
+     ],
+ });</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Registering ArtifactArchiver using Protractor configuration</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-comment">// protractor.conf.js</span>
+ <span class="hljs-keyword">const</span> { ArtifactArchiver } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
+
+ <span class="hljs-built_in">exports</span>.config = {
+   <span class="hljs-attr">framework</span>:     <span class="hljs-string">'custom'</span>,
+   <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+
+   <span class="hljs-attr">serenity</span>: {
+     <span class="hljs-attr">crew</span>: [
+       ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
+     ],
+     <span class="hljs-comment">// other Serenity/JS config</span>
+   },
+
+   <span class="hljs-comment">// other Protractor config</span>
+ };</code></pre>
+    </div>
+</div>
 
   <div data-ice="tests">
     <h4 id="tests">Tests:</h4>
@@ -337,13 +377,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html#static-method-storingArtifactsAt">storingArtifactsAt</a></span></span><span class="code" data-ice="signature">(destination: <span>UNKNOWN</span>): <span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html">ArtifactArchiver</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html#static-method-storingArtifactsAt">storingArtifactsAt</a></span></span><span class="code" data-ice="signature">(destination: <span><span>string</span><span>[]</span></span>): <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Instantiates an <code>ArtifactArchiver</code> storing artifacts in a given <code>destination</code>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -372,7 +413,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(fileSystem: <span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span>, stage: <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>)</span>
         </p>
       </div>
       <div>
@@ -408,13 +449,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html#instance-method-assignedTo">assignedTo</a></span></span><span class="code" data-ice="signature">(stage: <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html#instance-method-assignedTo">assignedTo</a></span></span><span class="code" data-ice="signature">(stage: <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>): <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Creates a new instance of this <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span> and assigns it to a given <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -442,7 +484,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p> Handles <span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span> objects emitted by the <span><a href="class/src/stage/StageManager.ts~StageManager.html">StageManager</a></span>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -467,18 +510,20 @@
     
     
     
-    <span class="code" data-ice="name">storingArtifactsAt</span><span class="code" data-ice="signature">(destination: <span>UNKNOWN</span>): <span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html">ArtifactArchiver</a></span></span>
+    <span class="code" data-ice="name">storingArtifactsAt</span><span class="code" data-ice="signature">(destination: <span><span>string</span><span>[]</span></span>): <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber25">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Instantiates an <code>ArtifactArchiver</code> storing artifacts in a given <code>destination</code>.
+ The <code>destination</code> directory will be created automatically and recursively if it doesn't exist.</p>
+</div>
 
   
 
@@ -492,7 +537,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">destination</td>
-      <td data-ice="type" class="code"><span>UNKNOWN</span></td>
+      <td data-ice="type" class="code"><span><span>string</span><span>[]</span></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -506,7 +551,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html">ArtifactArchiver</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></td>
           
         </tr>
       </tbody>
@@ -541,11 +586,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(fileSystem: <span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span>, stage: <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber98">source</a></span></span>
     </span>
   </h3>
 
@@ -556,7 +601,31 @@
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">fileSystem</td>
+      <td data-ice="type" class="code"><span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">stage</td>
+      <td data-ice="type" class="code"><span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>The stage this <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span> should be assigned to</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -588,18 +657,19 @@
     
     
     
-    <span class="code" data-ice="name">assignedTo</span><span class="code" data-ice="signature">(stage: <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">assignedTo</span><span class="code" data-ice="signature">(stage: <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>): <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber39">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber126">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Creates a new instance of this <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span> and assigns it to a given <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span>.</p>
+</div>
 
   
 
@@ -615,7 +685,8 @@
       <td data-ice="name" class="code" data-depth="0">stage</td>
       <td data-ice="type" class="code"><span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>An instance of a <span><a href="class/src/stage/Stage.ts~Stage.html">Stage</a></span> this <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span> will be assigned to</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -627,8 +698,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>A new instance of this <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -648,7 +720,7 @@
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -663,14 +735,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber43">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/artifact-archiver/ArtifactArchiver.ts.html#lineNumber155">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Handles <span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span> objects emitted by the <span><a href="class/src/stage/StageManager.ts~StageManager.html">StageManager</a></span>.</p>
+</div>
 
   
 
@@ -707,7 +780,31 @@
 </div>
   </div>
 
-  
+  <div data-ice="emitWrap">
+    <h4>Emits:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="emit" data-ice="emit">
+        <td><p data-ice="emitName"><span><a href="class/src/events/ArtifactArchived.ts~ArtifactArchived.html">ArtifactArchived</a></span></p></td>
+        
+      </tr>
+</tbody>
+    </table>
+  </div>
+
+  <div data-ice="listenWrap">
+    <h4>Listens:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="listen" data-ice="listen">
+        <td><p data-ice="listenName"><span><a href="class/src/events/ArtifactGenerated.ts~ArtifactGenerated.html">ArtifactGenerated</a></span></p></td>
+        
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 
@@ -717,9 +814,7 @@
 
   
 
-  
-
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span></li></ul></div>
   
 </div>
 </div>
@@ -757,10 +852,9 @@
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -776,7 +870,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -814,6 +908,26 @@
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

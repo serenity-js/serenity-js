@@ -17,6 +17,10 @@
     <base href="/modules/cucumber/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title> | Serenity/JS</title>
+    <meta property="og:title" content=" | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -93,7 +100,7 @@
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
                         <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 7.x" class="active">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
@@ -113,24 +120,8 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#gherkin-nodes">gherkin/nodes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/ASTNode.ts~ASTNode.html">ASTNode</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Background.ts~Background.html">Background</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Comment.ts~Comment.html">Comment</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/DataTable.ts~DataTable.html">DataTable</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/DocString.ts~DocString.html">DocString</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Examples.ts~Examples.html">Examples</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Feature.ts~Feature.html">Feature</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/GherkinDocument.ts~GherkinDocument.html">GherkinDocument</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Location.ts~Location.html">Location</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Scenario.ts~Scenario.html">Scenario</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html">ScenarioDefinition</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline.html">ScenarioOutline</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Step.ts~Step.html">Step</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/StepArgument.ts~StepArgument.html">StepArgument</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/TableCell.ts~TableCell.html">TableCell</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/TableRow.ts~TableRow.html">TableRow</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Tag.ts~Tag.html">Tag</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners">listeners</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-listenerForCucumber">listenerForCucumber</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -144,7 +135,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber11">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber16">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -152,7 +143,10 @@
 
   
 
-  
+  <div class="description" data-ice="description"><p> Configuration options to be passed to <a href="https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md">Cucumber CLI</a>.
+ You can specify the options using either camelCase (i.e. <code>retryTagFilter</code>) or kebab-case (i.e. <code>retry-tag-filter</code>)
+ as Serenity/JS will convert them to an appropriate format for you.</p>
+</div>
 
   
   
@@ -350,12 +344,70 @@
       <div>
         
         
-        <div data-ice="description"><p> Require files before executing features</p>
+        <div data-ice="description"><p> Require files or node modules before executing features</p>
 </div>
       </div>
     </td>
     <td>
       
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-retry">retry</a></span></span><span class="code" data-ice="signature">: <span>number</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> The number of times to retry a failing scenario before marking it as failed.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 7.x</span>
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-retryTagFilter">retryTagFilter</a></span></span><span class="code" data-ice="signature">: <span>string</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Only retry tests matching the given <a href="https://github.com/cucumber/cucumber/tree/master/tag-expressions">tag expression</a>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 7.x</span>
       
     </td>
   </tr>
@@ -408,7 +460,7 @@
       <div>
         
         
-        <div data-ice="description"><p> Cucumber 1.x requires the <code>tags</code> option to be an array of Cucumber tags.</p>
+        <div data-ice="description"><p> Only run scenarios that match the given tags.</p>
 </div>
       </div>
     </td>
@@ -431,7 +483,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-worldParameters">worldParameters</a></span></span><span class="code" data-ice="signature">: <span>string</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-worldParameters">worldParameters</a></span></span><span class="code" data-ice="signature">: <span>object</span></span>
         </p>
       </div>
       <div>
@@ -470,7 +522,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 1.x - 3.x</span>
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber37">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber42">source</a></span></span>
     </span>
   </h3>
 
@@ -479,7 +531,7 @@
   
   <div data-ice="description"><p> Step definitions and support files can be written in languages that transpile to JavaScript.
  To do set the <code>compiler</code> option to &lt;file_extension&gt;:&lt;module_name&gt;</p>
-<p> For Cucumber 4.x and above use the <span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-require">CucumberConfig#require</a></span> option instead.</p>
+<p> <strong>Please note</strong> For Cucumber 4.x and above use the <span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-require">CucumberConfig#require</a></span> option instead.</p>
 </div>
 
   
@@ -523,7 +575,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber57">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
@@ -567,7 +619,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber80">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
@@ -618,7 +670,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber100">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber105">source</a></span></span>
     </span>
   </h3>
 
@@ -662,7 +714,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber130">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber135">source</a></span></span>
     </span>
   </h3>
 
@@ -714,14 +766,14 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber150">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber210">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p> Require files before executing features</p>
+  <div data-ice="description"><p> Require files or node modules before executing features</p>
 </div>
 
   
@@ -739,11 +791,121 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Enable TypeScript support in Cucumber 4.x and above</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">require</span>: <span class="hljs-string">'ts:ts-node/register'</span></code></pre>
+    </div>
+</div>
 
   
 
   <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files">https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-retry">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">retry</span><span class="code" data-ice="signature">: <span>number</span></span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 7.x</span>
+      
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber161">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> The number of times to retry a failing scenario before marking it as failed.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Cucumber 7.x</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs plaintext"> retry: 3</code></pre>
+    </div>
+</div>
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests">https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-retryTagFilter">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">retryTagFilter</span><span class="code" data-ice="signature">: <span>string</span></span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 7.x</span>
+      
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber187">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Only retry tests matching the given <a href="https://github.com/cucumber/cucumber/tree/master/tag-expressions">tag expression</a>.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Cucumber 7.x</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> retry: <span class="hljs-number">3</span>,
+ <span class="hljs-attr">retryTagFilter</span>: <span class="hljs-string">'@flaky'</span>,</code></pre>
+    </div>
+</div>
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href=" https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests"> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests</a></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -758,7 +920,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber198">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber263">source</a></span></span>
     </span>
   </h3>
 
@@ -802,15 +964,16 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber178">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber243">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p> Cucumber 1.x requires the <code>tags</code> option to be an array of Cucumber tags.
- For example, to run all scenarios tagged with <code>@smoketest</code>, but not with <code>@wip</code>:</p>
+  <div data-ice="description"><p> Only run scenarios that match the given tags.</p>
+<p> <strong>Please note</strong>: Cucumber 1.x requires the <code>tags</code> option to be an array of Cucumber tags,
+ while Cucumber 2.x and above uses a <code>string</code> with a <a href="https://github.com/cucumber/cucumber/tree/master/tag-expressions">tag expression</a>.</p>
 </div>
 
   
@@ -833,18 +996,21 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Cucumber 1.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">tag: [ <span class="hljs-string">'@smoketest'</span>, <span class="hljs-string">'~@wip'</span> ]</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-comment">// Run all scenarios tagged with `@smoketest`, but not with `@wip`:</span>
+<span class="hljs-attr">tag</span>: [ <span class="hljs-string">'@smoketest'</span>, <span class="hljs-string">'~@wip'</span> ]</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Cucumber &gt;= 2.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">tag: <span class="hljs-string">'@smoketest and not @wip'</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-comment">// Run all scenarios tagged with `@smoketest`, but not with `@wip`:</span>
+<span class="hljs-attr">tag</span>: <span class="hljs-string">'@smoketest and not @wip'</span></code></pre>
     </div>
 </div>
 
   
 
   <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags">https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags</a></span></li>
-<li><span><a href="https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags">https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags</a></span></li></ul></div>
+<li><span><a href="https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags">https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags</a></span></li>
+<li><span><a href="https://github.com/cucumber/cucumber/tree/master/tag-expressions">https://github.com/cucumber/cucumber/tree/master/tag-expressions</a></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -855,11 +1021,11 @@
     
     
     
-    <span class="code" data-ice="name">worldParameters</span><span class="code" data-ice="signature">: <span>string</span></span>
+    <span class="code" data-ice="name">worldParameters</span><span class="code" data-ice="signature">: <span>object</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber221">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber286">source</a></span></span>
     </span>
   </h3>
 
@@ -934,10 +1100,9 @@
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -953,7 +1118,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -991,6 +1156,26 @@
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

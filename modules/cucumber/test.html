@@ -17,6 +17,10 @@
     <base href="/modules/cucumber/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title> | Serenity/JS</title>
+    <meta property="og:title" content=" | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/cucumber/test.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -93,7 +100,7 @@
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
                         <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="active">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 7.x" class="active">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
@@ -113,24 +120,8 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#gherkin-nodes">gherkin/nodes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/ASTNode.ts~ASTNode.html">ASTNode</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Background.ts~Background.html">Background</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Comment.ts~Comment.html">Comment</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/DataTable.ts~DataTable.html">DataTable</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/DocString.ts~DocString.html">DocString</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Examples.ts~Examples.html">Examples</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Feature.ts~Feature.html">Feature</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/GherkinDocument.ts~GherkinDocument.html">GherkinDocument</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Location.ts~Location.html">Location</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Scenario.ts~Scenario.html">Scenario</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html">ScenarioDefinition</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline.html">ScenarioOutline</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Step.ts~Step.html">Step</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/StepArgument.ts~StepArgument.html">StepArgument</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/TableCell.ts~TableCell.html">TableCell</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/TableRow.ts~TableRow.html">TableRow</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/gherkin/nodes/Tag.ts~Tag.html">Tag</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners">listeners</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-listenerForCucumber">listenerForCucumber</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -147,349 +138,710 @@
   </thead>
 
   <tbody data-ice="tests"><tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber6"><p>CucumberOptions</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber9"><p>CucumberOptions</p>
 </a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
+  <td data-ice="testTarget" class="test-target"><span>CucumberOptions</span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber8"><p>when used to produce command line arguments for Cucumber CLI</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber11"><p>when used to produce command line arguments for Cucumber CLI</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber23"><p>tags</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber26"><p>tags</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
-  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber45"><p>passes the tags individually to Cucumber 1.x</p>
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber48"><p>passes the tags individually to Cucumber 1.x</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber60"><p>flags</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber63"><p>flags</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber111"><p>other options</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber114"><p>other options</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber132"><p>camelCase to kebab-case</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber8"><p>Cache</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber15"><p>CucumberEventProtocolAdapter</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber10"><p>starts empty</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber66"><p>correctly recognises Cucumber Event Protocol events</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber16"><p>allows for items to be stored and retrieved</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber103"><p>correctly recognises undefined steps</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber27"><p>tells whether or not an item has already been cached</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber141"><p>correctly recognises pending steps</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber36"><p>complains when you try to retrieve an object that has not been cached yet</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber179"><p>correctly recognises ambiguous steps</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber218"><p>correctly recognises errors thrown in steps</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber255"><p>correctly recognises scenario outlines</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber296"><p>considers a scenario with no steps and no hooks to be pending implementation</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileLoader.spec.ts.html#lineNumber10"><p>FeatureFileLoader</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber8"><p>Cache</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileLoader.spec.ts.html#lineNumber14"><p>caches the feature file map it has loaded</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber10"><p>starts empty</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber16"><p>allows for items to be stored and retrieved</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber27"><p>tells whether or not an item has already been cached</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber36"><p>complains when you try to retrieve an object that has not been cached yet</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber8"><p>FeatureFileMap</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileLoader.spec.ts.html#lineNumber10"><p>FeatureFileLoader</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber13"><p>allows for values to be stored and retrieved</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber20"><p>allows for values to be retrieved based on their type when their location is not known</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber27"><p>allows for values to be retrieved based on the line alone</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber34"><p>complains if the value stored is not of the same type as value that needs to be retrieved</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber41"><p>complains if the requested value is not present</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileLoader.spec.ts.html#lineNumber14"><p>caches the feature file map it has loaded</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber19"><p>FeatureFileMapper</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber8"><p>FeatureFileMap</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber23"><p>when mapping names and descriptions</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber25"><p>maps a feature</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber36"><p>maps a scenario with a single-line description</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber43"><p>maps a scenario with a multi-line description</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber13"><p>allows for values to be stored and retrieved</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber51"><p>when mapping scenarios with no steps</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber53"><p>maps a scenario even though it has no steps defined</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber20"><p>allows for values to be retrieved based on their type when their location is not known</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber61"><p>when mapping scenarios with backgrounds</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber63"><p>maps the background with no name or description</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber79"><p>maps the background with name and description</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber95"><p>associates the background with the feature</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber112"><p>associates the background steps with the scenarios</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber27"><p>allows for values to be retrieved based on the line alone</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber128"><p>when mapping scenario with special step arguments</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber130"><p>recognises DocString argument</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber141"><p>recognises DataTable argument</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber34"><p>complains if the value stored is not of the same type as value that needs to be retrieved</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber153"><p>when mapping scenario outlines with one set of examples</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber154"><p>maps the scenario template</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber184"><p>maps the interpolated scenario</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber217"><p>when mapping scenario outlines with multiple sets of examples</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber218"><p>recognises the different names and descriptions of example sets</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber257"><p>when mapping scenario outlines with special step arguments</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber258"><p>recognises and interpolates DocString arguments</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber281"><p>recognises and interpolates DataTable arguments</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber317"><p>when mapping an empty feature file</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber319"><p>returns an empty map</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber328"><p>when mapping a tagged scenario</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber330"><p>detects all the applicable tags</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber41"><p>complains if the requested value is not present</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber9"><p>FeatureFileParser</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber19"><p>FeatureFileMapper</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber15"><p>loads a GherkinDocument from a file</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber23"><p>when mapping names and descriptions</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber25"><p>maps a feature</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber36"><p>maps a scenario with a single-line description</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber43"><p>maps a scenario with a multi-line description</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber52"><p>complains if the feature file does not exist</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber51"><p>when mapping scenarios with no steps</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber53"><p>maps a scenario even though it has no steps defined</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber59"><p>complains if the feature file could not be parsed</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber61"><p>when mapping scenarios with backgrounds</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber63"><p>maps the background with no name or description</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber79"><p>maps the background with name and description</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber95"><p>associates the background with the feature</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber112"><p>associates the background steps with the scenarios</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber128"><p>when mapping scenario with special step arguments</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber130"><p>recognises DocString argument</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber141"><p>recognises DataTable argument</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber153"><p>when mapping scenario outlines with one set of examples</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber154"><p>maps the scenario template</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber184"><p>maps the interpolated scenario</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber217"><p>when mapping scenario outlines with multiple sets of examples</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber218"><p>recognises the different names and descriptions of example sets</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber257"><p>when mapping scenario outlines with special step arguments</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber258"><p>recognises and interpolates DocString arguments</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber281"><p>recognises and interpolates DataTable arguments</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber317"><p>when mapping an empty feature file</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber319"><p>returns an empty map</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber328"><p>when mapping a tagged scenario</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber330"><p>detects all the applicable tags</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber15"><p>CucumberEventProtocolAdapter</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber9"><p>FeatureFileParser</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber58"><p>correctly recognises Cucumber Event Protocol events</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber15"><p>loads a GherkinDocument from a file</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber95"><p>correctly recognises undefined steps</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber52"><p>complains if the feature file does not exist</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber133"><p>correctly recognises pending steps</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber59"><p>complains if the feature file could not be parsed</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber16"><p>CucumberMessagesListener</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber171"><p>correctly recognises ambiguous steps</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber18"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber20"><p>recognises scenarios with ambiguous steps</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber9"><p>CucumberMessagesListener</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber210"><p>correctly recognises errors thrown in steps</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber11"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber13"><p>recognises a scenario failing due to an assertion error</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber247"><p>correctly recognises scenario outlines</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber12"><p>recognises directories that features are grouped in as capabilities</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber288"><p>considers a scenario with no steps and no hooks to be pending implementation</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber12"><p>recognises a scenario with a Data Table step</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/descriptions.spec.ts.html#lineNumber9"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/descriptions.spec.ts.html#lineNumber11"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/descriptions.spec.ts.html#lineNumber13"><p>recognises scenario descriptions</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber12"><p>recognises a scenario with a DocString step</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber12"><p>recognises scenarios failing due to a generic error</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber7"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber9"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber11"><p>recognises Screenplay activities in any part of a Cucumber scenario</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber12"><p>recognises passing scenarios</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber12">spec/listeners/messages/pending_scenarios.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber36">spec/listeners/messages/pending_scenarios.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber12"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber14"><p>reports scenarios that have been retried and succeeded</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber54"><p>reports scenarios that have been retried and failed</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber9"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber11"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber13">spec/listeners/messages/rules.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber12"><p>recognises scenario outlines as sequences of scenes</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber12"><p>recognises Screenplay activities in any part of a Cucumber scenario</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber12">spec/listeners/messages/skipped_scenarios.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber9"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber11"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber13">spec/listeners/messages/snippets.spec.ts</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/tags.spec.ts.html#lineNumber9"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/tags.spec.ts.html#lineNumber11"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/tags.spec.ts.html#lineNumber13"><p>recognises tags on a scenario</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/tags.spec.ts.html#lineNumber34"><p>recognises tags on a scenario outline and its examples</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber12"><p>recognises directories that group capabilities as themes</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber12"><p>when working with Cucumber 7</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber14"><p>recognises a timed out scenario</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
@@ -529,10 +881,9 @@
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -548,7 +899,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -586,6 +937,26 @@
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

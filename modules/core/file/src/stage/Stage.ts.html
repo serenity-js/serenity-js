@@ -17,6 +17,10 @@
     <base href="/modules/core/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title> | Serenity/JS</title>
+    <meta property="og:title" content=" | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/core/file/src/stage/Stage.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -93,7 +100,7 @@
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
                         <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="active">@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 7.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
@@ -134,6 +141,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/AsyncOperationAttempted.ts~AsyncOperationAttempted.html">AsyncOperationAttempted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/AsyncOperationCompleted.ts~AsyncOperationCompleted.html">AsyncOperationCompleted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html">AsyncOperationFailed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html">BusinessRuleDetected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html">FeatureNarrativeDetected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/InteractionFinished.ts~InteractionFinished.html">InteractionFinished</a></span></span></li>
@@ -159,7 +167,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileFinder.ts~FileFinder.html">FileFinder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystemLocation.ts~FileSystemLocation.html">FileSystemLocation</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Path.ts~Path.html">Path</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~SerialisedError.html">SerialisedError</a></span></span></li>
@@ -175,6 +182,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringify">stringify</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model">model</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/ActivityDetails.ts~ActivityDetails.html">ActivityDetails</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Artifact.ts~Artifact.html">Artifact</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/BusinessRule.ts~BusinessRule.html">BusinessRule</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Category.ts~Category.html">Category</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Description.ts~Description.html">Description</a></span></span></li>
@@ -275,6 +283,16 @@
 <span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Cast'</span>;
 <span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'./StageManager'</span>;
 
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@desc</span>
+ *  The place where {<span class="hljs-doctag">@link </span>Actor}s perform.
+ *
+ *  In more technical terms, the Stage is the main event bus propagating {<span class="hljs-doctag">@link </span>DomainEvent}s
+ *  to {<span class="hljs-doctag">@link </span>Actor}s it instantiates and {<span class="hljs-doctag">@link </span>StageCrewMember}s that have been registered with it.
+ *
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link configure}</span></span>
+ * <span class="hljs-doctag">@see <span class="hljs-type">{@link engage}</span></span>
+ */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stage</span> </span>{
 
     <span class="hljs-comment">/**
@@ -308,6 +326,10 @@
     <span class="hljs-keyword">private</span> currentActivity: CorrelationId = <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">private</span> currentScene: CorrelationId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'unknown'</span>);
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Cast}</span> <span class="hljs-variable">cast</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{StageManager}</span> <span class="hljs-variable">manager</span></span>
+     */</span>
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> cast: Cast,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> manager: StageManager,
@@ -318,7 +340,7 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc </span>An alias for {<span class="hljs-doctag">@link </span>Stage#actor}
-     * <span class="hljs-doctag">@see <span class="hljs-type">{Stage#actor}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Stage#actor}</span></span>
      * <span class="hljs-doctag">@alias <span class="hljs-type">{Stage#actor}</span></span>
      * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">name</span></span>
      * <span class="hljs-doctag">@return <span class="hljs-type">{Actor}</span></span>
@@ -393,7 +415,7 @@
      *  instantiated via {<span class="hljs-doctag">@link </span>Stage#actor} using the provided {<span class="hljs-doctag">@link </span>Cast}.
      *
      * <span class="hljs-doctag">@param <span class="hljs-type">{Cast}</span> <span class="hljs-variable">actors</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-variable">void</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
     engage(actors: Cast): <span class="hljs-built_in">void</span> {
         ensure(<span class="hljs-string">'Cast'</span>, actors, isDefined());
@@ -401,10 +423,27 @@
         <span class="hljs-built_in">this</span>.cast        = actors;
     }
 
-    <span class="hljs-function"><span class="hljs-title">assign</span>(<span class="hljs-params">...listeners: ListensToDomainEvents[]</span>)</span> {
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Assigns listeners to be notified of {<span class="hljs-doctag">@link </span>DomainEvent}s
+     *  emitted via {<span class="hljs-doctag">@link </span>Stage#announce}
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{ListensToDomainEvents[]}</span> <span class="hljs-variable">listeners</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
+     */</span>
+    assign(...listeners: ListensToDomainEvents[]): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.manager.register(...listeners);
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Notifies all the assigned listeners of the event.
+     *
+     * <span class="hljs-doctag">@listens <span class="hljs-type">{DomainEvent}</span></span>
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{DomainEvent}</span> <span class="hljs-variable">event</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
+     */</span>
     announce(event: DomainEvent): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneStarts) {
             <span class="hljs-built_in">this</span>.actorsOnStage = <span class="hljs-built_in">this</span>.actorsOnFrontStage;
@@ -423,21 +462,60 @@
         }
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns current time. This method should be used whenever
+     *  {<span class="hljs-doctag">@link </span>DomainEvent} objects are instantiated by hand.
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Timestamp}</span></span>
+     */</span>
     currentTime(): Timestamp {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.manager.currentTime();
     }
 
-    <span class="hljs-function"><span class="hljs-title">assignNewSceneId</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates and remembers a {<span class="hljs-doctag">@link </span>CorrelationId}
+     *  for the current scene.
+     *
+     *  This method should be used in custom test runner adapters
+     *  when instantiating a {<span class="hljs-doctag">@link </span>SceneStarts} event.
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Stage#currentSceneId}</span></span>
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{CorrelationId}</span></span>
+     */</span>
+    assignNewSceneId(): CorrelationId {
         <span class="hljs-comment">// todo: inject an id factory to make it easier to test</span>
         <span class="hljs-built_in">this</span>.currentScene = CorrelationId.create();
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.currentScene;
     }
 
-    <span class="hljs-function"><span class="hljs-title">currentSceneId</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns the {<span class="hljs-doctag">@link </span>CorrelationId} for the current scene.
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Stage#assignNewSceneId}</span></span>
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{CorrelationId}</span></span>
+     */</span>
+    currentSceneId(): CorrelationId {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.currentScene;
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Generates and remembers a {<span class="hljs-doctag">@link </span>CorrelationId}
+     *  for the current {<span class="hljs-doctag">@link </span>Activity}.
+     *
+     *  This method should be used in custom test runner adapters
+     *  when instantiating an {<span class="hljs-doctag">@link </span>ActivityStarts} event.
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Stage#currentActivityId}</span></span>
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{CorrelationId}</span></span>
+     */</span>
     <span class="hljs-function"><span class="hljs-title">assignNewActivityId</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-comment">// todo: inject an id factory to make it easier to test</span>
         <span class="hljs-built_in">this</span>.currentActivity = CorrelationId.create();
@@ -445,6 +523,14 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.currentActivity;
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns the {<span class="hljs-doctag">@link </span>CorrelationId} for the current {<span class="hljs-doctag">@link </span>Activity}.
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Stage#assignNewSceneId}</span></span>
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{CorrelationId}</span></span>
+     */</span>
     currentActivityId(): CorrelationId {
         <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.currentActivity) {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`No activity is being performed. Did you call assignNewActivityId before invoking currentActivityId?`</span>);
@@ -453,6 +539,13 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.currentActivity;
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns a Promise that will be resolved when any asynchronous
+     *  post-processing activities performed by Serenity/JS are completed.
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     */</span>
     waitForNextCue(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.manager.waitForNextCue();
     }
@@ -541,10 +634,9 @@
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -560,7 +652,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -598,6 +690,26 @@
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

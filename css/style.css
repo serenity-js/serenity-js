@@ -893,6 +893,14 @@ a.anchorjs-link:hover {
   list-style-type: none;
 }
 
+#free-and-opensource ul.badges {
+  margin-top: 1.5em;
+}
+
+#free-and-opensource ul li {
+  margin-bottom: 0.5em;
+}
+
 #sidebar {
   padding: 0.75em 1.5em 2.25em;
 }
@@ -1111,7 +1119,7 @@ article.content figure figcaption span {
   overflow: auto;
 }
 
-#handbook article footer a {
+#handbook article footer a.previous, #handbook article footer a.next {
   display: inline-block;
   width: 50%;
 }
@@ -1126,13 +1134,14 @@ article.content figure figcaption span {
   float: right;
 }
 
-article.content section a:not(.anchorjs-link),
-article.content section a:not(.anchorjs-link):visited, article.content .github-markdown a:not(.anchorjs-link),
-article.content .github-markdown a:not(.anchorjs-link):visited {
+#handbook article.content section.github-markdown a:not(.anchorjs-link),
+#handbook article.content section.github-markdown a:not(.anchorjs-link):visited,
+#handbook .pro-tip a:not(.anchorjs-link),
+#handbook .pro-tip a:not(.anchorjs-link):visited {
   text-shadow: 1px 1px 0 #fff, -1px 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
-  -webkit-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 rgba(252, 210, 62, 0.75);
-  -moz-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 rgba(252, 210, 62, 0.75);
-  box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 rgba(252, 210, 62, 0.75);
+  -webkit-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 rgba(252, 210, 62, 0.75);
+  -moz-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 rgba(252, 210, 62, 0.75);
+  box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 rgba(252, 210, 62, 0.75);
   -webkit-transition: box-shadow .5s, color .5s;
   -moz-transition: box-shadow .5s, color .5s;
   -ms-transition: box-shadow .5s, color .5s;
@@ -1142,9 +1151,10 @@ article.content .github-markdown a:not(.anchorjs-link):visited {
   padding-bottom: 3px;
 }
 
-article.content section a:not(.anchorjs-link):hover,
-article.content section a:not(.anchorjs-link):visited:hover, article.content .github-markdown a:not(.anchorjs-link):hover,
-article.content .github-markdown a:not(.anchorjs-link):visited:hover {
+#handbook article.content section.github-markdown a:not(.anchorjs-link):hover,
+#handbook article.content section.github-markdown a:not(.anchorjs-link):visited:hover,
+#handbook .pro-tip a:not(.anchorjs-link):hover,
+#handbook .pro-tip a:not(.anchorjs-link):visited:hover {
   -webkit-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 #ffad33;
   -moz-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 #ffad33;
   box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 #ffad33;
@@ -1215,4 +1225,20 @@ blockquote::after {
 
 #footer li {
   margin-bottom: 0.5em;
+}
+
+.mermaid:not([data-processed="true"]) {
+  display: none;
+}
+
+.mermaid > svg g.edgeLabel > .label .edgeLabel {
+  font-size: 0.75em !important;
+}
+
+.mermaid > svg g.edgeLabel > .label > rect {
+  opacity: 1 !important;
+}
+
+.mermaid > svg .socket > rect {
+  stroke-dasharray: 5 5;
 }

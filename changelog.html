@@ -17,6 +17,10 @@
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title> | Serenity/JS</title>
+    <meta property="og:title" content=" | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/changelog.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -89,6 +96,7 @@
                 <aside id="sidebar" class="col-lg-3 col-md-12">
                     <nav class="toc navigation text-truncate">
                         <ul>
+                            <li><a href="changelog.html#"></a></li>
                             <li><a href="changelog.html#2-19-10-2020-12-22-">2.19.10 (2020-12-22)</a></li>
                             <li><a href="changelog.html#2-19-9-2020-12-15-">2.19.9 (2020-12-15)</a></li>
                             <li><a href="changelog.html#2-19-8-2020-12-15-">2.19.8 (2020-12-15)</a></li>
@@ -298,6 +306,24 @@
                     <article class="content"><html><head></head><body><h1 id="change-log">Change Log</h1>
 <p>All notable changes to this project will be documented in this file.
 See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
+<h1 id="2-20-0-2021-01-18-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.19.10...v2.20.0">2.20.0</a> (2021-01-18)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li><strong>console-reporter:</strong> don't pollute the log with stack traces of ImplementationPendingError (<a href="https://github.com/serenity-js/serenity-js/commit/fb3b97ad62e33b21135a8da6be0490eadd31c891">fb3b97a</a>)</li>
+<li><strong>core:</strong> ensure all the DomainEvents are always correct at runtime (<a href="https://github.com/serenity-js/serenity-js/commit/1341bfb24a7db39fe73921c6d6f7dffa287a6747">1341bfb</a>)</li>
+<li><strong>core:</strong> ModuleLoader.hasAvailable checks if a given dependency is available (<a href="https://github.com/serenity-js/serenity-js/commit/f67c982a15d339c71b52e9afab81666df6c76ad1">f67c982</a>)</li>
+<li><strong>core:</strong> ScenarioParameters now requires Description to be provided (<a href="https://github.com/serenity-js/serenity-js/commit/cfa4800d436c165a9dbe74e71d76715084354f46">cfa4800</a>)</li>
+<li><strong>cucumber:</strong> corrected how Cucumber hooks are reported (<a href="https://github.com/serenity-js/serenity-js/commit/3ae1cd744e6262b7e3eeff7796e579a201639eb8">3ae1cd7</a>)</li>
+<li><strong>cucumber:</strong> corrected the CucumberFormatterOptions interface (<a href="https://github.com/serenity-js/serenity-js/commit/463047ba764fd2773d8a3b98f09b842ccb1a614c">463047b</a>)</li>
+<li><strong>cucumber:</strong> corrected the type definition of CucumberConfig#worldParameters (<a href="https://github.com/serenity-js/serenity-js/commit/570c3b637d87093d9cad411e762839cc78fd968d">570c3b6</a>)</li>
+</ul>
+<h3 id="features">Features</h3>
+<ul>
+<li><strong>core:</strong> support for reporting BusinessRules (<a href="https://github.com/serenity-js/serenity-js/commit/02efceeb10c5f872f720bd2270630cde60268bef">02efcee</a>)</li>
+<li><strong>cucumber:</strong> Support for Cucumber 7 (<a href="https://github.com/serenity-js/serenity-js/commit/80126b1c30d92a33ee80b4679ab6673e456e13b9">80126b1</a>), closes <a href="https://github.com//github.com/cucumber/cucumber-js/blob/master/CHANGELOG.md/issues/700-2020-12-21">/github.com/cucumber/cucumber-js/blob/master/CHANGELOG.md#700-2020-12-21</a></li>
+<li><strong>serenity-bdd:</strong> support for reporting business rules (<a href="https://github.com/serenity-js/serenity-js/commit/3920852d940efe1b52f2c79732873e8d7283f7d6">3920852</a>)</li>
+<li><strong>serenity-bdd:</strong> upgraded to Serenity BDD CLI 2.1.12 and improved the downloader (<a href="https://github.com/serenity-js/serenity-js/commit/1ad82e10b482e99bba8c247d3822014f208ecba4">1ad82e1</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/625">#625</a></li>
+</ul>
 <h2 id="2-19-10-2020-12-22-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.19.9...v2.19.10">2.19.10</a> (2020-12-22)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
@@ -1424,10 +1450,9 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -1443,7 +1468,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -1481,6 +1506,26 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

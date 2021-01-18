@@ -17,6 +17,10 @@
     <base href="/modules/serenity-bdd/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title> | Serenity/JS</title>
+    <meta property="og:title" content=" | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/serenity-bdd/index.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -93,7 +100,7 @@
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
                         <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 7.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
@@ -112,9 +119,6 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli-io">cli/io</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-axiosClient">axiosClient</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shouldProxy">shouldProxy</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatError">formatError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
@@ -127,7 +131,7 @@ of modern full-stack applications faster, more collaborative and easier to scale
 <h2 id="serenity-bdd">Serenity BDD</h2><p>The <code>@serenity-js/serenity-bdd</code> module integrates Serenity/JS and the Serenity BDD reporting CLI.</p>
 <p>This integration enables your Serenity/JS tests to produce interim JSON reports, which the Serenity BDD reporting CLI
 can then turn into world-class, illustrated test reports and living documentation.</p>
-<h3 id="installation">Installation</h3><pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/core</span> <span class="hljs-meta">@serenity-js/serenity-bdd</span>
+<h3 id="installation">Installation</h3><pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,serenity-bdd}</span>
 </code></pre>
 <h3 id="serenitybddreporter">SerenityBDDReporter</h3><p>To allow Serenity/JS to produce Serenity BDD-standard JSON reports, assign the <code>SerenityBDDReporter</code> to the <code>Stage</code>
 and configure the <code>ArtifactArchiver</code> to store the reports at the location where Serenity BDD expects to find them.</p>
@@ -170,6 +174,13 @@ you need the <a href="https://github.com/serenity-bdd/serenity-cli">Serenity BDD
 <p>To learn more about the usage of the <code>serenity-bdd</code> wrapper, run:</p>
 <pre><code class="lang-console hljs bash">npx serenity-bdd --<span class="hljs-built_in">help</span>
 </code></pre>
+<h4 id="configuring-serenity-bdd-reporting-cli">Configuring Serenity BDD reporting CLI</h4><p>To configure the <a href="https://github.com/serenity-bdd/serenity-cli">Serenity BDD reporting CLI</a>, place a file called <code>serenity.properties</code>
+in your project root directory. </p>
+<p>For example:</p>
+<pre><code class="hljs gherkin"><span class="hljs-comment"># serenity.properties</span>
+serenity.project.name=My awesome project
+</code></pre><p>Please note that the reporting CLI considers only those properties that are related to producing test reports.
+Learn more about configuring <a href="https://serenity-bdd.github.io/theserenitybook/latest/serenity-system-properties.html"><code>serenity.properties</code></a>.</p>
 <h4 id="downloading-the-serenity-bdd-reporting-cli">Downloading the Serenity BDD reporting CLI</h4><p>To download the Serenity BDD reporting CLI or to update it, use the update command:</p>
 <pre><code class="lang-console hljs plaintext">npx serenity-bdd update
 </code></pre>
@@ -280,10 +291,9 @@ This is to ensure that the Serenity BDD report is produced even when there is a 
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -299,7 +309,7 @@ This is to ensure that the Serenity BDD report is produced even when there is a 
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -337,6 +347,26 @@ This is to ensure that the Serenity BDD report is produced even when there is a 
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

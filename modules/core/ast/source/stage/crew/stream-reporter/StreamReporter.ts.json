@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2459,
+  "end": 3034,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 102,
+      "line": 128,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2459,
+    "end": 3034,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 102,
+        "line": 128,
         "column": 0
       }
     },
@@ -31,9 +31,9 @@
     "interpreter": null,
     "body": [
       {
-        "type": "TSImportEqualsDeclaration",
+        "type": "ImportDeclaration",
         "start": 0,
-        "end": 40,
+        "end": 34,
         "loc": {
           "start": {
             "line": 1,
@@ -41,81 +41,86 @@
           },
           "end": {
             "line": 1,
-            "column": 40
+            "column": 34
           }
         },
-        "isExport": false,
-        "id": {
-          "type": "Identifier",
-          "start": 7,
-          "end": 18,
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 17,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 17
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 17,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17
+                },
+                "identifierName": "Writable"
+              },
+              "name": "Writable"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 17,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17
+                },
+                "identifierName": "Writable"
+              },
+              "name": "Writable"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 25,
+          "end": 33,
           "loc": {
             "start": {
               "line": 1,
-              "column": 7
+              "column": 25
             },
             "end": {
               "line": 1,
-              "column": 18
-            },
-            "identifierName": "WriteStream"
-          },
-          "name": "WriteStream"
-        },
-        "moduleReference": {
-          "type": "TSQualifiedName",
-          "start": 21,
-          "end": 39,
-          "loc": {
-            "start": {
-              "line": 1,
-              "column": 21
-            },
-            "end": {
-              "line": 1,
-              "column": 39
+              "column": 33
             }
           },
-          "left": {
-            "type": "Identifier",
-            "start": 21,
-            "end": 27,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 21
-              },
-              "end": {
-                "line": 1,
-                "column": 27
-              },
-              "identifierName": "NodeJS"
-            },
-            "name": "NodeJS"
+          "extra": {
+            "rawValue": "stream",
+            "raw": "'stream'"
           },
-          "right": {
-            "type": "Identifier",
-            "start": 28,
-            "end": 39,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 28
-              },
-              "end": {
-                "line": 1,
-                "column": 39
-              },
-              "identifierName": "WriteStream"
-            },
-            "name": "WriteStream"
-          }
+          "value": "stream"
         }
       },
       {
         "type": "ImportDeclaration",
-        "start": 41,
-        "end": 87,
+        "start": 35,
+        "end": 81,
         "loc": {
           "start": {
             "line": 2,
@@ -130,8 +135,8 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 50,
-            "end": 61,
+            "start": 44,
+            "end": 55,
             "loc": {
               "start": {
                 "line": 2,
@@ -144,8 +149,8 @@
             },
             "imported": {
               "type": "Identifier",
-              "start": 50,
-              "end": 61,
+              "start": 44,
+              "end": 55,
               "loc": {
                 "start": {
                   "line": 2,
@@ -161,8 +166,8 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 50,
-              "end": 61,
+              "start": 44,
+              "end": 55,
               "loc": {
                 "start": {
                   "line": 2,
@@ -180,8 +185,8 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 69,
-          "end": 86,
+          "start": 63,
+          "end": 80,
           "loc": {
             "start": {
               "line": 2,
@@ -201,8 +206,8 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 88,
-        "end": 124,
+        "start": 82,
+        "end": 118,
         "loc": {
           "start": {
             "line": 3,
@@ -217,8 +222,8 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 97,
-            "end": 102,
+            "start": 91,
+            "end": 96,
             "loc": {
               "start": {
                 "line": 3,
@@ -231,8 +236,8 @@
             },
             "imported": {
               "type": "Identifier",
-              "start": 97,
-              "end": 102,
+              "start": 91,
+              "end": 96,
               "loc": {
                 "start": {
                   "line": 3,
@@ -248,8 +253,8 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 97,
-              "end": 102,
+              "start": 91,
+              "end": 96,
               "loc": {
                 "start": {
                   "line": 3,
@@ -267,8 +272,8 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 110,
-          "end": 123,
+          "start": 104,
+          "end": 117,
           "loc": {
             "start": {
               "line": 3,
@@ -288,8 +293,8 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 125,
-        "end": 181,
+        "start": 119,
+        "end": 175,
         "loc": {
           "start": {
             "line": 4,
@@ -303,9 +308,9 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
-            "start": 182,
-            "end": 227,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n ",
+            "start": 176,
+            "end": 221,
             "loc": {
               "start": {
                 "line": 5,
@@ -319,16 +324,16 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/)\n *  to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(process.stdout) ],\n * });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n * import fs = require('fs');\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(fs.createWriteStream('./events.ndjson')) ],\n * });\n *\n * @implements {StageCrewMember}\n ",
-            "start": 230,
-            "end": 922,
+            "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/) to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *\n *  configure({\n *      crew: [\n *          new StreamReporter(process.stdout)\n *      ],\n *  });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *  import fs = require('fs');\n *\n *  configure({\n *      crew: [\n *          new StreamReporter(fs.createWriteStream('./events.ndjson'))\n *      ],\n *  });\n *\n * @example <caption>Registering StreamReporter using Protractor configuration</caption>\n *  // protractor.conf.js\n *  const { StreamReporter } = require('@serenity-js/core');\n *\n *  exports.config = {\n *    framework:     'custom',\n *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),\n *\n *    serenity: {\n *      crew: [\n *        new StreamReporter(process.stdout),\n *      ],\n *      // other Serenity/JS config\n *    },\n *\n *    // other Protractor config\n *  };\n *\n * @implements {StageCrewMember}\n ",
+            "start": 224,
+            "end": 1436,
             "loc": {
               "start": {
                 "line": 13,
                 "column": 0
               },
               "end": {
-                "line": 35,
+                "line": 56,
                 "column": 3
               }
             }
@@ -338,8 +343,8 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 134,
-            "end": 149,
+            "start": 128,
+            "end": 143,
             "loc": {
               "start": {
                 "line": 4,
@@ -352,8 +357,8 @@
             },
             "imported": {
               "type": "Identifier",
-              "start": 134,
-              "end": 149,
+              "start": 128,
+              "end": 143,
               "loc": {
                 "start": {
                   "line": 4,
@@ -369,8 +374,8 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 134,
-              "end": 149,
+              "start": 128,
+              "end": 143,
               "loc": {
                 "start": {
                   "line": 4,
@@ -388,8 +393,8 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 157,
-          "end": 180,
+          "start": 151,
+          "end": 174,
           "loc": {
             "start": {
               "line": 4,
@@ -409,24 +414,24 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 923,
-        "end": 2458,
+        "start": 1437,
+        "end": 3033,
         "loc": {
           "start": {
-            "line": 36,
+            "line": 57,
             "column": 0
           },
           "end": {
-            "line": 101,
+            "line": 127,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
-            "start": 182,
-            "end": 227,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n ",
+            "start": 176,
+            "end": 221,
             "loc": {
               "start": {
                 "line": 5,
@@ -440,16 +445,16 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/)\n *  to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(process.stdout) ],\n * });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n * import fs = require('fs');\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(fs.createWriteStream('./events.ndjson')) ],\n * });\n *\n * @implements {StageCrewMember}\n ",
-            "start": 230,
-            "end": 922,
+            "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/) to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *\n *  configure({\n *      crew: [\n *          new StreamReporter(process.stdout)\n *      ],\n *  });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *  import fs = require('fs');\n *\n *  configure({\n *      crew: [\n *          new StreamReporter(fs.createWriteStream('./events.ndjson'))\n *      ],\n *  });\n *\n * @example <caption>Registering StreamReporter using Protractor configuration</caption>\n *  // protractor.conf.js\n *  const { StreamReporter } = require('@serenity-js/core');\n *\n *  exports.config = {\n *    framework:     'custom',\n *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),\n *\n *    serenity: {\n *      crew: [\n *        new StreamReporter(process.stdout),\n *      ],\n *      // other Serenity/JS config\n *    },\n *\n *    // other Protractor config\n *  };\n *\n * @implements {StageCrewMember}\n ",
+            "start": 224,
+            "end": 1436,
             "loc": {
               "start": {
                 "line": 13,
                 "column": 0
               },
               "end": {
-                "line": 35,
+                "line": 56,
                 "column": 3
               }
             }
@@ -460,29 +465,29 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 930,
-          "end": 2458,
+          "start": 1444,
+          "end": 3033,
           "loc": {
             "start": {
-              "line": 36,
+              "line": 57,
               "column": 7
             },
             "end": {
-              "line": 101,
+              "line": 127,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 936,
-            "end": 950,
+            "start": 1450,
+            "end": 1464,
             "loc": {
               "start": {
-                "line": 36,
+                "line": 57,
                 "column": 13
               },
               "end": {
-                "line": 36,
+                "line": 57,
                 "column": 27
               },
               "identifierName": "StreamReporter"
@@ -493,29 +498,29 @@
           "implements": [
             {
               "type": "TSExpressionWithTypeArguments",
-              "start": 962,
-              "end": 977,
+              "start": 1476,
+              "end": 1491,
               "loc": {
                 "start": {
-                  "line": 36,
+                  "line": 57,
                   "column": 39
                 },
                 "end": {
-                  "line": 36,
+                  "line": 57,
                   "column": 54
                 }
               },
               "expression": {
                 "type": "Identifier",
-                "start": 962,
-                "end": 977,
+                "start": 1476,
+                "end": 1491,
                 "loc": {
                   "start": {
-                    "line": 36,
+                    "line": 57,
                     "column": 39
                   },
                   "end": {
-                    "line": 36,
+                    "line": 57,
                     "column": 54
                   },
                   "identifierName": "StageCrewMember"
@@ -526,46 +531,46 @@
           ],
           "body": {
             "type": "ClassBody",
-            "start": 978,
-            "end": 2458,
+            "start": 1492,
+            "end": 3033,
             "loc": {
               "start": {
-                "line": 36,
+                "line": 57,
                 "column": 55
               },
               "end": {
-                "line": 101,
+                "line": 127,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 1181,
-                "end": 1316,
+                "start": 1722,
+                "end": 1854,
                 "loc": {
                   "start": {
-                    "line": 42,
+                    "line": 66,
                     "column": 4
                   },
                   "end": {
-                    "line": 46,
+                    "line": 70,
                     "column": 5
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @param {WriteStream} output - A WriteStream that should receive the output\n     * @param {Stage} [stage=null] - The stage this {@link StageCrewMember} should be assigned to\n     ",
-                    "start": 985,
-                    "end": 1176,
+                    "value": "*\n     * @param {stream~Writable} output\n     *  A Writable stream that should receive the output\n     *\n     * @param {Stage} [stage=null]\n     *  The stage this {@link StageCrewMember} should be assigned to\n     ",
+                    "start": 1499,
+                    "end": 1717,
                     "loc": {
                       "start": {
-                        "line": 38,
+                        "line": 59,
                         "column": 4
                       },
                       "end": {
-                        "line": 41,
+                        "line": 65,
                         "column": 7
                       }
                     }
@@ -574,16 +579,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
-                    "start": 1317,
-                    "end": 1447,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
+                    "start": 1855,
+                    "end": 1985,
                     "loc": {
                       "start": {
-                        "line": 47,
+                        "line": 71,
                         "column": 0
                       },
                       "end": {
-                        "line": 58,
+                        "line": 82,
                         "column": 3
                       }
                     }
@@ -591,15 +596,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     ",
-                    "start": 1454,
-                    "end": 1825,
+                    "start": 1992,
+                    "end": 2363,
                     "loc": {
                       "start": {
-                        "line": 61,
+                        "line": 85,
                         "column": 4
                       },
                       "end": {
-                        "line": 69,
+                        "line": 93,
                         "column": 7
                       }
                     }
@@ -608,15 +613,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1181,
-                  "end": 1192,
+                  "start": 1722,
+                  "end": 1733,
                   "loc": {
                     "start": {
-                      "line": 42,
+                      "line": 66,
                       "column": 4
                     },
                     "end": {
-                      "line": 42,
+                      "line": 66,
                       "column": 15
                     },
                     "identifierName": "constructor"
@@ -631,124 +636,124 @@
                 "params": [
                   {
                     "type": "TSParameterProperty",
-                    "start": 1202,
-                    "end": 1255,
+                    "start": 1743,
+                    "end": 1793,
                     "loc": {
                       "start": {
-                        "line": 43,
+                        "line": 67,
                         "column": 8
                       },
                       "end": {
-                        "line": 43,
-                        "column": 61
+                        "line": 67,
+                        "column": 58
                       }
                     },
                     "accessibility": "private",
                     "readonly": true,
                     "parameter": {
                       "type": "AssignmentPattern",
-                      "start": 1219,
-                      "end": 1255,
+                      "start": 1760,
+                      "end": 1793,
                       "loc": {
                         "start": {
-                          "line": 43,
+                          "line": 67,
                           "column": 25
                         },
                         "end": {
-                          "line": 43,
-                          "column": 61
+                          "line": 67,
+                          "column": 58
                         }
                       },
                       "left": {
                         "type": "Identifier",
-                        "start": 1219,
-                        "end": 1238,
+                        "start": 1760,
+                        "end": 1776,
                         "loc": {
                           "start": {
-                            "line": 43,
+                            "line": 67,
                             "column": 25
                           },
                           "end": {
-                            "line": 43,
-                            "column": 44
+                            "line": 67,
+                            "column": 41
                           },
                           "identifierName": "output"
                         },
                         "name": "output",
                         "typeAnnotation": {
                           "type": "TSTypeAnnotation",
-                          "start": 1225,
-                          "end": 1238,
+                          "start": 1766,
+                          "end": 1776,
                           "loc": {
                             "start": {
-                              "line": 43,
+                              "line": 67,
                               "column": 31
                             },
                             "end": {
-                              "line": 43,
-                              "column": 44
+                              "line": 67,
+                              "column": 41
                             }
                           },
                           "typeAnnotation": {
                             "type": "TSTypeReference",
-                            "start": 1227,
-                            "end": 1238,
+                            "start": 1768,
+                            "end": 1776,
                             "loc": {
                               "start": {
-                                "line": 43,
+                                "line": 67,
                                 "column": 33
                               },
                               "end": {
-                                "line": 43,
-                                "column": 44
+                                "line": 67,
+                                "column": 41
                               }
                             },
                             "typeName": {
                               "type": "Identifier",
-                              "start": 1227,
-                              "end": 1238,
+                              "start": 1768,
+                              "end": 1776,
                               "loc": {
                                 "start": {
-                                  "line": 43,
+                                  "line": 67,
                                   "column": 33
                                 },
                                 "end": {
-                                  "line": 43,
-                                  "column": 44
+                                  "line": 67,
+                                  "column": 41
                                 },
-                                "identifierName": "WriteStream"
+                                "identifierName": "Writable"
                               },
-                              "name": "WriteStream"
+                              "name": "Writable"
                             }
                           }
                         }
                       },
                       "right": {
                         "type": "MemberExpression",
-                        "start": 1241,
-                        "end": 1255,
+                        "start": 1779,
+                        "end": 1793,
                         "loc": {
                           "start": {
-                            "line": 43,
-                            "column": 47
+                            "line": 67,
+                            "column": 44
                           },
                           "end": {
-                            "line": 43,
-                            "column": 61
+                            "line": 67,
+                            "column": 58
                           }
                         },
                         "object": {
                           "type": "Identifier",
-                          "start": 1241,
-                          "end": 1248,
+                          "start": 1779,
+                          "end": 1786,
                           "loc": {
                             "start": {
-                              "line": 43,
-                              "column": 47
+                              "line": 67,
+                              "column": 44
                             },
                             "end": {
-                              "line": 43,
-                              "column": 54
+                              "line": 67,
+                              "column": 51
                             },
                             "identifierName": "process"
                           },
@@ -757,16 +762,16 @@
                         "computed": false,
                         "property": {
                           "type": "Identifier",
-                          "start": 1249,
-                          "end": 1255,
+                          "start": 1787,
+                          "end": 1793,
                           "loc": {
                             "start": {
-                              "line": 43,
-                              "column": 55
+                              "line": 67,
+                              "column": 52
                             },
                             "end": {
-                              "line": 43,
-                              "column": 61
+                              "line": 67,
+                              "column": 58
                             },
                             "identifierName": "stdout"
                           },
@@ -777,15 +782,15 @@
                   },
                   {
                     "type": "TSParameterProperty",
-                    "start": 1265,
-                    "end": 1301,
+                    "start": 1803,
+                    "end": 1839,
                     "loc": {
                       "start": {
-                        "line": 44,
+                        "line": 68,
                         "column": 8
                       },
                       "end": {
-                        "line": 44,
+                        "line": 68,
                         "column": 44
                       }
                     },
@@ -793,29 +798,29 @@
                     "readonly": true,
                     "parameter": {
                       "type": "AssignmentPattern",
-                      "start": 1282,
-                      "end": 1301,
+                      "start": 1820,
+                      "end": 1839,
                       "loc": {
                         "start": {
-                          "line": 44,
+                          "line": 68,
                           "column": 25
                         },
                         "end": {
-                          "line": 44,
+                          "line": 68,
                           "column": 44
                         }
                       },
                       "left": {
                         "type": "Identifier",
-                        "start": 1282,
-                        "end": 1294,
+                        "start": 1820,
+                        "end": 1832,
                         "loc": {
                           "start": {
-                            "line": 44,
+                            "line": 68,
                             "column": 25
                           },
                           "end": {
-                            "line": 44,
+                            "line": 68,
                             "column": 37
                           },
                           "identifierName": "stage"
@@ -823,43 +828,43 @@
                         "name": "stage",
                         "typeAnnotation": {
                           "type": "TSTypeAnnotation",
-                          "start": 1287,
-                          "end": 1294,
+                          "start": 1825,
+                          "end": 1832,
                           "loc": {
                             "start": {
-                              "line": 44,
+                              "line": 68,
                               "column": 30
                             },
                             "end": {
-                              "line": 44,
+                              "line": 68,
                               "column": 37
                             }
                           },
                           "typeAnnotation": {
                             "type": "TSTypeReference",
-                            "start": 1289,
-                            "end": 1294,
+                            "start": 1827,
+                            "end": 1832,
                             "loc": {
                               "start": {
-                                "line": 44,
+                                "line": 68,
                                 "column": 32
                               },
                               "end": {
-                                "line": 44,
+                                "line": 68,
                                 "column": 37
                               }
                             },
                             "typeName": {
                               "type": "Identifier",
-                              "start": 1289,
-                              "end": 1294,
+                              "start": 1827,
+                              "end": 1832,
                               "loc": {
                                 "start": {
-                                  "line": 44,
+                                  "line": 68,
                                   "column": 32
                                 },
                                 "end": {
-                                  "line": 44,
+                                  "line": 68,
                                   "column": 37
                                 },
                                 "identifierName": "Stage"
@@ -871,15 +876,15 @@
                       },
                       "right": {
                         "type": "NullLiteral",
-                        "start": 1297,
-                        "end": 1301,
+                        "start": 1835,
+                        "end": 1839,
                         "loc": {
                           "start": {
-                            "line": 44,
+                            "line": 68,
                             "column": 40
                           },
                           "end": {
-                            "line": 44,
+                            "line": 68,
                             "column": 44
                           }
                         }
@@ -889,15 +894,15 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1309,
-                  "end": 1316,
+                  "start": 1847,
+                  "end": 1854,
                   "loc": {
                     "start": {
-                      "line": 45,
+                      "line": 69,
                       "column": 6
                     },
                     "end": {
-                      "line": 46,
+                      "line": 70,
                       "column": 5
                     }
                   },
@@ -907,31 +912,31 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 1830,
-                "end": 1934,
+                "start": 2368,
+                "end": 2472,
                 "loc": {
                   "start": {
-                    "line": 70,
+                    "line": 94,
                     "column": 4
                   },
                   "end": {
-                    "line": 72,
+                    "line": 96,
                     "column": 5
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
-                    "start": 1317,
-                    "end": 1447,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
+                    "start": 1855,
+                    "end": 1985,
                     "loc": {
                       "start": {
-                        "line": 47,
+                        "line": 71,
                         "column": 0
                       },
                       "end": {
-                        "line": 58,
+                        "line": 82,
                         "column": 3
                       }
                     }
@@ -939,15 +944,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     ",
-                    "start": 1454,
-                    "end": 1825,
+                    "start": 1992,
+                    "end": 2363,
                     "loc": {
                       "start": {
-                        "line": 61,
+                        "line": 85,
                         "column": 4
                       },
                       "end": {
-                        "line": 69,
+                        "line": 93,
                         "column": 7
                       }
                     }
@@ -956,32 +961,32 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 1935,
-                    "end": 2060,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 2473,
+                    "end": 2598,
                     "loc": {
                       "start": {
-                        "line": 73,
+                        "line": 97,
                         "column": 0
                       },
                       "end": {
-                        "line": 84,
+                        "line": 108,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
-                    "start": 2067,
-                    "end": 2279,
+                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @listens {DomainEvent}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
+                    "start": 2605,
+                    "end": 2854,
                     "loc": {
                       "start": {
-                        "line": 87,
+                        "line": 111,
                         "column": 4
                       },
                       "end": {
-                        "line": 95,
+                        "line": 121,
                         "column": 7
                       }
                     }
@@ -990,15 +995,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1830,
-                  "end": 1840,
+                  "start": 2368,
+                  "end": 2378,
                   "loc": {
                     "start": {
-                      "line": 70,
+                      "line": 94,
                       "column": 4
                     },
                     "end": {
-                      "line": 70,
+                      "line": 94,
                       "column": 14
                     },
                     "identifierName": "assignedTo"
@@ -1013,15 +1018,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 1841,
-                    "end": 1853,
+                    "start": 2379,
+                    "end": 2391,
                     "loc": {
                       "start": {
-                        "line": 70,
+                        "line": 94,
                         "column": 15
                       },
                       "end": {
-                        "line": 70,
+                        "line": 94,
                         "column": 27
                       },
                       "identifierName": "stage"
@@ -1029,43 +1034,43 @@
                     "name": "stage",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 1846,
-                      "end": 1853,
+                      "start": 2384,
+                      "end": 2391,
                       "loc": {
                         "start": {
-                          "line": 70,
+                          "line": 94,
                           "column": 20
                         },
                         "end": {
-                          "line": 70,
+                          "line": 94,
                           "column": 27
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 1848,
-                        "end": 1853,
+                        "start": 2386,
+                        "end": 2391,
                         "loc": {
                           "start": {
-                            "line": 70,
+                            "line": 94,
                             "column": 22
                           },
                           "end": {
-                            "line": 70,
+                            "line": 94,
                             "column": 27
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 1848,
-                          "end": 1853,
+                          "start": 2386,
+                          "end": 2391,
                           "loc": {
                             "start": {
-                              "line": 70,
+                              "line": 94,
                               "column": 22
                             },
                             "end": {
-                              "line": 70,
+                              "line": 94,
                               "column": 27
                             },
                             "identifierName": "Stage"
@@ -1078,43 +1083,43 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 1854,
-                  "end": 1871,
+                  "start": 2392,
+                  "end": 2409,
                   "loc": {
                     "start": {
-                      "line": 70,
+                      "line": 94,
                       "column": 28
                     },
                     "end": {
-                      "line": 70,
+                      "line": 94,
                       "column": 45
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 1856,
-                    "end": 1871,
+                    "start": 2394,
+                    "end": 2409,
                     "loc": {
                       "start": {
-                        "line": 70,
+                        "line": 94,
                         "column": 30
                       },
                       "end": {
-                        "line": 70,
+                        "line": 94,
                         "column": 45
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 1856,
-                      "end": 1871,
+                      "start": 2394,
+                      "end": 2409,
                       "loc": {
                         "start": {
-                          "line": 70,
+                          "line": 94,
                           "column": 30
                         },
                         "end": {
-                          "line": 70,
+                          "line": 94,
                           "column": 45
                         },
                         "identifierName": "StageCrewMember"
@@ -1125,58 +1130,58 @@
                 },
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1872,
-                  "end": 1934,
+                  "start": 2410,
+                  "end": 2472,
                   "loc": {
                     "start": {
-                      "line": 70,
+                      "line": 94,
                       "column": 46
                     },
                     "end": {
-                      "line": 72,
+                      "line": 96,
                       "column": 5
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 1882,
-                      "end": 1928,
+                      "start": 2420,
+                      "end": 2466,
                       "loc": {
                         "start": {
-                          "line": 71,
+                          "line": 95,
                           "column": 8
                         },
                         "end": {
-                          "line": 71,
+                          "line": 95,
                           "column": 54
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 1889,
-                        "end": 1927,
+                        "start": 2427,
+                        "end": 2465,
                         "loc": {
                           "start": {
-                            "line": 71,
+                            "line": 95,
                             "column": 15
                           },
                           "end": {
-                            "line": 71,
+                            "line": 95,
                             "column": 53
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 1893,
-                          "end": 1907,
+                          "start": 2431,
+                          "end": 2445,
                           "loc": {
                             "start": {
-                              "line": 71,
+                              "line": 95,
                               "column": 19
                             },
                             "end": {
-                              "line": 71,
+                              "line": 95,
                               "column": 33
                             },
                             "identifierName": "StreamReporter"
@@ -1186,29 +1191,29 @@
                         "arguments": [
                           {
                             "type": "MemberExpression",
-                            "start": 1908,
-                            "end": 1919,
+                            "start": 2446,
+                            "end": 2457,
                             "loc": {
                               "start": {
-                                "line": 71,
+                                "line": 95,
                                 "column": 34
                               },
                               "end": {
-                                "line": 71,
+                                "line": 95,
                                 "column": 45
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 1908,
-                              "end": 1912,
+                              "start": 2446,
+                              "end": 2450,
                               "loc": {
                                 "start": {
-                                  "line": 71,
+                                  "line": 95,
                                   "column": 34
                                 },
                                 "end": {
-                                  "line": 71,
+                                  "line": 95,
                                   "column": 38
                                 }
                               }
@@ -1216,15 +1221,15 @@
                             "computed": false,
                             "property": {
                               "type": "Identifier",
-                              "start": 1913,
-                              "end": 1919,
+                              "start": 2451,
+                              "end": 2457,
                               "loc": {
                                 "start": {
-                                  "line": 71,
+                                  "line": 95,
                                   "column": 39
                                 },
                                 "end": {
-                                  "line": 71,
+                                  "line": 95,
                                   "column": 45
                                 },
                                 "identifierName": "output"
@@ -1234,15 +1239,15 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 1921,
-                            "end": 1926,
+                            "start": 2459,
+                            "end": 2464,
                             "loc": {
                               "start": {
-                                "line": 71,
+                                "line": 95,
                                 "column": 47
                               },
                               "end": {
-                                "line": 71,
+                                "line": 95,
                                 "column": 52
                               },
                               "identifierName": "stage"
@@ -1258,47 +1263,47 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 2284,
-                "end": 2456,
+                "start": 2859,
+                "end": 3031,
                 "loc": {
                   "start": {
-                    "line": 96,
+                    "line": 122,
                     "column": 4
                   },
                   "end": {
-                    "line": 100,
+                    "line": 126,
                     "column": 5
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 1935,
-                    "end": 2060,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 2473,
+                    "end": 2598,
                     "loc": {
                       "start": {
-                        "line": 73,
+                        "line": 97,
                         "column": 0
                       },
                       "end": {
-                        "line": 84,
+                        "line": 108,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
-                    "start": 2067,
-                    "end": 2279,
+                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @listens {DomainEvent}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
+                    "start": 2605,
+                    "end": 2854,
                     "loc": {
                       "start": {
-                        "line": 87,
+                        "line": 111,
                         "column": 4
                       },
                       "end": {
-                        "line": 95,
+                        "line": 121,
                         "column": 7
                       }
                     }
@@ -1307,15 +1312,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2284,
-                  "end": 2292,
+                  "start": 2859,
+                  "end": 2867,
                   "loc": {
                     "start": {
-                      "line": 96,
+                      "line": 122,
                       "column": 4
                     },
                     "end": {
-                      "line": 96,
+                      "line": 122,
                       "column": 12
                     },
                     "identifierName": "notifyOf"
@@ -1330,15 +1335,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 2293,
-                    "end": 2311,
+                    "start": 2868,
+                    "end": 2886,
                     "loc": {
                       "start": {
-                        "line": 96,
+                        "line": 122,
                         "column": 13
                       },
                       "end": {
-                        "line": 96,
+                        "line": 122,
                         "column": 31
                       },
                       "identifierName": "event"
@@ -1346,43 +1351,43 @@
                     "name": "event",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 2298,
-                      "end": 2311,
+                      "start": 2873,
+                      "end": 2886,
                       "loc": {
                         "start": {
-                          "line": 96,
+                          "line": 122,
                           "column": 18
                         },
                         "end": {
-                          "line": 96,
+                          "line": 122,
                           "column": 31
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 2300,
-                        "end": 2311,
+                        "start": 2875,
+                        "end": 2886,
                         "loc": {
                           "start": {
-                            "line": 96,
+                            "line": 122,
                             "column": 20
                           },
                           "end": {
-                            "line": 96,
+                            "line": 122,
                             "column": 31
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 2300,
-                          "end": 2311,
+                          "start": 2875,
+                          "end": 2886,
                           "loc": {
                             "start": {
-                              "line": 96,
+                              "line": 122,
                               "column": 20
                             },
                             "end": {
-                              "line": 96,
+                              "line": 122,
                               "column": 31
                             },
                             "identifierName": "DomainEvent"
@@ -1395,29 +1400,29 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 2312,
-                  "end": 2318,
+                  "start": 2887,
+                  "end": 2893,
                   "loc": {
                     "start": {
-                      "line": 96,
+                      "line": 122,
                       "column": 32
                     },
                     "end": {
-                      "line": 96,
+                      "line": 122,
                       "column": 38
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSVoidKeyword",
-                    "start": 2314,
-                    "end": 2318,
+                    "start": 2889,
+                    "end": 2893,
                     "loc": {
                       "start": {
-                        "line": 96,
+                        "line": 122,
                         "column": 34
                       },
                       "end": {
-                        "line": 96,
+                        "line": 122,
                         "column": 38
                       }
                     }
@@ -1425,89 +1430,89 @@
                 },
                 "body": {
                   "type": "BlockStatement",
-                  "start": 2319,
-                  "end": 2456,
+                  "start": 2894,
+                  "end": 3031,
                   "loc": {
                     "start": {
-                      "line": 96,
+                      "line": 122,
                       "column": 39
                     },
                     "end": {
-                      "line": 100,
+                      "line": 126,
                       "column": 5
                     }
                   },
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 2329,
-                      "end": 2450,
+                      "start": 2904,
+                      "end": 3025,
                       "loc": {
                         "start": {
-                          "line": 97,
+                          "line": 123,
                           "column": 8
                         },
                         "end": {
-                          "line": 99,
+                          "line": 125,
                           "column": 10
                         }
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 2329,
-                        "end": 2449,
+                        "start": 2904,
+                        "end": 3024,
                         "loc": {
                           "start": {
-                            "line": 97,
+                            "line": 123,
                             "column": 8
                           },
                           "end": {
-                            "line": 99,
+                            "line": 125,
                             "column": 9
                           }
                         },
                         "extra": {
-                          "trailingComma": 2438
+                          "trailingComma": 3013
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 2329,
-                          "end": 2346,
+                          "start": 2904,
+                          "end": 2921,
                           "loc": {
                             "start": {
-                              "line": 97,
+                              "line": 123,
                               "column": 8
                             },
                             "end": {
-                              "line": 97,
+                              "line": 123,
                               "column": 25
                             }
                           },
                           "object": {
                             "type": "MemberExpression",
-                            "start": 2329,
-                            "end": 2340,
+                            "start": 2904,
+                            "end": 2915,
                             "loc": {
                               "start": {
-                                "line": 97,
+                                "line": 123,
                                 "column": 8
                               },
                               "end": {
-                                "line": 97,
+                                "line": 123,
                                 "column": 19
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 2329,
-                              "end": 2333,
+                              "start": 2904,
+                              "end": 2908,
                               "loc": {
                                 "start": {
-                                  "line": 97,
+                                  "line": 123,
                                   "column": 8
                                 },
                                 "end": {
-                                  "line": 97,
+                                  "line": 123,
                                   "column": 12
                                 }
                               }
@@ -1515,15 +1520,15 @@
                             "computed": false,
                             "property": {
                               "type": "Identifier",
-                              "start": 2334,
-                              "end": 2340,
+                              "start": 2909,
+                              "end": 2915,
                               "loc": {
                                 "start": {
-                                  "line": 97,
+                                  "line": 123,
                                   "column": 13
                                 },
                                 "end": {
-                                  "line": 97,
+                                  "line": 123,
                                   "column": 19
                                 },
                                 "identifierName": "output"
@@ -1534,15 +1539,15 @@
                           "computed": false,
                           "property": {
                             "type": "Identifier",
-                            "start": 2341,
-                            "end": 2346,
+                            "start": 2916,
+                            "end": 2921,
                             "loc": {
                               "start": {
-                                "line": 97,
+                                "line": 123,
                                 "column": 20
                               },
                               "end": {
-                                "line": 97,
+                                "line": 123,
                                 "column": 25
                               },
                               "identifierName": "write"
@@ -1553,57 +1558,57 @@
                         "arguments": [
                           {
                             "type": "BinaryExpression",
-                            "start": 2360,
-                            "end": 2438,
+                            "start": 2935,
+                            "end": 3013,
                             "loc": {
                               "start": {
-                                "line": 98,
+                                "line": 124,
                                 "column": 12
                               },
                               "end": {
-                                "line": 98,
+                                "line": 124,
                                 "column": 90
                               }
                             },
                             "left": {
                               "type": "CallExpression",
-                              "start": 2360,
-                              "end": 2431,
+                              "start": 2935,
+                              "end": 3006,
                               "loc": {
                                 "start": {
-                                  "line": 98,
+                                  "line": 124,
                                   "column": 12
                                 },
                                 "end": {
-                                  "line": 98,
+                                  "line": 124,
                                   "column": 83
                                 }
                               },
                               "callee": {
                                 "type": "MemberExpression",
-                                "start": 2360,
-                                "end": 2374,
+                                "start": 2935,
+                                "end": 2949,
                                 "loc": {
                                   "start": {
-                                    "line": 98,
+                                    "line": 124,
                                     "column": 12
                                   },
                                   "end": {
-                                    "line": 98,
+                                    "line": 124,
                                     "column": 26
                                   }
                                 },
                                 "object": {
                                   "type": "Identifier",
-                                  "start": 2360,
-                                  "end": 2364,
+                                  "start": 2935,
+                                  "end": 2939,
                                   "loc": {
                                     "start": {
-                                      "line": 98,
+                                      "line": 124,
                                       "column": 12
                                     },
                                     "end": {
-                                      "line": 98,
+                                      "line": 124,
                                       "column": 16
                                     },
                                     "identifierName": "JSON"
@@ -1613,15 +1618,15 @@
                                 "computed": false,
                                 "property": {
                                   "type": "Identifier",
-                                  "start": 2365,
-                                  "end": 2374,
+                                  "start": 2940,
+                                  "end": 2949,
                                   "loc": {
                                     "start": {
-                                      "line": 98,
+                                      "line": 124,
                                       "column": 17
                                     },
                                     "end": {
-                                      "line": 98,
+                                      "line": 124,
                                       "column": 26
                                     },
                                     "identifierName": "stringify"
@@ -1632,45 +1637,45 @@
                               "arguments": [
                                 {
                                   "type": "ObjectExpression",
-                                  "start": 2375,
-                                  "end": 2430,
+                                  "start": 2950,
+                                  "end": 3005,
                                   "loc": {
                                     "start": {
-                                      "line": 98,
+                                      "line": 124,
                                       "column": 27
                                     },
                                     "end": {
-                                      "line": 98,
+                                      "line": 124,
                                       "column": 82
                                     }
                                   },
                                   "properties": [
                                     {
                                       "type": "ObjectProperty",
-                                      "start": 2377,
-                                      "end": 2405,
+                                      "start": 2952,
+                                      "end": 2980,
                                       "loc": {
                                         "start": {
-                                          "line": 98,
+                                          "line": 124,
                                           "column": 29
                                         },
                                         "end": {
-                                          "line": 98,
+                                          "line": 124,
                                           "column": 57
                                         }
                                       },
                                       "method": false,
                                       "key": {
                                         "type": "Identifier",
-                                        "start": 2377,
-                                        "end": 2381,
+                                        "start": 2952,
+                                        "end": 2956,
                                         "loc": {
                                           "start": {
-                                            "line": 98,
+                                            "line": 124,
                                             "column": 29
                                           },
                                           "end": {
-                                            "line": 98,
+                                            "line": 124,
                                             "column": 33
                                           },
                                           "identifierName": "type"
@@ -1681,43 +1686,43 @@
                                       "shorthand": false,
                                       "value": {
                                         "type": "MemberExpression",
-                                        "start": 2383,
-                                        "end": 2405,
+                                        "start": 2958,
+                                        "end": 2980,
                                         "loc": {
                                           "start": {
-                                            "line": 98,
+                                            "line": 124,
                                             "column": 35
                                           },
                                           "end": {
-                                            "line": 98,
+                                            "line": 124,
                                             "column": 57
                                           }
                                         },
                                         "object": {
                                           "type": "MemberExpression",
-                                          "start": 2383,
-                                          "end": 2400,
+                                          "start": 2958,
+                                          "end": 2975,
                                           "loc": {
                                             "start": {
-                                              "line": 98,
+                                              "line": 124,
                                               "column": 35
                                             },
                                             "end": {
-                                              "line": 98,
+                                              "line": 124,
                                               "column": 52
                                             }
                                           },
                                           "object": {
                                             "type": "Identifier",
-                                            "start": 2383,
-                                            "end": 2388,
+                                            "start": 2958,
+                                            "end": 2963,
                                             "loc": {
                                               "start": {
-                                                "line": 98,
+                                                "line": 124,
                                                 "column": 35
                                               },
                                               "end": {
-                                                "line": 98,
+                                                "line": 124,
                                                 "column": 40
                                               },
                                               "identifierName": "event"
@@ -1727,15 +1732,15 @@
                                           "computed": false,
                                           "property": {
                                             "type": "Identifier",
-                                            "start": 2389,
-                                            "end": 2400,
+                                            "start": 2964,
+                                            "end": 2975,
                                             "loc": {
                                               "start": {
-                                                "line": 98,
+                                                "line": 124,
                                                 "column": 41
                                               },
                                               "end": {
-                                                "line": 98,
+                                                "line": 124,
                                                 "column": 52
                                               },
                                               "identifierName": "constructor"
@@ -1746,15 +1751,15 @@
                                         "computed": false,
                                         "property": {
                                           "type": "Identifier",
-                                          "start": 2401,
-                                          "end": 2405,
+                                          "start": 2976,
+                                          "end": 2980,
                                           "loc": {
                                             "start": {
-                                              "line": 98,
+                                              "line": 124,
                                               "column": 53
                                             },
                                             "end": {
-                                              "line": 98,
+                                              "line": 124,
                                               "column": 57
                                             },
                                             "identifierName": "name"
@@ -1765,30 +1770,30 @@
                                     },
                                     {
                                       "type": "ObjectProperty",
-                                      "start": 2407,
-                                      "end": 2428,
+                                      "start": 2982,
+                                      "end": 3003,
                                       "loc": {
                                         "start": {
-                                          "line": 98,
+                                          "line": 124,
                                           "column": 59
                                         },
                                         "end": {
-                                          "line": 98,
+                                          "line": 124,
                                           "column": 80
                                         }
                                       },
                                       "method": false,
                                       "key": {
                                         "type": "Identifier",
-                                        "start": 2407,
-                                        "end": 2412,
+                                        "start": 2982,
+                                        "end": 2987,
                                         "loc": {
                                           "start": {
-                                            "line": 98,
+                                            "line": 124,
                                             "column": 59
                                           },
                                           "end": {
-                                            "line": 98,
+                                            "line": 124,
                                             "column": 64
                                           },
                                           "identifierName": "event"
@@ -1799,43 +1804,43 @@
                                       "shorthand": false,
                                       "value": {
                                         "type": "CallExpression",
-                                        "start": 2414,
-                                        "end": 2428,
+                                        "start": 2989,
+                                        "end": 3003,
                                         "loc": {
                                           "start": {
-                                            "line": 98,
+                                            "line": 124,
                                             "column": 66
                                           },
                                           "end": {
-                                            "line": 98,
+                                            "line": 124,
                                             "column": 80
                                           }
                                         },
                                         "callee": {
                                           "type": "MemberExpression",
-                                          "start": 2414,
-                                          "end": 2426,
+                                          "start": 2989,
+                                          "end": 3001,
                                           "loc": {
                                             "start": {
-                                              "line": 98,
+                                              "line": 124,
                                               "column": 66
                                             },
                                             "end": {
-                                              "line": 98,
+                                              "line": 124,
                                               "column": 78
                                             }
                                           },
                                           "object": {
                                             "type": "Identifier",
-                                            "start": 2414,
-                                            "end": 2419,
+                                            "start": 2989,
+                                            "end": 2994,
                                             "loc": {
                                               "start": {
-                                                "line": 98,
+                                                "line": 124,
                                                 "column": 66
                                               },
                                               "end": {
-                                                "line": 98,
+                                                "line": 124,
                                                 "column": 71
                                               },
                                               "identifierName": "event"
@@ -1845,15 +1850,15 @@
                                           "computed": false,
                                           "property": {
                                             "type": "Identifier",
-                                            "start": 2420,
-                                            "end": 2426,
+                                            "start": 2995,
+                                            "end": 3001,
                                             "loc": {
                                               "start": {
-                                                "line": 98,
+                                                "line": 124,
                                                 "column": 72
                                               },
                                               "end": {
-                                                "line": 98,
+                                                "line": 124,
                                                 "column": 78
                                               },
                                               "identifierName": "toJSON"
@@ -1871,15 +1876,15 @@
                             "operator": "+",
                             "right": {
                               "type": "StringLiteral",
-                              "start": 2434,
-                              "end": 2438,
+                              "start": 3009,
+                              "end": 3013,
                               "loc": {
                                 "start": {
-                                  "line": 98,
+                                  "line": 124,
                                   "column": 86
                                 },
                                 "end": {
-                                  "line": 98,
+                                  "line": 124,
                                   "column": 90
                                 }
                               },
@@ -1902,9 +1907,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
-              "start": 182,
-              "end": 227,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n ",
+              "start": 176,
+              "end": 221,
               "loc": {
                 "start": {
                   "line": 5,
@@ -1918,16 +1923,16 @@
             },
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/)\n *  to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(process.stdout) ],\n * });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n * import fs = require('fs');\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(fs.createWriteStream('./events.ndjson')) ],\n * });\n *\n * @implements {StageCrewMember}\n ",
-              "start": 230,
-              "end": 922,
+              "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/) to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *\n *  configure({\n *      crew: [\n *          new StreamReporter(process.stdout)\n *      ],\n *  });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *  import fs = require('fs');\n *\n *  configure({\n *      crew: [\n *          new StreamReporter(fs.createWriteStream('./events.ndjson'))\n *      ],\n *  });\n *\n * @example <caption>Registering StreamReporter using Protractor configuration</caption>\n *  // protractor.conf.js\n *  const { StreamReporter } = require('@serenity-js/core');\n *\n *  exports.config = {\n *    framework:     'custom',\n *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),\n *\n *    serenity: {\n *      crew: [\n *        new StreamReporter(process.stdout),\n *      ],\n *      // other Serenity/JS config\n *    },\n *\n *    // other Protractor config\n *  };\n *\n * @implements {StageCrewMember}\n ",
+              "start": 224,
+              "end": 1436,
               "loc": {
                 "start": {
                   "line": 13,
                   "column": 0
                 },
                 "end": {
-                  "line": 35,
+                  "line": 56,
                   "column": 3
                 }
               }
@@ -1942,9 +1947,9 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
-      "start": 182,
-      "end": 227,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n ",
+      "start": 176,
+      "end": 221,
       "loc": {
         "start": {
           "line": 5,
@@ -1958,48 +1963,48 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/)\n *  to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(process.stdout) ],\n * });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n * import { serenity, StreamReporter } from '@serenity-js/core';\n * import fs = require('fs');\n *\n * serenity.configure({\n *     crew: [ new StreamReporter(fs.createWriteStream('./events.ndjson')) ],\n * });\n *\n * @implements {StageCrewMember}\n ",
-      "start": 230,
-      "end": 922,
+      "value": "*\n * @desc\n *  Serialises all the {@link DomainEvent} objects it receives and streams\n *  them as [ndjson](http://ndjson.org/) to the output stream.\n *\n * @example <caption>Writing DomainEvents to standard output</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *\n *  configure({\n *      crew: [\n *          new StreamReporter(process.stdout)\n *      ],\n *  });\n *\n * @example <caption>Writing DomainEvents to a file</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *  import fs = require('fs');\n *\n *  configure({\n *      crew: [\n *          new StreamReporter(fs.createWriteStream('./events.ndjson'))\n *      ],\n *  });\n *\n * @example <caption>Registering StreamReporter using Protractor configuration</caption>\n *  // protractor.conf.js\n *  const { StreamReporter } = require('@serenity-js/core');\n *\n *  exports.config = {\n *    framework:     'custom',\n *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),\n *\n *    serenity: {\n *      crew: [\n *        new StreamReporter(process.stdout),\n *      ],\n *      // other Serenity/JS config\n *    },\n *\n *    // other Protractor config\n *  };\n *\n * @implements {StageCrewMember}\n ",
+      "start": 224,
+      "end": 1436,
       "loc": {
         "start": {
           "line": 13,
           "column": 0
         },
         "end": {
-          "line": 35,
+          "line": 56,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * @param {WriteStream} output - A WriteStream that should receive the output\n     * @param {Stage} [stage=null] - The stage this {@link StageCrewMember} should be assigned to\n     ",
-      "start": 985,
-      "end": 1176,
+      "value": "*\n     * @param {stream~Writable} output\n     *  A Writable stream that should receive the output\n     *\n     * @param {Stage} [stage=null]\n     *  The stage this {@link StageCrewMember} should be assigned to\n     ",
+      "start": 1499,
+      "end": 1717,
       "loc": {
         "start": {
-          "line": 38,
+          "line": 59,
           "column": 4
         },
         "end": {
-          "line": 41,
+          "line": 65,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
-      "start": 1317,
-      "end": 1447,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
+      "start": 1855,
+      "end": 1985,
       "loc": {
         "start": {
-          "line": 47,
+          "line": 71,
           "column": 0
         },
         "end": {
-          "line": 58,
+          "line": 82,
           "column": 3
         }
       }
@@ -2007,47 +2012,47 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     ",
-      "start": 1454,
-      "end": 1825,
+      "start": 1992,
+      "end": 2363,
       "loc": {
         "start": {
-          "line": 61,
+          "line": 85,
           "column": 4
         },
         "end": {
-          "line": 69,
+          "line": 93,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-      "start": 1935,
-      "end": 2060,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+      "start": 2473,
+      "end": 2598,
       "loc": {
         "start": {
-          "line": 73,
+          "line": 97,
           "column": 0
         },
         "end": {
-          "line": 84,
+          "line": 108,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
-      "start": 2067,
-      "end": 2279,
+      "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @listens {DomainEvent}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
+      "start": 2605,
+      "end": 2854,
       "loc": {
         "start": {
-          "line": 87,
+          "line": 111,
           "column": 4
         },
         "end": {
-          "line": 95,
+          "line": 121,
           "column": 7
         }
       }

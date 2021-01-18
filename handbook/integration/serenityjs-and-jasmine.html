@@ -16,7 +16,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
-    <title>Serenity/JS and Jasmine | Serenity/JS</title>
+    <title>Integrating with Jasmine | Serenity/JS</title>
+    <meta property="og:title" content="Integrating with Jasmine | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/handbook/integration/serenityjs-and-jasmine.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -115,12 +122,17 @@
                                 <li class="chapter"><a href="/handbook/integration/runtime-dependencies.html">Runtime dependencies</a></li>
                                 <li class="chapter"><a href="/handbook/integration/versioning.html">Versioning</a></li>
                                 <li class="chapter"><a href="/handbook/integration/installation.html">Installation</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Serenity/JS and Cucumber</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Serenity/JS and Jasmine</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Serenity/JS and Protractor</a></li>
-                                <li class="chapter"><a href="/handbook/integration/reporting.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Integrating with Cucumber</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Integrating with Jasmine</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-mocha.html">Integrating with Mocha</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a></li>
                                 <li class="chapter"><a href="/handbook/integration/jira-and-other-issue-trackers.html">Jira and other issue trackers</a></li>
                                 <li class="chapter"><a href="/handbook/integration/upgrading-to-serenity-js-2.html">Upgrading to Serenity/JS 2.0</a></li>
+                                <li class="header"><a href="/handbook/reporting/index.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/console-reporter.html">Console Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/serenity-bdd-reporter.html">Serenity BDD Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/artifact-archiver.html">Artifact Archiver</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/stream-reporter.html">Stream Reporter</a></li>
                                 <li class="header"><a href="/community/index.html">Community</a></li>
                                 <li class="chapter"><a href="/community/events-and-articles.html">Events and articles</a></li>
                                 <li class="chapter"><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
@@ -132,31 +144,153 @@
                     <article class="content">
                         <nav class="article-tools">
                             <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/serenityjs-and-jasmine.md">
-                                <i class="far fa-edit"></i> Edit on Github</a>
+                                <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
-                            <html><head></head><body><h1 id="serenity-js-and-jasmine">Serenity/JS and Jasmine</h1>
-<div class="pro-tip">
-    <div class="icon"><i class="fas fa-tools"></i></div>
-    <div class="text">
-        <p>
-            This section is coming soon. Stay tuned or learn how you can <a href="/support.html">support the project</a>!
-        </p>
-        <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
-    </div>
+                            <html><head></head><body><h1 id="integrating-with-jasmine">Integrating with Jasmine</h1>
+<p><a href="https://jasmine.github.io/">Jasmine</a> is a universal test runner, particularly popular with projects based on <a href="https://angular.io/">Angular</a> framework. If your project already uses Jasmine to run its unit tests, you can use the same runner for your acceptance tests too.</p>
+<p>When you integrate Jasmine with Serenity/JS, the test framework augments your test reports with additional information about your test scenarios, even if they don't follow the <a href="/handbook/thinking-in-serenity-js/screenplay-pattern.html">Screenplay Pattern</a> yet!</p>
+<p>If you prefer to dive straight into the code, several <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">reference implementations</a> are available in the <a href="https://github.com/serenity-js/serenity-js">Serenity/JS GitHub repository</a>. Those implementations demonstrate using Jasmine and Serenity/JS to run both <a href="https://github.com/serenity-js/serenity-js/tree/master/examples/jasmine-rest-api-level-testing">REST API-</a> and <a href="https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-jasmine">Web-based</a> acceptance tests.</p>
+<h2 id="integration-architecture">Integration architecture</h2>
+<p><a href="/modules/jasmine"><code>@serenity-js/jasmine</code> module</a> provides a <strong>test runner adapter</strong>, or "reporter" in Jasmine-speak.</p>
+<p>Serenity/JS test runner adapters translate the events that occur in the test runner to Serenity/JS <a href="/modules/core/identifiers.html#events"><code>DomainEvents</code></a>; those can be then turned into test reports by <a href="/handbook/reporting/index.html">Serenity/JS reporting services</a>.</p>
+<div class="mermaid">
+graph TB
+    DEV(["fas:fa-laptop-code Developer"])
+    TR(["jasmine"])
+    SC(["@serenity-js/core"])
+    TRA(["@serenity-js/jasmine"])
+    CF["fas:fa-file config.ts"]
+    R(["fas:fa-chart-pie Serenity/JS reporting services"])
+
+    DEV -- invokes --&gt; TR
+    TR -- loads --&gt; CF
+    TR -- notifies --&gt; TRA
+    TRA -- notifies --&gt; SC
+    CF -- configures --&gt; SC
+    SC -- notifies --&gt; R
+
+    class R socket
+
+    click R "/handbook/reporting/index.html"
+    click SC "/modules/core"
+    click TRA "/modules/jasmine"
 </div>
 
-<h2 id="example-integration">Example integration</h2>
-<p>To see an example integration, have a look at <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">Serenity/JS Github</a></p>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text"><p><strong>PRO TIP:</strong>
+        Integration architecture described in this chapter is applicable when you want to invoke <code>jasmine</code> command line interface directly, for example for domain-level or <a href="/modules/rest">REST/HTTP API-level</a> testing. 
+    </p>
+    <p>If you want your Jasmine scenarios to interact with Web interfaces, check out <a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a> instead.
+    </p></div>
+</div>
+
+<h3 id="installation">Installation</h3>
+<p>Assuming you already have a <a href="/handbook/integration/runtime-dependencies.html#a-node-js-project">Node.js project </a> set up, add the following dev dependencies:</p>
+<ul>
+<li><a href="/modules/core"><code>@serenity-js/core</code></a></li>
+<li><a href="/modules/jasmine"><code>@serenity-js/jasmine</code></a></li>
+<li><a href="https://www.npmjs.com/package/jasmine"><code>jasmine</code></a></li>
+</ul>
+<p>To do that, run the following command in your terminal:</p>
+<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,jasmine}</span> jasmine
+</code></pre>
+<p>If you'd like to implement your test suite in TypeScript, also run:</p>
+<pre><code class="lang-console hljs gherkin">npm install --save-dev typescript ts-node <span class="hljs-meta">@types/{jasmine,node}</span>
+</code></pre>
+<p>If you haven't done so already, initialise Jasmine configuration file at <code>spec/support/jasmine.json</code> by running the following command:</p>
+<pre><code class="lang-console hljs plaintext">npx jasmine init
+</code></pre>
+<p>The configuration file should look as follows:</p>
+<pre><code class="lang-json hljs json">{
+  <span class="hljs-attr">"spec_dir"</span>: <span class="hljs-string">"spec"</span>,
+  <span class="hljs-attr">"spec_files"</span>: [
+    <span class="hljs-string">"**/*[sS]pec.js"</span>
+  ],
+  <span class="hljs-attr">"helpers"</span>: [
+    <span class="hljs-string">"helpers/**/*.js"</span>
+  ],
+  <span class="hljs-attr">"stopSpecOnExpectationFailure"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"random"</span>: <span class="hljs-literal">true</span>
+}
+</code></pre>
+<h3 id="configuration">Configuration</h3>
+<h4 id="using-javascript">Using JavaScript</h4>
+<p>In a JavaScript project, create a configuration file at <code>spec/helpers/config.js</code> with the following contents:</p>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// spec/helpers/config.js</span>
+<span class="hljs-keyword">const</span> { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
+
+configure({
+    <span class="hljs-attr">crew</span>: [
+        <span class="hljs-comment">// ... reporting services</span>
+    ],
+});
+</code></pre>
+<h4 id="using-typescript">Using TypeScript</h4>
+<p>To make Jasmine understand test scenarios and configuration written in TypeScript, modify the <code>spec/support/jasmine.json</code> file as follows:</p>
+<pre><code class="lang-json hljs json">{
+  <span class="hljs-attr">"spec_dir"</span>: <span class="hljs-string">"spec"</span>,
+  <span class="hljs-attr">"spec_files"</span>: [
+    <span class="hljs-string">"**/*[sS]pec.ts"</span>
+  ],
+  <span class="hljs-attr">"helpers"</span>: [
+    <span class="hljs-string">"helpers/**/*.ts"</span>
+  ],
+  <span class="hljs-attr">"requires"</span>: [
+    <span class="hljs-string">"ts-node/register"</span>
+  ],
+  <span class="hljs-attr">"stopSpecOnExpectationFailure"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"random"</span>: <span class="hljs-literal">true</span>
+}
+</code></pre>
+<p>Next, create a configuration file at <code>spec/helpers/config.ts</code>. </p>
+<p>This file will inform Serenity/JS what <a href="/handbook/reporting/">reporting services</a> you wish to use:</p>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/helpers/config.ts</span>
+<span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+
+configure({
+    <span class="hljs-attr">crew</span>: [
+        <span class="hljs-comment">// ... reporting services</span>
+    ],
+});
+</code></pre>
+<h4 id="reporting">Reporting</h4>
+<p>To register <code>@serenity-js/jasmine</code> test runner adapter with Jasmine, use the <a href="https://jasmine.github.io/setup/nodejs.html#--reporter"><code>--reporter</code></a> option when invoking the runner:</p>
+<pre><code class="lang-console hljs gherkin">npx jasmine --reporter='<span class="hljs-meta">@serenity-js/jasmine'</span>
+</code></pre>
+<p>To install and configure Serenity/JS reporting services appropriate for your project - follow the <a href="/handbook/reporting/">Serenity/JS reporting guide</a>.</p>
 </body></html>
                         </section>
+
+                            <div class="pro-tip">
+                                <div class="icon"><i class="far fa-grin-stars"></i></div>
+                                <div class="text">
+                                    <p>
+                                        <strong>Love Serenity/JS?</strong> Spread the word on
+                                        <a href="https://twitter.com/intent/tweet?text=Check+out+%23fullstack+acceptance+%23testing+with+%40SerenityJS&amp;url=https%3A%2F%2Fserenity-js.org%2Fhandbook%2Fintegration%2Fserenityjs-and-jasmine.html" aria-label="Spread the word on Twitter" rel="noreferrer noopener">
+                                            <i class="fab fa-twitter"></i> Twitter</a>
+                                        and
+                                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fserenity-js.org%2Fhandbook%2Fintegration%2Fserenityjs-and-jasmine.html" aria-label="Spread the word on LinkedIn" rel="noreferrer noopener">
+                                            <i class="fab fa-linkedin"></i> LinkedIn</a>!
+                                    </p>
+                                    <p>
+                                        Found a typo? You can <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/serenityjs-and-jasmine.md">fix it yourself</a>
+                                        or
+                                        <a href="https://github.com/serenity-js/serenity-js/issues">raise a ticket</a> on GitHub.
+                                    </p>
+                                    <p>If you'd like to help us bring more great tools and content to the Open-Source Community, become a GitHub Sponsor of Serenity/JS for as little as the cost of a cup of coffee.</p>
+                                    <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
+                                </div>
+                            </div>
+
                         <footer class="d-print-none">
                                 <a class="previous" href="/handbook/integration/serenityjs-and-cucumber.html">
                                     <i class="fa fa-chevron-left"></i>
-                                    <span>Serenity/JS and Cucumber</span>
+                                    <span>Integrating with Cucumber</span>
                                 </a>
-                                <a class="next" href="/handbook/integration/serenityjs-and-protractor.html">
-                                    <span>Serenity/JS and Protractor</span>
+                                <a class="next" href="/handbook/integration/serenityjs-and-mocha.html">
+                                    <span>Integrating with Mocha</span>
                                     <i class="fa fa-chevron-right"></i>
                                 </a>
                         </footer>
@@ -194,10 +328,9 @@
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -213,7 +346,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -251,6 +384,26 @@
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 72,
+  "end": 128,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 3,
+      "line": 4,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 72,
+    "end": 128,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 3,
+        "line": 4,
         "column": 0
       }
     },
@@ -32,30 +32,48 @@
     "body": [
       {
         "type": "ExportAllDeclaration",
-        "start": 0,
-        "end": 37,
+        "start": 56,
+        "end": 93,
         "loc": {
           "start": {
-            "line": 1,
+            "line": 2,
             "column": 0
           },
           "end": {
-            "line": 1,
+            "line": 2,
             "column": 37
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file covered in integration tests ",
+            "start": 0,
+            "end": 55,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 55
+              }
+            }
+          }
+        ],
         "exportKind": "value",
         "source": {
           "type": "StringLiteral",
-          "start": 14,
-          "end": 36,
+          "start": 70,
+          "end": 92,
           "loc": {
             "start": {
-              "line": 1,
+              "line": 2,
               "column": 14
             },
             "end": {
-              "line": 1,
+              "line": 2,
               "column": 36
             }
           },
@@ -68,30 +86,30 @@
       },
       {
         "type": "ExportAllDeclaration",
-        "start": 38,
-        "end": 71,
+        "start": 94,
+        "end": 127,
         "loc": {
           "start": {
-            "line": 2,
+            "line": 3,
             "column": 0
           },
           "end": {
-            "line": 2,
+            "line": 3,
             "column": 33
           }
         },
         "exportKind": "value",
         "source": {
           "type": "StringLiteral",
-          "start": 52,
-          "end": 70,
+          "start": 108,
+          "end": 126,
           "loc": {
             "start": {
-              "line": 2,
+              "line": 3,
               "column": 14
             },
             "end": {
-              "line": 2,
+              "line": 3,
               "column": 32
             }
           },
@@ -105,5 +123,22 @@
     ],
     "directives": []
   },
-  "comments": []
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": " istanbul ignore file covered in integration tests ",
+      "start": 0,
+      "end": 55,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 55
+        }
+      }
+    }
+  ]
 }

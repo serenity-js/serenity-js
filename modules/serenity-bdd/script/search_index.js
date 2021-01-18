@@ -6,24 +6,6 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@serenity-js/serenity-bdd/lib/cli/io~axiosclient",
-    "function/index.html#static-function-axiosClient",
-    "<span>axiosClient</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/cli/io</span>",
-    "function"
-  ],
-  [
-    "@serenity-js/serenity-bdd/lib/cli/io~formaterror",
-    "function/index.html#static-function-formatError",
-    "<span>formatError</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/cli/io</span>",
-    "function"
-  ],
-  [
-    "@serenity-js/serenity-bdd/lib/cli/io~shouldproxy",
-    "function/index.html#static-function-shouldProxy",
-    "<span>shouldProxy</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/cli/io</span>",
-    "function"
-  ],
-  [
     "@serenity-js/assertions/lib/expectations~and",
     "/modules/assertions/function/index.html#static-function-and",
     "@serenity-js/assertions/lib/expectations~and",
@@ -264,6 +246,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/events~businessruledetected",
+    "/modules/core/class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html",
+    "@serenity-js/core/lib/events~BusinessRuleDetected",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/events~domainevent",
     "/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html",
     "@serenity-js/core/lib/events~DomainEvent",
@@ -444,12 +432,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/core/lib/io~moduleloader",
-    "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
-    "@serenity-js/core/lib/io~ModuleLoader",
-    "external"
-  ],
-  [
     "@serenity-js/core/lib/io~path",
     "/modules/core/class/src/io/Path.ts~Path.html",
     "@serenity-js/core/lib/io~Path",
@@ -615,6 +597,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/model~artifact",
     "/modules/core/class/src/model/Artifact.ts~Artifact.html",
     "@serenity-js/core/lib/model~Artifact",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/model~businessrule",
+    "/modules/core/class/src/model/BusinessRule.ts~BusinessRule.html",
+    "@serenity-js/core/lib/model~BusinessRule",
     "external"
   ],
   [
@@ -1261,6 +1249,12 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_business_rules.spec.ts.html#lineNumber22",
+    "SerenityBDDReporter",
+    "test"
+  ],
+  [
+    "",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html#lineNumber26",
     "SerenityBDDReporter",
     "test"
@@ -1347,6 +1341,18 @@ window.esdocSearchIndex = [
     "serenitybddreporter scenestarts scenebackgrounddetected scenefinished executionsuccessful testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenebackgrounddetected,scenebackgrounddetected @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts.html#lineNumber37",
     "SerenityBDDReporter captures information about scenario background",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_business_rules.spec.ts.html#lineNumber79",
+    "SerenityBDDReporter captures information about the business rule for scene sequences",
+    "test"
+  ],
+  [
+    "serenitybddreporter scenestarts scenebackgrounddetected scenefinished executionsuccessful testrunfinishes src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter @serenity-js/core/lib/events~scenestarts,scenestarts @serenity-js/core/lib/events~scenebackgrounddetected,scenebackgrounddetected @serenity-js/core/lib/events~scenefinished,scenefinished @serenity-js/core/lib/model~executionsuccessful,executionsuccessful @serenity-js/core/lib/events~testrunfinishes,testrunfinishes",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_business_rules.spec.ts.html#lineNumber66",
+    "SerenityBDDReporter captures information about the business rule for single-scene scenarios",
     "test"
   ],
   [
@@ -1770,6 +1776,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/stage/crew/serenity-bdd-reporter/serenitybddreporter/reporting_business_rules.spec.ts",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_business_rules.spec.ts.html",
+    "spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_business_rules.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/stage/crew/serenity-bdd-reporter/serenitybddreporter/reporting_scene_sequences.spec.ts",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts.html",
     "spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_scene_sequences.spec.ts",
@@ -1956,6 +1968,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/cli/screenplay/questions/checksum.ts",
+    "file/src/cli/screenplay/questions/Checksum.ts.html",
+    "src/cli/screenplay/questions/Checksum.ts",
+    "file"
+  ],
+  [
     "src/cli/screenplay/questions/fileexists.ts",
     "file/src/cli/screenplay/questions/FileExists.ts.html",
     "src/cli/screenplay/questions/FileExists.ts",
@@ -1995,6 +2013,12 @@ window.esdocSearchIndex = [
     "src/cli/screenplay/tasks/invokeserenitybdd.ts",
     "file/src/cli/screenplay/tasks/InvokeSerenityBDD.ts.html",
     "src/cli/screenplay/tasks/InvokeSerenityBDD.ts",
+    "file"
+  ],
+  [
+    "src/cli/screenplay/tasks/verifychecksum.ts",
+    "file/src/cli/screenplay/tasks/VerifyChecksum.ts.html",
+    "src/cli/screenplay/tasks/VerifyChecksum.ts",
     "file"
   ],
   [

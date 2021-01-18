@@ -17,6 +17,10 @@
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title>Contributing | Serenity/JS</title>
+    <meta property="og:title" content="Contributing | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/contributing.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -115,12 +122,17 @@
                                 <li class="chapter"><a href="/handbook/integration/runtime-dependencies.html">Runtime dependencies</a></li>
                                 <li class="chapter"><a href="/handbook/integration/versioning.html">Versioning</a></li>
                                 <li class="chapter"><a href="/handbook/integration/installation.html">Installation</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Serenity/JS and Cucumber</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Serenity/JS and Jasmine</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Serenity/JS and Protractor</a></li>
-                                <li class="chapter"><a href="/handbook/integration/reporting.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Integrating with Cucumber</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Integrating with Jasmine</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-mocha.html">Integrating with Mocha</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a></li>
                                 <li class="chapter"><a href="/handbook/integration/jira-and-other-issue-trackers.html">Jira and other issue trackers</a></li>
                                 <li class="chapter"><a href="/handbook/integration/upgrading-to-serenity-js-2.html">Upgrading to Serenity/JS 2.0</a></li>
+                                <li class="header"><a href="/handbook/reporting/index.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/console-reporter.html">Console Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/serenity-bdd-reporter.html">Serenity BDD Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/artifact-archiver.html">Artifact Archiver</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/stream-reporter.html">Stream Reporter</a></li>
                                 <li class="header"><a href="/community/index.html">Community</a></li>
                                 <li class="chapter"><a href="/community/events-and-articles.html">Events and articles</a></li>
                                 <li class="chapter"><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
@@ -132,7 +144,7 @@
                     <article class="content">
                         <nav class="article-tools">
                             <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/contributing.md">
-                                <i class="far fa-edit"></i> Edit on Github</a>
+                                <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="contributing">Contributing</h1>
@@ -142,15 +154,15 @@
 <p>The Serenity/JS Handbook is an evolving project and there are parts of the book that you might find incomplete, or simply not written yet.</p>
 <p>You can contribute to the evolution of the Serenity/JS Handbook by:</p>
 <ul>
-<li>correcting any errors you find - via <i class="far fa-edit"></i> Edit on Github</li>
-<li>sharing your ideas for topics you'd like to see covered - via <a href="https://github.com/serenity-js/serenity-js/issues/new">Github issues</a></li>
-<li>sponsoring the Serenity/JS project - via <a href="https://github.com/sponsors/serenity-js">Github Sponsors</a></li>
+<li>correcting any errors you find - via <i class="far fa-edit"></i> Edit on GitHub</li>
+<li>sharing your ideas for topics you'd like to see covered - via <a href="https://github.com/serenity-js/serenity-js/issues/new">GitHub issues</a></li>
+<li>sponsoring the Serenity/JS project - via <a href="https://github.com/sponsors/serenity-js">GitHub Sponsors</a></li>
 </ul>
 <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
 <h2 id="the-serenity-js-framework">The Serenity/JS Framework</h2>
 <p>If you have a question about the framework or its features, please check out the <a href="/support.html">support documentation</a>.</p>
 <h3 id="reporting-defects">Reporting defects</h3>
-<p>If you believe you have found a bug in Serenity/JS please raise a ticket on <a href="https://github.com/serenity-js/serenity-js">Serenity/JS Github</a>.</p>
+<p>If you believe you have found a bug in Serenity/JS please raise a ticket on <a href="https://github.com/serenity-js/serenity-js">Serenity/JS GitHub</a>.</p>
 <p>When reporting a bug, please kindly remember to:</p>
 <ul>
 <li>Give the ticket a succinct yet descriptive <strong>title</strong> (i.e. Feature X is broken vs, Feature X is not triggered upon event Y)</li>
@@ -166,11 +178,11 @@
 </ul>
 <h3 id="proposing-enhancements">Proposing enhancements</h3>
 <p>Serenity/JS is an open source project that's open to your contributions and <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull requests</a>.</p>
-<p>Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on <a href="https://github.com/serenity-js/serenity-js/issues/new">Serenity/JS Github</a> or <a href="https://gitter.im/serenity-js/Lobby">chatting with the development</a> team on Gitter.</p>
+<p>Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on <a href="https://github.com/serenity-js/serenity-js/issues/new">Serenity/JS GitHub</a> or <a href="https://gitter.im/serenity-js/Lobby">chatting with the development</a> team on Gitter.</p>
 <h4 id="working-with-the-serenity-js-code-base">Working with the Serenity/JS code base</h4>
 <p>If you have decided to raise a pull request, you'll need to:</p>
 <ul>
-<li><a href="https://help.github.com/en/github/getting-started-with-github/fork-a-repo">Fork</a> the <a href="https://github.com/serenity-js/serenity-js">Serenity/JS mono-repo</a> to your Github account</li>
+<li><a href="https://help.github.com/en/github/getting-started-with-github/fork-a-repo">Fork</a> the <a href="https://github.com/serenity-js/serenity-js">Serenity/JS mono-repo</a> to your GitHub account</li>
 <li><a href="https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository">Clone</a> your fork to your machine</li>
 <li>Make sure you have the <a href="/handbook/integration/runtime-dependencies.html">runtime dependencies</a> installed</li>
 <li>Install the Node.js dependencies by running <code>npm ci</code> in the project root. Serenity/JS uses <a href="https://github.com/lerna/lerna">Lerna.js</a> to manage the <code>@serenity-js/*</code> modules you'll find in the mono-repo, so it will take care of propagating the <code>npm ci</code> and other commands to the modules.</li>
@@ -198,6 +210,8 @@
 <p>If you encounter any issues, <a href="https://gitter.im/serenity-js/Lobby">let us know on Gitter</a>.</p>
 </body></html>
                         </section>
+
+
                         <footer class="d-print-none">
                                 <a class="previous" href="/support.html">
                                     <i class="fa fa-chevron-left"></i>
@@ -242,10 +256,9 @@
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -261,7 +274,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -299,6 +312,26 @@
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

@@ -1,0 +1,731 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 685,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 31,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 685,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 31,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 45,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 45
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 17,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 17
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 17,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17
+                },
+                "identifierName": "Serenity"
+              },
+              "name": "Serenity"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 17,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17
+                },
+                "identifierName": "Serenity"
+              },
+              "name": "Serenity"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 25,
+          "end": 44,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 25
+            },
+            "end": {
+              "line": 1,
+              "column": 44
+            }
+          },
+          "extra": {
+            "rawValue": "@serenity-js/core",
+            "raw": "'@serenity-js/core'"
+          },
+          "value": "@serenity-js/core"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 46,
+        "end": 102,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 56
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 55,
+            "end": 67,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 21
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 55,
+              "end": 67,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 21
+                },
+                "identifierName": "ModuleLoader"
+              },
+              "name": "ModuleLoader"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 55,
+              "end": 67,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 21
+                },
+                "identifierName": "ModuleLoader"
+              },
+              "name": "ModuleLoader"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 75,
+          "end": 101,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 29
+            },
+            "end": {
+              "line": 2,
+              "column": 55
+            }
+          },
+          "extra": {
+            "rawValue": "@serenity-js/core/lib/io",
+            "raw": "'@serenity-js/core/lib/io'"
+          },
+          "value": "@serenity-js/core/lib/io"
+        }
+      },
+      {
+        "type": "TSImportEqualsDeclaration",
+        "start": 103,
+        "end": 175,
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 72
+          }
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
+            "start": 176,
+            "end": 321,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Creates a listener for Cucumber.js v7.x and above\n *\n * @param {@serenity-js/core/lib~Serenity} serenity\n * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader\n ",
+            "start": 324,
+            "end": 512,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "isExport": false,
+        "id": {
+          "type": "Identifier",
+          "start": 110,
+          "end": 134,
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 7
+            },
+            "end": {
+              "line": 3,
+              "column": 31
+            },
+            "identifierName": "cucumberMessagesListener"
+          },
+          "name": "cucumberMessagesListener"
+        },
+        "moduleReference": {
+          "type": "TSExternalModuleReference",
+          "start": 137,
+          "end": 174,
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 34
+            },
+            "end": {
+              "line": 3,
+              "column": 71
+            }
+          },
+          "expression": {
+            "type": "StringLiteral",
+            "start": 145,
+            "end": 173,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 42
+              },
+              "end": {
+                "line": 3,
+                "column": 70
+              }
+            },
+            "extra": {
+              "rawValue": "./CucumberMessagesListener",
+              "raw": "'./CucumberMessagesListener'"
+            },
+            "value": "./CucumberMessagesListener"
+          }
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 513,
+        "end": 684,
+        "loc": {
+          "start": {
+            "line": 25,
+            "column": 0
+          },
+          "end": {
+            "line": 30,
+            "column": 1
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
+            "start": 176,
+            "end": 321,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Creates a listener for Cucumber.js v7.x and above\n *\n * @param {@serenity-js/core/lib~Serenity} serenity\n * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader\n ",
+            "start": 324,
+            "end": 512,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "FunctionDeclaration",
+          "start": 520,
+          "end": 684,
+          "loc": {
+            "start": {
+              "line": 25,
+              "column": 7
+            },
+            "end": {
+              "line": 30,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 529,
+            "end": 543,
+            "loc": {
+              "start": {
+                "line": 25,
+                "column": 16
+              },
+              "end": {
+                "line": 25,
+                "column": 30
+              },
+              "identifierName": "createListener"
+            },
+            "name": "createListener"
+          },
+          "generator": false,
+          "async": false,
+          "params": [
+            {
+              "type": "Identifier",
+              "start": 544,
+              "end": 562,
+              "loc": {
+                "start": {
+                  "line": 25,
+                  "column": 31
+                },
+                "end": {
+                  "line": 25,
+                  "column": 49
+                },
+                "identifierName": "serenity"
+              },
+              "name": "serenity",
+              "typeAnnotation": {
+                "type": "TSTypeAnnotation",
+                "start": 552,
+                "end": 562,
+                "loc": {
+                  "start": {
+                    "line": 25,
+                    "column": 39
+                  },
+                  "end": {
+                    "line": 25,
+                    "column": 49
+                  }
+                },
+                "typeAnnotation": {
+                  "type": "TSTypeReference",
+                  "start": 554,
+                  "end": 562,
+                  "loc": {
+                    "start": {
+                      "line": 25,
+                      "column": 41
+                    },
+                    "end": {
+                      "line": 25,
+                      "column": 49
+                    }
+                  },
+                  "typeName": {
+                    "type": "Identifier",
+                    "start": 554,
+                    "end": 562,
+                    "loc": {
+                      "start": {
+                        "line": 25,
+                        "column": 41
+                      },
+                      "end": {
+                        "line": 25,
+                        "column": 49
+                      },
+                      "identifierName": "Serenity"
+                    },
+                    "name": "Serenity"
+                  }
+                }
+              }
+            },
+            {
+              "type": "Identifier",
+              "start": 564,
+              "end": 590,
+              "loc": {
+                "start": {
+                  "line": 25,
+                  "column": 51
+                },
+                "end": {
+                  "line": 25,
+                  "column": 77
+                },
+                "identifierName": "moduleLoader"
+              },
+              "name": "moduleLoader",
+              "typeAnnotation": {
+                "type": "TSTypeAnnotation",
+                "start": 576,
+                "end": 590,
+                "loc": {
+                  "start": {
+                    "line": 25,
+                    "column": 63
+                  },
+                  "end": {
+                    "line": 25,
+                    "column": 77
+                  }
+                },
+                "typeAnnotation": {
+                  "type": "TSTypeReference",
+                  "start": 578,
+                  "end": 590,
+                  "loc": {
+                    "start": {
+                      "line": 25,
+                      "column": 65
+                    },
+                    "end": {
+                      "line": 25,
+                      "column": 77
+                    }
+                  },
+                  "typeName": {
+                    "type": "Identifier",
+                    "start": 578,
+                    "end": 590,
+                    "loc": {
+                      "start": {
+                        "line": 25,
+                        "column": 65
+                      },
+                      "end": {
+                        "line": 25,
+                        "column": 77
+                      },
+                      "identifierName": "ModuleLoader"
+                    },
+                    "name": "ModuleLoader"
+                  }
+                }
+              }
+            }
+          ],
+          "returnType": {
+            "type": "TSTypeAnnotation",
+            "start": 591,
+            "end": 596,
+            "loc": {
+              "start": {
+                "line": 25,
+                "column": 78
+              },
+              "end": {
+                "line": 25,
+                "column": 83
+              }
+            },
+            "typeAnnotation": {
+              "type": "TSAnyKeyword",
+              "start": 593,
+              "end": 596,
+              "loc": {
+                "start": {
+                  "line": 25,
+                  "column": 80
+                },
+                "end": {
+                  "line": 25,
+                  "column": 83
+                }
+              }
+            }
+          },
+          "body": {
+            "type": "BlockStatement",
+            "start": 597,
+            "end": 684,
+            "loc": {
+              "start": {
+                "line": 25,
+                "column": 84
+              },
+              "end": {
+                "line": 30,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ReturnStatement",
+                "start": 603,
+                "end": 682,
+                "loc": {
+                  "start": {
+                    "line": 26,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 29,
+                    "column": 6
+                  }
+                },
+                "argument": {
+                  "type": "CallExpression",
+                  "start": 610,
+                  "end": 681,
+                  "loc": {
+                    "start": {
+                      "line": 26,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 29,
+                      "column": 5
+                    }
+                  },
+                  "extra": {
+                    "trailingComma": 674
+                  },
+                  "callee": {
+                    "type": "Identifier",
+                    "start": 610,
+                    "end": 634,
+                    "loc": {
+                      "start": {
+                        "line": 26,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 26,
+                        "column": 35
+                      },
+                      "identifierName": "cucumberMessagesListener"
+                    },
+                    "name": "cucumberMessagesListener"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "start": 644,
+                      "end": 652,
+                      "loc": {
+                        "start": {
+                          "line": 27,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 27,
+                          "column": 16
+                        },
+                        "identifierName": "serenity"
+                      },
+                      "name": "serenity"
+                    },
+                    {
+                      "type": "Identifier",
+                      "start": 662,
+                      "end": 674,
+                      "loc": {
+                        "start": {
+                          "line": 28,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 28,
+                          "column": 20
+                        },
+                        "identifierName": "moduleLoader"
+                      },
+                      "name": "moduleLoader"
+                    }
+                  ]
+                }
+              }
+            ],
+            "directives": []
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
+              "start": 176,
+              "end": 321,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 0
+                },
+                "end": {
+                  "line": 15,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  Creates a listener for Cucumber.js v7.x and above\n *\n * @param {@serenity-js/core/lib~Serenity} serenity\n * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader\n ",
+              "start": 324,
+              "end": 512,
+              "loc": {
+                "start": {
+                  "line": 18,
+                  "column": 0
+                },
+                "end": {
+                  "line": 24,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
+      "start": 176,
+      "end": 321,
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 0
+        },
+        "end": {
+          "line": 15,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Creates a listener for Cucumber.js v7.x and above\n *\n * @param {@serenity-js/core/lib~Serenity} serenity\n * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader\n ",
+      "start": 324,
+      "end": 512,
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 0
+        },
+        "end": {
+          "line": 24,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

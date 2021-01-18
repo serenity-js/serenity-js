@@ -17,6 +17,10 @@
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title>Abilities | Serenity/JS</title>
+    <meta property="og:title" content="Abilities | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/handbook/design/abilities.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -115,12 +122,17 @@
                                 <li class="chapter"><a href="/handbook/integration/runtime-dependencies.html">Runtime dependencies</a></li>
                                 <li class="chapter"><a href="/handbook/integration/versioning.html">Versioning</a></li>
                                 <li class="chapter"><a href="/handbook/integration/installation.html">Installation</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Serenity/JS and Cucumber</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Serenity/JS and Jasmine</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Serenity/JS and Protractor</a></li>
-                                <li class="chapter"><a href="/handbook/integration/reporting.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Integrating with Cucumber</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Integrating with Jasmine</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-mocha.html">Integrating with Mocha</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a></li>
                                 <li class="chapter"><a href="/handbook/integration/jira-and-other-issue-trackers.html">Jira and other issue trackers</a></li>
                                 <li class="chapter"><a href="/handbook/integration/upgrading-to-serenity-js-2.html">Upgrading to Serenity/JS 2.0</a></li>
+                                <li class="header"><a href="/handbook/reporting/index.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/console-reporter.html">Console Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/serenity-bdd-reporter.html">Serenity BDD Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/artifact-archiver.html">Artifact Archiver</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/stream-reporter.html">Stream Reporter</a></li>
                                 <li class="header"><a href="/community/index.html">Community</a></li>
                                 <li class="chapter"><a href="/community/events-and-articles.html">Events and articles</a></li>
                                 <li class="chapter"><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
@@ -132,7 +144,7 @@
                     <article class="content">
                         <nav class="article-tools">
                             <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/design/abilities.md">
-                                <i class="far fa-edit"></i> Edit on Github</a>
+                                <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="abilities">Abilities</h1>
@@ -199,7 +211,7 @@ and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
 <ul>
 <li>an ability can expose an API simpler than the one provided by the client you're using (i.e. see how <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a> simplifies the API of the <a href="https://www.protractortest.org/#/">Protractor</a> <code>browser</code>)</li>
 <li>since <a href="/handbook/design/actors.html">actors</a> are effectively stateless, abilities can be used to store any state (i.e. see how <a href="modules/core/class/src/screenplay/abilities/TakeNotes.ts~TakeNotes.html"><code>TakeNotes</code></a> can be used to store answers to <a href="/handbook/design/questions.html">questions</a> asked during the test)</li>
-<li>abilities can map client-specific errors to <a href="/handbook/design/errors.html">more informative ones</a>, that Serenity/JS can also <a href="/handbook/integration/reporting.html">report on better</a> (i.e. see how <a href="/modules/rest/class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html"><code>CallAnApi</code></a> maps the <a href="/modules/rest/file/src/screenplay/abilities/CallAnApi.ts.html">various kinds</a> of <a href="https://www.npmjs.com/package/axios">Axios</a> errors)</li>
+<li>abilities can map client-specific errors to <a href="/handbook/design/errors.html">more informative ones</a>, that Serenity/JS can also <a href="/handbook/reporting/">report on better</a> (i.e. see how <a href="/modules/rest/class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html"><code>CallAnApi</code></a> maps the <a href="/modules/rest/file/src/screenplay/abilities/CallAnApi.ts.html">various kinds</a> of <a href="https://www.npmjs.com/package/axios">Axios</a> errors)</li>
 </ul>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
@@ -208,6 +220,8 @@ and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
 </div>
 </body></html>
                         </section>
+
+
                         <footer class="d-print-none">
                                 <a class="previous" href="/handbook/design/actors.html">
                                     <i class="fa fa-chevron-left"></i>
@@ -252,10 +266,9 @@ and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -271,7 +284,7 @@ and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -309,6 +322,26 @@ and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

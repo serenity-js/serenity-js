@@ -1,26 +1,8 @@
 window.esdocSearchIndex = [
   [
-    "@serenity-js/cucumber/lib/gherkin/nodes~astnode",
-    "class/src/gherkin/nodes/ASTNode.ts~ASTNode.html",
-    "<span>ASTNode</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
     "@serenity-js/cucumber/lib/errors~ambiguousstepdefinitionerror",
     "class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html",
     "<span>AmbiguousStepDefinitionError</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/errors</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~background",
-    "class/src/gherkin/nodes/Background.ts~Background.html",
-    "<span>Background</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~comment",
-    "class/src/gherkin/nodes/Comment.ts~Comment.html",
-    "<span>Comment</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
     "class"
   ],
   [
@@ -30,93 +12,15 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@serenity-js/cucumber/lib/gherkin/nodes~datatable",
-    "class/src/gherkin/nodes/DataTable.ts~DataTable.html",
-    "<span>DataTable</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
+    "@serenity-js/cucumber/lib/listeners/legacy~createlistener",
+    "function/index.html#static-function-createListener",
+    "<span>createListener</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/listeners/legacy</span>",
+    "function"
   ],
   [
-    "@serenity-js/cucumber/lib/gherkin/nodes~docstring",
-    "class/src/gherkin/nodes/DocString.ts~DocString.html",
-    "<span>DocString</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~examples",
-    "class/src/gherkin/nodes/Examples.ts~Examples.html",
-    "<span>Examples</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~feature",
-    "class/src/gherkin/nodes/Feature.ts~Feature.html",
-    "<span>Feature</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~gherkindocument",
-    "class/src/gherkin/nodes/GherkinDocument.ts~GherkinDocument.html",
-    "<span>GherkinDocument</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~location",
-    "class/src/gherkin/nodes/Location.ts~Location.html",
-    "<span>Location</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~scenario",
-    "class/src/gherkin/nodes/Scenario.ts~Scenario.html",
-    "<span>Scenario</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~scenariodefinition",
-    "class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html",
-    "<span>ScenarioDefinition</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~scenariooutline",
-    "class/src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline.html",
-    "<span>ScenarioOutline</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~step",
-    "class/src/gherkin/nodes/Step.ts~Step.html",
-    "<span>Step</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~stepargument",
-    "class/src/gherkin/nodes/StepArgument.ts~StepArgument.html",
-    "<span>StepArgument</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~tablecell",
-    "class/src/gherkin/nodes/TableCell.ts~TableCell.html",
-    "<span>TableCell</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~tablerow",
-    "class/src/gherkin/nodes/TableRow.ts~TableRow.html",
-    "<span>TableRow</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/gherkin/nodes~tag",
-    "class/src/gherkin/nodes/Tag.ts~Tag.html",
-    "<span>Tag</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/gherkin/nodes</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/cucumber/lib/listeners~listenerforcucumber",
-    "function/index.html#static-function-listenerForCucumber",
-    "<span>listenerForCucumber</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/listeners</span>",
+    "@serenity-js/cucumber/lib/listeners/messages~createlistener",
+    "function/index.html#static-function-createListener",
+    "<span>createListener</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/listeners/messages</span>",
     "function"
   ],
   [
@@ -213,6 +117,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/events~asyncoperationfailed",
     "/modules/core/class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html",
     "@serenity-js/core/lib/events~AsyncOperationFailed",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/events~businessruledetected",
+    "/modules/core/class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html",
+    "@serenity-js/core/lib/events~BusinessRuleDetected",
     "external"
   ],
   [
@@ -396,12 +306,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/core/lib/io~moduleloader",
-    "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
-    "@serenity-js/core/lib/io~ModuleLoader",
-    "external"
-  ],
-  [
     "@serenity-js/core/lib/io~path",
     "/modules/core/class/src/io/Path.ts~Path.html",
     "@serenity-js/core/lib/io~Path",
@@ -567,6 +471,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/model~artifact",
     "/modules/core/class/src/model/Artifact.ts~Artifact.html",
     "@serenity-js/core/lib/model~Artifact",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/model~businessrule",
+    "/modules/core/class/src/model/BusinessRule.ts~BusinessRule.html",
+    "@serenity-js/core/lib/model~BusinessRule",
     "external"
   ],
   [
@@ -1009,115 +919,481 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber8",
     "Cache",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber16",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber16",
     "Cache allows for items to be stored and retrieved",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber36",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber36",
     "Cache complains when you try to retrieve an object that has not been cached yet",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber10",
     "Cache starts empty",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/Cache.spec.ts.html#lineNumber27",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html#lineNumber27",
     "Cache tells whether or not an item has already been cached",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber15",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber15",
     "CucumberEventProtocolAdapter",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber288",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber296",
     "CucumberEventProtocolAdapter considers a scenario with no steps and no hooks to be pending implementation",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber58",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber66",
     "CucumberEventProtocolAdapter correctly recognises Cucumber Event Protocol events",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber171",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber179",
     "CucumberEventProtocolAdapter correctly recognises ambiguous steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber210",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber218",
     "CucumberEventProtocolAdapter correctly recognises errors thrown in steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber133",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber141",
     "CucumberEventProtocolAdapter correctly recognises pending steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber247",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber255",
     "CucumberEventProtocolAdapter correctly recognises scenario outlines",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html#lineNumber95",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber103",
     "CucumberEventProtocolAdapter correctly recognises undefined steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber6",
+    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber9",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/tags.spec.ts.html#lineNumber9",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber16",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber9",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/descriptions.spec.ts.html#lineNumber9",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber7",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber9",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber11",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/tags.spec.ts.html#lineNumber11",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber18",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber11",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/descriptions.spec.ts.html#lineNumber11",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber9",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber11",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber13",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber36",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber13",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 recognises Screenplay activities in any part of a Cucumber scenario",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber11",
+    "CucumberMessagesListener when working with Cucumber 7 recognises Screenplay activities in any part of a Cucumber scenario",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber13",
+    "CucumberMessagesListener when working with Cucumber 7 recognises a scenario failing due to an assertion error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 recognises a scenario with a Data Table step",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 recognises a scenario with a DocString step",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber14",
+    "CucumberMessagesListener when working with Cucumber 7 recognises a timed out scenario",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 recognises directories that features are grouped in as capabilities",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 recognises directories that group capabilities as themes",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 recognises passing scenarios",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/descriptions.spec.ts.html#lineNumber13",
+    "CucumberMessagesListener when working with Cucumber 7 recognises scenario descriptions",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 recognises scenario outlines as sequences of scenes",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7 recognises scenarios failing due to a generic error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber20",
+    "CucumberMessagesListener when working with Cucumber 7 recognises scenarios with ambiguous steps",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/tags.spec.ts.html#lineNumber13",
+    "CucumberMessagesListener when working with Cucumber 7 recognises tags on a scenario",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/tags.spec.ts.html#lineNumber34",
+    "CucumberMessagesListener when working with Cucumber 7 recognises tags on a scenario outline and its examples",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber54",
+    "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and failed",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber14",
+    "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and succeeded",
+    "test"
+  ],
+  [
+    "cucumberoptions cucumberoptions,cucumberoptions",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber9",
     "CucumberOptions",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber8",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber11",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber60",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber132",
+    "CucumberOptions when used to produce command line arguments for Cucumber CLI camelCase to kebab-case",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber63",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI flags",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber111",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber114",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI other options",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber23",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber26",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI tags",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber45",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber48",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI tags passes the tags individually to Cucumber 1.x",
     "test"
   ],
@@ -1135,235 +1411,235 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileLoader.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileLoader.spec.ts.html#lineNumber10",
     "FeatureFileLoader",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileLoader.spec.ts.html#lineNumber14",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileLoader.spec.ts.html#lineNumber14",
     "FeatureFileLoader caches the feature file map it has loaded",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber8",
     "FeatureFileMap",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber27",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber27",
     "FeatureFileMap allows for values to be retrieved based on the line alone",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber20",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber20",
     "FeatureFileMap allows for values to be retrieved based on their type when their location is not known",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber13",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber13",
     "FeatureFileMap allows for values to be stored and retrieved",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber41",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber41",
     "FeatureFileMap complains if the requested value is not present",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber34",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html#lineNumber34",
     "FeatureFileMap complains if the value stored is not of the same type as value that needs to be retrieved",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber19",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber19",
     "FeatureFileMapper",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber328",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber328",
     "FeatureFileMapper when mapping a tagged scenario",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber330",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber330",
     "FeatureFileMapper when mapping a tagged scenario detects all the applicable tags",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber317",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber317",
     "FeatureFileMapper when mapping an empty feature file",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber319",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber319",
     "FeatureFileMapper when mapping an empty feature file returns an empty map",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber23",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber23",
     "FeatureFileMapper when mapping names and descriptions",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber25",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber25",
     "FeatureFileMapper when mapping names and descriptions maps a feature",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber43",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber43",
     "FeatureFileMapper when mapping names and descriptions maps a scenario with a multi-line description",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber36",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber36",
     "FeatureFileMapper when mapping names and descriptions maps a scenario with a single-line description",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber217",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber217",
     "FeatureFileMapper when mapping scenario outlines with multiple sets of examples",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber218",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber218",
     "FeatureFileMapper when mapping scenario outlines with multiple sets of examples recognises the different names and descriptions of example sets",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber153",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber153",
     "FeatureFileMapper when mapping scenario outlines with one set of examples",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber184",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber184",
     "FeatureFileMapper when mapping scenario outlines with one set of examples maps the interpolated scenario",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber154",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber154",
     "FeatureFileMapper when mapping scenario outlines with one set of examples maps the scenario template",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber257",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber257",
     "FeatureFileMapper when mapping scenario outlines with special step arguments",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber281",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber281",
     "FeatureFileMapper when mapping scenario outlines with special step arguments recognises and interpolates DataTable arguments",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber258",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber258",
     "FeatureFileMapper when mapping scenario outlines with special step arguments recognises and interpolates DocString arguments",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber128",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber128",
     "FeatureFileMapper when mapping scenario with special step arguments",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber141",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber141",
     "FeatureFileMapper when mapping scenario with special step arguments recognises DataTable argument",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber130",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber130",
     "FeatureFileMapper when mapping scenario with special step arguments recognises DocString argument",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber61",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber61",
     "FeatureFileMapper when mapping scenarios with backgrounds",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber112",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber112",
     "FeatureFileMapper when mapping scenarios with backgrounds associates the background steps with the scenarios",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber95",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber95",
     "FeatureFileMapper when mapping scenarios with backgrounds associates the background with the feature",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber79",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber79",
     "FeatureFileMapper when mapping scenarios with backgrounds maps the background with name and description",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber63",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber63",
     "FeatureFileMapper when mapping scenarios with backgrounds maps the background with no name or description",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber51",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber51",
     "FeatureFileMapper when mapping scenarios with no steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber53",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber53",
     "FeatureFileMapper when mapping scenarios with no steps maps a scenario even though it has no steps defined",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber9",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber9",
     "FeatureFileParser",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber59",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber59",
     "FeatureFileParser complains if the feature file could not be parsed",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber52",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber52",
     "FeatureFileParser complains if the feature file does not exist",
     "test"
   ],
   [
     "",
-    "test-file/spec/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber15",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber15",
     "FeatureFileParser loads a GherkinDocument from a file",
     "test"
   ],
@@ -1428,39 +1704,153 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
-    "spec/gherkin/feature-files/cache.spec.ts",
-    "test-file/spec/gherkin/feature-files/Cache.spec.ts.html",
-    "spec/gherkin/feature-files/Cache.spec.ts",
+    "spec/listeners/legacy/cucumbereventprotocoladapter.spec.ts",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html",
+    "spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts",
     "testFile"
   ],
   [
-    "spec/gherkin/feature-files/featurefileloader.spec.ts",
-    "test-file/spec/gherkin/feature-files/FeatureFileLoader.spec.ts.html",
-    "spec/gherkin/feature-files/FeatureFileLoader.spec.ts",
+    "spec/listeners/legacy/gherkin/feature-files/cache.spec.ts",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts.html",
+    "spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts",
     "testFile"
   ],
   [
-    "spec/gherkin/feature-files/featurefilemap.spec.ts",
-    "test-file/spec/gherkin/feature-files/FeatureFileMap.spec.ts.html",
-    "spec/gherkin/feature-files/FeatureFileMap.spec.ts",
+    "spec/listeners/legacy/gherkin/feature-files/featurefileloader.spec.ts",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileLoader.spec.ts.html",
+    "spec/listeners/legacy/gherkin/feature-files/FeatureFileLoader.spec.ts",
     "testFile"
   ],
   [
-    "spec/gherkin/feature-files/featurefilemapper.spec.ts",
-    "test-file/spec/gherkin/feature-files/FeatureFileMapper.spec.ts.html",
-    "spec/gherkin/feature-files/FeatureFileMapper.spec.ts",
+    "spec/listeners/legacy/gherkin/feature-files/featurefilemap.spec.ts",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts.html",
+    "spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts",
     "testFile"
   ],
   [
-    "spec/gherkin/feature-files/featurefileparser.spec.ts",
-    "test-file/spec/gherkin/feature-files/FeatureFileParser.spec.ts.html",
-    "spec/gherkin/feature-files/FeatureFileParser.spec.ts",
+    "spec/listeners/legacy/gherkin/feature-files/featurefilemapper.spec.ts",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html",
+    "spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts",
     "testFile"
   ],
   [
-    "spec/listeners/cucumbereventprotocoladapter.spec.ts",
-    "test-file/spec/listeners/CucumberEventProtocolAdapter.spec.ts.html",
-    "spec/listeners/CucumberEventProtocolAdapter.spec.ts",
+    "spec/listeners/legacy/gherkin/feature-files/featurefileparser.spec.ts",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html",
+    "spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/ambiguous_steps.spec.ts",
+    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html",
+    "spec/listeners/messages/ambiguous_steps.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/assertion_failure_scenario.spec.ts",
+    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html",
+    "spec/listeners/messages/assertion_failure_scenario.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/capabilities.spec.ts",
+    "test-file/spec/listeners/messages/capabilities.spec.ts.html",
+    "spec/listeners/messages/capabilities.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/data_table.spec.ts",
+    "test-file/spec/listeners/messages/data_table.spec.ts.html",
+    "spec/listeners/messages/data_table.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/descriptions.spec.ts",
+    "test-file/spec/listeners/messages/descriptions.spec.ts.html",
+    "spec/listeners/messages/descriptions.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/doc_string.spec.ts",
+    "test-file/spec/listeners/messages/doc_string.spec.ts.html",
+    "spec/listeners/messages/doc_string.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/failing_scenario.spec.ts",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html",
+    "spec/listeners/messages/failing_scenario.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/hooks.spec.ts",
+    "test-file/spec/listeners/messages/hooks.spec.ts.html",
+    "spec/listeners/messages/hooks.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/passing_scenario.spec.ts",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html",
+    "spec/listeners/messages/passing_scenario.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/pending_scenarios.spec.ts",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html",
+    "spec/listeners/messages/pending_scenarios.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/retry.spec.ts",
+    "test-file/spec/listeners/messages/retry.spec.ts.html",
+    "spec/listeners/messages/retry.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/rules.spec.ts",
+    "test-file/spec/listeners/messages/rules.spec.ts.html",
+    "spec/listeners/messages/rules.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/scenario_outlines.spec.ts",
+    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html",
+    "spec/listeners/messages/scenario_outlines.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/screenplay_scenario.spec.ts",
+    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html",
+    "spec/listeners/messages/screenplay_scenario.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/skipped_scenarios.spec.ts",
+    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html",
+    "spec/listeners/messages/skipped_scenarios.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/snippets.spec.ts",
+    "test-file/spec/listeners/messages/snippets.spec.ts.html",
+    "spec/listeners/messages/snippets.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/tags.spec.ts",
+    "test-file/spec/listeners/messages/tags.spec.ts.html",
+    "spec/listeners/messages/tags.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/themes.spec.ts",
+    "test-file/spec/listeners/messages/themes.spec.ts.html",
+    "spec/listeners/messages/themes.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/listeners/messages/timed_out_scenario.spec.ts",
+    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html",
+    "spec/listeners/messages/timed_out_scenario.spec.ts",
     "testFile"
   ],
   [
@@ -1512,6 +1902,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/cli/cucumberconfig.ts~cucumberconfig#retry",
+    "class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-retry",
+    "src/cli/CucumberConfig.ts~CucumberConfig#retry",
+    "member"
+  ],
+  [
+    "src/cli/cucumberconfig.ts~cucumberconfig#retrytagfilter",
+    "class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-retryTagFilter",
+    "src/cli/CucumberConfig.ts~CucumberConfig#retryTagFilter",
+    "member"
+  ],
+  [
     "src/cli/cucumberconfig.ts~cucumberconfig#strict",
     "class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-strict",
     "src/cli/CucumberConfig.ts~CucumberConfig#strict",
@@ -1560,615 +1962,261 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/gherkin/constructables.ts",
-    "file/src/gherkin/constructables.ts.html",
-    "src/gherkin/constructables.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/cache.ts",
-    "file/src/gherkin/feature-files/Cache.ts.html",
-    "src/gherkin/feature-files/Cache.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/featurefileloader.ts",
-    "file/src/gherkin/feature-files/FeatureFileLoader.ts.html",
-    "src/gherkin/feature-files/FeatureFileLoader.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/featurefilemap.ts",
-    "file/src/gherkin/feature-files/FeatureFileMap.ts.html",
-    "src/gherkin/feature-files/FeatureFileMap.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/featurefilemapper.ts",
-    "file/src/gherkin/feature-files/FeatureFileMapper.ts.html",
-    "src/gherkin/feature-files/FeatureFileMapper.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/featurefileparser.ts",
-    "file/src/gherkin/feature-files/FeatureFileParser.ts.html",
-    "src/gherkin/feature-files/FeatureFileParser.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/errors/itemnotfounderror.ts",
-    "file/src/gherkin/feature-files/errors/ItemNotFoundError.ts.html",
-    "src/gherkin/feature-files/errors/ItemNotFoundError.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/errors/unabletoparsefeaturefileerror.ts",
-    "file/src/gherkin/feature-files/errors/UnableToParseFeatureFileError.ts.html",
-    "src/gherkin/feature-files/errors/UnableToParseFeatureFileError.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/errors/unabletoreadfeaturefileerror.ts",
-    "file/src/gherkin/feature-files/errors/UnableToReadFeatureFileError.ts.html",
-    "src/gherkin/feature-files/errors/UnableToReadFeatureFileError.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/errors/unabletoretrievefeaturefilemap.ts",
-    "file/src/gherkin/feature-files/errors/UnableToRetrieveFeatureFileMap.ts.html",
-    "src/gherkin/feature-files/errors/UnableToRetrieveFeatureFileMap.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/errors/index.ts",
-    "file/src/gherkin/feature-files/errors/index.ts.html",
-    "src/gherkin/feature-files/errors/index.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/feature-files/index.ts",
-    "file/src/gherkin/feature-files/index.ts.html",
-    "src/gherkin/feature-files/index.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/index.ts",
-    "file/src/gherkin/index.ts.html",
-    "src/gherkin/index.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/model/background.ts",
-    "file/src/gherkin/model/Background.ts.html",
-    "src/gherkin/model/Background.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/model/feature.ts",
-    "file/src/gherkin/model/Feature.ts.html",
-    "src/gherkin/model/Feature.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/model/featurefilenode.ts",
-    "file/src/gherkin/model/FeatureFileNode.ts.html",
-    "src/gherkin/model/FeatureFileNode.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/model/hook.ts",
-    "file/src/gherkin/model/Hook.ts.html",
-    "src/gherkin/model/Hook.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/model/scenario.ts",
-    "file/src/gherkin/model/Scenario.ts.html",
-    "src/gherkin/model/Scenario.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/model/scenariooutline.ts",
-    "file/src/gherkin/model/ScenarioOutline.ts.html",
-    "src/gherkin/model/ScenarioOutline.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/model/step.ts",
-    "file/src/gherkin/model/Step.ts.html",
-    "src/gherkin/model/Step.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/model/index.ts",
-    "file/src/gherkin/model/index.ts.html",
-    "src/gherkin/model/index.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/astnode.ts",
-    "file/src/gherkin/nodes/ASTNode.ts.html",
-    "src/gherkin/nodes/ASTNode.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/astnode.ts~astnode#location",
-    "class/src/gherkin/nodes/ASTNode.ts~ASTNode.html#instance-member-location",
-    "src/gherkin/nodes/ASTNode.ts~ASTNode#location",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/astnode.ts~astnode#type",
-    "class/src/gherkin/nodes/ASTNode.ts~ASTNode.html#instance-member-type",
-    "src/gherkin/nodes/ASTNode.ts~ASTNode#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/background.ts",
-    "file/src/gherkin/nodes/Background.ts.html",
-    "src/gherkin/nodes/Background.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/background.ts~background#type",
-    "class/src/gherkin/nodes/Background.ts~Background.html#instance-member-type",
-    "src/gherkin/nodes/Background.ts~Background#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/comment.ts",
-    "file/src/gherkin/nodes/Comment.ts.html",
-    "src/gherkin/nodes/Comment.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/comment.ts~comment#text",
-    "class/src/gherkin/nodes/Comment.ts~Comment.html#instance-member-text",
-    "src/gherkin/nodes/Comment.ts~Comment#text",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/comment.ts~comment#type",
-    "class/src/gherkin/nodes/Comment.ts~Comment.html#instance-member-type",
-    "src/gherkin/nodes/Comment.ts~Comment#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/datatable.ts",
-    "file/src/gherkin/nodes/DataTable.ts.html",
-    "src/gherkin/nodes/DataTable.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/datatable.ts~datatable#rows",
-    "class/src/gherkin/nodes/DataTable.ts~DataTable.html#instance-member-rows",
-    "src/gherkin/nodes/DataTable.ts~DataTable#rows",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/datatable.ts~datatable#type",
-    "class/src/gherkin/nodes/DataTable.ts~DataTable.html#instance-member-type",
-    "src/gherkin/nodes/DataTable.ts~DataTable#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/docstring.ts",
-    "file/src/gherkin/nodes/DocString.ts.html",
-    "src/gherkin/nodes/DocString.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/docstring.ts~docstring#content",
-    "class/src/gherkin/nodes/DocString.ts~DocString.html#instance-member-content",
-    "src/gherkin/nodes/DocString.ts~DocString#content",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/docstring.ts~docstring#type",
-    "class/src/gherkin/nodes/DocString.ts~DocString.html#instance-member-type",
-    "src/gherkin/nodes/DocString.ts~DocString#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/examples.ts",
-    "file/src/gherkin/nodes/Examples.ts.html",
-    "src/gherkin/nodes/Examples.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/examples.ts~examples#description",
-    "class/src/gherkin/nodes/Examples.ts~Examples.html#instance-member-description",
-    "src/gherkin/nodes/Examples.ts~Examples#description",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/examples.ts~examples#keyword",
-    "class/src/gherkin/nodes/Examples.ts~Examples.html#instance-member-keyword",
-    "src/gherkin/nodes/Examples.ts~Examples#keyword",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/examples.ts~examples#name",
-    "class/src/gherkin/nodes/Examples.ts~Examples.html#instance-member-name",
-    "src/gherkin/nodes/Examples.ts~Examples#name",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/examples.ts~examples#tablebody",
-    "class/src/gherkin/nodes/Examples.ts~Examples.html#instance-member-tableBody",
-    "src/gherkin/nodes/Examples.ts~Examples#tableBody",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/examples.ts~examples#tableheader",
-    "class/src/gherkin/nodes/Examples.ts~Examples.html#instance-member-tableHeader",
-    "src/gherkin/nodes/Examples.ts~Examples#tableHeader",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/examples.ts~examples#tags",
-    "class/src/gherkin/nodes/Examples.ts~Examples.html#instance-member-tags",
-    "src/gherkin/nodes/Examples.ts~Examples#tags",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/examples.ts~examples#type",
-    "class/src/gherkin/nodes/Examples.ts~Examples.html#instance-member-type",
-    "src/gherkin/nodes/Examples.ts~Examples#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/feature.ts",
-    "file/src/gherkin/nodes/Feature.ts.html",
-    "src/gherkin/nodes/Feature.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/feature.ts~feature#children",
-    "class/src/gherkin/nodes/Feature.ts~Feature.html#instance-member-children",
-    "src/gherkin/nodes/Feature.ts~Feature#children",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/feature.ts~feature#description",
-    "class/src/gherkin/nodes/Feature.ts~Feature.html#instance-member-description",
-    "src/gherkin/nodes/Feature.ts~Feature#description",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/feature.ts~feature#keyword",
-    "class/src/gherkin/nodes/Feature.ts~Feature.html#instance-member-keyword",
-    "src/gherkin/nodes/Feature.ts~Feature#keyword",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/feature.ts~feature#language",
-    "class/src/gherkin/nodes/Feature.ts~Feature.html#instance-member-language",
-    "src/gherkin/nodes/Feature.ts~Feature#language",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/feature.ts~feature#name",
-    "class/src/gherkin/nodes/Feature.ts~Feature.html#instance-member-name",
-    "src/gherkin/nodes/Feature.ts~Feature#name",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/feature.ts~feature#tags",
-    "class/src/gherkin/nodes/Feature.ts~Feature.html#instance-member-tags",
-    "src/gherkin/nodes/Feature.ts~Feature#tags",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/feature.ts~feature#type",
-    "class/src/gherkin/nodes/Feature.ts~Feature.html#instance-member-type",
-    "src/gherkin/nodes/Feature.ts~Feature#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/gherkindocument.ts",
-    "file/src/gherkin/nodes/GherkinDocument.ts.html",
-    "src/gherkin/nodes/GherkinDocument.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/gherkindocument.ts~gherkindocument#comments",
-    "class/src/gherkin/nodes/GherkinDocument.ts~GherkinDocument.html#instance-member-comments",
-    "src/gherkin/nodes/GherkinDocument.ts~GherkinDocument#comments",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/gherkindocument.ts~gherkindocument#feature",
-    "class/src/gherkin/nodes/GherkinDocument.ts~GherkinDocument.html#instance-member-feature",
-    "src/gherkin/nodes/GherkinDocument.ts~GherkinDocument#feature",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/gherkindocument.ts~gherkindocument#type",
-    "class/src/gherkin/nodes/GherkinDocument.ts~GherkinDocument.html#instance-member-type",
-    "src/gherkin/nodes/GherkinDocument.ts~GherkinDocument#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/location.ts",
-    "file/src/gherkin/nodes/Location.ts.html",
-    "src/gherkin/nodes/Location.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/location.ts~location#column",
-    "class/src/gherkin/nodes/Location.ts~Location.html#instance-member-column",
-    "src/gherkin/nodes/Location.ts~Location#column",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/location.ts~location#line",
-    "class/src/gherkin/nodes/Location.ts~Location.html#instance-member-line",
-    "src/gherkin/nodes/Location.ts~Location#line",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenario.ts",
-    "file/src/gherkin/nodes/Scenario.ts.html",
-    "src/gherkin/nodes/Scenario.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/scenario.ts~scenario#tags",
-    "class/src/gherkin/nodes/Scenario.ts~Scenario.html#instance-member-tags",
-    "src/gherkin/nodes/Scenario.ts~Scenario#tags",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenario.ts~scenario#type",
-    "class/src/gherkin/nodes/Scenario.ts~Scenario.html#instance-member-type",
-    "src/gherkin/nodes/Scenario.ts~Scenario#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenariodefinition.ts",
-    "file/src/gherkin/nodes/ScenarioDefinition.ts.html",
-    "src/gherkin/nodes/ScenarioDefinition.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/scenariodefinition.ts~scenariodefinition#description",
-    "class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html#instance-member-description",
-    "src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition#description",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenariodefinition.ts~scenariodefinition#keyword",
-    "class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html#instance-member-keyword",
-    "src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition#keyword",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenariodefinition.ts~scenariodefinition#name",
-    "class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html#instance-member-name",
-    "src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition#name",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenariodefinition.ts~scenariodefinition#steps",
-    "class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html#instance-member-steps",
-    "src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition#steps",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenariodefinition.ts~scenariodefinition#tags",
-    "class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html#instance-member-tags",
-    "src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition#tags",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenariodefinition.ts~scenariodefinition#type",
-    "class/src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition.html#instance-member-type",
-    "src/gherkin/nodes/ScenarioDefinition.ts~ScenarioDefinition#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenariooutline.ts",
-    "file/src/gherkin/nodes/ScenarioOutline.ts.html",
-    "src/gherkin/nodes/ScenarioOutline.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/scenariooutline.ts~scenariooutline#examples",
-    "class/src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline.html#instance-member-examples",
-    "src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline#examples",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenariooutline.ts~scenariooutline#tags",
-    "class/src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline.html#instance-member-tags",
-    "src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline#tags",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/scenariooutline.ts~scenariooutline#type",
-    "class/src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline.html#instance-member-type",
-    "src/gherkin/nodes/ScenarioOutline.ts~ScenarioOutline#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/step.ts",
-    "file/src/gherkin/nodes/Step.ts.html",
-    "src/gherkin/nodes/Step.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/step.ts~step#argument",
-    "class/src/gherkin/nodes/Step.ts~Step.html#instance-member-argument",
-    "src/gherkin/nodes/Step.ts~Step#argument",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/step.ts~step#keyword",
-    "class/src/gherkin/nodes/Step.ts~Step.html#instance-member-keyword",
-    "src/gherkin/nodes/Step.ts~Step#keyword",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/step.ts~step#text",
-    "class/src/gherkin/nodes/Step.ts~Step.html#instance-member-text",
-    "src/gherkin/nodes/Step.ts~Step#text",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/step.ts~step#type",
-    "class/src/gherkin/nodes/Step.ts~Step.html#instance-member-type",
-    "src/gherkin/nodes/Step.ts~Step#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/stepargument.ts",
-    "file/src/gherkin/nodes/StepArgument.ts.html",
-    "src/gherkin/nodes/StepArgument.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/stepargument.ts~stepargument#type",
-    "class/src/gherkin/nodes/StepArgument.ts~StepArgument.html#instance-member-type",
-    "src/gherkin/nodes/StepArgument.ts~StepArgument#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/tablecell.ts",
-    "file/src/gherkin/nodes/TableCell.ts.html",
-    "src/gherkin/nodes/TableCell.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/tablecell.ts~tablecell#value",
-    "class/src/gherkin/nodes/TableCell.ts~TableCell.html#instance-member-value",
-    "src/gherkin/nodes/TableCell.ts~TableCell#value",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/tablerow.ts",
-    "file/src/gherkin/nodes/TableRow.ts.html",
-    "src/gherkin/nodes/TableRow.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/tablerow.ts~tablerow#cells",
-    "class/src/gherkin/nodes/TableRow.ts~TableRow.html#instance-member-cells",
-    "src/gherkin/nodes/TableRow.ts~TableRow#cells",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/tablerow.ts~tablerow#type",
-    "class/src/gherkin/nodes/TableRow.ts~TableRow.html#instance-member-type",
-    "src/gherkin/nodes/TableRow.ts~TableRow#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/tag.ts",
-    "file/src/gherkin/nodes/Tag.ts.html",
-    "src/gherkin/nodes/Tag.ts",
-    "file"
-  ],
-  [
-    "src/gherkin/nodes/tag.ts~tag#name",
-    "class/src/gherkin/nodes/Tag.ts~Tag.html#instance-member-name",
-    "src/gherkin/nodes/Tag.ts~Tag#name",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/tag.ts~tag#type",
-    "class/src/gherkin/nodes/Tag.ts~Tag.html#instance-member-type",
-    "src/gherkin/nodes/Tag.ts~Tag#type",
-    "member"
-  ],
-  [
-    "src/gherkin/nodes/index.ts",
-    "file/src/gherkin/nodes/index.ts.html",
-    "src/gherkin/nodes/index.ts",
-    "file"
-  ],
-  [
     "src/index.ts",
     "file/src/index.ts.html",
     "src/index.ts",
     "file"
   ],
   [
-    "src/listeners/cucumbereventprotocoladapter.ts",
-    "file/src/listeners/CucumberEventProtocolAdapter.ts.html",
-    "src/listeners/CucumberEventProtocolAdapter.ts",
+    "src/listeners/legacy/cucumbereventprotocoladapter.ts",
+    "file/src/listeners/legacy/CucumberEventProtocolAdapter.ts.html",
+    "src/listeners/legacy/CucumberEventProtocolAdapter.ts",
     "file"
   ],
   [
-    "src/listeners/cucumberformatteroptions.ts",
-    "file/src/listeners/CucumberFormatterOptions.ts.html",
-    "src/listeners/CucumberFormatterOptions.ts",
+    "src/listeners/legacy/cucumberformatteroptions.ts",
+    "file/src/listeners/legacy/CucumberFormatterOptions.ts.html",
+    "src/listeners/legacy/CucumberFormatterOptions.ts",
     "file"
   ],
   [
-    "src/listeners/dependencies.ts",
-    "file/src/listeners/Dependencies.ts.html",
-    "src/listeners/Dependencies.ts",
+    "src/listeners/legacy/dependencies.ts",
+    "file/src/listeners/legacy/Dependencies.ts.html",
+    "src/listeners/legacy/Dependencies.ts",
     "file"
   ],
   [
-    "src/listeners/cucumber-0.ts",
-    "file/src/listeners/cucumber-0.ts.html",
-    "src/listeners/cucumber-0.ts",
+    "src/listeners/legacy/cucumber-0.ts",
+    "file/src/listeners/legacy/cucumber-0.ts.html",
+    "src/listeners/legacy/cucumber-0.ts",
     "file"
   ],
   [
-    "src/listeners/cucumber-1.ts",
-    "file/src/listeners/cucumber-1.ts.html",
-    "src/listeners/cucumber-1.ts",
+    "src/listeners/legacy/cucumber-1.ts",
+    "file/src/listeners/legacy/cucumber-1.ts.html",
+    "src/listeners/legacy/cucumber-1.ts",
     "file"
   ],
   [
-    "src/listeners/cucumber-2.ts",
-    "file/src/listeners/cucumber-2.ts.html",
-    "src/listeners/cucumber-2.ts",
+    "src/listeners/legacy/cucumber-2.ts",
+    "file/src/listeners/legacy/cucumber-2.ts.html",
+    "src/listeners/legacy/cucumber-2.ts",
     "file"
   ],
   [
-    "src/listeners/cucumber-3.ts",
-    "file/src/listeners/cucumber-3.ts.html",
-    "src/listeners/cucumber-3.ts",
+    "src/listeners/legacy/cucumber-3.ts",
+    "file/src/listeners/legacy/cucumber-3.ts.html",
+    "src/listeners/legacy/cucumber-3.ts",
     "file"
   ],
   [
-    "src/listeners/cucumber-4.ts",
-    "file/src/listeners/cucumber-4.ts.html",
-    "src/listeners/cucumber-4.ts",
+    "src/listeners/legacy/cucumber-4.ts",
+    "file/src/listeners/legacy/cucumber-4.ts.html",
+    "src/listeners/legacy/cucumber-4.ts",
     "file"
   ],
   [
-    "src/listeners/cucumber-5.ts",
-    "file/src/listeners/cucumber-5.ts.html",
-    "src/listeners/cucumber-5.ts",
+    "src/listeners/legacy/cucumber-5.ts",
+    "file/src/listeners/legacy/cucumber-5.ts.html",
+    "src/listeners/legacy/cucumber-5.ts",
     "file"
   ],
   [
-    "src/listeners/cucumber-6.ts",
-    "file/src/listeners/cucumber-6.ts.html",
-    "src/listeners/cucumber-6.ts",
+    "src/listeners/legacy/cucumber-6.ts",
+    "file/src/listeners/legacy/cucumber-6.ts.html",
+    "src/listeners/legacy/cucumber-6.ts",
     "file"
   ],
   [
-    "src/listeners/index.ts",
-    "file/src/listeners/index.ts.html",
-    "src/listeners/index.ts",
+    "src/listeners/legacy/gherkin/constructables.ts",
+    "file/src/listeners/legacy/gherkin/constructables.ts.html",
+    "src/listeners/legacy/gherkin/constructables.ts",
     "file"
   ],
   [
-    "src/notifier/notifier.ts",
-    "file/src/notifier/Notifier.ts.html",
-    "src/notifier/Notifier.ts",
+    "src/listeners/legacy/gherkin/feature-files/cache.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/Cache.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/Cache.ts",
     "file"
   ],
   [
-    "src/notifier/index.ts",
-    "file/src/notifier/index.ts.html",
-    "src/notifier/index.ts",
+    "src/listeners/legacy/gherkin/feature-files/featurefileloader.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/FeatureFileLoader.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/FeatureFileLoader.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/feature-files/featurefilemap.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/FeatureFileMap.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/FeatureFileMap.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/feature-files/featurefilemapper.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/FeatureFileMapper.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/FeatureFileMapper.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/feature-files/featurefileparser.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/FeatureFileParser.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/FeatureFileParser.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/feature-files/errors/itemnotfounderror.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/errors/ItemNotFoundError.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/errors/ItemNotFoundError.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/feature-files/errors/unabletoparsefeaturefileerror.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/errors/UnableToParseFeatureFileError.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/errors/UnableToParseFeatureFileError.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/feature-files/errors/unabletoreadfeaturefileerror.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/errors/UnableToReadFeatureFileError.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/errors/UnableToReadFeatureFileError.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/feature-files/errors/unabletoretrievefeaturefilemap.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/errors/UnableToRetrieveFeatureFileMap.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/errors/UnableToRetrieveFeatureFileMap.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/feature-files/errors/index.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/errors/index.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/errors/index.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/feature-files/index.ts",
+    "file/src/listeners/legacy/gherkin/feature-files/index.ts.html",
+    "src/listeners/legacy/gherkin/feature-files/index.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/index.ts",
+    "file/src/listeners/legacy/gherkin/index.ts.html",
+    "src/listeners/legacy/gherkin/index.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/model/background.ts",
+    "file/src/listeners/legacy/gherkin/model/Background.ts.html",
+    "src/listeners/legacy/gherkin/model/Background.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/model/feature.ts",
+    "file/src/listeners/legacy/gherkin/model/Feature.ts.html",
+    "src/listeners/legacy/gherkin/model/Feature.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/model/featurefilenode.ts",
+    "file/src/listeners/legacy/gherkin/model/FeatureFileNode.ts.html",
+    "src/listeners/legacy/gherkin/model/FeatureFileNode.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/model/hook.ts",
+    "file/src/listeners/legacy/gherkin/model/Hook.ts.html",
+    "src/listeners/legacy/gherkin/model/Hook.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/model/scenario.ts",
+    "file/src/listeners/legacy/gherkin/model/Scenario.ts.html",
+    "src/listeners/legacy/gherkin/model/Scenario.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/model/scenariooutline.ts",
+    "file/src/listeners/legacy/gherkin/model/ScenarioOutline.ts.html",
+    "src/listeners/legacy/gherkin/model/ScenarioOutline.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/model/step.ts",
+    "file/src/listeners/legacy/gherkin/model/Step.ts.html",
+    "src/listeners/legacy/gherkin/model/Step.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/gherkin/model/index.ts",
+    "file/src/listeners/legacy/gherkin/model/index.ts.html",
+    "src/listeners/legacy/gherkin/model/index.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/index.ts",
+    "file/src/listeners/legacy/index.ts.html",
+    "src/listeners/legacy/index.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/notifier/notifier.ts",
+    "file/src/listeners/legacy/notifier/Notifier.ts.html",
+    "src/listeners/legacy/notifier/Notifier.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/notifier/index.ts",
+    "file/src/listeners/legacy/notifier/index.ts.html",
+    "src/listeners/legacy/notifier/index.ts",
+    "file"
+  ],
+  [
+    "src/listeners/messages/cucumbermessageslistener.ts",
+    "file/src/listeners/messages/CucumberMessagesListener.ts.html",
+    "src/listeners/messages/CucumberMessagesListener.ts",
+    "file"
+  ],
+  [
+    "src/listeners/messages/index.ts",
+    "file/src/listeners/messages/index.ts.html",
+    "src/listeners/messages/index.ts",
+    "file"
+  ],
+  [
+    "src/listeners/messages/parser/cucumbermessagesparser.ts",
+    "file/src/listeners/messages/parser/CucumberMessagesParser.ts.html",
+    "src/listeners/messages/parser/CucumberMessagesParser.ts",
+    "file"
+  ],
+  [
+    "src/listeners/messages/parser/teststepformatter.ts",
+    "file/src/listeners/messages/parser/TestStepFormatter.ts.html",
+    "src/listeners/messages/parser/TestStepFormatter.ts",
+    "file"
+  ],
+  [
+    "src/listeners/messages/parser/index.ts",
+    "file/src/listeners/messages/parser/index.ts.html",
+    "src/listeners/messages/parser/index.ts",
+    "file"
+  ],
+  [
+    "src/listeners/messages/parser/types/extractedscenario.ts",
+    "file/src/listeners/messages/parser/types/ExtractedScenario.ts.html",
+    "src/listeners/messages/parser/types/ExtractedScenario.ts",
+    "file"
+  ],
+  [
+    "src/listeners/messages/parser/types/extractedscenariooutline.ts",
+    "file/src/listeners/messages/parser/types/ExtractedScenarioOutline.ts.html",
+    "src/listeners/messages/parser/types/ExtractedScenarioOutline.ts",
+    "file"
+  ],
+  [
+    "src/listeners/messages/parser/types/index.ts",
+    "file/src/listeners/messages/parser/types/index.ts.html",
+    "src/listeners/messages/parser/types/index.ts",
     "file"
   ]
 ]

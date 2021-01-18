@@ -17,6 +17,10 @@
     <base href="/modules/core/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title> | Serenity/JS</title>
+    <meta property="og:title" content=" | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/core/class/src/stage/Stage.ts~Stage.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -93,7 +100,7 @@
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="">@serenity-js/console-reporter</a></li>
                         <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="active">@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 7.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
@@ -134,6 +141,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/AsyncOperationAttempted.ts~AsyncOperationAttempted.html">AsyncOperationAttempted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/AsyncOperationCompleted.ts~AsyncOperationCompleted.html">AsyncOperationCompleted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html">AsyncOperationFailed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html">BusinessRuleDetected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html">FeatureNarrativeDetected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/InteractionFinished.ts~InteractionFinished.html">InteractionFinished</a></span></span></li>
@@ -159,7 +167,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileFinder.ts~FileFinder.html">FileFinder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystemLocation.ts~FileSystemLocation.html">FileSystemLocation</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Path.ts~Path.html">Path</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~SerialisedError.html">SerialisedError</a></span></span></li>
@@ -175,6 +182,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringify">stringify</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model">model</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/ActivityDetails.ts~ActivityDetails.html">ActivityDetails</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Artifact.ts~Artifact.html">Artifact</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/BusinessRule.ts~BusinessRule.html">BusinessRule</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Category.ts~Category.html">Category</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Description.ts~Description.html">Description</a></span></span></li>
@@ -271,7 +279,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/stage/Stage.ts.html#lineNumber11">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/stage/Stage.ts.html#lineNumber28">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -279,7 +287,10 @@
 
   
 
-  
+  <div class="description" data-ice="description"><p> The place where <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>s perform.</p>
+<p> In more technical terms, the Stage is the main event bus propagating <span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>s
+ to <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>s it instantiates and <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span>s that have been registered with it.</p>
+</div>
 
   
   
@@ -301,7 +312,8 @@
 
   
 
-  
+  <div data-ice="see"><h4>See also:</h4><ul><li><span><span><a href="class/src/Serenity.ts~Serenity.html#instance-method-configure">configure</a></span></span></li>
+<li><span><span><a href="class/src/Serenity.ts~Serenity.html#instance-method-engage">engage</a></span></span></li></ul></div>
 </div>
 
 
@@ -324,7 +336,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(cast: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>, manager: <span><a href="class/src/stage/StageManager.ts~StageManager.html">StageManager</a></span>)</span>
         </p>
       </div>
       <div>
@@ -430,7 +442,8 @@ by their name if they've already been instantiated.</p>
       <div>
         
         
-        
+        <div data-ice="description"><p> Notifies all the assigned listeners of the event.</p>
+</div>
       </div>
     </td>
     <td>
@@ -452,13 +465,15 @@ by their name if they've already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assign">assign</a></span></span><span class="code" data-ice="signature">(listeners: <span>UNKNOWN</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assign">assign</a></span></span><span class="code" data-ice="signature">(listeners: <span><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span><span>[]</span></span>): <span>void</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Assigns listeners to be notified of <span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>s
+ emitted via <span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-announce">Stage#announce</a></span></p>
+</div>
       </div>
     </td>
     <td>
@@ -480,13 +495,15 @@ by their name if they've already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assignNewActivityId">assignNewActivityId</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assignNewActivityId">assignNewActivityId</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Generates and remembers a <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span>
+ for the current <span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -508,13 +525,15 @@ by their name if they've already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assignNewSceneId">assignNewSceneId</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assignNewSceneId">assignNewSceneId</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Generates and remembers a <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span>
+ for the current scene.</p>
+</div>
       </div>
     </td>
     <td>
@@ -542,7 +561,8 @@ by their name if they've already been instantiated.</p>
       <div>
         
         
-        
+        <div data-ice="description"><p> Returns the <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span> for the current <span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -564,13 +584,14 @@ by their name if they've already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-currentSceneId">currentSceneId</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-currentSceneId">currentSceneId</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Returns the <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span> for the current scene.</p>
+</div>
       </div>
     </td>
     <td>
@@ -598,7 +619,8 @@ by their name if they've already been instantiated.</p>
       <div>
         
         
-        
+        <div data-ice="description"><p> Returns current time.</p>
+</div>
       </div>
     </td>
     <td>
@@ -620,7 +642,7 @@ by their name if they've already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-engage">engage</a></span></span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-engage">engage</a></span></span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>): <span>void</span></span>
         </p>
       </div>
       <div>
@@ -737,13 +759,15 @@ by their name if they've already been instantiated.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-waitForNextCue">waitForNextCue</a></span></span><span class="code" data-ice="signature">(): <span>Promise</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-waitForNextCue">waitForNextCue</a></span></span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Returns a Promise that will be resolved when any asynchronous
+ post-processing activities performed by Serenity/JS are completed.</p>
+</div>
       </div>
     </td>
     <td>
@@ -769,11 +793,11 @@ by their name if they've already been instantiated.</p>
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(cast: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>, manager: <span><a href="class/src/stage/StageManager.ts~StageManager.html">StageManager</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber117">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber131">source</a></span></span>
     </span>
   </h3>
 
@@ -784,7 +808,29 @@ by their name if they've already been instantiated.</p>
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">cast</td>
+      <td data-ice="type" class="code"><span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">manager</td>
+      <td data-ice="type" class="code"><span><a href="class/src/stage/StageManager.ts~StageManager.html">StageManager</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -819,7 +865,7 @@ by their name if they've already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber268">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber282">source</a></span></span>
     </span>
   </h3>
 
@@ -865,7 +911,7 @@ by their name if they've already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber169">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber183">source</a></span></span>
     </span>
   </h3>
 
@@ -952,14 +998,15 @@ by their name if they've already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber141">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber332">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Notifies all the assigned listeners of the event.</p>
+</div>
 
   
 
@@ -998,7 +1045,18 @@ by their name if they've already been instantiated.</p>
 
   
 
-  
+  <div data-ice="listenWrap">
+    <h4>Listens:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="listen" data-ice="listen">
+        <td><p data-ice="listenName"><span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span></p></td>
+        
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 
@@ -1019,18 +1077,20 @@ by their name if they've already been instantiated.</p>
     
     
     
-    <span class="code" data-ice="name">assign</span><span class="code" data-ice="signature">(listeners: <span>UNKNOWN</span>)</span>
+    <span class="code" data-ice="name">assign</span><span class="code" data-ice="signature">(listeners: <span><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span><span>[]</span></span>): <span>void</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber137">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber306">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Assigns listeners to be notified of <span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>s
+ emitted via <span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-announce">Stage#announce</a></span></p>
+</div>
 
   
 
@@ -1044,7 +1104,7 @@ by their name if they've already been instantiated.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">listeners</td>
-      <td data-ice="type" class="code"><span>UNKNOWN</span></td>
+      <td data-ice="type" class="code"><span><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span><span>[]</span></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -1053,7 +1113,19 @@ by their name if they've already been instantiated.</p>
 </div>
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>void</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -1078,128 +1150,22 @@ by their name if they've already been instantiated.</p>
     
     
     
-    <span class="code" data-ice="name">assignNewActivityId</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">assignNewActivityId</span><span class="code" data-ice="signature">(): <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber174">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber446">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
-
-  
-
-  <div data-ice="properties">
+  <div data-ice="description"><p> Generates and remembers a <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span>
+ for the current <span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span>.</p>
+<p> This method should be used in custom test runner adapters
+ when instantiating an <span><a href="class/src/events/ActivityStarts.ts~ActivityStarts.html">ActivityStarts</a></span> event.</p>
 </div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-assignNewSceneId">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">assignNewSceneId</span><span class="code" data-ice="signature">(): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber163">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-currentActivityId">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">currentActivityId</span><span class="code" data-ice="signature">(): <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber181">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
 
   
 
@@ -1232,29 +1198,33 @@ by their name if they've already been instantiated.</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-currentActivityId">Stage#currentActivityId</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-currentSceneId">
+  <h3 data-ice="anchor" id="instance-method-assignNewSceneId">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">currentSceneId</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">assignNewSceneId</span><span class="code" data-ice="signature">(): <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber170">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber395">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Generates and remembers a <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span>
+ for the current scene.</p>
+<p> This method should be used in custom test runner adapters
+ when instantiating a <span><a href="class/src/events/SceneStarts.ts~SceneStarts.html">SceneStarts</a></span> event.</p>
+</div>
 
   
 
@@ -1266,7 +1236,7 @@ by their name if they've already been instantiated.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></td>
           
         </tr>
       </tbody>
@@ -1287,7 +1257,119 @@ by their name if they've already been instantiated.</p>
 
   
 
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-currentSceneId">Stage#currentSceneId</a></span></span></li></ul></div>
   
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-currentActivityId">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">currentActivityId</span><span class="code" data-ice="signature">(): <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber472">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Returns the <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span> for the current <span><a href="class/src/screenplay/Activity.ts~Activity.html">Activity</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assignNewSceneId">Stage#assignNewSceneId</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-currentSceneId">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">currentSceneId</span><span class="code" data-ice="signature">(): <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber421">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Returns the <span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span> for the current scene.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/model/CorrelationId.ts~CorrelationId.html">CorrelationId</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-assignNewSceneId">Stage#assignNewSceneId</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1302,14 +1384,16 @@ by their name if they've already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber159">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber368">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Returns current time. This method should be used whenever
+ <span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span> objects are instantiated by hand.</p>
+</div>
 
   
 
@@ -1353,11 +1437,11 @@ by their name if they've already been instantiated.</p>
     
     
     
-    <span class="code" data-ice="name">engage</span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">engage</span><span class="code" data-ice="signature">(actors: <span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span>): <span>void</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber265">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber279">source</a></span></span>
     </span>
   </h3>
 
@@ -1394,9 +1478,8 @@ by their name if they've already been instantiated.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>void</p>
-</td>
+          <td class="return-type code" data-ice="returnType"><span>void</span></td>
+          
         </tr>
       </tbody>
     </table>
@@ -1431,7 +1514,7 @@ by their name if they've already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber145">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber159">source</a></span></span>
     </span>
   </h3>
 
@@ -1494,7 +1577,7 @@ by their name if they've already been instantiated.</p>
 </ul>
   </div>
 
-  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="{Stage#actor}">{Stage#actor}</a></span></li></ul></div>
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/stage/Stage.ts~Stage.html#instance-method-actor">Stage#actor</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1509,7 +1592,7 @@ by their name if they've already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber215">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber229">source</a></span></span>
     </span>
   </h3>
 
@@ -1587,7 +1670,7 @@ by their name if they've already been instantiated.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber240">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber254">source</a></span></span>
     </span>
   </h3>
 
@@ -1639,18 +1722,20 @@ by their name if they've already been instantiated.</p>
     
     
     
-    <span class="code" data-ice="name">waitForNextCue</span><span class="code" data-ice="signature">(): <span>Promise</span></span>
+    <span class="code" data-ice="name">waitForNextCue</span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber189">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/Stage.ts.html#lineNumber498">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Returns a Promise that will be resolved when any asynchronous
+ post-processing activities performed by Serenity/JS are completed.</p>
+</div>
 
   
 
@@ -1662,7 +1747,7 @@ by their name if they've already been instantiated.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>Promise</span></td>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>void</span>&gt;</td>
           
         </tr>
       </tbody>
@@ -1721,10 +1806,9 @@ by their name if they've already been instantiated.</p>
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -1740,7 +1824,7 @@ by their name if they've already been instantiated.</p>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -1778,6 +1862,26 @@ by their name if they've already been instantiated.</p>
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

@@ -16,7 +16,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
-    <title>Serenity/JS and Protractor | Serenity/JS</title>
+    <title>Integrating with Protractor | Serenity/JS</title>
+    <meta property="og:title" content="Integrating with Protractor | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -115,12 +122,17 @@
                                 <li class="chapter"><a href="/handbook/integration/runtime-dependencies.html">Runtime dependencies</a></li>
                                 <li class="chapter"><a href="/handbook/integration/versioning.html">Versioning</a></li>
                                 <li class="chapter"><a href="/handbook/integration/installation.html">Installation</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Serenity/JS and Cucumber</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Serenity/JS and Jasmine</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Serenity/JS and Protractor</a></li>
-                                <li class="chapter"><a href="/handbook/integration/reporting.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Integrating with Cucumber</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Integrating with Jasmine</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-mocha.html">Integrating with Mocha</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a></li>
                                 <li class="chapter"><a href="/handbook/integration/jira-and-other-issue-trackers.html">Jira and other issue trackers</a></li>
                                 <li class="chapter"><a href="/handbook/integration/upgrading-to-serenity-js-2.html">Upgrading to Serenity/JS 2.0</a></li>
+                                <li class="header"><a href="/handbook/reporting/index.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/console-reporter.html">Console Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/serenity-bdd-reporter.html">Serenity BDD Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/artifact-archiver.html">Artifact Archiver</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/stream-reporter.html">Stream Reporter</a></li>
                                 <li class="header"><a href="/community/index.html">Community</a></li>
                                 <li class="chapter"><a href="/community/events-and-articles.html">Events and articles</a></li>
                                 <li class="chapter"><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
@@ -132,41 +144,383 @@
                     <article class="content">
                         <nav class="article-tools">
                             <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/serenityjs-and-protractor.md">
-                                <i class="far fa-edit"></i> Edit on Github</a>
+                                <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
-                            <html><head></head><body><h1 id="serenity-js-and-protractor">Serenity/JS and Protractor</h1>
-<div class="pro-tip">
-    <div class="icon"><i class="fas fa-tools"></i></div>
-    <div class="text">
-        <p>
-            This section is coming soon. Stay tuned or learn how you can <a href="/support.html">support the project</a>!
-        </p>
-        <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
-    </div>
-</div>
-
-<h2 id="example-integration">Example integration</h2>
-<p>To see an example integration, have a look at <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">Serenity/JS Github</a></p>
+                            <html><head></head><body><h1 id="integrating-with-protractor">Integrating with Protractor</h1>
+<p><a href="https://www.protractortest.org/#/">Protractor</a> is both a test runner and a wrapper around the <a href="https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs">WebDriverJS</a> testing library.</p>
+<p>While optimised for testing Angular applications, Protractor is perfectly capable of interacting with websites and web applications built using any other framework or technology stack. Protractor runs tests in real browsers, uses native events, and browser-specific drivers to interact with your system as a user would.</p>
+<p>This chapter covers:</p>
+<ul>
+<li><a href="/handbook/integration/serenityjs-and-protractor.html#integration-architecture-overview">Integration architecture overview</a></li>
+<li><a href="/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-cucumber">Integrating Protractor with Serenity/JS and Cucumber</a></li>
+<li><a href="/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-jasmine">Integrating Protractor with Serenity/JS and Jasmine</a></li>
+<li><a href="/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-mocha">Integrating Protractor with Serenity/JS and Mocha</a></li>
+<li><a href="/handbook/integration/serenityjs-and-protractor.html#reporting">Reporting</a></li>
+</ul>
+<p>If you'd like to jump straight into the code, <a href="https://github.com/serenity-js">Serenity/JS GitHub repository</a> provides a number of <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">example implementations</a> and <a href="https://github.com/serenity-js">project templates</a>.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The easiest way to get started with Serenity/JS is by using one of the <a href="https://github.com/serenity-js/">template projects available on Github</a>. Serenity/JS template project come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
+    The easiest way to get started with Serenity/JS and Protractor is to use one of the <a href="https://github.com/serenity-js/">template projects</a> available on GitHub. Serenity/JS template projects come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
+    </p></div>
+</div> 
+
+<h2 id="integration-architecture-overview">Integration architecture overview</h2>
+<p>Protractor consists of two main components:</p>
+<ul>
+<li>the <code>protractor</code> command-line interface, which manages the web browser lifecycle, and a 3-rd party test runner you use to actually run your tests,</li>
+<li>the <code>protractor</code> library, which provides WebDriverJS APIs your tests use to interact with your website or web application.</li>
+</ul>
+<p>Protractor command-line interface doesn't run the tests by itself. Instead, it delegates this responsibility to Jasmine, or any other 3-rd party test runner, as long as you configure it with an <a href="https://github.com/angular/protractor/tree/master/lib/frameworks">appropriate adapter</a>. </p>
+<p><a href="/modules/protractor"><code>@serenity-js/protractor</code> module</a> provides such an adapter, which on top of vastly improving built-in Protractor reporting capabilities, also enables you to run your test scenarios using <a href="/handbook/integration/serenityjs-and-cucumber.html">Cucumber</a>, <a href="/handbook/integration/serenityjs-and-jasmine.html">Jasmine</a>, or <a href="/handbook/integration/serenityjs-and-mocha.html">Mocha</a> test runners.</p>
+<p>Apart from providing a Protractor adapter, <code>@serenity-js/protractor</code> module also gives you <a href="/modules/protractor">several dozen interfaces</a> to help your web-based tests follow the <a href="/handbook/thinking-in-serenity-js/screenplay-pattern.html">Screenplay Pattern</a>.    </p>
+<p>The architecture that you'll need to integrate Protractor with Serenity/JS looks as per the diagram below. We'll explore it in more detail in the context of specific test runners further on in this chapter.</p>
+<div class="mermaid">
+graph TB
+    SUT(["far:fa-window-maximize Web App"])
+    DEV(["fas:fa-laptop-code Developer"])
+    PCLI["fas:fa-terminal protractor"]
+    P(["protractor"])
+    PCF["fas:fa-file protractor.conf.js"]
+    SPA(["@serenity-js/protractor/adapter"])
+    SP(["@serenity-js/protractor"])
+    SC(["@serenity-js/core"])
+    TR(["fas:fa-plug 3rd-party test runner"])
+    TRA(["fas:fa-plug Serenity/JS test runner adapter"])
+    SPECS["fas:fa-tasks specs"]
+    R(["fas:fa-chart-pie Serenity/JS reporting services"])
+
+    DEV -- invokes --&gt; PCLI
+    PCLI -- loads --&gt; PCF
+    PCLI -- uses --&gt; SPA
+    PCF -- configures --&gt; SC
+    SPA -- registers --&gt; TRA
+    SPA -- manages --&gt; TR
+    TR -- notifies --&gt; TRA
+    TR -- executes --&gt; SPECS
+    SPECS -- use --&gt; SP
+    SP -- notifies --&gt; SC
+    SP -- uses --&gt; P
+    P -- interacts with --&gt; SUT
+    TRA -- notifies --&gt; SC
+    SC -- notifies --&gt; R
+
+    class TR socket
+    class TRA socket
+    class SPECS socket
+    class R socket
+
+    click SP "/modules/protractor"
+    click SC "/modules/core"
+    click R "/handbook/reporting/index.html"
+</div>
+
+<h2 id="integrating-protractor-with-serenity-js-and-cucumber">Integrating Protractor with Serenity/JS and Cucumber</h2>
+<p>To integrate Serenity/JS with Protractor and Cucumber, <code>@serenity-js/protractor/adapter</code> uses a test runner adapter and a Cucumber "formatter" available as part of the <a href="/handbook/integration/serenityjs-and-cucumber.html"><code>@serenity-js/cucumber</code> module</a>.</p>
+<p>This means that no matter whether your test suite uses <a href="/handbook/integration/serenityjs-and-cucumber.html">Cucumber standalone</a>, or Cucumber running behind Protractor, the lower-level integration with Serenity/JS works exactly the same and provides the same capabilities.</p>
+<div class="mermaid">
+graph TB
+    SUT(["far:fa-window-maximize Web App"])
+    DEV(["fas:fa-laptop-code Developer"])
+    PCLI["fas:fa-terminal protractor"]
+    P(["protractor"])
+    PCF["fas:fa-file protractor.conf.js"]
+    SPA(["@serenity-js/protractor/adapter"])
+    SP(["@serenity-js/protractor"])
+    SC(["@serenity-js/core"])
+    TR(["@cucumber/cucumber"])
+    TRA(["@serenity-js/cucumber"])
+    SPECS["fas:fa-tasks *.feature"]
+    STEPS["fas:fa-file step_definitions/*.ts"]
+    R(["fas:fa-chart-pie Serenity/JS reporting services"])
+
+    DEV -- invokes --&gt; PCLI
+    PCLI -- loads --&gt; PCF
+    PCLI -- uses --&gt; SPA
+    PCF -- configures --&gt; SC
+    SPA -- registers --&gt; TRA
+    SPA -- manages --&gt; TR
+    TR -- notifies --&gt; TRA
+    TR -- parses --&gt; SPECS
+    TR -- uses --&gt; STEPS
+    STEPS -- use --&gt; SP
+    SP -- notifies --&gt; SC
+    SP -- uses --&gt; P
+    P -- interacts with --&gt; SUT
+    TRA -- notifies --&gt; SC
+    SC -- notifies --&gt; R
+
+    class R socket
+
+    click SP "/modules/protractor"
+    click SC "/modules/core"
+    click R "/handbook/reporting/index.html"
+</div>
+
+<h3 id="installation">Installation</h3>
+<p>Assuming you already have a <a href="https://github.com/angular/protractor/blob/master/docs/getting-started.md">Protractor project</a> set up, add the following dev dependencies:</p>
+<ul>
+<li><a href="/modules/core"><code>@serenity-js/core</code></a></li>
+<li><a href="/modules/cucumber"><code>@serenity-js/cucumber</code></a></li>
+<li><a href="/modules/protractor"><code>@serenity-js/protractor</code></a></li>
+<li><a href="https://www.npmjs.com/package/@cucumber/cucumber"><code>@cucumber/cucumber</code></a></li>
+</ul>
+<p>To do that, run the following command in your terminal:</p>
+<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,cucumber,protractor}</span> <span class="hljs-meta">@cucumber/cucumber</span>
+</code></pre>
+<p>If you'd like to implement your test suite in TypeScript, also run:</p>
+<pre><code class="lang-console hljs plaintext">npm install --save-dev typescript ts-node
+</code></pre>
+<h3 id="configuration">Configuration</h3>
+<p>Modify your <code>protractor.conf.js</code> file to register the <a href="/modules/protractor"><code>@serenity-js/protractor/adapter</code></a>
+and configure it to execute your Cucumber scenarios ("<code>specs</code>" in Protractor-speak) and <code>require</code> your Cucumber step definitions:</p>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+<span class="hljs-built_in">exports</span>.config = {
+
+    <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+
+    <span class="hljs-attr">serenity</span>: {
+        <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
+        <span class="hljs-attr">crew</span>: [
+            <span class="hljs-comment">// ... reporting services</span>
+        ]
+    },
+
+    <span class="hljs-attr">specs</span>: [ <span class="hljs-string">'features/*.feature'</span>, ],
+    <span class="hljs-attr">cucumberOpts</span>: {
+        <span class="hljs-attr">require</span>: [
+            <span class="hljs-string">'features/step_definitions/**/*.ts'</span>,    <span class="hljs-comment">// or *.js</span>
+        ],
+        <span class="hljs-string">'require-module'</span>: [<span class="hljs-string">'ts-node/register'</span>],     <span class="hljs-comment">// to add support for TypeScript</span>
+    },
+
+    <span class="hljs-comment">// ... other Protractor config omitted for brevity </span>
+};
+</code></pre>
+<p>To learn more about the available configuration options, check out:</p>
+<ul>
+<li><a href="/modules/core/class/src/SerenityConfig.ts~SerenityConfig.html"><code>SerenityConfig</code></a>, provided as <code>serenity</code> in <code>protractor.conf.js</code></li>
+<li><a href="/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html"><code>CucumberConfig</code></a>, provided as <code>cucumberOpts</code> in <code>protractor.conf.js</code></li>
+<li><a href="https://github.com/angular/protractor/blob/master/lib/config.ts"><code>ProtractorConfig</code></a></li>
+</ul>
+<p>To install and configure Serenity/JS reporting modules appropriate for your project (a.k.a. the <code>crew</code>) - follow the <a href="/handbook/reporting/">Serenity/JS reporting guide</a>.</p>
+<h2 id="integrating-protractor-with-serenity-js-and-jasmine">Integrating Protractor with Serenity/JS and Jasmine</h2>
+<p>To integrate Serenity/JS with Protractor and Jasmine, <code>@serenity-js/protractor/adapter</code> uses a test runner adapter and a Jasmine reporter available as part of the <a href="/handbook/integration/serenityjs-and-jasmine.html"><code>@serenity-js/jasmine</code> module</a>.</p>
+<p>This means that no matter whether your test suite uses <a href="/handbook/integration/serenityjs-and-jasmine.html">Jasmine standalone</a>, or Jasmine running behind Protractor, the lower-level integration with Serenity/JS works exactly the same and provides the same capabilities.</p>
+<div class="mermaid">
+graph TB
+    SUT(["far:fa-window-maximize Web App"])
+    DEV(["fas:fa-laptop-code Developer"])
+    PCLI["fas:fa-terminal protractor"]
+    P(["protractor"])
+    PCF["fas:fa-file protractor.conf.js"]
+    SPA(["@serenity-js/protractor/adapter"])
+    SP(["@serenity-js/protractor"])
+    SC(["@serenity-js/core"])
+    TR(["jasmine"])
+    TRA(["@serenity-js/jasmine"])
+    SPECS["fas:fa-tasks *.spec.ts"]
+    SPECS -- use --&gt; SP
+    R(["fas:fa-chart-pie Serenity/JS reporting services"])
+
+    DEV -- invokes --&gt; PCLI
+    PCLI -- loads --&gt; PCF
+    PCLI -- uses --&gt; SPA
+    PCF -- configures --&gt; SC
+    SPA -- registers --&gt; TRA
+    SPA -- manages --&gt; TR
+    TR -- notifies --&gt; TRA
+    TR -- runs --&gt; SPECS
+    SP -- notifies --&gt; SC
+    SP -- uses --&gt; P
+    P -- interacts with --&gt; SUT
+    TRA -- notifies --&gt; SC
+    SC -- notifies --&gt; R
+
+    class R socket
+
+    click SP "/modules/protractor"
+    click SC "/modules/core"
+    click R "/handbook/reporting/index.html"
+</div>
+
+<h3 id="installation">Installation</h3>
+<p>Assuming you already have a <a href="https://github.com/angular/protractor/blob/master/docs/getting-started.md">Protractor project</a> set up, add the following dev dependencies:</p>
+<ul>
+<li><a href="/modules/core"><code>@serenity-js/core</code></a></li>
+<li><a href="/modules/jasmine"><code>@serenity-js/jasmine</code></a></li>
+<li><a href="/modules/protractor"><code>@serenity-js/protractor</code></a></li>
+<li><a href="https://www.npmjs.com/package/jasmine"><code>jasmine</code></a></li>
+</ul>
+<p>To do that, run the following command in your terminal:</p>
+<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,jasmine,protractor}</span> jasmine<span class="hljs-meta">@3</span>
+</code></pre>
+<p>If you'd like to implement your test suite in TypeScript, also run:</p>
+<pre><code class="lang-console hljs plaintext">npm install --save-dev typescript ts-node
+</code></pre>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text"><p><strong>PRO TIP:</strong>
+    <code>@serenity-js/jasmine</code> module enables your tests to use the latest version of Jasmine test runner, version 3. This version is newer than version 2 that ships with Protractor.
     </p></div>
 </div>
 
-<h2 id="configuration">Configuration</h2>
-<p>Serenity/JS can be configured using a <a href="/modules/core/class/src/SerenityConfig.ts~SerenityConfig.html"><code>SerenityConfig</code></a> object specified in the <a href="/modules/protractor">Protractor configuration file</a>. </p>
-<p>Learn more from the <code>@serenity-js/protractor</code> module <a href="/modules/protractor/">readme</a>.</p>
+<h3 id="configuration">Configuration</h3>
+<p>Modify your <code>protractor.conf.js</code> file to register the <a href="/modules/protractor"><code>@serenity-js/protractor/adapter</code></a>
+and configure it to execute your Jasmine "<code>specs</code>":</p>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+<span class="hljs-built_in">exports</span>.config = {
+
+    <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+
+    <span class="hljs-attr">serenity</span>: {
+        <span class="hljs-attr">runner</span>: <span class="hljs-string">'jasmine'</span>,
+        <span class="hljs-attr">crew</span>: [
+            <span class="hljs-comment">// ... reporting services</span>
+        ]
+    },
+
+    <span class="hljs-attr">specs</span>: [ <span class="hljs-string">'spec/*.spec.ts'</span>, ],                   <span class="hljs-comment">// or *.spec.js</span>
+    <span class="hljs-attr">jasmineNodeOpts</span>: {
+        <span class="hljs-attr">requires</span>: [
+            <span class="hljs-string">'ts-node/register'</span>,                     <span class="hljs-comment">// to add support for TypeScript</span>
+        ]
+    },
+
+    <span class="hljs-comment">// ... other Protractor config omitted for brevity </span>
+};
+</code></pre>
+<p>To learn more about the available configuration options, check out:</p>
+<ul>
+<li><a href="/modules/core/class/src/SerenityConfig.ts~SerenityConfig.html"><code>SerenityConfig</code></a>, provided as <code>serenity</code> in <code>protractor.conf.js</code></li>
+<li><a href="/modules/jasmine/class/src/adapter/JasmineConfig.ts~JasmineConfig.html"><code>JasmineConfig</code></a>, provided as <code>jasmineNodeOpts</code> in <code>protractor.conf.js</code></li>
+<li><a href="https://github.com/angular/protractor/blob/master/lib/config.ts"><code>ProtractorConfig</code></a></li>
+</ul>
+<p>To install and configure Serenity/JS reporting modules appropriate for your project (a.k.a. the <code>crew</code>) - follow the <a href="/handbook/reporting/">Serenity/JS reporting guide</a>.</p>
+<h2 id="integrating-protractor-with-serenity-js-and-mocha">Integrating Protractor with Serenity/JS and Mocha</h2>
+<p>To integrate Serenity/JS with Protractor and Jasmine, <code>@serenity-js/protractor/adapter</code> uses a test runner adapter and a Mocha reporter available as part of the <a href="/handbook/integration/serenityjs-and-mocha.html"><code>@serenity-js/mocha</code> module</a>.</p>
+<p>This means that no matter whether your test suite uses <a href="/handbook/integration/serenityjs-and-mocha.html">Mocha standalone</a>, or Mocha running behind Protractor, the lower-level integration with Serenity/JS works exactly the same and provides the same capabilities.</p>
+<div class="mermaid">
+graph TB
+    SUT(["far:fa-window-maximize Web App"])
+    DEV(["fas:fa-laptop-code Developer"])
+    PCLI["fas:fa-terminal protractor"]
+    P(["protractor"])
+    PCF["fas:fa-file protractor.conf.js"]
+    SPA(["@serenity-js/protractor/adapter"])
+    SP(["@serenity-js/protractor"])
+    SC(["@serenity-js/core"])
+    TR(["mocha"])
+    TRA(["@serenity-js/mocha"])
+    SPECS["fas:fa-tasks *.spec.ts"]
+    SPECS -- use --&gt; SP
+    R(["fas:fa-chart-pie Serenity/JS reporting services"])
+
+    DEV -- invokes --&gt; PCLI
+    PCLI -- loads --&gt; PCF
+    PCLI -- uses --&gt; SPA
+    PCF -- configures --&gt; SC
+    SPA -- registers --&gt; TRA
+    SPA -- manages --&gt; TR
+    TR -- notifies --&gt; TRA
+    TR -- runs --&gt; SPECS
+    SP -- notifies --&gt; SC
+    SP -- uses --&gt; P
+    P -- interacts with --&gt; SUT
+    TRA -- notifies --&gt; SC
+    SC -- notifies --&gt; R
+
+    class R socket
+
+    click SP "/modules/protractor"
+    click SC "/modules/core"
+    click R "/handbook/reporting/index.html"
+</div>
+
+<h3 id="installation">Installation</h3>
+<p>Assuming you already have a <a href="https://github.com/angular/protractor/blob/master/docs/getting-started.md">Protractor project</a> set up, add the following dev dependencies:</p>
+<ul>
+<li><a href="/modules/core"><code>@serenity-js/core</code></a></li>
+<li><a href="/modules/mocha"><code>@serenity-js/mocha</code></a></li>
+<li><a href="/modules/protractor"><code>@serenity-js/protractor</code></a></li>
+<li><a href="https://www.npmjs.com/package/mocha"><code>mocha</code></a></li>
+</ul>
+<p>To do that, run the following command in your terminal:</p>
+<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,mocha,protractor}</span> mocha
+</code></pre>
+<p>If you'd like to implement your test suite in TypeScript, also run:</p>
+<pre><code class="lang-console hljs plaintext">npm install --save-dev typescript ts-node
+</code></pre>
+<h3 id="configuration">Configuration</h3>
+<p>Modify your <code>protractor.conf.js</code> file to register the <a href="/modules/protractor"><code>@serenity-js/protractor/adapter</code></a>
+and configure it to execute your Mocha "<code>specs</code>":</p>
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+<span class="hljs-built_in">exports</span>.config = {
+
+    <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+
+    <span class="hljs-attr">serenity</span>: {
+        <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,
+        <span class="hljs-attr">crew</span>: [
+            <span class="hljs-comment">// ... reporting services</span>
+        ]
+    },
+
+    <span class="hljs-attr">specs</span>: [ <span class="hljs-string">'spec/*.spec.ts'</span>, ],                   <span class="hljs-comment">// or *.spec.js</span>
+
+    <span class="hljs-attr">mochaOpts</span>: {
+        <span class="hljs-attr">require</span>: [
+            <span class="hljs-string">'ts-node/register'</span>,                     <span class="hljs-comment">// to add support for TypeScript</span>
+        ],
+    },
+
+    <span class="hljs-comment">// ... other Protractor config omitted for brevity </span>
+};
+</code></pre>
+<p>To learn more about the available configuration options, check out:</p>
+<ul>
+<li><a href="/modules/core/class/src/SerenityConfig.ts~SerenityConfig.html"><code>SerenityConfig</code></a>, provided as <code>serenity</code> in <code>protractor.conf.js</code></li>
+<li><a href="/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html"><code>MochaConfig</code></a>, provided as <code>mochaOpts</code> in <code>protractor.conf.js</code></li>
+<li><a href="https://github.com/angular/protractor/blob/master/lib/config.ts"><code>ProtractorConfig</code></a></li>
+</ul>
+<p>To install and configure Serenity/JS reporting modules appropriate for your project (a.k.a. the <code>crew</code>) - follow the <a href="/handbook/reporting/">Serenity/JS reporting guide</a>.</p>
+<h2 id="reporting">Reporting</h2>
+<p>To install and configure Serenity/JS reporting modules appropriate for your project - follow the <a href="/handbook/reporting/">Serenity/JS reporting guide</a>.</p>
 </body></html>
                         </section>
+
+                            <div class="pro-tip">
+                                <div class="icon"><i class="far fa-grin-stars"></i></div>
+                                <div class="text">
+                                    <p>
+                                        <strong>Love Serenity/JS?</strong> Spread the word on
+                                        <a href="https://twitter.com/intent/tweet?text=Check+out+%23fullstack+acceptance+%23testing+with+%40SerenityJS&amp;url=https%3A%2F%2Fserenity-js.org%2Fhandbook%2Fintegration%2Fserenityjs-and-protractor.html" aria-label="Spread the word on Twitter" rel="noreferrer noopener">
+                                            <i class="fab fa-twitter"></i> Twitter</a>
+                                        and
+                                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fserenity-js.org%2Fhandbook%2Fintegration%2Fserenityjs-and-protractor.html" aria-label="Spread the word on LinkedIn" rel="noreferrer noopener">
+                                            <i class="fab fa-linkedin"></i> LinkedIn</a>!
+                                    </p>
+                                    <p>
+                                        Found a typo? You can <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/serenityjs-and-protractor.md">fix it yourself</a>
+                                        or
+                                        <a href="https://github.com/serenity-js/serenity-js/issues">raise a ticket</a> on GitHub.
+                                    </p>
+                                    <p>If you'd like to help us bring more great tools and content to the Open-Source Community, become a GitHub Sponsor of Serenity/JS for as little as the cost of a cup of coffee.</p>
+                                    <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
+                                </div>
+                            </div>
+
                         <footer class="d-print-none">
-                                <a class="previous" href="/handbook/integration/serenityjs-and-jasmine.html">
+                                <a class="previous" href="/handbook/integration/serenityjs-and-mocha.html">
                                     <i class="fa fa-chevron-left"></i>
-                                    <span>Serenity/JS and Jasmine</span>
+                                    <span>Integrating with Mocha</span>
                                 </a>
-                                <a class="next" href="/handbook/integration/reporting.html">
-                                    <span>Reporting</span>
+                                <a class="next" href="/handbook/integration/jira-and-other-issue-trackers.html">
+                                    <span>Jira and other issue trackers</span>
                                     <i class="fa fa-chevron-right"></i>
                                 </a>
                         </footer>
@@ -204,10 +558,9 @@
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -223,7 +576,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -261,6 +614,26 @@
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

@@ -138,6 +138,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/events~businessruledetected",
+    "/modules/core/class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html",
+    "@serenity-js/core/lib/events~BusinessRuleDetected",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/events~domainevent",
     "/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html",
     "@serenity-js/core/lib/events~DomainEvent",
@@ -318,12 +324,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/core/lib/io~moduleloader",
-    "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
-    "@serenity-js/core/lib/io~ModuleLoader",
-    "external"
-  ],
-  [
     "@serenity-js/core/lib/io~path",
     "/modules/core/class/src/io/Path.ts~Path.html",
     "@serenity-js/core/lib/io~Path",
@@ -489,6 +489,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/model~artifact",
     "/modules/core/class/src/model/Artifact.ts~Artifact.html",
     "@serenity-js/core/lib/model~Artifact",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/model~businessrule",
+    "/modules/core/class/src/model/BusinessRule.ts~BusinessRule.html",
+    "@serenity-js/core/lib/model~BusinessRule",
     "external"
   ],
   [
@@ -955,13 +961,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber298",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber295",
     "ConsoleReporter when the developer logs arbitrary data",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber301",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber298",
     "ConsoleReporter when the developer logs arbitrary data ",
     "test"
   ],
@@ -973,7 +979,7 @@ window.esdocSearchIndex = [
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber231",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber228",
     "ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened",
     "test"
   ],
@@ -985,7 +991,7 @@ window.esdocSearchIndex = [
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber173",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber170",
     "ConsoleReporter when the scenario fails with an error prints the details of the failed assertion",
     "test"
   ],

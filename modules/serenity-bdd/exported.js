@@ -1,4 +1,1 @@
-/** @external {@serenity-js/serenity-bdd/lib/cli/io~axiosClient} /modules/serenity/function/index.html#static-function-axiosClient */
-/** @external {@serenity-js/serenity-bdd/lib/cli/io~shouldProxy} /modules/serenity/function/index.html#static-function-shouldProxy */
-/** @external {@serenity-js/serenity-bdd/lib/cli/io~formatError} /modules/serenity/function/index.html#static-function-formatError */
 /** @external {@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter~SerenityBDDReporter} /modules/serenity/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html */

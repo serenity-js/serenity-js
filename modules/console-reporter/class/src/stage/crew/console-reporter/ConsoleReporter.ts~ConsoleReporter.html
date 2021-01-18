@@ -17,6 +17,10 @@
     <base href="/modules/console-reporter/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title> | Serenity/JS</title>
+    <meta property="og:title" content=" | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -93,7 +100,7 @@
                         <li class="chapter"><a href="/modules/assertions" title="Screenplay-style assertion library" class="">@serenity-js/assertions</a></li>
                         <li class="chapter"><a href="/modules/console-reporter" title="Serenity/JS console reporter" class="active">@serenity-js/console-reporter</a></li>
                         <li class="chapter"><a href="/modules/core" title="Serenity/JS Screenplay, reporting engine and core interfaces." class="">@serenity-js/core</a></li>
-                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 6.x" class="">@serenity-js/cucumber</a></li>
+                        <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 7.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
                         <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
@@ -165,10 +172,10 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Registering the reporter programmatically</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
  <span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
 
- serenity.configure({
+ configure({
      <span class="hljs-attr">crew</span>: [ ConsoleReporter.withDefaultColourSupport() ],
  });</code></pre>
     </div>
@@ -198,12 +205,12 @@
     <ul>
       
     <li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber11">ConsoleReporter</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber231">ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber301">ConsoleReporter when the developer logs arbitrary data </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber228">ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber298">ConsoleReporter when the developer logs arbitrary data </a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber48">ConsoleReporter when the scenario passes prints the passing steps and the scenario summary</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber87">ConsoleReporter when the scenario fails with an error prints the error message next to the step that has failed, and a full stack trace at the bottom</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber128">ConsoleReporter when the scenario fails with an error prints any steps that were skipped as a result of the failure</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber173">ConsoleReporter when the scenario fails with an error prints the details of the failed assertion</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber170">ConsoleReporter when the scenario fails with an error prints the details of the failed assertion</a></span></li>
 </ul>
   </div>
 
@@ -462,7 +469,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber218">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber222">source</a></span></span>
     </span>
   </h3>
 
@@ -518,7 +525,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber242">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber248">source</a></span></span>
     </span>
   </h3>
 
@@ -574,7 +581,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber194">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber196">source</a></span></span>
     </span>
   </h3>
 
@@ -700,7 +707,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber254">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber260">source</a></span></span>
     </span>
   </h3>
 
@@ -734,7 +741,8 @@
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">stage</td>
       <td data-ice="type" class="code"><span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span></td>
-      <td data-ice="appendix"></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
       <td data-ice="description"></td>
     </tr>
 </tbody>
@@ -775,7 +783,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber286">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber292">source</a></span></span>
     </span>
   </h3>
 
@@ -850,7 +858,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber312">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber320">source</a></span></span>
     </span>
   </h3>
 
@@ -897,7 +905,18 @@
 
   
 
-  
+  <div data-ice="listenWrap">
+    <h4>Listens:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="listen" data-ice="listen">
+        <td><p data-ice="listenName"><span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span></p></td>
+        
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 
@@ -945,10 +964,9 @@
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -964,7 +982,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -1002,6 +1020,26 @@
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 909,
+  "end": 958,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 44,
+      "line": 45,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 909,
+    "end": 958,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 44,
+        "line": 45,
         "column": 0
       }
     },
@@ -508,14 +508,14 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 223,
-        "end": 908,
+        "end": 957,
         "loc": {
           "start": {
             "line": 13,
             "column": 0
           },
           "end": {
-            "line": 43,
+            "line": 44,
             "column": 1
           }
         },
@@ -543,14 +543,14 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 230,
-          "end": 908,
+          "end": 957,
           "loc": {
             "start": {
               "line": 13,
               "column": 7
             },
             "end": {
-              "line": 43,
+              "line": 44,
               "column": 1
             }
           },
@@ -591,14 +591,14 @@
           "body": {
             "type": "ClassBody",
             "start": 278,
-            "end": 908,
+            "end": 957,
             "loc": {
               "start": {
                 "line": 13,
                 "column": 55
               },
               "end": {
-                "line": 43,
+                "line": 44,
                 "column": 1
               }
             },
@@ -1253,14 +1253,14 @@
               {
                 "type": "ClassMethod",
                 "start": 676,
-                "end": 906,
+                "end": 955,
                 "loc": {
                   "start": {
                     "line": 35,
                     "column": 4
                   },
                   "end": {
-                    "line": 42,
+                    "line": 43,
                     "column": 5
                   }
                 },
@@ -1519,14 +1519,14 @@
                 "body": {
                   "type": "BlockStatement",
                   "start": 824,
-                  "end": 906,
+                  "end": 955,
                   "loc": {
                     "start": {
                       "line": 39,
                       "column": 6
                     },
                     "end": {
-                      "line": 42,
+                      "line": 43,
                       "column": 5
                     }
                   },
@@ -1656,10 +1656,10 @@
                               }
                             },
                             "extra": {
-                              "rawValue": "details",
-                              "raw": "'details'"
+                              "rawValue": "sceneId",
+                              "raw": "'sceneId'"
                             },
-                            "value": "details"
+                            "value": "sceneId"
                           },
                           {
                             "type": "Identifier",
@@ -1674,9 +1674,9 @@
                                 "line": 41,
                                 "column": 33
                               },
-                              "identifierName": "details"
+                              "identifierName": "sceneId"
                             },
-                            "name": "details"
+                            "name": "sceneId"
                           },
                           {
                             "type": "CallExpression",
@@ -1703,6 +1703,125 @@
                                 },
                                 "end": {
                                   "line": 41,
+                                  "column": 44
+                                },
+                                "identifierName": "isDefined"
+                              },
+                              "name": "isDefined"
+                            },
+                            "arguments": []
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 909,
+                      "end": 949,
+                      "loc": {
+                        "start": {
+                          "line": 42,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 42,
+                          "column": 48
+                        }
+                      },
+                      "expression": {
+                        "type": "CallExpression",
+                        "start": 909,
+                        "end": 948,
+                        "loc": {
+                          "start": {
+                            "line": 42,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 42,
+                            "column": 47
+                          }
+                        },
+                        "callee": {
+                          "type": "Identifier",
+                          "start": 909,
+                          "end": 915,
+                          "loc": {
+                            "start": {
+                              "line": 42,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 42,
+                              "column": 14
+                            },
+                            "identifierName": "ensure"
+                          },
+                          "name": "ensure"
+                        },
+                        "arguments": [
+                          {
+                            "type": "StringLiteral",
+                            "start": 916,
+                            "end": 925,
+                            "loc": {
+                              "start": {
+                                "line": 42,
+                                "column": 15
+                              },
+                              "end": {
+                                "line": 42,
+                                "column": 24
+                              }
+                            },
+                            "extra": {
+                              "rawValue": "details",
+                              "raw": "'details'"
+                            },
+                            "value": "details"
+                          },
+                          {
+                            "type": "Identifier",
+                            "start": 927,
+                            "end": 934,
+                            "loc": {
+                              "start": {
+                                "line": 42,
+                                "column": 26
+                              },
+                              "end": {
+                                "line": 42,
+                                "column": 33
+                              },
+                              "identifierName": "details"
+                            },
+                            "name": "details"
+                          },
+                          {
+                            "type": "CallExpression",
+                            "start": 936,
+                            "end": 947,
+                            "loc": {
+                              "start": {
+                                "line": 42,
+                                "column": 35
+                              },
+                              "end": {
+                                "line": 42,
+                                "column": 46
+                              }
+                            },
+                            "callee": {
+                              "type": "Identifier",
+                              "start": 936,
+                              "end": 945,
+                              "loc": {
+                                "start": {
+                                  "line": 42,
+                                  "column": 35
+                                },
+                                "end": {
+                                  "line": 42,
                                   "column": 44
                                 },
                                 "identifierName": "isDefined"

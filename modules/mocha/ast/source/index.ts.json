@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 367,
+  "end": 423,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 9,
+      "line": 10,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 367,
+    "end": 423,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 9,
+        "line": 10,
         "column": 0
       }
     },
@@ -32,45 +32,63 @@
     "body": [
       {
         "type": "ImportDeclaration",
-        "start": 0,
-        "end": 45,
+        "start": 56,
+        "end": 101,
         "loc": {
           "start": {
-            "line": 1,
+            "line": 2,
             "column": 0
           },
           "end": {
-            "line": 1,
+            "line": 2,
             "column": 45
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file covered in integration tests ",
+            "start": 0,
+            "end": 55,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 55
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 9,
-            "end": 17,
+            "start": 65,
+            "end": 73,
             "loc": {
               "start": {
-                "line": 1,
+                "line": 2,
                 "column": 9
               },
               "end": {
-                "line": 1,
+                "line": 2,
                 "column": 17
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 9,
-              "end": 17,
+              "start": 65,
+              "end": 73,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 2,
                   "column": 9
                 },
                 "end": {
-                  "line": 1,
+                  "line": 2,
                   "column": 17
                 },
                 "identifierName": "serenity"
@@ -79,15 +97,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 9,
-              "end": 17,
+              "start": 65,
+              "end": 73,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 2,
                   "column": 9
                 },
                 "end": {
-                  "line": 1,
+                  "line": 2,
                   "column": 17
                 },
                 "identifierName": "serenity"
@@ -98,15 +116,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 25,
-          "end": 44,
+          "start": 81,
+          "end": 100,
           "loc": {
             "start": {
-              "line": 1,
+              "line": 2,
               "column": 25
             },
             "end": {
-              "line": 1,
+              "line": 2,
               "column": 44
             }
           },
@@ -119,15 +137,15 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 46,
-        "end": 91,
+        "start": 102,
+        "end": 147,
         "loc": {
           "start": {
-            "line": 2,
+            "line": 3,
             "column": 0
           },
           "end": {
-            "line": 2,
+            "line": 3,
             "column": 45
           }
         },
@@ -135,29 +153,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 55,
-            "end": 67,
+            "start": 111,
+            "end": 123,
             "loc": {
               "start": {
-                "line": 2,
+                "line": 3,
                 "column": 9
               },
               "end": {
-                "line": 2,
+                "line": 3,
                 "column": 21
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 55,
-              "end": 67,
+              "start": 111,
+              "end": 123,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 3,
                   "column": 9
                 },
                 "end": {
-                  "line": 2,
+                  "line": 3,
                   "column": 21
                 },
                 "identifierName": "MochaOptions"
@@ -166,15 +184,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 55,
-              "end": 67,
+              "start": 111,
+              "end": 123,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 3,
                   "column": 9
                 },
                 "end": {
-                  "line": 2,
+                  "line": 3,
                   "column": 21
                 },
                 "identifierName": "MochaOptions"
@@ -184,29 +202,29 @@
           },
           {
             "type": "ImportSpecifier",
-            "start": 69,
-            "end": 75,
+            "start": 125,
+            "end": 131,
             "loc": {
               "start": {
-                "line": 2,
+                "line": 3,
                 "column": 23
               },
               "end": {
-                "line": 2,
+                "line": 3,
                 "column": 29
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 69,
-              "end": 75,
+              "start": 125,
+              "end": 131,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 3,
                   "column": 23
                 },
                 "end": {
-                  "line": 2,
+                  "line": 3,
                   "column": 29
                 },
                 "identifierName": "Runner"
@@ -215,15 +233,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 69,
-              "end": 75,
+              "start": 125,
+              "end": 131,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 3,
                   "column": 23
                 },
                 "end": {
-                  "line": 2,
+                  "line": 3,
                   "column": 29
                 },
                 "identifierName": "Runner"
@@ -234,15 +252,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 83,
-          "end": 90,
+          "start": 139,
+          "end": 146,
           "loc": {
             "start": {
-              "line": 2,
+              "line": 3,
               "column": 37
             },
             "end": {
-              "line": 2,
+              "line": 3,
               "column": 44
             }
           },
@@ -255,15 +273,15 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 92,
-        "end": 162,
+        "start": 148,
+        "end": 218,
         "loc": {
           "start": {
-            "line": 3,
+            "line": 4,
             "column": 0
           },
           "end": {
-            "line": 3,
+            "line": 4,
             "column": 70
           }
         },
@@ -271,29 +289,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 101,
-            "end": 125,
+            "start": 157,
+            "end": 181,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 4,
                 "column": 9
               },
               "end": {
-                "line": 3,
+                "line": 4,
                 "column": 33
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 101,
-              "end": 125,
+              "start": 157,
+              "end": 181,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 4,
                   "column": 33
                 },
                 "identifierName": "SerenityReporterForMocha"
@@ -302,15 +320,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 101,
-              "end": 125,
+              "start": 157,
+              "end": 181,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 4,
                   "column": 33
                 },
                 "identifierName": "SerenityReporterForMocha"
@@ -321,15 +339,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 133,
-          "end": 161,
+          "start": 189,
+          "end": 217,
           "loc": {
             "start": {
-              "line": 3,
+              "line": 4,
               "column": 41
             },
             "end": {
-              "line": 3,
+              "line": 4,
               "column": 69
             }
           },
@@ -342,29 +360,29 @@
       },
       {
         "type": "TSExportAssignment",
-        "start": 164,
-        "end": 366,
+        "start": 220,
+        "end": 422,
         "loc": {
           "start": {
-            "line": 5,
+            "line": 6,
             "column": 0
           },
           "end": {
-            "line": 8,
+            "line": 9,
             "column": 1
           }
         },
         "expression": {
           "type": "FunctionExpression",
-          "start": 173,
-          "end": 366,
+          "start": 229,
+          "end": 422,
           "loc": {
             "start": {
-              "line": 5,
+              "line": 6,
               "column": 9
             },
             "end": {
-              "line": 8,
+              "line": 9,
               "column": 1
             }
           },
@@ -374,15 +392,15 @@
           "params": [
             {
               "type": "Identifier",
-              "start": 183,
-              "end": 197,
+              "start": 239,
+              "end": 253,
               "loc": {
                 "start": {
-                  "line": 5,
+                  "line": 6,
                   "column": 19
                 },
                 "end": {
-                  "line": 5,
+                  "line": 6,
                   "column": 33
                 },
                 "identifierName": "runner"
@@ -390,43 +408,43 @@
               "name": "runner",
               "typeAnnotation": {
                 "type": "TSTypeAnnotation",
-                "start": 189,
-                "end": 197,
+                "start": 245,
+                "end": 253,
                 "loc": {
                   "start": {
-                    "line": 5,
+                    "line": 6,
                     "column": 25
                   },
                   "end": {
-                    "line": 5,
+                    "line": 6,
                     "column": 33
                   }
                 },
                 "typeAnnotation": {
                   "type": "TSTypeReference",
-                  "start": 191,
-                  "end": 197,
+                  "start": 247,
+                  "end": 253,
                   "loc": {
                     "start": {
-                      "line": 5,
+                      "line": 6,
                       "column": 27
                     },
                     "end": {
-                      "line": 5,
+                      "line": 6,
                       "column": 33
                     }
                   },
                   "typeName": {
                     "type": "Identifier",
-                    "start": 191,
-                    "end": 197,
+                    "start": 247,
+                    "end": 253,
                     "loc": {
                       "start": {
-                        "line": 5,
+                        "line": 6,
                         "column": 27
                       },
                       "end": {
-                        "line": 5,
+                        "line": 6,
                         "column": 33
                       },
                       "identifierName": "Runner"
@@ -438,15 +456,15 @@
             },
             {
               "type": "Identifier",
-              "start": 199,
-              "end": 221,
+              "start": 255,
+              "end": 277,
               "loc": {
                 "start": {
-                  "line": 5,
+                  "line": 6,
                   "column": 35
                 },
                 "end": {
-                  "line": 5,
+                  "line": 6,
                   "column": 57
                 },
                 "identifierName": "options"
@@ -455,43 +473,43 @@
               "optional": true,
               "typeAnnotation": {
                 "type": "TSTypeAnnotation",
-                "start": 207,
-                "end": 221,
+                "start": 263,
+                "end": 277,
                 "loc": {
                   "start": {
-                    "line": 5,
+                    "line": 6,
                     "column": 43
                   },
                   "end": {
-                    "line": 5,
+                    "line": 6,
                     "column": 57
                   }
                 },
                 "typeAnnotation": {
                   "type": "TSTypeReference",
-                  "start": 209,
-                  "end": 221,
+                  "start": 265,
+                  "end": 277,
                   "loc": {
                     "start": {
-                      "line": 5,
+                      "line": 6,
                       "column": 45
                     },
                     "end": {
-                      "line": 5,
+                      "line": 6,
                       "column": 57
                     }
                   },
                   "typeName": {
                     "type": "Identifier",
-                    "start": 209,
-                    "end": 221,
+                    "start": 265,
+                    "end": 277,
                     "loc": {
                       "start": {
-                        "line": 5,
+                        "line": 6,
                         "column": 45
                       },
                       "end": {
-                        "line": 5,
+                        "line": 6,
                         "column": 57
                       },
                       "identifierName": "MochaOptions"
@@ -504,30 +522,30 @@
           ],
           "body": {
             "type": "BlockStatement",
-            "start": 223,
-            "end": 366,
+            "start": 279,
+            "end": 422,
             "loc": {
               "start": {
-                "line": 5,
+                "line": 6,
                 "column": 59
               },
               "end": {
-                "line": 8,
+                "line": 9,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 301,
-                "end": 364,
+                "start": 357,
+                "end": 420,
                 "loc": {
                   "start": {
-                    "line": 7,
+                    "line": 8,
                     "column": 4
                   },
                   "end": {
-                    "line": 7,
+                    "line": 8,
                     "column": 67
                   }
                 },
@@ -535,15 +553,15 @@
                   {
                     "type": "CommentLine",
                     "value": " todo: add requires - a list that includes a serenity config file",
-                    "start": 229,
-                    "end": 296,
+                    "start": 285,
+                    "end": 352,
                     "loc": {
                       "start": {
-                        "line": 6,
+                        "line": 7,
                         "column": 4
                       },
                       "end": {
-                        "line": 6,
+                        "line": 7,
                         "column": 71
                       }
                     }
@@ -551,29 +569,29 @@
                 ],
                 "argument": {
                   "type": "NewExpression",
-                  "start": 308,
-                  "end": 363,
+                  "start": 364,
+                  "end": 419,
                   "loc": {
                     "start": {
-                      "line": 7,
+                      "line": 8,
                       "column": 11
                     },
                     "end": {
-                      "line": 7,
+                      "line": 8,
                       "column": 66
                     }
                   },
                   "callee": {
                     "type": "Identifier",
-                    "start": 312,
-                    "end": 336,
+                    "start": 368,
+                    "end": 392,
                     "loc": {
                       "start": {
-                        "line": 7,
+                        "line": 8,
                         "column": 15
                       },
                       "end": {
-                        "line": 7,
+                        "line": 8,
                         "column": 39
                       },
                       "identifierName": "SerenityReporterForMocha"
@@ -583,15 +601,15 @@
                   "arguments": [
                     {
                       "type": "Identifier",
-                      "start": 337,
-                      "end": 345,
+                      "start": 393,
+                      "end": 401,
                       "loc": {
                         "start": {
-                          "line": 7,
+                          "line": 8,
                           "column": 40
                         },
                         "end": {
-                          "line": 7,
+                          "line": 8,
                           "column": 48
                         },
                         "identifierName": "serenity"
@@ -600,15 +618,15 @@
                     },
                     {
                       "type": "Identifier",
-                      "start": 347,
-                      "end": 353,
+                      "start": 403,
+                      "end": 409,
                       "loc": {
                         "start": {
-                          "line": 7,
+                          "line": 8,
                           "column": 50
                         },
                         "end": {
-                          "line": 7,
+                          "line": 8,
                           "column": 56
                         },
                         "identifierName": "runner"
@@ -617,15 +635,15 @@
                     },
                     {
                       "type": "Identifier",
-                      "start": 355,
-                      "end": 362,
+                      "start": 411,
+                      "end": 418,
                       "loc": {
                         "start": {
-                          "line": 7,
+                          "line": 8,
                           "column": 58
                         },
                         "end": {
-                          "line": 7,
+                          "line": 8,
                           "column": 65
                         },
                         "identifierName": "options"
@@ -645,17 +663,33 @@
   },
   "comments": [
     {
-      "type": "CommentLine",
-      "value": " todo: add requires - a list that includes a serenity config file",
-      "start": 229,
-      "end": 296,
+      "type": "CommentBlock",
+      "value": " istanbul ignore file covered in integration tests ",
+      "start": 0,
+      "end": 55,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 55
+        }
+      }
+    },
+    {
+      "type": "CommentLine",
+      "value": " todo: add requires - a list that includes a serenity config file",
+      "start": 285,
+      "end": 352,
+      "loc": {
+        "start": {
+          "line": 7,
           "column": 4
         },
         "end": {
-          "line": 6,
+          "line": 7,
           "column": 71
         }
       }

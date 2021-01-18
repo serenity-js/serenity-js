@@ -17,6 +17,10 @@
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title>Upgrading to Serenity/JS 2.0 | Serenity/JS</title>
+    <meta property="og:title" content="Upgrading to Serenity/JS 2.0 | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/handbook/integration/upgrading-to-serenity-js-2.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -115,12 +122,17 @@
                                 <li class="chapter"><a href="/handbook/integration/runtime-dependencies.html">Runtime dependencies</a></li>
                                 <li class="chapter"><a href="/handbook/integration/versioning.html">Versioning</a></li>
                                 <li class="chapter"><a href="/handbook/integration/installation.html">Installation</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Serenity/JS and Cucumber</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Serenity/JS and Jasmine</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Serenity/JS and Protractor</a></li>
-                                <li class="chapter"><a href="/handbook/integration/reporting.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Integrating with Cucumber</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Integrating with Jasmine</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-mocha.html">Integrating with Mocha</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a></li>
                                 <li class="chapter"><a href="/handbook/integration/jira-and-other-issue-trackers.html">Jira and other issue trackers</a></li>
                                 <li class="chapter"><a href="/handbook/integration/upgrading-to-serenity-js-2.html">Upgrading to Serenity/JS 2.0</a></li>
+                                <li class="header"><a href="/handbook/reporting/index.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/console-reporter.html">Console Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/serenity-bdd-reporter.html">Serenity BDD Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/artifact-archiver.html">Artifact Archiver</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/stream-reporter.html">Stream Reporter</a></li>
                                 <li class="header"><a href="/community/index.html">Community</a></li>
                                 <li class="chapter"><a href="/community/events-and-articles.html">Events and articles</a></li>
                                 <li class="chapter"><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
@@ -132,7 +144,7 @@
                     <article class="content">
                         <nav class="article-tools">
                             <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/upgrading-to-serenity-js-2.md">
-                                <i class="far fa-edit"></i> Edit on Github</a>
+                                <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="upgrading-to-serenity-js-2-0">Upgrading to Serenity/JS 2.0</h1>
@@ -441,7 +453,7 @@ I'll explain it in more depth in the next section.</p>
             If you'd like to see Serenity/JS support your favourity test runner, please <a href="https://github.com/serenity-js/serenity-js/issues">raise a ticket</a> or give a <i class="fas fa-thumbs-up"></i> thumbs up  to an existing proposal.
         </p>
         <p>
-            Also, please consider <a href="/support.html">becoming our Github Sponsor</a> to help the Serenity/JS team secure more time on the project to support more integrations.
+            Also, please consider <a href="/support.html">becoming our GitHub Sponsor</a> to help the Serenity/JS team secure more time on the project to support more integrations.
         </p>
     </div>
 </div>
@@ -1157,7 +1169,7 @@ They are as powerful as all the other expectations I showed you so far, which me
 <h2 id="before-you-go">Before you go</h2>
 <p>Hopefully this guide gave you a good understanding of how version 2.0 improves upon the original design
 and can help you to write even better acceptance tests.</p>
-<p>If Serenity/JS has made your life easier, please <a href="https://github.com/serenity-js/serenity-js">give us a star ★</a> on Github and consider <a href="https://github.com/sponsors/serenity-js">getting us a coffee</a> every now and then by becoming a <a href="https://github.com/sponsors/serenity-js">Github Sponsor</a> of the project from as little as $5. </p>
+<p>If Serenity/JS has made your life easier, please <a href="https://github.com/serenity-js/serenity-js">give us a star ★</a> on GitHub and consider <a href="https://github.com/sponsors/serenity-js">getting us a coffee</a> every now and then by becoming a <a href="https://github.com/sponsors/serenity-js">GitHub Sponsor</a> of the project from as little as $5. </p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-hands-helping"></i></div>
     <div class="text">
@@ -1173,13 +1185,15 @@ and can help you to write even better acceptance tests.</p>
 
 </body></html>
                         </section>
+
+
                         <footer class="d-print-none">
                                 <a class="previous" href="/handbook/integration/jira-and-other-issue-trackers.html">
                                     <i class="fa fa-chevron-left"></i>
                                     <span>Jira and other issue trackers</span>
                                 </a>
-                                <a class="next" href="/community/index.html">
-                                    <span>Community</span>
+                                <a class="next" href="/handbook/reporting/index.html">
+                                    <span>Reporting</span>
                                     <i class="fa fa-chevron-right"></i>
                                 </a>
                         </footer>
@@ -1217,10 +1231,9 @@ and can help you to write even better acceptance tests.</p>
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -1236,7 +1249,7 @@ and can help you to write even better acceptance tests.</p>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -1274,6 +1287,26 @@ and can help you to write even better acceptance tests.</p>
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>

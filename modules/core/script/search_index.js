@@ -132,6 +132,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/model~businessrule",
+    "class/src/model/BusinessRule.ts~BusinessRule.html",
+    "<span>BusinessRule</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/events~businessruledetected",
+    "class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html",
+    "<span>BusinessRuleDetected</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/events</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/actor~canhaveabilities",
     "class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html",
     "<span>CanHaveAbilities</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/actor</span>",
@@ -387,12 +399,6 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io/collections~mappable",
     "class/src/io/collections/mappable.ts~Mappable.html",
     "<span>Mappable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io/collections</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/core/lib/io~moduleloader",
-    "class/src/io/ModuleLoader.ts~ModuleLoader.html",
-    "<span>ModuleLoader</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
     "class"
   ],
   [
@@ -1447,26 +1453,44 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber6",
+    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber7",
     "ModuleLoader",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber24",
+    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber25",
     "ModuleLoader complains if neither a local version or the npm-resolved version could not be found",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber8",
-    "ModuleLoader returns the major version number of a given package",
+    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber9",
+    "ModuleLoader returns the version number of a given package",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber16",
-    "ModuleLoader returns the major version of the npm-resolved package if the local package could not be found",
+    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber17",
+    "ModuleLoader returns the version of the npm-resolved package if the local package could not be found",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber31",
+    "ModuleLoader when checking if a given module is available to be required",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber39",
+    "ModuleLoader when checking if a given module is available to be required returns false if the module is not available",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber33",
+    "ModuleLoader when checking if a given module is available to be required returns true if the module is available",
     "test"
   ],
   [
@@ -1959,6 +1983,18 @@ window.esdocSearchIndex = [
     "stagemanager asyncoperationattempted asyncoperationfailed src/stage/stagemanager.ts~stagemanager,stagemanager src/events/asyncoperationattempted.ts~asyncoperationattempted,asyncoperationattempted src/events/asyncoperationfailed.ts~asyncoperationfailed,asyncoperationfailed",
     "test-file/spec/stage/StageManager.spec.ts.html#lineNumber100",
     "StageManager provides details should the work in progress fail with an error",
+    "test"
+  ],
+  [
+    "streamreporter src/stage/crew/stream-reporter/streamreporter.ts~streamreporter,streamreporter",
+    "test-file/spec/stage/crew/stream-reporter/StreamReporter.spec.ts.html#lineNumber12",
+    "StreamReporter",
+    "test"
+  ],
+  [
+    "streamreporter src/stage/crew/stream-reporter/streamreporter.ts~streamreporter,streamreporter",
+    "test-file/spec/stage/crew/stream-reporter/StreamReporter.spec.ts.html#lineNumber53",
+    "StreamReporter prints the events it receives to output stream",
     "test"
   ],
   [
@@ -2748,6 +2784,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/stage/crew/stream-reporter/streamreporter.spec.ts",
+    "test-file/spec/stage/crew/stream-reporter/StreamReporter.spec.ts.html",
+    "spec/stage/crew/stream-reporter/StreamReporter.spec.ts",
+    "testFile"
+  ],
+  [
     "question#map src/screenplay/question.ts~question#map,question#map",
     "test-file/spec/screenplay/questions/mappings/string/split.spec.ts.html#lineNumber10",
     "split",
@@ -3135,6 +3177,24 @@ window.esdocSearchIndex = [
     "src/events/asyncoperationfailed.ts~asyncoperationfailed.fromjson",
     "class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html#static-method-fromJSON",
     "src/events/AsyncOperationFailed.ts~AsyncOperationFailed.fromJSON",
+    "method"
+  ],
+  [
+    "src/events/businessruledetected.ts",
+    "file/src/events/BusinessRuleDetected.ts.html",
+    "src/events/BusinessRuleDetected.ts",
+    "file"
+  ],
+  [
+    "src/events/businessruledetected.ts~businessruledetected#constructor",
+    "class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html#instance-constructor-constructor",
+    "src/events/BusinessRuleDetected.ts~BusinessRuleDetected#constructor",
+    "method"
+  ],
+  [
+    "src/events/businessruledetected.ts~businessruledetected.fromjson",
+    "class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html#static-method-fromJSON",
+    "src/events/BusinessRuleDetected.ts~BusinessRuleDetected.fromJSON",
     "method"
   ],
   [
@@ -3582,6 +3642,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/io/filesystem.ts~filesystem#createreadstream",
+    "class/src/io/FileSystem.ts~FileSystem.html#instance-method-createReadStream",
+    "src/io/FileSystem.ts~FileSystem#createReadStream",
+    "method"
+  ],
+  [
     "src/io/filesystem.ts~filesystem#createwritestreamto",
     "class/src/io/FileSystem.ts~FileSystem.html#instance-method-createWriteStreamTo",
     "src/io/FileSystem.ts~FileSystem#createWriteStreamTo",
@@ -3640,24 +3706,6 @@ window.esdocSearchIndex = [
     "file/src/io/ModuleLoader.ts.html",
     "src/io/ModuleLoader.ts",
     "file"
-  ],
-  [
-    "src/io/moduleloader.ts~moduleloader#constructor",
-    "class/src/io/ModuleLoader.ts~ModuleLoader.html#instance-constructor-constructor",
-    "src/io/ModuleLoader.ts~ModuleLoader#constructor",
-    "method"
-  ],
-  [
-    "src/io/moduleloader.ts~moduleloader#require",
-    "class/src/io/ModuleLoader.ts~ModuleLoader.html#instance-method-require",
-    "src/io/ModuleLoader.ts~ModuleLoader#require",
-    "method"
-  ],
-  [
-    "src/io/moduleloader.ts~moduleloader#versionof",
-    "class/src/io/ModuleLoader.ts~ModuleLoader.html#instance-method-versionOf",
-    "src/io/ModuleLoader.ts~ModuleLoader#versionOf",
-    "method"
   ],
   [
     "src/io/path.ts",
@@ -3909,6 +3957,24 @@ window.esdocSearchIndex = [
     "src/model/artifact.ts~artifact.oftype",
     "class/src/model/Artifact.ts~Artifact.html#static-method-ofType",
     "src/model/Artifact.ts~Artifact.ofType",
+    "method"
+  ],
+  [
+    "src/model/businessrule.ts",
+    "file/src/model/BusinessRule.ts.html",
+    "src/model/BusinessRule.ts",
+    "file"
+  ],
+  [
+    "src/model/businessrule.ts~businessrule#constructor",
+    "class/src/model/BusinessRule.ts~BusinessRule.html#instance-constructor-constructor",
+    "src/model/BusinessRule.ts~BusinessRule#constructor",
+    "method"
+  ],
+  [
+    "src/model/businessrule.ts~businessrule.fromjson",
+    "class/src/model/BusinessRule.ts~BusinessRule.html#static-method-fromJSON",
+    "src/model/BusinessRule.ts~BusinessRule.fromJSON",
     "method"
   ],
   [

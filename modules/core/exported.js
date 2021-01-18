@@ -16,6 +16,7 @@
 /** @external {@serenity-js/core/lib/events~AsyncOperationAttempted} /modules/core/class/src/events/AsyncOperationAttempted.ts~AsyncOperationAttempted.html */
 /** @external {@serenity-js/core/lib/events~AsyncOperationCompleted} /modules/core/class/src/events/AsyncOperationCompleted.ts~AsyncOperationCompleted.html */
 /** @external {@serenity-js/core/lib/events~AsyncOperationFailed} /modules/core/class/src/events/AsyncOperationFailed.ts~AsyncOperationFailed.html */
+/** @external {@serenity-js/core/lib/events~BusinessRuleDetected} /modules/core/class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html */
 /** @external {@serenity-js/core/lib/events~DomainEvent} /modules/core/class/src/events/DomainEvent.ts~DomainEvent.html */
 /** @external {@serenity-js/core/lib/events~FeatureNarrativeDetected} /modules/core/class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html */
 /** @external {@serenity-js/core/lib/events~InteractionFinished} /modules/core/class/src/events/InteractionFinished.ts~InteractionFinished.html */
@@ -47,7 +48,6 @@
 /** @external {@serenity-js/core/lib/io~FileFinder} /modules/core/class/src/io/FileFinder.ts~FileFinder.html */
 /** @external {@serenity-js/core/lib/io~FileSystem} /modules/core/class/src/io/FileSystem.ts~FileSystem.html */
 /** @external {@serenity-js/core/lib/io~FileSystemLocation} /modules/core/class/src/io/FileSystemLocation.ts~FileSystemLocation.html */
-/** @external {@serenity-js/core/lib/io~ModuleLoader} /modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html */
 /** @external {@serenity-js/core/lib/io~Path} /modules/core/class/src/io/Path.ts~Path.html */
 /** @external {@serenity-js/core/lib/io~Version} /modules/core/class/src/io/Version.ts~Version.html */
 /** @external {@serenity-js/core/lib/io/collections~Mappable} /modules/core/class/src/io/collections/mappable.ts~Mappable.html */
@@ -61,6 +61,7 @@
 /** @external {@serenity-js/core/lib/io~trimmed} /modules/core/function/index.html#static-function-trimmed */
 /** @external {@serenity-js/core/lib/model~ActivityDetails} /modules/core/class/src/model/ActivityDetails.ts~ActivityDetails.html */
 /** @external {@serenity-js/core/lib/model~Artifact} /modules/core/class/src/model/Artifact.ts~Artifact.html */
+/** @external {@serenity-js/core/lib/model~BusinessRule} /modules/core/class/src/model/BusinessRule.ts~BusinessRule.html */
 /** @external {@serenity-js/core/lib/model~Category} /modules/core/class/src/model/Category.ts~Category.html */
 /** @external {@serenity-js/core/lib/model~CorrelationId} /modules/core/class/src/model/CorrelationId.ts~CorrelationId.html */
 /** @external {@serenity-js/core/lib/model~Description} /modules/core/class/src/model/Description.ts~Description.html */

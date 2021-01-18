@@ -1,23 +1,23 @@
 {
-  "coverage": "88.7%",
-  "expectCount": 186,
-  "actualCount": 165,
+  "coverage": "86.62%",
+  "expectCount": 157,
+  "actualCount": 136,
   "files": {
     "src/cli/CucumberCLIAdapter.ts": {
-      "expectCount": 4,
-      "actualCount": 3,
+      "expectCount": 7,
+      "actualCount": 6,
       "undocumentLines": [
-        30
+        31
       ]
     },
     "src/cli/CucumberConfig.ts": {
-      "expectCount": 10,
-      "actualCount": 10,
+      "expectCount": 12,
+      "actualCount": 12,
       "undocumentLines": []
     },
     "src/cli/CucumberOptions.ts": {
-      "expectCount": 8,
-      "actualCount": 7,
+      "expectCount": 9,
+      "actualCount": 8,
       "undocumentLines": [
         15
       ]
@@ -26,10 +26,38 @@
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        11
+        18
       ]
     },
-    "src/gherkin/feature-files/Cache.ts": {
+    "src/index.ts": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        6
+      ]
+    },
+    "src/listeners/legacy/CucumberEventProtocolAdapter.ts": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/listeners/legacy/CucumberFormatterOptions.ts": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
+    "src/listeners/legacy/Dependencies.ts": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "src/listeners/legacy/cucumber-0.ts": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
+    "src/listeners/legacy/gherkin/feature-files/Cache.ts": {
       "expectCount": 9,
       "actualCount": 7,
       "undocumentLines": [
@@ -37,230 +65,133 @@
         104
       ]
     },
-    "src/gherkin/feature-files/FeatureFileLoader.ts": {
+    "src/listeners/legacy/gherkin/feature-files/FeatureFileLoader.ts": {
       "expectCount": 3,
       "actualCount": 2,
       "undocumentLines": [
         19
       ]
     },
-    "src/gherkin/feature-files/FeatureFileMap.ts": {
+    "src/listeners/legacy/gherkin/feature-files/FeatureFileMap.ts": {
       "expectCount": 6,
       "actualCount": 5,
       "undocumentLines": [
         16
       ]
     },
-    "src/gherkin/feature-files/FeatureFileMapper.ts": {
+    "src/listeners/legacy/gherkin/feature-files/FeatureFileMapper.ts": {
       "expectCount": 6,
       "actualCount": 6,
       "undocumentLines": []
     },
-    "src/gherkin/feature-files/FeatureFileParser.ts": {
+    "src/listeners/legacy/gherkin/feature-files/FeatureFileParser.ts": {
       "expectCount": 3,
       "actualCount": 2,
       "undocumentLines": [
         18
       ]
     },
-    "src/gherkin/feature-files/errors/ItemNotFoundError.ts": {
+    "src/listeners/legacy/gherkin/feature-files/errors/ItemNotFoundError.ts": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
         14
       ]
     },
-    "src/gherkin/feature-files/errors/UnableToParseFeatureFileError.ts": {
+    "src/listeners/legacy/gherkin/feature-files/errors/UnableToParseFeatureFileError.ts": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
         14
       ]
     },
-    "src/gherkin/feature-files/errors/UnableToReadFeatureFileError.ts": {
+    "src/listeners/legacy/gherkin/feature-files/errors/UnableToReadFeatureFileError.ts": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
         14
       ]
     },
-    "src/gherkin/feature-files/errors/UnableToRetrieveFeatureFileMap.ts": {
+    "src/listeners/legacy/gherkin/feature-files/errors/UnableToRetrieveFeatureFileMap.ts": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
         14
       ]
     },
-    "src/gherkin/model/Background.ts": {
+    "src/listeners/legacy/gherkin/model/Background.ts": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
         18
       ]
     },
-    "src/gherkin/model/Feature.ts": {
+    "src/listeners/legacy/gherkin/model/Feature.ts": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
         18
       ]
     },
-    "src/gherkin/model/FeatureFileNode.ts": {
+    "src/listeners/legacy/gherkin/model/FeatureFileNode.ts": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
         16
       ]
     },
-    "src/gherkin/model/Hook.ts": {
+    "src/listeners/legacy/gherkin/model/Hook.ts": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
     },
-    "src/gherkin/model/Scenario.ts": {
+    "src/listeners/legacy/gherkin/model/Scenario.ts": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
         19
       ]
     },
-    "src/gherkin/model/ScenarioOutline.ts": {
+    "src/listeners/legacy/gherkin/model/ScenarioOutline.ts": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
         18
       ]
     },
-    "src/gherkin/model/Step.ts": {
+    "src/listeners/legacy/gherkin/model/Step.ts": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
     },
-    "src/gherkin/nodes/ASTNode.ts": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/Background.ts": {
-      "expectCount": 2,
-      "actualCount": 2,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/Comment.ts": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/DataTable.ts": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/DocString.ts": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/Examples.ts": {
-      "expectCount": 8,
-      "actualCount": 8,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/Feature.ts": {
-      "expectCount": 8,
-      "actualCount": 8,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/GherkinDocument.ts": {
-      "expectCount": 4,
-      "actualCount": 4,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/Location.ts": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/Scenario.ts": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/ScenarioDefinition.ts": {
-      "expectCount": 7,
-      "actualCount": 7,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/ScenarioOutline.ts": {
-      "expectCount": 4,
-      "actualCount": 4,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/Step.ts": {
-      "expectCount": 5,
-      "actualCount": 5,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/StepArgument.ts": {
-      "expectCount": 2,
-      "actualCount": 2,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/TableCell.ts": {
-      "expectCount": 2,
-      "actualCount": 2,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/TableRow.ts": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "src/gherkin/nodes/Tag.ts": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "src/index.ts": {
-      "expectCount": 3,
-      "actualCount": 0,
-      "undocumentLines": [
-        7,
-        9,
-        10
-      ]
-    },
-    "src/listeners/CucumberEventProtocolAdapter.ts": {
+    "src/listeners/legacy/index.ts": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
     },
-    "src/listeners/CucumberFormatterOptions.ts": {
-      "expectCount": 9,
-      "actualCount": 9,
-      "undocumentLines": []
-    },
-    "src/listeners/Dependencies.ts": {
-      "expectCount": 7,
-      "actualCount": 7,
-      "undocumentLines": []
-    },
-    "src/listeners/cucumber-0.ts": {
-      "expectCount": 9,
-      "actualCount": 9,
-      "undocumentLines": []
-    },
-    "src/listeners/index.ts": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
-    },
-    "src/notifier/Notifier.ts": {
+    "src/listeners/legacy/notifier/Notifier.ts": {
       "expectCount": 19,
       "actualCount": 18,
       "undocumentLines": [
-        85
+        84
       ]
+    },
+    "src/listeners/messages/index.ts": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/listeners/messages/parser/CucumberMessagesParser.ts": {
+      "expectCount": 26,
+      "actualCount": 25,
+      "undocumentLines": [
+        144
+      ]
+    },
+    "src/listeners/messages/parser/TestStepFormatter.ts": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
     }
   }
 }

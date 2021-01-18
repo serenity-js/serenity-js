@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 292,
+  "end": 453,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 15,
+      "line": 22,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 292,
+    "end": 453,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 15,
+        "line": 22,
         "column": 0
       }
     },
@@ -47,9 +47,9 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
             "start": 61,
-            "end": 105,
+            "end": 106,
             "loc": {
               "start": {
                 "line": 2,
@@ -57,6 +57,22 @@
               },
               "end": {
                 "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Thrown when more than one Cucumber step definition matches\n *  a Cucumber step.\n *\n * @extends {@serenity-js/core/lib/errors~RuntimeError}\n ",
+            "start": 109,
+            "end": 268,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
                 "column": 3
               }
             }
@@ -137,24 +153,24 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 108,
-        "end": 291,
+        "start": 269,
+        "end": 452,
         "loc": {
           "start": {
-            "line": 10,
+            "line": 17,
             "column": 0
           },
           "end": {
-            "line": 14,
+            "line": 21,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
             "start": 61,
-            "end": 105,
+            "end": 106,
             "loc": {
               "start": {
                 "line": 2,
@@ -165,6 +181,22 @@
                 "column": 3
               }
             }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Thrown when more than one Cucumber step definition matches\n *  a Cucumber step.\n *\n * @extends {@serenity-js/core/lib/errors~RuntimeError}\n ",
+            "start": 109,
+            "end": 268,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
           }
         ],
         "exportKind": "value",
@@ -172,29 +204,29 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 115,
-          "end": 291,
+          "start": 276,
+          "end": 452,
           "loc": {
             "start": {
-              "line": 10,
+              "line": 17,
               "column": 7
             },
             "end": {
-              "line": 14,
+              "line": 21,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 121,
-            "end": 149,
+            "start": 282,
+            "end": 310,
             "loc": {
               "start": {
-                "line": 10,
+                "line": 17,
                 "column": 13
               },
               "end": {
-                "line": 10,
+                "line": 17,
                 "column": 41
               },
               "identifierName": "AmbiguousStepDefinitionError"
@@ -203,15 +235,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 158,
-            "end": 170,
+            "start": 319,
+            "end": 331,
             "loc": {
               "start": {
-                "line": 10,
+                "line": 17,
                 "column": 50
               },
               "end": {
-                "line": 10,
+                "line": 17,
                 "column": 62
               },
               "identifierName": "RuntimeError"
@@ -220,45 +252,45 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 171,
-            "end": 291,
+            "start": 332,
+            "end": 452,
             "loc": {
               "start": {
-                "line": 10,
+                "line": 17,
                 "column": 63
               },
               "end": {
-                "line": 14,
+                "line": 21,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 177,
-                "end": 289,
+                "start": 338,
+                "end": 450,
                 "loc": {
                   "start": {
-                    "line": 11,
+                    "line": 18,
                     "column": 4
                   },
                   "end": {
-                    "line": 13,
+                    "line": 20,
                     "column": 5
                   }
                 },
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 177,
-                  "end": 188,
+                  "start": 338,
+                  "end": 349,
                   "loc": {
                     "start": {
-                      "line": 11,
+                      "line": 18,
                       "column": 4
                     },
                     "end": {
-                      "line": 11,
+                      "line": 18,
                       "column": 15
                     },
                     "identifierName": "constructor"
@@ -273,15 +305,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 189,
-                    "end": 204,
+                    "start": 350,
+                    "end": 365,
                     "loc": {
                       "start": {
-                        "line": 11,
+                        "line": 18,
                         "column": 16
                       },
                       "end": {
-                        "line": 11,
+                        "line": 18,
                         "column": 31
                       },
                       "identifierName": "message"
@@ -289,29 +321,29 @@
                     "name": "message",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 196,
-                      "end": 204,
+                      "start": 357,
+                      "end": 365,
                       "loc": {
                         "start": {
-                          "line": 11,
+                          "line": 18,
                           "column": 23
                         },
                         "end": {
-                          "line": 11,
+                          "line": 18,
                           "column": 31
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSStringKeyword",
-                        "start": 198,
-                        "end": 204,
+                        "start": 359,
+                        "end": 365,
                         "loc": {
                           "start": {
-                            "line": 11,
+                            "line": 18,
                             "column": 25
                           },
                           "end": {
-                            "line": 11,
+                            "line": 18,
                             "column": 31
                           }
                         }
@@ -320,15 +352,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 206,
-                    "end": 219,
+                    "start": 367,
+                    "end": 380,
                     "loc": {
                       "start": {
-                        "line": 11,
+                        "line": 18,
                         "column": 33
                       },
                       "end": {
-                        "line": 11,
+                        "line": 18,
                         "column": 46
                       },
                       "identifierName": "cause"
@@ -337,43 +369,43 @@
                     "optional": true,
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 212,
-                      "end": 219,
+                      "start": 373,
+                      "end": 380,
                       "loc": {
                         "start": {
-                          "line": 11,
+                          "line": 18,
                           "column": 39
                         },
                         "end": {
-                          "line": 11,
+                          "line": 18,
                           "column": 46
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 214,
-                        "end": 219,
+                        "start": 375,
+                        "end": 380,
                         "loc": {
                           "start": {
-                            "line": 11,
+                            "line": 18,
                             "column": 41
                           },
                           "end": {
-                            "line": 11,
+                            "line": 18,
                             "column": 46
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 214,
-                          "end": 219,
+                          "start": 375,
+                          "end": 380,
                           "loc": {
                             "start": {
-                              "line": 11,
+                              "line": 18,
                               "column": 41
                             },
                             "end": {
-                              "line": 11,
+                              "line": 18,
                               "column": 46
                             },
                             "identifierName": "Error"
@@ -386,58 +418,58 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 221,
-                  "end": 289,
+                  "start": 382,
+                  "end": 450,
                   "loc": {
                     "start": {
-                      "line": 11,
+                      "line": 18,
                       "column": 48
                     },
                     "end": {
-                      "line": 13,
+                      "line": 20,
                       "column": 5
                     }
                   },
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 231,
-                      "end": 283,
+                      "start": 392,
+                      "end": 444,
                       "loc": {
                         "start": {
-                          "line": 12,
+                          "line": 19,
                           "column": 8
                         },
                         "end": {
-                          "line": 12,
+                          "line": 19,
                           "column": 60
                         }
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 231,
-                        "end": 282,
+                        "start": 392,
+                        "end": 443,
                         "loc": {
                           "start": {
-                            "line": 12,
+                            "line": 19,
                             "column": 8
                           },
                           "end": {
-                            "line": 12,
+                            "line": 19,
                             "column": 59
                           }
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 231,
-                          "end": 236,
+                          "start": 392,
+                          "end": 397,
                           "loc": {
                             "start": {
-                              "line": 12,
+                              "line": 19,
                               "column": 8
                             },
                             "end": {
-                              "line": 12,
+                              "line": 19,
                               "column": 13
                             }
                           }
@@ -445,15 +477,15 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 237,
-                            "end": 265,
+                            "start": 398,
+                            "end": 426,
                             "loc": {
                               "start": {
-                                "line": 12,
+                                "line": 19,
                                 "column": 14
                               },
                               "end": {
-                                "line": 12,
+                                "line": 19,
                                 "column": 42
                               },
                               "identifierName": "AmbiguousStepDefinitionError"
@@ -462,15 +494,15 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 267,
-                            "end": 274,
+                            "start": 428,
+                            "end": 435,
                             "loc": {
                               "start": {
-                                "line": 12,
+                                "line": 19,
                                 "column": 44
                               },
                               "end": {
-                                "line": 12,
+                                "line": 19,
                                 "column": 51
                               },
                               "identifierName": "message"
@@ -479,15 +511,15 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 276,
-                            "end": 281,
+                            "start": 437,
+                            "end": 442,
                             "loc": {
                               "start": {
-                                "line": 12,
+                                "line": 19,
                                 "column": 53
                               },
                               "end": {
-                                "line": 12,
+                                "line": 19,
                                 "column": 58
                               },
                               "identifierName": "cause"
@@ -506,9 +538,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
               "start": 61,
-              "end": 105,
+              "end": 106,
               "loc": {
                 "start": {
                   "line": 2,
@@ -516,6 +548,22 @@
                 },
                 "end": {
                   "line": 7,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  Thrown when more than one Cucumber step definition matches\n *  a Cucumber step.\n *\n * @extends {@serenity-js/core/lib/errors~RuntimeError}\n ",
+              "start": 109,
+              "end": 268,
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 0
+                },
+                "end": {
+                  "line": 16,
                   "column": 3
                 }
               }
@@ -530,9 +578,9 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 3 \n ",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
       "start": 61,
-      "end": 105,
+      "end": 106,
       "loc": {
         "start": {
           "line": 2,
@@ -540,6 +588,22 @@
         },
         "end": {
           "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Thrown when more than one Cucumber step definition matches\n *  a Cucumber step.\n *\n * @extends {@serenity-js/core/lib/errors~RuntimeError}\n ",
+      "start": 109,
+      "end": 268,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 16,
           "column": 3
         }
       }

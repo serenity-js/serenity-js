@@ -318,6 +318,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/events~businessruledetected",
+    "/modules/core/class/src/events/BusinessRuleDetected.ts~BusinessRuleDetected.html",
+    "@serenity-js/core/lib/events~BusinessRuleDetected",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/events~domainevent",
     "/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html",
     "@serenity-js/core/lib/events~DomainEvent",
@@ -498,12 +504,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/core/lib/io~moduleloader",
-    "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
-    "@serenity-js/core/lib/io~ModuleLoader",
-    "external"
-  ],
-  [
     "@serenity-js/core/lib/io~path",
     "/modules/core/class/src/io/Path.ts~Path.html",
     "@serenity-js/core/lib/io~Path",
@@ -669,6 +669,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/model~artifact",
     "/modules/core/class/src/model/Artifact.ts~Artifact.html",
     "@serenity-js/core/lib/model~Artifact",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/model~businessrule",
+    "/modules/core/class/src/model/BusinessRule.ts~BusinessRule.html",
+    "@serenity-js/core/lib/model~BusinessRule",
     "external"
   ],
   [

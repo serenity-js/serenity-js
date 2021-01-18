@@ -17,6 +17,10 @@
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title>Architecture | Serenity/JS</title>
+    <meta property="og:title" content="Architecture | Serenity/JS"/>
+    <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:url" content="https://serenity-js.org/handbook/integration/architecture.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -72,6 +76,9 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                    <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
+                </a>
                 <a href="https://github.com/serenity-js" class="web-nav-item">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
@@ -115,12 +122,17 @@
                                 <li class="chapter"><a href="/handbook/integration/runtime-dependencies.html">Runtime dependencies</a></li>
                                 <li class="chapter"><a href="/handbook/integration/versioning.html">Versioning</a></li>
                                 <li class="chapter"><a href="/handbook/integration/installation.html">Installation</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Serenity/JS and Cucumber</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Serenity/JS and Jasmine</a></li>
-                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Serenity/JS and Protractor</a></li>
-                                <li class="chapter"><a href="/handbook/integration/reporting.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Integrating with Cucumber</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Integrating with Jasmine</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-mocha.html">Integrating with Mocha</a></li>
+                                <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a></li>
                                 <li class="chapter"><a href="/handbook/integration/jira-and-other-issue-trackers.html">Jira and other issue trackers</a></li>
                                 <li class="chapter"><a href="/handbook/integration/upgrading-to-serenity-js-2.html">Upgrading to Serenity/JS 2.0</a></li>
+                                <li class="header"><a href="/handbook/reporting/index.html">Reporting</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/console-reporter.html">Console Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/serenity-bdd-reporter.html">Serenity BDD Reporter</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/artifact-archiver.html">Artifact Archiver</a></li>
+                                <li class="chapter"><a href="/handbook/reporting/stream-reporter.html">Stream Reporter</a></li>
                                 <li class="header"><a href="/community/index.html">Community</a></li>
                                 <li class="chapter"><a href="/community/events-and-articles.html">Events and articles</a></li>
                                 <li class="chapter"><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
@@ -132,7 +144,7 @@
                     <article class="content">
                         <nav class="article-tools">
                             <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/architecture.md">
-                                <i class="far fa-edit"></i> Edit on Github</a>
+                                <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="architecture">Architecture</h1>
@@ -147,7 +159,7 @@
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The easiest way to get started with Serenity/JS is by using one of the <a href="https://github.com/serenity-js/">template projects available on Github</a>. Serenity/JS template project come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
+    The easiest way to get started with Serenity/JS is by using one of the <a href="https://github.com/serenity-js/">template projects available on GitHub</a>. Serenity/JS template project come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
     </p></div>
 </div> 
 
@@ -168,20 +180,22 @@ in your project.</p>
 <p>Out of the box, Serenity/JS provides adapters for:</p>
 <ul>
 <li>a recent version of Jasmine - <a href="/modules/jasmine"><code>@serenity-js/jasmine</code></a></li>
+<li>a recent version of Mocha - <a href="/modules/mocha"><code>@serenity-js/mocha</code></a></li>
 <li>all major versions of Cucumber.js - <a href="/modules/cucumber"><code>@serenity-js/cucumber</code></a></li>
 </ul>
 <h3 id="testing-web-interfaces">Testing web interfaces</h3>
 <p>If you'd like to test a web interface, you'll need the <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> module
 in addition to one of the test runner adapters mentioned above.</p>
 <p>Protractor manages the web browsers used in your tests but delegates the task of actually <em>running</em> the tests to <a href="https://github.com/angular/protractor/blob/master/docs/frameworks.md">"Protractor Frameworks"</a>. While in the past Protractor used to ship with adapters for several different test runners, more recently the project has limited its support to Jasmine and relies on community-supported modules to integrate the tool with other test runners.</p>
-<p>Since <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> acts as a "Protractor Framework" it replaces the default "Jasmine Framework" and takes on the responsibility of delegating the task of running the test either to Jasmine, Cucumber.js, or another test runner Serenity/JS might support in the future.</p>
-<p>This means that in order to run a web-based test you need two Serenity/JS modules - <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> and either <a href="/modules/jasmine"><code>@serenity-js/jasmine</code></a> or <a href="/modules/cucumber"><code>@serenity-js/cucumber</code></a>.</p>
+<p>Since <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> acts as a "Protractor Framework" it replaces the default "Jasmine Framework" and takes on the responsibility of delegating the task of running the test either to Jasmine, Mocha, Cucumber.js, or another test runner Serenity/JS might support in the future.</p>
+<p>This means that in order to run a web-based test you need two Serenity/JS modules - <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> and either <a href="/modules/jasmine"><code>@serenity-js/jasmine</code></a>, <a href="/modules/mocha"><code>@serenity-js/mocha</code></a>, or <a href="/modules/cucumber"><code>@serenity-js/cucumber</code></a>.</p>
 <h3 id="testing-rest-interfaces">Testing REST interfaces</h3>
 <p>The <a href="/modules/rest"><code>@serenity-js/rest</code></a> module provides a library of Screenplay Pattern-style interactions, questions and abilities to let your test actors interact with REST and HTTP APIs.</p>
 <h3 id="assertions">Assertions</h3>
 <p>The <a href="/modules/assertions"><code>@serenity-js/assertions</code></a> module provides a library of Screenplay Pattern-style assertions.</p>
 <h3 id="reporting-modules">Reporting modules</h3>
-<p>Serenity/JS provides several modules with reporting capabilities.</p>
+<p>Serenity/JS provides several modules with reporting capabilities.
+You can learn more about reporting capabilities of the framework from the <a href="/handbook/reporting/">reporting guide</a>.</p>
 <h4 id="console-reporter">Console Reporter</h4>
 <p>The <a href="/modules/console-reporter"><code>@serenity-js/console-reporter</code></a> module prints the test execution log to the console.</p>
 <h4 id="serenity-bdd">Serenity BDD</h4>
@@ -217,6 +231,8 @@ in addition to one of the test runner adapters mentioned above.</p>
 </div>
 </body></html>
                         </section>
+
+
                         <footer class="d-print-none">
                                 <a class="previous" href="/handbook/integration/index.html">
                                     <i class="fa fa-chevron-left"></i>
@@ -261,10 +277,9 @@ in addition to one of the test runner adapters mentioned above.</p>
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Serenity/JS on Github</a></li>
-                    <li><a href="/handbook/integration">Integration guide</a></li>
+                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
-                    <li><a href="/contributing.html">Contributing</a></li>
                     <li><a href="/license.html">License</a></li>
                 </ul>
             </div>
@@ -280,7 +295,7 @@ in addition to one of the test runner adapters mentioned above.</p>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mx-auto ftr-bt ftr-oneline ">
-                Made with love in London, UK &copy; 2016 - 2020 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
+                Made with love in London, UK &copy; 2016 - 2021 <a href="https://janmolak.com" target="_blank">Jan Molak</a>, smartcode ltd.
             </div>
         </div>
     </div>
@@ -318,6 +333,26 @@ in addition to one of the test runner adapters mentioned above.</p>
         data-message="We use analytical cookies to optimise the performance of this website. By continuing to use this site you agree to help us make it better for everyone."
         data-close-text="Got it!"
 >
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        // theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+        },
+        themeVariables: {
+            // primaryColor: '#ffffff',
+            // primaryBorderColor: '#373a3c',
+            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important',
+            defaultLinkColor: '#c1c1ff',
+            edgeLabelBackground: '#fff',
+        }
+    });
 </script>
 </body>
 </html>
