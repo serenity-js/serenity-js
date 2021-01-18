@@ -70,7 +70,7 @@ const GreetTheWorld = () =>
 
 As you can see, there are only three things you need to define an interaction:
 - the name of the function that will create the interaction, in this case `GreetTheWorld`,
-- the description of the interaction - `#actor greets the world`, which will be used when [reporting](/handbook/integration/reporting.html)
+- the description of the interaction - `#actor greets the world`, which will be used when [reporting](/handbook/reporting/)
 the interaction,
 - the interaction body - a function which takes an `actor` and uses their ability to `WriteToStream` to perform a call to an external system or perform a side effect, and returns a `void` or a `Promise<void>`.
 

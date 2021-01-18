@@ -9,13 +9,13 @@ The goal of the Serenity/JS Handbook is to help you get started with writing sca
 The book consists of the following parts:
 - **Overview**, which provides an overview of the project, its license, support, and contribution models. 
 - **Thinking in Serenity/JS**, which provides examples and a step-by-step explanation of the ideas behind Serenity/JS, to help you understand not only the APIs of the framework, but also its spirit. 
-- **Integration Guide**, which provides information on integrating Serenity/JS with other tools and test frameworks.
-- **Design Guide**, which provides an in-depth explanation and more advanced usage examples of the key elements of the Serenity/JS    
+- **Design Guide**, which provides an in-depth explanation and more advanced usage examples of the key elements of the Serenity/JS framework.
+- **Integration Guide**, which provides information on integrating Serenity/JS with other tools and test runners.
+- **Reporting Guide**, which looks into Serenity/JS reporting architecture and provides an overview of the reporting services that come with the framework.
 
 If you'd like to dive straight into the code, visit [Serenity/JS Github](https://github.com/serenity-js) where you can find:
  - [example projects](https://github.com/serenity-js/serenity-js/tree/master/examples) demonstrating the usage of the framework,
  - [template repositories](https://github.com/serenity-js) to use as a starting point for your projects.
-
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-tools"></i></div>

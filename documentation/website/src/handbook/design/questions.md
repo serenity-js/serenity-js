@@ -37,7 +37,7 @@ const NameOfTheActor = () =>
 
 As you can see above, there are only three things you need to define a custom question:
 - the name of the function that will create the question, in this case `NameOfTheActor()`,
-- a description of the question's subject, here `'the name of the actor'`, which will be used when [reporting](/handbook/integration/reporting.html) on the actor answering this question,
+- a description of the question's subject, here `'the name of the actor'`, which will be used when [reporting](/handbook/reporting/) on the actor answering this question,
 - a question body, which is a function that receives an [`Actor`](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html) and returns an answer to the question - here: `(actor: Actor) => actor.name`.
 
 While in the above example we return the answer to the question directly, a much more common and idiomatic approach is to use the actor's [abilities](/handbook/design/abilities.html) to produce it.
