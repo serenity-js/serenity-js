@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.20.0](https://github.com/serenity-js/serenity-js/compare/v2.19.10...v2.20.0) (2021-01-18)
+
+
+### Bug Fixes
+
+* **core:** ScenarioParameters now requires Description to be provided ([cfa4800](https://github.com/serenity-js/serenity-js/commit/cfa4800d436c165a9dbe74e71d76715084354f46))
+* **cucumber:** corrected how Cucumber hooks are reported ([3ae1cd7](https://github.com/serenity-js/serenity-js/commit/3ae1cd744e6262b7e3eeff7796e579a201639eb8))
+* **cucumber:** corrected the CucumberFormatterOptions interface ([463047b](https://github.com/serenity-js/serenity-js/commit/463047ba764fd2773d8a3b98f09b842ccb1a614c))
+* **cucumber:** corrected the type definition of CucumberConfig#worldParameters ([570c3b6](https://github.com/serenity-js/serenity-js/commit/570c3b637d87093d9cad411e762839cc78fd968d))
+
+
+### Features
+
+* **cucumber:** Support for Cucumber 7 ([80126b1](https://github.com/serenity-js/serenity-js/commit/80126b1c30d92a33ee80b4679ab6673e456e13b9)), closes [/github.com/cucumber/cucumber-js/blob/master/CHANGELOG.md#700-2020-12-21](https://github.com//github.com/cucumber/cucumber-js/blob/master/CHANGELOG.md/issues/700-2020-12-21)
+
+
+
+
+
 ## [2.19.10](https://github.com/serenity-js/serenity-js/compare/v2.19.9...v2.19.10) (2020-12-22)
 
 **Note:** Version bump only for package @serenity-js/cucumber

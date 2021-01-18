@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.20.0](https://github.com/serenity-js/serenity-js/compare/v2.19.10...v2.20.0) (2021-01-18)
+
+
+### Bug Fixes
+
+* **core:** ensure all the DomainEvents are always correct at runtime ([1341bfb](https://github.com/serenity-js/serenity-js/commit/1341bfb24a7db39fe73921c6d6f7dffa287a6747))
+* **core:** ModuleLoader.hasAvailable checks if a given dependency is available ([f67c982](https://github.com/serenity-js/serenity-js/commit/f67c982a15d339c71b52e9afab81666df6c76ad1))
+* **core:** ScenarioParameters now requires Description to be provided ([cfa4800](https://github.com/serenity-js/serenity-js/commit/cfa4800d436c165a9dbe74e71d76715084354f46))
+
+
+### Features
+
+* **core:** support for reporting BusinessRules ([02efcee](https://github.com/serenity-js/serenity-js/commit/02efceeb10c5f872f720bd2270630cde60268bef))
+* **serenity-bdd:** upgraded to Serenity BDD CLI 2.1.12 and improved the downloader ([1ad82e1](https://github.com/serenity-js/serenity-js/commit/1ad82e10b482e99bba8c247d3822014f208ecba4)), closes [#625](https://github.com/serenity-js/serenity-js/issues/625)
+
+
+
+
+
 ## [2.19.10](https://github.com/serenity-js/serenity-js/compare/v2.19.9...v2.19.10) (2020-12-22)
 
 
