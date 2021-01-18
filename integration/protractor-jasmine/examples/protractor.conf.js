@@ -26,12 +26,6 @@ exports.config = {
         ]
     },
 
-    jasmineNodeOpts: {
-        requires: [
-            path.resolve(__dirname, '../node_modules/@serenity-js/jasmine'),
-        ]
-    },
-
     onPrepare: function() {
         return browser.waitForAngularEnabled(false);
     },
