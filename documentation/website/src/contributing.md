@@ -13,9 +13,9 @@ You're awesome &#x1F60A;
 The Serenity/JS Handbook is an evolving project and there are parts of the book that you might find incomplete, or simply not written yet.
 
 You can contribute to the evolution of the Serenity/JS Handbook by:
-- correcting any errors you find - via <i class="far fa-edit"></i> Edit on Github
-- sharing your ideas for topics you'd like to see covered - via [Github issues](https://github.com/serenity-js/serenity-js/issues/new)
-- sponsoring the Serenity/JS project - via [Github Sponsors](https://github.com/sponsors/serenity-js)
+- correcting any errors you find - via <i class="far fa-edit"></i> Edit on GitHub
+- sharing your ideas for topics you'd like to see covered - via [GitHub issues](https://github.com/serenity-js/serenity-js/issues/new)
+- sponsoring the Serenity/JS project - via [GitHub Sponsors](https://github.com/sponsors/serenity-js)
 
 <a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
 
@@ -25,7 +25,7 @@ If you have a question about the framework or its features, please check out the
 
 ### Reporting defects
 
-If you believe you have found a bug in Serenity/JS please raise a ticket on [Serenity/JS Github](https://github.com/serenity-js/serenity-js).
+If you believe you have found a bug in Serenity/JS please raise a ticket on [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js).
 
 When reporting a bug, please kindly remember to:
 - Give the ticket a succinct yet descriptive **title** (i.e. Feature X is broken vs, Feature X is not triggered upon event Y)
@@ -41,12 +41,12 @@ When reporting a bug, please kindly remember to:
 
 Serenity/JS is an open source project that's open to your contributions and [pull requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 
-Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on [Serenity/JS Github](https://github.com/serenity-js/serenity-js/issues/new) or [chatting with the development](https://gitter.im/serenity-js/Lobby) team on Gitter.
+Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js/issues/new) or [chatting with the development](https://gitter.im/serenity-js/Lobby) team on Gitter.
 
 #### Working with the Serenity/JS code base
 
 If you have decided to raise a pull request, you'll need to:
-- [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the [Serenity/JS mono-repo](https://github.com/serenity-js/serenity-js) to your Github account
+- [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the [Serenity/JS mono-repo](https://github.com/serenity-js/serenity-js) to your GitHub account
 - [Clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) your fork to your machine
 - Make sure you have the [runtime dependencies](/handbook/integration/runtime-dependencies.html) installed
 - Install the Node.js dependencies by running `npm ci` in the project root. Serenity/JS uses [Lerna.js](https://github.com/lerna/lerna) to manage the `@serenity-js/*` modules you'll find in the mono-repo, so it will take care of propagating the `npm ci` and other commands to the modules.
