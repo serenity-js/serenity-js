@@ -42,6 +42,7 @@ The next thing you need is an adapter that integrates your test runner of choice
 
 Out of the box, Serenity/JS provides adapters for:
 - a recent version of Jasmine - [`@serenity-js/jasmine`](/modules/jasmine)
+- a recent version of Mocha - [`@serenity-js/mocha`](/modules/mocha)
 - all major versions of Cucumber.js - [`@serenity-js/cucumber`](/modules/cucumber)
 
 ### Testing web interfaces
@@ -51,9 +52,9 @@ in addition to one of the test runner adapters mentioned above.
 
 Protractor manages the web browsers used in your tests but delegates the task of actually _running_ the tests to ["Protractor Frameworks"](https://github.com/angular/protractor/blob/master/docs/frameworks.md). While in the past Protractor used to ship with adapters for several different test runners, more recently the project has limited its support to Jasmine and relies on community-supported modules to integrate the tool with other test runners.
  
-Since [`@serenity-js/protractor`](/modules/protractor) acts as a "Protractor Framework" it replaces the default "Jasmine Framework" and takes on the responsibility of delegating the task of running the test either to Jasmine, Cucumber.js, or another test runner Serenity/JS might support in the future.
+Since [`@serenity-js/protractor`](/modules/protractor) acts as a "Protractor Framework" it replaces the default "Jasmine Framework" and takes on the responsibility of delegating the task of running the test either to Jasmine, Mocha, Cucumber.js, or another test runner Serenity/JS might support in the future.
 
-This means that in order to run a web-based test you need two Serenity/JS modules - [`@serenity-js/protractor`](/modules/protractor) and either [`@serenity-js/jasmine`](/modules/jasmine) or [`@serenity-js/cucumber`](/modules/cucumber).
+This means that in order to run a web-based test you need two Serenity/JS modules - [`@serenity-js/protractor`](/modules/protractor) and either [`@serenity-js/jasmine`](/modules/jasmine), [`@serenity-js/mocha`](/modules/mocha), or [`@serenity-js/cucumber`](/modules/cucumber).
 
 ### Testing REST interfaces
 
@@ -66,6 +67,7 @@ The [`@serenity-js/assertions`](/modules/assertions) module provides a library o
 ### Reporting modules
 
 Serenity/JS provides several modules with reporting capabilities.
+You can learn more about reporting capabilities of the framework from the [reporting guide](/handbook/reporting/).
 
 #### Console Reporter
 

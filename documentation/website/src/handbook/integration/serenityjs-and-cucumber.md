@@ -1,77 +1,78 @@
 ---
-title: Serenity/JS and Cucumber
+title: Integrating with Cucumber
 layout: handbook.hbs
 cta: cta-share
 ---
-# Serenity/JS and Cucumber
+# Integrating with Cucumber
 
 [Cucumber](https://github.com/cucumber/cucumber-js) is a popular [collaboration tool](https://cucumber.io/blog/collaboration/the-worlds-most-misunderstood-collaboration-tool/) and a test runner capable of executing test scenarios written in [plain language](https://cucumber.io/docs/guides/overview/).
 
-When integration with Cucumber is enabled, your Serenity/JS-based test framework can gather and report additional data about your Cucumber scenarios. This includes their name, file system location, details of executed Cucumber steps, their arguments, provide code snippets for steps with missing implementation, and more.
+When you integrate Cucumber.js with Serenity/JS, the framework gathers and reports additional data about your Cucumber scenarios, even if they don't follow the [Screenplay Pattern](/handbook/thinking-in-serenity-js/screenplay-pattern.html) yet! Information reported includes scenario details, details of executed Cucumber steps, their arguments, provide code snippets for steps with missing implementation, and much more.
 
-If you prefer to dive straight into the code, several reference implementations are available in the [Serenity/JS repository](https://github.com/serenity-js/serenity-js/tree/master/examples).
+If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/master/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js).
+Those implementations demonstrate using Cucumber and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/master/examples/cucumber-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-cucumber) acceptance tests.
 
-## Integration
+## Integration architecture
 
-To integrate Cucumber with Serenity/JS, you need to:
-- install relevant Serenity/JS modules,
-- configure [`@serenity-js/core`](/modules/core) to use [Serenity/JS reporting modules](/handbook/integration/reporting.html),
-- register a [`@serenity-js/cucumber`](/modules/cucumber) reporting adapter with Cucumber,
-- configure [Serenity/JS reporting modules](/handbook/integration/reporting.html).
+[`@serenity-js/cucumber` module](/modules/cucumber) provides a set of **test runner adapters**, or "formatters" in Cucumber-speak, for **any version** of Cucumber.js. The module picks the most appropriate adapter automatically, depending on the version of Cucumber.js you're using.
 
-The way you do it differs slightly depending on whether you execute Cucumber directly via its command line interface, or via another test runner like Angular Protractor. 
-
-**Please note:** `@serenity-js/cucumber` module provides adapters for  _all versions_ of Cucumber and can automatically find the best one to use, so you don't need to worry about it.
-
-## Cucumber standalone 
-
-Integration architecture depicted below is applicable when you want to invoke the `cucumber-js` command line interface directly, for example for domain-level or [REST/HTTP API-level](/modules/rest) testing.
+Serenity/JS test runner adapters translate the events that occur in the test runner to Serenity/JS [`DomainEvents`](/modules/core/identifiers.html#events); those can be then turned into test reports by [Serenity/JS reporting services](/handbook/reporting/index.html).
 
 <div class="mermaid">
 graph TB
     DEV(["fas:fa-laptop-code Developer"])
-    CLI["fas:fa-terminal cucumber-js"]
-    C["cucumber.Cli"]
+    TR(["@cucumber/cucumber"])
     SC(["@serenity-js/core"])
-    SCA(["@serenity-js/cucumber"])
+    TRA(["@serenity-js/cucumber"])
     CF["fas:fa-file config.ts"]
-    R(["fas:fa-chart-pie Serenity/JS reporting module(s)"])
+    R(["fas:fa-chart-pie Serenity/JS reporting services"])
 
-    DEV -- invokes --> CLI
-    CLI -- uses --> C
-    C -- loads --> CF
-    C -- notifies --> SCA
-    SCA -- notifies --> SC
+    DEV -- invokes --> TR
+    TR -- loads --> CF
+    TR -- notifies --> TRA
+    TRA -- notifies --> SC
     CF -- configures --> SC
     SC -- notifies --> R
 
-    subgraph "@cucumber/cucumber"
-    CLI
-    C
-    end
-
     class R socket
+    
+    click R "/handbook/reporting/index.html"
+    click SC "/modules/core"
+    click TRA "/modules/cucumber"
 </div>
 
-### Install dependencies
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text"><p><strong>PRO TIP:</strong>
+        Integration architecture described in this chapter is applicable when you want to invoke `cucumber-js` command line interface directly, for example for domain-level or [REST/HTTP API-level](/modules/rest) testing. 
+    </p>
+    <p>If you want your Cucumber scenarios to interact with Web interfaces, check out [Integrating with Protractor](/handbook/integration/serenityjs-and-protractor.html) instead.
+    </p></div>
+</div>
 
-Assuming you already have Cucumber [installed](/modules/cucumber/#installation), add the following dev dependencies:
+## Installation
+
+Assuming you already have a [Node.js project ](/handbook/integration/runtime-dependencies.html#a-node-js-project) set up, add the following dev dependencies:
 - [`@serenity-js/core`](/modules/core)
 - [`@serenity-js/cucumber`](/modules/cucumber)
+- [`@cucumber/cucumber`](https://www.npmjs.com/package/@cucumber/cucumber)
 
 To do that, run the following command in your terminal:
-
 ```console
-npm install --save-dev @serenity-js/{core,cucumber}
+npm install --save-dev @serenity-js/{core,cucumber} @cucumber/cucumber
 ```
 
-### Configure Serenity/JS
+If you'd like to implement your test suite in TypeScript, also run:
+```console
+npm install --save-dev typescript ts-node @types/node
+```
 
-In a [TypeScript](https://www.typescriptlang.org/) project, create a configuration file at `features/support/config.ts` to inform Serenity/JS what [reporting services](/handbook/integration/reporting.html) you wish to use:
+## Configuration
+
+In a [TypeScript](https://www.typescriptlang.org/) project, create a configuration file at `features/support/config.ts` to inform Serenity/JS what [reporting services](/handbook/reporting/) you wish to use:
 
 ```typescript
 // features/support/config.ts
-
 import { configure } from '@serenity-js/core';
 
 configure({
@@ -85,7 +86,6 @@ In a JavaScript project, create a configuration file at `features/support/config
 
 ```javascript
 // features/support/config.js
-
 const { configure } = require('@serenity-js/core');
 
 configure({
@@ -95,11 +95,11 @@ configure({
 });
 ```
 
-Learn more about [Serenity/JS reporting](/handbook/integration/reporting.html).
+Learn more about [Serenity/JS reporting services](/handbook/reporting/).
 
-### Register Serenity/JS adapter
+## Reporting
 
-To register `@serenity-js/cucumber` adapter with Cucumber, use the [`--format`](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats) option.
+To register `@serenity-js/cucumber` test runner adapter with Cucumber, use the [`--format`](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats) option when invoking the runner.
 
 For example, when running Cucumber in a JavaScript project:
 
@@ -120,95 +120,4 @@ cucumber-js --format '@serenity-js/cucumber' \
 
 The above configuration works with the latest version of the `cucumber.Cli` available as part of the [`@cucumber/cucumber`](https://www.npmjs.com/package/@cucumber/cucumber) module. Consult the [`@serenity-js/cucumber` documentation](/modules/cucumber) to learn how to configure the adapter with older versions of the runner.
 
-
-## Cucumber with Protractor
-
-To use [Angular Protractor](https://www.protractortest.org/) with both Cucumber and Serenity/JS, you need an additional adapter available as part of the [`@serenity-js/protractor` module](/modules/protractor).
-
-As per the architecture diagram below, the Serenity/JS Protractor adapter:
-- manages interactions between Protractor and Cucumber,
-- helps to configure [`@serenity-js/core`](/modules/core) based on your [`protractor.conf.js`](https://github.com/angular/protractor/blob/master/lib/config.ts),
-- registers the [`@serenity-js/cucumber`](/modules/cucumber) adapter for you, so you don't need to do it explicitly.
-
-<div class="mermaid">
-graph TB
-    DEV(["fas:fa-laptop-code Developer"])
-    P(["protractor"])
-    PCF["fas:fa-file protractor.conf.js"]
-    SPA(["@serenity-js/protractor"])
-    SC(["@serenity-js/core"])
-    TR(["@cucumber/cucumber"])
-    TRA(["@serenity-js/cucumber"])
-    R(["fas:fa-chart-pie Serenity/JS reporting module(s)"])
-
-    DEV -- invokes --> P
-    P -- uses --> SPA
-    P -- loads --> PCF
-    PCF -- configures --> SPA
-    SPA -- configures -->SC
-    SPA -- manages --> TR
-    SPA -- registers --> TRA
-    TR -- notifies --> TRA
-    TRA -- notifies --> SC
-    SC -- notifies --> R
-
-    class R socket
-
-    click SP "/modules/protractor"
-    click SC "/modules/core"
-</div>
-
-<div class="pro-tip">
-    <div class="icon"><i class="fas fa-lightbulb"></i></div>
-    <div class="text"><p><strong>PRO TIP:</strong> [`@serenity-js/protractor`](/modules/protractor) can manage [other test runners](/handbook/integration/serenityjs-and-protractor.html) too!</p></div>
-</div>
-
-### Install dependencies
-
-Assuming you already have a [Protractor project](https://github.com/angular/protractor/blob/master/docs/getting-started.md) set up, add the following dev dependencies:
-- [`@serenity-js/core`](/modules/core)
-- [`@serenity-js/cucumber`](/modules/cucumber)
-- [`@serenity-js/protractor`](/modules/protractor)
-
-To do that, run the following command in your terminal:
-```console
-npm install --save-dev @serenity-js/{core,cucumber,protractor}
-```
-
-### Configure Protractor and Serenity/JS
-
-Modify your `protractor.conf.js` file to register the [`@serenity-js/protractor`](/modules/protractor)
-and configure it to execute your Cucumber `specs`:
-
-```javascript
-// protractor.conf.js
-
-exports.config = {
-    
-    framework:      'custom',
-    frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
-    
-    serenity: {
-        runner: 'cucumber',
-        crew: [
-            // ... reporting services
-        ]
-    },
-
-    specs: [ 'features/*.feature', ],
-    cucumberOpts: {
-        require: [
-            'features/step_definitions/**/*.ts',
-        ],
-        'require-module': ['ts-node/register'],
-    },
-    
-    // ... other Protractor config omitted for brevity 
-};
-```
-
-Note that any Cucumber-specific configuration can be provided via [`cucumberOpts`](/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html).
-
-## Reporting
-
-To install and configure Serenity/JS reporting modules appropriate for your project - follow the [Serenity/JS reporting guide](/handbook/integration/reporting.html) 
+To install and configure Serenity/JS reporting services appropriate for your project - follow the [Serenity/JS reporting guide](/handbook/reporting/).
