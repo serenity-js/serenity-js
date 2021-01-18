@@ -13,7 +13,7 @@ The book consists of the following parts:
 - **Integration Guide**, which provides information on integrating Serenity/JS with other tools and test runners.
 - **Reporting Guide**, which looks into Serenity/JS reporting architecture and provides an overview of the reporting services that come with the framework.
 
-If you'd like to dive straight into the code, visit [Serenity/JS Github](https://github.com/serenity-js) where you can find:
+If you'd like to dive straight into the code, visit [Serenity/JS GitHub](https://github.com/serenity-js) where you can find:
  - [example projects](https://github.com/serenity-js/serenity-js/tree/master/examples) demonstrating the usage of the framework,
  - [template repositories](https://github.com/serenity-js) to use as a starting point for your projects.
 

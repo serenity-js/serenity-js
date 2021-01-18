@@ -5,7 +5,7 @@ layout: handbook.hbs
 
 # Support
 
-Serenity/JS is a free and open-source project supported by the community on [Github](https://github.com/jan-molak/serenity-js), where you can [report a bug or suggest a feature](/contributing.html).
+Serenity/JS is a free and open-source project supported by the community on [GitHub](https://github.com/jan-molak/serenity-js), where you can [report a bug or suggest a feature](/contributing.html).
 
 You can also [ask questions on Stack Overflow](http://stackoverflow.com/questions/tagged/serenity-js),
 where posts tagged with `serenity-js` will usually get answered by one of the Serenity/JS
@@ -13,13 +13,13 @@ core developers.
 
 If you'd like to chat with fellow Serenity/JS users, [join us on Gitter](https://gitter.im/serenity-js/Lobby).
 
-[![Github](https://img.shields.io/badge/github-serenity--js-yellow?logo=github)](https://github.com/serenity-js/serenity-js)
+[![GitHub](https://img.shields.io/badge/github-serenity--js-yellow?logo=github)](https://github.com/serenity-js/serenity-js)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
 [![Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
 
 ## Sponsoring
 
-If you feel like Serenity/JS has made your life a little bit easier, please consider joining [these amazing people](/community/sponsors.html) in sponsoring this project on Github.
+If you feel like Serenity/JS has made your life a little bit easier, please consider joining [these amazing people](/community/sponsors.html) in sponsoring this project on GitHub.
 Even a small donation goes a long way and helps secure development time to bring new features, bug fixes, and tutorials to the Serenity/JS community!
 
 <a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
