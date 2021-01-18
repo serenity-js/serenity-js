@@ -20,7 +20,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * **core:** support for reporting BusinessRules ([02efcee](https://github.com/serenity-js/serenity-js/commit/02efceeb10c5f872f720bd2270630cde60268bef))
-* **cucumber:** Support for Cucumber 7 ([80126b1](https://github.com/serenity-js/serenity-js/commit/80126b1c30d92a33ee80b4679ab6673e456e13b9)), closes [/github.com/cucumber/cucumber-js/blob/master/CHANGELOG.md#700-2020-12-21](https://github.com//github.com/cucumber/cucumber-js/blob/master/CHANGELOG.md/issues/700-2020-12-21)
+* **cucumber:** Support for Cucumber 7 ([80126b1](https://github.com/serenity-js/serenity-js/commit/80126b1c30d92a33ee80b4679ab6673e456e13b9))
 * **serenity-bdd:** support for reporting business rules ([3920852](https://github.com/serenity-js/serenity-js/commit/3920852d940efe1b52f2c79732873e8d7283f7d6))
 * **serenity-bdd:** upgraded to Serenity BDD CLI 2.1.12 and improved the downloader ([1ad82e1](https://github.com/serenity-js/serenity-js/commit/1ad82e10b482e99bba8c247d3822014f208ecba4)), closes [#625](https://github.com/serenity-js/serenity-js/issues/625)
 
