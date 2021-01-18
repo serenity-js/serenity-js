@@ -6,7 +6,7 @@ layout: handbook.hbs
 
 All the official Serenity/JS modules are distributed via the Node Package Manager repository - [npmjs.com](https://www.npmjs.com/search?q=%40serenity-js) and follow the `@serenity-js/*` naming convention.
 
-Once you [have decided](/integration/architecture.html) on the [Serenity/JS modules](/modules) you'd like to use in your test suite, you can install them by running `npm install --save-dev`, followed by the names of the modules. For example:
+Once you [have decided](/handbook/integration/architecture.html) on the [Serenity/JS modules](/modules) you'd like to use in your test suite, you can install them by running `npm install --save-dev`, followed by the names of the modules. For example:
 
 ```text
 npm install --save-dev \
