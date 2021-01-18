@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.20.0](https://github.com/serenity-js/serenity-js/compare/v2.19.10...v2.20.0) (2021-01-18)
+
+
+### Bug Fixes
+
+* **console-reporter:** don't pollute the log with stack traces of ImplementationPendingError ([fb3b97a](https://github.com/serenity-js/serenity-js/commit/fb3b97ad62e33b21135a8da6be0490eadd31c891))
+* **core:** ensure all the DomainEvents are always correct at runtime ([1341bfb](https://github.com/serenity-js/serenity-js/commit/1341bfb24a7db39fe73921c6d6f7dffa287a6747))
+* **core:** ModuleLoader.hasAvailable checks if a given dependency is available ([f67c982](https://github.com/serenity-js/serenity-js/commit/f67c982a15d339c71b52e9afab81666df6c76ad1))
+* **core:** ScenarioParameters now requires Description to be provided ([cfa4800](https://github.com/serenity-js/serenity-js/commit/cfa4800d436c165a9dbe74e71d76715084354f46))
+* **cucumber:** corrected how Cucumber hooks are reported ([3ae1cd7](https://github.com/serenity-js/serenity-js/commit/3ae1cd744e6262b7e3eeff7796e579a201639eb8))
+* **cucumber:** corrected the CucumberFormatterOptions interface ([463047b](https://github.com/serenity-js/serenity-js/commit/463047ba764fd2773d8a3b98f09b842ccb1a614c))
+* **cucumber:** corrected the type definition of CucumberConfig#worldParameters ([570c3b6](https://github.com/serenity-js/serenity-js/commit/570c3b637d87093d9cad411e762839cc78fd968d))
+
+
+### Features
+
+* **core:** support for reporting BusinessRules ([02efcee](https://github.com/serenity-js/serenity-js/commit/02efceeb10c5f872f720bd2270630cde60268bef))
+* **cucumber:** Support for Cucumber 7 ([80126b1](https://github.com/serenity-js/serenity-js/commit/80126b1c30d92a33ee80b4679ab6673e456e13b9)), closes [/github.com/cucumber/cucumber-js/blob/master/CHANGELOG.md#700-2020-12-21](https://github.com//github.com/cucumber/cucumber-js/blob/master/CHANGELOG.md/issues/700-2020-12-21)
+* **serenity-bdd:** support for reporting business rules ([3920852](https://github.com/serenity-js/serenity-js/commit/3920852d940efe1b52f2c79732873e8d7283f7d6))
+* **serenity-bdd:** upgraded to Serenity BDD CLI 2.1.12 and improved the downloader ([1ad82e1](https://github.com/serenity-js/serenity-js/commit/1ad82e10b482e99bba8c247d3822014f208ecba4)), closes [#625](https://github.com/serenity-js/serenity-js/issues/625)
+
+
+
+
+
 ## [2.19.10](https://github.com/serenity-js/serenity-js/compare/v2.19.9...v2.19.10) (2020-12-22)
 
 
