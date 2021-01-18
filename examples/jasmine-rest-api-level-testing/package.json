@@ -1,0 +1,53 @@
+{
+  "name": "@serenity-js-examples/jasmine-rest-api-level-testing",
+  "version": "2.19.10",
+  "description": "Example implementation of a test suite exercising a REST interface",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf target",
+    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "test:update-serenity": "serenity-bdd update --ignoreSSL",
+    "test:acceptance": "jasmine --reporter='@serenity-js/jasmine'",
+    "test:report": "serenity-bdd run",
+    "test": "failsafe clean test:update-serenity test:acceptance test:report",
+    "verify": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">= 10",
+    "npm": ">= 6"
+  },
+  "devDependencies": {
+    "@serenity-js-examples/calculator-app": "2.19.7",
+    "@serenity-js/assertions": "2.19.10",
+    "@serenity-js/console-reporter": "2.19.10",
+    "@serenity-js/core": "2.19.10",
+    "@serenity-js/local-server": "2.19.10",
+    "@serenity-js/jasmine": "2.19.10",
+    "@serenity-js/rest": "2.19.10",
+    "@serenity-js/serenity-bdd": "2.19.10",
+    "@types/jasmine": "^3.6.2",
+    "jasmine": "^3.6.3",
+    "npm-failsafe": "^0.4.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
