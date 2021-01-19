@@ -104,7 +104,7 @@ To register `@serenity-js/cucumber` test runner adapter with Cucumber, use the [
 For example, when running Cucumber in a JavaScript project:
 
 ```console
-cucumber-js --format '@serenity-js/cucumber' \
+npx cucumber-js --format '@serenity-js/cucumber' \
     --require 'features/support/config.js' \
     [... any other options]
 ```
@@ -112,7 +112,7 @@ cucumber-js --format '@serenity-js/cucumber' \
 To make Cucumber support step definitions and configuration written in TypeScript, you'll need to add a dev dependency on [`ts-node`](https://www.npmjs.com/package/ts-node) and register it via [`--require-module`](https://github.com/cucumber/cucumber-js/blob/master/features/require_module.feature):
 
 ```console
-cucumber-js --format '@serenity-js/cucumber' \
+npx cucumber-js --format '@serenity-js/cucumber' \
     --require-module 'ts-node/register' \
     --require 'features/support/config.ts' \ 
     [... any other options]

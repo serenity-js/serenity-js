@@ -103,7 +103,7 @@ To register `@serenity-js/mocha` test runner adapter with Mocha, use the [`--rep
 For example, when running Mocha in a JavaScript project:
 
 ```console
-mocha --reporter '@serenity-js/mocha' \
+npx mocha --reporter '@serenity-js/mocha' \
     --require 'spec/config.js' \
     [... any other options]
 ```
@@ -111,7 +111,7 @@ mocha --reporter '@serenity-js/mocha' \
 To make Mocha support test scenarios and configuration written in TypeScript, you'll need to add a dev dependency on [`ts-node`](https://www.npmjs.com/package/ts-node) and register it via [`--require`](https://mochajs.org/#command-line-usage):
 
 ```console
-mocha --reporter '@serenity-js/mocha' \
+npx mocha --reporter '@serenity-js/mocha' \
     --require 'ts-node/register' \
     --require 'spec/config.ts' \ 
     [... any other options]
