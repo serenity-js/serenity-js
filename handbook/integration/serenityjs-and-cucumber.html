@@ -225,12 +225,12 @@ configure({
 <h2 id="reporting">Reporting</h2>
 <p>To register <code>@serenity-js/cucumber</code> test runner adapter with Cucumber, use the <a href="https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats"><code>--format</code></a> option when invoking the runner.</p>
 <p>For example, when running Cucumber in a JavaScript project:</p>
-<pre><code class="lang-console hljs typescript">cucumber-js --format <span class="hljs-string">'@serenity-js/cucumber'</span> \
+<pre><code class="lang-console hljs typescript">npx cucumber-js --format <span class="hljs-string">'@serenity-js/cucumber'</span> \
     --<span class="hljs-built_in">require</span> <span class="hljs-string">'features/support/config.js'</span> \
     [... <span class="hljs-built_in">any</span> other options]
 </code></pre>
 <p>To make Cucumber support step definitions and configuration written in TypeScript, you'll need to add a dev dependency on <a href="https://www.npmjs.com/package/ts-node"><code>ts-node</code></a> and register it via <a href="https://github.com/cucumber/cucumber-js/blob/master/features/require_module.feature"><code>--require-module</code></a>:</p>
-<pre><code class="lang-console hljs typescript">cucumber-js --format <span class="hljs-string">'@serenity-js/cucumber'</span> \
+<pre><code class="lang-console hljs typescript">npx cucumber-js --format <span class="hljs-string">'@serenity-js/cucumber'</span> \
     --<span class="hljs-built_in">require</span>-<span class="hljs-built_in">module</span> <span class="hljs-string">'ts-node/register'</span> \
     --<span class="hljs-built_in">require</span> <span class="hljs-string">'features/support/config.ts'</span> \ 
     [... <span class="hljs-built_in">any</span> other options]
