@@ -180,6 +180,39 @@ To learn more about the available configuration options, check out:
 
 To install and configure Serenity/JS reporting modules appropriate for your project (a.k.a. the `crew`) - follow the [Serenity/JS reporting guide](/handbook/reporting/).
 
+#### Using native Cucumber reporters
+
+You can use [native Cucumber reporters](https://github.com/cucumber/cucumber-js/tree/master/src/formatter) together with, or instead of those provided by Serenity/JS.
+
+To do that, specify them using a `<formatterName:outputFileName>` format, for example:
+
+```javascript
+// protractor.conf.js
+exports.config = {
+
+    framework:      'custom',
+    frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
+
+    specs: [ 'features/*.feature', ],
+    cucumberOpts: {
+        format: [
+            'html:cucumber.html',
+            'snippets:snippets.txt',
+            'summary:summary.txt',
+            'usage:usage.txt',
+        ],
+        require: [
+            'features/step_definitions/**/*.ts',    // or *.js
+        ],
+        'require-module': ['ts-node/register'],     // to add support for TypeScript
+        tags:    ['~@wip'],
+        strict:  false,
+    },
+    
+    // ... other Protractor config omitted for brevity 
+};
+```
+
 ## Integrating Protractor with Serenity/JS and Jasmine
 
 To integrate Serenity/JS with Protractor and Jasmine, `@serenity-js/protractor/adapter` uses a test runner adapter and a Jasmine reporter available as part of the [`@serenity-js/jasmine` module](/handbook/integration/serenityjs-and-jasmine.html).
