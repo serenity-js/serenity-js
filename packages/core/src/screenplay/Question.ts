@@ -147,7 +147,7 @@ export abstract class Question<T> {
      *  import { Question } from '@serenity-js/core';
      *
      *  Question.about('normalised percentages', actor => [ 0.1, 0.3, 0.6 ])
-     *      .map((value: number) => value * 100)
+     *      .map((actor: AnswersQuestions) => (value: number) => value * 100)
      *
      *  // => Question<Promise<number[]>>
      *  //      [ 10, 30, 60 ]
