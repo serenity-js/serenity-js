@@ -80,8 +80,8 @@ describe('StageManager', () => {
             const lines = error.message.split('\n');
 
             expect(lines[0]).to.equal('2 async operations have failed to complete within a 250ms cue timeout:');
-            expect(lines[1]).to.match(/^[\d]+ms - \[Service 1] Starting...$/);
-            expect(lines[2]).to.match(/^[\d]+ms - \[Service 2] Starting...$/);
+            expect(lines[1]).to.match(/^[\d]+ms - \[Service 1] Starting...$/, error.message);
+            expect(lines[2]).to.match(/^[\d]+ms - \[Service 2] Starting...$/, error.message);
         });
     });
 
