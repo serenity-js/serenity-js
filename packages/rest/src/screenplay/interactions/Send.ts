@@ -61,12 +61,18 @@ export class Send extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
+        const callAnApi = CallAnApi.as(actor);
+
         return actor.answer(this.request)
-            .then(config => CallAnApi.as(actor).request(config))
-            .then((response: AxiosResponse) => actor.collect(
-                this.responseToArtifact(response),
-                this.requestToArtifactName(response.config),
-            ));
+            .then(config =>
+                callAnApi.request(config).then((response: AxiosResponse) => {
+                    const resolvedUrl = callAnApi.resolveUrl(config);
+
+                    actor.collect(
+                        this.responseToArtifact(resolvedUrl, response),
+                        this.requestToArtifactName(response.config.method, resolvedUrl),
+                    );
+            }));
     }
 
     /**
@@ -79,27 +85,27 @@ export class Send extends Interaction {
         return `#actor sends ${ this.request.toString() }`;
     }
 
-    private responseToArtifact(response: AxiosResponse): Artifact {
+    private responseToArtifact(targetUrl: string, response: AxiosResponse): Artifact {
         const
             request: AxiosRequestConfig = response.config,
             requestAndResponse: RequestAndResponse = {
                 request: {
-                    method: request.method,
-                    url: request.url,
-                    headers: request.headers,
-                    data: request.data,
+                    method:     request.method,
+                    url:        targetUrl,
+                    headers:    request.headers,
+                    data:       request.data,
                 },
                 response: {
-                    status: response.status,
-                    headers: response.headers,
-                    data: response.data,
+                    status:     response.status,
+                    headers:    response.headers,
+                    data:       response.data,
                 },
             };
 
         return HTTPRequestResponse.fromJSON(requestAndResponse);
     }
 
-    private requestToArtifactName(request: AxiosRequestConfig) {
-        return new Name(`request ${request.method} ${request.url}`);
+    private requestToArtifactName(method: string, url: string) {
+        return new Name(`${ method.toUpperCase() } ${ url }`);
     }
 }

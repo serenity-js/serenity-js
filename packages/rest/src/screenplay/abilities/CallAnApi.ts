@@ -1,5 +1,7 @@
 import { Ability, ConfigurationError, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
 import axios, { AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+const mergeConfig = require('axios/lib/core/mergeConfig');       // tslint:disable-line:no-var-requires no-submodule-imports
+const buildFullPath = require('axios/lib/core/buildFullPath');   // tslint:disable-line:no-var-requires no-submodule-imports
 
 /**
  * @desc
@@ -145,6 +147,22 @@ export class CallAnApi implements Ability {
      */
     request(config: AxiosRequestConfig): Promise<AxiosResponse> {
         return this.captureResponseOf(this.axiosInstance.request(config));
+    }
+
+    /**
+     * @desc
+     *  Resolves the final URL, based on the {@link AxiosRequestConfig} provided
+     *  any any defaults {@link AxiosInstance} has been configured with.
+     *
+     * @param {AxiosRequestConfig} config}
+     *
+     * @see {@link AxiosRequestConfig}
+     * @see {@link AxiosInstance}
+     */
+    resolveUrl(config: AxiosRequestConfig): string {
+        const merged = mergeConfig(this.axiosInstance.defaults, config);
+
+        return buildFullPath(merged.baseURL, merged.url);
     }
 
     /**
