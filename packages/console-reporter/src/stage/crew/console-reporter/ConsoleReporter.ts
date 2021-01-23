@@ -200,8 +200,10 @@ export class ConsoleReporter implements StageCrewMember {
                 this.printer.println();
                 this.printer.println(this.theme.heading(e.details.category.value, ': ', e.details.name.value));
                 this.printer.println();
-
             })
+
+            // todo: add SceneTagged ...
+
             .when(TaskStarts, (e: TaskStarts) => {
 
                 this.printer.indent();
@@ -227,7 +229,7 @@ export class ConsoleReporter implements StageCrewMember {
                     this.firstError.recordIfNeeded(e.outcome.error);
 
                     if (! (e.outcome.error instanceof AssertionError)) {
-                        this.printer.println(this.theme.outcome(e.outcome, e.outcome.error.toString()));
+                        this.printer.println(this.theme.outcome(e.outcome, `${ e.outcome.error }`));
                     }
                 }
 
@@ -285,7 +287,7 @@ export class ConsoleReporter implements StageCrewMember {
                     this.printer.indent();
 
                     if (! this.firstError.alreadyRecorded()) {
-                        this.printer.println(this.theme.outcome(e.outcome, this.iconFrom(e.outcome), e.outcome.error.toString()));
+                        this.printer.println(this.theme.outcome(e.outcome, this.iconFrom(e.outcome), `${ e.outcome.error }`));
                     }
 
                     this.printer.outdent();
@@ -317,7 +319,7 @@ export class ConsoleReporter implements StageCrewMember {
 
                     if (e.outcome instanceof ImplementationPending) {
                         this.printer.println(`${ e.outcome.error.name }: ${ e.outcome.error.message }`);
-                    } else {
+                    } else if (e.outcome.error?.stack) {
                         this.printer.println(e.outcome.error.stack);
                     }
 
