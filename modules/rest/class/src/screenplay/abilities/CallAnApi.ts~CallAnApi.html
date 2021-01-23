@@ -19,7 +19,7 @@
     <title> | Serenity/JS</title>
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
-    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
     <meta property="og:url" content="https://serenity-js.org/modules/rest/class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
@@ -144,7 +144,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber58">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber61">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -152,7 +152,8 @@
 
   
 
-  <div class="description" data-ice="description"><p> An <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> that enables the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to call a HTTP API.</p>
+  <div class="description" data-ice="description"><p> An <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span> that enables the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to call a HTTP API.
+ If you need to connect via a proxy, check out <a href="https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d">this article</a>.</p>
 </div>
 
   
@@ -174,42 +175,42 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using a default Axios HTTP client</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+ <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
-    CallAnApi.at(<span class="hljs-string">'https://myapp.com/api'</span>),
-);
+ <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
+     CallAnApi.at(<span class="hljs-string">'https://myapp.com/api'</span>),
+ );
 
-actor.attemptsTo(
-    Send.a(GetRequest.to(<span class="hljs-string">'/users/2'</span>)),
-    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-);</code></pre>
+ actor.attemptsTo(
+     Send.a(GetRequest.to(<span class="hljs-string">'/users/2'</span>)),
+     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+ );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using Axios client with custom configuration</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+ <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-<span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+ <span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
-<span class="hljs-keyword">const</span> axiosInstance = axios.create({
-    <span class="hljs-attr">timeout</span>: <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>,
-    <span class="hljs-attr">headers</span>: {
-        <span class="hljs-string">'X-Custom-Api-Key'</span>: <span class="hljs-string">'secret-key'</span>,
-    },
-});
+ <span class="hljs-keyword">const</span> axiosInstance = axios.create({
+     <span class="hljs-attr">timeout</span>: <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>,
+     <span class="hljs-attr">headers</span>: {
+         <span class="hljs-string">'X-Custom-Api-Key'</span>: <span class="hljs-string">'secret-key'</span>,
+     },
+ });
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
-    CallAnApi.using(axiosInstance),
-);
+ <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
+     CallAnApi.using(axiosInstance),
+ );
 
-actor.attemptsTo(
-    Send.a(GetRequest.to(<span class="hljs-string">'/users/2'</span>)),
-    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-);</code></pre>
+ actor.attemptsTo(
+     Send.a(GetRequest.to(<span class="hljs-string">'/users/2'</span>)),
+     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+ );</code></pre>
     </div>
 </div>
 
@@ -222,11 +223,12 @@ actor.attemptsTo(
 <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber51">CallAnApi provides a factory method to be used when custom configuration is required</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber64">CallAnApi caches the last response so that it can be easily asserted on</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber81">CallAnApi caches the last response even when the server responds with an error. As long is it responds.</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber98">CallAnApi when dealing with errors complains if you try to retrieve the last response before making an API call</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber109">CallAnApi when dealing with errors complains when provided with invalid Axios configuration</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber127">CallAnApi when dealing with errors complains when the API call times out</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber143">CallAnApi when dealing with errors complains when the a network error occurs</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber159">CallAnApi when dealing with errors complains when the Axios client rejects its promise</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber97">CallAnApi provides a way to determine the actual target URL the request will be sent to</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber110">CallAnApi when dealing with errors complains if you try to retrieve the last response before making an API call</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber121">CallAnApi when dealing with errors complains when provided with invalid Axios configuration</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber139">CallAnApi when dealing with errors complains when the API call times out</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber155">CallAnApi when dealing with errors complains when the a network error occurs</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber171">CallAnApi when dealing with errors complains when the Axios client rejects its promise</a></span></li>
 </ul>
   </div>
 
@@ -462,6 +464,36 @@ actor.attemptsTo(
       
     </td>
   </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html#instance-method-resolveUrl">resolveUrl</a></span></span><span class="code" data-ice="signature">(config}: <span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43">AxiosRequestConfig</a></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Resolves the final URL, based on the <span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43">AxiosRequestConfig</a></span> provided
+ any any defaults <span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127">AxiosInstance</a></span> has been configured with.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -483,7 +515,7 @@ actor.attemptsTo(
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber161">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber164">source</a></span></span>
     </span>
   </h3>
 
@@ -557,7 +589,7 @@ actor.attemptsTo(
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber99">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber102">source</a></span></span>
     </span>
   </h3>
 
@@ -640,7 +672,7 @@ actor.attemptsTo(
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber133">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber136">source</a></span></span>
     </span>
   </h3>
 
@@ -724,7 +756,7 @@ actor.attemptsTo(
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber171">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber174">source</a></span></span>
     </span>
   </h3>
 
@@ -788,7 +820,7 @@ actor.attemptsTo(
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber257">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber289">source</a></span></span>
     </span>
   </h3>
 
@@ -851,7 +883,7 @@ actor.attemptsTo(
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber64">CallAnApi caches the last response so that it can be easily asserted on</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber81">CallAnApi caches the last response even when the server responds with an error. As long is it responds.</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber98">CallAnApi when dealing with errors complains if you try to retrieve the last response before making an API call</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber110">CallAnApi when dealing with errors complains if you try to retrieve the last response before making an API call</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber99">LastResponse complains if the last response is attempted to be retrieved without making a request first</a></span></li>
 </ul>
   </div>
@@ -871,7 +903,7 @@ actor.attemptsTo(
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber198">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber201">source</a></span></span>
     </span>
   </h3>
 
@@ -945,7 +977,7 @@ actor.attemptsTo(
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber230">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber233">source</a></span></span>
     </span>
   </h3>
 
@@ -1009,15 +1041,95 @@ actor.attemptsTo(
     <ul>
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber81">CallAnApi caches the last response even when the server responds with an error. As long is it responds.</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber109">CallAnApi when dealing with errors complains when provided with invalid Axios configuration</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber127">CallAnApi when dealing with errors complains when the API call times out</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber143">CallAnApi when dealing with errors complains when the a network error occurs</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber159">CallAnApi when dealing with errors complains when the Axios client rejects its promise</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber121">CallAnApi when dealing with errors complains when provided with invalid Axios configuration</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber139">CallAnApi when dealing with errors complains when the API call times out</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber155">CallAnApi when dealing with errors complains when the a network error occurs</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber171">CallAnApi when dealing with errors complains when the Axios client rejects its promise</a></span></li>
 </ul>
   </div>
 
   <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43">AxiosRequestConfig</a></span></span></li>
 <li><span><span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73">AxiosResponse</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-resolveUrl">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">resolveUrl</span><span class="code" data-ice="signature">(config}: <span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43">AxiosRequestConfig</a></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/CallAnApi.ts.html#lineNumber260">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Resolves the final URL, based on the <span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43">AxiosRequestConfig</a></span> provided
+ any any defaults <span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127">AxiosInstance</a></span> has been configured with.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">config}</td>
+      <td data-ice="type" class="code"><span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43">AxiosRequestConfig</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber97">CallAnApi provides a way to determine the actual target URL the request will be sent to</a></span></li>
+</ul>
+  </div>
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43">AxiosRequestConfig</a></span></span></li>
+<li><span><span><a href="https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127">AxiosInstance</a></span></span></li></ul></div>
   
 </div>
 </div>

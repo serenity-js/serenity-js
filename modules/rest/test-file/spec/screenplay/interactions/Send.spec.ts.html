@@ -19,7 +19,7 @@
     <title> | Serenity/JS</title>
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
-    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
     <meta property="og:url" content="https://serenity-js.org/modules/rest/test-file/spec/screenplay/interactions/Send.spec.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
@@ -214,7 +214,7 @@ describe(<span class="hljs-string">'Send'</span>, <span class="hljs-function">()
     it(<span class="hljs-string">'emits the events so that the details of the HTTP interaction can be reported'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1970-01-01'</span>));
         <span class="hljs-keyword">const</span> axiosInstance = axios.create({
-            <span class="hljs-attr">url</span>: <span class="hljs-string">'https://myapp.com/api'</span>,
+            <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://myapp.com/api'</span>
         });
         <span class="hljs-keyword">const</span> mock     = <span class="hljs-keyword">new</span> MockAdapter(axiosInstance);
         <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(frozenClock);
@@ -225,14 +225,14 @@ describe(<span class="hljs-string">'Send'</span>, <span class="hljs-function">()
             <span class="hljs-attr">crew</span>: [ recorder ],
         });
 
-        mock.onGet(<span class="hljs-string">'/products/2'</span>).reply(<span class="hljs-number">200</span>, {
+        mock.onGet(<span class="hljs-string">'products/2'</span>).reply(<span class="hljs-number">200</span>, {   <span class="hljs-comment">// axios-mock-adapter doesn't resolve baseUrl; it should've really been mock.onGet('/api/products/2')</span>
             <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
         }, {
             <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
         });
 
         <span class="hljs-keyword">return</span> serenity.theActorCalled(<span class="hljs-string">'Apisitt'</span>).attemptsTo(
-            Send.a(GetRequest.to(<span class="hljs-string">'/products/2'</span>)),
+            Send.a(GetRequest.to(<span class="hljs-string">'products/2'</span>)),
         ).then(<span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> events = recorder.events;
 
@@ -243,11 +243,11 @@ describe(<span class="hljs-string">'Send'</span>, <span class="hljs-function">()
 
             <span class="hljs-keyword">const</span> artifactGenerated = events[ <span class="hljs-number">1</span> ] <span class="hljs-keyword">as</span> ActivityRelatedArtifactGenerated;
 
-            expect(artifactGenerated.name.value).to.equal(<span class="hljs-string">`request get /products/2`</span>);
+            expect(artifactGenerated.name.value).to.equal(<span class="hljs-string">`GET https://myapp.com/api/products/2`</span>);
             expect(artifactGenerated.artifact.equals(HTTPRequestResponse.fromJSON({
                 <span class="hljs-attr">request</span>: {
                     <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
-                    <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
+                    <span class="hljs-attr">url</span>: <span class="hljs-string">'https://myapp.com/api/products/2'</span>,
                     <span class="hljs-attr">headers</span>: { <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json, text/plain, */*'</span> },
                 },
                 <span class="hljs-attr">response</span>: {

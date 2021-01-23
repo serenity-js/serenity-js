@@ -19,7 +19,7 @@
     <title> | Serenity/JS</title>
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
-    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
     <meta property="og:url" content="https://serenity-js.org/modules/core/test-file/spec/stage/StageManager.spec.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
@@ -355,8 +355,8 @@ describe(<span class="hljs-string">'StageManager'</span>, <span class="hljs-func
             <span class="hljs-keyword">const</span> lines = error.message.split(<span class="hljs-string">'\n'</span>);
 
             expect(lines[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">'2 async operations have failed to complete within a 250ms cue timeout:'</span>);
-            expect(lines[<span class="hljs-number">1</span>]).to.match(<span class="hljs-regexp">/^[\d]+ms - \[Service 1] Starting...$/</span>);
-            expect(lines[<span class="hljs-number">2</span>]).to.match(<span class="hljs-regexp">/^[\d]+ms - \[Service 2] Starting...$/</span>);
+            expect(lines[<span class="hljs-number">1</span>]).to.match(<span class="hljs-regexp">/^[\d]+ms - \[Service 1] Starting...$/</span>, error.message);
+            expect(lines[<span class="hljs-number">2</span>]).to.match(<span class="hljs-regexp">/^[\d]+ms - \[Service 2] Starting...$/</span>, error.message);
         });
     });
 

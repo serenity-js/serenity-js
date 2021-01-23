@@ -19,7 +19,7 @@
     <title> | Serenity/JS</title>
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
-    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
     <meta property="og:url" content="https://serenity-js.org/modules/rest/test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
@@ -228,6 +228,18 @@ describe(<span class="hljs-string">'CallAnApi'</span>, <span class="hljs-functio
         <span class="hljs-keyword">return</span> expect(callAnApi.request({ <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>, url })).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
             callAnApi.mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> expect(response.status).to.equal(<span class="hljs-number">500</span>));
         });
+    });
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi}</span></span>
+     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.resolveUrl}</span></span>
+     */</span>
+    it(<span class="hljs-string">'provides a way to determine the actual target URL the request will be sent to'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> callaAnApi = CallAnApi.at(<span class="hljs-string">'https://example.org/api/v4'</span>);
+
+        <span class="hljs-keyword">const</span> actualUrl = callaAnApi.resolveUrl({ <span class="hljs-attr">url</span>: <span class="hljs-string">'products/3'</span> });
+
+        expect(actualUrl).to.equal(<span class="hljs-string">'https://example.org/api/v4/products/3'</span>)
     });
 
     describe(<span class="hljs-string">'when dealing with errors'</span>, <span class="hljs-function">() =&gt;</span> {

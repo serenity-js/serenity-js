@@ -19,7 +19,7 @@
     <title> | Serenity/JS</title>
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
-    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
     <meta property="og:url" content="https://serenity-js.org/modules/core/class/src/screenplay/Question.ts~Question.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
@@ -1065,7 +1065,7 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
  Question.about(<span class="hljs-string">'normalised percentages'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0.1</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.6</span> ])
-     .map(<span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">number</span></span>) =&gt;</span> value * <span class="hljs-number">100</span>)
+     .map(<span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">number</span></span>) =&gt;</span> value * <span class="hljs-number">100</span>)
 
  <span class="hljs-comment">// =&gt; Question&lt;Promise&lt;number[]&gt;&gt;</span>
  <span class="hljs-comment">//      [ 10, 30, 60 ]</span></code></pre>

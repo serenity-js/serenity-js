@@ -19,7 +19,7 @@
     <title> | Serenity/JS</title>
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
-    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
     <meta property="og:url" content="https://serenity-js.org/modules/rest/file/src/screenplay/interactions/Send.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
@@ -201,12 +201,18 @@
      * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
      */</span>
     performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> callAnApi = CallAnApi.as(actor);
+
         <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.request)
-            .then(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> CallAnApi.as(actor).request(config))
-            .then(<span class="hljs-function">(<span class="hljs-params">response: AxiosResponse</span>) =&gt;</span> actor.collect(
-                <span class="hljs-built_in">this</span>.responseToArtifact(response),
-                <span class="hljs-built_in">this</span>.requestToArtifactName(response.config),
-            ));
+            .then(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span>
+                callAnApi.request(config).then(<span class="hljs-function">(<span class="hljs-params">response: AxiosResponse</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> resolvedUrl = callAnApi.resolveUrl(config);
+
+                    actor.collect(
+                        <span class="hljs-built_in">this</span>.responseToArtifact(resolvedUrl, response),
+                        <span class="hljs-built_in">this</span>.requestToArtifactName(response.config.method, resolvedUrl),
+                    );
+            }));
     }
 
     <span class="hljs-comment">/**
@@ -219,28 +225,28 @@
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor sends <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.request.toString() }</span>`</span>;
     }
 
-    <span class="hljs-keyword">private</span> responseToArtifact(response: AxiosResponse): Artifact {
+    <span class="hljs-keyword">private</span> responseToArtifact(targetUrl: <span class="hljs-built_in">string</span>, <span class="hljs-attr">response</span>: AxiosResponse): Artifact {
         <span class="hljs-keyword">const</span>
             <span class="hljs-attr">request</span>: AxiosRequestConfig = response.config,
             <span class="hljs-attr">requestAndResponse</span>: RequestAndResponse = {
                 <span class="hljs-attr">request</span>: {
-                    <span class="hljs-attr">method</span>: request.method,
-                    <span class="hljs-attr">url</span>: request.url,
-                    <span class="hljs-attr">headers</span>: request.headers,
-                    <span class="hljs-attr">data</span>: request.data,
+                    <span class="hljs-attr">method</span>:     request.method,
+                    <span class="hljs-attr">url</span>:        targetUrl,
+                    <span class="hljs-attr">headers</span>:    request.headers,
+                    <span class="hljs-attr">data</span>:       request.data,
                 },
                 <span class="hljs-attr">response</span>: {
-                    <span class="hljs-attr">status</span>: response.status,
-                    <span class="hljs-attr">headers</span>: response.headers,
-                    <span class="hljs-attr">data</span>: response.data,
+                    <span class="hljs-attr">status</span>:     response.status,
+                    <span class="hljs-attr">headers</span>:    response.headers,
+                    <span class="hljs-attr">data</span>:       response.data,
                 },
             };
 
         <span class="hljs-keyword">return</span> HTTPRequestResponse.fromJSON(requestAndResponse);
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">requestToArtifactName</span>(<span class="hljs-params">request: AxiosRequestConfig</span>)</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Name(<span class="hljs-string">`request <span class="hljs-subst">${request.method}</span> <span class="hljs-subst">${request.url}</span>`</span>);
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">requestToArtifactName</span>(<span class="hljs-params">method: <span class="hljs-built_in">string</span>, url: <span class="hljs-built_in">string</span></span>)</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Name(<span class="hljs-string">`<span class="hljs-subst">${ method.toUpperCase() }</span> <span class="hljs-subst">${ url }</span>`</span>);
     }
 }
 </code></pre>

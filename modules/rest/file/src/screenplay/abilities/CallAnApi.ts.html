@@ -19,7 +19,7 @@
     <title> | Serenity/JS</title>
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
-    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-social-banner.png"/>
+    <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
     <meta property="og:url" content="https://serenity-js.org/modules/rest/file/src/screenplay/abilities/CallAnApi.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
@@ -140,47 +140,50 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/CallAnApi.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, ConfigurationError, LogicError, TestCompromisedError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> axios, { AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">const</span> mergeConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios/lib/core/mergeConfig'</span>);       <span class="hljs-comment">// tslint:disable-line:no-var-requires no-submodule-imports</span>
+<span class="hljs-keyword">const</span> buildFullPath = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios/lib/core/buildFullPath'</span>);   <span class="hljs-comment">// tslint:disable-line:no-var-requires no-submodule-imports</span>
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} that enables the {<span class="hljs-doctag">@link </span>Actor} to call a HTTP API.
+ *  If you need to connect via a proxy, check out [this article](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d).
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using a default Axios HTTP client&lt;/caption&gt;
- * import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
- * import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
- * import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
+ *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
- * const actor = Actor.named('Apisit').whoCan(
- *     CallAnApi.at('https://myapp.com/api'),
- * );
+ *  const actor = Actor.named('Apisit').whoCan(
+ *      CallAnApi.at('https://myapp.com/api'),
+ *  );
  *
- * actor.attemptsTo(
- *     Send.a(GetRequest.to('/users/2')),
- *     Ensure.that(LastResponse.status(), equals(200)),
- * );
+ *  actor.attemptsTo(
+ *      Send.a(GetRequest.to('/users/2')),
+ *      Ensure.that(LastResponse.status(), equals(200)),
+ *  );
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using Axios client with custom configuration&lt;/caption&gt;
- * import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
- * import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
- * import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
+ *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
- * import axios  from 'axios';
+ *  import axios  from 'axios';
  *
- * const axiosInstance = axios.create({
- *     timeout: 5 * 1000,
- *     headers: {
- *         'X-Custom-Api-Key': 'secret-key',
- *     },
- * });
+ *  const axiosInstance = axios.create({
+ *      timeout: 5 * 1000,
+ *      headers: {
+ *          'X-Custom-Api-Key': 'secret-key',
+ *      },
+ *  });
  *
- * const actor = Actor.named('Apisit').whoCan(
- *     CallAnApi.using(axiosInstance),
- * );
+ *  const actor = Actor.named('Apisit').whoCan(
+ *      CallAnApi.using(axiosInstance),
+ *  );
  *
- * actor.attemptsTo(
- *     Send.a(GetRequest.to('/users/2')),
- *     Ensure.that(LastResponse.status(), equals(200)),
- * );
+ *  actor.attemptsTo(
+ *      Send.a(GetRequest.to('/users/2')),
+ *      Ensure.that(LastResponse.status(), equals(200)),
+ *  );
  *
  * <span class="hljs-doctag">@see </span>https://github.com/axios/axios
  * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
@@ -284,6 +287,22 @@
      */</span>
     request(config: AxiosRequestConfig): <span class="hljs-built_in">Promise</span>&lt;AxiosResponse&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.captureResponseOf(<span class="hljs-built_in">this</span>.axiosInstance.request(config));
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Resolves the final URL, based on the {<span class="hljs-doctag">@link </span>AxiosRequestConfig} provided
+     *  any any defaults {<span class="hljs-doctag">@link </span>AxiosInstance} has been configured with.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{AxiosRequestConfig}</span> </span>config}
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosRequestConfig}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosInstance}</span></span>
+     */</span>
+    resolveUrl(config: AxiosRequestConfig): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> merged = mergeConfig(<span class="hljs-built_in">this</span>.axiosInstance.defaults, config);
+
+        <span class="hljs-keyword">return</span> buildFullPath(merged.baseURL, merged.url);
     }
 
     <span class="hljs-comment">/**

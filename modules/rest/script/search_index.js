@@ -1146,38 +1146,44 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "callanapi callanapi.resolveurl src/screenplay/abilities/callanapi.ts~callanapi,callanapi src/screenplay/abilities/callanapi.ts~callanapi#resolveurl,callanapi.resolveurl",
+    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber97",
+    "CallAnApi provides a way to determine the actual target URL the request will be sent to",
+    "test"
+  ],
+  [
     "",
-    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber93",
+    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber105",
     "CallAnApi when dealing with errors",
     "test"
   ],
   [
     "callanapi callanapi.maplastresponse src/screenplay/abilities/callanapi.ts~callanapi,callanapi src/screenplay/abilities/callanapi.ts~callanapi#maplastresponse,callanapi.maplastresponse",
-    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber98",
+    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber110",
     "CallAnApi when dealing with errors complains if you try to retrieve the last response before making an API call",
     "test"
   ],
   [
     "callanapi callanapi.request src/screenplay/abilities/callanapi.ts~callanapi,callanapi src/screenplay/abilities/callanapi.ts~callanapi#request,callanapi.request",
-    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber109",
+    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber121",
     "CallAnApi when dealing with errors complains when provided with invalid Axios configuration",
     "test"
   ],
   [
     "callanapi callanapi.request src/screenplay/abilities/callanapi.ts~callanapi,callanapi src/screenplay/abilities/callanapi.ts~callanapi#request,callanapi.request",
-    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber127",
+    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber139",
     "CallAnApi when dealing with errors complains when the API call times out",
     "test"
   ],
   [
     "callanapi callanapi.request src/screenplay/abilities/callanapi.ts~callanapi,callanapi src/screenplay/abilities/callanapi.ts~callanapi#request,callanapi.request",
-    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber159",
+    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber171",
     "CallAnApi when dealing with errors complains when the Axios client rejects its promise",
     "test"
   ],
   [
     "callanapi callanapi.request src/screenplay/abilities/callanapi.ts~callanapi,callanapi src/screenplay/abilities/callanapi.ts~callanapi#request,callanapi.request",
-    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber143",
+    "test-file/spec/screenplay/abilities/CallAnApi.spec.ts.html#lineNumber155",
     "CallAnApi when dealing with errors complains when the a network error occurs",
     "test"
   ],
@@ -1821,6 +1827,12 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/callanapi.ts~callanapi#request",
     "class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html#instance-method-request",
     "src/screenplay/abilities/CallAnApi.ts~CallAnApi#request",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/callanapi.ts~callanapi#resolveurl",
+    "class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html#instance-method-resolveUrl",
+    "src/screenplay/abilities/CallAnApi.ts~CallAnApi#resolveUrl",
     "method"
   ],
   [
