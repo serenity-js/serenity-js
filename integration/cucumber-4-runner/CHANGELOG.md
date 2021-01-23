@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.1](https://github.com/serenity-js/serenity-js/compare/v2.20.0...v2.20.1) (2021-01-23)
+
+**Note:** Version bump only for package @integration/cucumber-4-runner
+
+
+
+
+
 # [2.20.0](https://github.com/serenity-js/serenity-js/compare/v2.19.10...v2.20.0) (2021-01-18)
 
 **Note:** Version bump only for package @integration/cucumber-4-runner
