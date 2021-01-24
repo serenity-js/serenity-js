@@ -2,7 +2,11 @@ import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter';
 import { Dependencies } from './Dependencies';
 
 export = function (dependencies: Dependencies) {
-    const { After, AfterAll } = dependencies.cucumber;
+    const { BeforeAll, After, AfterAll } = dependencies.cucumber;
+
+    BeforeAll(function () {
+        dependencies.notifier.testRunStarts();
+    });
 
     After(function () {
         dependencies.notifier.currentScenarioFinishes();

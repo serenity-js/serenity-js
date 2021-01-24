@@ -9,7 +9,7 @@ import {
     TaskStarts,
     TestRunFinished,
     TestRunFinishes,
-    TestRunnerDetected,
+    TestRunnerDetected, TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
@@ -31,7 +31,7 @@ import {
     ScenarioDetails,
     TestSuiteDetails,
 } from '@serenity-js/core/lib/model';
-import { Expectation, JasmineDoneInfo, SpecResult, SuiteResult } from './jasmine';
+import { Expectation, JasmineDoneInfo, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';
 
 /**
  * @desc
@@ -48,6 +48,10 @@ export class SerenityReporterForJasmine {
     private currentSceneId: CorrelationId = null;
 
     constructor(private readonly serenity: Serenity) {
+    }
+
+    jasmineStarted(info: JasmineStartedInfo) {
+        this.emit(new TestRunStarts(this.serenity.currentTime()));
     }
 
     suiteStarted(result: SuiteResult) {

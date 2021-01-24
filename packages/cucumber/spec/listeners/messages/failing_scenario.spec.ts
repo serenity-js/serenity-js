@@ -1,7 +1,17 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import {
+    ActivityFinished,
+    ActivityStarts,
+    SceneFinished,
+    SceneStarts,
+    SceneTagged,
+    TestRunFinished,
+    TestRunFinishes,
+    TestRunnerDetected,
+    TestRunStarts,
+} from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
 
@@ -22,6 +32,7 @@ describe('CucumberMessagesListener', () => {
                 expect(res.exitCode).to.equal(1);
 
                 PickEvent.from(res.events)
+                    .next(TestRunStarts,       event => expect(event).to.be.instanceOf(TestRunStarts))
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('A failing scenario'))
                         expect(event.details.location.path.value).to.match(/examples\/features\/failing_scenario.feature$/)

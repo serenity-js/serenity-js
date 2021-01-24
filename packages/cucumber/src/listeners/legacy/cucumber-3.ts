@@ -3,7 +3,11 @@ import { Dependencies } from './Dependencies';
 
 export = function (dependencies: Dependencies) {
 
-    dependencies.cucumber.defineSupportCode(({ After, AfterAll }) => {
+    dependencies.cucumber.defineSupportCode(({ BeforeAll, After, AfterAll }) => {
+        BeforeAll(function () {
+            dependencies.notifier.testRunStarts();
+        });
+
         After(function () {
             dependencies.notifier.currentScenarioFinishes();
 

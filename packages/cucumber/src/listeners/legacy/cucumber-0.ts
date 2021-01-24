@@ -1,4 +1,5 @@
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core';
+import { TestRunStarts } from '@serenity-js/core/lib/events';
 import { Path } from '@serenity-js/core/lib/io';
 import {
     ExecutionCompromised,
@@ -16,6 +17,10 @@ import { Dependencies } from './Dependencies';
 
 export = function ({ serenity, notifier, loader, cache }: Dependencies) {
     return function () {
+        this.registerHandler('BeforeFeatures', () => {
+            notifier.testRunStarts();
+        });
+
         this.registerHandler('BeforeFeature', function (feature, callback) {
             loader.load(get(feature, 'uri').as(Path))
                 .then(_ => callback(), error => callback(error));
