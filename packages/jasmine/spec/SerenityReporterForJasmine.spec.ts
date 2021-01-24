@@ -9,7 +9,7 @@ import {
     SceneTagged, TaskFinished,
     TaskStarts,
     TestRunFinished,
-    TestRunnerDetected,
+    TestRunnerDetected, TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
@@ -47,6 +47,21 @@ describe('SerenityReporterForJasmine', () => {
     describe('notifies Serenity when', () => {
 
         describe('the test run', () => {
+            /** @test {SerenityReporterForJasmine#jasmineStarted} */
+            it('starts', async () => {
+                await reporter.jasmineStarted({
+                    totalSpecsDefined: 5,
+                    order: {
+                        random: true,
+                        seed: '14552',
+                        sort: () => void 0,
+                    },
+                });
+
+                PickEvent.from(listener.events)
+                    .next(TestRunStarts,    event => expect(event.timestamp).to.equal(new Timestamp(now)));
+            });
+
             /** @test {SerenityReporterForJasmine#jasmineDone} */
             it('ends', async () => {
                 await reporter.jasmineDone({

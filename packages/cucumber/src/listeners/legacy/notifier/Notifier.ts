@@ -13,7 +13,7 @@ import {
     TaskStarts,
     TestRunFinished,
     TestRunFinishes,
-    TestRunnerDetected,
+    TestRunnerDetected, TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
 import { Serenity } from '@serenity-js/core/lib/Serenity';
@@ -33,6 +33,12 @@ export class Notifier {
     private currentStepActivityId: CorrelationId;
 
     constructor(private readonly serenity: Serenity) {
+    }
+
+    testRunStarts() {
+        this.emit(
+            new TestRunStarts(this.serenity.currentTime()),
+        );
     }
 
     outlineDetected(sceneId: CorrelationId, scenario: Scenario, outline: ScenarioOutline, feature: Feature): void {
