@@ -103,6 +103,9 @@ describe('SerenityBDDReporter', () => {
         'name': 'Advanced search',
         'title': 'Advanced search',
         'manual': false,
+        'testFailureClassname': 'Error',
+        'testFailureMessage': 'function timed out, ensure the promise resolves within 40000 milliseconds',
+        'testFailureSummary': 'ERROR;Error;function timed out, ensure the promise resolves within 40000 milliseconds;',
         'testSteps': [
             {
                 'number': 1,
@@ -175,6 +178,9 @@ describe('SerenityBDDReporter', () => {
         'name': 'Create new tag',
         'title': 'Create new tag',
         'manual': false,
+        'testFailureClassname': 'Error',
+        'testFailureMessage': 'function timed out, ensure the promise resolves within 10000 milliseconds',
+        'testFailureSummary': 'ERROR;Error;function timed out, ensure the promise resolves within 10000 milliseconds;',
         'testSteps': [
             {
                 'number': 1,
