@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionSkipped, FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
 
@@ -30,6 +30,7 @@ describe('CucumberMessagesListener', () => {
                     .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given step number one that passes`)))
                     .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                     .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                 ;
             }));

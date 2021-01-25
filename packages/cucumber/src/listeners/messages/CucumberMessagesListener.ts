@@ -31,8 +31,8 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {
                     step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,
             );
 
-            this.addAfterHook(() => {
-                this.emit(this.parser.sceneFinishes());
+            this.addAfterHook((message: { testCaseStartedId: string, result: messages.TestStepFinished.ITestStepResult }) => {
+                this.emit(this.parser.parseTestCaseFinishes(message));
 
                 return serenity.waitForNextCue();
             });
@@ -76,7 +76,7 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {
             this.emit(new TestRunFinished(serenity.currentTime()));
         }
 
-        private addAfterHook(code: () => Promise<void> | void) {
+        private addAfterHook(code: (...args: any) => Promise<void> | void) {
             this.supportCodeLibrary.afterTestCaseHookDefinitions.unshift(
                 new TestCaseHookDefinition({
                     code,

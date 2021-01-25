@@ -1,9 +1,11 @@
 import 'mocha';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import {
     ActivityFinished,
     ActivityStarts,
     SceneFinished,
+    SceneFinishes,
     SceneStarts,
     SceneTagged,
     TestRunFinished,
@@ -48,6 +50,7 @@ describe('@serenity-js/cucumber', function () {
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a failing scenario')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with generic error')))
                 .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                 .next(TestRunFinishes,     event => expect(event).to.be.instanceOf(TestRunFinishes))
                 .next(TestRunFinished,     event => expect(event).to.be.instanceOf(TestRunFinished))

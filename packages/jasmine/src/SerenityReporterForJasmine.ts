@@ -98,11 +98,14 @@ export class SerenityReporterForJasmine {
             });
         }
 
-        const scenarioDetails = this.scenarioDetailsOf(result);
+        const
+            scenarioDetails = this.scenarioDetailsOf(result),
+            outcome = this.outcomeFrom(result);
 
         this.emit(new SceneFinishes(
             this.currentSceneId,
             scenarioDetails,
+            outcome,
             this.serenity.currentTime(),
         ));
 
@@ -111,7 +114,7 @@ export class SerenityReporterForJasmine {
                 this.emit(new SceneFinished(
                     this.currentSceneId,
                     scenarioDetails,
-                    this.outcomeFrom(result),
+                    outcome,
                     this.serenity.currentTime(),
                 ));
             }, error => {

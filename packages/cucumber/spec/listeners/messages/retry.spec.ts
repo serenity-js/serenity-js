@@ -1,7 +1,17 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
+import {
+    ActivityFinished,
+    ActivityStarts,
+    SceneFinished,
+    SceneFinishes,
+    SceneStarts,
+    SceneTagged,
+    TestRunFinished,
+    TestRunFinishes,
+    TestRunStarts,
+} from '@serenity-js/core/lib/events';
 import { ArbitraryTag, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name, Timestamp } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
 
@@ -32,11 +42,13 @@ describe('CucumberMessagesListener', function () {
                     .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                     // todo: information not available due to https://github.com/cucumber/cucumber-js/issues/1535
                     // .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
 
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('An eventually passing scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))
                     .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(1)))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
@@ -44,6 +56,7 @@ describe('CucumberMessagesListener', function () {
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('An eventually passing scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))
                     .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(2)))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
@@ -72,11 +85,13 @@ describe('CucumberMessagesListener', function () {
                     .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                     // todo: information not available due to https://github.com/cucumber/cucumber-js/issues/1535
                     // .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
 
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('An eventually passing scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))
                     .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(1)))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))

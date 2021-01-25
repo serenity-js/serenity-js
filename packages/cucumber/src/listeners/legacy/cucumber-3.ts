@@ -8,8 +8,13 @@ export = function (dependencies: Dependencies) {
             dependencies.notifier.testRunStarts();
         });
 
-        After(function () {
-            dependencies.notifier.currentScenarioFinishes();
+        After(function (event) {
+            dependencies.notifier.currentScenarioFinishes(
+                dependencies.resultMapper.outcomeFor(
+                    event.result.status,
+                    event.result.exception,
+                )
+            );
 
             return dependencies.serenity.waitForNextCue();
         });
