@@ -159,7 +159,7 @@ describe('Stage', () => {
 
                 const actor = stage.actor('Bob');
 
-                stage.announce(new SceneFinishes(sceneId, scenario));
+                stage.announce(new SceneFinishes(sceneId, scenario, new ExecutionSuccessful()));
 
                 expect(actor.dismiss).to.have.been.calledOnce;  // tslint:disable-line:no-unused-expression
 
@@ -181,14 +181,14 @@ describe('Stage', () => {
 
                 stage.announce(new SceneStarts(sceneId, scenario));
                 stage.actor('Bob');
-                stage.announce(new SceneFinishes(sceneId, scenario));
+                stage.announce(new SceneFinishes(sceneId, scenario, new ExecutionSuccessful()));
                 stage.announce(new SceneFinished(sceneId, scenario, new ExecutionSuccessful()));
 
                 await stage.waitForNextCue();
 
                 stage.announce(new SceneStarts(anotherSceneId, scenario));
                 stage.actor('Bob');
-                stage.announce(new SceneFinishes(anotherSceneId, scenario));
+                stage.announce(new SceneFinishes(anotherSceneId, scenario, new ExecutionSuccessful()));
                 stage.announce(new SceneFinished(anotherSceneId, scenario, new ExecutionSuccessful()));
 
                 await stage.waitForNextCue();
@@ -210,7 +210,7 @@ describe('Stage', () => {
                 const actor = stage.actor('Bob');
 
                 stage.announce(new SceneStarts(sceneId, scenario));
-                stage.announce(new SceneFinishes(sceneId, scenario));
+                stage.announce(new SceneFinishes(sceneId, scenario, new ExecutionSuccessful()));
 
                 expect(actor.dismiss).to.have.not.been.called;  // tslint:disable-line:no-unused-expression
 

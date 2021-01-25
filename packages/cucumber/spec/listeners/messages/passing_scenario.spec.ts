@@ -3,7 +3,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import {
     ActivityFinished,
     ActivityStarts,
-    SceneFinished,
+    SceneFinished, SceneFinishes,
     SceneStarts,
     SceneTagged,
     TestRunFinished,
@@ -42,6 +42,7 @@ describe('CucumberMessagesListener', () => {
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('A passing feature')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                     .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
                     .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
                     .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
                     .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))

@@ -14,7 +14,7 @@ import { createListener } from '../../../src/listeners/legacy';
 
 describe('CucumberEventProtocolAdapter', () => {
 
-    type CucumberHook = () => Promise<void> | void;
+    type CucumberHook = (event?: object) => Promise<void> | void;
 
     let afterHook: CucumberHook;
 
@@ -40,8 +40,6 @@ describe('CucumberEventProtocolAdapter', () => {
         recorder = new EventRecorder();
         eventBroadcaster = new EventEmitter();
 
-        eventBroadcaster.on('test-case-finished', () => afterHook());
-
         serenity.configure({
             crew: [recorder],
         });
@@ -58,6 +56,8 @@ describe('CucumberEventProtocolAdapter', () => {
     });
 
     it('correctly recognises Cucumber Event Protocol events', () => {
+
+        eventBroadcaster.on('test-case-finished', () => afterHook({ result: { duration: 2, status: 'passed' } }));
 
         emitAllFrom(require('./samples/scenario-with-hooks.json'));
 
@@ -95,6 +95,8 @@ describe('CucumberEventProtocolAdapter', () => {
     });
 
     it('correctly recognises undefined steps', () => {
+
+        eventBroadcaster.on('test-case-finished', () => afterHook({ result: { duration: 0, status: 'undefined' } }));
 
         emitAllFrom(require('./samples/scenario-with-undefined-steps.json'));
 
@@ -134,6 +136,8 @@ describe('CucumberEventProtocolAdapter', () => {
 
     it('correctly recognises pending steps', () => {
 
+        eventBroadcaster.on('test-case-finished', () => afterHook({ result: { duration: 0, status: 'pending' } }));
+
         emitAllFrom(require('./samples/scenario-with-pending-steps.json'));
 
         const expectedScenarioDetails = new ScenarioDetails(
@@ -171,6 +175,14 @@ describe('CucumberEventProtocolAdapter', () => {
     });
 
     it('correctly recognises ambiguous steps', () => {
+
+        eventBroadcaster.on('test-case-finished', () => afterHook({
+            result: {
+                duration: 0,
+                status: 'ambiguous',
+                exception: 'Multiple step definitions match:\n  /^I have an ambiguous step definition$/ - step_definitions/ambiguous.steps.ts:3\n  /^I have an ambiguous step definition$/ - step_definitions/ambiguous.steps.ts:7'
+            },
+        }));
 
         emitAllFrom(require('./samples/scenario-with-ambiguous-steps.json'));
 
@@ -211,6 +223,14 @@ describe('CucumberEventProtocolAdapter', () => {
 
     it('correctly recognises errors thrown in steps', () => {
 
+        eventBroadcaster.on('test-case-finished', () => afterHook({
+            result: {
+                duration: 0,
+                status: 'failed',
+                exception: `Error: We're sorry, something happened\n    at World.<anonymous> (step_definitions/errors.steps.ts:4:11)`
+            },
+        }));
+
         emitAllFrom(require('./samples/scenario-with-errors.json'));
 
         const expectedScenarioDetails = new ScenarioDetails(
@@ -247,6 +267,13 @@ describe('CucumberEventProtocolAdapter', () => {
     });
 
     it('correctly recognises scenario outlines', () => {
+
+        eventBroadcaster.on('test-case-finished', () => afterHook({
+            result: {
+                duration: 0,
+                status: 'passed',
+            },
+        }));
 
         emitAllFrom(require('./samples/scenario-outline.json'));
 
@@ -288,6 +315,13 @@ describe('CucumberEventProtocolAdapter', () => {
     });
 
     it('considers a scenario with no steps and no hooks to be pending implementation', () => {
+
+        eventBroadcaster.on('test-case-finished', () => afterHook({
+            result: {
+                duration: 0,
+                status: 'passed',
+            },
+        }));
 
         emitAllFrom(require('./samples/pending-scenario.json'));
 

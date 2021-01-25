@@ -5,6 +5,7 @@ import {
     ActivityFinished,
     ActivityStarts,
     SceneFinished,
+    SceneFinishes,
     SceneStarts,
     SceneTagged,
     TestRunFinished,
@@ -43,6 +44,13 @@ describe('CucumberMessagesListener', () => {
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('A failing feature')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with a generic error')))
                     .next(ActivityFinished,    event => {
+                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError)
+                        const outcome = event.outcome as ExecutionFailedWithError;
+
+                        expect(outcome.error.name).to.equal('Error');
+                        expect(outcome.error.message).to.equal(`Something's wrong`);
+                    })
+                    .next(SceneFinishes,       event => {
                         expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError)
                         const outcome = event.outcome as ExecutionFailedWithError;
 

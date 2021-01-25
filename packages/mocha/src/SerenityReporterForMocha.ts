@@ -130,12 +130,15 @@ export class SerenityReporterForMocha extends reporters.Base {
     }
 
     private announceSceneFinishedFor(test: Test, runnable: Runnable): Promise<void> {
-        const scenario = this.testMapper.detailsOf(test);
+        const
+            scenario    = this.testMapper.detailsOf(test),
+            outcome     = this.recorder.outcomeOf(test) || this.outcomeMapper.outcomeOf(test);
 
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,
                 scenario,
+                outcome,
                 this.serenity.currentTime(),
             ),
         );
@@ -145,7 +148,7 @@ export class SerenityReporterForMocha extends reporters.Base {
                 this.emit(new SceneFinished(
                     this.currentSceneId,
                     scenario,
-                    this.recorder.outcomeOf(test) || this.outcomeMapper.outcomeOf(test),
+                    outcome,
                     this.serenity.currentTime(),
                 ));
 
@@ -167,7 +170,9 @@ export class SerenityReporterForMocha extends reporters.Base {
     }
 
     private announceSceneSkippedFor(test: Test): void {
-        const scenario = this.testMapper.detailsOf(test)
+        const
+            scenario    = this.testMapper.detailsOf(test),
+            outcome     = this.outcomeMapper.outcomeOf(test);
 
         this.announceSceneStartsFor(test);
 
@@ -175,12 +180,13 @@ export class SerenityReporterForMocha extends reporters.Base {
             new SceneFinishes(
                 this.currentSceneId,
                 scenario,
+                outcome,
                 this.serenity.currentTime(),
             ),
             new SceneFinished(
                 this.currentSceneId,
                 scenario,
-                this.outcomeMapper.outcomeOf(test),
+                outcome,
                 this.serenity.currentTime(),
             )
         );
