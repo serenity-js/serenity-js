@@ -4,6 +4,7 @@ export type Assertion<A> = (actual: A) => void;
 
 /**
  * @deprecated
+ *  Use the <a href="/modules/assertions"><code>@serenity-js/assertions</code> module</a> instead
  */
 export class See<S> extends Interaction {
     static if<T>(question: Question<T>, assertion: Assertion<T>): Interaction {

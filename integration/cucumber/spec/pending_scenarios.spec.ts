@@ -1,15 +1,8 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import {
-    ActivityFinished,
-    ActivityStarts,
-    SceneFinished,
-    SceneStarts,
-    SceneTagged,
-    TestRunnerDetected,
-} from '@serenity-js/core/lib/events';
-import { ExecutionSkipped, FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
-
 import 'mocha';
+
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ExecutionSkipped, FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
 
 import { CucumberRunner, cucumberVersions } from '../src';
@@ -58,6 +51,7 @@ describe('@serenity-js/cucumber', function () {
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given a step that's marked as pending`)))
                 .next(ActivityFinished,    event => expect(event.outcome.constructor).to.equal(ImplementationPending))
+                .next(SceneFinishes,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
                 .next(SceneFinished,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
             ;
         }));
@@ -102,6 +96,7 @@ describe('@serenity-js/cucumber', function () {
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given a step that hasn't been implemented yet`)))
                 .next(ActivityFinished,    event => expect(event.outcome.constructor).to.equal(ImplementationPending))
+                .next(SceneFinishes,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
                 .next(SceneFinished,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
             ;
         }));

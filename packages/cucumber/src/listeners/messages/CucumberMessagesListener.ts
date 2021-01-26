@@ -1,7 +1,7 @@
 // import { Formatter, formatterHelpers } from '@cucumber/cucumber';
 import { IdGenerator, messages } from '@cucumber/messages';
 import { Serenity } from '@serenity-js/core';
-import { DomainEvent, TestRunFinished, TestRunFinishes } from '@serenity-js/core/lib/events';
+import { DomainEvent, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
 import { ModuleLoader } from '@serenity-js/core/lib/io';
 import { CucumberMessagesParser } from './parser/CucumberMessagesParser';
 import { IParsedTestStep } from './types/cucumber';
@@ -31,8 +31,8 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {
                     step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,
             );
 
-            this.addAfterHook(() => {
-                this.emit(this.parser.sceneFinishes());
+            this.addAfterHook((message: { testCaseStartedId: string, result: messages.TestStepFinished.ITestStepResult }) => {
+                this.emit(this.parser.parseTestCaseFinishes(message));
 
                 return serenity.waitForNextCue();
             });
@@ -41,6 +41,9 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {
                 // this.log('> [cucumber] ' + JSON.stringify(envelope) + '\n');
 
                 switch (true) {
+                    case !! envelope.testRunStarted:
+                        return this.emit(new TestRunStarts(serenity.currentTime()));
+
                     case !! envelope.testCaseStarted:
                         return this.emit(
                             this.parser.parseTestCaseStarted(envelope.testCaseStarted),
@@ -73,7 +76,7 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {
             this.emit(new TestRunFinished(serenity.currentTime()));
         }
 
-        private addAfterHook(code: () => Promise<void> | void) {
+        private addAfterHook(code: (...args: any) => Promise<void> | void) {
             this.supportCodeLibrary.afterTestCaseHookDefinitions.unshift(
                 new TestCaseHookDefinition({
                     code,

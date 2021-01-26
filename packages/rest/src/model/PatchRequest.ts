@@ -69,7 +69,7 @@ export class PatchRequest extends HTTPRequest {
      *
      * @returns {PatchRequest}
      */
-    using(config: AxiosRequestConfig): PatchRequest {
+    using(config: Answerable<AxiosRequestConfig>): PatchRequest {
         return new PatchRequest(this.resourceUri, this.data, config);
     }
 }

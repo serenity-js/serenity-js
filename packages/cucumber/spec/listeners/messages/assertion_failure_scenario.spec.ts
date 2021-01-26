@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AssertionError } from '@serenity-js/core';
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithAssertionError, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
 
@@ -28,6 +28,10 @@ describe('CucumberMessagesListener', () => {
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a scenario failing due to an assertion error')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with an assertion error')))
                     .next(ActivityFinished,    event => {
+                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                        expect((event.outcome as ExecutionFailedWithAssertionError).error).to.be.instanceOf(AssertionError);
+                    })
+                    .next(SceneFinishes,       event => {
                         expect(event.outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
                         expect((event.outcome as ExecutionFailedWithAssertionError).error).to.be.instanceOf(AssertionError);
                     })
