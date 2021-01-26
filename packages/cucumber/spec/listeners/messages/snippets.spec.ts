@@ -1,9 +1,9 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
-import { FeatureTag, ImplementationPending, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import { FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', () => {
@@ -40,6 +40,14 @@ describe('CucumberMessagesListener', () => {
                             |   return 'pending';
                             | });
                         `.trim());
+                    })
+                    .next(SceneFinishes,       event => {
+                        expect(event.outcome).to.be.instanceOf(ImplementationPending);
+
+                        const error = (event.outcome as ImplementationPending).error;
+
+                        // SceneFinishes is triggered by an AfterHook, which doesn't have access to code snippets
+                        expect(error.message).to.equal('Step implementation missing');
                     })
                     .next(SceneFinished,       event => {
                         expect(event.outcome).to.be.instanceOf(ImplementationPending);

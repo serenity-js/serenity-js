@@ -27,7 +27,7 @@ const buildFullPath = require('axios/lib/core/buildFullPath');   // tslint:disab
  *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  import axios  from 'axios';
+ *  import axios from 'axios';
  *
  *  const axiosInstance = axios.create({
  *      timeout: 5 * 1000,
@@ -154,7 +154,8 @@ export class CallAnApi implements Ability {
      *  Resolves the final URL, based on the {@link AxiosRequestConfig} provided
      *  any any defaults {@link AxiosInstance} has been configured with.
      *
-     * @param {AxiosRequestConfig} config}
+     * @param {AxiosRequestConfig} config
+     * @returns {string}
      *
      * @see {@link AxiosRequestConfig}
      * @see {@link AxiosInstance}

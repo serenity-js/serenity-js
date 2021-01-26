@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { BusinessRuleDetected, FeatureNarrativeDetected, SceneDescriptionDetected, SceneFinished, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
+import { BusinessRuleDetected, FeatureNarrativeDetected, SceneDescriptionDetected, SceneFinished, SceneFinishes, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { BusinessRule, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
@@ -54,6 +54,9 @@ describe('CucumberMessagesListener', () => {
                     .next(SceneTagged,         event => {
                         expect(event.tag).to.equal(new FeatureTag('Transferring points between members'))
                     })
+                    .next(SceneFinishes,       event => {
+                        expect(event.outcome).to.equal(new ExecutionSuccessful())
+                    })
                     .next(SceneFinished,       event => {
                         expect(event.outcome).to.equal(new ExecutionSuccessful())
                     })
@@ -74,6 +77,9 @@ describe('CucumberMessagesListener', () => {
                     .next(SceneTagged,         event => {
                         expect(event.tag).to.equal(new FeatureTag('Transferring points between members'))
                     })
+                    .next(SceneFinishes,       event => {
+                        expect(event.outcome).to.equal(new ExecutionSuccessful())
+                    })
                     .next(SceneFinished,       event => {
                         expect(event.outcome).to.equal(new ExecutionSuccessful())
                     })
@@ -90,6 +96,9 @@ describe('CucumberMessagesListener', () => {
                     })
                     .next(SceneTagged,         event => {
                         expect(event.tag).to.equal(new FeatureTag('Transferring points between members'))
+                    })
+                    .next(SceneFinishes,       event => {
+                        expect(event.outcome).to.equal(new ExecutionSuccessful())
                     })
                     .next(SceneFinished,       event => {
                         expect(event.outcome).to.equal(new ExecutionSuccessful())

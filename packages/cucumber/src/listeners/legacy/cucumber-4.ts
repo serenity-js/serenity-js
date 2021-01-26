@@ -2,10 +2,19 @@ import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter';
 import { Dependencies } from './Dependencies';
 
 export = function (dependencies: Dependencies) {
-    const { After, AfterAll } = dependencies.cucumber;
+    const { BeforeAll, After, AfterAll } = dependencies.cucumber;
 
-    After(function () {
-        dependencies.notifier.currentScenarioFinishes();
+    BeforeAll(function () {
+        dependencies.notifier.testRunStarts();
+    });
+
+    After(function (event) {
+        dependencies.notifier.currentScenarioFinishes(
+            dependencies.resultMapper.outcomeFor(
+                event.result.status,
+                event.result.exception,
+            )
+        );
 
         return dependencies.serenity.waitForNextCue();
     });

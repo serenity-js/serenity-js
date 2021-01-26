@@ -1,8 +1,8 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Serenity, Stage } from '@serenity-js/core';
-import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
+import { Serenity } from '@serenity-js/core';
+import { SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { Category, CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { ArtifactArchiver, Clock, StageCrewMember } from '@serenity-js/core/lib/stage';
@@ -47,22 +47,6 @@ describe('ProtractorFrameworkAdapter', () => {
 
         adapter = new ProtractorFrameworkAdapter(serenity, protractorRunner, testRunnerDetector as unknown as TestRunnerDetector);
     });
-
-    class TestRunnerSimulator implements StageCrewMember {
-        constructor(private readonly stage: Stage = null) {
-        }
-
-        assignedTo(stage: Stage): StageCrewMember {
-            return new TestRunnerSimulator(stage);
-        }
-
-        notifyOf(event: DomainEvent): void {
-            if (event instanceof SceneStarts) {
-                this.stage.announce(new SceneFinishes(event.sceneId, event.details, this.stage.currentTime()));
-            }
-        }
-
-    }
 
     beforeEach(() => {
         protractorRunner.getConfig.returns({ });
@@ -328,7 +312,7 @@ describe('ProtractorFrameworkAdapter', () => {
                     // ... an actual test runner would now execute the test and then announce the outcome
 
                     this.serenityInstance.announce(
-                        new SceneFinishes(sceneId, details, this.serenityInstance.currentTime()),
+                        new SceneFinishes(sceneId, details, scenario.outcome, this.serenityInstance.currentTime()),
                     );
 
                     return this.serenityInstance.waitForNextCue()

@@ -9,7 +9,7 @@ import {
     TaskStarts,
     TestRunFinished,
     TestRunFinishes,
-    TestRunnerDetected,
+    TestRunnerDetected, TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
@@ -31,7 +31,7 @@ import {
     ScenarioDetails,
     TestSuiteDetails,
 } from '@serenity-js/core/lib/model';
-import { Expectation, JasmineDoneInfo, SpecResult, SuiteResult } from './jasmine';
+import { Expectation, JasmineDoneInfo, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';
 
 /**
  * @desc
@@ -48,6 +48,10 @@ export class SerenityReporterForJasmine {
     private currentSceneId: CorrelationId = null;
 
     constructor(private readonly serenity: Serenity) {
+    }
+
+    jasmineStarted(info: JasmineStartedInfo) {
+        this.emit(new TestRunStarts(this.serenity.currentTime()));
     }
 
     suiteStarted(result: SuiteResult) {
@@ -94,11 +98,14 @@ export class SerenityReporterForJasmine {
             });
         }
 
-        const scenarioDetails = this.scenarioDetailsOf(result);
+        const
+            scenarioDetails = this.scenarioDetailsOf(result),
+            outcome = this.outcomeFrom(result);
 
         this.emit(new SceneFinishes(
             this.currentSceneId,
             scenarioDetails,
+            outcome,
             this.serenity.currentTime(),
         ));
 
@@ -107,7 +114,7 @@ export class SerenityReporterForJasmine {
                 this.emit(new SceneFinished(
                     this.currentSceneId,
                     scenarioDetails,
-                    this.outcomeFrom(result),
+                    outcome,
                     this.serenity.currentTime(),
                 ));
             }, error => {

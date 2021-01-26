@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts } from '@serenity-js/core/lib/events';
+import { SceneFinished, SceneFinishes, SceneParametersDetected, SceneSequenceDetected, SceneStarts } from '@serenity-js/core/lib/events';
 import { Category, Description, Name } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
 
@@ -48,6 +48,11 @@ describe('CucumberMessagesListener', () => {
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(firstScenarioLine);
                     })
+                    .next(SceneFinishes,          event => {
+                        expect(event.details.name).to.equal(expectedScenarioName);
+                        expect(event.details.category).to.equal(expectedScenarioCategory);
+                        expect(event.details.location.line).to.equal(firstScenarioLine);
+                    })
                     .next(SceneFinished,          event => {
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
@@ -70,6 +75,11 @@ describe('CucumberMessagesListener', () => {
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(secondScenarioLine);
                     })
+                    .next(SceneFinishes,          event => {
+                        expect(event.details.name).to.equal(expectedScenarioName);
+                        expect(event.details.category).to.equal(expectedScenarioCategory);
+                        expect(event.details.location.line).to.equal(secondScenarioLine);
+                    })
                     .next(SceneFinished,          event => {
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
@@ -88,6 +98,11 @@ describe('CucumberMessagesListener', () => {
                         expect(event.parameters.values).to.deep.equal({ result: 'passes' });
                     })
                     .next(SceneStarts,          event => {
+                        expect(event.details.name).to.equal(expectedScenarioName);
+                        expect(event.details.category).to.equal(expectedScenarioCategory);
+                        expect(event.details.location.line).to.equal(thirdScenarioLine);
+                    })
+                    .next(SceneFinishes,          event => {
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(thirdScenarioLine);

@@ -4,7 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import {
     ActivityFinished,
     ActivityStarts,
-    SceneFinished,
+    SceneFinished, SceneFinishes,
     SceneStarts,
     SceneTagged,
     TestRunnerDetected,
@@ -45,6 +45,13 @@ describe('CucumberMessagesListener', () => {
                         expect(lines[1]).to.contain('ambiguous.steps.ts');
                         expect(lines[2]).to.contain('/^.*step (?:.*) passes$/');
                         expect(lines[2]).to.contain('ambiguous.steps.ts');
+                    })
+                    .next(SceneFinishes, event => {
+                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
+
+                        const err = (event.outcome as ExecutionFailedWithError).error;
+
+                        expect(err.message).to.match(/^Multiple step definitions match/);
                     })
                     .next(SceneFinished, event => {
                         expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);

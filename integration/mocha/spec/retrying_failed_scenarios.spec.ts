@@ -1,16 +1,8 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { SceneFinished, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
-import {
-    ArbitraryTag,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionRetriedTag,
-    ExecutionSuccessful,
-    FeatureTag,
-    Name,
-    ProblemIndication,
-} from '@serenity-js/core/lib/model';
 import 'mocha';
+
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
+import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
+import { ArbitraryTag, ExecutionIgnored, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
 import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
@@ -25,6 +17,8 @@ describe('@serenity-js/mocha', function () {
                 expect(res.exitCode).to.equal(0);
 
                 PickEvent.from(res.events)
+                    .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
+
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
@@ -49,6 +43,9 @@ describe('@serenity-js/mocha', function () {
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(2)))
                     .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+
+                    .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                    .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
                 ;
             }));
 

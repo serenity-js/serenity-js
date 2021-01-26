@@ -14,20 +14,20 @@ describe('@serenity-js/mocha', function () {
             './examples/protractor.conf.js',
             '--specs=examples/screenplay.spec.js',
         )
-            .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
+        .then(ifExitCodeIsOtherThan(0, logOutput))
+        .then(res => {
 
-                expect(res.exitCode).to.equal(0);
+            expect(res.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario passes')))
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha')))
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
-                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
-                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://version/'`)))
-                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://accessibility/'`)))
-                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://chrome-urls/'`)))
-                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
-                ;
-            }));
+            PickEvent.from(res.events)
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario passes')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
+                .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
+                .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://version/'`)))
+                .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://accessibility/'`)))
+                .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://chrome-urls/'`)))
+                .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+            ;
+        }));
 });
