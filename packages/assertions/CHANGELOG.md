@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.1](https://github.com/serenity-js/serenity-js/compare/v2.20.0...v2.20.1) (2021-01-23)
+
+
+### Bug Fixes
+
+* **deps:** updated tiny-types ([e81a6ea](https://github.com/serenity-js/serenity-js/commit/e81a6ea804286083da118f9141ebbfd52746b581))
+
+
+
+
+
+# [2.20.0](https://github.com/serenity-js/serenity-js/compare/v2.19.10...v2.20.0) (2021-01-18)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
 ## [2.19.10](https://github.com/serenity-js/serenity-js/compare/v2.19.9...v2.19.10) (2020-12-22)
 
 **Note:** Version bump only for package @serenity-js/assertions

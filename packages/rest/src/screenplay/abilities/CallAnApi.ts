@@ -1,46 +1,49 @@
 import { Ability, ConfigurationError, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
 import axios, { AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+const mergeConfig = require('axios/lib/core/mergeConfig');       // tslint:disable-line:no-var-requires no-submodule-imports
+const buildFullPath = require('axios/lib/core/buildFullPath');   // tslint:disable-line:no-var-requires no-submodule-imports
 
 /**
  * @desc
  *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor} to call a HTTP API.
+ *  If you need to connect via a proxy, check out [this article](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d).
  *
  * @example <caption>Using a default Axios HTTP client</caption>
- * import { Actor } from '@serenity-js/core';
- * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
- * import { Ensure, equals } from '@serenity-js/assertions';
+ *  import { Actor } from '@serenity-js/core';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- * const actor = Actor.named('Apisit').whoCan(
- *     CallAnApi.at('https://myapp.com/api'),
- * );
+ *  const actor = Actor.named('Apisit').whoCan(
+ *      CallAnApi.at('https://myapp.com/api'),
+ *  );
  *
- * actor.attemptsTo(
- *     Send.a(GetRequest.to('/users/2')),
- *     Ensure.that(LastResponse.status(), equals(200)),
- * );
+ *  actor.attemptsTo(
+ *      Send.a(GetRequest.to('/users/2')),
+ *      Ensure.that(LastResponse.status(), equals(200)),
+ *  );
  *
  * @example <caption>Using Axios client with custom configuration</caption>
- * import { Actor } from '@serenity-js/core';
- * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
- * import { Ensure, equals } from '@serenity-js/assertions';
+ *  import { Actor } from '@serenity-js/core';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- * import axios  from 'axios';
+ *  import axios from 'axios';
  *
- * const axiosInstance = axios.create({
- *     timeout: 5 * 1000,
- *     headers: {
- *         'X-Custom-Api-Key': 'secret-key',
- *     },
- * });
+ *  const axiosInstance = axios.create({
+ *      timeout: 5 * 1000,
+ *      headers: {
+ *          'X-Custom-Api-Key': 'secret-key',
+ *      },
+ *  });
  *
- * const actor = Actor.named('Apisit').whoCan(
- *     CallAnApi.using(axiosInstance),
- * );
+ *  const actor = Actor.named('Apisit').whoCan(
+ *      CallAnApi.using(axiosInstance),
+ *  );
  *
- * actor.attemptsTo(
- *     Send.a(GetRequest.to('/users/2')),
- *     Ensure.that(LastResponse.status(), equals(200)),
- * );
+ *  actor.attemptsTo(
+ *      Send.a(GetRequest.to('/users/2')),
+ *      Ensure.that(LastResponse.status(), equals(200)),
+ *  );
  *
  * @see https://github.com/axios/axios
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
@@ -144,6 +147,23 @@ export class CallAnApi implements Ability {
      */
     request(config: AxiosRequestConfig): Promise<AxiosResponse> {
         return this.captureResponseOf(this.axiosInstance.request(config));
+    }
+
+    /**
+     * @desc
+     *  Resolves the final URL, based on the {@link AxiosRequestConfig} provided
+     *  any any defaults {@link AxiosInstance} has been configured with.
+     *
+     * @param {AxiosRequestConfig} config
+     * @returns {string}
+     *
+     * @see {@link AxiosRequestConfig}
+     * @see {@link AxiosInstance}
+     */
+    resolveUrl(config: AxiosRequestConfig): string {
+        const merged = mergeConfig(this.axiosInstance.defaults, config);
+
+        return buildFullPath(merged.baseURL, merged.url);
     }
 
     /**

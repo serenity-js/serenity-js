@@ -45,10 +45,10 @@ import { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForM
  *  (or have a terminal that doesn't support colours, like the good old `cmd.exe` on Windows).
  *
  * @example <caption>Registering the reporter programmatically</caption>
- *  import { serenity } from '@serenity-js/core';
+ *  import { configure } from '@serenity-js/core';
  *  import { ConsoleReporter } from '@serenity-js/console-reporter';
  *
- *  serenity.configure({
+ *  configure({
  *      crew: [ ConsoleReporter.withDefaultColourSupport() ],
  *  });
  *
@@ -113,7 +113,7 @@ export class ConsoleReporter implements StageCrewMember {
      *
      * @returns {ConsoleReporter}
      */
-    static forMonochromaticTerminals() {
+    static forMonochromaticTerminals(): StageCrewMember {
         return new ConsoleReporter(
             new Printer(process.stdout),
             new ThemeForMonochromaticTerminals(),
@@ -126,7 +126,7 @@ export class ConsoleReporter implements StageCrewMember {
      *
      * @returns {ConsoleReporter}
      */
-    static forDarkTerminals() {
+    static forDarkTerminals(): StageCrewMember {
         return new ConsoleReporter(
             new Printer(process.stdout),
             new ThemeForDarkTerminals(new ChalkInstance({ level: 2 })),
@@ -139,7 +139,7 @@ export class ConsoleReporter implements StageCrewMember {
      *
      * @returns {ConsoleReporter}
      */
-    static forLightTerminals() {
+    static forLightTerminals(): StageCrewMember {
         return new ConsoleReporter(
             new Printer(process.stdout),
             new ThemeForLightTerminals(new ChalkInstance({ level: 2 })),
@@ -149,7 +149,7 @@ export class ConsoleReporter implements StageCrewMember {
     /**
      * @param {Printer} printer
      * @param {TerminalTheme} theme
-     * @param {@serenity-js/core/lib/stage~Stage} stage
+     * @param {@serenity-js/core/lib/stage~Stage} [stage=null]
      */
     constructor(
         private readonly printer: Printer,
@@ -182,6 +182,8 @@ export class ConsoleReporter implements StageCrewMember {
      *
      * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
      *
+     * @listens {@serenity-js/core/lib/events~DomainEvent}
+     *
      * @param {@serenity-js/core/lib/events~DomainEvent} event
      * @returns {void}
      */
@@ -198,8 +200,10 @@ export class ConsoleReporter implements StageCrewMember {
                 this.printer.println();
                 this.printer.println(this.theme.heading(e.details.category.value, ': ', e.details.name.value));
                 this.printer.println();
-
             })
+
+            // todo: add SceneTagged ...
+
             .when(TaskStarts, (e: TaskStarts) => {
 
                 this.printer.indent();
@@ -225,7 +229,7 @@ export class ConsoleReporter implements StageCrewMember {
                     this.firstError.recordIfNeeded(e.outcome.error);
 
                     if (! (e.outcome.error instanceof AssertionError)) {
-                        this.printer.println(this.theme.outcome(e.outcome, e.outcome.error.toString()));
+                        this.printer.println(this.theme.outcome(e.outcome, `${ e.outcome.error }`));
                     }
                 }
 
@@ -283,7 +287,7 @@ export class ConsoleReporter implements StageCrewMember {
                     this.printer.indent();
 
                     if (! this.firstError.alreadyRecorded()) {
-                        this.printer.println(this.theme.outcome(e.outcome, this.iconFrom(e.outcome), e.outcome.error.toString()));
+                        this.printer.println(this.theme.outcome(e.outcome, this.iconFrom(e.outcome), `${ e.outcome.error }`));
                     }
 
                     this.printer.outdent();
@@ -310,9 +314,14 @@ export class ConsoleReporter implements StageCrewMember {
                 if (e.outcome instanceof ProblemIndication) {
 
                     this.printer.println();
+
                     this.printer.indent();
 
-                    this.printer.println(e.outcome.error.stack);
+                    if (e.outcome instanceof ImplementationPending) {
+                        this.printer.println(`${ e.outcome.error.name }: ${ e.outcome.error.message }`);
+                    } else if (e.outcome.error?.stack) {
+                        this.printer.println(e.outcome.error.stack);
+                    }
 
                     this.printer.outdent();
                 }

@@ -1,6 +1,7 @@
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
+    BusinessRuleDetected,
     FeatureNarrativeDetected,
     SceneBackgroundDetected,
     SceneDescriptionDetected,
@@ -9,9 +10,18 @@ import {
 } from '@serenity-js/core/lib/events';
 
 import { SerenityBDDReport } from '../SerenityBDDJsonSchema';
-import { SerenityBDDReportContext } from './SerenityBDDReportContext';
 import { EventQueue } from './EventQueue';
-import { activityRelatedArtifact, archivedActivityRelatedArtifact, backgroundOf, descriptionOf, featureNarrativeOf, tagOf, testRunnerCalled } from './transformations';
+import { SerenityBDDReportContext } from './SerenityBDDReportContext';
+import {
+    activityRelatedArtifact,
+    archivedActivityRelatedArtifact,
+    backgroundOf,
+    businessRuleOf,
+    descriptionOf,
+    featureNarrativeOf,
+    tagOf,
+    testRunnerCalled,
+} from './transformations';
 
 /**
  * @package
@@ -48,6 +58,12 @@ export abstract class EventQueueProcessor {
         return (event: SceneTagged): Context =>
             report
                 .with(tagOf(event.tag))
+    }
+
+    protected onBusinessRuleDetected<Context extends SerenityBDDReportContext>(report: Context) {
+        return (event: BusinessRuleDetected): Context =>
+            report
+                .with(businessRuleOf(event.rule))
     }
 
     protected onActivityRelatedArtifactGenerated<Context extends SerenityBDDReportContext>(report: Context) {

@@ -1,6 +1,7 @@
 export * from './ActivityDetails';
 export * from './artifacts';
 export * from './Artifact';
+export * from './BusinessRule';
 export * from './Category';
 export * from './CorrelationId';
 export * from './Description';

@@ -155,9 +155,6 @@ describe('ConsoleReporter', () => {
                 | ☕Implementation pending (28ms)
                 |
                 |   ImplementationPendingError: Step not implemented
-                |       at CucumberEventProtocolAdapter.outcomeFrom (/Users/jan/Projects/serenity-js/packages/cucumber/src/listeners/CucumberEventProtocolAdapter.ts:179:54)
-                |       at EventEmitter.<anonymous> (/Users/jan/Projects/serenity-js/packages/cucumber/src/listeners/CucumberEventProtocolAdapter.ts:155:28)
-                |       at EventEmitter.emit (events.js:203:15)
                 | ================================================================================
                 | Execution Summary
                 |

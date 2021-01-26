@@ -8,6 +8,16 @@ import { Actor } from '../screenplay/actor';
 import { Cast } from './Cast';
 import { StageManager } from './StageManager';
 
+/**
+ * @desc
+ *  The place where {@link Actor}s perform.
+ *
+ *  In more technical terms, the Stage is the main event bus propagating {@link DomainEvent}s
+ *  to {@link Actor}s it instantiates and {@link StageCrewMember}s that have been registered with it.
+ *
+ * @see {@link configure}
+ * @see {@link engage}
+ */
 export class Stage {
 
     /**
@@ -41,6 +51,10 @@ export class Stage {
     private currentActivity: CorrelationId = null;
     private currentScene: CorrelationId = new CorrelationId('unknown');
 
+    /**
+     * @param {Cast} cast
+     * @param {StageManager} manager
+     */
     constructor(
         private cast: Cast,
         private readonly manager: StageManager,
@@ -51,7 +65,7 @@ export class Stage {
 
     /**
      * @desc An alias for {@link Stage#actor}
-     * @see {Stage#actor}
+     * @see {@link Stage#actor}
      * @alias {Stage#actor}
      * @param {string} name
      * @return {Actor}
@@ -126,7 +140,7 @@ export class Stage {
      *  instantiated via {@link Stage#actor} using the provided {@link Cast}.
      *
      * @param {Cast} actors
-     * @returns void
+     * @returns {void}
      */
     engage(actors: Cast): void {
         ensure('Cast', actors, isDefined());
@@ -134,10 +148,27 @@ export class Stage {
         this.cast        = actors;
     }
 
-    assign(...listeners: ListensToDomainEvents[]) {
+    /**
+     * @desc
+     *  Assigns listeners to be notified of {@link DomainEvent}s
+     *  emitted via {@link Stage#announce}
+     *
+     * @param {ListensToDomainEvents[]} listeners
+     * @returns {void}
+     */
+    assign(...listeners: ListensToDomainEvents[]): void {
         this.manager.register(...listeners);
     }
 
+    /**
+     * @desc
+     *  Notifies all the assigned listeners of the event.
+     *
+     * @listens {DomainEvent}
+     *
+     * @param {DomainEvent} event
+     * @returns {void}
+     */
     announce(event: DomainEvent): void {
         if (event instanceof SceneStarts) {
             this.actorsOnStage = this.actorsOnFrontStage;
@@ -156,21 +187,60 @@ export class Stage {
         }
     }
 
+    /**
+     * @desc
+     *  Returns current time. This method should be used whenever
+     *  {@link DomainEvent} objects are instantiated by hand.
+     *
+     * @returns {Timestamp}
+     */
     currentTime(): Timestamp {
         return this.manager.currentTime();
     }
 
-    assignNewSceneId() {
+    /**
+     * @desc
+     *  Generates and remembers a {@link CorrelationId}
+     *  for the current scene.
+     *
+     *  This method should be used in custom test runner adapters
+     *  when instantiating a {@link SceneStarts} event.
+     *
+     * @see {@link Stage#currentSceneId}
+     *
+     * @returns {CorrelationId}
+     */
+    assignNewSceneId(): CorrelationId {
         // todo: inject an id factory to make it easier to test
         this.currentScene = CorrelationId.create();
 
         return this.currentScene;
     }
 
-    currentSceneId() {
+    /**
+     * @desc
+     *  Returns the {@link CorrelationId} for the current scene.
+     *
+     * @see {@link Stage#assignNewSceneId}
+     *
+     * @returns {CorrelationId}
+     */
+    currentSceneId(): CorrelationId {
         return this.currentScene;
     }
 
+    /**
+     * @desc
+     *  Generates and remembers a {@link CorrelationId}
+     *  for the current {@link Activity}.
+     *
+     *  This method should be used in custom test runner adapters
+     *  when instantiating an {@link ActivityStarts} event.
+     *
+     * @see {@link Stage#currentActivityId}
+     *
+     * @returns {CorrelationId}
+     */
     assignNewActivityId() {
         // todo: inject an id factory to make it easier to test
         this.currentActivity = CorrelationId.create();
@@ -178,6 +248,14 @@ export class Stage {
         return this.currentActivity;
     }
 
+    /**
+     * @desc
+     *  Returns the {@link CorrelationId} for the current {@link Activity}.
+     *
+     * @see {@link Stage#assignNewSceneId}
+     *
+     * @returns {CorrelationId}
+     */
     currentActivityId(): CorrelationId {
         if (! this.currentActivity) {
             throw new LogicError(`No activity is being performed. Did you call assignNewActivityId before invoking currentActivityId?`);
@@ -186,6 +264,13 @@ export class Stage {
         return this.currentActivity;
     }
 
+    /**
+     * @desc
+     *  Returns a Promise that will be resolved when any asynchronous
+     *  post-processing activities performed by Serenity/JS are completed.
+     *
+     * @returns {Promise<void>}
+     */
     waitForNextCue(): Promise<void> {
         return this.manager.waitForNextCue();
     }

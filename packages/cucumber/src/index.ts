@@ -1,12 +1,14 @@
-/* istanbul ignore file */
-
 import { serenity } from '@serenity-js/core';
-import { ModuleLoader } from '@serenity-js/core/lib/io';
-import { listenerForCucumber } from './listeners';
+import { ModuleLoader, Version } from '@serenity-js/core/lib/io';
 
 const loader = new ModuleLoader(process.cwd());
 
-const version = loader.versionOf('cucumber');
-const cucumber = loader.require('cucumber');
+const version = loader.hasAvailable('@cucumber/cucumber')
+    ? loader.versionOf('@cucumber/cucumber')
+    : loader.versionOf('cucumber');
 
-export = listenerForCucumber(version, cucumber, serenity);
+// tslint:disable:no-var-requires
+export = version.isAtLeast(new Version('7.0.0'))
+    ? require('./listeners/messages').createListener(serenity, loader)
+    : require('./listeners/legacy').createListener(serenity, loader)
+// tslint:enable:no-var-requires

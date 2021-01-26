@@ -52,7 +52,7 @@ describe('TakeNotes', () => {
         });
 
         afterEach(async () => {
-            serenity.announce(new SceneFinishes(sceneId, scenarioDetails));
+            serenity.announce(new SceneFinishes(sceneId, scenarioDetails, new ExecutionSuccessful()));
             serenity.announce(new SceneFinished(sceneId, scenarioDetails, new ExecutionSuccessful()));
         });
 
@@ -112,7 +112,7 @@ describe('TakeNotes', () => {
                 TakeNote.of(AFavouriteDrink())
             );
 
-            serenity.announce(new SceneFinishes(sceneId, scenarioDetails))
+            serenity.announce(new SceneFinishes(sceneId, scenarioDetails, new ExecutionSuccessful()))
             serenity.announce(new SceneFinished(sceneId, scenarioDetails, new ExecutionSuccessful()))
 
             await serenity.waitForNextCue()
@@ -162,11 +162,11 @@ describe('TakeNotes', () => {
         it(`ensures the notepad is shared between test scenarios`, async () => {
             await actorCalled('Alice').attemptsTo(
                 TakeNote.of(AFavouriteDrink()),
-            )
+            );
 
-            serenity.announce(new SceneFinishes(sceneId, scenarioDetails))
-            serenity.announce(new SceneFinished(sceneId, scenarioDetails, new ExecutionSuccessful()))
-            await serenity.waitForNextCue()
+            serenity.announce(new SceneFinishes(sceneId, scenarioDetails, new ExecutionSuccessful()));
+            serenity.announce(new SceneFinished(sceneId, scenarioDetails, new ExecutionSuccessful()));
+            await serenity.waitForNextCue();
 
             serenity.announce(new SceneStarts(sceneId, scenarioDetails))
 

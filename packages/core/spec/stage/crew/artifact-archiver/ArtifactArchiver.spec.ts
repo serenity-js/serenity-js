@@ -1,7 +1,7 @@
 import 'mocha';
 import * as sinon from 'sinon';
 
-import { Actor } from '../../../../src';
+import { Actor, StageCrewMember } from '../../../../src';
 import { ArtifactArchived, ArtifactGenerated, DomainEvent } from '../../../../src/events';
 import { FileSystem, Path } from '../../../../src/io';
 import { CorrelationId, Duration, JSONData, Name, TestReport } from '../../../../src/model';
@@ -21,7 +21,7 @@ describe('ArtifactArchiver', () => {
 
     let stage:          Stage,
         fs:             sinon.SinonStubbedInstance<FileSystem>,
-        archiver:       ArtifactArchiver;
+        archiver:       StageCrewMember;
 
     class Extras implements Cast {
         prepare(actor: Actor): Actor {

@@ -8,6 +8,9 @@ import { Credentials } from '../model';
 
 const HttpsProxyAgent = require('https-proxy-agent'); // tslint:disable-line:no-var-requires ignore problematic type definitions
 
+/**
+ * @package
+ */
 export function axiosClient(
     repository: URL,
     ignoreSsl: boolean,
@@ -50,6 +53,9 @@ export function axiosClient(
     return axios.create(options);
 }
 
+/**
+ * @package
+ */
 export function shouldProxy(url: URL, configuredProxy: EnvVar, configuredNoProxy: EnvVar): boolean {
     // there's no proxy configured so don't proxy...
     if (! configuredProxy.value) {

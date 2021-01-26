@@ -1,8 +1,10 @@
+import { match } from 'tiny-types';
 import {
     ActivityFinished,
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
+    BusinessRuleDetected,
     DomainEvent,
     FeatureNarrativeDetected,
     SceneBackgroundDetected,
@@ -12,7 +14,6 @@ import {
     SceneTagged,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import { match } from 'tiny-types';
 
 import { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
 import { EventQueue } from '../EventQueue';
@@ -32,20 +33,21 @@ export class SingleSceneEventQueueProcessor extends EventQueueProcessor {
     }
 
     process(queue: EventQueue): SerenityBDDReport {
-        return queue.reduce((report, event) =>
+        return queue.reduce((context, event) =>
             match<DomainEvent, SingleSceneReportContext>(event)
-                .when(SceneStarts,                      this.onSceneStarts(report))
-                .when(FeatureNarrativeDetected,         this.onFeatureNarrativeDetected(report))
-                .when(SceneBackgroundDetected,          this.onSceneBackgroundDetected(report))
-                .when(SceneDescriptionDetected,         this.onSceneDescriptionDetected(report))
-                .when(TestRunnerDetected,               this.onTestRunnerDetected(report))
-                .when(SceneTagged,                      this.onSceneTagged(report))
-                .when(ActivityStarts,                   this.onActivityStarts(report))
-                .when(ActivityFinished,                 this.onActivityFinished(report))
-                .when(ActivityRelatedArtifactGenerated, this.onActivityRelatedArtifactGenerated(report))
-                .when(ActivityRelatedArtifactArchived,  this.onActivityRelatedArtifactArchived(report))
-                .when(SceneFinished,                    this.onSceneFinished(report))
-                .else(() => report),
+                .when(SceneStarts,                      this.onSceneStarts(context))
+                .when(FeatureNarrativeDetected,         this.onFeatureNarrativeDetected(context))
+                .when(SceneBackgroundDetected,          this.onSceneBackgroundDetected(context))
+                .when(SceneDescriptionDetected,         this.onSceneDescriptionDetected(context))
+                .when(BusinessRuleDetected,             this.onBusinessRuleDetected(context))
+                .when(TestRunnerDetected,               this.onTestRunnerDetected(context))
+                .when(SceneTagged,                      this.onSceneTagged(context))
+                .when(ActivityStarts,                   this.onActivityStarts(context))
+                .when(ActivityFinished,                 this.onActivityFinished(context))
+                .when(ActivityRelatedArtifactGenerated, this.onActivityRelatedArtifactGenerated(context))
+                .when(ActivityRelatedArtifactArchived,  this.onActivityRelatedArtifactArchived(context))
+                .when(SceneFinished,                    this.onSceneFinished(context))
+                .else(() => context),
             new SingleSceneReportContext()
         ).build();
     }
@@ -77,4 +79,3 @@ export class SingleSceneEventQueueProcessor extends EventQueueProcessor {
                 .with(executionFinishedAt(event.timestamp))
     }
 }
-

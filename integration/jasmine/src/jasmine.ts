@@ -19,17 +19,9 @@ const jasmineSpawner = spawner(
  */
 export function jasmine(...params: string[]): Promise<SpawnResult> {
     return jasmineSpawner(
-
         ...params,
-
         '--random=false',
-
-        // The path to the reporter needs to be relative to the Jasmine module.
-        // Normally this will be simply "@serenity-js/jasmine" as the Serenity/JS adapter for Jasmine
-        // will be installed next to it.
-        '--reporter=../../../packages/jasmine',
-
-        // Same goes for the setup.js, which registers a ChildProcessReporter to enable integration testing
-        '--require=../../../integration/jasmine/examples/setup.js',
+        '--reporter=@serenity-js/jasmine',
+        `--require=${ path.resolve(__dirname, '../examples/setup.js') }`,
     );
 }
