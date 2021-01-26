@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
 
@@ -29,6 +29,7 @@ describe('CucumberMessagesListener', () => {
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given a step that's marked as pending`)))
                     .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ImplementationPending))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))
                 ;
             }));
@@ -53,6 +54,7 @@ describe('CucumberMessagesListener', () => {
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Before`)))
                     .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ImplementationPending))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))
                 ;
             }));

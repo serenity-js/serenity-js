@@ -13,7 +13,7 @@ import {
     TaskStarts,
     TestRunFinished,
     TestRunFinishes,
-    TestRunnerDetected,
+    TestRunnerDetected, TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
 import { Serenity } from '@serenity-js/core/lib/Serenity';
@@ -33,6 +33,12 @@ export class Notifier {
     private currentStepActivityId: CorrelationId;
 
     constructor(private readonly serenity: Serenity) {
+    }
+
+    testRunStarts() {
+        this.emit(
+            new TestRunStarts(this.serenity.currentTime()),
+        );
     }
 
     outlineDetected(sceneId: CorrelationId, scenario: Scenario, outline: ScenarioOutline, feature: Feature): void {
@@ -97,12 +103,12 @@ export class Notifier {
         );
     }
 
-    scenarioFinishes(scenario: Scenario, feature: Feature): void {
-        this.emitSceneFinishes(this.detailsOf(scenario, feature));
+    scenarioFinishes(scenario: Scenario, feature: Feature, outcome: Outcome): void {
+        this.emitSceneFinishes(this.detailsOf(scenario, feature), outcome);
     }
 
-    currentScenarioFinishes() {
-        this.emitSceneFinishes(this.currentScenario);
+    currentScenarioFinishes(outcome: Outcome) {
+        this.emitSceneFinishes(this.currentScenario, outcome);
     }
 
     scenarioFinished(scenario: Scenario, feature: Feature, outcome: Outcome): void {
@@ -130,11 +136,12 @@ export class Notifier {
         );
     }
 
-    private emitSceneFinishes(details: ScenarioDetails) {
+    private emitSceneFinishes(details: ScenarioDetails, outcome: Outcome) {
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,
                 details,
+                outcome,
                 this.serenity.currentTime(),
             ),
         );

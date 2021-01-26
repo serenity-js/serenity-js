@@ -1,15 +1,8 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import {
-    ActivityFinished,
-    ActivityStarts,
-    SceneFinished,
-    SceneStarts,
-    SceneTagged,
-    TestRunnerDetected,
-} from '@serenity-js/core/lib/events';
-import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
-
 import 'mocha';
+
+import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
 import { CucumberRunner, cucumberVersions } from '../src';
 
@@ -45,6 +38,10 @@ describe('@serenity-js/cucumber', function () {
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a timed out scenario')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that times out')))
                 .next(ActivityFinished,    event => {
+                    expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
+                    expect((event.outcome as ExecutionFailedWithError).error.message).to.match(/function timed out.*100 milliseconds/);
+                })
+                .next(SceneFinishes,       event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
                     expect((event.outcome as ExecutionFailedWithError).error.message).to.match(/function timed out.*100 milliseconds/);
                 })

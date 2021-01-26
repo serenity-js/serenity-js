@@ -11,7 +11,18 @@ export function executionFinishedWith<Context extends SerenityBDDReportContext>(
         const outcomeReport = outcomeReportFrom(outcome);
 
         context.report.result = outcomeReport.result;
-        context.report.testFailureCause = outcomeReport.error;
+
+        if (outcomeReport.error) {
+            context.report.testFailureCause     = outcomeReport.error;
+            context.report.testFailureClassname = outcomeReport.error.errorType;
+            context.report.testFailureMessage   = outcomeReport.error.message;
+            context.report.testFailureSummary   = [
+                outcomeReport.result,
+                outcomeReport.error.errorType,
+                outcomeReport.error.message,
+                outcomeReport.error.stackTrace[1]?.fileName || '',
+            ].join(';');
+        }
 
         return context;
     }

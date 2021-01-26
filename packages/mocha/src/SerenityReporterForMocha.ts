@@ -1,7 +1,17 @@
 /* istanbul ignore file */
 
 import { Serenity } from '@serenity-js/core';
-import { DomainEvent, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import {
+    DomainEvent,
+    SceneFinished,
+    SceneFinishes,
+    SceneStarts,
+    SceneTagged,
+    TestRunFinished,
+    TestRunFinishes,
+    TestRunnerDetected,
+    TestRunStarts,
+} from '@serenity-js/core/lib/events';
 import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { MochaOptions, reporters, Runnable, Runner, Test } from 'mocha';
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
@@ -29,6 +39,14 @@ export class SerenityReporterForMocha extends reporters.Base {
                 options?: MochaOptions,
     ) {
         super(runner, options);
+
+        runner.on(Runner.constants.EVENT_RUN_BEGIN,
+            () => {
+                this.emit(
+                    new TestRunStarts(this.serenity.currentTime())
+                );
+            },
+        );
 
         runner.on(Runner.constants.EVENT_TEST_BEGIN,
             (test: Test) => {
@@ -112,12 +130,15 @@ export class SerenityReporterForMocha extends reporters.Base {
     }
 
     private announceSceneFinishedFor(test: Test, runnable: Runnable): Promise<void> {
-        const scenario = this.testMapper.detailsOf(test);
+        const
+            scenario    = this.testMapper.detailsOf(test),
+            outcome     = this.recorder.outcomeOf(test) || this.outcomeMapper.outcomeOf(test);
 
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,
                 scenario,
+                outcome,
                 this.serenity.currentTime(),
             ),
         );
@@ -127,7 +148,7 @@ export class SerenityReporterForMocha extends reporters.Base {
                 this.emit(new SceneFinished(
                     this.currentSceneId,
                     scenario,
-                    this.recorder.outcomeOf(test) || this.outcomeMapper.outcomeOf(test),
+                    outcome,
                     this.serenity.currentTime(),
                 ));
 
@@ -149,7 +170,9 @@ export class SerenityReporterForMocha extends reporters.Base {
     }
 
     private announceSceneSkippedFor(test: Test): void {
-        const scenario = this.testMapper.detailsOf(test)
+        const
+            scenario    = this.testMapper.detailsOf(test),
+            outcome     = this.outcomeMapper.outcomeOf(test);
 
         this.announceSceneStartsFor(test);
 
@@ -157,12 +180,13 @@ export class SerenityReporterForMocha extends reporters.Base {
             new SceneFinishes(
                 this.currentSceneId,
                 scenario,
+                outcome,
                 this.serenity.currentTime(),
             ),
             new SceneFinished(
                 this.currentSceneId,
                 scenario,
-                this.outcomeMapper.outcomeOf(test),
+                outcome,
                 this.serenity.currentTime(),
             )
         );

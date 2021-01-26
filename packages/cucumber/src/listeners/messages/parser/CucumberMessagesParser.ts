@@ -139,7 +139,16 @@ export class CucumberMessagesParser {
         })
     }
 
-    parseTestCaseFinished(message: messages.ITestStepStarted): DomainEvent[] {
+    parseTestCaseFinishes(hookMessage: { testCaseStartedId: string, result: messages.TestStepFinished.ITestStepResult }): DomainEvent {
+        return new SceneFinishes(
+            this.serenity.currentSceneId(),
+            this.currentScenario,
+            this.outcomeFrom(hookMessage.result),
+            this.serenity.currentTime()
+        );
+    }
+
+    parseTestCaseFinished(message: messages.ITestCaseFinished): DomainEvent[] {
         const
             testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.testCaseStartedId),
             currentSceneId  = this.serenity.currentSceneId();
@@ -153,10 +162,6 @@ export class CucumberMessagesParser {
                 this.serenity.currentTime()
             ),
         ]);
-    }
-
-    sceneFinishes(): DomainEvent {
-        return new SceneFinishes(this.serenity.currentSceneId(), this.currentScenario, this.serenity.currentTime());
     }
 
     // ---
@@ -297,10 +302,11 @@ export class CucumberMessagesParser {
                     .filter(step => step.result.status === Status.UNDEFINED)
                     .map(step => step.snippet);
 
-                return new ImplementationPending(new ImplementationPendingError([
-                    'Step implementation missing:',
-                    ...snippets
-                ].join('\n\n')));
+                const message = snippets.length > 0
+                    ? [ 'Step implementation missing:', ...snippets ].join('\n\n')
+                    : 'Step implementation missing';
+
+                return new ImplementationPending(new ImplementationPendingError(message));
 
             case Status.PENDING:
                 return new ImplementationPending(new ImplementationPendingError('Step implementation pending'));

@@ -1,21 +1,15 @@
-import { AssertionError, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
-import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
-} from '@serenity-js/core/lib/model';
 
 import { AmbiguousStepDefinitionError } from '../../errors';
-import { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } from './gherkin';
 import { Dependencies } from './Dependencies';
+import { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } from './gherkin';
 
-export = function ({ serenity, notifier, loader, cache }: Dependencies) {
+export = function ({ serenity, notifier, resultMapper, loader, cache }: Dependencies) {
     return function () {
+        this.registerHandler('BeforeFeatures', () => {
+            notifier.testRunStarts();
+        });
+
         this.registerHandler('BeforeFeature', function (feature, callback) {
             loader.load(get(feature, 'uri').as(Path))
                 .then(_ => callback(), error => callback(error));
@@ -61,32 +55,37 @@ export = function ({ serenity, notifier, loader, cache }: Dependencies) {
                 return void 0;
             }
 
-            notifier.stepFinished(findStepMatching(step, cache.get(path)), stepOutcomeFrom(result));
+            notifier.stepFinished(findStepMatching(step, cache.get(path)), resultMapper.outcomeFor(
+                get(result, 'status').value(),
+                get(result, 'failureException').value() || ambiguousStepsDetectedIn(result),
+            ));
         });
 
-        this.registerHandler('AfterScenario', function (scenario, callback) {
-            const
-                path     = get(scenario, 'uri').as(Path),
-                line     = get(scenario, 'line').value() as number;
-
-            const map = cache.get(path);
-
-            notifier.scenarioFinishes(map.get(Scenario).onLine(line), map.getFirst(Feature));
-
-            serenity.waitForNextCue()
-                .then(() => callback(), error => callback(error));
-        });
-
-        this.registerHandler('ScenarioResult', function (result) {
+        this.registerHandler('ScenarioResult', function (result, callback) {
 
             const
                 scenario = get(result, 'scenario').value(),
                 path     = get(scenario, 'uri').as(Path),
-                line     = get(scenario, 'line').value() as number;
+                line     = get(scenario, 'line').value() as number,
+                outcome  = resultMapper.outcomeFor(
+                    get(result, 'status').value(),
+                    get(result, 'failureException').value()
+                );
 
             const map = cache.get(path);
 
-            notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), scenarioOutcomeFrom(result));
+            notifier.scenarioFinishes(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
+
+            serenity.waitForNextCue()
+                .then(
+                    () => {
+                        notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
+                        callback();
+                    },
+                    error => {
+                        notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
+                        callback(error);
+                    });
         });
 
         this.registerHandler('AfterFeatures', (features, callback) => {
@@ -135,23 +134,6 @@ function findStepMatching(step, map: FeatureFileMap): Step {
     return matchedStep;
 }
 
-function scenarioOutcomeFrom(result): Outcome {
-    const
-        status: string = get(result, 'status').value(),
-        error: Error   = errorFrom(get(result, 'failureException').value());
-
-    return outcomeFrom(status, error);
-}
-
-function stepOutcomeFrom(result): Outcome {
-    const
-        status: string                          = get(result, 'status').value(),
-        ambiguousStepsError: Error | undefined  = ambiguousStepsDetectedIn(result),
-        error: Error | undefined                = errorFrom(get(result, 'failureException').value());
-
-    return outcomeFrom(status, error || ambiguousStepsError);
-}
-
 function ambiguousStepsDetectedIn(result): Error | undefined {
     const ambiguousStepDefinitions = get(result, 'ambiguousStepDefinitions').value() || [];
 
@@ -165,52 +147,6 @@ function ambiguousStepsDetectedIn(result): Error | undefined {
             err.message += `\n${issue}`;
             return err;
         }, new AmbiguousStepDefinitionError('Multiple step definitions match:'));
-}
-
-function errorFrom(error: Error | string | undefined): Error | undefined {
-    switch (typeof error) {
-        case 'string':   return new Error(error as string);
-        case 'object':   return error as Error;
-        case 'function': return error as Error;
-        default:         return void 0;
-    }
-}
-
-function outcomeFrom(status: string, error?: Error) {
-    if (error && /timed out/.test(error.message)) {
-        return new ExecutionFailedWithError(error);
-    }
-
-    // tslint:disable:switch-default
-    switch (true) {
-        case status === 'undefined':
-            return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
-
-        case status === 'ambiguous':
-            if (! error) {
-                // Only the step result contains the "ambiguous step def error", the scenario itself doesn't
-                return new ExecutionFailedWithError(new AmbiguousStepDefinitionError('Multiple step definitions match'));
-            }
-
-            return new ExecutionFailedWithError(error);
-
-        case status === 'failed':
-            switch (true) {
-                case error instanceof AssertionError:       return new ExecutionFailedWithAssertionError(error as AssertionError);
-                case error instanceof TestCompromisedError: return new ExecutionCompromised(error as TestCompromisedError);
-                default:                                    return new ExecutionFailedWithError(error);
-            }
-
-        case status === 'pending':
-            return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
-
-        case status === 'passed':
-            return new ExecutionSuccessful();
-
-        case status === 'skipped':
-            return new ExecutionSkipped();
-    }
-    // tslint:enable:switch-default
 }
 
 function shouldIgnore(step): boolean {
