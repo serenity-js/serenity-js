@@ -106,7 +106,7 @@ export class PostRequest extends HTTPRequest {
      *
      * @returns {PostRequest}
      */
-    using(config: AxiosRequestConfig): PostRequest {
+    using(config: Answerable<AxiosRequestConfig>): PostRequest {
         return new PostRequest(this.resourceUri, this.data, config);
     }
 }

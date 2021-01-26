@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { cucumber7 } from './bin/cucumber-7';
 
@@ -47,6 +47,7 @@ describe('CucumberMessagesListener', () => {
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara retrieves the arrow from the target')))
                     .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara retrieves the arrow from the target')))
                     .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('After')))
+                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
                     .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
                 ;
             }));

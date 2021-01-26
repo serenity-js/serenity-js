@@ -4,7 +4,7 @@ import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import Gherkin = require('gherkin');
 
 import { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } from './gherkin';
-import { Notifier } from './notifier';
+import { Notifier, ResultMapper } from './notifier';
 
 /**
  * @desc
@@ -19,11 +19,12 @@ export function createListener(serenity: Serenity, moduleLoader: ModuleLoader): 
 
     try {
         const
-            cucumber = moduleLoader.require('cucumber'),
-            notifier = new Notifier(serenity),
-            mapper   = new FeatureFileMapper(),
-            cache    = new Cache<Path, FeatureFileMap>(),
-            loader   = new FeatureFileLoader(
+            cucumber        = moduleLoader.require('cucumber'),
+            notifier        = new Notifier(serenity),
+            mapper          = new FeatureFileMapper(),
+            resultMapper    = new ResultMapper(),
+            cache           = new Cache<Path, FeatureFileMap>(),
+            loader          = new FeatureFileLoader(
                 new FeatureFileParser(new Gherkin.Parser()),
                 mapper,
                 cache,
@@ -33,6 +34,7 @@ export function createListener(serenity: Serenity, moduleLoader: ModuleLoader): 
             serenity,
             notifier,
             mapper,
+            resultMapper,
             cache,
             loader,
             cucumber,

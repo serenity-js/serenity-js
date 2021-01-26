@@ -79,7 +79,7 @@ export class PutRequest extends HTTPRequest {
      *
      * @returns {PutRequest}
      */
-    using(config: AxiosRequestConfig): PutRequest {
+    using(config: Answerable<AxiosRequestConfig>): PutRequest {
         return new PutRequest(this.resourceUri, this.data, config);
     }
 }

@@ -3,9 +3,18 @@ import { Dependencies } from './Dependencies';
 
 export = function (dependencies: Dependencies) {
 
-    dependencies.cucumber.defineSupportCode(({ After, AfterAll }) => {
-        After(function () {
-            dependencies.notifier.currentScenarioFinishes();
+    dependencies.cucumber.defineSupportCode(({ BeforeAll, After, AfterAll }) => {
+        BeforeAll(function () {
+            dependencies.notifier.testRunStarts();
+        });
+
+        After(function (event) {
+            dependencies.notifier.currentScenarioFinishes(
+                dependencies.resultMapper.outcomeFor(
+                    event.result.status,
+                    event.result.exception,
+                )
+            );
 
             return dependencies.serenity.waitForNextCue();
         });

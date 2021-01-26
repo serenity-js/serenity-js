@@ -27,4 +27,5 @@ export * from './TestSuiteStarts';
 export * from './TestSuiteFinished';
 export * from './TestRunFinished';
 export * from './TestRunFinishes';
+export * from './TestRunStarts';
 export * from './TestRunnerDetected';
