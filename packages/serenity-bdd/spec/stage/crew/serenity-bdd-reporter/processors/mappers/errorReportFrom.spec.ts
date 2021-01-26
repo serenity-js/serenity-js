@@ -1,6 +1,7 @@
 import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { ConfigurationError } from '@serenity-js/core';
+import { inspect } from 'util';
 import { errorReportFrom } from '../../../../../../src/stage/crew/serenity-bdd-reporter/processors/mappers';
 
 describe('errorReportFrom', () => {
@@ -60,21 +61,23 @@ describe('errorReportFrom', () => {
         });
 
         it('supports objects', () => {
-            const report = errorReportFrom({ message: `something's wrong`, code: 500 });
+            const maybeError = { message: `something's wrong`, code: 500 };
+            const report = errorReportFrom(maybeError);
 
             expect(report).to.deep.equal({
                 'errorType': 'Object',
-                'message': `{ message: "something's wrong", code: 500 }`,
+                'message': inspect(maybeError),
                 'stackTrace': [],
             });
         });
 
         it('supports arrays', () => {
-            const report = errorReportFrom([ 'you', 'really', `shouldn't`, 'throw', 'arrays' ]);
+            const maybeError = [ 'you', 'really', `shouldn't`, 'throw', 'arrays' ];
+            const report = errorReportFrom(maybeError);
 
             expect(report).to.deep.equal({
                 'errorType': 'Array',
-                'message': `[ 'you', 'really', \"shouldn't\", 'throw', 'arrays' ]`,
+                'message': inspect(maybeError),
                 'stackTrace': [],
             });
         });
