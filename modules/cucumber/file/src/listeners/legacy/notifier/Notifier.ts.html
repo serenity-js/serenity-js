@@ -121,6 +121,7 @@
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -144,7 +145,7 @@
     TaskStarts,
     TestRunFinished,
     TestRunFinishes,
-    TestRunnerDetected,
+    TestRunnerDetected, TestRunStarts,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/Serenity'</span>;
@@ -164,6 +165,12 @@
     <span class="hljs-keyword">private</span> currentStepActivityId: CorrelationId;
 
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity</span>)</span> {
+    }
+
+    <span class="hljs-function"><span class="hljs-title">testRunStarts</span>(<span class="hljs-params"></span>)</span> {
+        <span class="hljs-built_in">this</span>.emit(
+            <span class="hljs-keyword">new</span> TestRunStarts(<span class="hljs-built_in">this</span>.serenity.currentTime()),
+        );
     }
 
     outlineDetected(sceneId: CorrelationId, <span class="hljs-attr">scenario</span>: Scenario, <span class="hljs-attr">outline</span>: ScenarioOutline, <span class="hljs-attr">feature</span>: Feature): <span class="hljs-built_in">void</span> {
@@ -228,12 +235,12 @@
         );
     }
 
-    scenarioFinishes(scenario: Scenario, <span class="hljs-attr">feature</span>: Feature): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.detailsOf(scenario, feature));
+    scenarioFinishes(scenario: Scenario, <span class="hljs-attr">feature</span>: Feature, <span class="hljs-attr">outcome</span>: Outcome): <span class="hljs-built_in">void</span> {
+        <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.detailsOf(scenario, feature), outcome);
     }
 
-    <span class="hljs-function"><span class="hljs-title">currentScenarioFinishes</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.currentScenario);
+    <span class="hljs-function"><span class="hljs-title">currentScenarioFinishes</span>(<span class="hljs-params">outcome: Outcome</span>)</span> {
+        <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.currentScenario, outcome);
     }
 
     scenarioFinished(scenario: Scenario, <span class="hljs-attr">feature</span>: Feature, <span class="hljs-attr">outcome</span>: Outcome): <span class="hljs-built_in">void</span> {
@@ -261,11 +268,12 @@
         );
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">emitSceneFinishes</span>(<span class="hljs-params">details: ScenarioDetails</span>)</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">emitSceneFinishes</span>(<span class="hljs-params">details: ScenarioDetails, outcome: Outcome</span>)</span> {
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneFinishes(
                 <span class="hljs-built_in">this</span>.currentSceneId,
                 details,
+                outcome,
                 <span class="hljs-built_in">this</span>.serenity.currentTime(),
             ),
         );

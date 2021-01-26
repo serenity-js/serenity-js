@@ -121,6 +121,7 @@
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -186,43 +187,43 @@
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber66"><p>correctly recognises Cucumber Event Protocol events</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber65"><p>correctly recognises Cucumber Event Protocol events</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber103"><p>correctly recognises undefined steps</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber104"><p>correctly recognises undefined steps</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber141"><p>correctly recognises pending steps</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber144"><p>correctly recognises pending steps</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber179"><p>correctly recognises ambiguous steps</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber184"><p>correctly recognises ambiguous steps</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber218"><p>correctly recognises errors thrown in steps</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber231"><p>correctly recognises errors thrown in steps</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber255"><p>correctly recognises scenario outlines</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber276"><p>correctly recognises scenario outlines</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber296"><p>considers a scenario with no steps and no hooks to be pending implementation</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber324"><p>considers a scenario with no steps and no hooks to be pending implementation</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
@@ -600,19 +601,19 @@
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber19"><p>CucumberMessagesListener</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber21"><p>when working with Cucumber 7</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber12"><p>recognises scenarios failing due to a generic error</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber23"><p>recognises scenarios failing due to a generic error</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
@@ -636,19 +637,19 @@
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber17"><p>CucumberMessagesListener</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber10"><p>when working with Cucumber 7</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber19"><p>when working with Cucumber 7</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber12"><p>recognises passing scenarios</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber21"><p>recognises passing scenarios</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
@@ -671,30 +672,30 @@
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber36">spec/listeners/messages/pending_scenarios.spec.ts</a></span></td>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber37">spec/listeners/messages/pending_scenarios.spec.ts</a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber8"><p>CucumberMessagesListener</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber18"><p>CucumberMessagesListener</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber12"><p>when working with Cucumber 7</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber22"><p>when working with Cucumber 7</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber14"><p>reports scenarios that have been retried and succeeded</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber24"><p>reports scenarios that have been retried and succeeded</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber54"><p>reports scenarios that have been retried and failed</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber69"><p>reports scenarios that have been retried and failed</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>

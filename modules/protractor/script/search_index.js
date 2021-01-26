@@ -211,6 +211,12 @@ window.esdocSearchIndex = [
   ],
   [
     "@serenity-js/protractor/lib/stage/crew/photographer/strategies~takephotosoffailures",
+    "class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html",
+    "<span>TakePhotosOfFailures</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/stage/crew/photographer/strategies</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/protractor/lib/stage/crew/photographer/strategies~takephotosoffailures",
     "class/src/stage/crew/photographer/strategies/TakePhotosOfFailures.ts~TakePhotosOfFailures.html",
     "<span>TakePhotosOfFailures</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/stage/crew/photographer/strategies</span>",
     "class"
@@ -687,6 +693,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/events~testrunfinishes",
     "/modules/core/class/src/events/TestRunFinishes.ts~TestRunFinishes.html",
     "@serenity-js/core/lib/events~TestRunFinishes",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/events~testrunstarts",
+    "/modules/core/class/src/events/TestRunStarts.ts~TestRunStarts.html",
+    "@serenity-js/core/lib/events~TestRunStarts",
     "external"
   ],
   [
@@ -1362,6 +1374,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/cucumber/lib/listeners/legacy/notifier~resultmapper",
+    "/modules/cucumber/class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html",
+    "@serenity-js/cucumber/lib/listeners/legacy/notifier~ResultMapper",
+    "external"
+  ],
+  [
     "@serenity-js/cucumber/lib/listeners/legacy~createlistener",
     "/modules/cucumber/function/index.html#static-function-createListener",
     "@serenity-js/cucumber/lib/listeners/legacy~createListener",
@@ -1447,31 +1465,31 @@ window.esdocSearchIndex = [
   ],
   [
     "axioserror",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L82",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
     "external"
   ],
   [
     "axiosinstance",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L130",
     "AxiosInstance",
     "external"
   ],
   [
     "axiospromise",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L91",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L94",
     "AxiosPromise",
     "external"
   ],
   [
     "axiosrequestconfig",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L44",
     "AxiosRequestConfig",
     "external"
   ],
   [
     "axiosresponse",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L76",
     "AxiosResponse",
     "external"
   ],
@@ -2755,121 +2773,121 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber298",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber249",
     "ProtractorFrameworkAdapter configuration",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber336",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber287",
     "ProtractorFrameworkAdapter configuration allows for the defaults to be overridden",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber322",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber273",
     "ProtractorFrameworkAdapter configuration provides sensible defaults when no explicit configuration is provided",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber122",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber73",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\"",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber270",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber221",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" error handling",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber274",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber225",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" error handling fails the test run when runner.afterEach errors out",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber283",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber234",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" error handling fails the test run when runner.afterEach rejects the promise",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber201",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber152",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" invokes runner.getConfig().onComplete() after executing the tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber189",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber140",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" invokes runner.runTestPreparer before executing the tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber124",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber75",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber161",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber112",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes both successful and failing tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber146",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber97",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes failing tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber126",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber77",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes no test results if no tests were executed",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber133",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber84",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes successful tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber245",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber196",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test fails",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber259",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber210",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test fails invokes runner.afterEach after each test",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber247",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber198",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test fails invokes runner.emit with a \"testFail\" message",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber220",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber171",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test succeeds",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber234",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber185",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test succeeds invokes runner.afterEach after each test",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber222",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber173",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test succeeds invokes runner.emit with a \"testPass\" message",
     "test"
   ],
@@ -5943,6 +5961,24 @@ window.esdocSearchIndex = [
     "src/stage/crew/photographer/strategies/takephotosbeforeandafterinteractions.ts~takephotosbeforeandafterinteractions#shouldtakeaphotoof",
     "class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html#instance-method-shouldTakeAPhotoOf",
     "src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions#shouldTakeAPhotoOf",
+    "method"
+  ],
+  [
+    "src/stage/crew/photographer/strategies/takephotosoffailedscenarios.ts",
+    "file/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts.html",
+    "src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts",
+    "file"
+  ],
+  [
+    "src/stage/crew/photographer/strategies/takephotosoffailedscenarios.ts~takephotosoffailures#photonamefor",
+    "class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html#instance-method-photoNameFor",
+    "src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures#photoNameFor",
+    "method"
+  ],
+  [
+    "src/stage/crew/photographer/strategies/takephotosoffailedscenarios.ts~takephotosoffailures#shouldtakeaphotoof",
+    "class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html#instance-method-shouldTakeAPhotoOf",
+    "src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures#shouldTakeAPhotoOf",
     "method"
   ],
   [

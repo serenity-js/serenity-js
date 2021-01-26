@@ -121,6 +121,7 @@
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -132,7 +133,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">// import { Formatter, formatterHelpers } from '@cucumber/cucumber';</span>
 <span class="hljs-keyword">import</span> { IdGenerator, messages } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { DomainEvent, TestRunFinished, TestRunFinishes } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { DomainEvent, TestRunFinished, TestRunFinishes, TestRunStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { CucumberMessagesParser } <span class="hljs-keyword">from</span> <span class="hljs-string">'./parser/CucumberMessagesParser'</span>;
 <span class="hljs-keyword">import</span> { IParsedTestStep } <span class="hljs-keyword">from</span> <span class="hljs-string">'./types/cucumber'</span>;
@@ -162,8 +163,8 @@
                     step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,
             );
 
-            <span class="hljs-built_in">this</span>.addAfterHook(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-built_in">this</span>.emit(<span class="hljs-built_in">this</span>.parser.sceneFinishes());
+            <span class="hljs-built_in">this</span>.addAfterHook(<span class="hljs-function">(<span class="hljs-params">message: { testCaseStartedId: <span class="hljs-built_in">string</span>, result: messages.TestStepFinished.ITestStepResult }</span>) =&gt;</span> {
+                <span class="hljs-built_in">this</span>.emit(<span class="hljs-built_in">this</span>.parser.parseTestCaseFinishes(message));
 
                 <span class="hljs-keyword">return</span> serenity.waitForNextCue();
             });
@@ -172,6 +173,9 @@
                 <span class="hljs-comment">// this.log('&gt; [cucumber] ' + JSON.stringify(envelope) + '\n');</span>
 
                 <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
+                    <span class="hljs-keyword">case</span> !! envelope.testRunStarted:
+                        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunStarts(serenity.currentTime()));
+
                     <span class="hljs-keyword">case</span> !! envelope.testCaseStarted:
                         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.emit(
                             <span class="hljs-built_in">this</span>.parser.parseTestCaseStarted(envelope.testCaseStarted),
@@ -204,7 +208,7 @@
             <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(serenity.currentTime()));
         }
 
-        <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">addAfterHook</span>(<span class="hljs-params">code: () =&gt; <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span></span>)</span> {
+        <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">addAfterHook</span>(<span class="hljs-params">code: (...args: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span></span>)</span> {
             <span class="hljs-built_in">this</span>.supportCodeLibrary.afterTestCaseHookDefinitions.unshift(
                 <span class="hljs-keyword">new</span> TestCaseHookDefinition({
                     code,

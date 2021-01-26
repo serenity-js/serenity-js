@@ -219,7 +219,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{PutRequest}</span></span>
      */</span>
-    using(config: AxiosRequestConfig): PutRequest {
+    using(config: Answerable&lt;AxiosRequestConfig&gt;): PutRequest {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PutRequest(<span class="hljs-built_in">this</span>.resourceUri, <span class="hljs-built_in">this</span>.data, config);
     }
 }

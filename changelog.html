@@ -96,6 +96,7 @@
                 <aside id="sidebar" class="col-lg-3 col-md-12">
                     <nav class="toc navigation text-truncate">
                         <ul>
+                            <li><a href="changelog.html#"></a></li>
                             <li><a href="changelog.html#2-20-1-2021-01-23-">2.20.1 (2021-01-23)</a></li>
                             <li><a href="changelog.html#2-19-10-2020-12-22-">2.19.10 (2020-12-22)</a></li>
                             <li><a href="changelog.html#2-19-9-2020-12-15-">2.19.9 (2020-12-15)</a></li>
@@ -306,6 +307,19 @@
                     <article class="content"><html><head></head><body><h1 id="change-log">Change Log</h1>
 <p>All notable changes to this project will be documented in this file.
 See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
+<h1 id="2-21-0-2021-01-26-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.20.1...v2.21.0">2.21.0</a> (2021-01-26)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li><strong>rest:</strong> all HTTPRequests can be configured in-line using Answerable<axiosrequestconfig> (<a href="https://github.com/serenity-js/serenity-js/commit/2e982f44db7bfb50be4523ea2617529044506ffc">2e982f4</a>)</axiosrequestconfig></li>
+<li><strong>rest:</strong> upgraded Axios to 0.21.1 (<a href="https://github.com/serenity-js/serenity-js/commit/4b08f90cc42bd7ec1f5a6e3006dfffe2aaa72477">4b08f90</a>)</li>
+<li><strong>serenity-bdd:</strong> corrected reporting of errors thrown in non-Screenplay scenarios (<a href="https://github.com/serenity-js/serenity-js/commit/dedf3ae47212e0830284af5a6ea26c9c652c7c9b">dedf3ae</a>)</li>
+<li><strong>serenity-bdd:</strong> improved reporting of unusual "errors" (<a href="https://github.com/serenity-js/serenity-js/commit/8c2a8501a4395d74b731c13c1a99a89abd966fc4">8c2a850</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/549">#549</a></li>
+</ul>
+<h3 id="features">Features</h3>
+<ul>
+<li><strong>core:</strong> event TestRunStarts is now emitted before the first scenario starts (<a href="https://github.com/serenity-js/serenity-js/commit/fd30d393831e9ed80c9f9b63edc863b8ae779de5">fd30d39</a>)</li>
+<li><strong>core:</strong> SceneFinishes informs StageCrewMembers about the Outcome of the scenario (<a href="https://github.com/serenity-js/serenity-js/commit/abfca70e91633c068617d8d273a302aaab692265">abfca70</a>)</li>
+</ul>
 <h2 id="2-20-1-2021-01-23-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.20.0...v2.20.1">2.20.1</a> (2021-01-23)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>

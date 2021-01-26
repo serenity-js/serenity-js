@@ -173,6 +173,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer">stage/crew/photographer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/Photographer.ts~Photographer.html">Photographer</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer-strategies">stage/crew/photographer/strategies</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/PhotoTakingStrategy.ts~PhotoTakingStrategy.html">PhotoTakingStrategy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html">TakePhotosBeforeAndAfterInteractions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailures.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfInteractions.ts~TakePhotosOfInteractions.html">TakePhotosOfInteractions</a></span></span></li>
 </ul>
@@ -185,8 +186,8 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Serenity, Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { DomainEvent, SceneFinished, SceneFinishes, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { SceneFinished, SceneFinishes, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { Category, CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { ArtifactArchiver, Clock, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
@@ -231,22 +232,6 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
 
         adapter = <span class="hljs-keyword">new</span> ProtractorFrameworkAdapter(serenity, protractorRunner, testRunnerDetector <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> TestRunnerDetector);
     });
-
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestRunnerSimulator</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
-        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span></span>)</span> {
-        }
-
-        assignedTo(stage: Stage): StageCrewMember {
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TestRunnerSimulator(stage);
-        }
-
-        notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
-            <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneStarts) {
-                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> SceneFinishes(event.sceneId, event.details, <span class="hljs-built_in">this</span>.stage.currentTime()));
-            }
-        }
-
-    }
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         protractorRunner.getConfig.returns({ });
@@ -512,7 +497,7 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
                     <span class="hljs-comment">// ... an actual test runner would now execute the test and then announce the outcome</span>
 
                     <span class="hljs-built_in">this</span>.serenityInstance.announce(
-                        <span class="hljs-keyword">new</span> SceneFinishes(sceneId, details, <span class="hljs-built_in">this</span>.serenityInstance.currentTime()),
+                        <span class="hljs-keyword">new</span> SceneFinishes(sceneId, details, scenario.outcome, <span class="hljs-built_in">this</span>.serenityInstance.currentTime()),
                     );
 
                     <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.serenityInstance.waitForNextCue()

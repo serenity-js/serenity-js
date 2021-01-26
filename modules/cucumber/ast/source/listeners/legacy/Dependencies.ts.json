@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 1085,
+  "end": 1228,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 90,
+      "line": 102,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 1085,
+    "end": 1228,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 90,
+        "line": 102,
         "column": 0
       }
     },
@@ -441,7 +441,7 @@
       {
         "type": "ImportDeclaration",
         "start": 184,
-        "end": 222,
+        "end": 236,
         "loc": {
           "start": {
             "line": 4,
@@ -449,15 +449,15 @@
           },
           "end": {
             "line": 4,
-            "column": 38
+            "column": 52
           }
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-            "start": 223,
-            "end": 267,
+            "start": 237,
+            "end": 281,
             "loc": {
               "start": {
                 "line": 5,
@@ -472,8 +472,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @private\n * @interface ",
-            "start": 270,
-            "end": 302,
+            "start": 284,
+            "end": 316,
             "loc": {
               "start": {
                 "line": 13,
@@ -536,20 +536,69 @@
               },
               "name": "Notifier"
             }
+          },
+          {
+            "type": "ImportSpecifier",
+            "start": 203,
+            "end": 215,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 19
+              },
+              "end": {
+                "line": 4,
+                "column": 31
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 203,
+              "end": 215,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 19
+                },
+                "end": {
+                  "line": 4,
+                  "column": 31
+                },
+                "identifierName": "ResultMapper"
+              },
+              "name": "ResultMapper"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 203,
+              "end": 215,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 19
+                },
+                "end": {
+                  "line": 4,
+                  "column": 31
+                },
+                "identifierName": "ResultMapper"
+              },
+              "name": "ResultMapper"
+            }
           }
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 209,
-          "end": 221,
+          "start": 223,
+          "end": 235,
           "loc": {
             "start": {
               "line": 4,
-              "column": 25
+              "column": 39
             },
             "end": {
               "line": 4,
-              "column": 37
+              "column": 51
             }
           },
           "extra": {
@@ -561,15 +610,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 303,
-        "end": 1084,
+        "start": 317,
+        "end": 1227,
         "loc": {
           "start": {
             "line": 16,
             "column": 0
           },
           "end": {
-            "line": 89,
+            "line": 101,
             "column": 1
           }
         },
@@ -577,8 +626,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-            "start": 223,
-            "end": 267,
+            "start": 237,
+            "end": 281,
             "loc": {
               "start": {
                 "line": 5,
@@ -593,8 +642,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @private\n * @interface ",
-            "start": 270,
-            "end": 302,
+            "start": 284,
+            "end": 316,
             "loc": {
               "start": {
                 "line": 13,
@@ -612,23 +661,23 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 310,
-          "end": 1084,
+          "start": 324,
+          "end": 1227,
           "loc": {
             "start": {
               "line": 16,
               "column": 7
             },
             "end": {
-              "line": 89,
+              "line": 101,
               "column": 1
             }
           },
           "abstract": true,
           "id": {
             "type": "Identifier",
-            "start": 325,
-            "end": 337,
+            "start": 339,
+            "end": 351,
             "loc": {
               "start": {
                 "line": 16,
@@ -645,23 +694,23 @@
           "superClass": null,
           "body": {
             "type": "ClassBody",
-            "start": 338,
-            "end": 1084,
+            "start": 352,
+            "end": 1227,
             "loc": {
               "start": {
                 "line": 16,
                 "column": 35
               },
               "end": {
-                "line": 89,
+                "line": 101,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassProperty",
-                "start": 438,
-                "end": 457,
+                "start": 452,
+                "end": 471,
                 "loc": {
                   "start": {
                     "line": 28,
@@ -676,8 +725,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n * @type \n * {Serenity} \n * @public \n * \\TRUE \n ",
-                    "start": 340,
-                    "end": 432,
+                    "start": 354,
+                    "end": 446,
                     "loc": {
                       "start": {
                         "line": 17,
@@ -694,8 +743,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @type \n * {Notifier} \n * @public \n * \\TRUE \n ",
-                    "start": 458,
-                    "end": 550,
+                    "start": 472,
+                    "end": 564,
                     "loc": {
                       "start": {
                         "line": 29,
@@ -711,8 +760,8 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 438,
-                  "end": 446,
+                  "start": 452,
+                  "end": 460,
                   "loc": {
                     "start": {
                       "line": 28,
@@ -729,8 +778,8 @@
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 446,
-                  "end": 456,
+                  "start": 460,
+                  "end": 470,
                   "loc": {
                     "start": {
                       "line": 28,
@@ -743,8 +792,8 @@
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 448,
-                    "end": 456,
+                    "start": 462,
+                    "end": 470,
                     "loc": {
                       "start": {
                         "line": 28,
@@ -757,8 +806,8 @@
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 448,
-                      "end": 456,
+                      "start": 462,
+                      "end": 470,
                       "loc": {
                         "start": {
                           "line": 28,
@@ -778,8 +827,8 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 556,
-                "end": 575,
+                "start": 570,
+                "end": 589,
                 "loc": {
                   "start": {
                     "line": 40,
@@ -794,8 +843,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @type \n * {Notifier} \n * @public \n * \\TRUE \n ",
-                    "start": 458,
-                    "end": 550,
+                    "start": 472,
+                    "end": 564,
                     "loc": {
                       "start": {
                         "line": 29,
@@ -812,8 +861,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @type \n * {FeatureFileMapper} \n * @public \n * \\TRUE \n ",
-                    "start": 576,
-                    "end": 677,
+                    "start": 590,
+                    "end": 691,
                     "loc": {
                       "start": {
                         "line": 41,
@@ -829,8 +878,8 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 556,
-                  "end": 564,
+                  "start": 570,
+                  "end": 578,
                   "loc": {
                     "start": {
                       "line": 40,
@@ -847,8 +896,8 @@
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 564,
-                  "end": 574,
+                  "start": 578,
+                  "end": 588,
                   "loc": {
                     "start": {
                       "line": 40,
@@ -861,8 +910,8 @@
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 566,
-                    "end": 574,
+                    "start": 580,
+                    "end": 588,
                     "loc": {
                       "start": {
                         "line": 40,
@@ -875,8 +924,8 @@
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 566,
-                      "end": 574,
+                      "start": 580,
+                      "end": 588,
                       "loc": {
                         "start": {
                           "line": 40,
@@ -896,8 +945,8 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 683,
-                "end": 709,
+                "start": 697,
+                "end": 723,
                 "loc": {
                   "start": {
                     "line": 52,
@@ -912,8 +961,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @type \n * {FeatureFileMapper} \n * @public \n * \\TRUE \n ",
-                    "start": 576,
-                    "end": 677,
+                    "start": 590,
+                    "end": 691,
                     "loc": {
                       "start": {
                         "line": 41,
@@ -929,9 +978,9 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @type \n * {Cache} \n * @public \n * \\TRUE \n ",
-                    "start": 710,
-                    "end": 799,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @type \n * {ResultMapper} \n * @public \n * \\TRUE \n ",
+                    "start": 724,
+                    "end": 820,
                     "loc": {
                       "start": {
                         "line": 53,
@@ -947,8 +996,8 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 683,
-                  "end": 689,
+                  "start": 697,
+                  "end": 703,
                   "loc": {
                     "start": {
                       "line": 52,
@@ -965,8 +1014,8 @@
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 689,
-                  "end": 708,
+                  "start": 703,
+                  "end": 722,
                   "loc": {
                     "start": {
                       "line": 52,
@@ -979,8 +1028,8 @@
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 691,
-                    "end": 708,
+                    "start": 705,
+                    "end": 722,
                     "loc": {
                       "start": {
                         "line": 52,
@@ -993,8 +1042,8 @@
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 691,
-                      "end": 708,
+                      "start": 705,
+                      "end": 722,
                       "loc": {
                         "start": {
                           "line": 52,
@@ -1014,8 +1063,8 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 805,
-                "end": 840,
+                "start": 826,
+                "end": 852,
                 "loc": {
                   "start": {
                     "line": 64,
@@ -1023,15 +1072,15 @@
                   },
                   "end": {
                     "line": 64,
-                    "column": 39
+                    "column": 30
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @type \n * {Cache} \n * @public \n * \\TRUE \n ",
-                    "start": 710,
-                    "end": 799,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @type \n * {ResultMapper} \n * @public \n * \\TRUE \n ",
+                    "start": 724,
+                    "end": 820,
                     "loc": {
                       "start": {
                         "line": 53,
@@ -1047,8 +1096,8 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @type \n * {FeatureFileLoader} \n * @public \n * \\TRUE \n ",
-                    "start": 841,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @type \n * {Cache} \n * @public \n * \\TRUE \n ",
+                    "start": 853,
                     "end": 942,
                     "loc": {
                       "start": {
@@ -1065,8 +1114,8 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 805,
-                  "end": 810,
+                  "start": 826,
+                  "end": 838,
                   "loc": {
                     "start": {
                       "line": 64,
@@ -1074,138 +1123,57 @@
                     },
                     "end": {
                       "line": 64,
-                      "column": 9
+                      "column": 16
                     },
-                    "identifierName": "cache"
+                    "identifierName": "resultMapper"
                   },
-                  "name": "cache"
+                  "name": "resultMapper"
                 },
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 810,
-                  "end": 839,
+                  "start": 838,
+                  "end": 852,
                   "loc": {
                     "start": {
                       "line": 64,
-                      "column": 9
+                      "column": 16
                     },
                     "end": {
                       "line": 64,
-                      "column": 38
+                      "column": 30
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 812,
-                    "end": 839,
+                    "start": 840,
+                    "end": 852,
                     "loc": {
                       "start": {
                         "line": 64,
-                        "column": 11
+                        "column": 18
                       },
                       "end": {
                         "line": 64,
-                        "column": 38
+                        "column": 30
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 812,
-                      "end": 817,
+                      "start": 840,
+                      "end": 852,
                       "loc": {
                         "start": {
                           "line": 64,
-                          "column": 11
+                          "column": 18
                         },
                         "end": {
                           "line": 64,
-                          "column": 16
+                          "column": 30
                         },
-                        "identifierName": "Cache"
+                        "identifierName": "ResultMapper"
                       },
-                      "name": "Cache"
-                    },
-                    "typeParameters": {
-                      "type": "TSTypeParameterInstantiation",
-                      "start": 817,
-                      "end": 839,
-                      "loc": {
-                        "start": {
-                          "line": 64,
-                          "column": 16
-                        },
-                        "end": {
-                          "line": 64,
-                          "column": 38
-                        }
-                      },
-                      "params": [
-                        {
-                          "type": "TSTypeReference",
-                          "start": 818,
-                          "end": 822,
-                          "loc": {
-                            "start": {
-                              "line": 64,
-                              "column": 17
-                            },
-                            "end": {
-                              "line": 64,
-                              "column": 21
-                            }
-                          },
-                          "typeName": {
-                            "type": "Identifier",
-                            "start": 818,
-                            "end": 822,
-                            "loc": {
-                              "start": {
-                                "line": 64,
-                                "column": 17
-                              },
-                              "end": {
-                                "line": 64,
-                                "column": 21
-                              },
-                              "identifierName": "Path"
-                            },
-                            "name": "Path"
-                          }
-                        },
-                        {
-                          "type": "TSTypeReference",
-                          "start": 824,
-                          "end": 838,
-                          "loc": {
-                            "start": {
-                              "line": 64,
-                              "column": 23
-                            },
-                            "end": {
-                              "line": 64,
-                              "column": 37
-                            }
-                          },
-                          "typeName": {
-                            "type": "Identifier",
-                            "start": 824,
-                            "end": 838,
-                            "loc": {
-                              "start": {
-                                "line": 64,
-                                "column": 23
-                              },
-                              "end": {
-                                "line": 64,
-                                "column": 37
-                              },
-                              "identifierName": "FeatureFileMap"
-                            },
-                            "name": "FeatureFileMap"
-                          }
-                        }
-                      ]
+                      "name": "ResultMapper"
                     }
                   }
                 },
@@ -1214,7 +1182,7 @@
               {
                 "type": "ClassProperty",
                 "start": 948,
-                "end": 974,
+                "end": 983,
                 "loc": {
                   "start": {
                     "line": 76,
@@ -1222,14 +1190,14 @@
                   },
                   "end": {
                     "line": 76,
-                    "column": 30
+                    "column": 39
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @type \n * {FeatureFileLoader} \n * @public \n * \\TRUE \n ",
-                    "start": 841,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @type \n * {Cache} \n * @public \n * \\TRUE \n ",
+                    "start": 853,
                     "end": 942,
                     "loc": {
                       "start": {
@@ -1246,9 +1214,9 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
-                    "start": 975,
-                    "end": 1062,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @type \n * {FeatureFileLoader} \n * @public \n * \\TRUE \n ",
+                    "start": 984,
+                    "end": 1085,
                     "loc": {
                       "start": {
                         "line": 77,
@@ -1265,7 +1233,7 @@
                 "key": {
                   "type": "Identifier",
                   "start": 948,
-                  "end": 954,
+                  "end": 953,
                   "loc": {
                     "start": {
                       "line": 76,
@@ -1273,57 +1241,138 @@
                     },
                     "end": {
                       "line": 76,
-                      "column": 10
+                      "column": 9
                     },
-                    "identifierName": "loader"
+                    "identifierName": "cache"
                   },
-                  "name": "loader"
+                  "name": "cache"
                 },
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 954,
-                  "end": 973,
+                  "start": 953,
+                  "end": 982,
                   "loc": {
                     "start": {
                       "line": 76,
-                      "column": 10
+                      "column": 9
                     },
                     "end": {
                       "line": 76,
-                      "column": 29
+                      "column": 38
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 956,
-                    "end": 973,
+                    "start": 955,
+                    "end": 982,
                     "loc": {
                       "start": {
                         "line": 76,
-                        "column": 12
+                        "column": 11
                       },
                       "end": {
                         "line": 76,
-                        "column": 29
+                        "column": 38
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 956,
-                      "end": 973,
+                      "start": 955,
+                      "end": 960,
                       "loc": {
                         "start": {
                           "line": 76,
-                          "column": 12
+                          "column": 11
                         },
                         "end": {
                           "line": 76,
-                          "column": 29
+                          "column": 16
                         },
-                        "identifierName": "FeatureFileLoader"
+                        "identifierName": "Cache"
                       },
-                      "name": "FeatureFileLoader"
+                      "name": "Cache"
+                    },
+                    "typeParameters": {
+                      "type": "TSTypeParameterInstantiation",
+                      "start": 960,
+                      "end": 982,
+                      "loc": {
+                        "start": {
+                          "line": 76,
+                          "column": 16
+                        },
+                        "end": {
+                          "line": 76,
+                          "column": 38
+                        }
+                      },
+                      "params": [
+                        {
+                          "type": "TSTypeReference",
+                          "start": 961,
+                          "end": 965,
+                          "loc": {
+                            "start": {
+                              "line": 76,
+                              "column": 17
+                            },
+                            "end": {
+                              "line": 76,
+                              "column": 21
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 961,
+                            "end": 965,
+                            "loc": {
+                              "start": {
+                                "line": 76,
+                                "column": 17
+                              },
+                              "end": {
+                                "line": 76,
+                                "column": 21
+                              },
+                              "identifierName": "Path"
+                            },
+                            "name": "Path"
+                          }
+                        },
+                        {
+                          "type": "TSTypeReference",
+                          "start": 967,
+                          "end": 981,
+                          "loc": {
+                            "start": {
+                              "line": 76,
+                              "column": 23
+                            },
+                            "end": {
+                              "line": 76,
+                              "column": 37
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 967,
+                            "end": 981,
+                            "loc": {
+                              "start": {
+                                "line": 76,
+                                "column": 23
+                              },
+                              "end": {
+                                "line": 76,
+                                "column": 37
+                              },
+                              "identifierName": "FeatureFileMap"
+                            },
+                            "name": "FeatureFileMap"
+                          }
+                        }
+                      ]
                     }
                   }
                 },
@@ -1331,8 +1380,8 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 1068,
-                "end": 1082,
+                "start": 1091,
+                "end": 1117,
                 "loc": {
                   "start": {
                     "line": 88,
@@ -1340,15 +1389,15 @@
                   },
                   "end": {
                     "line": 88,
-                    "column": 18
+                    "column": 30
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
-                    "start": 975,
-                    "end": 1062,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @type \n * {FeatureFileLoader} \n * @public \n * \\TRUE \n ",
+                    "start": 984,
+                    "end": 1085,
                     "loc": {
                       "start": {
                         "line": 77,
@@ -1361,11 +1410,29 @@
                     }
                   }
                 ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
+                    "start": 1118,
+                    "end": 1205,
+                    "loc": {
+                      "start": {
+                        "line": 89,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 98,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1068,
-                  "end": 1076,
+                  "start": 1091,
+                  "end": 1097,
                   "loc": {
                     "start": {
                       "line": 88,
@@ -1373,6 +1440,106 @@
                     },
                     "end": {
                       "line": 88,
+                      "column": 10
+                    },
+                    "identifierName": "loader"
+                  },
+                  "name": "loader"
+                },
+                "computed": false,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 1097,
+                  "end": 1116,
+                  "loc": {
+                    "start": {
+                      "line": 88,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 88,
+                      "column": 29
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeReference",
+                    "start": 1099,
+                    "end": 1116,
+                    "loc": {
+                      "start": {
+                        "line": 88,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 88,
+                        "column": 29
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 1099,
+                      "end": 1116,
+                      "loc": {
+                        "start": {
+                          "line": 88,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 88,
+                          "column": 29
+                        },
+                        "identifierName": "FeatureFileLoader"
+                      },
+                      "name": "FeatureFileLoader"
+                    }
+                  }
+                },
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1211,
+                "end": 1225,
+                "loc": {
+                  "start": {
+                    "line": 100,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 100,
+                    "column": 18
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
+                    "start": 1118,
+                    "end": 1205,
+                    "loc": {
+                      "start": {
+                        "line": 89,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 98,
+                        "column": 3
+                      }
+                    }
+                  }
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1211,
+                  "end": 1219,
+                  "loc": {
+                    "start": {
+                      "line": 100,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 100,
                       "column": 12
                     },
                     "identifierName": "cucumber"
@@ -1382,29 +1549,29 @@
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 1076,
-                  "end": 1081,
+                  "start": 1219,
+                  "end": 1224,
                   "loc": {
                     "start": {
-                      "line": 88,
+                      "line": 100,
                       "column": 12
                     },
                     "end": {
-                      "line": 88,
+                      "line": 100,
                       "column": 17
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSAnyKeyword",
-                    "start": 1078,
-                    "end": 1081,
+                    "start": 1221,
+                    "end": 1224,
                     "loc": {
                       "start": {
-                        "line": 88,
+                        "line": 100,
                         "column": 14
                       },
                       "end": {
-                        "line": 88,
+                        "line": 100,
                         "column": 17
                       }
                     }
@@ -1418,8 +1585,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-              "start": 223,
-              "end": 267,
+              "start": 237,
+              "end": 281,
               "loc": {
                 "start": {
                   "line": 5,
@@ -1434,8 +1601,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @private\n * @interface ",
-              "start": 270,
-              "end": 302,
+              "start": 284,
+              "end": 316,
               "loc": {
                 "start": {
                   "line": 13,
@@ -1458,8 +1625,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-      "start": 223,
-      "end": 267,
+      "start": 237,
+      "end": 281,
       "loc": {
         "start": {
           "line": 5,
@@ -1474,8 +1641,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @private\n * @interface ",
-      "start": 270,
-      "end": 302,
+      "start": 284,
+      "end": 316,
       "loc": {
         "start": {
           "line": 13,
@@ -1490,8 +1657,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n * @type \n * {Serenity} \n * @public \n * \\TRUE \n ",
-      "start": 340,
-      "end": 432,
+      "start": 354,
+      "end": 446,
       "loc": {
         "start": {
           "line": 17,
@@ -1506,8 +1673,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @type \n * {Notifier} \n * @public \n * \\TRUE \n ",
-      "start": 458,
-      "end": 550,
+      "start": 472,
+      "end": 564,
       "loc": {
         "start": {
           "line": 29,
@@ -1522,8 +1689,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @type \n * {FeatureFileMapper} \n * @public \n * \\TRUE \n ",
-      "start": 576,
-      "end": 677,
+      "start": 590,
+      "end": 691,
       "loc": {
         "start": {
           "line": 41,
@@ -1537,9 +1704,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @type \n * {Cache} \n * @public \n * \\TRUE \n ",
-      "start": 710,
-      "end": 799,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @type \n * {ResultMapper} \n * @public \n * \\TRUE \n ",
+      "start": 724,
+      "end": 820,
       "loc": {
         "start": {
           "line": 53,
@@ -1553,8 +1720,8 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @type \n * {FeatureFileLoader} \n * @public \n * \\TRUE \n ",
-      "start": 841,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @type \n * {Cache} \n * @public \n * \\TRUE \n ",
+      "start": 853,
       "end": 942,
       "loc": {
         "start": {
@@ -1569,9 +1736,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
-      "start": 975,
-      "end": 1062,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @type \n * {FeatureFileLoader} \n * @public \n * \\TRUE \n ",
+      "start": 984,
+      "end": 1085,
       "loc": {
         "start": {
           "line": 77,
@@ -1579,6 +1746,22 @@
         },
         "end": {
           "line": 86,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @type \n * {any} \n * @public \n * \\TRUE \n ",
+      "start": 1118,
+      "end": 1205,
+      "loc": {
+        "start": {
+          "line": 89,
+          "column": 0
+        },
+        "end": {
+          "line": 98,
           "column": 3
         }
       }

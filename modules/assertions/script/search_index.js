@@ -348,6 +348,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/events~testrunstarts",
+    "/modules/core/class/src/events/TestRunStarts.ts~TestRunStarts.html",
+    "@serenity-js/core/lib/events~TestRunStarts",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/events~testrunnerdetected",
     "/modules/core/class/src/events/TestRunnerDetected.ts~TestRunnerDetected.html",
     "@serenity-js/core/lib/events~TestRunnerDetected",
@@ -1009,31 +1015,31 @@ window.esdocSearchIndex = [
   ],
   [
     "axioserror",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L82",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
     "external"
   ],
   [
     "axiosinstance",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L130",
     "AxiosInstance",
     "external"
   ],
   [
     "axiospromise",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L91",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L94",
     "AxiosPromise",
     "external"
   ],
   [
     "axiosrequestconfig",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L44",
     "AxiosRequestConfig",
     "external"
   ],
   [
     "axiosresponse",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L76",
     "AxiosResponse",
     "external"
   ],

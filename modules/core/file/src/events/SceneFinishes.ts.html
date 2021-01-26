@@ -159,6 +159,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TaskStarts.ts~TaskStarts.html">TaskStarts</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestRunFinished.ts~TestRunFinished.html">TestRunFinished</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestRunFinishes.ts~TestRunFinishes.html">TestRunFinishes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestRunStarts.ts~TestRunStarts.html">TestRunStarts</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestRunnerDetected.ts~TestRunnerDetected.html">TestRunnerDetected</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteFinished.ts~TestSuiteFinished.html">TestSuiteFinished</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteStarts.ts~TestSuiteStarts.html">TestSuiteStarts</a></span></span></li>
@@ -275,7 +276,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/events/SceneFinishes.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { CorrelationId, ScenarioDetails, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<span class="hljs-keyword">import</span> { CorrelationId, Outcome, ScenarioDetails, SerialisedOutcome, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
 <span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'./DomainEvent'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SceneFinishes</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
@@ -283,6 +284,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SceneFinishes(
             CorrelationId.fromJSON(o.sceneId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
             ScenarioDetails.fromJSON(o.details <span class="hljs-keyword">as</span> JSONObject),
+            Outcome.fromJSON(o.outcome <span class="hljs-keyword">as</span> SerialisedOutcome),
             Timestamp.fromJSON(o.timestamp <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }
@@ -290,11 +292,13 @@
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> sceneId: CorrelationId,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> details: ScenarioDetails,
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> outcome: Outcome,
         timestamp?: Timestamp,
     </span>)</span> {
         <span class="hljs-built_in">super</span>(timestamp);
         ensure(<span class="hljs-string">'sceneId'</span>, sceneId, isDefined());
         ensure(<span class="hljs-string">'details'</span>, details, isDefined());
+        ensure(<span class="hljs-string">'outcome'</span>, outcome, isDefined());
     }
 }
 </code></pre>

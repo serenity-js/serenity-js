@@ -135,33 +135,36 @@
 <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/TestOutcome.java</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SerenityBDDReport <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;                       <span class="hljs-comment">// done [x]</span>
-    id: <span class="hljs-built_in">string</span>;                         <span class="hljs-comment">// done [x]</span>
-    testSteps: TestStep[];              <span class="hljs-comment">// done [x]</span>
-    userStory: UserStory;               <span class="hljs-comment">// todo [~]    cucumber</span>
+    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+    id: <span class="hljs-built_in">string</span>;
+    testSteps: TestStep[];
+    userStory: UserStory;
     <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/c89cd6ee4127738ac88525d29d99537921f34701/</span>
     <span class="hljs-comment">// serenity-core/src/test/resources/historical-reports/sample-report-4.json</span>
 
-    featureTag: Tag;                    <span class="hljs-comment">// done [x]</span>
-    title: <span class="hljs-built_in">string</span>;                      <span class="hljs-comment">// done [x]</span>
-    description: <span class="hljs-built_in">string</span>;                <span class="hljs-comment">// done [x]</span>
-    tags: Tag[];                        <span class="hljs-comment">// done [x]</span>
-    startTime: <span class="hljs-built_in">number</span>;                  <span class="hljs-comment">// done [x]</span>
-    duration: <span class="hljs-built_in">number</span>;                   <span class="hljs-comment">// done [x]</span>
+    featureTag: Tag;
+    title: <span class="hljs-built_in">string</span>;
+    description: <span class="hljs-built_in">string</span>;
+    tags: Tag[];
+    startTime: <span class="hljs-built_in">number</span>;
+    duration: <span class="hljs-built_in">number</span>;
     rule: <span class="hljs-built_in">string</span>;
-    projectKey: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor                                                  &lt;- this typically comes from an env variable</span>
-    sessionId?: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor                                                  &lt;- how is this used?</span>
-    driver?: <span class="hljs-built_in">string</span>;                    <span class="hljs-comment">// todo [ ]     protractor     'chrome:jill'                                &lt;- how is this used?</span>
-    context?: <span class="hljs-built_in">string</span>;                   <span class="hljs-comment">// done [x]</span>
-    dataTable?: DataTable;              <span class="hljs-comment">// done [x]     cucumber                                                    &lt;- can I use this with mocha?</span>
-    manual: <span class="hljs-built_in">boolean</span>;                    <span class="hljs-comment">// done [x]</span>
-    issues?: <span class="hljs-built_in">string</span>[];                  <span class="hljs-comment">// done [x]</span>
-    additionalIssues?: <span class="hljs-built_in">string</span>[];        <span class="hljs-comment">// done [x]</span>
-    testSource: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// done [x]</span>
-    result: <span class="hljs-built_in">string</span>;                     <span class="hljs-comment">// done [x]</span>
-    testFailureCause?: ErrorDetails;    <span class="hljs-comment">// done [x]</span>
-    backgroundTitle?: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// todo [ ]     cucumber</span>
-    backgroundDescription?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// todo [ ]     cucumber</span>
+    projectKey: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor</span>
+    sessionId?: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor</span>
+    driver?: <span class="hljs-built_in">string</span>;                    <span class="hljs-comment">// todo [ ]     protractor     'chrome:jill'</span>
+    context?: <span class="hljs-built_in">string</span>;
+    dataTable?: DataTable;
+    manual: <span class="hljs-built_in">boolean</span>;
+    issues?: <span class="hljs-built_in">string</span>[];
+    additionalIssues?: <span class="hljs-built_in">string</span>[];
+    testSource: <span class="hljs-built_in">string</span>;
+    result: <span class="hljs-built_in">string</span>;
+    testFailureCause?: ErrorDetails;
+    testFailureClassname?: <span class="hljs-built_in">string</span>;
+    testFailureMessage?: <span class="hljs-built_in">string</span>;
+    testFailureSummary?: <span class="hljs-built_in">string</span>;
+    backgroundTitle?: <span class="hljs-built_in">string</span>;
+    backgroundDescription?: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> TestStep <span class="hljs-keyword">extends</span> JSONObject {

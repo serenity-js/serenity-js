@@ -121,6 +121,7 @@
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -132,7 +133,18 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> {
+    ActivityFinished,
+    ActivityStarts,
+    SceneFinished,
+    SceneFinishes,
+    SceneStarts,
+    SceneTagged,
+    TestRunFinished,
+    TestRunFinishes,
+    TestRunnerDetected,
+    TestRunStarts,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { ExecutionFailedWithError, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { cucumber7 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./bin/cucumber-7'</span>;
 
@@ -153,6 +165,7 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                 expect(res.exitCode).to.equal(<span class="hljs-number">1</span>);
 
                 PickEvent.from(res.events)
+                    .next(TestRunStarts,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event).to.be.instanceOf(TestRunStarts))
                     .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                         expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'A failing scenario'</span>))
                         expect(event.details.location.path.value).to.match(<span class="hljs-regexp">/examples\/features\/failing_scenario.feature$/</span>)
@@ -163,6 +176,13 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'A failing feature'</span>)))
                     .next(ActivityStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a step that fails with a generic error'</span>)))
                     .next(ActivityFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError)
+                        <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError;
+
+                        expect(outcome.error.name).to.equal(<span class="hljs-string">'Error'</span>);
+                        expect(outcome.error.message).to.equal(<span class="hljs-string">`Something's wrong`</span>);
+                    })
+                    .next(SceneFinishes,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                         expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError)
                         <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError;
 

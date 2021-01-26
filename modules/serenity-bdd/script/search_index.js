@@ -354,6 +354,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/events~testrunstarts",
+    "/modules/core/class/src/events/TestRunStarts.ts~TestRunStarts.html",
+    "@serenity-js/core/lib/events~TestRunStarts",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/events~testrunnerdetected",
     "/modules/core/class/src/events/TestRunnerDetected.ts~TestRunnerDetected.html",
     "@serenity-js/core/lib/events~TestRunnerDetected",
@@ -1093,31 +1099,31 @@ window.esdocSearchIndex = [
   ],
   [
     "axioserror",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L82",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
     "external"
   ],
   [
     "axiosinstance",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L130",
     "AxiosInstance",
     "external"
   ],
   [
     "axiospromise",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L91",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L94",
     "AxiosPromise",
     "external"
   ],
   [
     "axiosrequestconfig",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L44",
     "AxiosRequestConfig",
     "external"
   ],
   [
     "axiosresponse",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L76",
     "AxiosResponse",
     "external"
   ],
@@ -1230,6 +1236,12 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber9",
+    "SerenityBDDReporter",
+    "test"
+  ],
+  [
     "serenitybddreporter src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/dealing_with_out_of_order_events.spec.ts.html#lineNumber11",
     "SerenityBDDReporter",
@@ -1272,9 +1284,9 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber9",
-    "SerenityBDDReporter",
+    "serenitybddreporter src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber28",
+    "SerenityBDDReporter ",
     "test"
   ],
   [
@@ -1286,12 +1298,6 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/dealing_with_out_of_order_events.spec.ts.html#lineNumber66",
-    "SerenityBDDReporter ",
-    "test"
-  ],
-  [
-    "serenitybddreporter src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber28",
     "SerenityBDDReporter ",
     "test"
   ],
@@ -1686,6 +1692,84 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber7",
+    "errorReportFrom",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber9",
+    "errorReportFrom when representing Errors as Serenity BDD-standard JSON reports",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber20",
+    "errorReportFrom when representing Errors as Serenity BDD-standard JSON reports supports Serenity/JS Errors",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber29",
+    "errorReportFrom when representing Errors as Serenity BDD-standard JSON reports supports Serenity/JS Errors with root causes",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber11",
+    "errorReportFrom when representing Errors as Serenity BDD-standard JSON reports supports native Error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber41",
+    "errorReportFrom when representing non-Error \"throwables\" as Serenity BDD-standard JSON reports",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber74",
+    "errorReportFrom when representing non-Error \"throwables\" as Serenity BDD-standard JSON reports supports arrays",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber105",
+    "errorReportFrom when representing non-Error \"throwables\" as Serenity BDD-standard JSON reports supports booleans",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber43",
+    "errorReportFrom when representing non-Error \"throwables\" as Serenity BDD-standard JSON reports supports null",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber85",
+    "errorReportFrom when representing non-Error \"throwables\" as Serenity BDD-standard JSON reports supports numbers",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber63",
+    "errorReportFrom when representing non-Error \"throwables\" as Serenity BDD-standard JSON reports supports objects",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber95",
+    "errorReportFrom when representing non-Error \"throwables\" as Serenity BDD-standard JSON reports supports strings",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber53",
+    "errorReportFrom when representing non-Error \"throwables\" as Serenity BDD-standard JSON reports supports undefined",
+    "test"
+  ],
+  [
     "selenium-webdriver~actions",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Actions.html",
     "selenium-webdriver~Actions",
@@ -1791,6 +1875,12 @@ window.esdocSearchIndex = [
     "spec/stage/crew/serenity-bdd-reporter/serenitybddreporter/tagging_scenarios.spec.ts",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts.html",
     "spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/tagging_scenarios.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorreportfrom.spec.ts",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html",
+    "spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts",
     "testFile"
   ],
   [

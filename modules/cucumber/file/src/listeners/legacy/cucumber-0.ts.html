@@ -121,6 +121,7 @@
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -129,24 +130,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/cucumber-0.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
 <span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../errors'</span>;
-<span class="hljs-keyword">import</span> { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
 <span class="hljs-keyword">import</span> { Dependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
+<span class="hljs-keyword">import</span> { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
 
-<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ serenity, notifier, loader, cache }: Dependencies</span>) </span>{
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ serenity, notifier, resultMapper, loader, cache }: Dependencies</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'BeforeFeatures'</span>, <span class="hljs-function">() =&gt;</span> {
+            notifier.testRunStarts();
+        });
+
         <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'BeforeFeature'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">feature, callback</span>) </span>{
             loader.load(get(feature, <span class="hljs-string">'uri'</span>).as(Path))
                 .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> callback(), <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> callback(error));
@@ -192,32 +187,37 @@
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
             }
 
-            notifier.stepFinished(findStepMatching(step, cache.get(path)), stepOutcomeFrom(result));
+            notifier.stepFinished(findStepMatching(step, cache.get(path)), resultMapper.outcomeFor(
+                get(result, <span class="hljs-string">'status'</span>).value(),
+                get(result, <span class="hljs-string">'failureException'</span>).value() || ambiguousStepsDetectedIn(result),
+            ));
         });
 
-        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'AfterScenario'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">scenario, callback</span>) </span>{
-            <span class="hljs-keyword">const</span>
-                path     = get(scenario, <span class="hljs-string">'uri'</span>).as(Path),
-                line     = get(scenario, <span class="hljs-string">'line'</span>).value() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>;
-
-            <span class="hljs-keyword">const</span> map = cache.get(path);
-
-            notifier.scenarioFinishes(map.get(Scenario).onLine(line), map.getFirst(Feature));
-
-            serenity.waitForNextCue()
-                .then(<span class="hljs-function">() =&gt;</span> callback(), <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> callback(error));
-        });
-
-        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'ScenarioResult'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result</span>) </span>{
+        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'ScenarioResult'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result, callback</span>) </span>{
 
             <span class="hljs-keyword">const</span>
                 scenario = get(result, <span class="hljs-string">'scenario'</span>).value(),
                 path     = get(scenario, <span class="hljs-string">'uri'</span>).as(Path),
-                line     = get(scenario, <span class="hljs-string">'line'</span>).value() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>;
+                line     = get(scenario, <span class="hljs-string">'line'</span>).value() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
+                outcome  = resultMapper.outcomeFor(
+                    get(result, <span class="hljs-string">'status'</span>).value(),
+                    get(result, <span class="hljs-string">'failureException'</span>).value()
+                );
 
             <span class="hljs-keyword">const</span> map = cache.get(path);
 
-            notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), scenarioOutcomeFrom(result));
+            notifier.scenarioFinishes(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
+
+            serenity.waitForNextCue()
+                .then(
+                    <span class="hljs-function">() =&gt;</span> {
+                        notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
+                        callback();
+                    },
+                    <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                        notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
+                        callback(error);
+                    });
         });
 
         <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'AfterFeatures'</span>, <span class="hljs-function">(<span class="hljs-params">features, callback</span>) =&gt;</span> {
@@ -266,23 +266,6 @@
     <span class="hljs-keyword">return</span> matchedStep;
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">scenarioOutcomeFrom</span>(<span class="hljs-params">result</span>): <span class="hljs-title">Outcome</span> </span>{
-    <span class="hljs-keyword">const</span>
-        <span class="hljs-attr">status</span>: <span class="hljs-built_in">string</span> = get(result, <span class="hljs-string">'status'</span>).value(),
-        <span class="hljs-attr">error</span>: <span class="hljs-built_in">Error</span>   = errorFrom(get(result, <span class="hljs-string">'failureException'</span>).value());
-
-    <span class="hljs-keyword">return</span> outcomeFrom(status, error);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stepOutcomeFrom</span>(<span class="hljs-params">result</span>): <span class="hljs-title">Outcome</span> </span>{
-    <span class="hljs-keyword">const</span>
-        <span class="hljs-attr">status</span>: <span class="hljs-built_in">string</span>                          = get(result, <span class="hljs-string">'status'</span>).value(),
-        <span class="hljs-attr">ambiguousStepsError</span>: <span class="hljs-built_in">Error</span> | <span class="hljs-literal">undefined</span>  = ambiguousStepsDetectedIn(result),
-        <span class="hljs-attr">error</span>: <span class="hljs-built_in">Error</span> | <span class="hljs-literal">undefined</span>                = errorFrom(get(result, <span class="hljs-string">'failureException'</span>).value());
-
-    <span class="hljs-keyword">return</span> outcomeFrom(status, error || ambiguousStepsError);
-}
-
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ambiguousStepsDetectedIn</span>(<span class="hljs-params">result</span>): <span class="hljs-title">Error</span> | <span class="hljs-title">undefined</span> </span>{
     <span class="hljs-keyword">const</span> ambiguousStepDefinitions = get(result, <span class="hljs-string">'ambiguousStepDefinitions'</span>).value() || [];
 
@@ -296,52 +279,6 @@
             err.message += <span class="hljs-string">`\n<span class="hljs-subst">${issue}</span>`</span>;
             <span class="hljs-keyword">return</span> err;
         }, <span class="hljs-keyword">new</span> AmbiguousStepDefinitionError(<span class="hljs-string">'Multiple step definitions match:'</span>));
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">errorFrom</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span> | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span></span>): <span class="hljs-title">Error</span> | <span class="hljs-title">undefined</span> </span>{
-    <span class="hljs-keyword">switch</span> (<span class="hljs-keyword">typeof</span> error) {
-        <span class="hljs-keyword">case</span> <span class="hljs-string">'string'</span>:   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(error <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>);
-        <span class="hljs-keyword">case</span> <span class="hljs-string">'object'</span>:   <span class="hljs-keyword">return</span> error <span class="hljs-keyword">as</span> <span class="hljs-built_in">Error</span>;
-        <span class="hljs-keyword">case</span> <span class="hljs-string">'function'</span>: <span class="hljs-keyword">return</span> error <span class="hljs-keyword">as</span> <span class="hljs-built_in">Error</span>;
-        <span class="hljs-keyword">default</span>:         <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
-    }
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">outcomeFrom</span>(<span class="hljs-params">status: <span class="hljs-built_in">string</span>, error?: <span class="hljs-built_in">Error</span></span>) </span>{
-    <span class="hljs-keyword">if</span> (error &amp;&amp; <span class="hljs-regexp">/timed out/</span>.test(error.message)) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
-    }
-
-    <span class="hljs-comment">// tslint:disable:switch-default</span>
-    <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-        <span class="hljs-keyword">case</span> status === <span class="hljs-string">'undefined'</span>:
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step not implemented'</span>));
-
-        <span class="hljs-keyword">case</span> status === <span class="hljs-string">'ambiguous'</span>:
-            <span class="hljs-keyword">if</span> (! error) {
-                <span class="hljs-comment">// Only the step result contains the "ambiguous step def error", the scenario itself doesn't</span>
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> AmbiguousStepDefinitionError(<span class="hljs-string">'Multiple step definitions match'</span>));
-            }
-
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
-
-        <span class="hljs-keyword">case</span> status === <span class="hljs-string">'failed'</span>:
-            <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-                <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> AssertionError:       <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(error <span class="hljs-keyword">as</span> AssertionError);
-                <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> TestCompromisedError: <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionCompromised(error <span class="hljs-keyword">as</span> TestCompromisedError);
-                <span class="hljs-keyword">default</span>:                                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
-            }
-
-        <span class="hljs-keyword">case</span> status === <span class="hljs-string">'pending'</span>:
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step not implemented'</span>));
-
-        <span class="hljs-keyword">case</span> status === <span class="hljs-string">'passed'</span>:
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSuccessful();
-
-        <span class="hljs-keyword">case</span> status === <span class="hljs-string">'skipped'</span>:
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
-    }
-    <span class="hljs-comment">// tslint:enable:switch-default</span>
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shouldIgnore</span>(<span class="hljs-params">step</span>): <span class="hljs-title">boolean</span> </span>{

@@ -121,6 +121,7 @@
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -145,11 +146,12 @@
 
 describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">type</span> CucumberHook = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
+    <span class="hljs-keyword">type</span> CucumberHook = <span class="hljs-function">(<span class="hljs-params">event?: <span class="hljs-built_in">object</span></span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
 
     <span class="hljs-keyword">let</span> afterHook: CucumberHook;
 
     <span class="hljs-keyword">const</span> fakeCucumber = {
+        <span class="hljs-attr">BeforeAll</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
         <span class="hljs-attr">Before</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
         <span class="hljs-attr">After</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> { afterHook = hook; },
         <span class="hljs-attr">AfterAll</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
@@ -170,8 +172,6 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
         recorder = <span class="hljs-keyword">new</span> EventRecorder();
         eventBroadcaster = <span class="hljs-keyword">new</span> EventEmitter();
 
-        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook());
-
         serenity.configure({
             <span class="hljs-attr">crew</span>: [recorder],
         });
@@ -188,6 +188,8 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
     });
 
     it(<span class="hljs-string">'correctly recognises Cucumber Event Protocol events'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({ <span class="hljs-attr">result</span>: { <span class="hljs-attr">duration</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span> } }));
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-hooks.json'</span>));
 
@@ -225,6 +227,8 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
     });
 
     it(<span class="hljs-string">'correctly recognises undefined steps'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({ <span class="hljs-attr">result</span>: { <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'undefined'</span> } }));
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-undefined-steps.json'</span>));
 
@@ -264,6 +268,8 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
 
     it(<span class="hljs-string">'correctly recognises pending steps'</span>, <span class="hljs-function">() =&gt;</span> {
 
+        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({ <span class="hljs-attr">result</span>: { <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'pending'</span> } }));
+
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-pending-steps.json'</span>));
 
         <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> ScenarioDetails(
@@ -301,6 +307,14 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
     });
 
     it(<span class="hljs-string">'correctly recognises ambiguous steps'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({
+            <span class="hljs-attr">result</span>: {
+                <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">status</span>: <span class="hljs-string">'ambiguous'</span>,
+                <span class="hljs-attr">exception</span>: <span class="hljs-string">'Multiple step definitions match:\n  /^I have an ambiguous step definition$/ - step_definitions/ambiguous.steps.ts:3\n  /^I have an ambiguous step definition$/ - step_definitions/ambiguous.steps.ts:7'</span>
+            },
+        }));
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-ambiguous-steps.json'</span>));
 
@@ -341,6 +355,14 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
 
     it(<span class="hljs-string">'correctly recognises errors thrown in steps'</span>, <span class="hljs-function">() =&gt;</span> {
 
+        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({
+            <span class="hljs-attr">result</span>: {
+                <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
+                <span class="hljs-attr">exception</span>: <span class="hljs-string">`Error: We're sorry, something happened\n    at World.&lt;anonymous&gt; (step_definitions/errors.steps.ts:4:11)`</span>
+            },
+        }));
+
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-errors.json'</span>));
 
         <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> ScenarioDetails(
@@ -377,6 +399,13 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
     });
 
     it(<span class="hljs-string">'correctly recognises scenario outlines'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({
+            <span class="hljs-attr">result</span>: {
+                <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
+            },
+        }));
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-outline.json'</span>));
 
@@ -418,6 +447,13 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
     });
 
     it(<span class="hljs-string">'considers a scenario with no steps and no hooks to be pending implementation'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({
+            <span class="hljs-attr">result</span>: {
+                <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
+            },
+        }));
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/pending-scenario.json'</span>));
 

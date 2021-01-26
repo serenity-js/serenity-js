@@ -334,8 +334,10 @@
                 <span class="hljs-built_in">this</span>.printer.println();
                 <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.heading(e.details.category.value, <span class="hljs-string">': '</span>, e.details.name.value));
                 <span class="hljs-built_in">this</span>.printer.println();
-
             })
+
+            <span class="hljs-comment">// todo: add SceneTagged ...</span>
+
             .when(TaskStarts, <span class="hljs-function">(<span class="hljs-params">e: TaskStarts</span>) =&gt;</span> {
 
                 <span class="hljs-built_in">this</span>.printer.indent();
@@ -361,7 +363,7 @@
                     <span class="hljs-built_in">this</span>.firstError.recordIfNeeded(e.outcome.error);
 
                     <span class="hljs-keyword">if</span> (! (e.outcome.error <span class="hljs-keyword">instanceof</span> AssertionError)) {
-                        <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.outcome(e.outcome, e.outcome.error.toString()));
+                        <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.outcome(e.outcome, <span class="hljs-string">`<span class="hljs-subst">${ e.outcome.error }</span>`</span>));
                     }
                 }
 
@@ -419,7 +421,7 @@
                     <span class="hljs-built_in">this</span>.printer.indent();
 
                     <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.firstError.alreadyRecorded()) {
-                        <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.outcome(e.outcome, <span class="hljs-built_in">this</span>.iconFrom(e.outcome), e.outcome.error.toString()));
+                        <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.outcome(e.outcome, <span class="hljs-built_in">this</span>.iconFrom(e.outcome), <span class="hljs-string">`<span class="hljs-subst">${ e.outcome.error }</span>`</span>));
                     }
 
                     <span class="hljs-built_in">this</span>.printer.outdent();
@@ -451,7 +453,7 @@
 
                     <span class="hljs-keyword">if</span> (e.outcome <span class="hljs-keyword">instanceof</span> ImplementationPending) {
                         <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-string">`<span class="hljs-subst">${ e.outcome.error.name }</span>: <span class="hljs-subst">${ e.outcome.error.message }</span>`</span>);
-                    } <span class="hljs-keyword">else</span> {
+                    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e.outcome.error?.stack) {
                         <span class="hljs-built_in">this</span>.printer.println(e.outcome.error.stack);
                     }
 

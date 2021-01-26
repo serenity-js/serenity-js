@@ -209,7 +209,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{PatchRequest}</span></span>
      */</span>
-    using(config: AxiosRequestConfig): PatchRequest {
+    using(config: Answerable&lt;AxiosRequestConfig&gt;): PatchRequest {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PatchRequest(<span class="hljs-built_in">this</span>.resourceUri, <span class="hljs-built_in">this</span>.data, config);
     }
 }

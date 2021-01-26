@@ -246,7 +246,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{PostRequest}</span></span>
      */</span>
-    using(config: AxiosRequestConfig): PostRequest {
+    using(config: Answerable&lt;AxiosRequestConfig&gt;): PostRequest {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PostRequest(<span class="hljs-built_in">this</span>.resourceUri, <span class="hljs-built_in">this</span>.data, config);
     }
 }

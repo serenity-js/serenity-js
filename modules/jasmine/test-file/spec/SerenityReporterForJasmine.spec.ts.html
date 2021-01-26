@@ -141,7 +141,7 @@
     SceneTagged, TaskFinished,
     TaskStarts,
     TestRunFinished,
-    TestRunnerDetected,
+    TestRunnerDetected, TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
@@ -179,6 +179,21 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
     describe(<span class="hljs-string">'notifies Serenity when'</span>, <span class="hljs-function">() =&gt;</span> {
 
         describe(<span class="hljs-string">'the test run'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#jasmineStarted}</span> </span>*/</span>
+            it(<span class="hljs-string">'starts'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                <span class="hljs-keyword">await</span> reporter.jasmineStarted({
+                    <span class="hljs-attr">totalSpecsDefined</span>: <span class="hljs-number">5</span>,
+                    <span class="hljs-attr">order</span>: {
+                        <span class="hljs-attr">random</span>: <span class="hljs-literal">true</span>,
+                        <span class="hljs-attr">seed</span>: <span class="hljs-string">'14552'</span>,
+                        <span class="hljs-attr">sort</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>,
+                    },
+                });
+
+                PickEvent.from(listener.events)
+                    .next(TestRunStarts,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.equal(<span class="hljs-keyword">new</span> Timestamp(now)));
+            });
+
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#jasmineDone}</span> </span>*/</span>
             it(<span class="hljs-string">'ends'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                 <span class="hljs-keyword">await</span> reporter.jasmineDone({

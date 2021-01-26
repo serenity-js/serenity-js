@@ -12,6 +12,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/cucumber/lib/listeners/legacy/notifier~resultmapper",
+    "class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html",
+    "<span>ResultMapper</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/listeners/legacy/notifier</span>",
+    "class"
+  ],
+  [
     "@serenity-js/cucumber/lib/listeners/legacy~createlistener",
     "function/index.html#static-function-createListener",
     "<span>createListener</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/listeners/legacy</span>",
@@ -225,6 +231,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/events~testrunfinishes",
     "/modules/core/class/src/events/TestRunFinishes.ts~TestRunFinishes.html",
     "@serenity-js/core/lib/events~TestRunFinishes",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/events~testrunstarts",
+    "/modules/core/class/src/events/TestRunStarts.ts~TestRunStarts.html",
+    "@serenity-js/core/lib/events~TestRunStarts",
     "external"
   ],
   [
@@ -889,31 +901,31 @@ window.esdocSearchIndex = [
   ],
   [
     "axioserror",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L82",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
     "external"
   ],
   [
     "axiosinstance",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L130",
     "AxiosInstance",
     "external"
   ],
   [
     "axiospromise",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L91",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L94",
     "AxiosPromise",
     "external"
   ],
   [
     "axiosrequestconfig",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L44",
     "AxiosRequestConfig",
     "external"
   ],
   [
     "axiosresponse",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L76",
     "AxiosResponse",
     "external"
   ],
@@ -955,43 +967,43 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber296",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber324",
     "CucumberEventProtocolAdapter considers a scenario with no steps and no hooks to be pending implementation",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber66",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber65",
     "CucumberEventProtocolAdapter correctly recognises Cucumber Event Protocol events",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber179",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber184",
     "CucumberEventProtocolAdapter correctly recognises ambiguous steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber218",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber231",
     "CucumberEventProtocolAdapter correctly recognises errors thrown in steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber141",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber144",
     "CucumberEventProtocolAdapter correctly recognises pending steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber255",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber276",
     "CucumberEventProtocolAdapter correctly recognises scenario outlines",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber103",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber104",
     "CucumberEventProtocolAdapter correctly recognises undefined steps",
     "test"
   ],
@@ -1069,7 +1081,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber19",
     "CucumberMessagesListener",
     "test"
   ],
@@ -1081,7 +1093,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber17",
     "CucumberMessagesListener",
     "test"
   ],
@@ -1093,7 +1105,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber18",
     "CucumberMessagesListener",
     "test"
   ],
@@ -1183,7 +1195,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber21",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
@@ -1195,7 +1207,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber19",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
@@ -1207,7 +1219,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber12",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber22",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
@@ -1243,7 +1255,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber36",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber37",
     "CucumberMessagesListener when working with Cucumber 7 ",
     "test"
   ],
@@ -1303,7 +1315,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber12",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber21",
     "CucumberMessagesListener when working with Cucumber 7 recognises passing scenarios",
     "test"
   ],
@@ -1321,7 +1333,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber12",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber23",
     "CucumberMessagesListener when working with Cucumber 7 recognises scenarios failing due to a generic error",
     "test"
   ],
@@ -1345,13 +1357,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber54",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber69",
     "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and failed",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber14",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber24",
     "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and succeeded",
     "test"
   ],
@@ -2164,6 +2176,24 @@ window.esdocSearchIndex = [
     "file/src/listeners/legacy/notifier/Notifier.ts.html",
     "src/listeners/legacy/notifier/Notifier.ts",
     "file"
+  ],
+  [
+    "src/listeners/legacy/notifier/resultmapper.ts",
+    "file/src/listeners/legacy/notifier/ResultMapper.ts.html",
+    "src/listeners/legacy/notifier/ResultMapper.ts",
+    "file"
+  ],
+  [
+    "src/listeners/legacy/notifier/resultmapper.ts~resultmapper#errorfrom",
+    "class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html#instance-method-errorFrom",
+    "src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper#errorFrom",
+    "method"
+  ],
+  [
+    "src/listeners/legacy/notifier/resultmapper.ts~resultmapper#outcomefor",
+    "class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html#instance-method-outcomeFor",
+    "src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper#outcomeFor",
+    "method"
   ],
   [
     "src/listeners/legacy/notifier/index.ts",

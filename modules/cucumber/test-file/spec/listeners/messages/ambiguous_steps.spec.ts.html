@@ -121,6 +121,7 @@
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -135,7 +136,7 @@
 <span class="hljs-keyword">import</span> {
     ActivityFinished,
     ActivityStarts,
-    SceneFinished,
+    SceneFinished, SceneFinishes,
     SceneStarts,
     SceneTagged,
     TestRunnerDetected,
@@ -176,6 +177,13 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                         expect(lines[<span class="hljs-number">1</span>]).to.contain(<span class="hljs-string">'ambiguous.steps.ts'</span>);
                         expect(lines[<span class="hljs-number">2</span>]).to.contain(<span class="hljs-string">'/^.*step (?:.*) passes$/'</span>);
                         expect(lines[<span class="hljs-number">2</span>]).to.contain(<span class="hljs-string">'ambiguous.steps.ts'</span>);
+                    })
+                    .next(SceneFinishes, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
+
+                        <span class="hljs-keyword">const</span> err = (event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error;
+
+                        expect(err.message).to.match(<span class="hljs-regexp">/^Multiple step definitions match/</span>);
                     })
                     .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                         expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);

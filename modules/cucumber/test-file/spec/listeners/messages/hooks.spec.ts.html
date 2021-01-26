@@ -121,6 +121,7 @@
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -131,7 +132,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/listeners/messages/hooks.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 <span class="hljs-keyword">import</span> { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { InteractionFinished, InteractionStarts, SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { InteractionFinished, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TaskFinished, TaskStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { ExecutionSuccessful, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { cucumber7 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./bin/cucumber-7'</span>;
 
@@ -189,6 +190,7 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                     .next(InteractionFinished, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Helen performs in After'</span>)))
                     .next(TaskFinished,        <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'After'</span>)))
 
+                    .next(SceneFinishes,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful()))
                     .next(SceneFinished,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful()))
 
                     <span class="hljs-comment">// second scenario</span>
@@ -224,6 +226,7 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                     .next(InteractionFinished, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Helen performs in After'</span>)))
                     .next(TaskFinished,        <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'After'</span>)))
 
+                    .next(SceneFinishes,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful()))
                     .next(SceneFinished,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful()))
 
                     <span class="hljs-comment">// after all</span>

@@ -34,6 +34,7 @@
 /** @external {@serenity-js/core/lib/events~TaskStarts} /modules/core/class/src/events/TaskStarts.ts~TaskStarts.html */
 /** @external {@serenity-js/core/lib/events~TestRunFinished} /modules/core/class/src/events/TestRunFinished.ts~TestRunFinished.html */
 /** @external {@serenity-js/core/lib/events~TestRunFinishes} /modules/core/class/src/events/TestRunFinishes.ts~TestRunFinishes.html */
+/** @external {@serenity-js/core/lib/events~TestRunStarts} /modules/core/class/src/events/TestRunStarts.ts~TestRunStarts.html */
 /** @external {@serenity-js/core/lib/events~TestRunnerDetected} /modules/core/class/src/events/TestRunnerDetected.ts~TestRunnerDetected.html */
 /** @external {@serenity-js/core/lib/events~TestSuiteFinished} /modules/core/class/src/events/TestSuiteFinished.ts~TestSuiteFinished.html */
 /** @external {@serenity-js/core/lib/events~TestSuiteStarts} /modules/core/class/src/events/TestSuiteStarts.ts~TestSuiteStarts.html */

@@ -648,6 +648,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/events~testrunstarts",
+    "class/src/events/TestRunStarts.ts~TestRunStarts.html",
+    "<span>TestRunStarts</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/events</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/events~testrunnerdetected",
     "class/src/events/TestRunnerDetected.ts~TestRunnerDetected.html",
     "<span>TestRunnerDetected</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/events</span>",
@@ -1111,31 +1117,31 @@ window.esdocSearchIndex = [
   ],
   [
     "axioserror",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L82",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
     "external"
   ],
   [
     "axiosinstance",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L127",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L130",
     "AxiosInstance",
     "external"
   ],
   [
     "axiospromise",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L91",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L94",
     "AxiosPromise",
     "external"
   ],
   [
     "axiosrequestconfig",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L43",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L44",
     "AxiosRequestConfig",
     "external"
   ],
   [
     "axiosresponse",
-    "https://github.com/axios/axios/blob/v0.19.2/index.d.ts#L73",
+    "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L76",
     "AxiosResponse",
     "external"
   ],
@@ -3471,6 +3477,24 @@ window.esdocSearchIndex = [
     "src/events/testrunfinishes.ts~testrunfinishes.fromjson",
     "class/src/events/TestRunFinishes.ts~TestRunFinishes.html#static-method-fromJSON",
     "src/events/TestRunFinishes.ts~TestRunFinishes.fromJSON",
+    "method"
+  ],
+  [
+    "src/events/testrunstarts.ts",
+    "file/src/events/TestRunStarts.ts.html",
+    "src/events/TestRunStarts.ts",
+    "file"
+  ],
+  [
+    "src/events/testrunstarts.ts~testrunstarts#constructor",
+    "class/src/events/TestRunStarts.ts~TestRunStarts.html#instance-constructor-constructor",
+    "src/events/TestRunStarts.ts~TestRunStarts#constructor",
+    "method"
+  ],
+  [
+    "src/events/testrunstarts.ts~testrunstarts.fromjson",
+    "class/src/events/TestRunStarts.ts~TestRunStarts.html#static-method-fromJSON",
+    "src/events/TestRunStarts.ts~TestRunStarts.fromJSON",
     "method"
   ],
   [
