@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.21.0](https://github.com/serenity-js/serenity-js/compare/v2.20.1...v2.21.0) (2021-01-26)
+
+
+### Bug Fixes
+
+* **rest:** upgraded Axios to 0.21.1 ([4b08f90](https://github.com/serenity-js/serenity-js/commit/4b08f90cc42bd7ec1f5a6e3006dfffe2aaa72477))
+
+
+
+
+
 ## [2.20.1](https://github.com/serenity-js/serenity-js/compare/v2.20.0...v2.20.1) (2021-01-23)
 
 **Note:** Version bump only for package @documentation/esdoc-external-docs-plugin
