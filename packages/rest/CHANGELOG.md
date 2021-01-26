@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.1](https://github.com/serenity-js/serenity-js/compare/v2.20.0...v2.20.1) (2021-01-23)
+
+
+### Bug Fixes
+
+* **rest:** a full URL of an API request is now reported, instead of just the path ([1996c8a](https://github.com/serenity-js/serenity-js/commit/1996c8a16ca1f4c84d2703e410b46d4917102260))
+
+
+
+
+
 # [2.20.0](https://github.com/serenity-js/serenity-js/compare/v2.19.10...v2.20.0) (2021-01-18)
 
 **Note:** Version bump only for package @serenity-js/rest
