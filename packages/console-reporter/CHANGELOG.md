@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.21.0](https://github.com/serenity-js/serenity-js/compare/v2.20.1...v2.21.0) (2021-01-26)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** improved reporting of unusual "errors" ([8c2a850](https://github.com/serenity-js/serenity-js/commit/8c2a8501a4395d74b731c13c1a99a89abd966fc4)), closes [#549](https://github.com/serenity-js/serenity-js/issues/549)
+
+
+
+
+
 ## [2.20.1](https://github.com/serenity-js/serenity-js/compare/v2.20.0...v2.20.1) (2021-01-23)
 
 
