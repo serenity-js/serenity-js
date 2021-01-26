@@ -381,7 +381,7 @@ I'll explain it in more depth in the next section.
             If you'd like to see Serenity/JS support your favourity test runner, please [raise a ticket](https://github.com/serenity-js/serenity-js/issues) or give a <i class="fas fa-thumbs-up"></i> thumbs up  to an existing proposal.
         </p>
         <p>
-            Also, please consider [becoming our Github Sponsor](/support.html) to help the Serenity/JS team secure more time on the project to support more integrations.
+            Also, please consider [becoming our GitHub Sponsor](/support.html) to help the Serenity/JS team secure more time on the project to support more integrations.
         </p>
     </div>
 </div>
@@ -1235,7 +1235,7 @@ Is.visible()  | isVisible()
 Hopefully this guide gave you a good understanding of how version 2.0 improves upon the original design
 and can help you to write even better acceptance tests.
 
-If Serenity/JS has made your life easier, please [give us a star ★](https://github.com/serenity-js/serenity-js) on Github and consider [getting us a coffee](https://github.com/sponsors/serenity-js) every now and then by becoming a [Github Sponsor](https://github.com/sponsors/serenity-js) of the project from as little as $5. 
+If Serenity/JS has made your life easier, please [give us a star ★](https://github.com/serenity-js/serenity-js) on GitHub and consider [getting us a coffee](https://github.com/sponsors/serenity-js) every now and then by becoming a [GitHub Sponsor](https://github.com/sponsors/serenity-js) of the project from as little as $5. 
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-hands-helping"></i></div>

@@ -5,6 +5,7 @@ import { URL } from 'url';
 import { GAV } from '../../model';
 import { CreateDirectory, Notify, StreamResponse } from '../interactions';
 import { RenameFile } from '../interactions/RenameFile';
+import { VerifyChecksum } from './VerifyChecksum';
 
 /**
  * @package
@@ -49,8 +50,10 @@ export class DownloadArtifact extends Task {
             Notify.that(`Looks like you need the latest Serenity BDD CLI jar. Let me download it for you...`),
             CreateDirectory.at(this.destinationDirectory),
             StreamResponse
-                .to(GetRequest.to(this.artifactURL()))
-                .to(this.destinationDirectory.join(tempFileName)),
+                .to(GetRequest.to(this.artifactUrl()))
+                .to(pathToTempFile),
+            Notify.that(`Verifying checksums...`),
+            VerifyChecksum.at(this.artifactUrl() + '.sha1').against(pathToTempFile).calculatedUsing('sha1'),
             RenameFile.from(pathToTempFile).to(pathToFinishedFile),
             Notify.that(`Downloaded ${ pathToFinishedFile.value }`),
         );
@@ -66,9 +69,9 @@ export class DownloadArtifact extends Task {
         return `#actor downloads ${ this.gav.toPath().value } from ${ this.repository.toString() }`;
     }
 
-    private artifactURL() {
+    private artifactUrl() {
         return [
-            this.repository.toString(),
+            this.repository.toString().replace(/\/+$/, ''),
             ...this.gav.groupId.split('.'),
             this.gav.artifactId,
             this.gav.version,

@@ -1,8 +1,8 @@
-import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, CollectsArtifacts, ConfigurationError, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted, Path } from '@serenity-js/core/lib/io';
 import { CallAnApi } from '@serenity-js/rest';
 import { AxiosRequestConfig } from 'axios';
-import { DownloadProgressReport } from '../../model';
+import { DownloadProgressReport, Notification } from '../../model';
 import { UseFileSystem } from '../abilities';
 
 /**
@@ -41,8 +41,17 @@ export class StreamResponse extends Interaction {
             .then((config: AxiosRequestConfig) => CallAnApi.as(actor).request({
                 ...config,
                 responseType: 'stream',
-            }).
-            then(response => new Promise((resolve, reject) => {
+            })
+            .then(response => {
+                if (response.status !== 200) {
+                    throw new ConfigurationError(`Received: "${ response.status } ${ response.statusText }" when trying to download ${ config.url }`);
+                }
+
+                return response;
+            })
+            .then(response => new Promise((resolve, reject) => {
+
+                actor.collect(Notification.fromJSON({ message: `Downloading ${ config.url } to ${ this.destination.value }` }));
 
                 const
                     totalBytes  = parseInt(response.headers['content-length'], 10),

@@ -74,7 +74,7 @@ describe('Send', () => {
     it('emits the events so that the details of the HTTP interaction can be reported', () => {
         const frozenClock = new Clock(() => new Date('1970-01-01'));
         const axiosInstance = axios.create({
-            url: 'https://myapp.com/api',
+            baseURL: 'https://myapp.com/api'
         });
         const mock     = new MockAdapter(axiosInstance);
         const serenity = new Serenity(frozenClock);
@@ -85,14 +85,14 @@ describe('Send', () => {
             crew: [ recorder ],
         });
 
-        mock.onGet('/products/2').reply(200, {
+        mock.onGet('products/2').reply(200, {   // axios-mock-adapter doesn't resolve baseUrl; it should've really been mock.onGet('/api/products/2')
             id: 2,
         }, {
             'Content-Type': 'application/json',
         });
 
         return serenity.theActorCalled('Apisitt').attemptsTo(
-            Send.a(GetRequest.to('/products/2')),
+            Send.a(GetRequest.to('products/2')),
         ).then(() => {
             const events = recorder.events;
 
@@ -103,11 +103,11 @@ describe('Send', () => {
 
             const artifactGenerated = events[ 1 ] as ActivityRelatedArtifactGenerated;
 
-            expect(artifactGenerated.name.value).to.equal(`request get /products/2`);
+            expect(artifactGenerated.name.value).to.equal(`GET https://myapp.com/api/products/2`);
             expect(artifactGenerated.artifact.equals(HTTPRequestResponse.fromJSON({
                 request: {
                     method: 'get',
-                    url: '/products/2',
+                    url: 'https://myapp.com/api/products/2',
                     headers: { Accept: 'application/json, text/plain, */*' },
                 },
                 response: {

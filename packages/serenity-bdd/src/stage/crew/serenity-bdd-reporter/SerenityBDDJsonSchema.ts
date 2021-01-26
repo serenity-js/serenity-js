@@ -6,32 +6,36 @@ import { JSONObject } from 'tiny-types';
 // https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/TestOutcome.java
 
 export interface SerenityBDDReport extends JSONObject {
-    name: string;                       // done [x]
-    id: string;                         // done [x]
-    testSteps: TestStep[];              // done [x]
-    userStory: UserStory;               // todo [~]    cucumber
+    name: string;
+    id: string;
+    testSteps: TestStep[];
+    userStory: UserStory;
     // https://github.com/serenity-bdd/serenity-core/blob/c89cd6ee4127738ac88525d29d99537921f34701/
     // serenity-core/src/test/resources/historical-reports/sample-report-4.json
 
-    featureTag: Tag;                    // done [x]
-    title: string;                      // done [x]
-    description: string;                // done [x]
-    tags: Tag[];                        // done [x]
-    startTime: number;                  // done [x]
-    duration: number;                   // done [x]
-    projectKey: string;                 // todo [ ]     protractor                                                  <- this typically comes from an env variable
-    sessionId?: string;                 // todo [ ]     protractor                                                  <- how is this used?
-    driver?: string;                    // todo [ ]     protractor     'chrome:jill'                                <- how is this used?
-    context?: string;                   // done [x]
-    dataTable?: DataTable;              // done [x]     cucumber                                                    <- can I use this with mocha?
-    manual: boolean;                    // done [x]
-    issues?: string[];                  // done [x]
-    additionalIssues?: string[];        // done [x]
-    testSource: string;                 // done [x]
-    result: string;                     // done [x]
-    testFailureCause?: ErrorDetails;    // done [x]
-    backgroundTitle?: string;           // todo [ ]     cucumber
-    backgroundDescription?: string;     // todo [ ]     cucumber
+    featureTag: Tag;
+    title: string;
+    description: string;
+    tags: Tag[];
+    startTime: number;
+    duration: number;
+    rule: string;
+    projectKey: string;                 // todo [ ]     protractor
+    sessionId?: string;                 // todo [ ]     protractor
+    driver?: string;                    // todo [ ]     protractor     'chrome:jill'
+    context?: string;
+    dataTable?: DataTable;
+    manual: boolean;
+    issues?: string[];
+    additionalIssues?: string[];
+    testSource: string;
+    result: string;
+    testFailureCause?: ErrorDetails;
+    testFailureClassname?: string;
+    testFailureMessage?: string;
+    testFailureSummary?: string;
+    backgroundTitle?: string;
+    backgroundDescription?: string;
 }
 
 export interface TestStep extends JSONObject {

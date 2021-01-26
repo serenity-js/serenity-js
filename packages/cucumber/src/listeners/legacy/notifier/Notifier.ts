@@ -1,0 +1,176 @@
+import {
+    DomainEvent,
+    FeatureNarrativeDetected,
+    SceneDescriptionDetected,
+    SceneFinished,
+    SceneFinishes,
+    SceneParametersDetected,
+    SceneSequenceDetected,
+    SceneStarts,
+    SceneTagged,
+    SceneTemplateDetected,
+    TaskFinished,
+    TaskStarts,
+    TestRunFinished,
+    TestRunFinishes,
+    TestRunnerDetected, TestRunStarts,
+} from '@serenity-js/core/lib/events';
+import { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
+import { Serenity } from '@serenity-js/core/lib/Serenity';
+
+import { Feature, FeatureFileNode, Scenario, ScenarioOutline, Step } from '../gherkin';
+
+function notEmpty<T>(list: T[]) {
+    return list.filter(item => !! item);
+}
+
+/**
+ * @private
+ */
+export class Notifier {
+    private currentSceneId: CorrelationId;
+    private currentScenario: ScenarioDetails;
+    private currentStepActivityId: CorrelationId;
+
+    constructor(private readonly serenity: Serenity) {
+    }
+
+    testRunStarts() {
+        this.emit(
+            new TestRunStarts(this.serenity.currentTime()),
+        );
+    }
+
+    outlineDetected(sceneId: CorrelationId, scenario: Scenario, outline: ScenarioOutline, feature: Feature): void {
+        const
+            outlineDetails  = this.detailsOf(outline, feature),
+            scenarioDetails = this.detailsOf(scenario, feature),
+            template        = outline.steps.map(step => step.name.value).join('\n');
+
+        this.emit(...notEmpty([
+            new SceneSequenceDetected(sceneId, outlineDetails, this.serenity.currentTime()),
+            new SceneTemplateDetected(sceneId, new Description(template), this.serenity.currentTime()),
+            new SceneParametersDetected(
+                sceneId,
+                scenarioDetails,
+                outline.parameters[ scenario.location.line ],
+                this.serenity.currentTime(),
+            ),
+        ]));
+    }
+
+    scenarioStarts(sceneId: CorrelationId, scenario: Scenario, feature: Feature): void {
+        this.currentSceneId = sceneId;
+
+        const details = this.detailsOf(scenario, feature);
+
+        this.currentScenario = details;
+
+        // todo: emit SceneBackgroundDetected?
+
+        this.emit(...notEmpty([
+            new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),
+            feature.description && new FeatureNarrativeDetected(this.currentSceneId, feature.description, this.serenity.currentTime()),
+            new TestRunnerDetected(this.currentSceneId, new Name('Cucumber'), this.serenity.currentTime()),
+            ...this.scenarioHierarchyTagsFor(feature).map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
+            !! scenario.description && new SceneDescriptionDetected(this.currentSceneId, scenario.description, this.serenity.currentTime()),
+            ...scenario.tags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
+        ]));
+    }
+
+    stepStarts(step: Step): void {
+        this.currentStepActivityId = this.serenity.assignNewActivityId();
+
+        this.emit(
+            new TaskStarts(
+                this.currentSceneId,
+                this.currentStepActivityId,
+                new ActivityDetails(step.name),
+                this.serenity.currentTime()
+            ),
+        );
+    }
+
+    stepFinished(step: Step, outcome: Outcome): void {
+        this.emit(
+            new TaskFinished(
+                this.currentSceneId,
+                this.currentStepActivityId,
+                new ActivityDetails(step.name),
+                outcome,
+                this.serenity.currentTime(),
+            ),
+        );
+    }
+
+    scenarioFinishes(scenario: Scenario, feature: Feature, outcome: Outcome): void {
+        this.emitSceneFinishes(this.detailsOf(scenario, feature), outcome);
+    }
+
+    currentScenarioFinishes(outcome: Outcome) {
+        this.emitSceneFinishes(this.currentScenario, outcome);
+    }
+
+    scenarioFinished(scenario: Scenario, feature: Feature, outcome: Outcome): void {
+        const details = this.detailsOf(scenario, feature);
+
+        this.emit(
+            new SceneFinished(
+                this.currentSceneId,
+                details,
+                outcome,
+                this.serenity.currentTime(),
+            ),
+        );
+    }
+
+    testRunFinishes() {
+        this.emit(
+            new TestRunFinishes(this.serenity.currentTime()),
+        );
+    }
+
+    testRunFinished() {
+        this.emit(
+            new TestRunFinished(this.serenity.currentTime()),
+        );
+    }
+
+    private emitSceneFinishes(details: ScenarioDetails, outcome: Outcome) {
+        this.emit(
+            new SceneFinishes(
+                this.currentSceneId,
+                details,
+                outcome,
+                this.serenity.currentTime(),
+            ),
+        );
+    }
+
+    private detailsOf(scenario: FeatureFileNode, feature: Feature): ScenarioDetails {
+        return new ScenarioDetails(
+            scenario.name,
+            new Category(feature.name.value),
+            scenario.location,
+        );
+    }
+
+    private scenarioHierarchyTagsFor(feature: Feature): Tag[] {
+        const
+            directories     = notEmpty(feature.location.path.directory().split()),
+            featuresIndex   = directories.indexOf('features'),
+            hierarchy       = [ ...directories.slice(featuresIndex + 1), feature.name.value ] as string[];
+
+        const [ featureName, capabilityName, themeName ]: string[] = hierarchy.reverse();
+
+        return notEmpty([
+            themeName       && new ThemeTag(themeName),
+            capabilityName  && new CapabilityTag(capabilityName),
+            feature         && new FeatureTag(featureName),
+        ]);
+    }
+
+    private emit(...events: DomainEvent[]) {
+        events.forEach(event => this.serenity.announce(event));
+    }
+}

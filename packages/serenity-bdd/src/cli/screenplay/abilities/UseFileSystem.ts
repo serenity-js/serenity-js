@@ -1,6 +1,6 @@
 import { Ability, UsesAbilities } from '@serenity-js/core';
 import { FileSystem, Path } from '@serenity-js/core/lib/io';
-import { Stats, WriteStream } from 'fs';
+import { ReadStream, Stats, WriteStream } from 'fs';
 
 /**
  * @package
@@ -15,6 +15,10 @@ export class UseFileSystem implements Ability {
     }
 
     constructor(private readonly fileSystem: FileSystem) {
+    }
+
+    createReadStream(relativePathToFile: Path): ReadStream {
+        return this.fileSystem.createReadStream(relativePathToFile);
     }
 
     createWriteStreamTo(relativePathToFile: Path): WriteStream {

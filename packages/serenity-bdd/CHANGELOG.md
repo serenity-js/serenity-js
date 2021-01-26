@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.1](https://github.com/serenity-js/serenity-js/compare/v2.20.0...v2.20.1) (2021-01-23)
+
+
+### Bug Fixes
+
+* **deps:** updated tiny-types ([e81a6ea](https://github.com/serenity-js/serenity-js/commit/e81a6ea804286083da118f9141ebbfd52746b581))
+* **serenity-bdd:** improved reporting of JSON and XML API responses ([750bc00](https://github.com/serenity-js/serenity-js/commit/750bc004ccbb025ccad946749892f7c7b42ffbab)), closes [#709](https://github.com/serenity-js/serenity-js/issues/709) [#722](https://github.com/serenity-js/serenity-js/issues/722)
+
+
+
+
+
+# [2.20.0](https://github.com/serenity-js/serenity-js/compare/v2.19.10...v2.20.0) (2021-01-18)
+
+
+### Features
+
+* **serenity-bdd:** support for reporting business rules ([3920852](https://github.com/serenity-js/serenity-js/commit/3920852d940efe1b52f2c79732873e8d7283f7d6))
+* **serenity-bdd:** upgraded to Serenity BDD CLI 2.1.12 and improved the downloader ([1ad82e1](https://github.com/serenity-js/serenity-js/commit/1ad82e10b482e99bba8c247d3822014f208ecba4)), closes [#625](https://github.com/serenity-js/serenity-js/issues/625)
+
+
+
+
+
 ## [2.19.10](https://github.com/serenity-js/serenity-js/compare/v2.19.9...v2.19.10) (2020-12-22)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

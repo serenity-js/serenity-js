@@ -1,5 +1,3 @@
-import { TinyType } from 'tiny-types';
-
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
 import { CorrelationId, Description, Duration, Timestamp } from '../model';
 import { ListensToDomainEvents } from '../screenplay';

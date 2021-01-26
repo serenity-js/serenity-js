@@ -21,6 +21,7 @@ export class SceneParametersDetected extends DomainEvent {
     ) {
         super(timestamp);
         ensure('sceneId', sceneId, isDefined());
+        ensure('details', details, isDefined());
         ensure('parameters', parameters, isDefined());
     }
 }

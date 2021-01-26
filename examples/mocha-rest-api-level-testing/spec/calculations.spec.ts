@@ -4,8 +4,7 @@ import { equals } from '@serenity-js/assertions';
 import { actorCalled, engage, Note, TakeNote } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { ChangeApiUrl, LastResponse } from '@serenity-js/rest';
-import { Actors } from './screenplay';
-import { RequestCalculationOf, VerifyResultAt } from './screenplay/tasks';
+import { Actors, RequestCalculationOf, VerifyResultAt } from './screenplay';
 
 describe('Calculator', () => {
 

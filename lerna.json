@@ -1,13 +1,24 @@
 {
   "lerna": "3.22.1",
   "loglevel": "info",
+  "hoist": true,
+  "nohoist": [
+    "@types/jasmine",
+    "@types/mocha",
+    "@types/cucumber",
+    "@cucumber/create-meta",
+    "@cucumber/cucumber",
+    "@cucumber/messages",
+    "cucumber",
+    "jasmine"
+  ],
   "packages": [
     "documentation/*",
     "examples/*",
     "integration/*",
     "packages/*"
   ],
-  "version": "2.19.10",
+  "version": "2.20.1",
   "command": {
     "create": {
       "homepage": "https://serenity-js.org",

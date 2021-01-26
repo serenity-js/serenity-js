@@ -16,13 +16,51 @@ import { StageCrewMember } from '../../StageCrewMember';
 import { Hash } from './Hash';
 
 /**
- * @desc Stores any {@link Artifact}s emitted through {@link ArtifactGenerated} events on the {@link FileSystem}
+ * @desc
+ *  Stores any {@link Artifact}s emitted via {@link ArtifactGenerated} events on the {@link FileSystem}
  *
- * @access public
+ * @example <caption>Registering ArtifactArchiver programmatically</caption>
+ *  import { configure, StreamReporter } from '@serenity-js/core';
+ *
+ *  configure({
+ *      crew: [
+ *          ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+ *      ],
+ *  });
+ *
+ * @example <caption>Registering ArtifactArchiver using Protractor configuration</caption>
+ *  // protractor.conf.js
+ *  const { ArtifactArchiver } = require('@serenity-js/core');
+ *
+ *  exports.config = {
+ *    framework:     'custom',
+ *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ *
+ *    serenity: {
+ *      crew: [
+ *        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+ *      ],
+ *      // other Serenity/JS config
+ *    },
+ *
+ *    // other Protractor config
+ *  };
+ *
+ * @public
+ * @implements {StageCrewMember}
  */
 export class ArtifactArchiver implements StageCrewMember {
 
-    static storingArtifactsAt(...destination: string[]): ArtifactArchiver {
+    /**
+     * @desc
+     *  Instantiates an `ArtifactArchiver` storing artifacts in a given `destination`.
+     *  The `destination` directory will be created automatically and recursively if it doesn't exist.
+     *
+     * @param {string[]} destination
+     *
+     * @returns {StageCrewMember}
+     */
+    static storingArtifactsAt(...destination: string[]): StageCrewMember {
         ensure('Path to destination directory', destination, property('length', isGreaterThan(0)));
 
         const pathToDestination = destination.map(segment => new Path(segment)).reduce((acc, current) => acc.join(current));
@@ -30,16 +68,42 @@ export class ArtifactArchiver implements StageCrewMember {
         return new ArtifactArchiver(new FileSystem(pathToDestination));
     }
 
+    /**
+     * @param {FileSystem} fileSystem
+     * @param {Stage} [stage=null]
+     *  The stage this {@link StageCrewMember} should be assigned to
+     */
     constructor(
         private readonly fileSystem: FileSystem,
         private readonly stage: Stage = null,
     ) {
     }
 
-    assignedTo(stage: Stage) {
+    /**
+     * @desc
+     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
+     *
+     * @see {@link StageCrewMember}
+     *
+     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
+     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
+     */
+    assignedTo(stage: Stage): StageCrewMember {
         return new ArtifactArchiver(this.fileSystem, stage);
     }
 
+    /**
+     * @desc
+     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.
+     *
+     * @see {@link StageCrewMember}
+     *
+     * @listens {ArtifactGenerated}
+     * @emits {ArtifactArchived}
+     *
+     * @param {DomainEvent} event
+     * @returns {void}
+     */
     notifyOf(event: DomainEvent): void {
 
         if (!(event instanceof ArtifactGenerated)) {

@@ -10,6 +10,8 @@ $accent-2: #454545 !default;
 //$danger: #fc2344 !default;
 //$light: #e5e5e5 !default;
 //$dark: #3b3b3b !default;
+$serenity-gold: rgb(253,211,10);
+$serenity-purple: rgb(57, 59, 73);
 
 .web-nav {
   a,
@@ -50,8 +52,16 @@ a.anchorjs-link:hover {
 
 #free-and-opensource {
   ul {
+    &.badges {
+      margin-top: 1.5em;
+    }
+
     padding: 0;
     list-style-type: none;
+
+    li {
+      margin-bottom: 0.5em;
+    }
   }
 }
 
@@ -284,7 +294,7 @@ article.content {
     position: relative;
     overflow: auto;
 
-    a {
+    a.previous, a.next {
       display: inline-block;
       width: 50%;
     }
@@ -301,14 +311,17 @@ article.content {
   }
 }
 
-article.content {
-  section, .github-markdown {
+#handbook {
+
+  article.content section.github-markdown,
+  .pro-tip
+  {
     a:not(.anchorjs-link),
     a:not(.anchorjs-link):visited {
       text-shadow: 1px 1px 0 #fff, -1px 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
-      -webkit-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 rgba(252, 210, 62, 0.75);
-      -moz-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 rgba(252, 210, 62, 0.75);
-      box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 rgba(252, 210, 62, 0.75);
+      -webkit-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 rgba(252, 210, 62, 0.75);
+      -moz-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 rgba(252, 210, 62, 0.75);
+      box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 rgba(252, 210, 62, 0.75);
       -webkit-transition: box-shadow .5s, color .5s;
       -moz-transition: box-shadow .5s, color .5s;
       -ms-transition: box-shadow .5s, color .5s;
@@ -392,5 +405,30 @@ blockquote{
 #footer {
   li {
     margin-bottom: 0.5em;
+  }
+}
+
+
+$serenity-gold-light: lighten($serenity-gold, 20%);
+
+.mermaid {
+  &:not([data-processed="true"]) {
+    display: none;
+  }
+
+  & > svg {
+    g.edgeLabel > .label {
+      .edgeLabel {
+        font-size: 0.75em !important;
+      }
+
+      & > rect {
+        opacity: 1 !important;
+      }
+    }
+
+    .socket > rect {
+      stroke-dasharray: 5 5;
+    }
   }
 }

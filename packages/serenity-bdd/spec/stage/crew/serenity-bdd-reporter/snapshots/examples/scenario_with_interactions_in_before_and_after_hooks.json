@@ -71,14 +71,14 @@
       "restQuery": {
         "method": "GET",
         "path": "/api/health",
-        "content": "undefined",
+        "content": "",
         "contentType": "",
         "requestHeaders": "Accept: application/json,application/xml\nUser-Agent: axios/0.19.2",
         "requestCookies": "",
         "statusCode": 200,
         "responseHeaders": "x-powered-by: Express\naccess-control-allow-origin: *\ncontent-type: application/json; charset=utf-8\ncontent-length: 12\netag: W/\"c-hb/B+wel8K1EwA66sp0Xlfzwf0s\"\ndate: Sat, 04 Jul 2020 19:59:46 GMT\nconnection: close",
         "responseCookies": "",
-        "responseBody": "{ uptime: 4 }"
+        "responseBody": "{\n    \"uptime\": 4\n}"
       },
       "result": "SUCCESS",
       "duration": 25
@@ -138,14 +138,14 @@
               "restQuery": {
                 "method": "GET",
                 "path": "/api/health/",
-                "content": "undefined",
+                "content": "",
                 "contentType": "",
                 "requestHeaders": "Accept: application/json,application/xml\nUser-Agent: axios/0.19.2",
                 "requestCookies": "",
                 "statusCode": 200,
                 "responseHeaders": "x-powered-by: Express\naccess-control-allow-origin: *\ncontent-type: application/json; charset=utf-8\ncontent-length: 12\netag: W/\"c-hb/B+wel8K1EwA66sp0Xlfzwf0s\"\ndate: Sat, 04 Jul 2020 19:59:46 GMT\nconnection: close",
                 "responseCookies": "",
-                "responseBody": "{ uptime: 4 }"
+                "responseBody": "{\n    \"uptime\": 4\n}"
               },
               "result": "SUCCESS",
               "duration": 5
@@ -191,7 +191,7 @@
               "restQuery": {
                 "method": "DELETE",
                 "path": "/api/todos",
-                "content": "undefined",
+                "content": "",
                 "contentType": "",
                 "requestHeaders": "Accept: application/json,application/xml\nUser-Agent: axios/0.19.2",
                 "requestCookies": "",

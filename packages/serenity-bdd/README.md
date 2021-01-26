@@ -13,7 +13,7 @@ can then turn into world-class, illustrated test reports and living documentatio
 ### Installation
 
 ```console
-npm install --save-dev @serenity-js/core @serenity-js/serenity-bdd
+npm install --save-dev @serenity-js/{core,serenity-bdd}
 ```
 
 ### SerenityBDDReporter
@@ -76,6 +76,21 @@ To learn more about the usage of the `serenity-bdd` wrapper, run:
 ```console
 npx serenity-bdd --help
 ```
+
+#### Configuring Serenity BDD reporting CLI
+
+To configure the [Serenity BDD reporting CLI](https://github.com/serenity-bdd/serenity-cli), place a file called `serenity.properties`
+in your project root directory. 
+
+For example:
+
+```
+# serenity.properties
+serenity.project.name=My awesome project
+```
+
+Please note that the reporting CLI considers only those properties that are related to producing test reports.
+Learn more about configuring [`serenity.properties`](https://serenity-bdd.github.io/theserenitybook/latest/serenity-system-properties.html).
 
 #### Downloading the Serenity BDD reporting CLI
 

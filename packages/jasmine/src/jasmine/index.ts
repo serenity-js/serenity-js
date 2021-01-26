@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export * from './Expectation';
 export * from './JasmineDoneInfo';
 export * from './JasmineStartedInfo';

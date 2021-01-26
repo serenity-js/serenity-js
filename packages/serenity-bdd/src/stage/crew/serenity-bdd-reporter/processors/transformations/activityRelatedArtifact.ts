@@ -64,20 +64,36 @@ function httpRequestResponse<Context extends SerenityBDDReportContext>(activityI
         return Object.keys(dictionary).map(key => `${key}: ${dictionary[key]}`).join('\n');
     }
 
+    function bodyToString(data: any): string {
+        if (data === null || data === undefined) {
+            return '';
+        }
+
+        if (typeof data === 'string') {
+            return data;
+        }
+
+        if (typeof data === 'object') {
+            return JSON.stringify(data, null, 4);
+        }
+
+        return inspect(data);
+    }
+
     return (context: Context): Context => {
 
         if (context.steps.has(activityId.value)) {
             context.steps.get(activityId.value).step.restQuery = {
                 method:          requestResponse.request.method.toUpperCase(),
                 path:            requestResponse.request.url,
-                content:         inspect(requestResponse.request.data),
+                content:         bodyToString(requestResponse.request.data),
                 contentType:     requestResponse.request.headers['Content-Type'] || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2
                 requestHeaders:  mapToString(requestResponse.request.headers)  || '',
                 requestCookies:  requestResponse.request.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2
                 statusCode:      requestResponse.response.status,
                 responseHeaders: mapToString(requestResponse.response.headers) || '',
                 responseCookies: requestResponse.response.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2
-                responseBody:    inspect(requestResponse.response.data) || '',
+                responseBody:    bodyToString(requestResponse.response.data),
             };
         }
 

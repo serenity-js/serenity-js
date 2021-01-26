@@ -19,6 +19,10 @@ export class FileSystem {
             .then(() => this.write(this.root.resolve(relativeOrAbsolutePathToFile), data, encoding));
     }
 
+    public createReadStream(relativeOrAbsolutePathToFile: Path): nodeFS.ReadStream {
+        return this.fs.createReadStream(this.root.resolve(relativeOrAbsolutePathToFile).value);
+    }
+
     public createWriteStreamTo(relativeOrAbsolutePathToFile: Path): nodeFS.WriteStream {
         return this.fs.createWriteStream(this.root.resolve(relativeOrAbsolutePathToFile).value);
     }

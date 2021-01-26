@@ -18,5 +18,6 @@ export class SceneTagged extends DomainEvent {
     ) {
         super(timestamp);
         ensure('sceneId', sceneId, isDefined());
+        ensure('tag', tag, isDefined());
     }
 }
