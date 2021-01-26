@@ -27,7 +27,7 @@ const buildFullPath = require('axios/lib/core/buildFullPath');   // tslint:disab
  *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  import axios  from 'axios';
+ *  import axios from 'axios';
  *
  *  const axiosInstance = axios.create({
  *      timeout: 5 * 1000,
