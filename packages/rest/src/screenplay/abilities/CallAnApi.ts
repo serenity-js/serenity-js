@@ -154,7 +154,8 @@ export class CallAnApi implements Ability {
      *  Resolves the final URL, based on the {@link AxiosRequestConfig} provided
      *  any any defaults {@link AxiosInstance} has been configured with.
      *
-     * @param {AxiosRequestConfig} config}
+     * @param {AxiosRequestConfig} config
+     * @returns {string}
      *
      * @see {@link AxiosRequestConfig}
      * @see {@link AxiosInstance}
