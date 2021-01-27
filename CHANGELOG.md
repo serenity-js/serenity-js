@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.22.0](https://github.com/serenity-js/serenity-js/compare/v2.21.0...v2.22.0) (2021-01-27)
+
+
+### Features
+
+* **rest:** new interaction to set a request header for all the subsequent requests ([c1c9be0](https://github.com/serenity-js/serenity-js/commit/c1c9be00fc81bf015d81f1535a40d71ff3af8cbb))
+
+
+
+
+
 # [2.21.0](https://github.com/serenity-js/serenity-js/compare/v2.20.1...v2.21.0) (2021-01-26)
 
 
