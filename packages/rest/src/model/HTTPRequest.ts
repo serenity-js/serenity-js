@@ -56,12 +56,14 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
                     { method: this.httpMethodName() },
                 ),
             )
-            .then(config => Object.keys(config).reduce((acc, key) => {
-                if (!! config[key]) {
-                    acc[key] = config[key];
-                }
-                return acc;
-            }, {}));
+            .then(config =>
+                Object.keys(config).reduce((acc, key) => {
+                    if (!! config[key]) {
+                        acc[key] = config[key];
+                    }
+                    return acc;
+                }, {})
+            );
     }
 
     /**
