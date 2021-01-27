@@ -8,15 +8,15 @@ import { CallAnApi } from '../abilities';
  *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}
  *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.
  *
- * @example <caption>Changing API URL</caption>
+ * @example <caption>Changing API URL for all subsequent requests</caption>
  *  import { Actor } from '@serenity-js/core';
  *  import { Navigate, Target, Text } from '@serenity-js/protractor';
  *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  *  import { protractor, by } from 'protractor';
  *
- *  import axios  from 'axios';
+ *  import axios from 'axios';
  *
- *  const actor = Actor.named('Apisit').whoCan(
+ *  const actor = Actor.named('Apisitt').whoCan(
  *      BrowseTheWeb.using(protractor.browser),
  *
  *      // Note: no default base URL is given when the axios instance is created
@@ -41,21 +41,39 @@ import { CallAnApi } from '../abilities';
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );
  *
- * @example <caption>Changing API port</caption>
+ * @example <caption>Changing API port for all subsequent requests</caption>
  *  import { Actor } from '@serenity-js/core';
  *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';
  *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  *
- *  const actor = Actor.named('Apisit').whoCan(
+ *  const actor = Actor.named('Apisitt').whoCan(
  *      ManageALocalServer.runningAHttpListener(someServer),
- *      CallAnApi.at(http://localhost),
+ *      CallAnApi.at('http://localhost'),
  *  );
  *
  *  actor.attemptsTo(
- *     StartALocalServer.onRandomPort(),
- *     ChangeApiConfig.setPortTo(LocalServer.port()),
- *     Send.a(GetRequest.to('/api')),
- *     Ensure.that(LastResponse.status(), equals(200)),
+ *      StartALocalServer.onRandomPort(),
+ *      ChangeApiConfig.setPortTo(LocalServer.port()),
+ *      Send.a(GetRequest.to('/api')),
+ *      Ensure.that(LastResponse.status(), equals(200)),
+ *  );
+ *
+ * @example <caption>Setting a header for all subsequent requests</caption>
+ *  import { Actor, Question } from '@serenity-js/core';
+ *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *
+ *  const actor = Actor.named('Apisitt').whoCan(
+ *      CallAnApi.at('http://localhost'),
+ *  );
+ *
+ *  // A sample Question reading Node process environment variable
+ *  const EnvVar = (var_name: string) =>
+ *      Question.about(`${ name } environment variable`, actor => process.env[var_name]);
+ *
+ *  actor.attemptsTo(
+ *      ChangeApiConfig.header('Authorization', EnvVar('TOKEN')),
+ *      Send.a(GetRequest.to('/api')),
+ *      Ensure.that(LastResponse.status(), equals(200)),
  *  );
  */
 export class ChangeApiConfig {
@@ -82,6 +100,23 @@ export class ChangeApiConfig {
      */
     static setPortTo(newApiPort: Answerable<number>): Interaction {
         return new ChangeApiConfigSetPort(newApiPort)
+    }
+
+    /**
+     * @desc
+     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  to modify the configuration of the {@link AxiosInstance}
+     *  used by {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
+     *  and set a HTTP request header for any subsequent {@link HTTPRequest}
+     *  issued via {@link Send}.
+     *
+     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
+     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} value
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     */
+    static setHeader(name: Answerable<string>, value: Answerable<string>): Interaction {
+        return new ChangeApiConfigSetHeader(name, value);
     }
 }
 
@@ -134,3 +169,40 @@ class ChangeApiConfigSetPort  extends Interaction {
     }
 }
 
+/**
+ * @package
+ *
+ * @see https://github.com/axios/axios#custom-instance-defaults
+ */
+class ChangeApiConfigSetHeader extends Interaction {
+
+    constructor(
+        private readonly name: Answerable<string>,
+        private readonly value: Answerable<string>
+    ) {
+        super();
+    }
+
+    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
+        return Promise.all([
+            actor.answer(this.name),
+            actor.answer(this.value),
+        ]).
+        then(([ name, value ]) => {
+            if (! name) {
+                throw new LogicError(`Looks like the name of the header is missing, "${ name }" given`);
+            }
+
+            // A header with an empty value might still be valid so we don't validate the value
+            // see: https://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html#sec2.1
+
+            return CallAnApi.as(actor).modifyConfig(config => {
+                config.headers.common[name] = value;
+            });
+        });
+    }
+
+    toString() {
+        return `#actor changes API URL and sets header "${ this.name }" to "${ this.value }"`;
+    }
+}
