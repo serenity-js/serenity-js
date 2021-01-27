@@ -12,6 +12,7 @@ import { CallAnApi } from '../abilities';
  *  import { Actor } from '@serenity-js/core';
  *  import { Navigate, Target, Text } from '@serenity-js/protractor';
  *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *  import { protractor, by } from 'protractor';
  *
  *  import axios from 'axios';
@@ -45,6 +46,7 @@ import { CallAnApi } from '../abilities';
  *  import { Actor } from '@serenity-js/core';
  *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';
  *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
  *  const actor = Actor.named('Apisitt').whoCan(
  *      ManageALocalServer.runningAHttpListener(someServer),
@@ -60,7 +62,8 @@ import { CallAnApi } from '../abilities';
  *
  * @example <caption>Setting a header for all subsequent requests</caption>
  *  import { Actor, Question } from '@serenity-js/core';
- *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest';
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
  *  const actor = Actor.named('Apisitt').whoCan(
  *      CallAnApi.at('http://localhost'),
