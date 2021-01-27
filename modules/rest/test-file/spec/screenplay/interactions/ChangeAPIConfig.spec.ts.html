@@ -194,32 +194,83 @@ describe(<span class="hljs-string">'ChangeApiConfig'</span>, <span class="hljs-f
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
          */</span>
-        it(<span class="hljs-string">'changes the base URL used by any subsequent requests'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
-            Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
-            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">500</span>)),
+        it(<span class="hljs-string">'changes the base URL used by any subsequent requests'</span>, <span class="hljs-function">() =&gt;</span>
+            actor.attemptsTo(
+                Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
+                Ensure.that(LastResponse.status(), equals(<span class="hljs-number">500</span>)),
 
-            ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
-            Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
-            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-        ));
-
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
-         */</span>
-        it(<span class="hljs-string">'complains if the url has not been set prior to attempted port change'</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
-            ChangeApiConfig.setUrlTo(<span class="hljs-literal">undefined</span>),
-            ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
-        )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Can't change the port of a baseURL that has not been set.`</span>));
+                ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
+                Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
+                Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+            ));
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
          */</span>
-        it(<span class="hljs-string">'complains if the url to be changed is invalid'</span>, <span class="hljs-function">() =&gt;</span> expect(actor.attemptsTo(
-            ChangeApiConfig.setUrlTo(<span class="hljs-string">'invalid'</span>),
-            ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
-        )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Could not change the API port`</span>));
+        it(<span class="hljs-string">'complains if the url has not been set prior to attempted port change'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(actor.attemptsTo(
+                ChangeApiConfig.setUrlTo(<span class="hljs-literal">undefined</span>),
+                ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
+            )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Can't change the port of a baseURL that has not been set.`</span>));
+
+        <span class="hljs-comment">/**
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setPortTo}</span></span>
+         */</span>
+        it(<span class="hljs-string">'complains if the url to be changed is invalid'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(actor.attemptsTo(
+                ChangeApiConfig.setUrlTo(<span class="hljs-string">'invalid'</span>),
+                ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
+            )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Could not change the API port`</span>));
+    });
+
+    describe(<span class="hljs-string">'when setting a request header'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance({ <span class="hljs-attr">baseURL</span>: originalUrl });
+
+        beforeEach(<span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> dataMatcher = <span class="hljs-literal">undefined</span>;
+            mock.onGet(originalUrl, dataMatcher).replyOnce(<span class="hljs-number">401</span>);
+            mock.onGet(originalUrl, dataMatcher, {
+                <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json, text/plain, */*'</span>,
+                <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'my-token'</span>
+            }).replyOnce(<span class="hljs-number">200</span>);
+        });
+
+        afterEach(<span class="hljs-function">() =&gt;</span>  mock.reset());
+
+        <span class="hljs-comment">/**
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setHeader}</span></span>
+         */</span>
+        it(<span class="hljs-string">'sets a header to be used by any subsequent requests'</span>, <span class="hljs-function">() =&gt;</span>
+            actor.attemptsTo(
+                Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
+                Ensure.that(LastResponse.status(), equals(<span class="hljs-number">401</span>)),
+
+                ChangeApiConfig.setHeader(<span class="hljs-string">'Authorization'</span>, <span class="hljs-string">'my-token'</span>),
+                Send.a(GetRequest.to(<span class="hljs-string">'/'</span>)),
+                Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+            ));
+
+        <span class="hljs-comment">/**
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setHeader}</span></span>
+         */</span>
+        it(<span class="hljs-string">'complains if the name of the header is empty'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(actor.attemptsTo(
+                ChangeApiConfig.setHeader(<span class="hljs-string">''</span>, <span class="hljs-string">'value'</span>),
+            )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Looks like the name of the header is missing, "" given`</span>));
+
+        <span class="hljs-comment">/**
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{ChangeApiConfig.setHeader}</span></span>
+         */</span>
+        it(<span class="hljs-string">'complains if the name of the header is undefined'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(actor.attemptsTo(
+                ChangeApiConfig.setHeader(<span class="hljs-literal">undefined</span>, <span class="hljs-string">'value'</span>),
+            )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Looks like the name of the header is missing, "undefined" given`</span>));
     });
 });
 </code></pre>

@@ -196,12 +196,14 @@
                     { <span class="hljs-attr">method</span>: <span class="hljs-built_in">this</span>.httpMethodName() },
                 ),
             )
-            .then(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> <span class="hljs-built_in">Object</span>.keys(config).reduce(<span class="hljs-function">(<span class="hljs-params">acc, key</span>) =&gt;</span> {
-                <span class="hljs-keyword">if</span> (!! config[key]) {
-                    acc[key] = config[key];
-                }
-                <span class="hljs-keyword">return</span> acc;
-            }, {}));
+            .then(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span>
+                <span class="hljs-built_in">Object</span>.keys(config).reduce(<span class="hljs-function">(<span class="hljs-params">acc, key</span>) =&gt;</span> {
+                    <span class="hljs-keyword">if</span> (!! config[key]) {
+                        acc[key] = config[key];
+                    }
+                    <span class="hljs-keyword">return</span> acc;
+                }, {})
+            );
     }
 
     <span class="hljs-comment">/**

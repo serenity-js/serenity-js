@@ -1225,14 +1225,38 @@ window.esdocSearchIndex = [
   ],
   [
     "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber70",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber71",
     "ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber79",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber81",
     "ChangeApiConfig when changing the API port complains if the url to be changed is invalid",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber88",
+    "ChangeApiConfig when setting a request header",
+    "test"
+  ],
+  [
+    "changeapiconfig changeapiconfig.setheader src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader,changeapiconfig.setheader",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber121",
+    "ChangeApiConfig when setting a request header complains if the name of the header is empty",
+    "test"
+  ],
+  [
+    "changeapiconfig changeapiconfig.setheader src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader,changeapiconfig.setheader",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber130",
+    "ChangeApiConfig when setting a request header complains if the name of the header is undefined",
+    "test"
+  ],
+  [
+    "changeapiconfig changeapiconfig.setheader src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader,changeapiconfig.setheader",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber107",
+    "ChangeApiConfig when setting a request header sets a header to be used by any subsequent requests",
     "test"
   ],
   [
@@ -1876,6 +1900,12 @@ window.esdocSearchIndex = [
     "file/src/screenplay/interactions/ChangeApiConfig.ts.html",
     "src/screenplay/interactions/ChangeApiConfig.ts",
     "file"
+  ],
+  [
+    "src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader",
+    "class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setHeader",
+    "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.setHeader",
+    "method"
   ],
   [
     "src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto",

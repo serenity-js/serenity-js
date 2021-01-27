@@ -2462,7 +2462,7 @@
     "__docId__": 199,
     "kind": "file",
     "name": "src/model/HTTPRequest.ts",
-    "content": "import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';\nimport { formatted } from '@serenity-js/core/lib/io';\nimport { AxiosRequestConfig } from 'axios';\n\n/**\n * @desc\n *  HTTP Request sent by the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  using the {@link Send} {@link @serenity-js/core/lib/screenplay~Interaction}\n *\n * @abstract\n * @extends {Question<Promise<AxiosRequestConfig>>}\n */\nexport abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> {\n\n    /**\n     * @protected\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} [resourceUri]\n     *  URL to which the request should be sent\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} [data]\n     *  Request body to be sent as part of the Put, Post or Patch request\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} [config]\n     *  Axios request configuration, which can be used to override the defaults\n     *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated\n     */\n    protected constructor(\n        protected readonly resourceUri?: Answerable<string>,\n        protected readonly data?: Answerable<any>,\n        protected readonly config?: Answerable<AxiosRequestConfig>,\n    ) {\n        super('');\n        this.subject = `${ this.requestDescription() } to ${ formatted `${ this.resourceUri }` }`;\n    }\n\n    /**\n     * @desc\n     *  Resolves the {@link Question} in the context of a given {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<AxiosRequestConfig>}\n     */\n    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<AxiosRequestConfig> {\n        return Promise.all([\n                this.resourceUri ? actor.answer(this.resourceUri)   : Promise.resolve(void 0),\n                this.config      ? actor.answer(this.config)        : Promise.resolve({}),\n                this.data        ? actor.answer(this.data)          : Promise.resolve(void 0),\n            ])\n            .then(([url, config, data]) =>\n                // tslint:disable-next-line:prefer-object-spread\n                Object.assign(\n                    {},\n                    { url, data },\n                    config,\n                    { method: this.httpMethodName() },\n                ),\n            )\n            .then(config => Object.keys(config).reduce((acc, key) => {\n                if (!! config[key]) {\n                    acc[key] = config[key];\n                }\n                return acc;\n            }, {}));\n    }\n\n    /**\n     * Determines the request method based on the name of the request class.\n     * For example: GetRequest => GET, PostRequest => POST, etc.\n     */\n    private httpMethodName(): string {\n        return this.constructor.name.replace(/Request/, '').toUpperCase();\n    }\n\n    /**\n     * A human-readable description of the request, such as \"a GET request\", \"an OPTIONS request\", etc.\n     */\n    private requestDescription(): string {\n        const\n            vowels = [ 'A', 'E', 'I', 'O', 'U' ],\n            method = this.httpMethodName();\n\n        return `${ ~vowels.indexOf(method[0]) ? 'an' : 'a' } ${ method } request`;\n    }\n}\n",
+    "content": "import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';\nimport { formatted } from '@serenity-js/core/lib/io';\nimport { AxiosRequestConfig } from 'axios';\n\n/**\n * @desc\n *  HTTP Request sent by the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  using the {@link Send} {@link @serenity-js/core/lib/screenplay~Interaction}\n *\n * @abstract\n * @extends {Question<Promise<AxiosRequestConfig>>}\n */\nexport abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> {\n\n    /**\n     * @protected\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} [resourceUri]\n     *  URL to which the request should be sent\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} [data]\n     *  Request body to be sent as part of the Put, Post or Patch request\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} [config]\n     *  Axios request configuration, which can be used to override the defaults\n     *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated\n     */\n    protected constructor(\n        protected readonly resourceUri?: Answerable<string>,\n        protected readonly data?: Answerable<any>,\n        protected readonly config?: Answerable<AxiosRequestConfig>,\n    ) {\n        super('');\n        this.subject = `${ this.requestDescription() } to ${ formatted `${ this.resourceUri }` }`;\n    }\n\n    /**\n     * @desc\n     *  Resolves the {@link Question} in the context of a given {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<AxiosRequestConfig>}\n     */\n    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<AxiosRequestConfig> {\n        return Promise.all([\n                this.resourceUri ? actor.answer(this.resourceUri)   : Promise.resolve(void 0),\n                this.config      ? actor.answer(this.config)        : Promise.resolve({}),\n                this.data        ? actor.answer(this.data)          : Promise.resolve(void 0),\n            ])\n            .then(([url, config, data]) =>\n                // tslint:disable-next-line:prefer-object-spread\n                Object.assign(\n                    {},\n                    { url, data },\n                    config,\n                    { method: this.httpMethodName() },\n                ),\n            )\n            .then(config =>\n                Object.keys(config).reduce((acc, key) => {\n                    if (!! config[key]) {\n                        acc[key] = config[key];\n                    }\n                    return acc;\n                }, {})\n            );\n    }\n\n    /**\n     * Determines the request method based on the name of the request class.\n     * For example: GetRequest => GET, PostRequest => POST, etc.\n     */\n    private httpMethodName(): string {\n        return this.constructor.name.replace(/Request/, '').toUpperCase();\n    }\n\n    /**\n     * A human-readable description of the request, such as \"a GET request\", \"an OPTIONS request\", etc.\n     */\n    private requestDescription(): string {\n        const\n            vowels = [ 'A', 'E', 'I', 'O', 'U' ],\n            method = this.httpMethodName();\n\n        return `${ ~vowels.indexOf(method[0]) ? 'an' : 'a' } ${ method } request`;\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/rest/src/model/HTTPRequest.ts",
     "access": "public",
@@ -2600,7 +2600,7 @@
     "longname": "src/model/HTTPRequest.ts~HTTPRequest#httpMethodName",
     "access": "private",
     "description": "Determines the request method based on the name of the request class.\nFor example: GetRequest => GET, PostRequest => POST, etc. ",
-    "lineNumber": 71,
+    "lineNumber": 73,
     "return": {
       "nullable": null,
       "types": [
@@ -2623,7 +2623,7 @@
     "longname": "src/model/HTTPRequest.ts~HTTPRequest#requestDescription",
     "access": "private",
     "description": "A human-readable description of the request, such as \"a GET request\", \"an OPTIONS request\", etc. ",
-    "lineNumber": 78,
+    "lineNumber": 80,
     "return": {
       "nullable": null,
       "types": [
@@ -3802,7 +3802,7 @@
     "__docId__": 248,
     "kind": "file",
     "name": "src/screenplay/interactions/ChangeApiConfig.ts",
-    "content": "import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Log, LogicError, UsesAbilities } from '@serenity-js/core';\nimport { URL } from 'url';\nimport { CallAnApi } from '../abilities';\n\n/**\n * @desc\n *  Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.\n *\n * @example <caption>Changing API URL</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { Navigate, Target, Text } from '@serenity-js/protractor';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { protractor, by } from 'protractor';\n *\n *  import axios  from 'axios';\n *\n *  const actor = Actor.named('Apisit').whoCan(\n *      BrowseTheWeb.using(protractor.browser),\n *\n *      // Note: no default base URL is given when the axios instance is created\n *      CallAnApi.using(axios.create()),\n *  );\n *\n *  // Let's imagine that the website under test displays\n *  // a dynamically generated API URL we'd like to use\n *  const ApiDetailsWidget = {\n *      Url: Target.the('API URL').located(by.id('api-url')),\n *  }\n *\n *  actor.attemptsTo(\n *      Navigate.to('/profile'),\n *\n *      // We change the API URL based on the text displayed in the widget\n *      // (although we could change it to some arbitrary string too).\n *      ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n *\n *      // Any subsequent request will be sent to the newly set URL\n *      Send.a(GetRequest.to('/projects')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @example <caption>Changing API port</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *\n *  const actor = Actor.named('Apisit').whoCan(\n *      ManageALocalServer.runningAHttpListener(someServer),\n *      CallAnApi.at(http://localhost),\n *  );\n *\n *  actor.attemptsTo(\n *     StartALocalServer.onRandomPort(),\n *     ChangeApiConfig.setPortTo(LocalServer.port()),\n *     Send.a(GetRequest.to('/api')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n *  );\n */\nexport class ChangeApiConfig {\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setUrlTo(newApiUrl: Answerable<string>): Interaction {\n        return new ChangeApiConfigSetUrl(newApiUrl);\n    }\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiPort\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setPortTo(newApiPort: Answerable<number>): Interaction {\n        return new ChangeApiConfigSetPort(newApiPort)\n    }\n}\n\n/**\n * @package\n */\nclass ChangeApiConfigSetUrl extends Interaction {\n    constructor(private readonly newApiUrl: Answerable<string>) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return actor.answer(this.newApiUrl)\n            .then(newApiUrl => CallAnApi.as(actor).modifyConfig(config => config.baseURL = newApiUrl));\n    }\n\n    toString() {\n        return `#actor changes API URL configuration to ${ this.newApiUrl }`;\n    }\n}\n\n/**\n * @package\n */\nclass ChangeApiConfigSetPort  extends Interaction {\n    constructor(private readonly newPort: Answerable<number | string>) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return actor.answer(this.newPort)\n            .then(newPort => CallAnApi.as(actor).modifyConfig(config => {\n                if (! config.baseURL) {\n                    throw new LogicError(`Can't change the port of a baseURL that has not been set.`)\n                }\n\n                try {\n                    const newUrl = new URL(config.baseURL);\n                    newUrl.port = `${ newPort }`;\n                    config.baseURL = newUrl.toString();\n                }\n                catch (e) {\n                    throw new LogicError(`Could not change the API port`, e);\n                }\n            }));\n    }\n\n    toString() {\n        return `#actor changes API port configuration to ${ this.newPort }`;\n    }\n}\n\n",
+    "content": "import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Log, LogicError, UsesAbilities } from '@serenity-js/core';\nimport { URL } from 'url';\nimport { CallAnApi } from '../abilities';\n\n/**\n * @desc\n *  Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.\n *\n * @example <caption>Changing API URL for all subsequent requests</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { Navigate, Target, Text } from '@serenity-js/protractor';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { protractor, by } from 'protractor';\n *\n *  import axios from 'axios';\n *\n *  const actor = Actor.named('Apisitt').whoCan(\n *      BrowseTheWeb.using(protractor.browser),\n *\n *      // Note: no default base URL is given when the axios instance is created\n *      CallAnApi.using(axios.create()),\n *  );\n *\n *  // Let's imagine that the website under test displays\n *  // a dynamically generated API URL we'd like to use\n *  const ApiDetailsWidget = {\n *      Url: Target.the('API URL').located(by.id('api-url')),\n *  }\n *\n *  actor.attemptsTo(\n *      Navigate.to('/profile'),\n *\n *      // We change the API URL based on the text displayed in the widget\n *      // (although we could change it to some arbitrary string too).\n *      ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n *\n *      // Any subsequent request will be sent to the newly set URL\n *      Send.a(GetRequest.to('/projects')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @example <caption>Changing API port for all subsequent requests</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *\n *  const actor = Actor.named('Apisitt').whoCan(\n *      ManageALocalServer.runningAHttpListener(someServer),\n *      CallAnApi.at('http://localhost'),\n *  );\n *\n *  actor.attemptsTo(\n *      StartALocalServer.onRandomPort(),\n *      ChangeApiConfig.setPortTo(LocalServer.port()),\n *      Send.a(GetRequest.to('/api')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @example <caption>Setting a header for all subsequent requests</caption>\n *  import { Actor, Question } from '@serenity-js/core';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *\n *  const actor = Actor.named('Apisitt').whoCan(\n *      CallAnApi.at('http://localhost'),\n *  );\n *\n *  // A sample Question reading Node process environment variable\n *  const EnvVar = (var_name: string) =>\n *      Question.about(`${ name } environment variable`, actor => process.env[var_name]);\n *\n *  actor.attemptsTo(\n *      ChangeApiConfig.header('Authorization', EnvVar('TOKEN')),\n *      Send.a(GetRequest.to('/api')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n */\nexport class ChangeApiConfig {\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setUrlTo(newApiUrl: Answerable<string>): Interaction {\n        return new ChangeApiConfigSetUrl(newApiUrl);\n    }\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiPort\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setPortTo(newApiPort: Answerable<number>): Interaction {\n        return new ChangeApiConfigSetPort(newApiPort)\n    }\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to modify the configuration of the {@link AxiosInstance}\n     *  used by {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *  and set a HTTP request header for any subsequent {@link HTTPRequest}\n     *  issued via {@link Send}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} value\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setHeader(name: Answerable<string>, value: Answerable<string>): Interaction {\n        return new ChangeApiConfigSetHeader(name, value);\n    }\n}\n\n/**\n * @package\n */\nclass ChangeApiConfigSetUrl extends Interaction {\n    constructor(private readonly newApiUrl: Answerable<string>) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return actor.answer(this.newApiUrl)\n            .then(newApiUrl => CallAnApi.as(actor).modifyConfig(config => config.baseURL = newApiUrl));\n    }\n\n    toString() {\n        return `#actor changes API URL configuration to ${ this.newApiUrl }`;\n    }\n}\n\n/**\n * @package\n */\nclass ChangeApiConfigSetPort  extends Interaction {\n    constructor(private readonly newPort: Answerable<number | string>) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return actor.answer(this.newPort)\n            .then(newPort => CallAnApi.as(actor).modifyConfig(config => {\n                if (! config.baseURL) {\n                    throw new LogicError(`Can't change the port of a baseURL that has not been set.`)\n                }\n\n                try {\n                    const newUrl = new URL(config.baseURL);\n                    newUrl.port = `${ newPort }`;\n                    config.baseURL = newUrl.toString();\n                }\n                catch (e) {\n                    throw new LogicError(`Could not change the API port`, e);\n                }\n            }));\n    }\n\n    toString() {\n        return `#actor changes API port configuration to ${ this.newPort }`;\n    }\n}\n\n/**\n * @package\n *\n * @see https://github.com/axios/axios#custom-instance-defaults\n */\nclass ChangeApiConfigSetHeader extends Interaction {\n\n    constructor(\n        private readonly name: Answerable<string>,\n        private readonly value: Answerable<string>\n    ) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return Promise.all([\n            actor.answer(this.name),\n            actor.answer(this.value),\n        ]).\n        then(([ name, value ]) => {\n            if (! name) {\n                throw new LogicError(`Looks like the name of the header is missing, \"${ name }\" given`);\n            }\n\n            // A header with an empty value might still be valid so we don't validate the value\n            // see: https://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html#sec2.1\n\n            return CallAnApi.as(actor).modifyConfig(config => {\n                config.headers.common[name] = value;\n            });\n        });\n    }\n\n    toString() {\n        return `#actor changes API URL and sets header \"${ this.name }\" to \"${ this.value }\"`;\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/rest/src/screenplay/interactions/ChangeApiConfig.ts",
     "access": "public",
@@ -3822,10 +3822,11 @@
     "importStyle": "{ChangeApiConfig}",
     "description": " Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.",
     "examples": [
-      "<caption>Changing API URL</caption>\n import { Actor } from '@serenity-js/core';\n import { Navigate, Target, Text } from '@serenity-js/protractor';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n import { protractor, by } from 'protractor';\n\n import axios  from 'axios';\n\n const actor = Actor.named('Apisit').whoCan(\n     BrowseTheWeb.using(protractor.browser),\n\n     // Note: no default base URL is given when the axios instance is created\n     CallAnApi.using(axios.create()),\n );\n\n // Let's imagine that the website under test displays\n // a dynamically generated API URL we'd like to use\n const ApiDetailsWidget = {\n     Url: Target.the('API URL').located(by.id('api-url')),\n }\n\n actor.attemptsTo(\n     Navigate.to('/profile'),\n\n     // We change the API URL based on the text displayed in the widget\n     // (although we could change it to some arbitrary string too).\n     ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n\n     // Any subsequent request will be sent to the newly set URL\n     Send.a(GetRequest.to('/projects')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );",
-      "<caption>Changing API port</caption>\n import { Actor } from '@serenity-js/core';\n import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n\n const actor = Actor.named('Apisit').whoCan(\n     ManageALocalServer.runningAHttpListener(someServer),\n     CallAnApi.at(http://localhost),\n );\n\n actor.attemptsTo(\n    StartALocalServer.onRandomPort(),\n    ChangeApiConfig.setPortTo(LocalServer.port()),\n    Send.a(GetRequest.to('/api')),\n    Ensure.that(LastResponse.status(), equals(200)),\n );"
+      "<caption>Changing API URL for all subsequent requests</caption>\n import { Actor } from '@serenity-js/core';\n import { Navigate, Target, Text } from '@serenity-js/protractor';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n import { protractor, by } from 'protractor';\n\n import axios from 'axios';\n\n const actor = Actor.named('Apisitt').whoCan(\n     BrowseTheWeb.using(protractor.browser),\n\n     // Note: no default base URL is given when the axios instance is created\n     CallAnApi.using(axios.create()),\n );\n\n // Let's imagine that the website under test displays\n // a dynamically generated API URL we'd like to use\n const ApiDetailsWidget = {\n     Url: Target.the('API URL').located(by.id('api-url')),\n }\n\n actor.attemptsTo(\n     Navigate.to('/profile'),\n\n     // We change the API URL based on the text displayed in the widget\n     // (although we could change it to some arbitrary string too).\n     ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n\n     // Any subsequent request will be sent to the newly set URL\n     Send.a(GetRequest.to('/projects')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );",
+      "<caption>Changing API port for all subsequent requests</caption>\n import { Actor } from '@serenity-js/core';\n import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n\n const actor = Actor.named('Apisitt').whoCan(\n     ManageALocalServer.runningAHttpListener(someServer),\n     CallAnApi.at('http://localhost'),\n );\n\n actor.attemptsTo(\n     StartALocalServer.onRandomPort(),\n     ChangeApiConfig.setPortTo(LocalServer.port()),\n     Send.a(GetRequest.to('/api')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );",
+      "<caption>Setting a header for all subsequent requests</caption>\n import { Actor, Question } from '@serenity-js/core';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n\n const actor = Actor.named('Apisitt').whoCan(\n     CallAnApi.at('http://localhost'),\n );\n\n // A sample Question reading Node process environment variable\n const EnvVar = (var_name: string) =>\n     Question.about(`${ name } environment variable`, actor => process.env[var_name]);\n\n actor.attemptsTo(\n     ChangeApiConfig.header('Authorization', EnvVar('TOKEN')),\n     Send.a(GetRequest.to('/api')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );"
     ],
-    "lineNumber": 68,
+    "lineNumber": 86,
     "interface": false
   },
   {
@@ -3839,7 +3840,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.setUrlTo",
     "access": "public",
     "description": " Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}",
-    "lineNumber": 93,
+    "lineNumber": 111,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3878,7 +3879,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.setPortTo",
     "access": "public",
     "description": " Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}",
-    "lineNumber": 120,
+    "lineNumber": 138,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3908,6 +3909,55 @@
   },
   {
     "__docId__": 252,
+    "kind": "method",
+    "name": "setHeader",
+    "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.setHeader",
+    "access": "public",
+    "description": " Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n to modify the configuration of the {@link AxiosInstance}\n used by {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n and set a HTTP request header for any subsequent {@link HTTPRequest}\n issued via {@link Send}.",
+    "lineNumber": 172,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{@serenity-js/core/lib/screenplay~Interaction}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Answerable<string>"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Answerable<string>"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Interaction"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 253,
     "kind": "class",
     "name": "ChangeApiConfigSetUrl",
     "memberof": "src/screenplay/interactions/ChangeApiConfig.ts",
@@ -3918,7 +3968,7 @@
     "importPath": "@serenity-js/rest/src/screenplay/interactions/ChangeApiConfig.ts",
     "importStyle": null,
     "description": "",
-    "lineNumber": 135,
+    "lineNumber": 187,
     "interface": false,
     "extends": [
       "@serenity-js/core~Interaction"
@@ -3926,7 +3976,7 @@
     "ignore": true
   },
   {
-    "__docId__": 253,
+    "__docId__": 254,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetUrl",
@@ -3936,11 +3986,11 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetUrl#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 136,
+    "lineNumber": 188,
     "undocument": true
   },
   {
-    "__docId__": 254,
+    "__docId__": 255,
     "kind": "method",
     "name": "performAs",
     "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetUrl",
@@ -3950,7 +4000,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetUrl#performAs",
     "access": "public",
     "description": " ",
-    "lineNumber": 96,
+    "lineNumber": 131,
     "params": [
       {
         "nullable": null,
@@ -3973,7 +4023,7 @@
     }
   },
   {
-    "__docId__": 255,
+    "__docId__": 256,
     "kind": "method",
     "name": "toString",
     "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetUrl",
@@ -3983,7 +4033,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetUrl#toString",
     "access": "public",
     "description": " ",
-    "lineNumber": 101,
+    "lineNumber": 136,
     "params": [],
     "return": {
       "types": [
@@ -3992,7 +4042,7 @@
     }
   },
   {
-    "__docId__": 256,
+    "__docId__": 257,
     "kind": "class",
     "name": "ChangeApiConfigSetPort",
     "memberof": "src/screenplay/interactions/ChangeApiConfig.ts",
@@ -4003,7 +4053,7 @@
     "importPath": "@serenity-js/rest/src/screenplay/interactions/ChangeApiConfig.ts",
     "importStyle": null,
     "description": "",
-    "lineNumber": 182,
+    "lineNumber": 234,
     "interface": false,
     "extends": [
       "@serenity-js/core~Interaction"
@@ -4011,7 +4061,7 @@
     "ignore": true
   },
   {
-    "__docId__": 257,
+    "__docId__": 258,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetPort",
@@ -4021,11 +4071,11 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetPort#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 183,
+    "lineNumber": 235,
     "undocument": true
   },
   {
-    "__docId__": 258,
+    "__docId__": 259,
     "kind": "method",
     "name": "performAs",
     "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetPort",
@@ -4035,7 +4085,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetPort#performAs",
     "access": "public",
     "description": " ",
-    "lineNumber": 114,
+    "lineNumber": 149,
     "params": [
       {
         "nullable": null,
@@ -4058,7 +4108,7 @@
     }
   },
   {
-    "__docId__": 259,
+    "__docId__": 260,
     "kind": "method",
     "name": "toString",
     "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetPort",
@@ -4068,7 +4118,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetPort#toString",
     "access": "public",
     "description": " ",
-    "lineNumber": 132,
+    "lineNumber": 167,
     "params": [],
     "return": {
       "types": [
@@ -4077,7 +4127,95 @@
     }
   },
   {
-    "__docId__": 260,
+    "__docId__": 261,
+    "kind": "class",
+    "name": "ChangeApiConfigSetHeader",
+    "memberof": "src/screenplay/interactions/ChangeApiConfig.ts",
+    "static": true,
+    "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader",
+    "access": "package",
+    "export": false,
+    "importPath": "@serenity-js/rest/src/screenplay/interactions/ChangeApiConfig.ts",
+    "importStyle": null,
+    "description": "",
+    "see": [
+      "https://github.com/axios/axios#custom-instance-defaults"
+    ],
+    "lineNumber": 296,
+    "interface": false,
+    "extends": [
+      "@serenity-js/core~Interaction"
+    ],
+    "ignore": true
+  },
+  {
+    "__docId__": 262,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 298,
+    "undocument": true
+  },
+  {
+    "__docId__": 263,
+    "kind": "method",
+    "name": "performAs",
+    "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader#performAs",
+    "access": "public",
+    "description": " ",
+    "lineNumber": 186,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "UsesAbilities & CollectsArtifacts & AnswersQuestions"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "actor",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 264,
+    "kind": "method",
+    "name": "toString",
+    "memberof": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader#toString",
+    "access": "public",
+    "description": " ",
+    "lineNumber": 205,
+    "params": [],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 265,
     "kind": "file",
     "name": "src/screenplay/interactions/ChangeApiUrl.ts",
     "content": "import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';\nimport { CallAnApi } from '../abilities';\n\n/**\n * @desc\n *  Changes the base URL the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n *  has been configured with. Useful when we don't know the URL before the test is started,\n *  for example when the URL is dynamically generated and needs to be read from the website under test.\n *\n * @example <caption>Changing the API URL</caption>\n * import { Actor } from '@serenity-js/core';\n * import { Navigate, Target, Text } from '@serenity-js/protractor';\n * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n * import { protractor, by } from 'protractor';\n *\n * import axios  from 'axios';\n *\n * const actor = Actor.named('Apisit').whoCan(\n *     BrowseTheWeb.using(protractor.browser),\n *\n *     // Note: no default base URL is given when the axios instance is created\n *     CallAnApi.using(axios.create()),\n * );\n *\n * // Let's imagine that the website under test displays\n * // a dynamically generated API URL we'd like to use\n * const ApiDetailsWidget = {\n *     Url: Target.the('API URL').located(by.id('api-url')),\n * }\n *\n * actor.attemptsTo(\n *     Navigate.to('/profile'),\n *\n *     // We change the API URL based on the text displayed in the widget\n *     // (although we could change it to some arbitrary string too).\n *     ChangeApiUrl.to(Text.of(ApiDetailsWidget.Url)),\n *\n *     // Any subsequent request will be sent to the newly set URL\n *     Send.a(GetRequest.to('/projects')),\n *     Ensure.that(LastResponse.status(), equals(200)),\n * );\n *\n * @deprecated Use ChangeApiConfig.setUrlTo(newUrl) instead\n *\n * @see {@link ChangeApiConfig}\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n */\nexport class ChangeApiUrl extends Interaction {\n\n    /**\n     * @desc\n     *  Instantiates a new {@link ChangeApiUrl} {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static to(newApiUrl: Answerable<string>): Interaction {\n        return new ChangeApiUrl(newApiUrl);\n    }\n\n    /**\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     */\n    constructor(private readonly newApiUrl: Answerable<string>) {\n        super();\n    }\n\n    /**\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     */\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return actor.answer(this.newApiUrl)\n            .then(newApiUrl => CallAnApi.as(actor).modifyConfig(config => config.baseURL = newApiUrl));\n    }\n\n    /**\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     */\n    toString() {\n        return `#actor changes the API URL to ${ this.newApiUrl.toString() }`;\n    }\n}\n",
@@ -4088,7 +4226,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 261,
+    "__docId__": 266,
     "kind": "class",
     "name": "ChangeApiUrl",
     "memberof": "src/screenplay/interactions/ChangeApiUrl.ts",
@@ -4113,7 +4251,7 @@
     ]
   },
   {
-    "__docId__": 262,
+    "__docId__": 267,
     "kind": "method",
     "name": "to",
     "memberof": "src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl",
@@ -4152,7 +4290,7 @@
     }
   },
   {
-    "__docId__": 263,
+    "__docId__": 268,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl",
@@ -4177,7 +4315,7 @@
     ]
   },
   {
-    "__docId__": 264,
+    "__docId__": 269,
     "kind": "method",
     "name": "performAs",
     "memberof": "src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl",
@@ -4222,7 +4360,7 @@
     }
   },
   {
-    "__docId__": 265,
+    "__docId__": 270,
     "kind": "method",
     "name": "toString",
     "memberof": "src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl",
@@ -4250,7 +4388,7 @@
     "params": []
   },
   {
-    "__docId__": 266,
+    "__docId__": 271,
     "kind": "file",
     "name": "src/screenplay/interactions/Send.ts",
     "content": "import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';\nimport { Artifact, HTTPRequestResponse, Name, RequestAndResponse } from '@serenity-js/core/lib/model';\nimport { AxiosRequestConfig, AxiosResponse } from 'axios';\nimport { CallAnApi } from '../abilities';\n\n/**\n * @desc\n *  Sends a {@link HTTPRequest} to a specified url.\n *  The response to the request is made available via the {@link LastResponse}\n *  {@link @serenity-js/core/lib/screenplay~Question}s.\n *\n * @example <caption>Send a GET request</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(GetRequest.to('/books/0-688-00230-7')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @extends {Interaction}\n */\nexport class Send extends Interaction {\n\n    /**\n     * @desc\n     *  Instantiates a new {@link Send} {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {@serenity-js/lib/core/screenplay~Answerable<AxiosRequestConfig>} request\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link AxiosRequestConfig}\n     */\n    static a(request: Answerable<AxiosRequestConfig>): Interaction {\n        return new Send(request);\n    }\n\n    /**\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} request\n     *\n     * @see {@link AxiosRequestConfig}\n     */\n    constructor(private readonly request: Answerable<AxiosRequestConfig>) {\n        super();\n    }\n\n    /**\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     */\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        const callAnApi = CallAnApi.as(actor);\n\n        return actor.answer(this.request)\n            .then(config =>\n                callAnApi.request(config).then((response: AxiosResponse) => {\n                    const resolvedUrl = callAnApi.resolveUrl(config);\n\n                    actor.collect(\n                        this.responseToArtifact(resolvedUrl, response),\n                        this.requestToArtifactName(response.config.method, resolvedUrl),\n                    );\n            }));\n    }\n\n    /**\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     */\n    toString() {\n        return `#actor sends ${ this.request.toString() }`;\n    }\n\n    private responseToArtifact(targetUrl: string, response: AxiosResponse): Artifact {\n        const\n            request: AxiosRequestConfig = response.config,\n            requestAndResponse: RequestAndResponse = {\n                request: {\n                    method:     request.method,\n                    url:        targetUrl,\n                    headers:    request.headers,\n                    data:       request.data,\n                },\n                response: {\n                    status:     response.status,\n                    headers:    response.headers,\n                    data:       response.data,\n                },\n            };\n\n        return HTTPRequestResponse.fromJSON(requestAndResponse);\n    }\n\n    private requestToArtifactName(method: string, url: string) {\n        return new Name(`${ method.toUpperCase() } ${ url }`);\n    }\n}\n",
@@ -4261,7 +4399,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 267,
+    "__docId__": 272,
     "kind": "class",
     "name": "Send",
     "memberof": "src/screenplay/interactions/Send.ts",
@@ -4282,7 +4420,7 @@
     ]
   },
   {
-    "__docId__": 268,
+    "__docId__": 273,
     "kind": "method",
     "name": "a",
     "memberof": "src/screenplay/interactions/Send.ts~Send",
@@ -4324,7 +4462,7 @@
     }
   },
   {
-    "__docId__": 269,
+    "__docId__": 274,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/screenplay/interactions/Send.ts~Send",
@@ -4352,7 +4490,7 @@
     ]
   },
   {
-    "__docId__": 270,
+    "__docId__": 275,
     "kind": "method",
     "name": "performAs",
     "memberof": "src/screenplay/interactions/Send.ts~Send",
@@ -4397,7 +4535,7 @@
     }
   },
   {
-    "__docId__": 271,
+    "__docId__": 276,
     "kind": "method",
     "name": "toString",
     "memberof": "src/screenplay/interactions/Send.ts~Send",
@@ -4425,7 +4563,7 @@
     "params": []
   },
   {
-    "__docId__": 272,
+    "__docId__": 277,
     "kind": "method",
     "name": "responseToArtifact",
     "memberof": "src/screenplay/interactions/Send.ts~Send",
@@ -4469,7 +4607,7 @@
     "ignore": true
   },
   {
-    "__docId__": 273,
+    "__docId__": 278,
     "kind": "method",
     "name": "requestToArtifactName",
     "memberof": "src/screenplay/interactions/Send.ts~Send",
@@ -4510,7 +4648,7 @@
     }
   },
   {
-    "__docId__": 274,
+    "__docId__": 279,
     "kind": "file",
     "name": "src/screenplay/interactions/index.ts",
     "content": "export * from './ChangeApiConfig';\nexport * from './ChangeApiUrl';\nexport * from './Send';\n",
@@ -4521,7 +4659,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 275,
+    "__docId__": 280,
     "kind": "file",
     "name": "src/screenplay/questions/LastResponse.ts",
     "content": "import { Question } from '@serenity-js/core';\nimport { CallAnApi } from '../abilities';\n\n/**\n * @desc\n *  Provides access to the properties of the last {@link AxiosResponse} object,\n *  cached on the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}.\n *\n * @example <caption>Verify response to a GET request</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  interface Book {\n *      title: string;\n *      author: string\n *  }\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(GetRequest.to('/books/0-688-00230-7')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),\n *      Ensure.that(LastResponse.body<Book>(), equals({\n *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n *          author: 'Robert M. Pirsig',\n *      })),\n *  );\n */\nexport class LastResponse {\n\n    /**\n     * @desc\n     *  Enables asserting on the {@link LastResponse} status\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<number>}\n     */\n    static status(): Question<number> {\n        return Question.about<number>(`the status of the last response`, actor => {\n            return CallAnApi.as(actor).mapLastResponse(response => response.status);\n        });\n    }\n\n    /**\n     * @desc\n     *  Enables asserting on the {@link LastResponse} body\n     *\n     * @example <caption>A type-safe approach using generics</caption>\n     *  interface Book {\n     *      title: string;\n     *      author: string\n     *  }\n     *\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<Book>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @example <caption>A non-type-safe approach using `any`</caption>\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<any>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<any>}\n     */\n    static body<T = any>(): Question<T> {\n        return Question.about<T>(`the body of the last response`, actor => {\n            return CallAnApi.as(actor).mapLastResponse<T>(response => response.data as T);\n        });\n    }\n\n    /**\n     * @desc\n     *  Enables asserting on one of the {@link LastResponse}'s headers\n     *\n     * @param {string} name\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>}\n     */\n    static header(name: string): Question<string> {\n        return Question.about<string>(`the '${ name }' header of the last response`, actor => {\n            return CallAnApi.as(actor).mapLastResponse(response => response.headers[name]);\n        });\n    }\n\n    /**\n     * @desc\n     *  Enables asserting on all of the {@link LastResponse}'s headers,\n     *  returned as an object where the keys represent header names.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<object>}\n     */\n    static headers() {\n        return Question.about<{ [header: string ]: string }>(`the headers or the last response`, actor => {\n            return CallAnApi.as(actor).mapLastResponse(response => response.headers);\n        });\n    }\n}\n",
@@ -4532,7 +4670,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 276,
+    "__docId__": 281,
     "kind": "class",
     "name": "LastResponse",
     "memberof": "src/screenplay/questions/LastResponse.ts",
@@ -4550,7 +4688,7 @@
     "interface": false
   },
   {
-    "__docId__": 277,
+    "__docId__": 282,
     "kind": "method",
     "name": "status",
     "memberof": "src/screenplay/questions/LastResponse.ts~LastResponse",
@@ -4578,7 +4716,7 @@
     "params": []
   },
   {
-    "__docId__": 278,
+    "__docId__": 283,
     "kind": "method",
     "name": "body",
     "memberof": "src/screenplay/questions/LastResponse.ts~LastResponse",
@@ -4610,7 +4748,7 @@
     "params": []
   },
   {
-    "__docId__": 279,
+    "__docId__": 284,
     "kind": "method",
     "name": "header",
     "memberof": "src/screenplay/questions/LastResponse.ts~LastResponse",
@@ -4649,7 +4787,7 @@
     }
   },
   {
-    "__docId__": 280,
+    "__docId__": 285,
     "kind": "method",
     "name": "headers",
     "memberof": "src/screenplay/questions/LastResponse.ts~LastResponse",
@@ -4677,7 +4815,7 @@
     "params": []
   },
   {
-    "__docId__": 281,
+    "__docId__": 286,
     "kind": "file",
     "name": "src/screenplay/questions/index.ts",
     "content": "export * from './LastResponse';\n",
@@ -4697,14 +4835,14 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/rest\",\n  \"version\": \"2.21.0\",\n  \"description\": \"Test REST APIs with Serenity/JS\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"http\",\n    \"rest\",\n    \"axios\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"test\": \"nyc --report-dir ../../target/coverage/rest mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 10\",\n    \"npm\": \">= 6\"\n  },\n  \"dependencies\": {\n    \"@serenity-js/core\": \"2.21.0\",\n    \"axios\": \"^0.21.1\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.19.7\",\n    \"@integration/testing-tools\": \"2.21.0\",\n    \"@serenity-js/assertions\": \"2.21.0\",\n    \"@types/mocha\": \"^8.0.4\",\n    \"axios-mock-adapter\": \"^1.19.0\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/rest\",\n  \"version\": \"2.22.0\",\n  \"description\": \"Test REST APIs with Serenity/JS\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"http\",\n    \"rest\",\n    \"axios\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"test\": \"nyc --report-dir ../../target/coverage/rest mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 10\",\n    \"npm\": \">= 6\"\n  },\n  \"dependencies\": {\n    \"@serenity-js/core\": \"2.22.0\",\n    \"axios\": \"^0.21.1\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.19.7\",\n    \"@integration/testing-tools\": \"2.22.0\",\n    \"@serenity-js/assertions\": \"2.22.0\",\n    \"@types/mocha\": \"^8.0.4\",\n    \"axios-mock-adapter\": \"^1.19.0\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/rest/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
   },
   {
-    "__docId__": 282,
+    "__docId__": 287,
     "kind": "testFile",
     "name": "spec/model/DeleteRequest.spec.ts",
     "content": "import 'mocha';\nimport { DeleteRequest } from '../../src/model';\nimport { actorUsingAMockedAxiosInstance } from '../actors';\nimport { expect } from '../expect';\n\n/** @test {DeleteRequest} */\ndescribe('DeleteRequest', () => {\n\n    const { actor } = actorUsingAMockedAxiosInstance();\n\n    /** @test {DeleteRequest.to} */\n    it('represents an Axios request', () =>\n        expect(actor.answer(DeleteRequest.to('/products/2')))\n            .to.eventually.deep.equal({\n                method: 'DELETE',\n                url: '/products/2',\n            }));\n\n    /**\n     * @test {DeleteRequest.to}\n     * @test {DeleteRequest#using}\n     */\n    it('allows for additional request properties to be specified', () =>\n        expect(actor.answer(DeleteRequest.to('/products/2').using({\n                headers: {\n                    Authorization: 'token',\n                },\n            })))\n            .to.eventually.deep.equal({\n                method: 'DELETE',\n                url: '/products/2',\n                headers: {\n                    Authorization: 'token',\n                },\n            }));\n\n    /** @test {DeleteRequest#toString} */\n    it('provides a sensible description of the interaction being performed', () => {\n        expect(DeleteRequest.to('/products/2').toString())\n            .to.equal(`a DELETE request to '/products/2'`);\n    });\n});\n",
@@ -4715,7 +4853,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 283,
+    "__docId__": 288,
     "kind": "test",
     "name": "describe0",
     "testId": 0,
@@ -4731,7 +4869,7 @@
     ]
   },
   {
-    "__docId__": 284,
+    "__docId__": 289,
     "kind": "test",
     "name": "it1",
     "testId": 1,
@@ -4747,7 +4885,7 @@
     ]
   },
   {
-    "__docId__": 285,
+    "__docId__": 290,
     "kind": "test",
     "name": "it2",
     "testId": 2,
@@ -4764,7 +4902,7 @@
     ]
   },
   {
-    "__docId__": 286,
+    "__docId__": 291,
     "kind": "test",
     "name": "it3",
     "testId": 3,
@@ -4780,7 +4918,7 @@
     ]
   },
   {
-    "__docId__": 287,
+    "__docId__": 292,
     "kind": "testFile",
     "name": "spec/model/GetRequest.spec.ts",
     "content": "import 'mocha';\nimport { GetRequest } from '../../src/model';\nimport { actorUsingAMockedAxiosInstance } from '../actors';\nimport { expect } from '../expect';\n\n/** @test {GetRequest} */\ndescribe('GetRequest', () => {\n\n    const { actor } = actorUsingAMockedAxiosInstance();\n\n    /** @test {GetRequest.to} */\n    it('represents an Axios request', () =>\n        expect(actor.answer(GetRequest.to('/products/2')))\n            .to.eventually.deep.equal({\n                method: 'GET',\n                url: '/products/2',\n            }));\n\n    /**\n     * @test {GetRequest.to}\n     * @test {GetRequest#using}\n     */\n    it('allows for additional request properties to be specified', () =>\n        expect(actor.answer(GetRequest.to('/products/2').using({\n                headers: {\n                    Accept: 'application/json',\n                },\n            })))\n            .to.eventually.deep.equal({\n                method: 'GET',\n                url: '/products/2',\n                headers: {\n                    Accept: 'application/json',\n                },\n            }));\n\n    /** @test {GetRequest#toString} */\n    it('provides a sensible description of the interaction being performed', () => {\n        expect(GetRequest.to('/products/2').toString())\n            .to.equal(`a GET request to '/products/2'`);\n    });\n});\n",
@@ -4791,7 +4929,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 288,
+    "__docId__": 293,
     "kind": "test",
     "name": "describe4",
     "testId": 4,
@@ -4807,7 +4945,7 @@
     ]
   },
   {
-    "__docId__": 289,
+    "__docId__": 294,
     "kind": "test",
     "name": "it5",
     "testId": 5,
@@ -4823,7 +4961,7 @@
     ]
   },
   {
-    "__docId__": 290,
+    "__docId__": 295,
     "kind": "test",
     "name": "it6",
     "testId": 6,
@@ -4840,7 +4978,7 @@
     ]
   },
   {
-    "__docId__": 291,
+    "__docId__": 296,
     "kind": "test",
     "name": "it7",
     "testId": 7,
@@ -4856,7 +4994,7 @@
     ]
   },
   {
-    "__docId__": 292,
+    "__docId__": 297,
     "kind": "testFile",
     "name": "spec/model/HeadRequest.spec.ts",
     "content": "import 'mocha';\nimport { HeadRequest } from '../../src/model';\nimport { actorUsingAMockedAxiosInstance } from '../actors';\nimport { expect } from '../expect';\n\n/** @test {HeadRequest} */\ndescribe('HeadRequest', () => {\n\n    const { actor } = actorUsingAMockedAxiosInstance();\n\n    /** @test {HeadRequest.to} */\n    it('represents an Axios request', () =>\n        expect(actor.answer(HeadRequest.to('/products/2')))\n            .to.eventually.deep.equal({\n                method: 'HEAD',\n                url: '/products/2',\n            }));\n\n    /**\n     * @test {HeadRequest.to}\n     * @test {HeadRequest#using}\n     */\n    it('allows for additional request properties to be specified', () =>\n        expect(actor.answer(HeadRequest.to('/products/2').using({\n                headers: {\n                    Accept: 'application/json',\n                },\n            })))\n            .to.eventually.deep.equal({\n                method: 'HEAD',\n                url: '/products/2',\n                headers: {\n                    Accept: 'application/json',\n                },\n            }));\n\n    /** @test {HeadRequest#toString} */\n    it('provides a sensible description of the interaction being performed', () => {\n        expect(HeadRequest.to('/products/2').toString())\n            .to.equal(`a HEAD request to '/products/2'`);\n    });\n});\n",
@@ -4867,7 +5005,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 293,
+    "__docId__": 298,
     "kind": "test",
     "name": "describe8",
     "testId": 8,
@@ -4883,7 +5021,7 @@
     ]
   },
   {
-    "__docId__": 294,
+    "__docId__": 299,
     "kind": "test",
     "name": "it9",
     "testId": 9,
@@ -4899,7 +5037,7 @@
     ]
   },
   {
-    "__docId__": 295,
+    "__docId__": 300,
     "kind": "test",
     "name": "it10",
     "testId": 10,
@@ -4916,7 +5054,7 @@
     ]
   },
   {
-    "__docId__": 296,
+    "__docId__": 301,
     "kind": "test",
     "name": "it11",
     "testId": 11,
@@ -4932,7 +5070,7 @@
     ]
   },
   {
-    "__docId__": 297,
+    "__docId__": 302,
     "kind": "testFile",
     "name": "spec/model/OptionsRequest.spec.ts",
     "content": "import 'mocha';\nimport { OptionsRequest } from '../../src/model';\nimport { actorUsingAMockedAxiosInstance } from '../actors';\nimport { expect } from '../expect';\n\n/** @test {OptionsRequest} */\ndescribe('OptionsRequest', () => {\n\n    const { actor } = actorUsingAMockedAxiosInstance();\n\n    /** @test {OptionsRequest.to} */\n    it('represents an Axios request', () =>\n        expect(actor.answer(OptionsRequest.to('/products/2')))\n            .to.eventually.deep.equal({\n                method: 'OPTIONS',\n                url: '/products/2',\n            }));\n\n    /**\n     * @test {OptionsRequest.to}\n     * @test {OptionsRequest#using}\n     */\n    it('allows for additional request properties to be specified', () =>\n        expect(actor.answer(OptionsRequest.to('/products/2').using({\n                headers: {\n                    Accept: 'application/json',\n                },\n            })))\n            .to.eventually.deep.equal({\n                method: 'OPTIONS',\n                url: '/products/2',\n                headers: {\n                    Accept: 'application/json',\n                },\n            }));\n\n    /** @test {Options#toString} */\n    it('provides a sensible description of the interaction being performed', () => {\n        expect(OptionsRequest.to('/products/2').toString())\n            .to.equal(`an OPTIONS request to '/products/2'`);\n    });\n});\n",
@@ -4943,7 +5081,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 298,
+    "__docId__": 303,
     "kind": "test",
     "name": "describe12",
     "testId": 12,
@@ -4959,7 +5097,7 @@
     ]
   },
   {
-    "__docId__": 299,
+    "__docId__": 304,
     "kind": "test",
     "name": "it13",
     "testId": 13,
@@ -4975,7 +5113,7 @@
     ]
   },
   {
-    "__docId__": 300,
+    "__docId__": 305,
     "kind": "test",
     "name": "it14",
     "testId": 14,
@@ -4992,7 +5130,7 @@
     ]
   },
   {
-    "__docId__": 301,
+    "__docId__": 306,
     "kind": "test",
     "name": "it15",
     "testId": 15,
@@ -5008,7 +5146,7 @@
     ]
   },
   {
-    "__docId__": 302,
+    "__docId__": 307,
     "kind": "testFile",
     "name": "spec/model/PatchRequest.spec.ts",
     "content": "import 'mocha';\nimport { PatchRequest } from '../../src/model';\nimport { actorUsingAMockedAxiosInstance } from '../actors';\nimport { expect } from '../expect';\n\n/** @test {PatchRequest} */\ndescribe('PatchRequest', () => {\n\n    const { actor } = actorUsingAMockedAxiosInstance();\n\n    /** @test {PatchRequest.to} */\n    it('represents an Axios request', () =>\n        expect(actor.answer(PatchRequest.to('/products/2')))\n            .to.eventually.deep.equal({\n                method: 'PATCH',\n                url: '/products/2',\n            }));\n\n    /**\n     * @test {PatchRequest.to}\n     * @test {PatchRequest#with}\n     */\n    it('can have a request body', () =>\n        expect(actor.answer(PatchRequest.to('/products/2').with({ name: 'apple' })))\n            .to.eventually.deep.equal({\n            method: 'PATCH',\n            url: '/products/2',\n            data: { name: 'apple' },\n        }));\n\n    /**\n     * @test {PatchRequest.to}\n     * @test {PatchRequest#with}\n     * @test {PatchRequest#using}\n     */\n    it('allows for additional request properties to be specified', () =>\n        expect(actor.answer(PatchRequest.to('/products/2').with({ name: 'apple' }).using({\n                headers: {\n                    Accept: 'application/json',\n                },\n            })))\n            .to.eventually.deep.equal({\n                method: 'PATCH',\n                url: '/products/2',\n                headers: {\n                    Accept: 'application/json',\n                },\n                data: { name: 'apple' },\n            }));\n\n    /** @test {PatchRequest#toString} */\n    it('provides a sensible description of the interaction being performed', () => {\n        expect(PatchRequest.to('/products/2').toString())\n            .to.equal(`a PATCH request to '/products/2'`);\n    });\n});\n",
@@ -5019,7 +5157,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 303,
+    "__docId__": 308,
     "kind": "test",
     "name": "describe16",
     "testId": 16,
@@ -5035,7 +5173,7 @@
     ]
   },
   {
-    "__docId__": 304,
+    "__docId__": 309,
     "kind": "test",
     "name": "it17",
     "testId": 17,
@@ -5051,7 +5189,7 @@
     ]
   },
   {
-    "__docId__": 305,
+    "__docId__": 310,
     "kind": "test",
     "name": "it18",
     "testId": 18,
@@ -5068,7 +5206,7 @@
     ]
   },
   {
-    "__docId__": 306,
+    "__docId__": 311,
     "kind": "test",
     "name": "it19",
     "testId": 19,
@@ -5086,7 +5224,7 @@
     ]
   },
   {
-    "__docId__": 307,
+    "__docId__": 312,
     "kind": "test",
     "name": "it20",
     "testId": 20,
@@ -5102,7 +5240,7 @@
     ]
   },
   {
-    "__docId__": 308,
+    "__docId__": 313,
     "kind": "testFile",
     "name": "spec/model/PostRequest.spec.ts",
     "content": "import 'mocha';\nimport { PostRequest } from '../../src/model';\nimport { actorUsingAMockedAxiosInstance } from '../actors';\nimport { expect } from '../expect';\n\n/** @test {PostRequest} */\ndescribe('PostRequest', () => {\n\n    const { actor } = actorUsingAMockedAxiosInstance();\n\n    /** @test {PostRequest.to} */\n    it('represents an Axios request', () =>\n        expect(actor.answer(PostRequest.to('/products/2')))\n            .to.eventually.deep.equal({\n                method: 'POST',\n                url: '/products/2',\n            }));\n\n    it('can have a request body', () =>\n        expect(actor.answer(PostRequest.to('/products/2').with({ name: 'apple' })))\n            .to.eventually.deep.equal({\n            method: 'POST',\n            url: '/products/2',\n            data: { name: 'apple' },\n        }));\n\n    it('allows for additional request properties to be specified', () =>\n        expect(actor.answer(PostRequest.to('/products/2').with({ name: 'apple' }).using({\n                headers: {\n                    Accept: 'application/json',\n                },\n            })))\n            .to.eventually.deep.equal({\n                method: 'POST',\n                url: '/products/2',\n                headers: {\n                    Accept: 'application/json',\n                },\n                data: { name: 'apple' },\n            }));\n\n    /** @test {PostRequest#toString} */\n    it('provides a sensible description of the interaction being performed', () => {\n        expect(PostRequest.to('/products/2').toString())\n            .to.equal(`a POST request to '/products/2'`);\n    });\n});\n",
@@ -5113,7 +5251,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 309,
+    "__docId__": 314,
     "kind": "test",
     "name": "describe21",
     "testId": 21,
@@ -5129,7 +5267,7 @@
     ]
   },
   {
-    "__docId__": 310,
+    "__docId__": 315,
     "kind": "test",
     "name": "it22",
     "testId": 22,
@@ -5145,7 +5283,7 @@
     ]
   },
   {
-    "__docId__": 311,
+    "__docId__": 316,
     "kind": "test",
     "name": "it23",
     "testId": 23,
@@ -5158,7 +5296,7 @@
     "lineNumber": 19
   },
   {
-    "__docId__": 312,
+    "__docId__": 317,
     "kind": "test",
     "name": "it24",
     "testId": 24,
@@ -5171,7 +5309,7 @@
     "lineNumber": 27
   },
   {
-    "__docId__": 313,
+    "__docId__": 318,
     "kind": "test",
     "name": "it25",
     "testId": 25,
@@ -5187,7 +5325,7 @@
     ]
   },
   {
-    "__docId__": 314,
+    "__docId__": 319,
     "kind": "testFile",
     "name": "spec/model/PutRequest.spec.ts",
     "content": "import 'mocha';\nimport { PutRequest } from '../../src/model';\nimport { actorUsingAMockedAxiosInstance } from '../actors';\nimport { expect } from '../expect';\n\n/** @test {PutRequest} */\ndescribe('PutRequest', () => {\n\n    const { actor } = actorUsingAMockedAxiosInstance();\n\n    /** @test {PutRequest.to} */\n    it('represents an Axios request', () =>\n        expect(actor.answer(PutRequest.to('/products/2')))\n            .to.eventually.deep.equal({\n                method: 'PUT',\n                url: '/products/2',\n            }));\n\n    /**\n     * @test {PutRequest.to}\n     * @test {PutRequest#with}\n     */\n    it('can have a request body', () =>\n        expect(actor.answer(PutRequest.to('/products/2').with({ name: 'apple' })))\n            .to.eventually.deep.equal({\n            method: 'PUT',\n            url: '/products/2',\n            data: { name: 'apple' },\n        }));\n\n    /**\n     * @test {PutRequest.to}\n     * @test {PutRequest#with}\n     * @test {PutRequest#using}\n     */\n    it('allows for additional request properties to be specified', () =>\n        expect(actor.answer(PutRequest.to('/products/2').with({ name: 'apple' }).using({\n                headers: {\n                    Accept: 'application/json',\n                },\n            })))\n            .to.eventually.deep.equal({\n                method: 'PUT',\n                url: '/products/2',\n                headers: {\n                    Accept: 'application/json',\n                },\n                data: { name: 'apple' },\n            }));\n\n    /** @test {PutRequest#toString} */\n    it('provides a sensible description of the interaction being performed', () => {\n        expect(PutRequest.to('/products/2').toString())\n            .to.equal(`a PUT request to '/products/2'`);\n    });\n});\n",
@@ -5198,7 +5336,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 315,
+    "__docId__": 320,
     "kind": "test",
     "name": "describe26",
     "testId": 26,
@@ -5214,7 +5352,7 @@
     ]
   },
   {
-    "__docId__": 316,
+    "__docId__": 321,
     "kind": "test",
     "name": "it27",
     "testId": 27,
@@ -5230,7 +5368,7 @@
     ]
   },
   {
-    "__docId__": 317,
+    "__docId__": 322,
     "kind": "test",
     "name": "it28",
     "testId": 28,
@@ -5247,7 +5385,7 @@
     ]
   },
   {
-    "__docId__": 318,
+    "__docId__": 323,
     "kind": "test",
     "name": "it29",
     "testId": 29,
@@ -5265,7 +5403,7 @@
     ]
   },
   {
-    "__docId__": 319,
+    "__docId__": 324,
     "kind": "test",
     "name": "it30",
     "testId": 30,
@@ -5281,7 +5419,7 @@
     ]
   },
   {
-    "__docId__": 320,
+    "__docId__": 325,
     "kind": "testFile",
     "name": "spec/screenplay/abilities/CallAnApi.spec.ts",
     "content": "import 'mocha';\n\nimport { ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';\nimport axios, { Method } from 'axios';\nimport MockAdapter from 'axios-mock-adapter';\nimport { given } from 'mocha-testdata';\n\nimport { CallAnApi } from '../../../src';\nimport { expect } from '../../expect';\n\n/** @test {CallAnApi} */\ndescribe('CallAnApi', () => {\n\n    given([\n        { description: 'GET',       verification: 'onGet'      },\n        { description: 'POST',      verification: 'onPost'     },\n        { description: 'PUT',       verification: 'onPut'      },\n        { description: 'HEAD',      verification: 'onHead'     },\n        { description: 'DELETE',    verification: 'onDelete'   },\n        { description: 'PATCH',     verification: 'onPatch'    },\n        { description: 'OPTIONS',   verification: 'onAny'      },\n    ]).\n    it('allows the Actor to interact with HTTP endpoints via', ({description, verification}) => {\n        const\n            { callAnApi, mock } = mockedAxiosInstance(),\n            method = description as Method,\n            url = '/products/2';\n\n        mock[verification](url).reply(200);\n\n        return expect(callAnApi.request({ method, url })).to.be.fulfilled; // tslint:disable-line:no-unused-expression\n    });\n\n    /**\n     * @test {CallAnApi}\n     * @test {CallAnApi.at}\n     */\n    it('provides a convenient factory method to be used when no custom configuration is required', () => {\n        const\n            baseURL = 'https://mycompany.com/api',\n            callAnApi = CallAnApi.at(baseURL);\n\n        expect(callAnApi).to.be.instanceOf(CallAnApi);\n        expect((callAnApi as any).axiosInstance.defaults.baseURL).to.equal(baseURL);\n    });\n\n    /**\n     * @test {CallAnApi}\n     * @test {CallAnApi.using}\n     */\n    it('provides a factory method to be used when custom configuration is required', () => {\n        const\n            baseURL = 'https://mycompany.com/api',\n            callAnApi = CallAnApi.using(axios.create({ baseURL }));\n\n        expect(callAnApi).to.be.instanceOf(CallAnApi);\n        expect((callAnApi as any).axiosInstance.defaults.baseURL).to.equal(baseURL);\n    });\n\n    /**\n     * @test {CallAnApi}\n     * @test {CallAnApi.mapLastResponse}\n     */\n    it('caches the last response so that it can be easily asserted on', () => {\n        const\n            { callAnApi, mock } = mockedAxiosInstance(),\n            url = '/products/2';\n\n        mock.onGet(url).reply(200, { id: 2 });\n\n        return expect(callAnApi.request({ method: 'get', url })).to.be.fulfilled.then(() => {\n            callAnApi.mapLastResponse(response => expect(response.status).to.equal(200));\n        });\n    });\n\n    /**\n     * @test {CallAnApi}\n     * @test {CallAnApi.request}\n     * @test {CallAnApi.mapLastResponse}\n     */\n    it('caches the last response even when the server responds with an error. As long is it responds.', () => {\n        const\n            { callAnApi, mock } = mockedAxiosInstance(),\n            url = '/products/2';\n\n        mock.onGet(url).reply(500);\n\n        return expect(callAnApi.request({ method: 'get', url })).to.be.fulfilled.then(() => {\n            callAnApi.mapLastResponse(response => expect(response.status).to.equal(500));\n        });\n    });\n\n    /**\n     * @test {CallAnApi}\n     * @test {CallAnApi.resolveUrl}\n     */\n    it('provides a way to determine the actual target URL the request will be sent to', () => {\n        const callaAnApi = CallAnApi.at('https://example.org/api/v4');\n\n        const actualUrl = callaAnApi.resolveUrl({ url: 'products/3' });\n\n        expect(actualUrl).to.equal('https://example.org/api/v4/products/3')\n    });\n\n    describe('when dealing with errors', () => {\n        /**\n         * @test {CallAnApi}\n         * @test {CallAnApi.mapLastResponse}\n         */\n        it('complains if you try to retrieve the last response before making an API call', () => {\n            const { callAnApi } = mockedAxiosInstance();\n\n            expect(() => callAnApi.mapLastResponse(_ => _))\n                .to.throw(LogicError, 'Make sure to perform a HTTP API call before checking on the response');\n        });\n\n        /**\n         * @test {CallAnApi}\n         * @test {CallAnApi.request}\n         */\n        it('complains when provided with invalid Axios configuration', () => {\n            const\n                axiosInstance = axios.create({\n                    baseURL: ['bah', 'humbug', '!'] as any,\n                }),\n                callAnApi = CallAnApi.using(axiosInstance);\n\n            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('Looks like there was an issue with Axios configuration')\n                .then((error: ConfigurationError) => {\n                    expect(error).to.be.instanceOf(ConfigurationError);\n                    expect(error.stack).to.contain('Caused by: TypeError');\n                });\n        });\n\n        /**\n         * @test {CallAnApi}\n         * @test {CallAnApi.request}\n         */\n        it('complains when the API call times out', () => {\n            const { callAnApi, mock } = mockedAxiosInstance();\n\n            mock.onAny().timeout();\n\n            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('The request has timed out')\n                .then((error: TestCompromisedError) => {\n                    expect(error).to.be.instanceOf(TestCompromisedError);\n                    expect(error.stack).to.contain('Caused by: Error: timeout of 0ms exceeded');\n                });\n        });\n\n        /**\n         * @test {CallAnApi}\n         * @test {CallAnApi.request}\n         */\n        it('complains when the a network error occurs', () => {\n            const { callAnApi, mock } = mockedAxiosInstance();\n\n            mock.onAny().networkError();\n\n            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('A network error has occurred')\n                .then((error: TestCompromisedError) => {\n                    expect(error).to.be.instanceOf(TestCompromisedError);\n                    expect(error.stack).to.contain('Caused by: Error: Network Error');\n                });\n        });\n\n        /**\n         * @test {CallAnApi}\n         * @test {CallAnApi.request}\n         */\n        it('complains when the Axios client rejects its promise', () => {\n            const { callAnApi, mock } = mockedAxiosInstance();\n\n            mock.onAny().reply(() => Promise.reject(new Error('something unpredictable')));\n\n            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('The API call has failed')\n                .then((error: TestCompromisedError) => {\n                    expect(error).to.be.instanceOf(TestCompromisedError);\n                    expect(error.stack).to.contain('Caused by: Error: something unpredictable');\n                });\n        });\n    });\n\n    function mockedAxiosInstance() {\n        const\n            axiosInstance = axios.create(),\n            mock = new MockAdapter(axiosInstance),\n            callAnApi = CallAnApi.using(axiosInstance);\n\n        return { mock, callAnApi };\n    }\n});\n",
@@ -5292,7 +5430,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 321,
+    "__docId__": 326,
     "kind": "test",
     "name": "describe31",
     "testId": 31,
@@ -5308,7 +5446,7 @@
     ]
   },
   {
-    "__docId__": 322,
+    "__docId__": 327,
     "kind": "test",
     "name": "it32",
     "testId": 32,
@@ -5325,7 +5463,7 @@
     ]
   },
   {
-    "__docId__": 323,
+    "__docId__": 328,
     "kind": "test",
     "name": "it33",
     "testId": 33,
@@ -5342,7 +5480,7 @@
     ]
   },
   {
-    "__docId__": 324,
+    "__docId__": 329,
     "kind": "test",
     "name": "it34",
     "testId": 34,
@@ -5359,7 +5497,7 @@
     ]
   },
   {
-    "__docId__": 325,
+    "__docId__": 330,
     "kind": "test",
     "name": "it35",
     "testId": 35,
@@ -5377,7 +5515,7 @@
     ]
   },
   {
-    "__docId__": 326,
+    "__docId__": 331,
     "kind": "test",
     "name": "it36",
     "testId": 36,
@@ -5394,7 +5532,7 @@
     ]
   },
   {
-    "__docId__": 327,
+    "__docId__": 332,
     "kind": "test",
     "name": "describe37",
     "testId": 37,
@@ -5407,7 +5545,7 @@
     "lineNumber": 105
   },
   {
-    "__docId__": 328,
+    "__docId__": 333,
     "kind": "test",
     "name": "it38",
     "testId": 38,
@@ -5424,7 +5562,7 @@
     ]
   },
   {
-    "__docId__": 329,
+    "__docId__": 334,
     "kind": "test",
     "name": "it39",
     "testId": 39,
@@ -5441,7 +5579,7 @@
     ]
   },
   {
-    "__docId__": 330,
+    "__docId__": 335,
     "kind": "test",
     "name": "it40",
     "testId": 40,
@@ -5458,7 +5596,7 @@
     ]
   },
   {
-    "__docId__": 331,
+    "__docId__": 336,
     "kind": "test",
     "name": "it41",
     "testId": 41,
@@ -5475,7 +5613,7 @@
     ]
   },
   {
-    "__docId__": 332,
+    "__docId__": 337,
     "kind": "test",
     "name": "it42",
     "testId": 42,
@@ -5492,10 +5630,10 @@
     ]
   },
   {
-    "__docId__": 333,
+    "__docId__": 338,
     "kind": "testFile",
     "name": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts",
-    "content": "import 'mocha';\n\nimport { Ensure, equals } from '@serenity-js/assertions';\nimport { LogicError } from '@serenity-js/core';\nimport { ChangeApiConfig, GetRequest, LastResponse, Send } from '../../../src';\nimport { actorUsingAMockedAxiosInstance } from '../../actors';\nimport { expect } from '../../expect';\n\n/** @test {ChangeApiConfig} */\ndescribe('ChangeApiConfig', () => {\n\n    const\n        originalUrl             = 'http://localhost/',\n        newUrl                  = 'http://example.com/',\n        originalUrlWithNewPort  = 'http://localhost:8080/';\n\n    describe('when changing the API URL', () => {\n\n        const { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });\n\n        beforeEach(() => {\n            mock.onGet(originalUrl).reply(500);\n            mock.onGet(newUrl).reply(200);\n        });\n\n        afterEach(() =>  mock.reset());\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setUrlTo}\n         */\n        it('changes the base URL used by any subsequent requests', () => actor.attemptsTo(\n            Send.a(GetRequest.to('/')),\n            Ensure.that(LastResponse.status(), equals(500)),\n\n            ChangeApiConfig.setUrlTo(newUrl),\n            Send.a(GetRequest.to('/')),\n            Ensure.that(LastResponse.status(), equals(200)),\n        ));\n    });\n\n    describe('when changing the API port', () => {\n\n        const { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });\n\n        beforeEach(() => {\n            mock.onGet(originalUrl).reply(500);\n            mock.onGet(originalUrlWithNewPort).reply(200);\n        });\n\n        afterEach(() =>  mock.reset());\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setPortTo}\n         */\n        it('changes the base URL used by any subsequent requests', () => actor.attemptsTo(\n            Send.a(GetRequest.to('/')),\n            Ensure.that(LastResponse.status(), equals(500)),\n\n            ChangeApiConfig.setPortTo(8080),\n            Send.a(GetRequest.to('/')),\n            Ensure.that(LastResponse.status(), equals(200)),\n        ));\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setPortTo}\n         */\n        it('complains if the url has not been set prior to attempted port change', () => expect(actor.attemptsTo(\n            ChangeApiConfig.setUrlTo(undefined),\n            ChangeApiConfig.setPortTo(8080),\n        )).to.be.rejectedWith(LogicError, `Can't change the port of a baseURL that has not been set.`));\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setPortTo}\n         */\n        it('complains if the url to be changed is invalid', () => expect(actor.attemptsTo(\n            ChangeApiConfig.setUrlTo('invalid'),\n            ChangeApiConfig.setPortTo(8080),\n        )).to.be.rejectedWith(LogicError, `Could not change the API port`));\n    });\n});\n",
+    "content": "import 'mocha';\n\nimport { Ensure, equals } from '@serenity-js/assertions';\nimport { LogicError } from '@serenity-js/core';\nimport { ChangeApiConfig, GetRequest, LastResponse, Send } from '../../../src';\nimport { actorUsingAMockedAxiosInstance } from '../../actors';\nimport { expect } from '../../expect';\n\n/** @test {ChangeApiConfig} */\ndescribe('ChangeApiConfig', () => {\n\n    const\n        originalUrl             = 'http://localhost/',\n        newUrl                  = 'http://example.com/',\n        originalUrlWithNewPort  = 'http://localhost:8080/';\n\n    describe('when changing the API URL', () => {\n\n        const { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });\n\n        beforeEach(() => {\n            mock.onGet(originalUrl).reply(500);\n            mock.onGet(newUrl).reply(200);\n        });\n\n        afterEach(() =>  mock.reset());\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setUrlTo}\n         */\n        it('changes the base URL used by any subsequent requests', () => actor.attemptsTo(\n            Send.a(GetRequest.to('/')),\n            Ensure.that(LastResponse.status(), equals(500)),\n\n            ChangeApiConfig.setUrlTo(newUrl),\n            Send.a(GetRequest.to('/')),\n            Ensure.that(LastResponse.status(), equals(200)),\n        ));\n    });\n\n    describe('when changing the API port', () => {\n\n        const { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });\n\n        beforeEach(() => {\n            mock.onGet(originalUrl).reply(500);\n            mock.onGet(originalUrlWithNewPort).reply(200);\n        });\n\n        afterEach(() =>  mock.reset());\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setPortTo}\n         */\n        it('changes the base URL used by any subsequent requests', () =>\n            actor.attemptsTo(\n                Send.a(GetRequest.to('/')),\n                Ensure.that(LastResponse.status(), equals(500)),\n\n                ChangeApiConfig.setPortTo(8080),\n                Send.a(GetRequest.to('/')),\n                Ensure.that(LastResponse.status(), equals(200)),\n            ));\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setPortTo}\n         */\n        it('complains if the url has not been set prior to attempted port change', () =>\n            expect(actor.attemptsTo(\n                ChangeApiConfig.setUrlTo(undefined),\n                ChangeApiConfig.setPortTo(8080),\n            )).to.be.rejectedWith(LogicError, `Can't change the port of a baseURL that has not been set.`));\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setPortTo}\n         */\n        it('complains if the url to be changed is invalid', () =>\n            expect(actor.attemptsTo(\n                ChangeApiConfig.setUrlTo('invalid'),\n                ChangeApiConfig.setPortTo(8080),\n            )).to.be.rejectedWith(LogicError, `Could not change the API port`));\n    });\n\n    describe('when setting a request header', () => {\n\n        const { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });\n\n        beforeEach(() => {\n            const dataMatcher = undefined;\n            mock.onGet(originalUrl, dataMatcher).replyOnce(401);\n            mock.onGet(originalUrl, dataMatcher, {\n                'Accept': 'application/json, text/plain, */*',\n                'Authorization': 'my-token'\n            }).replyOnce(200);\n        });\n\n        afterEach(() =>  mock.reset());\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setHeader}\n         */\n        it('sets a header to be used by any subsequent requests', () =>\n            actor.attemptsTo(\n                Send.a(GetRequest.to('/')),\n                Ensure.that(LastResponse.status(), equals(401)),\n\n                ChangeApiConfig.setHeader('Authorization', 'my-token'),\n                Send.a(GetRequest.to('/')),\n                Ensure.that(LastResponse.status(), equals(200)),\n            ));\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setHeader}\n         */\n        it('complains if the name of the header is empty', () =>\n            expect(actor.attemptsTo(\n                ChangeApiConfig.setHeader('', 'value'),\n            )).to.be.rejectedWith(LogicError, `Looks like the name of the header is missing, \"\" given`));\n\n        /**\n         * @test {ChangeApiConfig}\n         * @test {ChangeApiConfig.setHeader}\n         */\n        it('complains if the name of the header is undefined', () =>\n            expect(actor.attemptsTo(\n                ChangeApiConfig.setHeader(undefined, 'value'),\n            )).to.be.rejectedWith(LogicError, `Looks like the name of the header is missing, \"undefined\" given`));\n    });\n});\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/rest/spec/screenplay/interactions/ChangeAPIConfig.spec.ts",
     "access": null,
@@ -5503,7 +5641,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 334,
+    "__docId__": 339,
     "kind": "test",
     "name": "describe43",
     "testId": 43,
@@ -5519,7 +5657,7 @@
     ]
   },
   {
-    "__docId__": 335,
+    "__docId__": 340,
     "kind": "test",
     "name": "describe44",
     "testId": 44,
@@ -5532,7 +5670,7 @@
     "lineNumber": 17
   },
   {
-    "__docId__": 336,
+    "__docId__": 341,
     "kind": "test",
     "name": "it45",
     "testId": 45,
@@ -5549,7 +5687,7 @@
     ]
   },
   {
-    "__docId__": 337,
+    "__docId__": 342,
     "kind": "test",
     "name": "describe46",
     "testId": 46,
@@ -5562,7 +5700,7 @@
     "lineNumber": 42
   },
   {
-    "__docId__": 338,
+    "__docId__": 343,
     "kind": "test",
     "name": "it47",
     "testId": 47,
@@ -5579,7 +5717,7 @@
     ]
   },
   {
-    "__docId__": 339,
+    "__docId__": 344,
     "kind": "test",
     "name": "it48",
     "testId": 48,
@@ -5589,14 +5727,14 @@
     "longname": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43.describe46.it48",
     "access": null,
     "description": "complains if the url has not been set prior to attempted port change",
-    "lineNumber": 70,
+    "lineNumber": 71,
     "testTargets": [
       "ChangeApiConfig",
       "ChangeApiConfig.setPortTo"
     ]
   },
   {
-    "__docId__": 340,
+    "__docId__": 345,
     "kind": "test",
     "name": "it49",
     "testId": 49,
@@ -5606,14 +5744,78 @@
     "longname": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43.describe46.it49",
     "access": null,
     "description": "complains if the url to be changed is invalid",
-    "lineNumber": 79,
+    "lineNumber": 81,
     "testTargets": [
       "ChangeApiConfig",
       "ChangeApiConfig.setPortTo"
     ]
   },
   {
-    "__docId__": 341,
+    "__docId__": 346,
+    "kind": "test",
+    "name": "describe50",
+    "testId": 50,
+    "memberof": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43",
+    "testDepth": 1,
+    "static": true,
+    "longname": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43.describe50",
+    "access": null,
+    "description": "when setting a request header",
+    "lineNumber": 88
+  },
+  {
+    "__docId__": 347,
+    "kind": "test",
+    "name": "it51",
+    "testId": 51,
+    "memberof": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43.describe50",
+    "testDepth": 2,
+    "static": true,
+    "longname": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43.describe50.it51",
+    "access": null,
+    "description": "sets a header to be used by any subsequent requests",
+    "lineNumber": 107,
+    "testTargets": [
+      "ChangeApiConfig",
+      "ChangeApiConfig.setHeader"
+    ]
+  },
+  {
+    "__docId__": 348,
+    "kind": "test",
+    "name": "it52",
+    "testId": 52,
+    "memberof": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43.describe50",
+    "testDepth": 2,
+    "static": true,
+    "longname": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43.describe50.it52",
+    "access": null,
+    "description": "complains if the name of the header is empty",
+    "lineNumber": 121,
+    "testTargets": [
+      "ChangeApiConfig",
+      "ChangeApiConfig.setHeader"
+    ]
+  },
+  {
+    "__docId__": 349,
+    "kind": "test",
+    "name": "it53",
+    "testId": 53,
+    "memberof": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43.describe50",
+    "testDepth": 2,
+    "static": true,
+    "longname": "spec/screenplay/interactions/ChangeAPIConfig.spec.ts~describe43.describe50.it53",
+    "access": null,
+    "description": "complains if the name of the header is undefined",
+    "lineNumber": 130,
+    "testTargets": [
+      "ChangeApiConfig",
+      "ChangeApiConfig.setHeader"
+    ]
+  },
+  {
+    "__docId__": 350,
     "kind": "testFile",
     "name": "spec/screenplay/interactions/Send.spec.ts",
     "content": "import 'mocha';\n\nimport axios from 'axios';\nimport MockAdapter from 'axios-mock-adapter';\n\nimport { EventRecorder } from '@integration/testing-tools';\nimport { Ensure, equals } from '@serenity-js/assertions';\nimport { Serenity } from '@serenity-js/core';\nimport { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';\nimport { HTTPRequestResponse } from '@serenity-js/core/lib/model';\nimport { Clock } from '@serenity-js/core/lib/stage';\n\nimport { GetRequest, LastResponse, Send } from '../../../src';\nimport { actorUsingAMockedAxiosInstance, APIActors } from '../../actors';\nimport { expect } from '../../expect';\n\n/** @test {Send} */\ndescribe('Send', () => {\n\n    interface ExampleResponse {\n        id: number;\n    }\n\n    /**\n     * @test {Send.a}\n     * @test {HTTPRequest}\n     * @test {GetRequest.to}\n     * @test {LastResponse.status}\n     * @test {LastResponse.body}\n     */\n    it('enables the actor to send a HTTPRequest', () => {\n        const { actor, mock } = actorUsingAMockedAxiosInstance();\n\n        mock.onGet('/products/2').reply(200, {\n            id: 2,\n        });\n\n        return actor.attemptsTo(\n            Send.a(GetRequest.to('/products/2')),\n            Ensure.that(LastResponse.status(), equals(200)),\n            Ensure.that(LastResponse.body<ExampleResponse>(), equals({ id: 2 })),\n        );\n    });\n\n    /**\n     * @test {Send.a}\n     * @test {HTTPRequest}\n     * @test {GetRequest.to}\n     * @test {LastResponse.status}\n     * @test {LastResponse.body}\n     */\n    it('enables the actor to send an Axios Request', () => {\n        const { actor, mock } = actorUsingAMockedAxiosInstance();\n\n        mock.onGet('/products/2').reply(200, {\n            id: 2,\n        });\n\n        return actor.attemptsTo(\n            Send.a({\n                method: 'get',\n                url: '/products/2',\n            }),\n            Ensure.that(LastResponse.status(), equals(200)),\n            Ensure.that(LastResponse.body<ExampleResponse>(), equals({ id: 2 })),\n        );\n    });\n\n    /**\n     * @test {Send.a}\n     * @test {HTTPRequest}\n     * @test {GetRequest.to}\n     */\n    it('emits the events so that the details of the HTTP interaction can be reported', () => {\n        const frozenClock = new Clock(() => new Date('1970-01-01'));\n        const axiosInstance = axios.create({\n            baseURL: 'https://myapp.com/api'\n        });\n        const mock     = new MockAdapter(axiosInstance);\n        const serenity = new Serenity(frozenClock);\n        const recorder = new EventRecorder();\n\n        serenity.configure({\n            actors: new APIActors(axiosInstance),\n            crew: [ recorder ],\n        });\n\n        mock.onGet('products/2').reply(200, {   // axios-mock-adapter doesn't resolve baseUrl; it should've really been mock.onGet('/api/products/2')\n            id: 2,\n        }, {\n            'Content-Type': 'application/json',\n        });\n\n        return serenity.theActorCalled('Apisitt').attemptsTo(\n            Send.a(GetRequest.to('products/2')),\n        ).then(() => {\n            const events = recorder.events;\n\n            expect(events).to.have.lengthOf(3);\n            expect(events[ 0 ]).to.be.instanceOf(ActivityStarts);\n            expect(events[ 1 ]).to.be.instanceOf(ActivityRelatedArtifactGenerated);\n            expect(events[ 2 ]).to.be.instanceOf(ActivityFinished);\n\n            const artifactGenerated = events[ 1 ] as ActivityRelatedArtifactGenerated;\n\n            expect(artifactGenerated.name.value).to.equal(`GET https://myapp.com/api/products/2`);\n            expect(artifactGenerated.artifact.equals(HTTPRequestResponse.fromJSON({\n                request: {\n                    method: 'get',\n                    url: 'https://myapp.com/api/products/2',\n                    headers: { Accept: 'application/json, text/plain, */*' },\n                },\n                response: {\n                    status: 200,\n                    headers: {\n                        'Content-Type': 'application/json',\n                    },\n                    data: { id: 2 },\n                },\n            }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));\n\n            expect(artifactGenerated.timestamp.equals(frozenClock.now()))\n                .to.equal(true, artifactGenerated.timestamp.toString());\n        });\n    });\n});\n",
@@ -5624,14 +5826,14 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 342,
+    "__docId__": 351,
     "kind": "test",
-    "name": "describe50",
-    "testId": 50,
+    "name": "describe54",
+    "testId": 54,
     "memberof": "spec/screenplay/interactions/Send.spec.ts",
     "testDepth": 0,
     "static": true,
-    "longname": "spec/screenplay/interactions/Send.spec.ts~describe50",
+    "longname": "spec/screenplay/interactions/Send.spec.ts~describe54",
     "access": null,
     "description": "Send",
     "lineNumber": 18,
@@ -5640,14 +5842,14 @@
     ]
   },
   {
-    "__docId__": 343,
+    "__docId__": 352,
     "kind": "test",
-    "name": "it51",
-    "testId": 51,
-    "memberof": "spec/screenplay/interactions/Send.spec.ts~describe50",
+    "name": "it55",
+    "testId": 55,
+    "memberof": "spec/screenplay/interactions/Send.spec.ts~describe54",
     "testDepth": 1,
     "static": true,
-    "longname": "spec/screenplay/interactions/Send.spec.ts~describe50.it51",
+    "longname": "spec/screenplay/interactions/Send.spec.ts~describe54.it55",
     "access": null,
     "description": "enables the actor to send a HTTPRequest",
     "lineNumber": 49,
@@ -5660,14 +5862,14 @@
     ]
   },
   {
-    "__docId__": 344,
+    "__docId__": 353,
     "kind": "test",
-    "name": "it52",
-    "testId": 52,
-    "memberof": "spec/screenplay/interactions/Send.spec.ts~describe50",
+    "name": "it56",
+    "testId": 56,
+    "memberof": "spec/screenplay/interactions/Send.spec.ts~describe54",
     "testDepth": 1,
     "static": true,
-    "longname": "spec/screenplay/interactions/Send.spec.ts~describe50.it52",
+    "longname": "spec/screenplay/interactions/Send.spec.ts~describe54.it56",
     "access": null,
     "description": "enables the actor to send an Axios Request",
     "lineNumber": 70,
@@ -5680,14 +5882,14 @@
     ]
   },
   {
-    "__docId__": 345,
+    "__docId__": 354,
     "kind": "test",
-    "name": "it53",
-    "testId": 53,
-    "memberof": "spec/screenplay/interactions/Send.spec.ts~describe50",
+    "name": "it57",
+    "testId": 57,
+    "memberof": "spec/screenplay/interactions/Send.spec.ts~describe54",
     "testDepth": 1,
     "static": true,
-    "longname": "spec/screenplay/interactions/Send.spec.ts~describe50.it53",
+    "longname": "spec/screenplay/interactions/Send.spec.ts~describe54.it57",
     "access": null,
     "description": "emits the events so that the details of the HTTP interaction can be reported",
     "lineNumber": 92,
@@ -5698,7 +5900,7 @@
     ]
   },
   {
-    "__docId__": 346,
+    "__docId__": 355,
     "kind": "testFile",
     "name": "spec/screenplay/questions/LastResponse.spec.ts",
     "content": "import 'mocha';\n\nimport { Ensure, equals } from '@serenity-js/assertions';\nimport { LogicError } from '@serenity-js/core';\nimport { GetRequest, LastResponse, Send } from '../../../src';\nimport { actorUsingAMockedAxiosInstance } from '../../actors';\nimport { expect } from '../../expect';\n\n/** @test {LastResponse} */\ndescribe('LastResponse', () => {\n\n    const { actor, mock } = actorUsingAMockedAxiosInstance();\n\n    afterEach(() =>  mock.reset());\n\n    describe('when asserting on the response to the last HTTP request', () => {\n\n        interface Product {\n            id: number;\n            name: string;\n        }\n\n        const\n            url     = '/products/2',\n            body    = { id: 2, name: 'apple' },\n            headers = { 'Content-Type': 'application/json;charset=utf-8' };\n\n        beforeEach(() =>  mock.onGet(url).reply(200, body, headers));\n\n        /**\n         * @test {LastResponse}\n         * @test {LastResponse.status}\n         */\n        it('enables access to the response status', () => actor.attemptsTo(\n            Send.a(GetRequest.to(url)),\n            Ensure.that(LastResponse.status(), equals(200)),\n        ));\n\n        /**\n         * @test {LastResponse}\n         * @test {LastResponse.body}\n         */\n        it('enables access to the response body', () => actor.attemptsTo(\n            Send.a(GetRequest.to(url)),\n            Ensure.that(LastResponse.body<Product>(), equals(body)),\n        ));\n\n        /**\n         * @test {LastResponse}\n         * @test {LastResponse.header}\n         */\n        it('enables access to a specific response header', () => actor.attemptsTo(\n            Send.a(GetRequest.to(url)),\n            Ensure.that(LastResponse.header('Content-Type'), equals(headers['Content-Type'])),\n        ));\n\n        /**\n         * @test {LastResponse}\n         * @test {LastResponse.headers}\n         */\n        it('enables access to all response headers', () => actor.attemptsTo(\n            Send.a(GetRequest.to(url)),\n            Ensure.that(LastResponse.headers(), equals(headers)),\n        ));\n    });\n\n    /**\n     * @test {CallAnApi.mapLastResponse}\n     */\n    it('complains if the last response is attempted to be retrieved without making a request first', () =>\n        expect(actor.attemptsTo(\n            Ensure.that(LastResponse.status(), equals(200)),\n        )).to.be.rejectedWith(LogicError, 'Make sure to perform a HTTP API call before checking on the response'),\n    );\n});\n",
@@ -5709,14 +5911,14 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 347,
+    "__docId__": 356,
     "kind": "test",
-    "name": "describe54",
-    "testId": 54,
+    "name": "describe58",
+    "testId": 58,
     "memberof": "spec/screenplay/questions/LastResponse.spec.ts",
     "testDepth": 0,
     "static": true,
-    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe54",
+    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe58",
     "access": null,
     "description": "LastResponse",
     "lineNumber": 10,
@@ -5725,27 +5927,27 @@
     ]
   },
   {
-    "__docId__": 348,
+    "__docId__": 357,
     "kind": "test",
-    "name": "describe55",
-    "testId": 55,
-    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe54",
+    "name": "describe59",
+    "testId": 59,
+    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe58",
     "testDepth": 1,
     "static": true,
-    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe54.describe55",
+    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe58.describe59",
     "access": null,
     "description": "when asserting on the response to the last HTTP request",
     "lineNumber": 16
   },
   {
-    "__docId__": 349,
+    "__docId__": 358,
     "kind": "test",
-    "name": "it56",
-    "testId": 56,
-    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe54.describe55",
+    "name": "it60",
+    "testId": 60,
+    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe58.describe59",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe54.describe55.it56",
+    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe58.describe59.it60",
     "access": null,
     "description": "enables access to the response status",
     "lineNumber": 63,
@@ -5755,14 +5957,14 @@
     ]
   },
   {
-    "__docId__": 350,
+    "__docId__": 359,
     "kind": "test",
-    "name": "it57",
-    "testId": 57,
-    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe54.describe55",
+    "name": "it61",
+    "testId": 61,
+    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe58.describe59",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe54.describe55.it57",
+    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe58.describe59.it61",
     "access": null,
     "description": "enables access to the response body",
     "lineNumber": 72,
@@ -5772,14 +5974,14 @@
     ]
   },
   {
-    "__docId__": 351,
+    "__docId__": 360,
     "kind": "test",
-    "name": "it58",
-    "testId": 58,
-    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe54.describe55",
+    "name": "it62",
+    "testId": 62,
+    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe58.describe59",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe54.describe55.it58",
+    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe58.describe59.it62",
     "access": null,
     "description": "enables access to a specific response header",
     "lineNumber": 81,
@@ -5789,14 +5991,14 @@
     ]
   },
   {
-    "__docId__": 352,
+    "__docId__": 361,
     "kind": "test",
-    "name": "it59",
-    "testId": 59,
-    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe54.describe55",
+    "name": "it63",
+    "testId": 63,
+    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe58.describe59",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe54.describe55.it59",
+    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe58.describe59.it63",
     "access": null,
     "description": "enables access to all response headers",
     "lineNumber": 90,
@@ -5806,14 +6008,14 @@
     ]
   },
   {
-    "__docId__": 353,
+    "__docId__": 362,
     "kind": "test",
-    "name": "it60",
-    "testId": 60,
-    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe54",
+    "name": "it64",
+    "testId": 64,
+    "memberof": "spec/screenplay/questions/LastResponse.spec.ts~describe58",
     "testDepth": 1,
     "static": true,
-    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe54.it60",
+    "longname": "spec/screenplay/questions/LastResponse.spec.ts~describe58.it64",
     "access": null,
     "description": "complains if the last response is attempted to be retrieved without making a request first",
     "lineNumber": 99,
@@ -5822,7 +6024,7 @@
     ]
   },
   {
-    "__docId__": 354,
+    "__docId__": 363,
     "kind": "testFile",
     "name": "spec/setup.spec.ts",
     "content": "import 'mocha';\n\nimport { configure } from '@serenity-js/core';\n\nbeforeEach(() => configure({}));\n",

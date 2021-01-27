@@ -144,7 +144,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber68">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber86">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -175,15 +175,15 @@
     <h4 id="examples">Examples:</h4>
     
   <div class="example-doc" data-ice="exampleDoc">
-      <div class="example-caption" data-ice="exampleCaption">Changing API URL</div>
+      <div class="example-caption" data-ice="exampleCaption">Changing API URL for all subsequent requests</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
  <span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
  <span class="hljs-keyword">import</span> { protractor, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+ <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
+ <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisitt'</span>).whoCan(
      BrowseTheWeb.using(protractor.browser),
 
      <span class="hljs-comment">// Note: no default base URL is given when the axios instance is created</span>
@@ -209,21 +209,40 @@
  );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
-      <div class="example-caption" data-ice="exampleCaption">Changing API port</div>
+      <div class="example-caption" data-ice="exampleCaption">Changing API port for all subsequent requests</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
  <span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>;
  <span class="hljs-keyword">import</span> { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
+ <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisitt'</span>).whoCan(
      ManageALocalServer.runningAHttpListener(someServer),
-     CallAnApi.at(http:<span class="hljs-comment">//localhost),</span>
+     CallAnApi.at(<span class="hljs-string">'http://localhost'</span>),
  );
 
  actor.attemptsTo(
-    StartALocalServer.onRandomPort(),
-    ChangeApiConfig.setPortTo(LocalServer.port()),
-    Send.a(GetRequest.to(<span class="hljs-string">'/api'</span>)),
-    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+     StartALocalServer.onRandomPort(),
+     ChangeApiConfig.setPortTo(LocalServer.port()),
+     Send.a(GetRequest.to(<span class="hljs-string">'/api'</span>)),
+     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+ );</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Setting a header for all subsequent requests</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+
+ <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisitt'</span>).whoCan(
+     CallAnApi.at(<span class="hljs-string">'http://localhost'</span>),
+ );
+
+ <span class="hljs-comment">// A sample Question reading Node process environment variable</span>
+ <span class="hljs-keyword">const</span> EnvVar = <span class="hljs-function">(<span class="hljs-params">var_name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+     Question.about(<span class="hljs-string">`<span class="hljs-subst">${ name }</span> environment variable`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> process.env[var_name]);
+
+ actor.attemptsTo(
+     ChangeApiConfig.header(<span class="hljs-string">'Authorization'</span>, EnvVar(<span class="hljs-string">'TOKEN'</span>)),
+     Send.a(GetRequest.to(<span class="hljs-string">'/api'</span>)),
+     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
  );</code></pre>
     </div>
 </div>
@@ -235,8 +254,11 @@
     <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber10">ChangeApiConfig</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber32">ChangeApiConfig when changing the API URL changes the base URL used by any subsequent requests</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber57">ChangeApiConfig when changing the API port changes the base URL used by any subsequent requests</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber70">ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber79">ChangeApiConfig when changing the API port complains if the url to be changed is invalid</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber71">ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber81">ChangeApiConfig when changing the API port complains if the url to be changed is invalid</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber107">ChangeApiConfig when setting a request header sets a header to be used by any subsequent requests</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber121">ChangeApiConfig when setting a request header complains if the name of the header is empty</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber130">ChangeApiConfig when setting a request header complains if the name of the header is undefined</a></span></li>
 </ul>
   </div>
 
@@ -251,6 +273,39 @@
   <tbody>
   
   <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html#static-method-setHeader">setHeader</a></span></span><span class="code" data-ice="signature">(name: <span>Answerable</span>&lt;<span>string</span>&gt;, value: <span>Answerable</span>&lt;<span>string</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to modify the configuration of the <span><a href="https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L130">AxiosInstance</a></span>
+ used by <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span> <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span>
+ and set a HTTP request header for any subsequent <span><a href="class/src/model/HTTPRequest.ts~HTTPRequest.html">HTTPRequest</a></span>
+ issued via <span><a href="class/src/screenplay/interactions/Send.ts~Send.html">Send</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
       <span data-ice="static">static</span>
@@ -323,6 +378,96 @@
 <div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-setHeader">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">setHeader</span><span class="code" data-ice="signature">(name: <span>Answerable</span>&lt;<span>string</span>&gt;, value: <span>Answerable</span>&lt;<span>string</span>&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber172">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ to modify the configuration of the <span><a href="https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L130">AxiosInstance</a></span>
+ used by <span><a href="class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html">CallAnApi</a></span> <span><a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html">Ability</a></span>
+ and set a HTTP request header for any subsequent <span><a href="class/src/model/HTTPRequest.ts~HTTPRequest.html">HTTPRequest</a></span>
+ issued via <span><a href="class/src/screenplay/interactions/Send.ts~Send.html">Send</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">name</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>string</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">value</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>string</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber107">ChangeApiConfig when setting a request header sets a header to be used by any subsequent requests</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber121">ChangeApiConfig when setting a request header complains if the name of the header is empty</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber130">ChangeApiConfig when setting a request header complains if the name of the header is undefined</a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-method-setPortTo">
     <span class="access" data-ice="access">public</span>
     <span data-ice="static">static</span>
@@ -334,7 +479,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber120">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber138">source</a></span></span>
     </span>
   </h3>
 
@@ -395,8 +540,8 @@
     <ul>
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber57">ChangeApiConfig when changing the API port changes the base URL used by any subsequent requests</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber70">ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber79">ChangeApiConfig when changing the API port complains if the url to be changed is invalid</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber71">ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber81">ChangeApiConfig when changing the API port complains if the url to be changed is invalid</a></span></li>
 </ul>
   </div>
 
@@ -415,7 +560,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber93">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber111">source</a></span></span>
     </span>
   </h3>
 
