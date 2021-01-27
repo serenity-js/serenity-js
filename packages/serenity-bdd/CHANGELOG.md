@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.21.0](https://github.com/serenity-js/serenity-js/compare/v2.20.1...v2.21.0) (2021-01-26)
+
+
+### Bug Fixes
+
+* **rest:** upgraded Axios to 0.21.1 ([4b08f90](https://github.com/serenity-js/serenity-js/commit/4b08f90cc42bd7ec1f5a6e3006dfffe2aaa72477))
+* **serenity-bdd:** corrected reporting of errors thrown in non-Screenplay scenarios ([dedf3ae](https://github.com/serenity-js/serenity-js/commit/dedf3ae47212e0830284af5a6ea26c9c652c7c9b))
+* **serenity-bdd:** improved reporting of unusual "errors" ([8c2a850](https://github.com/serenity-js/serenity-js/commit/8c2a8501a4395d74b731c13c1a99a89abd966fc4)), closes [#549](https://github.com/serenity-js/serenity-js/issues/549)
+
+
+### Features
+
+* **core:** SceneFinishes informs StageCrewMembers about the Outcome of the scenario ([abfca70](https://github.com/serenity-js/serenity-js/commit/abfca70e91633c068617d8d273a302aaab692265))
+
+
+
+
+
 ## [2.20.1](https://github.com/serenity-js/serenity-js/compare/v2.20.0...v2.20.1) (2021-01-23)
 
 
