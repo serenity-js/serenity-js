@@ -71,7 +71,7 @@ import { CallAnApi } from '../abilities';
  *      Question.about(`${ name } environment variable`, actor => process.env[var_name]);
  *
  *  actor.attemptsTo(
- *      ChangeApiConfig.header('Authorization', EnvVar('TOKEN')),
+ *      ChangeApiConfig.setHeader('Authorization', EnvVar('TOKEN')),
  *      Send.a(GetRequest.to('/api')),
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );
