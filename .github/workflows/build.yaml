@@ -8,9 +8,10 @@ on:
 jobs:
   build:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ ubuntu-latest, windows-latest ]
         node-version: [ 10.x, 12.x, 14.x ]
 
     steps:
@@ -19,6 +20,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
       - name: Update Chrome
+        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get --only-upgrade install google-chrome-stable
@@ -46,13 +48,13 @@ jobs:
         run: make clean verify report
 
       - name: Publish coverage
-        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
+        if: matrix.node-version == '14.x' && matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
         run: npm run coverage:publish
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
       - name: Publish artifacts
-        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
+        if: matrix.node-version == '14.x' && matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
         run: npm run lerna:publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -62,7 +64,7 @@ jobs:
         run: make site
 
       - name: Publish site
-        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
+        if: matrix.node-version == '14.x' && matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
         run: npm run site:publish
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
