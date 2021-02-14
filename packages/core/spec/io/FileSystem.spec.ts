@@ -78,7 +78,8 @@ describe ('FileSystem', () => {
                 dest = new Path('outlet/some.png');
 
             return expect(out.store(dest, imageBuffer)).to.be.fulfilled.then(absolutePath => {
-                expect(absolutePath.value).to.equal(processCWD.join(dest).value);
+                const expected = processCWD.join(dest).value;
+                expect(absolutePath.value).to.match(new RegExp('([A-Z]:)?' + expected + '$'));
             });
         });
     });
