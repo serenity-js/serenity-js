@@ -13,7 +13,7 @@ import { Perform } from '../fixtures';
 
 describe('Photographer', function () {
 
-    this.timeout(30 * 1000);
+    this.timeout(60 * 1000);
 
     describe('when instructed to take photos before and after all interactions', () => {
 
