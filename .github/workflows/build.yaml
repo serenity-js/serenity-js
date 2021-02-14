@@ -55,19 +55,18 @@ jobs:
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
         with:
           retention-days: 3
-          name: compiled
+          name: packages
           path: |
             packages/*/lib/**/*
+            package.json
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
         with:
           retention-days: 3
-          name: reports-and-documentation
+          name: reports
           path: |
-            documentation/*/target/**/*
-            integration/*/target/**/*
-            packages/*/target/**/*
             target/**/*
+            package.json
 
 #  build:
 #    if: "!contains(github.event.head_commit.message, 'ci skip')"
