@@ -13,7 +13,7 @@ import { Perform } from '../fixtures';
 
 describe('Photographer', function () {
 
-    this.timeout(5000);
+    this.timeout(30 * 1000);
 
     describe('when instructed to take photos before and after all interactions', () => {
 
@@ -22,7 +22,7 @@ describe('Photographer', function () {
             recorder: EventRecorder;
 
         beforeEach(() => {
-            const testSubject = create(Duration.ofSeconds(3));
+            const testSubject = create(Duration.ofSeconds(10));
             stage = testSubject.stage;
             recorder = testSubject.recorder;
 
@@ -46,12 +46,14 @@ describe('Photographer', function () {
                     });
             })));
 
-        it('takes a photo when a problem occurs', () =>
+        it.only('takes a photo when a problem occurs', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
                 const events = recorder.events.map(event => JSON.stringify(event.toJSON(), null, 0)).join('\n');
+
+                console.log(events);
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
