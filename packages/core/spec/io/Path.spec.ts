@@ -84,7 +84,7 @@ describe ('Path', () => {
             p1 = new Path('/home/jan/documents'),
             p2 = new Path('../projects');
 
-        expect(p1.resolve(p2)).to.equal(new Path('/home/jan/projects'));
+        expect(p1.resolve(p2)).to.equal(new Path('/').join(new Path('/home/jan/projects')));
     });
 
     /** @test {Path} */

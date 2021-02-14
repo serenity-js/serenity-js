@@ -78,7 +78,7 @@ describe ('FileSystem', () => {
                 dest = new Path('outlet/some.png');
 
             return expect(out.store(dest, imageBuffer)).to.be.fulfilled.then(absolutePath => {
-                expect(absolutePath.equals(processCWD.join(dest))).to.equal(true);
+                expect(absolutePath.value).to.equal(processCWD.join(dest).value);
             });
         });
     });
