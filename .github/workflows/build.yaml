@@ -16,53 +16,53 @@ jobs:
       fail-fast: false    # todo: remove
       max-parallel: 6
 
-  steps:
-    - uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GH_TOKEN }}
-        fetch-depth: 0
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
 
-    - name: Update Chrome #todo: consider embedding chrome
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        sudo apt-get update
-        sudo apt-get --only-upgrade install google-chrome-stable
-        google-chrome --version
-    - uses: ./.github/actions/setup-lerna
-      with:
-        github_token:   ${{ secrets.GH_TOKEN }}
-        git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-        git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
-        npm_token:      ${{ secrets.NPM_TOKEN }}
+      - name: Update Chrome #todo: consider embedding chrome
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get --only-upgrade install google-chrome-stable
+          google-chrome --version
+      - uses: ./.github/actions/setup-lerna
+        with:
+          github_token:   ${{ secrets.GH_TOKEN }}
+          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
+          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
+          npm_token:      ${{ secrets.NPM_TOKEN }}
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - run: npm ci
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
 
-    - name: Verify
-      run: make clean verify
+      - name: Verify
+        run: make clean verify
 
-    - uses: actions/upload-artifact@v2
-      if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
-      with:
-        retention-days: 3
-        name: artifacts
-        path: |
-          documentation/*/lib/**/*
-          documentation/*/target/**/*
-          integration/*/lib/**/*
-          integration/*/target/**/*
-          packages/*/lib/**/*
-          packages/*/target/**/*
-          target/**/*
+      - uses: actions/upload-artifact@v2
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
+        with:
+          retention-days: 3
+          name: artifacts
+          path: |
+            documentation/*/lib/**/*
+            documentation/*/target/**/*
+            integration/*/lib/**/*
+            integration/*/target/**/*
+            packages/*/lib/**/*
+            packages/*/target/**/*
+            target/**/*
 
 #  build:
 #    if: "!contains(github.event.head_commit.message, 'ci skip')"
