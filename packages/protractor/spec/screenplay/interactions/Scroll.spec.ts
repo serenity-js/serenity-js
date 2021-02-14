@@ -14,7 +14,7 @@ describe('Scroll', function () {
     const aLongSpell = pageFromTemplate(`
         <html>
             <body style="margin:0; padding:0 0 1024px 0;">
-                <input type="submit" value="Cast!" id="cast" style="margin-top:1024px;" />
+                <input type="submit" value="Cast!" id="cast" style="margin-top:10000px;" />
             </body>
         </html>
     `);
@@ -28,12 +28,12 @@ describe('Scroll', function () {
         Navigate.to(aLongSpell),
 
         ExecuteScript.sync(`return arguments[0].getBoundingClientRect().top;`).withArguments(Page.Execute_Button),
-        Ensure.that(LastScriptExecution.result<number>(), isGreaterThan(1000)),
+        Ensure.that(LastScriptExecution.result<number>(), isGreaterThan(9000)),
 
         Scroll.to(Page.Execute_Button),
 
         ExecuteScript.sync(`return arguments[0].getBoundingClientRect().top;`).withArguments(Page.Execute_Button),
-        Ensure.that(LastScriptExecution.result<number>(), isLessThan(1000)),
+        Ensure.that(LastScriptExecution.result<number>(), isLessThan(9000)),
     ));
 
     /** @test {Scroll.to} */
