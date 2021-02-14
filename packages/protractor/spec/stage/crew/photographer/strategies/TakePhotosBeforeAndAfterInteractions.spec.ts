@@ -46,7 +46,7 @@ describe('Photographer', function () {
                     });
             })));
 
-        it.only('takes a photo when a problem occurs', () =>
+        it('takes a photo when a problem occurs', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
