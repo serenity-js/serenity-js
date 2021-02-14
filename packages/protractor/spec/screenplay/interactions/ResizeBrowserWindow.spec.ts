@@ -33,7 +33,7 @@ describe('ResizeBrowserWindow', () => {
             actorCalled('Nick').attemptsTo(
                 ResizeBrowserWindow.toMaximum(),
                 TakeNote.of(Window.size()),
-                ResizeBrowserWindow.to(480, 640),
+                ResizeBrowserWindow.to(1024, 768),
                 ResizeBrowserWindow.toMaximum(),
                 Ensure.that(Note.of(Window.size()), equals(Window.size())),
             ));
