@@ -63,6 +63,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Site
+        if: matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
         run: make site
 
       - name: Publish site
