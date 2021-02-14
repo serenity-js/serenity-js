@@ -79,6 +79,7 @@ describe('StageManager', () => {
         return expect(stageManager.waitForNextCue()).to.be.rejected.then(error => {
             const lines = error.message.split('\n');
 
+            expect(lines, error.message + '\n').to.have.lengthOf(3);
             expect(lines[0]).to.equal('2 async operations have failed to complete within a 250ms cue timeout:');
             expect(lines[1], error.message).to.match(/^[\d]+ms - \[Service 1] Starting...$/);
             expect(lines[2], error.message).to.match(/^[\d]+ms - \[Service 2] Starting...$/);
