@@ -10,6 +10,8 @@ import { Browser, ExecuteScript, Navigate, Target, Text } from '../../../../src'
 /** @test {ExecuteScript} */
 describe('ExecuteScriptFromUrl', function () {
 
+    this.timeout(10 * 1000);
+
     const
         pathToScript = `file://${ require.resolve('./resources/execute-script-sample.js') }`,
         pathToPage = `file://${ require.resolve('./resources/execute-script-sandbox.html') }`;
@@ -34,7 +36,11 @@ describe('ExecuteScriptFromUrl', function () {
         Navigate.to(pathToPage),
 
         ExecuteScript.from(pathToScript + '.invalid'),
-    )).to.be.rejectedWith(LogicError, `Couldn't load script from ${ pathToScript }.invalid`)
+    )).to.be.rejected
+        .then(error => {
+            expect(error).to.be.instanceOf(LogicError);
+            expect(error.message).to.match(new RegExp(`Couldn't load script from.*?${ pathToScript }.invalid`))
+        })
         .then(() => actorCalled('Joe').attemptsTo(
             Ensure.that(Browser.log(), containAtLeastOneItemThat(property('message', includes('execute-script-sample.js.invalid - Failed to load resource')))),
         )));
