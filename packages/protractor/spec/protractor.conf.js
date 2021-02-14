@@ -9,13 +9,14 @@ exports.config = {
 
     directConnect: true,
 
-    allScriptsTimeout: 10 * 1000,
+    allScriptsTimeout: 30 * 1000,
 
     framework: 'mocha',
 
     specs: [ '**/*.spec.ts' ],
 
     mochaOpts: {
+        timeout: 10 * 1000,
         require: [
             'ts-node/register',
         ],
