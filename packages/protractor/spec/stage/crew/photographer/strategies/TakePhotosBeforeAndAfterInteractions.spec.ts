@@ -51,14 +51,16 @@ describe('Photographer', function () {
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
+                const events = recorder.events.map(event => JSON.stringify(event.toJSON(), null, 0)).join('\n');
+
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/Before Betty fails due to Error$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.name.value, events).to.match(/Before Betty fails due to Error$/);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/After Betty fails due to Error$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.name.value, events).to.match(/After Betty fails due to Error$/);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     });
             })));
 
