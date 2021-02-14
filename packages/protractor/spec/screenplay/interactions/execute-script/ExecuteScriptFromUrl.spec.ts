@@ -13,8 +13,8 @@ describe('ExecuteScriptFromUrl', function () {
     this.timeout(10 * 1000);
 
     const
-        pathToScript = `file://${ require.resolve('./resources/execute-script-sample.js') }`,
-        pathToPage = `file://${ require.resolve('./resources/execute-script-sandbox.html') }`;
+        pathToScript = fileUrl(require.resolve('./resources/execute-script-sample.js')),
+        pathToPage = fileUrl(require.resolve('./resources/execute-script-sandbox.html'));
 
     class Sandbox {
         static Result = Target.the('sandbox result').located(by.id('result'));
@@ -60,4 +60,18 @@ describe('ExecuteScriptFromUrl', function () {
         expect(ExecuteScript.from(pathToScript).toString())
             .to.equal(`#actor executes a script from ${ pathToScript }`);
     });
+
+    // based on https://github.com/sindresorhus/file-url/blob/main/index.js
+    function fileUrl(filePath: string) {
+        let pathName = filePath.replace(/\\/g, '/');
+
+        // Windows drive letter must be prefixed with a slash
+        if (pathName[0] !== '/') {
+            pathName = `/${pathName}`;
+        }
+
+        // Escape required characters for path components
+        // See: https://tools.ietf.org/html/rfc3986#section-3.3
+        return encodeURI(`file://${pathName}`).replace(/[?#]/g, encodeURIComponent);
+    }
 });

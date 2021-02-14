@@ -41,6 +41,9 @@ exports.config = {
 
         chromeOptions: {
             args: [
+                '--disable-web-security',
+                '--allow-file-access-from-files',
+                '--allow-file-access',
                 '--disable-infobars',
                 '--headless',
                 '--disable-gpu',
