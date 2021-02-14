@@ -28,6 +28,7 @@ jobs:
           sudo apt-get update
           sudo apt-get --only-upgrade install google-chrome-stable
           google-chrome --version
+
       - uses: ./.github/actions/setup-lerna
         with:
           github_token:   ${{ secrets.GH_TOKEN }}
@@ -54,13 +55,17 @@ jobs:
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
         with:
           retention-days: 3
-          name: artifacts
+          name: compiled
           path: |
-            documentation/*/lib/**/*
-            documentation/*/target/**/*
-            integration/*/lib/**/*
-            integration/*/target/**/*
             packages/*/lib/**/*
+      - uses: actions/upload-artifact@v2
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
+        with:
+          retention-days: 3
+          name: reports-and-documentation
+          path: |
+            documentation/*/target/**/*
+            integration/*/target/**/*
             packages/*/target/**/*
             target/**/*
 
