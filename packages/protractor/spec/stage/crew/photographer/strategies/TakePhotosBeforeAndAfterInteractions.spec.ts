@@ -53,8 +53,6 @@ describe('Photographer', function () {
 
                 const events = recorder.events.map(event => JSON.stringify(event.toJSON(), null, 0)).join('\n');
 
-                console.log(events);
-
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
                         expect(event.name.value, events).to.match(/Before Betty fails due to Error$/);
