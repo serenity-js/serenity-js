@@ -26,7 +26,7 @@ describe('Enter', () => {
                     </form>
                     <script>
                     function update() {
-                      document.getElementById("result").textContent = document.getElementById("field).value;
+                      document.getElementById("result").textContent = document.getElementById("field").value;
                     }
                     </script>
                 </body>
