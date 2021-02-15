@@ -65,9 +65,8 @@ export class Check<Actual> extends Task {
      * @param {...@serenity-js/core/lib/screenplay~Activity[]} alternativeActivities
      * @return {@serenity-js/core/lib/screenplay~Task}
      */
-    otherwise(...alternativeActivities: Activity[]): this {
-        this.alternativeActivities = alternativeActivities;
-        return this;
+    otherwise(...alternativeActivities: Activity[]): Check<Actual> {
+        return new Check(this.actual, this.expectation, this.activities, alternativeActivities);
     }
 
     /**
