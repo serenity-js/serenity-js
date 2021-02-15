@@ -16,21 +16,9 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
 
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+      - uses: ./.github/actions/setup-node-modules
         with:
           node-version: 14.x
-
-      - name: Cache node_modules (Linux)
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
-
-      - run: npm ci
 
       - name: Lint
         run: make lint
@@ -45,21 +33,9 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
 
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+      - uses: ./.github/actions/setup-node-modules
         with:
           node-version: 14.x
-
-      - name: Cache node_modules (Linux)
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
-
-      - run: npm ci
 
       - name: Compile
         run: make compile
@@ -99,37 +75,9 @@ jobs:
           sudo apt-get --only-upgrade install google-chrome-stable
           google-chrome --version
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: ./.github/actions/setup-node-modules
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Cache node_modules (Linux)
-        if: matrix.os == 'ubuntu-latest'
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
-
-      - name: Cache node_modules 1/2 (Windows)
-        if: matrix.os == 'windows-latest'
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Cache node_modules 2/2 (Windows)
-        uses: actions/cache@v2
-        if: matrix.os == 'windows-latest'
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
-
-      - run: npm ci
 
       - uses: actions/download-artifact@v2
         with:
@@ -173,37 +121,9 @@ jobs:
           sudo apt-get --only-upgrade install google-chrome-stable
           google-chrome --version
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: ./.github/actions/setup-node-modules
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Cache node_modules (Linux)
-        if: matrix.os == 'ubuntu-latest'
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
-
-      - name: Cache node_modules 1/2 (Windows)
-        if: matrix.os == 'windows-latest'
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Cache node_modules 2/2 (Windows)
-        uses: actions/cache@v2
-        if: matrix.os == 'windows-latest'
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
-
-      - run: npm ci
 
       - uses: actions/download-artifact@v2
         with:
@@ -221,19 +141,11 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+
+      - uses: ./.github/actions/setup-node-modules
         with:
-          node-version: 14.x
-      - name: Cache node_modules (Linux)
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
-      - run: npm ci
+          node-version: ${{ matrix.node-version }}
+
       - uses: actions/download-artifact@v2
         with:
           name: test-reports
@@ -257,19 +169,10 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+
+      - uses: ./.github/actions/setup-node-modules
         with:
-          node-version: 14.x
-      - name: Cache node_modules (Linux)
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
-      - run: npm ci
+          node-version: ${{ matrix.node-version }}
 
       - name: Build Serenity/JS website
         run: make site
@@ -297,19 +200,10 @@ jobs:
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+
+      - uses: ./.github/actions/setup-node-modules
         with:
-          node-version: 14.x
-      - name: Cache node_modules (Linux)
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
-      - run: npm ci
+          node-version: ${{ matrix.node-version }}
 
       - uses: actions/download-artifact@v2
         with:
