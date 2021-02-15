@@ -38,13 +38,11 @@ describe('Photographer', function () {
                 const events = stringified(recorder.events);
 
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value, events).to.match(/Before Betty succeeds \(#1\)$/);
-                        expect(event.artifact, events).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty fails due to Error'...$/);
                     })
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value, events).to.match(/After Betty succeeds \(#1\)$/);
-                        expect(event.artifact, events).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty fails due to Error'...$/);
                     });
             })));
 
