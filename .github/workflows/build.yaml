@@ -61,11 +61,10 @@ jobs:
 
       - run: npm ci
 
-      - name: Lint
+      - name: Compile
         run: make compile
 
       - uses: actions/upload-artifact@v2
-        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
         with:
           retention-days: 3
           name: compiled-libs
