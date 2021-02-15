@@ -2,13 +2,14 @@ import 'mocha';
 
 import { certificates, expect } from '@integration/testing-tools';
 import { Ensure, equals, isTrue } from '@serenity-js/assertions';
-import { actorCalled, Question, Transform } from '@serenity-js/core';
+import { actorCalled, engage, Question, Transform } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import express = require('express');
 
 import { protractor } from 'protractor';
 import { BrowseTheWeb, DeleteCookies, Navigate } from '../../../src';
 import { Cookie } from '../../../src/screenplay';
+import { UIActors } from '../../UIActors';
 
 describe('Cookie', () => {
 
@@ -29,6 +30,8 @@ describe('Cookie', () => {
     function cookieCutterURLFor(path: string): Question<Promise<string>> {
         return Transform.the(LocalServer.url(), url => `${ url }${ path }`);
     }
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('over HTTP', () => {
 

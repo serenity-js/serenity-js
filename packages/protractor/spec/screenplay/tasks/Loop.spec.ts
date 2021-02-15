@@ -1,11 +1,12 @@
 import 'mocha';
 
 import { Ensure, equals, not } from '@serenity-js/assertions';
-import { actorCalled, Loop } from '@serenity-js/core';
+import { actorCalled, engage, Loop } from '@serenity-js/core';
 
 import { by, ElementFinder } from 'protractor';
 import { Click, isSelected, Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Loop', () => {
 
@@ -52,6 +53,8 @@ describe('Loop', () => {
         Checkbox:   Target.the('checkbox').located(by.tagName('input')),
         Output:     Target.the('output').located(by.id('output')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     it('allows the actor to perform a sequence of activities for every element given', () =>
         actorCalled('Joe').attemptsTo(

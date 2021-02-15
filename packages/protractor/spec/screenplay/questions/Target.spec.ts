@@ -2,10 +2,11 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 import { Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Target} */
 describe('Target', () => {
@@ -36,6 +37,8 @@ describe('Target', () => {
         static Items        = Target.all('items').of(ShoppingList.App).located(by.tagName('li'));
         static Bought_Items = Target.all('bought items').located(by.css('.bought')).of(ShoppingList.List);
     }
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('allows the actor to locate', () => {
 

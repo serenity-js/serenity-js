@@ -1,13 +1,16 @@
 import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Value', () => {
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('of', () => {
 

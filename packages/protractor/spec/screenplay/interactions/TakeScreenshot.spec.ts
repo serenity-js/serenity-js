@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { actorCalled, configure } from '@serenity-js/core';
+import { actorCalled, configure, engage } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
 
 import { Navigate, TakeScreenshot } from '../../../src';
@@ -31,6 +31,8 @@ describe('TakeScreenshot', () => {
                 </body>
             </html>
         `);
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {TakeScreenshot.of} */
     it('allows the actor to take a screenshot with an arbitrary name', () => actorCalled('Bernie').attemptsTo(

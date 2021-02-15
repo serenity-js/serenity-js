@@ -2,15 +2,18 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 
 import { by } from 'protractor';
 import { DoubleClick, Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('DoubleClick', () => {
 
     const Interactive_Element = Target.the('interactive element').located(by.id('double-click-me'));
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {DoubleClick} */
     /** @test {DoubleClick.on} */

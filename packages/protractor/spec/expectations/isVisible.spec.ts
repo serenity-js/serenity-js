@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { actorCalled, AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { isVisible, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
+import { UIActors } from '../UIActors';
 
 describe('isVisible', function () {
 
@@ -15,6 +16,8 @@ describe('isVisible', function () {
         Invisible_Header:      Target.the('invisible header').located(by.tagName('h2')),
         Non_Existent_Header:   Target.the('non-existent header').located(by.tagName('h3')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     beforeEach(() => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`

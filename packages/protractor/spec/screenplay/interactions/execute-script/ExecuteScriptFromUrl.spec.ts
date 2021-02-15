@@ -2,10 +2,11 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
-import { actorCalled, LogicError } from '@serenity-js/core';
+import { actorCalled, engage, LogicError } from '@serenity-js/core';
 
 import { by } from 'protractor';
 import { Browser, ExecuteScript, Navigate, Target, Text } from '../../../../src';
+import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteScript} */
 describe('ExecuteScriptFromUrl', function () {
@@ -19,6 +20,8 @@ describe('ExecuteScriptFromUrl', function () {
     class Sandbox {
         static Result = Target.the('sandbox result').located(by.id('result'));
     }
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {ExecuteScript.from} */
     /** @test {ExecuteScriptFromUrl} */

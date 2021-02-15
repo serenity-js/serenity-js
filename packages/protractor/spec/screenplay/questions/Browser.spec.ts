@@ -1,13 +1,16 @@
 import 'mocha';
 
 import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Browser, Click, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Browser', () => {
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {Browser.log} */
     it('returns no entries if the console log is empty', () => actorCalled('Bernie').attemptsTo(
