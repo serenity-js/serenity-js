@@ -35,14 +35,16 @@ describe('Photographer', function () {
                 Perform.interactionThatSucceeds(1),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
 
+                const events = stringified(recorder.events);
+
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/Before Betty succeeds \(#1\)$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.name.value, events).to.match(/Before Betty succeeds \(#1\)$/);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/After Betty succeeds \(#1\)$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.name.value, events).to.match(/After Betty succeeds \(#1\)$/);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     });
             })));
 
@@ -51,7 +53,7 @@ describe('Photographer', function () {
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
-                const events = recorder.events.map(event => JSON.stringify(event.toJSON(), null, 0)).join('\n');
+                const events = stringified(recorder.events);
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
@@ -73,14 +75,16 @@ describe('Photographer', function () {
                 ),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
+                const events = stringified(recorder.events);
+
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/Before Betty fails due to TypeError$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.name.value, events).to.match(/Before Betty fails due to TypeError$/);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/After Betty fails due to TypeError$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.name.value, events).to.match(/After Betty fails due to TypeError$/);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     });
             })));
 
@@ -132,20 +136,26 @@ describe('Photographer', function () {
             then(() => protractor.browser.getCapabilities()).
             then(capabilities => {
 
+                const events = stringified(recorder.events);
+
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(
+                        expect(event.name.value, events).to.equal(
                             `${ capabilities.get('platform') }-${ capabilities.get('browserName') }-${ capabilities.get('version') }-Before Betty succeeds (#1)`,
                         );
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(
+                        expect(event.name.value, events).to.equal(
                             `${ capabilities.get('platform') }-${ capabilities.get('browserName') }-${ capabilities.get('version') }-After Betty succeeds (#1)`,
                         );
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     });
             })));
+
+        function stringified(events: DomainEvent[]): string {
+            return JSON.stringify(events.map(event => event.toJSON()), null, 4);
+        }
 
         function withCorrelationIdOf(cid: CorrelationId) {
             return (event: DomainEvent) => {
