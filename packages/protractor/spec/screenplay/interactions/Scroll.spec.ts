@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, isGreaterThan, isLessThan } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { ExecuteScript, LastScriptExecution, Navigate, Scroll, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Scroll} */
 describe('Scroll', function () {
@@ -22,6 +23,8 @@ describe('Scroll', function () {
     const Page = {
         Execute_Button: Target.the('"Cast!" button').located(by.id('cast')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {Scroll.to} */
     it('allows the actor to scroll to a given target so that it appears in the viewport', () => actorCalled('Gandalf').attemptsTo(

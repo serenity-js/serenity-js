@@ -2,12 +2,13 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Question } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by, Key } from 'protractor';
 
 import { Navigate, Press, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Press} */
 describe('Press', () => {
@@ -25,6 +26,8 @@ describe('Press', () => {
                 </body>
             </html>
         `);
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('single keys', () => {
 

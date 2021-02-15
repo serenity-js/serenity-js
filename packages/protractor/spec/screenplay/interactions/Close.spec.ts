@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 
 import { by } from 'protractor';
 import { Click, Close, Navigate, Switch, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Close} */
 describe('Close', () => {
@@ -32,6 +33,8 @@ describe('Close', () => {
                     </body>
                 </html>
             `);
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('anyNewWindows()', () => {
 

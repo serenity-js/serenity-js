@@ -2,17 +2,20 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, LogicError } from '@serenity-js/core';
+import { actorCalled, engage, LogicError } from '@serenity-js/core';
 
 import { by } from 'protractor';
 import { Clear, Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Clear', () => {
 
     const Form = {
         Field: Target.the('input field').located(by.id('field')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {Clear} */
     /** @test {Clear.theValueOf} */

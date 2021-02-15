@@ -2,11 +2,14 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, ConfigurationError } from '@serenity-js/core';
+import { actorCalled, ConfigurationError, engage } from '@serenity-js/core';
 
 import { ProtractorParam } from '../../../src';
+import { UIActors } from '../../UIActors';
 
 describe('ProtractorParam', () => {
+
+    beforeEach(() => engage(new UIActors()));
 
     /**
      * @test {ProtractorParam}

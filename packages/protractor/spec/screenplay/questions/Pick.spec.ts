@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { actorCalled, Question } from '@serenity-js/core';
+import { actorCalled, engage, Question } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by, ElementArrayFinder, ElementFinder } from 'protractor';
 import { Click, CSSClasses, Navigate, Pick, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Pick', () => {
 
@@ -46,6 +47,8 @@ describe('Pick', () => {
         static Item_Name    = Target.the('item name').located(by.tagName('span.item-name'));
         static Item_Names   = Target.all('item names').located(by.tagName('span.item-name'));
     }
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('(when no filters are applied)', () => {
 

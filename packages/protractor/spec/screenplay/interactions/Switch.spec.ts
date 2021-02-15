@@ -2,12 +2,13 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, LogicError } from '@serenity-js/core';
+import { actorCalled, engage, LogicError } from '@serenity-js/core';
 import { by } from 'protractor';
 import { error } from 'selenium-webdriver';
 
 import { Click, Close, Navigate, Switch, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Switch} */
 describe('Switch', () => {
@@ -55,6 +56,8 @@ describe('Switch', () => {
                     </body>
                 </html>
             `);
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('when working with frames', () => {
 

@@ -2,7 +2,7 @@ import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
-import { actorCalled, configure } from '@serenity-js/core';
+import { actorCalled, configure, engage } from '@serenity-js/core';
 import { AsyncOperationCompleted, AsyncOperationFailed, InteractionFinished } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
 import { by } from 'protractor';
@@ -17,6 +17,8 @@ describe('ModalDialog,', function () {
         trigger:    Target.the('alert trigger').located(by.id('trigger')),
         result:     Target.the('result').located(by.id('result')),
     }
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('when working with alert(),', () => {
 

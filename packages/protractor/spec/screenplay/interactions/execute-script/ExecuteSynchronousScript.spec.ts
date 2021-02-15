@@ -2,7 +2,7 @@ import 'mocha';
 
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
-import { actorCalled, Question, Serenity } from '@serenity-js/core';
+import { actorCalled, engage, Question, Serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
@@ -28,6 +28,8 @@ describe('ExecuteSynchronousScript', function () {
     class Sandbox {
         static Input = Target.the('input field').located(by.id('name'));
     }
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */

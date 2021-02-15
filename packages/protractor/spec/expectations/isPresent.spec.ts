@@ -2,12 +2,13 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
+import { actorCalled, AssertionError, Duration, engage } from '@serenity-js/core';
 import { ErrorSerialiser } from '@serenity-js/core/lib/io';
 import { by } from 'protractor';
 
 import { isPresent, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
+import { UIActors } from '../UIActors';
 
 describe('isPresent', function () {
 
@@ -15,6 +16,8 @@ describe('isPresent', function () {
         Present_Header:         Target.the('header').located(by.tagName('h1')),
         Non_Existent_Header:    Target.the('non-existent header').located(by.tagName('h2')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     beforeEach(() => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
