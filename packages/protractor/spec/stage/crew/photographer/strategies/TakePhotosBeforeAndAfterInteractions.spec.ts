@@ -39,10 +39,10 @@ describe('Photographer', function () {
 
                 PickEvent.from(recorder.events)
                     .next(AsyncOperationAttempted, event => {
-                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty fails due to Error'...$/);
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty succeeds \(#1\)'...$/);
                     })
                     .next(AsyncOperationAttempted, event => {
-                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty fails due to Error'...$/);
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty succeeds \(#1\)'...$/);
                     });
             })));
 
@@ -74,13 +74,11 @@ describe('Photographer', function () {
                 const events = stringified(recorder.events);
 
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value, events).to.match(/Before Betty fails due to TypeError$/);
-                        expect(event.artifact, events).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty fails due to TypeError'...$/);
                     })
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value, events).to.match(/After Betty fails due to TypeError$/);
-                        expect(event.artifact, events).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty fails due to TypeError'...$/);
                     });
             })));
 
