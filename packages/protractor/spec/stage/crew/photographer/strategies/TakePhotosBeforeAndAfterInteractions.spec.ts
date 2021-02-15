@@ -2,7 +2,7 @@ import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
-import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, DomainEvent } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, AsyncOperationAttempted, DomainEvent } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { protractor } from 'protractor';
@@ -56,13 +56,11 @@ describe('Photographer', function () {
                 const events = stringified(recorder.events);
 
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value, events).to.match(/Before Betty fails due to Error$/);
-                        expect(event.artifact, events).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty fails due to Error'...$/);
                     })
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value, events).to.match(/After Betty fails due to Error$/);
-                        expect(event.artifact, events).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty fails due to Error'...$/);
                     });
             })));
 
