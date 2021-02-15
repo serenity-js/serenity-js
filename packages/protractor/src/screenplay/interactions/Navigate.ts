@@ -198,10 +198,12 @@ class NavigateToUrl extends Interaction {
      */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return actor.answer(this.url)
-            .then(url => BrowseTheWeb.as(actor).get(url))
-            .catch(error => {
-                throw new TestCompromisedError(`Couldn't navigate to ${ this.url }`, error);
-            })
+            .then(url =>
+                BrowseTheWeb.as(actor).get(url)
+                    .catch(error => {
+                        throw new TestCompromisedError(`Couldn't navigate to ${ url }`, error);
+                    })
+            )
     }
 
     /**
