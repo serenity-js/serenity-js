@@ -76,10 +76,14 @@ describe('StageManager', () => {
             CorrelationId.create(),
         ));
 
+        // todo: remove
+        const queueDesc = JSON.stringify(Array.from((stageManager as any).wip.wip.values()), null, 4);
+        expect((stageManager as any).wip.wip.size, queueDesc).to.equal(2);
+
         return expect(stageManager.waitForNextCue()).to.be.rejected.then(error => {
             const lines = error.message.split('\n');
 
-            expect(lines, error.message + '\n').to.have.lengthOf(3);
+            expect(lines, `error.message[${ error.message }]`).to.have.lengthOf(3);
             expect(lines[0]).to.equal('2 async operations have failed to complete within a 1s cue timeout:');
             expect(lines[1], error.message).to.match(/^1s.*?- \[Service 1] Starting...$/);
             expect(lines[2], error.message).to.match(/^1s.*?- \[Service 2] Starting...$/);
