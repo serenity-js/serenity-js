@@ -380,12 +380,13 @@ function optionsToSelect(criterion: (option: ElementFinder) => promise.Promise<b
 
     const
         isAlreadySelected = (option: ElementFinder) => option.isSelected(),
-        ensureOnlyOneApplies = (list: boolean[]) => list.filter(_ => _ === true).length === 1;
+        xor = (first: boolean, second: boolean) => first !== second;
 
     return (option: ElementFinder) =>
-        protractor.promise.all([
-                criterion(option),
-                isAlreadySelected(option)
-            ])
-            .then(ensureOnlyOneApplies);
+        isAlreadySelected(option)
+            .then(alreadySelected =>
+                criterion(option).then(criterionMet =>
+                    xor(alreadySelected, criterionMet)
+                )
+            );
 }
