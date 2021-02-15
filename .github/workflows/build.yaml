@@ -22,7 +22,6 @@ jobs:
           node-version: 14.x
 
       - name: Cache node_modules (Linux)
-        if: matrix.os == 'ubuntu-latest'
         uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -52,7 +51,6 @@ jobs:
           node-version: 14.x
 
       - name: Cache node_modules (Linux)
-        if: matrix.os == 'ubuntu-latest'
         uses: actions/cache@v2
         with:
           path: ~/.npm
