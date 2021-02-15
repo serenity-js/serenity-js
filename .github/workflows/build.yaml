@@ -22,19 +22,12 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
 
-      - name: Update Chrome #todo: consider embedding chrome
+      - name: Update Chrome
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get --only-upgrade install google-chrome-stable
           google-chrome --version
-
-      - uses: ./.github/actions/setup-lerna
-        with:
-          github_token:   ${{ secrets.GH_TOKEN }}
-          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
-          npm_token:      ${{ secrets.NPM_TOKEN }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -97,12 +90,6 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
-      - uses: ./.github/actions/setup-lerna
-        with:
-          github_token:   ${{ secrets.GH_TOKEN }}
-          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
-          npm_token:      ${{ secrets.NPM_TOKEN }}
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
@@ -137,12 +124,6 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
-      - uses: ./.github/actions/setup-lerna
-        with:
-          github_token:   ${{ secrets.GH_TOKEN }}
-          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
-          npm_token:      ${{ secrets.NPM_TOKEN }}
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
@@ -166,6 +147,46 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
+  release:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs:
+      - verify
+      - site
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-lerna
+        with:
+          github_token:   ${{ secrets.GH_TOKEN }}
+          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
+          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
+          npm_token:      ${{ secrets.NPM_TOKEN }}
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Cache node_modules (Linux)
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+      - run: npm ci
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: packages
+
+      - name: Publish artifacts
+        run: npm run lerna:publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 #  build:
 #    if: "!contains(github.event.head_commit.message, 'ci skip')"
