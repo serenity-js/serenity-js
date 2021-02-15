@@ -383,9 +383,9 @@ function optionsToSelect(criterion: (option: ElementFinder) => promise.Promise<b
         ensureOnlyOneApplies = (list: boolean[]) => list.filter(_ => _ === true).length === 1;
 
     return (option: ElementFinder) =>
-        protractor.promise.all([
+        promiseOf(protractor.promise.all([
                 criterion(option),
                 isAlreadySelected(option)
             ])
-            .then(ensureOnlyOneApplies);
+            .then(ensureOnlyOneApplies));
 }
