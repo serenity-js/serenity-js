@@ -55,7 +55,7 @@ export class Check<Actual> extends Task {
         private readonly actual: Answerable<Actual>,
         private readonly expectation: Expectation<any, Actual>,
         private readonly activities: Activity[],
-        private readonly alternativeActivities: Activity[] = [],
+        private alternativeActivities: Activity[] = [],
         private description: string = null,
     ) {
         super();
@@ -65,8 +65,9 @@ export class Check<Actual> extends Task {
      * @param {...@serenity-js/core/lib/screenplay~Activity[]} alternativeActivities
      * @return {@serenity-js/core/lib/screenplay~Task}
      */
-    otherwise(...alternativeActivities: Activity[]): Task {
-        return new Check<Actual>(this.actual, this.expectation, this.activities, alternativeActivities);
+    otherwise(...alternativeActivities: Activity[]): this {
+        this.alternativeActivities = alternativeActivities;
+        return this;
     }
 
     /**
