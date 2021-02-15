@@ -94,6 +94,13 @@ describe('Check', () => {
 
         /** @test {Check.whether} */
         /** @test {Check#whether} */
+        it('provides a description of the check when the user provide a specific description by using describedAs method', () => {
+            const description = "#actor checks whether 4 summed with 1 is 5"
+            expect(Check.whether(4 + 1, isIdenticalTo(5)).andIfSo().describedAs(description).toString()).to.equal(description);
+        });
+
+        /** @test {Check.whether} */
+        /** @test {Check#whether} */
         it('provides a description of the check while correctly cleaning the output from new line characters', () => {
             expect(Check.whether({ person: { name: 'Jan' }}, equals({
                 person: {

@@ -56,6 +56,7 @@ export class Check<Actual> extends Task {
         private readonly expectation: Expectation<any, Actual>,
         private readonly activities: Activity[],
         private readonly alternativeActivities: Activity[] = [],
+        private description: string = null,
     ) {
         super();
     }
@@ -93,6 +94,12 @@ export class Check<Actual> extends Task {
         );
     }
 
+    describedAs(description: string): this {
+        this.description = description;
+
+        return this;
+    }
+
     /**
      * @desc
      *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
@@ -100,6 +107,6 @@ export class Check<Actual> extends Task {
      * @returns {string}
      */
     toString(): string {
-        return formatted `#actor checks whether ${ this.actual } does ${ this.expectation }`;
+        return this.description ?? formatted `#actor checks whether ${ this.actual } does ${ this.expectation }`;
     }
 }
