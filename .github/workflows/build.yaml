@@ -6,8 +6,81 @@ on:
     branches: [ master ]
 
 jobs:
-  verify:
+  lint:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Cache node_modules (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - run: npm ci
+
+      - name: Lint
+        run: make lint
+
+  compile:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Cache node_modules (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - run: npm ci
+
+      - name: Lint
+        run: make compile
+
+      - uses: actions/upload-artifact@v2
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
+        with:
+          retention-days: 3
+          name: compiled-libs
+          path: |
+            integration/*/lib/**/*
+            packages/*/lib/**/*
+            package.json
+
+  test:
+    needs:
+      - lint
+      - compile
+
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -61,30 +134,91 @@ jobs:
 
       - run: npm ci
 
-      - name: Verify
-        run: make clean verify
+      - uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+
+      - name: Test
+        run: make test
 
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
         with:
           retention-days: 3
-          name: packages
-          path: |
-            packages/*/lib/**/*
-            package.json
-      - uses: actions/upload-artifact@v2
-        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
-        with:
-          retention-days: 3
-          name: reports
+          name: test-reports
           path: |
             target/**/*
             package.json
 
+  integration-test:
+    needs:
+      - lint
+      - compile
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        node-version: [ 10.x, 12.x, 14.x ]
+      fail-fast: false    # todo: remove
+      max-parallel: 6
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Update Chrome
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get --only-upgrade install google-chrome-stable
+          google-chrome --version
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node_modules (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - name: Cache node_modules 1/2 (Windows)
+        if: matrix.os == 'windows-latest'
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache node_modules 2/2 (Windows)
+        uses: actions/cache@v2
+        if: matrix.os == 'windows-latest'
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - run: npm ci
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+
+      - name: Integration Test
+        run: make integration-test
+
   report:
     runs-on: ubuntu-latest
     needs:
-      - verify
+      - test
     steps:
       - uses: actions/checkout@v2
         with:
@@ -105,7 +239,8 @@ jobs:
       - run: npm ci
       - uses: actions/download-artifact@v2
         with:
-          name: reports
+          name: test-reports
+
       - name: Report code coverage
         run: make report
 
@@ -118,7 +253,8 @@ jobs:
   site:
     runs-on: ubuntu-latest
     needs:
-      - verify
+      - test
+      - integration-test
     steps:
       - uses: actions/checkout@v2
         with:
@@ -151,8 +287,8 @@ jobs:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs:
-      - verify
-      - site
+      - test
+      - integration-test
     steps:
       - uses: actions/checkout@v2
         with:
@@ -180,7 +316,7 @@ jobs:
 
       - uses: actions/download-artifact@v2
         with:
-          name: packages
+          name: compiled-libs
 
       - name: Publish artifacts
         run: npm run lerna:publish
