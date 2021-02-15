@@ -40,12 +40,32 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: actions/cache@v2
+
+      - name: Cache node_modules (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/cache@v2
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - name: Cache node_modules 1/2 (Windows)
+        if: matrix.os == 'windows-latest'
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache node_modules 2/2 (Windows)
+        uses: actions/cache@v2
+        if: matrix.os == 'windows-latest'
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
       - run: npm ci
 
       - name: Verify
@@ -87,12 +107,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - uses: actions/cache@v2
+      - name: Cache node_modules (Linux)
+        uses: actions/cache@v2
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+            ${{ runner.os }}-
       - run: npm ci
       - uses: actions/download-artifact@v2
         with:
@@ -125,12 +147,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - uses: actions/cache@v2
+      - name: Cache node_modules (Linux)
+        uses: actions/cache@v2
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+            ${{ runner.os }}-
       - run: npm ci
 
       - name: Build Serenity/JS website
