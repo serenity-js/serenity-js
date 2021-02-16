@@ -261,6 +261,12 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
+      - uses: ./.github/actions/setup-lerna
+        with:
+          github_token:   ${{ secrets.GH_TOKEN }}
+          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
+          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
+          npm_token:      ${{ secrets.NPM_TOKEN }}
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
