@@ -131,7 +131,8 @@ jobs:
 
       - run: npm ci
 
-      - uses: actions/download-artifact@v2
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
         with:
           name: compiled-libs
 
@@ -205,7 +206,8 @@ jobs:
 
       - run: npm ci
 
-      - uses: actions/download-artifact@v2
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
         with:
           name: compiled-libs
 
@@ -234,11 +236,13 @@ jobs:
             ${{ runner.os }}-node-
             ${{ runner.os }}-
       - run: npm ci
-      - uses: actions/download-artifact@v2
+
+      - name: Download code coverage reports
+        uses: actions/download-artifact@v2
         with:
           name: test-reports
 
-      - name: Report code coverage
+      - name: Merge code coverage reports
         run: make report
 
       - name: Publish coverage
@@ -311,7 +315,8 @@ jobs:
             ${{ runner.os }}-
       - run: npm ci
 
-      - uses: actions/download-artifact@v2
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
         with:
           name: compiled-libs
 
