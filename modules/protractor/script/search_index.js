@@ -1452,14 +1452,92 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/rest/lib/model~deleterequest",
+    "/modules/rest/class/src/model/DeleteRequest.ts~DeleteRequest.html",
+    "@serenity-js/rest/lib/model~DeleteRequest",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/model~getrequest",
+    "/modules/rest/class/src/model/GetRequest.ts~GetRequest.html",
+    "@serenity-js/rest/lib/model~GetRequest",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/model~httprequest",
+    "/modules/rest/class/src/model/HTTPRequest.ts~HTTPRequest.html",
+    "@serenity-js/rest/lib/model~HTTPRequest",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/model~headrequest",
+    "/modules/rest/class/src/model/HeadRequest.ts~HeadRequest.html",
+    "@serenity-js/rest/lib/model~HeadRequest",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/model~optionsrequest",
+    "/modules/rest/class/src/model/OptionsRequest.ts~OptionsRequest.html",
+    "@serenity-js/rest/lib/model~OptionsRequest",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/model~patchrequest",
+    "/modules/rest/class/src/model/PatchRequest.ts~PatchRequest.html",
+    "@serenity-js/rest/lib/model~PatchRequest",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/model~postrequest",
+    "/modules/rest/class/src/model/PostRequest.ts~PostRequest.html",
+    "@serenity-js/rest/lib/model~PostRequest",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/model~putrequest",
+    "/modules/rest/class/src/model/PutRequest.ts~PutRequest.html",
+    "@serenity-js/rest/lib/model~PutRequest",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/screenplay/abilities~callanapi",
+    "/modules/rest/class/src/screenplay/abilities/CallAnApi.ts~CallAnApi.html",
+    "@serenity-js/rest/lib/screenplay/abilities~CallAnApi",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/screenplay/interactions~changeapiconfig",
+    "/modules/rest/class/src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.html",
+    "@serenity-js/rest/lib/screenplay/interactions~ChangeApiConfig",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/screenplay/interactions~changeapiurl",
+    "/modules/rest/class/src/screenplay/interactions/ChangeApiUrl.ts~ChangeApiUrl.html",
+    "@serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/screenplay/interactions~send",
+    "/modules/rest/class/src/screenplay/interactions/Send.ts~Send.html",
+    "@serenity-js/rest/lib/screenplay/interactions~Send",
+    "external"
+  ],
+  [
+    "@serenity-js/rest/lib/screenplay/questions~lastresponse",
+    "/modules/rest/class/src/screenplay/questions/LastResponse.ts~LastResponse.html",
+    "@serenity-js/rest/lib/screenplay/questions~LastResponse",
+    "external"
+  ],
+  [
     "",
-    "test-file/spec/screenplay/questions/Attribute.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/Attribute.spec.ts.html#lineNumber11",
     "Attribute",
     "test"
   ],
   [
     "attribute src/screenplay/questions/attribute.ts~attribute,attribute",
-    "test-file/spec/screenplay/questions/Attribute.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/questions/Attribute.spec.ts.html#lineNumber16",
     "Attribute allows the actor to read an attribute of a DOM element",
     "test"
   ],
@@ -1495,343 +1573,343 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Browser.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/Browser.spec.ts.html#lineNumber11",
     "Browser",
     "test"
   ],
   [
     "browser.log src/screenplay/questions/browser.ts~browser.log,browser.log",
-    "test-file/spec/screenplay/questions/Browser.spec.ts.html#lineNumber22",
+    "test-file/spec/screenplay/questions/Browser.spec.ts.html#lineNumber25",
     "Browser allows the actor to read the browser log entries",
     "test"
   ],
   [
     "browser.log src/screenplay/questions/browser.ts~browser.log,browser.log",
-    "test-file/spec/screenplay/questions/Browser.spec.ts.html#lineNumber39",
+    "test-file/spec/screenplay/questions/Browser.spec.ts.html#lineNumber42",
     "Browser clears the log upon invocation",
     "test"
   ],
   [
     "browser.log src/screenplay/questions/browser.ts~browser.log,browser.log",
-    "test-file/spec/screenplay/questions/Browser.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/questions/Browser.spec.ts.html#lineNumber16",
     "Browser returns no entries if the console log is empty",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/CSSClasses.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/questions/CSSClasses.spec.ts.html#lineNumber12",
     "CSSClasses",
     "test"
   ],
   [
     "cssclasses.of src/screenplay/questions/cssclasses.ts~cssclasses.of,cssclasses.of",
-    "test-file/spec/screenplay/questions/CSSClasses.spec.ts.html#lineNumber30",
+    "test-file/spec/screenplay/questions/CSSClasses.spec.ts.html#lineNumber33",
     "CSSClasses of",
     "test"
   ],
   [
     "cssclasses#of src/screenplay/questions/cssclasses.ts~cssclasses#of,cssclasses#of",
-    "test-file/spec/screenplay/questions/CSSClasses.spec.ts.html#lineNumber52",
+    "test-file/spec/screenplay/questions/CSSClasses.spec.ts.html#lineNumber55",
     "CSSClasses of allows for a question relative to another target to be asked",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber12",
     "Clear",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber91",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber94",
     "Clear allows the actor to clear the value of a date field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber109",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber112",
     "Clear allows the actor to clear the value of an RTL input field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber19",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber22",
     "Clear allows the actor to clear the value of an empty input field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber37",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber40",
     "Clear allows the actor to clear the value of an empty input with no \"value\" attribute",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber55",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber58",
     "Clear allows the actor to clear the value of an input field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber73",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber76",
     "Clear allows the actor to clear the value of an number field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber127",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber130",
     "Clear complains if the element cannot be cleared",
     "test"
   ],
   [
     "clear#tostring src/screenplay/interactions/clear.ts~clear#tostring,clear#tostring",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber140",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber143",
     "Clear provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "click src/screenplay/interactions/click.ts~click,click",
-    "test-file/spec/screenplay/interactions/Click.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/Click.spec.ts.html#lineNumber13",
     "Click",
     "test"
   ],
   [
     "click.on src/screenplay/interactions/click.ts~click.on,click.on",
-    "test-file/spec/screenplay/interactions/Click.spec.ts.html#lineNumber19",
+    "test-file/spec/screenplay/interactions/Click.spec.ts.html#lineNumber22",
     "Click allows the actor to click on an element",
     "test"
   ],
   [
     "click#tostring src/screenplay/interactions/click.ts~click#tostring,click#tostring",
-    "test-file/spec/screenplay/interactions/Click.spec.ts.html#lineNumber36",
+    "test-file/spec/screenplay/interactions/Click.spec.ts.html#lineNumber39",
     "Click provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "close src/screenplay/interactions/close.ts~close,close",
-    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber13",
     "Close",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber36",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber39",
     "Close anyNewWindows()",
     "test"
   ],
   [
     "close.anynewwindows src/screenplay/interactions/close.ts~close.anynewwindows,close.anynewwindows",
-    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber39",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber42",
     "Close anyNewWindows() should close any new windows and switch back to the original window",
     "test"
   ],
   [
     "close.anynewwindows src/screenplay/interactions/close.ts~close.anynewwindows,close.anynewwindows",
-    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber53",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber56",
     "Close anyNewWindows() should do nothing if no new windows have been opened",
     "test"
   ],
   [
     "close#tostring close#tostring,close#tostring",
-    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber64",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber67",
     "Close anyNewWindows() should provide a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber69",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber72",
     "Close currentWindow()",
     "test"
   ],
   [
     "close.currentwindow src/screenplay/interactions/close.ts~close.currentwindow,close.currentwindow",
-    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber72",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber75",
     "Close currentWindow() should close the current window",
     "test"
   ],
   [
     "close#tostring close#tostring,close#tostring",
-    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber88",
+    "test-file/spec/screenplay/interactions/Close.spec.ts.html#lineNumber91",
     "Close currentWindow() should provide a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber14",
     "Cookie",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber55",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber58",
     "Cookie over HTTP",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber158",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber161",
     "Cookie over HTTP when working with an expiry date",
     "test"
   ],
   [
     "cookie#expirydateof cookie#expirydateof,cookie#expirydateof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber181",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber184",
     "Cookie over HTTP when working with an expiry date allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber194",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber197",
     "Cookie over HTTP when working with an expiry date provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#expirydateof cookie#expirydateof,cookie#expirydateof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber188",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber191",
     "Cookie over HTTP when working with an expiry date returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber133",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber136",
     "Cookie over HTTP when working with http-only cookies",
     "test"
   ],
   [
     "cookie#ishttponly cookie#ishttponly,cookie#ishttponly",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber137",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber140",
     "Cookie over HTTP when working with http-only cookies allows the actor to confirm that a cookie is http-only",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber153",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber156",
     "Cookie over HTTP when working with http-only cookies provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#ishttponly cookie#ishttponly,cookie#ishttponly",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber147",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber150",
     "Cookie over HTTP when working with http-only cookies returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber111",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber114",
     "Cookie over HTTP when working with the domain",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber115",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber118",
     "Cookie over HTTP when working with the domain allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber128",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber131",
     "Cookie over HTTP when working with the domain provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#domainof cookie#domainof,cookie#domainof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber122",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber125",
     "Cookie over HTTP when working with the domain returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber89",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber92",
     "Cookie over HTTP when working with the path",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber93",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber96",
     "Cookie over HTTP when working with the path allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber106",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber109",
     "Cookie over HTTP when working with the path provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#pathof cookie#pathof,cookie#pathof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber100",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber103",
     "Cookie over HTTP when working with the path returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber67",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber70",
     "Cookie over HTTP when working with the value",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber71",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber74",
     "Cookie over HTTP when working with the value allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber84",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber87",
     "Cookie over HTTP when working with the value provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber78",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber81",
     "Cookie over HTTP when working with the value returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber201",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber204",
     "Cookie when working with secure cookies",
     "test"
   ],
   [
     "cookie#issecure cookie#issecure,cookie#issecure",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber233",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber236",
     "Cookie when working with secure cookies ",
     "test"
   ],
   [
     "cookie#issecure cookie#issecure,cookie#issecure",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber219",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber222",
     "Cookie when working with secure cookies allows the actor to confirm that a cookie is not secure",
     "test"
   ],
   [
     "cookie#issecure cookie#issecure,cookie#issecure",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber226",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber229",
     "Cookie when working with secure cookies allows the actor to confirm that a cookie is secure",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber239",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber242",
     "Cookie when working with secure cookies provides a sensible description of the question being asked",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/DoubleClick.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/interactions/DoubleClick.spec.ts.html#lineNumber12",
     "DoubleClick",
     "test"
   ],
   [
     "doubleclick.on src/screenplay/interactions/doubleclick.ts~doubleclick.on,doubleclick.on",
-    "test-file/spec/screenplay/interactions/DoubleClick.spec.ts.html#lineNumber17",
+    "test-file/spec/screenplay/interactions/DoubleClick.spec.ts.html#lineNumber20",
     "DoubleClick allows the actor to clear the value of a field",
     "test"
   ],
   [
     "doubleclick#tostring src/screenplay/interactions/doubleclick.ts~doubleclick#tostring,doubleclick#tostring",
-    "test-file/spec/screenplay/interactions/DoubleClick.spec.ts.html#lineNumber39",
+    "test-file/spec/screenplay/interactions/DoubleClick.spec.ts.html#lineNumber42",
     "DoubleClick provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -1849,25 +1927,25 @@ window.esdocSearchIndex = [
   ],
   [
     "enter src/screenplay/interactions/enter.ts~enter,enter",
-    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber13",
     "Enter",
     "test"
   ],
   [
     "enter.thevalue src/screenplay/interactions/enter.ts~enter.thevalue,enter.thevalue",
-    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber47",
+    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber50",
     "Enter allows the actor to enter the value into a number field",
     "test"
   ],
   [
     "enter.thevalue src/screenplay/interactions/enter.ts~enter.thevalue,enter.thevalue",
-    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber37",
+    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber40",
     "Enter allows the actor to enter the value into an input field",
     "test"
   ],
   [
     "enter#tostring src/screenplay/interactions/enter.ts~enter#tostring,enter#tostring",
-    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber56",
+    "test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber59",
     "Enter provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -1879,79 +1957,79 @@ window.esdocSearchIndex = [
   ],
   [
     "executeasynchronousscript executeasynchronousscript,executeasynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber52",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber54",
     "ExecuteAsynchronousScript allows the actor to execute an asynchronous script",
     "test"
   ],
   [
     "executeasynchronousscript executeasynchronousscript,executeasynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber105",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber107",
     "ExecuteAsynchronousScript allows the actor to execute an asynchronous script with a Target argument",
     "test"
   ],
   [
     "executeasynchronousscript executeasynchronousscript,executeasynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber87",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber89",
     "ExecuteAsynchronousScript allows the actor to execute an asynchronous script with a promised argument",
     "test"
   ],
   [
     "executeasynchronousscript executeasynchronousscript,executeasynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber69",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber71",
     "ExecuteAsynchronousScript allows the actor to execute an asynchronous script with a static argument",
     "test"
   ],
   [
     "executeasynchronousscript executeasynchronousscript,executeasynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber143",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber145",
     "ExecuteAsynchronousScript complains if the script has failed",
     "test"
   ],
   [
     "executeasynchronousscript executeasynchronousscript,executeasynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber155",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber157",
     "ExecuteAsynchronousScript emits the events so that the details of the script being executed can be reported",
     "test"
   ],
   [
     "executeasynchronousscript#tostring executeasynchronousscript#tostring,executeasynchronousscript#tostring",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber133",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber135",
     "ExecuteAsynchronousScript provides a sensible description of the interaction being performed when invoked with arguments",
     "test"
   ],
   [
     "executeasynchronousscript#tostring executeasynchronousscript#tostring,executeasynchronousscript#tostring",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber125",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts.html#lineNumber127",
     "ExecuteAsynchronousScript provides a sensible description of the interaction being performed when invoked without arguments",
     "test"
   ],
   [
     "executescript src/screenplay/interactions/executescript.ts~executescript,executescript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber12",
     "ExecuteScriptFromUrl",
     "test"
   ],
   [
     "executescriptfromurl executescriptfromurl,executescriptfromurl",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber41",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber46",
     "ExecuteScriptFromUrl allows the actor to execute a script stored at a specific location",
     "test"
   ],
   [
     "executescriptfromurl executescriptfromurl,executescriptfromurl",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber51",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber56",
     "ExecuteScriptFromUrl complains if the script could not be loaded",
     "test"
   ],
   [
     "executescriptfromurl executescriptfromurl,executescriptfromurl",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber62",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber71",
     "ExecuteScriptFromUrl complains if the script has already been loaded",
     "test"
   ],
   [
     "executescriptfromurl#tostring executescriptfromurl#tostring,executescriptfromurl#tostring",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber71",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts.html#lineNumber80",
     "ExecuteScriptFromUrl provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -1963,133 +2041,133 @@ window.esdocSearchIndex = [
   ],
   [
     "executesynchronousscript executesynchronousscript,executesynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber52",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber54",
     "ExecuteSynchronousScript allows the actor to execute a synchronous script",
     "test"
   ],
   [
     "executesynchronousscript executesynchronousscript,executesynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber102",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber104",
     "ExecuteSynchronousScript allows the actor to execute a synchronous script with a Target argument",
     "test"
   ],
   [
     "executesynchronousscript executesynchronousscript,executesynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber88",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber90",
     "ExecuteSynchronousScript allows the actor to execute a synchronous script with a promised argument",
     "test"
   ],
   [
     "executesynchronousscript executesynchronousscript,executesynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber74",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber76",
     "ExecuteSynchronousScript allows the actor to execute a synchronous script with a static argument",
     "test"
   ],
   [
     "lastscriptexecution.result src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution.result,lastscriptexecution.result",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber65",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber67",
     "ExecuteSynchronousScript allows the actor to retrieve the value returned by the script",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber138",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber140",
     "ExecuteSynchronousScript complains if the script has failed",
     "test"
   ],
   [
     "executesynchronousscript executesynchronousscript,executesynchronousscript",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber148",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber150",
     "ExecuteSynchronousScript emits the events so that the details of the script being executed can be reported",
     "test"
   ],
   [
     "executesynchronousscript#tostring executesynchronousscript#tostring,executesynchronousscript#tostring",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber127",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber129",
     "ExecuteSynchronousScript provides a sensible description of the interaction being performed when invoked with arguments",
     "test"
   ],
   [
     "executesynchronousscript#tostring executesynchronousscript#tostring,executesynchronousscript#tostring",
-    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber118",
+    "test-file/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts.html#lineNumber120",
     "ExecuteSynchronousScript provides a sensible description of the interaction being performed when invoked without arguments",
     "test"
   ],
   [
     "hover src/screenplay/interactions/hover.ts~hover,hover",
-    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber13",
     "Hover",
     "test"
   ],
   [
     "hover.over src/screenplay/interactions/hover.ts~hover.over,hover.over",
-    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber31",
+    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber34",
     "Hover allows the actor to position the mouse cursor over a given target",
     "test"
   ],
   [
     "hover#tostring src/screenplay/interactions/hover.ts~hover#tostring,hover#tostring",
-    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber44",
+    "test-file/spec/screenplay/interactions/Hover.spec.ts.html#lineNumber47",
     "Hover provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber12",
     "LastScriptExecution",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber113",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber116",
     "LastScriptExecution complains if the script hasn't been executed yet",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber77",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber80",
     "LastScriptExecution when used with ExecuteScript.async",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber82",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber85",
     "LastScriptExecution when used with ExecuteScript.async allows the actor to retrieve the result of the script execution",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber99",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber102",
     "LastScriptExecution when used with ExecuteScript.async returns null if the script did not return any result",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber45",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber48",
     "LastScriptExecution when used with ExecuteScript.sync",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber50",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber53",
     "LastScriptExecution when used with ExecuteScript.sync allows the actor to retrieve the result of the script execution",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber66",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber69",
     "LastScriptExecution when used with ExecuteScript.sync returns null if the script did not return any result",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber11",
     "Loop",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber56",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber59",
     "Loop allows the actor to perform a sequence of activities for every element given",
     "test"
   ],
@@ -2101,199 +2179,199 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber198",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber200",
     "ModalDialog, when interacting with the Photographer,",
     "test"
   ],
   [
     "photographer src/stage/crew/photographer/photographer.ts~photographer,photographer",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber215",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber217",
     "ModalDialog, when interacting with the Photographer, is does not negatively impact the screenshot capture process",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber170",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber172",
     "ModalDialog, when waiting",
     "test"
   ],
   [
     "wait.until src/screenplay/interactions/wait.ts~wait.until,wait.until",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber187",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber189",
     "ModalDialog, when waiting allows the actor to wait until a modal dialog is present",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber21",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber23",
     "ModalDialog, when working with alert(),",
     "test"
   ],
   [
     "accept.the src/screenplay/interactions/accept.ts~accept.the,accept.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber39",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber41",
     "ModalDialog, when working with alert(), allows the actor to accept an alert",
     "test"
   ],
   [
     "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber50",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber52",
     "ModalDialog, when working with alert(), allows the actor to dismiss an alert",
     "test"
   ],
   [
     "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber61",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber63",
     "ModalDialog, when working with alert(), allows the actor to read the message on an alert",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber69",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber71",
     "ModalDialog, when working with confirm(),",
     "test"
   ],
   [
     "accept.the src/screenplay/interactions/accept.ts~accept.the,accept.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber87",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber89",
     "ModalDialog, when working with confirm(), allows the actor to accept a confirmation dialog",
     "test"
   ],
   [
     "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber98",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber100",
     "ModalDialog, when working with confirm(), allows the actor to dismiss a confirmation dialog",
     "test"
   ],
   [
     "modaldialog.message src/screenplay/questions/modaldialog.ts~modaldialog.message,modaldialog.message",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber107",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber109",
     "ModalDialog, when working with confirm(), allows the actor to read the message on a confirmation dialog",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber115",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber117",
     "ModalDialog, when working with prompt(),",
     "test"
   ],
   [
     "accept.the src/screenplay/interactions/accept.ts~accept.the,accept.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber131",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber133",
     "ModalDialog, when working with prompt(), allows the actor to accept a prompt",
     "test"
   ],
   [
     "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber142",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber144",
     "ModalDialog, when working with prompt(), allows the actor to dismiss a prompt",
     "test"
   ],
   [
     "enter.thevalue src/screenplay/interactions/enter.ts~enter.thevalue,enter.thevalue",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber161",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber163",
     "ModalDialog, when working with prompt(), allows the actor to enter value into a prompt",
     "test"
   ],
   [
     "modaldialog.message src/screenplay/questions/modaldialog.ts~modaldialog.message,modaldialog.message",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber151",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber153",
     "ModalDialog, when working with prompt(), allows the actor to read the message on a prompt",
     "test"
   ],
   [
     "navigate src/screenplay/interactions/navigate.ts~navigate,navigate",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber13",
     "Navigate",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber58",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber61",
     "Navigate back",
     "test"
   ],
   [
     "navigate.back src/screenplay/interactions/navigate.ts~navigate.back,navigate.back",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber61",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber64",
     "Navigate back allows the actor to navigate back in the browser history",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber72",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber75",
     "Navigate back provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber78",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber81",
     "Navigate forward",
     "test"
   ],
   [
     "navigate.forward src/screenplay/interactions/navigate.ts~navigate.forward,navigate.forward",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber81",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber84",
     "Navigate forward allows the actor to navigate forward in the browser history",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber93",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber96",
     "Navigate forward provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber99",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber102",
     "Navigate reloadPage",
     "test"
   ],
   [
     "navigate.reloadpage src/screenplay/interactions/navigate.ts~navigate.reloadpage,navigate.reloadpage",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber102",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber105",
     "Navigate reloadPage allows the actor to navigate to a desired destination",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber123",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber126",
     "Navigate reloadPage provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber14",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber17",
     "Navigate to(url)",
     "test"
   ],
   [
     "navigate.to src/screenplay/interactions/navigate.ts~navigate.to,navigate.to",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber31",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber34",
     "Navigate to(url) ",
     "test"
   ],
   [
     "navigate.to src/screenplay/interactions/navigate.ts~navigate.to,navigate.to",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber17",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber20",
     "Navigate to(url) allows the actor to navigate to a desired destination",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber42",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber45",
     "Navigate to(url) provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber48",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber51",
     "Navigate to(url).withTimeout(duration)",
     "test"
   ],
   [
     "navigate#tostring navigate#tostring,navigate#tostring",
-    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber52",
+    "test-file/spec/screenplay/interactions/Navigate.spec.ts.html#lineNumber55",
     "Navigate to(url).withTimeout(duration) provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -2455,307 +2533,307 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber12",
     "Pick",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber231",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber234",
     "Pick (when a filter is applied)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber235",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber238",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber238",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber241",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber245",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber248",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber252",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber255",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber259",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber262",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber266",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber269",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber273",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber276",
     "Pick (when a filter is applied) provides a sensible description when it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber281",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber284",
     "Pick (when a filter is applied) provides a sensible description when it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber286",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber289",
     "Pick (when a filter is applied) provides a sensible description when it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber291",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber294",
     "Pick (when a filter is applied) provides a sensible description when it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber276",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber279",
     "Pick (when a filter is applied) provides a sensible description when it returns the number of answers",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber398",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber401",
     "Pick (when interacting with elements on screen)",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber421",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber424",
     "Pick (when interacting with elements on screen) makes it easy for an actor to pick all elements of interest",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber412",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber415",
     "Pick (when interacting with elements on screen) makes it easy for an actor to pick the element of interest",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber314",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber317",
     "Pick (when multiple filters are applied)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber318",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber321",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber321",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber324",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber328",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber331",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber335",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber338",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber342",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber345",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber349",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber352",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber356",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber359",
     "Pick (when multiple filters are applied) provides a sensible description when it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber364",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber367",
     "Pick (when multiple filters are applied) provides a sensible description when it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber369",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber372",
     "Pick (when multiple filters are applied) provides a sensible description when it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber374",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber377",
     "Pick (when multiple filters are applied) provides a sensible description when it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber359",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber362",
     "Pick (when multiple filters are applied) provides a sensible description when it returns the number of answers",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber112",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber115",
     "Pick (when no filters are applied)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber114",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber117",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber119",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber122",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber126",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber129",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber133",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber136",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber140",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber143",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber147",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber150",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber199",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber202",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber209",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber212",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber214",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber217",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber219",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber222",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber224",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber227",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it picks the nth item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber204",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber207",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it returns the number of items",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber155",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber158",
     "Pick (when no filters are applied) provides a sensible description when it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber165",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber168",
     "Pick (when no filters are applied) provides a sensible description when it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber170",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber173",
     "Pick (when no filters are applied) provides a sensible description when it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber175",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber178",
     "Pick (when no filters are applied) provides a sensible description when it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber160",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber163",
     "Pick (when no filters are applied) provides a sensible description when it returns the number of items",
     "test"
   ],
   [
     "press src/screenplay/interactions/press.ts~press,press",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber14",
     "Press",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber43",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber46",
     "Press keyboard shortcuts",
     "test"
   ],
   [
     "press.the src/screenplay/interactions/press.ts~press.the,press.the",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber46",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber49",
     "Press keyboard shortcuts allows the actor to use keyboard shortcuts",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber29",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber32",
     "Press single keys",
     "test"
   ],
   [
     "press.the src/screenplay/interactions/press.ts~press.the,press.the",
-    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber32",
+    "test-file/spec/screenplay/interactions/Press.spec.ts.html#lineNumber35",
     "Press single keys allows the actor to enter keys individually into a field",
     "test"
   ],
@@ -2893,97 +2971,97 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber10",
     "ProtractorParam",
     "test"
   ],
   [
     "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
-    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber78",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber81",
     "ProtractorParam complains if the parameter is undefined",
     "test"
   ],
   [
     "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
-    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber87",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber90",
     "ProtractorParam contributes to a human-readable description of an activity",
     "test"
   ],
   [
     "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
-    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber69",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber72",
     "ProtractorParam lets the actor read the value of a Protractor parameter specified by path",
     "test"
   ],
   [
     "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
-    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber15",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber18",
     "ProtractorParam lets the actor read the value of a primitive Protractor parameter specified in protractor.conf.js",
     "test"
   ],
   [
     "protractorparam protractorparam.called src/screenplay/questions/protractorparam.ts~protractorparam,protractorparam src/screenplay/questions/protractorparam.ts~protractorparam.called,protractorparam.called",
-    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber24",
+    "test-file/spec/screenplay/questions/ProtractorParam.spec.ts.html#lineNumber27",
     "ProtractorParam lets the actor read the value of an object Protractor parameter specified in protractor.conf.js",
     "test"
   ],
   [
     "resizebrowserwindow src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow,resizebrowserwindow",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber10",
     "ResizeBrowserWindow",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber14",
     "ResizeBrowserWindow ",
     "test"
   ],
   [
     "resizebrowserwindow.to src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.to,resizebrowserwindow.to",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber14",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber17",
     "ResizeBrowserWindow  allows the actor to change width and height of the browser window",
     "test"
   ],
   [
     "resizebrowserwindow#tostring resizebrowserwindow#tostring,resizebrowserwindow#tostring",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber24",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber27",
     "ResizeBrowserWindow  produces a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber29",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber32",
     "ResizeBrowserWindow toMaximum()",
     "test"
   ],
   [
     "resizebrowserwindow.tomaximum src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.tomaximum,resizebrowserwindow.tomaximum",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber32",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber35",
     "ResizeBrowserWindow toMaximum() allows the actor to resize browser window to maximum",
     "test"
   ],
   [
     "resizebrowserwindow#tostring resizebrowserwindow#tostring,resizebrowserwindow#tostring",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber43",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber46",
     "ResizeBrowserWindow toMaximum() produces a sensible description of the interaction being performed",
     "test"
   ],
   [
     "scroll src/screenplay/interactions/scroll.ts~scroll,scroll",
-    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber13",
     "Scroll",
     "test"
   ],
   [
     "scroll.to src/screenplay/interactions/scroll.ts~scroll.to,scroll.to",
-    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber27",
+    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber30",
     "Scroll allows the actor to scroll to a given target so that it appears in the viewport",
     "test"
   ],
   [
     "scroll#tostring src/screenplay/interactions/scroll.ts~scroll#tostring,scroll#tostring",
-    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber41",
+    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber44",
     "Scroll provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -3007,169 +3085,169 @@ window.esdocSearchIndex = [
   ],
   [
     "select src/screenplay/interactions/select.ts~select,select",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber15",
     "Select",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber319",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber363",
     "Select toString()",
     "test"
   ],
   [
     "select#tostring select#tostring,select#tostring",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber337",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber381",
     "Select toString() provides a sensible description of Select.option()",
     "test"
   ],
   [
     "select#tostring select#tostring,select#tostring",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber365",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber409",
     "Select toString() provides a sensible description of Select.options()",
     "test"
   ],
   [
     "select#tostring select#tostring,select#tostring",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber323",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber367",
     "Select toString() provides a sensible description of Select.value()",
     "test"
   ],
   [
     "select#tostring select#tostring,select#tostring",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber351",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber395",
     "Select toString() provides a sensible description of Select.values()",
     "test"
   ],
   [
     "select#tostring select#tostring,select#tostring",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber358",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber402",
     "Select toString() provides a sensible description of Select.valuesOf()",
     "test"
   ],
   [
     "select#tostring select#tostring,select#tostring",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber344",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber388",
     "Select toString() provides a sensible description of Selected.optionIn()",
     "test"
   ],
   [
     "select#tostring select#tostring,select#tostring",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber377",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber421",
     "Select toString() provides a sensible description of Selected.optionsIn()",
     "test"
   ],
   [
     "select#tostring select#tostring,select#tostring",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber330",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber374",
     "Select toString() provides a sensible description of Selected.valueOf",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber231",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber275",
     "Select when working with multi-option selects",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber276",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber320",
     "Select when working with multi-option selects Select.options()",
     "test"
   ],
   [
     "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber297",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber341",
     "Select when working with multi-option selects Select.options() should concatenate option values from several Answerables",
     "test"
   ],
   [
     "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber310",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber354",
     "Select when working with multi-option selects Select.options() should concatenate option values from several static values",
     "test"
   ],
   [
     "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber288",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber332",
     "Select when working with multi-option selects Select.options() should select multiple options by their Answerable name",
     "test"
   ],
   [
     "selected.optionsin src/screenplay/questions/selected.ts~selected.optionsin,selected.optionsin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber280",
-    "Select when working with multi-option selects Select.options() should select multiple options by their static name",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber324",
+    "Select when working with multi-option selects Select.options() should select multiple options by their static pageName",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber233",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber277",
     "Select when working with multi-option selects Select.values()",
     "test"
   ],
   [
     "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber255",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber299",
     "Select when working with multi-option selects Select.values() should concatenate option values from several Answerables",
     "test"
   ],
   [
     "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber268",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber312",
     "Select when working with multi-option selects Select.values() should concatenate option values from several static values",
     "test"
   ],
   [
     "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber246",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber290",
     "Select when working with multi-option selects Select.values() should select multiple options by their Answerable value",
     "test"
   ],
   [
     "selected.valuesof src/screenplay/questions/selected.ts~selected.valuesof,selected.valuesof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber237",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber281",
     "Select when working with multi-option selects Select.values() should select multiple options by their static value",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber186",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber230",
     "Select when working with single-option selects",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber209",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber253",
     "Select when working with single-option selects Select.option()",
     "test"
   ],
   [
     "selected.optionin src/screenplay/questions/selected.ts~selected.optionin,selected.optionin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber222",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber266",
     "Select when working with single-option selects Select.option() should select a single option by its Answerable name",
     "test"
   ],
   [
     "selected.optionin src/screenplay/questions/selected.ts~selected.optionin,selected.optionin",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber213",
-    "Select when working with single-option selects Select.option() should select a single option by its static name",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber257",
+    "Select when working with single-option selects Select.option() should select a single option by its static pageName",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber188",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber232",
     "Select when working with single-option selects Select.value()",
     "test"
   ],
   [
     "selected.valueof src/screenplay/questions/selected.ts~selected.valueof,selected.valueof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber201",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber245",
     "Select when working with single-option selects Select.value() should select a single option by its Answerable value",
     "test"
   ],
   [
     "selected.valueof src/screenplay/questions/selected.ts~selected.valueof,selected.valueof",
-    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber192",
+    "test-file/spec/screenplay/interactions/Select.spec.ts.html#lineNumber236",
     "Select when working with single-option selects Select.value() should select a single option by its static value",
     "test"
   ],
@@ -3181,271 +3259,271 @@ window.esdocSearchIndex = [
   ],
   [
     "switch src/screenplay/interactions/switch.ts~switch,switch",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber14",
     "Switch",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber59",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber62",
     "Switch when working with frames",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber171",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber174",
     "Switch when working with frames toDefaultContent()",
     "test"
   ],
   [
     "switch.todefaultcontent src/screenplay/interactions/switch.ts~switch.todefaultcontent,switch.todefaultcontent",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber174",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber177",
     "Switch when working with frames toDefaultContent() should not switch the frame if there are no parent frames",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber202",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber205",
     "Switch when working with frames toDefaultContent() should provide a sensible description of the interaction being performed",
     "test"
   ],
   [
     "switch.todefaultcontent src/screenplay/interactions/switch.ts~switch.todefaultcontent,switch.todefaultcontent",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber185",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber188",
     "Switch when working with frames toDefaultContent() should support nested frames",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber61",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber64",
     "Switch when working with frames toFrame()",
     "test"
   ],
   [
     "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber64",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber67",
     "Switch when working with frames toFrame() ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber100",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber103",
     "Switch when working with frames toFrame() should provide a sensible description when the iframe",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber104",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber107",
     "Switch when working with frames toFrame() should provide a sensible description when the iframe is specified by Question<ElementFinder>",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber110",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber113",
     "Switch when working with frames toFrame() should provide a sensible description when the iframe is specified by index number",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber116",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber119",
     "Switch when working with frames toFrame() should provide a sensible description when the iframe is specified by name",
     "test"
   ],
   [
     "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber71",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber74",
     "Switch when working with frames toFrame() should switch to an iframe identified by Question<ElementFinder>",
     "test"
   ],
   [
     "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber81",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber84",
     "Switch when working with frames toFrame() should switch to an iframe identified by index",
     "test"
   ],
   [
     "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber91",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber94",
     "Switch when working with frames toFrame() should switch to an iframe identified by name",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber207",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber210",
     "Switch when working with frames toFrame().and()",
     "test"
   ],
   [
     "switch.toframe src/screenplay/interactions/switch.ts~switch.toframe,switch.toframe",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber210",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber213",
     "Switch when working with frames toFrame().and() should perform any activities in the context of the frame it switched to",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber226",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber229",
     "Switch when working with frames toFrame().and() should provide a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber122",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber125",
     "Switch when working with frames toParentFrame()",
     "test"
   ],
   [
     "switch.toparentframe src/screenplay/interactions/switch.ts~switch.toparentframe,switch.toparentframe",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber125",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber128",
     "Switch when working with frames toParentFrame() should not switch the frame if there are no parent frames",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber166",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber169",
     "Switch when working with frames toParentFrame() should provide a sensible description of the interaction being performed",
     "test"
   ],
   [
     "switch.toparentframe src/screenplay/interactions/switch.ts~switch.toparentframe,switch.toparentframe",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber149",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber152",
     "Switch when working with frames toParentFrame() should support nested frames",
     "test"
   ],
   [
     "switch.toparentframe src/screenplay/interactions/switch.ts~switch.toparentframe,switch.toparentframe",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber135",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber138",
     "Switch when working with frames toParentFrame() should switch to the parent hosting an iframe",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber232",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber235",
     "Switch when working with windows",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber309",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber312",
     "Switch when working with windows ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber359",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber362",
     "Switch when working with windows ",
     "test"
   ],
   [
     "switch.tonewwindow src/screenplay/interactions/switch.ts~switch.tonewwindow,switch.tonewwindow",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber312",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber315",
     "Switch when working with windows  ",
     "test"
   ],
   [
     "switch.tooriginalwindow src/screenplay/interactions/switch.ts~switch.tooriginalwindow,switch.tooriginalwindow",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber362",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber365",
     "Switch when working with windows  ",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber332",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber335",
     "Switch when working with windows  should provide a sensible description of the interaction being performed",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber386",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber389",
     "Switch when working with windows  should provide a sensible description of the interaction being performed",
     "test"
   ],
   [
     "switch.tooriginalwindow src/screenplay/interactions/switch.ts~switch.tooriginalwindow,switch.tooriginalwindow",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber371",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber374",
     "Switch when working with windows  should switch back from a newly opened window",
     "test"
   ],
   [
     "switch.tonewwindow src/screenplay/interactions/switch.ts~switch.tonewwindow,switch.tonewwindow",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber320",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber323",
     "Switch when working with windows  should switch to a newly opened window",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber337",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber340",
     "Switch when working with windows toNewWindow().and()",
     "test"
   ],
   [
     "switch.tonewwindow src/screenplay/interactions/switch.ts~switch.tonewwindow,switch.tonewwindow",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber340",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber343",
     "Switch when working with windows toNewWindow().and() should perform any activities in the context of the new window it switched to",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber354",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber357",
     "Switch when working with windows toNewWindow().and() should provide a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber239",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber242",
     "Switch when working with windows toWindow()",
     "test"
   ],
   [
     "switch.towindow src/screenplay/interactions/switch.ts~switch.towindow,switch.towindow",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber264",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber267",
     "Switch when working with windows toWindow() ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber271",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber274",
     "Switch when working with windows toWindow() should provide a sensible description when the window",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber275",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber278",
     "Switch when working with windows toWindow() should provide a sensible description when the window is specified by its index",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber281",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber284",
     "Switch when working with windows toWindow() should provide a sensible description when the window is specified by name",
     "test"
   ],
   [
     "switch.towindow src/screenplay/interactions/switch.ts~switch.towindow,switch.towindow",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber242",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber245",
     "Switch when working with windows toWindow() should switch to a window identified by its index",
     "test"
   ],
   [
     "switch.towindow src/screenplay/interactions/switch.ts~switch.towindow,switch.towindow",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber253",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber256",
     "Switch when working with windows toWindow() should switch to a window identified by its name",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber287",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber290",
     "Switch when working with windows toWindow().and()",
     "test"
   ],
   [
     "switch.towindow src/screenplay/interactions/switch.ts~switch.towindow,switch.towindow",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber290",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber293",
     "Switch when working with windows toWindow().and() should perform any activities in the context of the window it switched to",
     "test"
   ],
   [
     "switch#tostring switch#tostring,switch#tostring",
-    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber304",
+    "test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber307",
     "Switch when working with windows toWindow().and() should provide a sensible description of the interaction being performed",
     "test"
   ],
@@ -3457,127 +3535,127 @@ window.esdocSearchIndex = [
   ],
   [
     "takescreenshot.of src/screenplay/interactions/takescreenshot.ts~takescreenshot.of,takescreenshot.of",
-    "test-file/spec/screenplay/interactions/TakeScreenshot.spec.ts.html#lineNumber36",
+    "test-file/spec/screenplay/interactions/TakeScreenshot.spec.ts.html#lineNumber38",
     "TakeScreenshot allows the actor to take a screenshot with an arbitrary name",
     "test"
   ],
   [
     "takescreenshot#tostring src/screenplay/interactions/takescreenshot.ts~takescreenshot#tostring,takescreenshot#tostring",
-    "test-file/spec/screenplay/interactions/TakeScreenshot.spec.ts.html#lineNumber48",
+    "test-file/spec/screenplay/interactions/TakeScreenshot.spec.ts.html#lineNumber50",
     "TakeScreenshot provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "target src/screenplay/questions/targets/target.ts~target,target",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber12",
     "Target",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber124",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber127",
     "Target allows the actor to locate",
     "test"
   ],
   [
     "target targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber130",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber133",
     "Target allows the actor to locate a single web element matching the selector",
     "test"
   ],
   [
     "target targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber160",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber163",
     "Target allows the actor to locate all elements relative to another target",
     "test"
   ],
   [
     "target targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber140",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber143",
     "Target allows the actor to locate all web elements matching the selector",
     "test"
   ],
   [
     "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber150",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber153",
     "Target allows the actor to locate an element relative to another target",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber167",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber170",
     "Target provides a sensible description of",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber169",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber172",
     "Target provides a sensible description of an element that",
     "test"
   ],
   [
     "target targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber184",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber187",
     "Target provides a sensible description of an element that has been located",
     "test"
   ],
   [
     "target targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber175",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber178",
     "Target provides a sensible description of an element that is being targeted",
     "test"
   ],
   [
     "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber193",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber196",
     "Target provides a sensible description of an element that is nested",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber198",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber201",
     "Target provides a sensible description of elements that",
     "test"
   ],
   [
     "target targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber204",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber207",
     "Target provides a sensible description of elements that are being targeted",
     "test"
   ],
   [
     "target targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber221",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber224",
     "Target provides a sensible description of elements that are nested",
     "test"
   ],
   [
     "target targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber213",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber216",
     "Target provides a sensible description of elements that have been located",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber227",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber230",
     "Target when nesting targets",
     "test"
   ],
   [
     "target targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber341",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber344",
     "Target when nesting targets allows for Target<ElementArrayFinder> to be nested within another Target<ElementFinder>",
     "test"
   ],
   [
     "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber319",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber322",
     "Target when nesting targets allows for Target<ElementFinder> to be nested within another Target<ElementFinder>",
     "test"
   ],
   [
     "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber330",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber333",
     "Target when nesting targets allows for Target<ElementFinder> to form a chain with other Target<ElementFinder>s",
     "test"
   ],
@@ -3589,529 +3667,529 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber134",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber138",
     "TestRunnerDetector to support test runner options specified in the capabilities section",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber136",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber140",
     "TestRunnerDetector to support test runner options specified in the capabilities section merges the cucumberOpts",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber140",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber144",
     "TestRunnerDetector to support test runner options specified in the capabilities section merges the jasmineNodeOpts",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber138",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber142",
     "TestRunnerDetector to support test runner options specified in the capabilities section merges the mochaOpts",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber18",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber22",
     "TestRunnerDetector when configured with a specific runner",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber20",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber24",
     "TestRunnerDetector when configured with a specific runner uses the CucumberTestRunner",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber30",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber34",
     "TestRunnerDetector when configured with a specific runner uses the CucumberTestRunner even when config for other runners is present as well",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber43",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber47",
     "TestRunnerDetector when configured with a specific runner uses the JasmineTestRunner",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber53",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber57",
     "TestRunnerDetector when configured with a specific runner uses the JasmineTestRunner even when config for other runners is present as well",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber66",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber70",
     "TestRunnerDetector when configured with a specific runner uses the MochaTestRunner",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber76",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber80",
     "TestRunnerDetector when configured with a specific runner uses the MochaTestRunner even when config for other runners is present as well",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber90",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber94",
     "TestRunnerDetector when no specific test runner is set",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber92",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber96",
     "TestRunnerDetector when no specific test runner is set uses the CucumberTestRunner when cucumberOpts are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber107",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber111",
     "TestRunnerDetector when no specific test runner is set uses the JasmineTestRunner when jasmineNodeOpts are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber117",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber121",
     "TestRunnerDetector when no specific test runner is set uses the JasmineTestRunner when no other runners are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber123",
+    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber127",
     "TestRunnerDetector when no specific test runner is set uses the MochaTestRunner when mochaOpts are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber12",
     "Text",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber16",
     "Text of",
     "test"
   ],
   [
     "text.of src/screenplay/questions/text/text.ts~text.of,text.of",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber18",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber21",
     "Text of allows the actor to read the text of the DOM element matching the locator",
     "test"
   ],
   [
     "text#tostring text#tostring,text#tostring",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber33",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber36",
     "Text of produces a sensible description of the question being asked",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber38",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber41",
     "Text of when mapping",
     "test"
   ],
   [
     "text#map text#map,text#map",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber42",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber45",
     "Text of when mapping allows for the answer to be mapped to another type",
     "test"
   ],
   [
     "text#map text#map,text#map",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber57",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber60",
     "Text of when mapping allows for the transformations to be chained",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber77",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber80",
     "Text ofAll",
     "test"
   ],
   [
     "text.ofall src/screenplay/questions/text/text.ts~text.ofall,text.ofall",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber101",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber104",
     "Text ofAll allows for a question relative to another target to be asked",
     "test"
   ],
   [
     "text#map text#map,text#map",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber116",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber119",
     "Text ofAll allows for the answer to be mapped",
     "test"
   ],
   [
     "text.ofall src/screenplay/questions/text/text.ts~text.ofall,text.ofall",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber94",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber97",
     "Text ofAll allows the actor to read the text of all DOM elements matching the locator",
     "test"
   ],
   [
     "text#tostring text#tostring,text#tostring",
-    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber109",
+    "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber112",
     "Text ofAll produces sensible description of the question being asked",
     "test"
   ],
   [
     "useangular src/screenplay/interactions/useangular.ts~useangular,useangular",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber13",
     "UseAngular",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber14",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber17",
     "UseAngular synchronisation",
     "test"
   ],
   [
     "useangular.disablesynchronisation src/screenplay/interactions/useangular.ts~useangular.disablesynchronisation,useangular.disablesynchronisation",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber44",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber47",
     "UseAngular synchronisation provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber32",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber35",
     "UseAngular synchronisation when disabled",
     "test"
   ],
   [
     "useangular.enablesynchronisation src/screenplay/interactions/useangular.ts~useangular.enablesynchronisation,useangular.enablesynchronisation",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber36",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber39",
     "UseAngular synchronisation when disabled can be enabled",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber22",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber25",
     "UseAngular synchronisation when enabled",
     "test"
   ],
   [
     "useangular.disablesynchronisation src/screenplay/interactions/useangular.ts~useangular.disablesynchronisation,useangular.disablesynchronisation",
-    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber26",
+    "test-file/spec/screenplay/interactions/UseAngular.spec.ts.html#lineNumber29",
     "UseAngular synchronisation when enabled can be disabled",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber11",
     "Value",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber15",
     "Value of",
     "test"
   ],
   [
     "cssclasses#of src/screenplay/questions/cssclasses.ts~cssclasses#of,cssclasses#of",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber48",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber51",
     "Value of allows for a question relative to another target to be asked",
     "test"
   ],
   [
     "text.of src/screenplay/questions/text/text.ts~text.of,text.of",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber16",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber19",
     "Value of allows the actor to read the \"value\" attribute of a DOM element matching the locator",
     "test"
   ],
   [
     "text#of text#of,text#of",
-    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber32",
+    "test-file/spec/screenplay/questions/Value.spec.ts.html#lineNumber35",
     "Value of allows the actor to read the \"value\" attribute of a DOM element matching the locator",
     "test"
   ],
   [
     "wait src/screenplay/interactions/wait.ts~wait,wait",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber13",
     "Wait",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber31",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber34",
     "Wait for",
     "test"
   ],
   [
     "wait.for src/screenplay/interactions/wait.ts~wait.for,wait.for",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber34",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber37",
     "Wait for pauses the actor flow for the length of an explicitly-set duration",
     "test"
   ],
   [
     "wait#tostring wait#tostring,wait#tostring",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber43",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber46",
     "Wait for provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber49",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber52",
     "Wait until",
     "test"
   ],
   [
     "wait.until src/screenplay/interactions/wait.ts~wait.until,wait.until",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber62",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber65",
     "Wait until fails the actor flow when the timeout expires",
     "test"
   ],
   [
     "wait.until src/screenplay/interactions/wait.ts~wait.until,wait.until",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber52",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber55",
     "Wait until pauses the actor flow until the expectation is met",
     "test"
   ],
   [
     "wait#tostring wait#tostring,wait#tostring",
-    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber77",
+    "test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber80",
     "Wait until provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber10",
     "Website",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber14",
     "Website title",
     "test"
   ],
   [
     "website src/screenplay/questions/website.ts~website,website",
-    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber16",
     "Website title allows the actor to read the title of the website",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber26",
+    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber29",
     "Website url",
     "test"
   ],
   [
     "website src/screenplay/questions/website.ts~website,website",
-    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber39",
+    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber42",
     "Website url ",
     "test"
   ],
   [
     "website src/screenplay/questions/website.ts~website,website",
-    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber29",
+    "test-file/spec/screenplay/questions/Website.spec.ts.html#lineNumber32",
     "Website url allows the actor to read the URL of the website",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber11",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber12",
     "isActive",
     "test"
   ],
   [
     "isactive src/expectations/isactive.ts~isactive,isactive",
-    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber30",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber33",
     "isActive allows the actor flow to continue when the element is active",
     "test"
   ],
   [
     "isactive src/expectations/isactive.ts~isactive,isactive",
-    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber39",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber42",
     "isActive breaks the actor flow when element is inactive",
     "test"
   ],
   [
     "isactive src/expectations/isactive.ts~isactive,isactive",
-    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber52",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber55",
     "isActive contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "isactive src/expectations/isactive.ts~isactive,isactive",
-    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber46",
+    "test-file/spec/expectations/isActive.spec.ts.html#lineNumber49",
     "isActive contributes to a human-readable description of an assertion",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber11",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber12",
     "isClickable",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber32",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber35",
     "isClickable allows the actor flow to continue when the element is clickable",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber38",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber41",
     "isClickable breaks the actor flow when element is disabled",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber45",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber48",
     "isClickable breaks the actor flow when element is not visible",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber58",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber61",
     "isClickable contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "isclickable src/expectations/isclickable.ts~isclickable,isclickable",
-    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber52",
+    "test-file/spec/expectations/isClickable.spec.ts.html#lineNumber55",
     "isClickable contributes to a human-readable description of an assertion",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber11",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber12",
     "isEnabled",
     "test"
   ],
   [
     "isenabled src/expectations/isenabled.ts~isenabled,isenabled",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber30",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber33",
     "isEnabled allows the actor flow to continue when the element is enabled",
     "test"
   ],
   [
     "isenabled src/expectations/isenabled.ts~isenabled,isenabled",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber36",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber39",
     "isEnabled breaks the actor flow when element is disabled",
     "test"
   ],
   [
     "isenabled src/expectations/isenabled.ts~isenabled,isenabled",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber49",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber52",
     "isEnabled contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "isenabled src/expectations/isenabled.ts~isenabled,isenabled",
-    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber43",
+    "test-file/spec/expectations/isEnabled.spec.ts.html#lineNumber46",
     "isEnabled contributes to a human-readable description of an assertion",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber12",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber13",
     "isPresent",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber48",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber51",
     "isPresent ",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber30",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber33",
     "isPresent allows the actor flow to continue when the element is present in the DOM",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber36",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber39",
     "isPresent breaks the actor flow when element does not become present in the DOM",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber41",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber44",
     "isPresent breaks the actor flow when element is not present in the DOM",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber64",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber67",
     "isPresent contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "ispresent src/expectations/ispresent.ts~ispresent,ispresent",
-    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber58",
+    "test-file/spec/expectations/isPresent.spec.ts.html#lineNumber61",
     "isPresent contributes to a human-readable description of an assertion",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber11",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber12",
     "isSelected",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber33",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber36",
     "isSelected allows the actor flow to continue when the element is selected",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber46",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber49",
     "isSelected breaks the actor flow when element is not present",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber39",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber42",
     "isSelected breaks the actor flow when element is not selected",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber59",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber62",
     "isSelected contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "isselected src/expectations/isselected.ts~isselected,isselected",
-    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber53",
+    "test-file/spec/expectations/isSelected.spec.ts.html#lineNumber56",
     "isSelected contributes to a human-readable description of an assertion",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber11",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber12",
     "isVisible",
     "test"
   ],
   [
     "isvisible src/expectations/isvisible.ts~isvisible,isvisible",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber31",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber34",
     "isVisible allows the actor flow to continue when the element is visible",
     "test"
   ],
   [
     "isvisible src/expectations/isvisible.ts~isvisible,isvisible",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber37",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber40",
     "isVisible breaks the actor flow when element is not visible",
     "test"
   ],
   [
     "isvisible src/expectations/isvisible.ts~isvisible,isvisible",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber50",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber53",
     "isVisible contributes to a human-readable description of a wait",
     "test"
   ],
   [
     "isvisible src/expectations/isvisible.ts~isvisible,isvisible",
-    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber44",
+    "test-file/spec/expectations/isVisible.spec.ts.html#lineNumber47",
     "isVisible contributes to a human-readable description of an assertion",
     "test"
   ],
@@ -4407,12 +4485,6 @@ window.esdocSearchIndex = [
     "spec/screenplay/tasks/loop.spec.ts",
     "test-file/spec/screenplay/tasks/Loop.spec.ts.html",
     "spec/screenplay/tasks/Loop.spec.ts",
-    "testFile"
-  ],
-  [
-    "spec/setup.spec.ts",
-    "test-file/spec/setup.spec.ts.html",
-    "spec/setup.spec.ts",
     "testFile"
   ],
   [

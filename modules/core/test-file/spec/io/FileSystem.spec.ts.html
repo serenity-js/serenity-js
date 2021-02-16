@@ -354,7 +354,8 @@ describe (<span class="hljs-string">'FileSystem'</span>, <span class="hljs-funct
                 dest = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/some.png'</span>);
 
             <span class="hljs-keyword">return</span> expect(out.store(dest, imageBuffer)).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
-                expect(absolutePath.equals(processCWD.join(dest))).to.equal(<span class="hljs-literal">true</span>);
+                <span class="hljs-keyword">const</span> expected = processCWD.join(dest).value;
+                expect(absolutePath.value).to.match(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'([A-Z]:)?'</span> + expected + <span class="hljs-string">'$'</span>));
             });
         });
     });
@@ -410,6 +411,32 @@ describe (<span class="hljs-string">'FileSystem'</span>, <span class="hljs-funct
                     expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/another/file-not-to-be-deleted.json'</span>)).value)).to.equal(<span class="hljs-literal">true</span>);
                 });
             });
+        });
+    });
+
+    describe(<span class="hljs-string">'when generating temp file paths'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-keyword">const</span>
+            fs = FakeFS.with({
+                <span class="hljs-string">'/var/tmp'</span>: { },
+            }),
+            os = { <span class="hljs-attr">tmpdir</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-string">'/var/tmp'</span> },
+            out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs, os <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
+
+        it(<span class="hljs-string">'uses a randomly generated file name and .tmp suffix'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            expect(out.tempFilePath().value).to.match(<span class="hljs-regexp">/\/var\/tmp\/[a-z0-9]+\.tmp/</span>);
+        });
+
+        it(<span class="hljs-string">'allows for the prefix to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            expect(out.tempFilePath(<span class="hljs-string">'serenity-'</span>).value).to.match(<span class="hljs-regexp">/\/var\/tmp\/serenity-[a-z0-9]+\.tmp/</span>);
+        });
+
+
+        it(<span class="hljs-string">'allows for the suffix to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            expect(out.tempFilePath(<span class="hljs-string">'serenity-'</span>, <span class="hljs-string">'.out'</span>).value).to.match(<span class="hljs-regexp">/\/var\/tmp\/serenity-[a-z0-9]+\.out/</span>);
         });
     });
 

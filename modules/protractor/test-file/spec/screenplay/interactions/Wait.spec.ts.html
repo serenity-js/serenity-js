@@ -187,11 +187,12 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, AssertionError, Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, AssertionError, Duration, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-keyword">import</span> { Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
+<span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Wait}</span> </span>*/</span>
 describe(<span class="hljs-string">'Wait'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -212,6 +213,8 @@ describe(<span class="hljs-string">'Wait'</span>, <span class="hljs-function">()
             &lt;/body&gt;
         &lt;/html&gt;
     `</span>);
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     describe(<span class="hljs-string">'for'</span>, <span class="hljs-function">() =&gt;</span> {
 

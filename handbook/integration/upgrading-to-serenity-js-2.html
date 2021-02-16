@@ -516,7 +516,7 @@ take advantage of the new features.</p>
 }
 </code></pre>
 <p>You'd then use a mechanism like Cucumber <a href="https://github.com/cucumber/cucumber-js/blob/1.x/docs/support_files/world.md"><code>World</code></a> to  tell Serenity/JS to instantiate the <code>Stage</code> and make it available in your test steps:</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/support/world.ts</span>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/support/world.ts</span>
 
 <span class="hljs-keyword">import</span> { serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'serenity-js/lib/screenplay-protractor'</span>;
 <span class="hljs-keyword">import</span> { Actors } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Actors.ts'</span>;
@@ -529,16 +529,16 @@ take advantage of the new features.</p>
 };
 </code></pre>
 <p>Next, you'd access the <code>Actor</code> by invoking the <code>theActorCalled(name)</code> and <code>theActorInTheSpotlight()</code> APIs provided by the <code>Stage</code>:</p>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/step_definitions/steps.ts</span>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/step_definitions/steps.ts</span>
 <span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
-    <span class="hljs-built_in">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has an empty todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">actorName: string</span>) </span>{
+    <span class="hljs-built_in">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has an empty todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">actorName: <span class="hljs-built_in">string</span></span>) </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.theActorCalled(actorName).attemptsTo(
             <span class="hljs-comment">// some tasks to perform...</span>
         );
     });
 
-    <span class="hljs-built_in">this</span>.When(<span class="hljs-regexp">/^she adds "(.*?)" to her todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">itemName: string</span>) </span>{
+    <span class="hljs-built_in">this</span>.When(<span class="hljs-regexp">/^she adds "(.*?)" to her todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">itemName: <span class="hljs-built_in">string</span></span>) </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.theActorInTheSpotlight().attemptsTo(
             <span class="hljs-comment">// some tasks to perform...</span>
         );
@@ -589,7 +589,7 @@ to set up the <code>Stage</code> and assign it to Cucumber context (<code>this</
 is simply tell the framework what actors you want to <a href="/modules/core/function/index.html#static-function-engage"><code>engage</code></a>
 before each scenario.</p>
 <h5 id="before-cucumber-1-3-3-serenity-js-1-x-">Before (Cucumber 1.3.3, Serenity/JS 1.x)</h5>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/support/world.ts</span>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/support/world.ts</span>
 
 <span class="hljs-keyword">import</span> { serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'serenity-js/lib/screenplay-protractor'</span>;
 <span class="hljs-keyword">import</span> { Actors } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Actors.ts'</span>;
@@ -602,7 +602,7 @@ before each scenario.</p>
 };
 </code></pre>
 <h5 id="after-cucumber-1-3-3-serenity-js-2-x-">After (Cucumber 1.3.3, Serenity/JS 2.x)</h5>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/support/setup.ts</span>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/support/setup.ts</span>
 
 <span class="hljs-keyword">import</span> { engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { Actors } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Actors'</span>;
@@ -627,17 +627,17 @@ While this mechanism is quite convenient, it also requires you to use the full-b
 arrow functions <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#No_separate_this">don't have a separate <code>this</code></a>. For this reason, Cucumber documentation encourages you to <a href="https://cucumber.io/docs/cucumber/api/#steps">avoid the arrow functions</a> altogether.</p>
 <p>In version 2.0, Serenity/JS takes on the responsibility of managing state in your test scenarios, makes accessing the actors easier via <a href="/modules/core/function/index.html#static-function-actorCalled"><code>actorCalled</code></a> and <a href="/modules/core/function/index.html#static-function-actorInTheSpotlight"><code>actorInTheSpotlight</code></a>, and since it doesn't rely on Cucumber <code>this</code> - it allows you to use the convenient and compact arrow functions to help you simplify your code further.</p>
 <h5 id="before-cucumber-1-3-3-serenity-js-1-x-">Before (Cucumber 1.3.3, Serenity/JS 1.x)</h5>
-<pre><code class="lang-typescript hljs javascript"><span class="hljs-comment">// features/step_definitions/steps.ts</span>
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/step_definitions/steps.ts</span>
 
 <span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
-    <span class="hljs-built_in">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has an empty todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">actorName: string</span>) </span>{
+    <span class="hljs-built_in">this</span>.Given(<span class="hljs-regexp">/^.*that (.*) has an empty todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">actorName: <span class="hljs-built_in">string</span></span>) </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.theActorCalled(actorName).attemptsTo(
             <span class="hljs-comment">// some tasks to perform...</span>
         );
     });
 
-    <span class="hljs-built_in">this</span>.When(<span class="hljs-regexp">/^she adds "(.*?)" to her todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">itemName: string</span>) </span>{
+    <span class="hljs-built_in">this</span>.When(<span class="hljs-regexp">/^she adds "(.*?)" to her todo list$/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">itemName: <span class="hljs-built_in">string</span></span>) </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.theActorInTheSpotlight().attemptsTo(
             <span class="hljs-comment">// some tasks to perform...</span>
         );

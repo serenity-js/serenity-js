@@ -172,7 +172,7 @@ I want to be able to filter my todos to see active items only
 and exhibit few or no business-focused abstractions.</p>
 <p>Below is an example test following the scripting approach, implemented using raw <a href="https://www.protractortest.org/#">Protractor</a> and <a href="https://jasmine.github.io/">Jasmine</a>.
 Please note, however, that this style is by no means specific to those particular tools as you'll see it often being used with other similar libraries and frameworks:</p>
-<pre><code class="lang-javascript hljs javascript">describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<pre><code class="lang-javascript hljs typescript">describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     it(<span class="hljs-string">'allows the user to show active items only'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
         <span class="hljs-comment">// low-level navigation and synchronisation code</span>
@@ -244,7 +244,7 @@ This simple pattern focuses on the user interface and models it in terms of page
 <p>What you'll see in the code sample below is a by-the-book implementation of the Page Objects pattern.
 For simplicity, I've implemented the page object representing the <code>TodoList</code> in the same file as the test using it, as well as the test-specific <a href="https://jasmine.github.io/api/3.5/global.html#afterEach">teardown method</a>
 that prevents the application state from leaking between the tests. I've also annotated the code to highlight the features and limitations of this implementation:</p>
-<pre><code class="lang-javascript hljs javascript">describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<pre><code class="lang-javascript hljs typescript">describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
     <span class="hljs-comment">// The page object representing the Todo list:</span>
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoList</span> </span>{
@@ -390,7 +390,7 @@ Additionally, expressing acceptance test scenarios in a human-readable language,
 </code></pre>
 <p>This looks better, doesn't it?</p>
 <p>Let's look at the implementation of the <a href="https://cucumber.io/docs/gherkin/step-organization/">step library</a> that powers this test, though:</p>
-<pre><code class="lang-javascript hljs javascript"><span class="hljs-keyword">const</span> { Given, Then, When, Before, After } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cucumber'</span>);
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">const</span> { Given, Then, When, Before, After } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cucumber'</span>);
 
 Before(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">await</span> browser.get(<span class="hljs-string">'http://todomvc.com/examples/angularjs/#/'</span>);

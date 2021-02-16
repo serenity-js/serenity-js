@@ -186,13 +186,17 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter'</span>;
 <span class="hljs-keyword">import</span> { CucumberTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/CucumberTestRunner'</span>;
 <span class="hljs-keyword">import</span> { JasmineTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/JasmineTestRunner'</span>;
 <span class="hljs-keyword">import</span> { MochaTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/MochaTestRunner'</span>;
 
 describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hljs-function">() =&gt;</span> {
+
+    <span class="hljs-keyword">const</span>
+        macos = { <span class="hljs-attr">platform</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-string">'darwin'</span> } <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>,
+        proc  = { <span class="hljs-attr">env</span>: {} } <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
 
     <span class="hljs-keyword">let</span> detector: TestRunnerDetector;
 

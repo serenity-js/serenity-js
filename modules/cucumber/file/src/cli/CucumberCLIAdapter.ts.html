@@ -131,7 +131,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberCLIAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file covered in integration tests */</span>
-<span class="hljs-keyword">import</span> { ModuleLoader, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { FileSystem, ModuleLoader, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberConfig'</span>;
 <span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberOptions'</span>;
 
@@ -145,6 +145,7 @@
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         config: CucumberConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem,
     </span>)</span> {
         <span class="hljs-built_in">this</span>.options = <span class="hljs-keyword">new</span> CucumberOptions(config);
     }
@@ -154,9 +155,25 @@
             ? <span class="hljs-built_in">this</span>.loader.versionOf(<span class="hljs-string">'@cucumber/cucumber'</span>)
             : <span class="hljs-built_in">this</span>.loader.versionOf(<span class="hljs-string">'cucumber'</span>);
 
-        <span class="hljs-keyword">const</span>
-            argv             = <span class="hljs-built_in">this</span>.options.asArgumentsForCucumber(version),
-            serenityListener = <span class="hljs-built_in">this</span>.loader.resolve(<span class="hljs-string">'@serenity-js/cucumber'</span>);
+        <span class="hljs-comment">/*
+         *  Cucumber.js allows max 1 formatter per output
+         *      - https://github.com/cucumber/cucumber-js/blob/625fab034eea768bf74f7a46993a57182204ddf6/src/cli/index.ts#L83-L140
+         *  and doesn't allow to write to \\.\NUL on Windows (equivalent of *nix /dev/null) because of the check in OptionSplitter
+         *      - https://github.com/cucumber/cucumber-js/blob/625fab034eea768bf74f7a46993a57182204ddf6/src/cli/option_splitter.ts#L3
+         *  so instead I create a dummy temp file, which is deleted when the test run is finished.
+         */</span>
+        <span class="hljs-keyword">const</span> dummyOutputFile  = <span class="hljs-built_in">this</span>.fileSystem.tempFilePath(<span class="hljs-string">'serenity-'</span>);
+        <span class="hljs-keyword">const</span> serenityListener = <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.loader.resolve(<span class="hljs-string">'@serenity-js/cucumber'</span>) }</span>:<span class="hljs-subst">${ dummyOutputFile.value }</span>`</span>;
+
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.runScenarios(version, serenityListener, pathsToScenarios)
+            .then(
+                <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.fileSystem.remove(dummyOutputFile),
+                <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">this</span>.fileSystem.remove(dummyOutputFile).then(<span class="hljs-function">() =&gt;</span> { <span class="hljs-keyword">throw</span> error }, <span class="hljs-function"><span class="hljs-params">fileRemoveError</span> =&gt;</span> { <span class="hljs-keyword">throw</span> error })
+            );
+    }
+
+    <span class="hljs-keyword">private</span> runScenarios(version: Version, <span class="hljs-attr">serenityListener</span>: <span class="hljs-built_in">string</span>, pathsToScenarios): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> argv = <span class="hljs-built_in">this</span>.options.asArgumentsForCucumber(version);
 
         <span class="hljs-keyword">if</span> (version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))) {
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.runWithCucumber7(argv, serenityListener, pathsToScenarios);

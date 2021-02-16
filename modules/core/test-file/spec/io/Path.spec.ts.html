@@ -360,7 +360,7 @@ describe (<span class="hljs-string">'Path'</span>, <span class="hljs-function">(
             p1 = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/documents'</span>),
             p2 = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'../projects'</span>);
 
-        expect(p1.resolve(p2)).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/projects'</span>));
+        expect(p1.resolve(p2).value).to.match(<span class="hljs-regexp">/([A-Z]:)?\/home\/jan\/projects$/</span>);
     });
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>

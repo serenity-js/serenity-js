@@ -187,11 +187,12 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, AssertionError, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-keyword">import</span> { isEnabled, Navigate, Target, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src'</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../fixtures'</span>;
+<span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../UIActors'</span>;
 
 describe(<span class="hljs-string">'isEnabled'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
@@ -199,6 +200,8 @@ describe(<span class="hljs-string">'isEnabled'</span>, <span class="hljs-functio
         <span class="hljs-attr">Enabled_Button</span>:     Target.the(<span class="hljs-string">'enabled button'</span>).located(by.id(<span class="hljs-string">'enabled'</span>)),
         <span class="hljs-attr">Disabled_Button</span>:    Target.the(<span class="hljs-string">'disabled button'</span>).located(by.id(<span class="hljs-string">'disabled'</span>)),
     };
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     beforeEach(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`

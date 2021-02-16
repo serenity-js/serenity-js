@@ -144,7 +144,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber86">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber89">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -176,14 +176,15 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Changing API URL for all subsequent requests</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
  <span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+ <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
  <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisitt'</span>).whoCan(
+ <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Apisitt'</span>).whoCan(
      BrowseTheWeb.using(protractor.browser),
 
      <span class="hljs-comment">// Note: no default base URL is given when the axios instance is created</span>
@@ -210,11 +211,12 @@
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Changing API port for all subsequent requests</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
  <span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>;
  <span class="hljs-keyword">import</span> { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+ <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisitt'</span>).whoCan(
+ <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Apisitt'</span>).whoCan(
      ManageALocalServer.runningAHttpListener(someServer),
      CallAnApi.at(<span class="hljs-string">'http://localhost'</span>),
  );
@@ -228,10 +230,11 @@
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Setting a header for all subsequent requests</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+ <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisitt'</span>).whoCan(
+ <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Apisitt'</span>).whoCan(
      CallAnApi.at(<span class="hljs-string">'http://localhost'</span>),
  );
 
@@ -240,7 +243,7 @@
      Question.about(<span class="hljs-string">`<span class="hljs-subst">${ name }</span> environment variable`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> process.env[var_name]);
 
  actor.attemptsTo(
-     ChangeApiConfig.header(<span class="hljs-string">'Authorization'</span>, EnvVar(<span class="hljs-string">'TOKEN'</span>)),
+     ChangeApiConfig.setHeader(<span class="hljs-string">'Authorization'</span>, EnvVar(<span class="hljs-string">'TOKEN'</span>)),
      Send.a(GetRequest.to(<span class="hljs-string">'/api'</span>)),
      Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
  );</code></pre>
@@ -389,7 +392,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber172">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber175">source</a></span></span>
     </span>
   </h3>
 
@@ -479,7 +482,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber138">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber141">source</a></span></span>
     </span>
   </h3>
 
@@ -560,7 +563,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber111">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ChangeApiConfig.ts.html#lineNumber114">source</a></span></span>
     </span>
   </h3>
 

@@ -188,15 +188,18 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> { actorCalled, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { LocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { Navigate, Select, Selected, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
-<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
+
+<span class="hljs-keyword">import</span> { Select, Selected, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
+<span class="hljs-keyword">import</span> { CreatePage, DeletePage, VisitPage } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../pages'</span>;
+<span class="hljs-keyword">import</span> { ChangeApiConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Select}</span> </span>*/</span>
 describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> pageWithSingleSelect = pageFromTemplate(<span class="hljs-string">`
+    <span class="hljs-keyword">const</span> pageWithSingleSelect = <span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
                 &lt;form&gt;
@@ -217,15 +220,16 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
                 &lt;/form&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
-        `</span>);
+        `</span>;
 
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleSelectPage</span> </span>{
+        <span class="hljs-keyword">static</span> pageName = <span class="hljs-string">'single-select'</span>;
         <span class="hljs-keyword">static</span> selector = Target.the(<span class="hljs-string">'country selector'</span>).located(by.id(<span class="hljs-string">'single-option-select'</span>));
         <span class="hljs-keyword">static</span> countryCode = Target.the(<span class="hljs-string">'country code'</span>).located(by.id(<span class="hljs-string">'country-of-interest-code'</span>));
         <span class="hljs-keyword">static</span> countryName = Target.the(<span class="hljs-string">'country name'</span>).located(by.id(<span class="hljs-string">'country-of-interest-name'</span>));
     }
 
-    <span class="hljs-keyword">const</span> pageWithMultiSelect = pageFromTemplate(<span class="hljs-string">`
+    <span class="hljs-keyword">const</span> pageWithMultiSelect = <span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
                 &lt;form&gt;
@@ -254,9 +258,10 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
                 &lt;p id='another-country-of-interest-name'&gt;Germany&lt;/p&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
-        `</span>);
+        `</span>;
 
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiSelectPage</span> </span>{
+        <span class="hljs-keyword">static</span> pageName = <span class="hljs-string">'multi-select'</span>;
         <span class="hljs-keyword">static</span> selector = Target.the(<span class="hljs-string">'country selector'</span>).located(by.id(<span class="hljs-string">'multi-option-select'</span>));
         <span class="hljs-keyword">static</span> countryCodes = Target.all(<span class="hljs-string">'country codes'</span>).located(by.css(<span class="hljs-string">'#country-of-interest-codes li'</span>));
         <span class="hljs-keyword">static</span> countryNames = Target.all(<span class="hljs-string">'country names'</span>).located(by.css(<span class="hljs-string">'#country-of-interest-names li'</span>));
@@ -264,7 +269,24 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
         <span class="hljs-keyword">static</span> anotherCountryName = Target.the(<span class="hljs-string">'another country name'</span>).located(by.css(<span class="hljs-string">'#another-country-of-interest-name'</span>));
     }
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
+    before(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
+
+    before(<span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
+            StartLocalServer.onRandomPort(),
+            ChangeApiConfig.setUrlTo(LocalServer.url()),
+            CreatePage(SingleSelectPage.pageName, pageWithSingleSelect),
+            CreatePage(MultiSelectPage.pageName, pageWithMultiSelect),
+        )
+    );
+
+    after(<span class="hljs-function">() =&gt;</span>
+        actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
+            DeletePage(SingleSelectPage.pageName),
+            DeletePage(MultiSelectPage.pageName),
+            StopLocalServer.ifRunning(),
+        )
+    )
 
     describe(<span class="hljs-string">'when working with single-option selects'</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -274,7 +296,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.valueOf}</span> </span>*/</span>
             it(<span class="hljs-string">'should select a single option by its static value'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithSingleSelect),
+                    VisitPage(SingleSelectPage.pageName),
                     Select.value(<span class="hljs-string">'FR'</span>).from(SingleSelectPage.selector),
                     Ensure.that(Selected.valueOf(SingleSelectPage.selector), equals(<span class="hljs-string">'FR'</span>))
                 ));
@@ -283,7 +305,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.valueOf}</span> </span>*/</span>
             it(<span class="hljs-string">'should select a single option by its Answerable value'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithSingleSelect),
+                    VisitPage(SingleSelectPage.pageName),
                     Select.value(Text.of(SingleSelectPage.countryCode)).from(SingleSelectPage.selector),
                     Ensure.that(Selected.valueOf(SingleSelectPage.selector), equals(<span class="hljs-string">'PL'</span>))
                 ));
@@ -293,9 +315,9 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Select.option}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.optionIn}</span> </span>*/</span>
-            it(<span class="hljs-string">'should select a single option by its static name'</span>, <span class="hljs-function">() =&gt;</span>
+            it(<span class="hljs-string">'should select a single option by its static pageName'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithSingleSelect),
+                    VisitPage(SingleSelectPage.pageName),
                     Select.option(<span class="hljs-string">'France'</span>).from(SingleSelectPage.selector),
                     Ensure.that(Selected.optionIn(SingleSelectPage.selector), equals(<span class="hljs-string">'France'</span>))
                 ));
@@ -304,7 +326,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.optionIn}</span> </span>*/</span>
             it(<span class="hljs-string">'should select a single option by its Answerable name'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithSingleSelect),
+                    VisitPage(SingleSelectPage.pageName),
                     Select.option(Text.of(SingleSelectPage.countryName)).from(SingleSelectPage.selector),
                     Ensure.that(Selected.optionIn(SingleSelectPage.selector), equals(<span class="hljs-string">'Poland'</span>))
                 ));
@@ -319,7 +341,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.valuesOf}</span> </span>*/</span>
             it(<span class="hljs-string">'should select multiple options by their static value'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithMultiSelect),
+                    VisitPage(MultiSelectPage.pageName),
                     Select.values(<span class="hljs-string">'PL'</span>, <span class="hljs-string">'DE'</span>).from(MultiSelectPage.selector),
                     Ensure.that(Selected.valuesOf(MultiSelectPage.selector), equals([<span class="hljs-string">'PL'</span>, <span class="hljs-string">'DE'</span>]))
                 ));
@@ -328,7 +350,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.valuesOf}</span> </span>*/</span>
             it(<span class="hljs-string">'should select multiple options by their Answerable value'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithMultiSelect),
+                    VisitPage(MultiSelectPage.pageName),
                     Select.values(Text.ofAll(MultiSelectPage.countryCodes)).from(MultiSelectPage.selector),
                     Ensure.that(Selected.valuesOf(MultiSelectPage.selector), equals([<span class="hljs-string">'UK'</span>, <span class="hljs-string">'PL'</span>]))
                 ));
@@ -337,7 +359,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.valuesOf}</span> </span>*/</span>
             it(<span class="hljs-string">'should concatenate option values from several Answerables'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithMultiSelect),
+                    VisitPage(MultiSelectPage.pageName),
                     Select.values(
                         Text.ofAll(MultiSelectPage.countryCodes),
                         Text.of(MultiSelectPage.anotherCountryCode),
@@ -350,7 +372,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.valuesOf}</span> </span>*/</span>
             it(<span class="hljs-string">'should concatenate option values from several static values'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithMultiSelect),
+                    VisitPage(MultiSelectPage.pageName),
                     Select.values(<span class="hljs-string">'UK'</span>, <span class="hljs-string">'PL'</span>).from(MultiSelectPage.selector),
                     Ensure.that(Selected.valuesOf(MultiSelectPage.selector), equals([<span class="hljs-string">'UK'</span>, <span class="hljs-string">'PL'</span>]))
                 ));
@@ -360,9 +382,9 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Select.options}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.optionsIn}</span> </span>*/</span>
-            it(<span class="hljs-string">'should select multiple options by their static name'</span>, <span class="hljs-function">() =&gt;</span>
+            it(<span class="hljs-string">'should select multiple options by their static pageName'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithMultiSelect),
+                    VisitPage(MultiSelectPage.pageName),
                     Select.options([<span class="hljs-string">'Poland'</span>, <span class="hljs-string">'France'</span>]).from(MultiSelectPage.selector),
                     Ensure.that(Selected.optionsIn(MultiSelectPage.selector), equals([<span class="hljs-string">'Poland'</span>, <span class="hljs-string">'France'</span>]))));
 
@@ -370,7 +392,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.optionsIn}</span> </span>*/</span>
             it(<span class="hljs-string">'should select multiple options by their Answerable name'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithMultiSelect),
+                    VisitPage(MultiSelectPage.pageName),
                     Select.options(Text.ofAll(MultiSelectPage.countryNames)).from(MultiSelectPage.selector),
                     Ensure.that(Selected.optionsIn(MultiSelectPage.selector), equals([<span class="hljs-string">'United Kingdom'</span>, <span class="hljs-string">'Poland'</span>]))
                 ));
@@ -379,7 +401,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.optionsIn}</span> </span>*/</span>
             it(<span class="hljs-string">'should concatenate option values from several Answerables'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithMultiSelect),
+                    VisitPage(MultiSelectPage.pageName),
                     Select.options(
                         Text.ofAll(MultiSelectPage.countryNames),
                         Text.of(MultiSelectPage.anotherCountryName),
@@ -392,7 +414,7 @@ describe(<span class="hljs-string">'Select'</span>, <span class="hljs-function">
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Selected.optionsIn}</span> </span>*/</span>
             it(<span class="hljs-string">'should concatenate option values from several static values'</span>, <span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
-                    Navigate.to(pageWithMultiSelect),
+                    VisitPage(MultiSelectPage.pageName),
                     Select.options([<span class="hljs-string">'Poland'</span>, <span class="hljs-string">'Germany'</span>], <span class="hljs-string">'France'</span>).from(MultiSelectPage.selector),
                     Ensure.that(Selected.optionsIn(MultiSelectPage.selector), equals([<span class="hljs-string">'Poland'</span>, <span class="hljs-string">'Germany'</span>, <span class="hljs-string">'France'</span>]))
                 ));

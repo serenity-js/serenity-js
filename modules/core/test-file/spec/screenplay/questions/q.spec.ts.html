@@ -336,6 +336,16 @@ describe(<span class="hljs-string">'q'</span>, <span class="hljs-function">() =&
         <span class="hljs-keyword">return</span> expect(Quentin.answer(question)).to.eventually.equal(<span class="hljs-string">'The answer is: 42!'</span>)
     });
 
+    it(<span class="hljs-string">`should inject answers to multiple Answerables into the template`</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span>
+            baseUrl = Question.about(<span class="hljs-string">'url'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-string">'http://127.0.0.1:8000'</span>),
+            itemId  = Question.about(<span class="hljs-string">'itemId'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-number">5</span>);
+
+        <span class="hljs-keyword">const</span> question = q <span class="hljs-string">`<span class="hljs-subst">${ baseUrl }</span>/api/items/<span class="hljs-subst">${ itemId }</span>`</span>;
+
+        <span class="hljs-keyword">return</span> expect(Quentin.answer(question)).to.eventually.equal(<span class="hljs-string">'http://127.0.0.1:8000/api/items/5'</span>);
+    });
+
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{q}</span> </span>*/</span>
     it(<span class="hljs-string">'provides a sensible description of the question being asked'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> question = q <span class="hljs-string">`/products/<span class="hljs-subst">${ <span class="hljs-number">1</span> }</span>/attributes/<span class="hljs-subst">${ <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">2</span>) }</span>`</span>;

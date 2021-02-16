@@ -308,7 +308,7 @@ and configure it to execute your Cucumber scenarios ("<code>specs</code>" in Pro
 <p>To install and configure Serenity/JS reporting modules appropriate for your project (a.k.a. the <code>crew</code>) - follow the <a href="/handbook/reporting/">Serenity/JS reporting guide</a>.</p>
 <h4 id="using-native-cucumber-reporters">Using native Cucumber reporters</h4>
 <p>You can use <a href="https://github.com/cucumber/cucumber-js/tree/master/src/formatter">native Cucumber reporters</a> together with, or instead of those provided by Serenity/JS.</p>
-<p>To do that, specify them using a <code>&lt;formatterName:outputFileName&gt;</code> format, for example:</p>
+<p>To do that, specify them using a <code>&lt;formatterName:outputFileName&gt;</code> format to save their output to a file, or simply <code>&lt;formatterName&gt;</code> to print their output to terminal. For example:</p>
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
 <span class="hljs-built_in">exports</span>.config = {
 
@@ -318,10 +318,10 @@ and configure it to execute your Cucumber scenarios ("<code>specs</code>" in Pro
     <span class="hljs-attr">specs</span>: [ <span class="hljs-string">'features/*.feature'</span>, ],
     <span class="hljs-attr">cucumberOpts</span>: {
         <span class="hljs-attr">format</span>: [
+            <span class="hljs-string">'usage'</span>,                <span class="hljs-comment">// or 'usage:usage.txt' to print to file</span>
             <span class="hljs-string">'html:cucumber.html'</span>,
             <span class="hljs-string">'snippets:snippets.txt'</span>,
             <span class="hljs-string">'summary:summary.txt'</span>,
-            <span class="hljs-string">'usage:usage.txt'</span>,
         ],
         <span class="hljs-attr">require</span>: [
             <span class="hljs-string">'features/step_definitions/**/*.ts'</span>,    <span class="hljs-comment">// or *.js</span>
@@ -334,6 +334,14 @@ and configure it to execute your Cucumber scenarios ("<code>specs</code>" in Pro
     <span class="hljs-comment">// ... other Protractor config omitted for brevity </span>
 };
 </code></pre>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text"><p><strong>PRO TIP:</strong>
+        Cucumber.js supports <strong>only one native formatter per output</strong>.
+        In particular, you can't have more than one Cucumber.js formatter writing to standard output or to the same file.
+    </p></div>
+</div>
+
 <h2 id="integrating-protractor-with-serenity-js-and-jasmine">Integrating Protractor with Serenity/JS and Jasmine</h2>
 <p>To integrate Serenity/JS with Protractor and Jasmine, <code>@serenity-js/protractor/adapter</code> uses a test runner adapter and a Jasmine reporter available as part of the <a href="/handbook/integration/serenityjs-and-jasmine.html"><code>@serenity-js/jasmine</code> module</a>.</p>
 <p>This means that no matter whether your test suite uses <a href="/handbook/integration/serenityjs-and-jasmine.html">Jasmine standalone</a>, or Jasmine running behind Protractor, the lower-level integration with Serenity/JS works exactly the same and provides the same capabilities.</p>

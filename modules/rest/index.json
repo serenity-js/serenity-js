@@ -3802,7 +3802,7 @@
     "__docId__": 248,
     "kind": "file",
     "name": "src/screenplay/interactions/ChangeApiConfig.ts",
-    "content": "import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Log, LogicError, UsesAbilities } from '@serenity-js/core';\nimport { URL } from 'url';\nimport { CallAnApi } from '../abilities';\n\n/**\n * @desc\n *  Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.\n *\n * @example <caption>Changing API URL for all subsequent requests</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { Navigate, Target, Text } from '@serenity-js/protractor';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { protractor, by } from 'protractor';\n *\n *  import axios from 'axios';\n *\n *  const actor = Actor.named('Apisitt').whoCan(\n *      BrowseTheWeb.using(protractor.browser),\n *\n *      // Note: no default base URL is given when the axios instance is created\n *      CallAnApi.using(axios.create()),\n *  );\n *\n *  // Let's imagine that the website under test displays\n *  // a dynamically generated API URL we'd like to use\n *  const ApiDetailsWidget = {\n *      Url: Target.the('API URL').located(by.id('api-url')),\n *  }\n *\n *  actor.attemptsTo(\n *      Navigate.to('/profile'),\n *\n *      // We change the API URL based on the text displayed in the widget\n *      // (although we could change it to some arbitrary string too).\n *      ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n *\n *      // Any subsequent request will be sent to the newly set URL\n *      Send.a(GetRequest.to('/projects')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @example <caption>Changing API port for all subsequent requests</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *\n *  const actor = Actor.named('Apisitt').whoCan(\n *      ManageALocalServer.runningAHttpListener(someServer),\n *      CallAnApi.at('http://localhost'),\n *  );\n *\n *  actor.attemptsTo(\n *      StartALocalServer.onRandomPort(),\n *      ChangeApiConfig.setPortTo(LocalServer.port()),\n *      Send.a(GetRequest.to('/api')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @example <caption>Setting a header for all subsequent requests</caption>\n *  import { Actor, Question } from '@serenity-js/core';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *\n *  const actor = Actor.named('Apisitt').whoCan(\n *      CallAnApi.at('http://localhost'),\n *  );\n *\n *  // A sample Question reading Node process environment variable\n *  const EnvVar = (var_name: string) =>\n *      Question.about(`${ name } environment variable`, actor => process.env[var_name]);\n *\n *  actor.attemptsTo(\n *      ChangeApiConfig.header('Authorization', EnvVar('TOKEN')),\n *      Send.a(GetRequest.to('/api')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n */\nexport class ChangeApiConfig {\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setUrlTo(newApiUrl: Answerable<string>): Interaction {\n        return new ChangeApiConfigSetUrl(newApiUrl);\n    }\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiPort\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setPortTo(newApiPort: Answerable<number>): Interaction {\n        return new ChangeApiConfigSetPort(newApiPort)\n    }\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to modify the configuration of the {@link AxiosInstance}\n     *  used by {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *  and set a HTTP request header for any subsequent {@link HTTPRequest}\n     *  issued via {@link Send}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} value\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setHeader(name: Answerable<string>, value: Answerable<string>): Interaction {\n        return new ChangeApiConfigSetHeader(name, value);\n    }\n}\n\n/**\n * @package\n */\nclass ChangeApiConfigSetUrl extends Interaction {\n    constructor(private readonly newApiUrl: Answerable<string>) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return actor.answer(this.newApiUrl)\n            .then(newApiUrl => CallAnApi.as(actor).modifyConfig(config => config.baseURL = newApiUrl));\n    }\n\n    toString() {\n        return `#actor changes API URL configuration to ${ this.newApiUrl }`;\n    }\n}\n\n/**\n * @package\n */\nclass ChangeApiConfigSetPort  extends Interaction {\n    constructor(private readonly newPort: Answerable<number | string>) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return actor.answer(this.newPort)\n            .then(newPort => CallAnApi.as(actor).modifyConfig(config => {\n                if (! config.baseURL) {\n                    throw new LogicError(`Can't change the port of a baseURL that has not been set.`)\n                }\n\n                try {\n                    const newUrl = new URL(config.baseURL);\n                    newUrl.port = `${ newPort }`;\n                    config.baseURL = newUrl.toString();\n                }\n                catch (e) {\n                    throw new LogicError(`Could not change the API port`, e);\n                }\n            }));\n    }\n\n    toString() {\n        return `#actor changes API port configuration to ${ this.newPort }`;\n    }\n}\n\n/**\n * @package\n *\n * @see https://github.com/axios/axios#custom-instance-defaults\n */\nclass ChangeApiConfigSetHeader extends Interaction {\n\n    constructor(\n        private readonly name: Answerable<string>,\n        private readonly value: Answerable<string>\n    ) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return Promise.all([\n            actor.answer(this.name),\n            actor.answer(this.value),\n        ]).\n        then(([ name, value ]) => {\n            if (! name) {\n                throw new LogicError(`Looks like the name of the header is missing, \"${ name }\" given`);\n            }\n\n            // A header with an empty value might still be valid so we don't validate the value\n            // see: https://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html#sec2.1\n\n            return CallAnApi.as(actor).modifyConfig(config => {\n                config.headers.common[name] = value;\n            });\n        });\n    }\n\n    toString() {\n        return `#actor changes API URL and sets header \"${ this.name }\" to \"${ this.value }\"`;\n    }\n}\n",
+    "content": "import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Log, LogicError, UsesAbilities } from '@serenity-js/core';\nimport { URL } from 'url';\nimport { CallAnApi } from '../abilities';\n\n/**\n * @desc\n *  Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.\n *\n * @example <caption>Changing API URL for all subsequent requests</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Navigate, Target, Text } from '@serenity-js/protractor';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { protractor, by } from 'protractor';\n *\n *  import axios from 'axios';\n *\n *  const actor = actorCalled('Apisitt').whoCan(\n *      BrowseTheWeb.using(protractor.browser),\n *\n *      // Note: no default base URL is given when the axios instance is created\n *      CallAnApi.using(axios.create()),\n *  );\n *\n *  // Let's imagine that the website under test displays\n *  // a dynamically generated API URL we'd like to use\n *  const ApiDetailsWidget = {\n *      Url: Target.the('API URL').located(by.id('api-url')),\n *  }\n *\n *  actor.attemptsTo(\n *      Navigate.to('/profile'),\n *\n *      // We change the API URL based on the text displayed in the widget\n *      // (although we could change it to some arbitrary string too).\n *      ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n *\n *      // Any subsequent request will be sent to the newly set URL\n *      Send.a(GetRequest.to('/projects')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @example <caption>Changing API port for all subsequent requests</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = actorCalled('Apisitt').whoCan(\n *      ManageALocalServer.runningAHttpListener(someServer),\n *      CallAnApi.at('http://localhost'),\n *  );\n *\n *  actor.attemptsTo(\n *      StartALocalServer.onRandomPort(),\n *      ChangeApiConfig.setPortTo(LocalServer.port()),\n *      Send.a(GetRequest.to('/api')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @example <caption>Setting a header for all subsequent requests</caption>\n *  import { actorCalled, Question } from '@serenity-js/core';\n *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = actorCalled('Apisitt').whoCan(\n *      CallAnApi.at('http://localhost'),\n *  );\n *\n *  // A sample Question reading Node process environment variable\n *  const EnvVar = (var_name: string) =>\n *      Question.about(`${ name } environment variable`, actor => process.env[var_name]);\n *\n *  actor.attemptsTo(\n *      ChangeApiConfig.setHeader('Authorization', EnvVar('TOKEN')),\n *      Send.a(GetRequest.to('/api')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n */\nexport class ChangeApiConfig {\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setUrlTo(newApiUrl: Answerable<string>): Interaction {\n        return new ChangeApiConfigSetUrl(newApiUrl);\n    }\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiPort\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setPortTo(newApiPort: Answerable<number>): Interaction {\n        return new ChangeApiConfigSetPort(newApiPort)\n    }\n\n    /**\n     * @desc\n     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  to modify the configuration of the {@link AxiosInstance}\n     *  used by {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n     *  and set a HTTP request header for any subsequent {@link HTTPRequest}\n     *  issued via {@link Send}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} value\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     */\n    static setHeader(name: Answerable<string>, value: Answerable<string>): Interaction {\n        return new ChangeApiConfigSetHeader(name, value);\n    }\n}\n\n/**\n * @package\n */\nclass ChangeApiConfigSetUrl extends Interaction {\n    constructor(private readonly newApiUrl: Answerable<string>) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return actor.answer(this.newApiUrl)\n            .then(newApiUrl => CallAnApi.as(actor).modifyConfig(config => config.baseURL = newApiUrl));\n    }\n\n    toString() {\n        return `#actor changes API URL configuration to ${ this.newApiUrl }`;\n    }\n}\n\n/**\n * @package\n */\nclass ChangeApiConfigSetPort  extends Interaction {\n    constructor(private readonly newPort: Answerable<number | string>) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return actor.answer(this.newPort)\n            .then(newPort => CallAnApi.as(actor).modifyConfig(config => {\n                if (! config.baseURL) {\n                    throw new LogicError(`Can't change the port of a baseURL that has not been set.`)\n                }\n\n                try {\n                    const newUrl = new URL(config.baseURL);\n                    newUrl.port = `${ newPort }`;\n                    config.baseURL = newUrl.toString();\n                }\n                catch (e) {\n                    throw new LogicError(`Could not change the API port`, e);\n                }\n            }));\n    }\n\n    toString() {\n        return `#actor changes API port configuration to ${ this.newPort }`;\n    }\n}\n\n/**\n * @package\n *\n * @see https://github.com/axios/axios#custom-instance-defaults\n */\nclass ChangeApiConfigSetHeader extends Interaction {\n\n    constructor(\n        private readonly name: Answerable<string>,\n        private readonly value: Answerable<string>\n    ) {\n        super();\n    }\n\n    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {\n        return Promise.all([\n            actor.answer(this.name),\n            actor.answer(this.value),\n        ]).\n        then(([ name, value ]) => {\n            if (! name) {\n                throw new LogicError(`Looks like the name of the header is missing, \"${ name }\" given`);\n            }\n\n            // A header with an empty value might still be valid so we don't validate the value\n            // see: https://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html#sec2.1\n\n            return CallAnApi.as(actor).modifyConfig(config => {\n                config.headers.common[name] = value;\n            });\n        });\n    }\n\n    toString() {\n        return `#actor changes API URL and sets header \"${ this.name }\" to \"${ this.value }\"`;\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/rest/src/screenplay/interactions/ChangeApiConfig.ts",
     "access": "public",
@@ -3822,11 +3822,11 @@
     "importStyle": "{ChangeApiConfig}",
     "description": " Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.",
     "examples": [
-      "<caption>Changing API URL for all subsequent requests</caption>\n import { Actor } from '@serenity-js/core';\n import { Navigate, Target, Text } from '@serenity-js/protractor';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n import { protractor, by } from 'protractor';\n\n import axios from 'axios';\n\n const actor = Actor.named('Apisitt').whoCan(\n     BrowseTheWeb.using(protractor.browser),\n\n     // Note: no default base URL is given when the axios instance is created\n     CallAnApi.using(axios.create()),\n );\n\n // Let's imagine that the website under test displays\n // a dynamically generated API URL we'd like to use\n const ApiDetailsWidget = {\n     Url: Target.the('API URL').located(by.id('api-url')),\n }\n\n actor.attemptsTo(\n     Navigate.to('/profile'),\n\n     // We change the API URL based on the text displayed in the widget\n     // (although we could change it to some arbitrary string too).\n     ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n\n     // Any subsequent request will be sent to the newly set URL\n     Send.a(GetRequest.to('/projects')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );",
-      "<caption>Changing API port for all subsequent requests</caption>\n import { Actor } from '@serenity-js/core';\n import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n\n const actor = Actor.named('Apisitt').whoCan(\n     ManageALocalServer.runningAHttpListener(someServer),\n     CallAnApi.at('http://localhost'),\n );\n\n actor.attemptsTo(\n     StartALocalServer.onRandomPort(),\n     ChangeApiConfig.setPortTo(LocalServer.port()),\n     Send.a(GetRequest.to('/api')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );",
-      "<caption>Setting a header for all subsequent requests</caption>\n import { Actor, Question } from '@serenity-js/core';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n\n const actor = Actor.named('Apisitt').whoCan(\n     CallAnApi.at('http://localhost'),\n );\n\n // A sample Question reading Node process environment variable\n const EnvVar = (var_name: string) =>\n     Question.about(`${ name } environment variable`, actor => process.env[var_name]);\n\n actor.attemptsTo(\n     ChangeApiConfig.header('Authorization', EnvVar('TOKEN')),\n     Send.a(GetRequest.to('/api')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );"
+      "<caption>Changing API URL for all subsequent requests</caption>\n import { actorCalled } from '@serenity-js/core';\n import { Navigate, Target, Text } from '@serenity-js/protractor';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n import { Ensure, equals } from '@serenity-js/assertions';\n import { protractor, by } from 'protractor';\n\n import axios from 'axios';\n\n const actor = actorCalled('Apisitt').whoCan(\n     BrowseTheWeb.using(protractor.browser),\n\n     // Note: no default base URL is given when the axios instance is created\n     CallAnApi.using(axios.create()),\n );\n\n // Let's imagine that the website under test displays\n // a dynamically generated API URL we'd like to use\n const ApiDetailsWidget = {\n     Url: Target.the('API URL').located(by.id('api-url')),\n }\n\n actor.attemptsTo(\n     Navigate.to('/profile'),\n\n     // We change the API URL based on the text displayed in the widget\n     // (although we could change it to some arbitrary string too).\n     ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),\n\n     // Any subsequent request will be sent to the newly set URL\n     Send.a(GetRequest.to('/projects')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );",
+      "<caption>Changing API port for all subsequent requests</caption>\n import { actorCalled } from '@serenity-js/core';\n import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n import { Ensure, equals } from '@serenity-js/assertions';\n\n const actor = actorCalled('Apisitt').whoCan(\n     ManageALocalServer.runningAHttpListener(someServer),\n     CallAnApi.at('http://localhost'),\n );\n\n actor.attemptsTo(\n     StartALocalServer.onRandomPort(),\n     ChangeApiConfig.setPortTo(LocalServer.port()),\n     Send.a(GetRequest.to('/api')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );",
+      "<caption>Setting a header for all subsequent requests</caption>\n import { actorCalled, Question } from '@serenity-js/core';\n import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest';\n import { Ensure, equals } from '@serenity-js/assertions';\n\n const actor = actorCalled('Apisitt').whoCan(\n     CallAnApi.at('http://localhost'),\n );\n\n // A sample Question reading Node process environment variable\n const EnvVar = (var_name: string) =>\n     Question.about(`${ name } environment variable`, actor => process.env[var_name]);\n\n actor.attemptsTo(\n     ChangeApiConfig.setHeader('Authorization', EnvVar('TOKEN')),\n     Send.a(GetRequest.to('/api')),\n     Ensure.that(LastResponse.status(), equals(200)),\n );"
     ],
-    "lineNumber": 86,
+    "lineNumber": 89,
     "interface": false
   },
   {
@@ -3840,7 +3840,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.setUrlTo",
     "access": "public",
     "description": " Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}",
-    "lineNumber": 111,
+    "lineNumber": 114,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3879,7 +3879,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.setPortTo",
     "access": "public",
     "description": " Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}",
-    "lineNumber": 138,
+    "lineNumber": 141,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3918,7 +3918,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfig.setHeader",
     "access": "public",
     "description": " Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n to modify the configuration of the {@link AxiosInstance}\n used by {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}\n and set a HTTP request header for any subsequent {@link HTTPRequest}\n issued via {@link Send}.",
-    "lineNumber": 172,
+    "lineNumber": 175,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3968,7 +3968,7 @@
     "importPath": "@serenity-js/rest/src/screenplay/interactions/ChangeApiConfig.ts",
     "importStyle": null,
     "description": "",
-    "lineNumber": 187,
+    "lineNumber": 190,
     "interface": false,
     "extends": [
       "@serenity-js/core~Interaction"
@@ -3986,7 +3986,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetUrl#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 188,
+    "lineNumber": 191,
     "undocument": true
   },
   {
@@ -4000,7 +4000,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetUrl#performAs",
     "access": "public",
     "description": " ",
-    "lineNumber": 131,
+    "lineNumber": 134,
     "params": [
       {
         "nullable": null,
@@ -4033,7 +4033,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetUrl#toString",
     "access": "public",
     "description": " ",
-    "lineNumber": 136,
+    "lineNumber": 139,
     "params": [],
     "return": {
       "types": [
@@ -4053,7 +4053,7 @@
     "importPath": "@serenity-js/rest/src/screenplay/interactions/ChangeApiConfig.ts",
     "importStyle": null,
     "description": "",
-    "lineNumber": 234,
+    "lineNumber": 237,
     "interface": false,
     "extends": [
       "@serenity-js/core~Interaction"
@@ -4071,7 +4071,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetPort#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 235,
+    "lineNumber": 238,
     "undocument": true
   },
   {
@@ -4085,7 +4085,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetPort#performAs",
     "access": "public",
     "description": " ",
-    "lineNumber": 149,
+    "lineNumber": 152,
     "params": [
       {
         "nullable": null,
@@ -4118,7 +4118,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetPort#toString",
     "access": "public",
     "description": " ",
-    "lineNumber": 167,
+    "lineNumber": 170,
     "params": [],
     "return": {
       "types": [
@@ -4141,7 +4141,7 @@
     "see": [
       "https://github.com/axios/axios#custom-instance-defaults"
     ],
-    "lineNumber": 296,
+    "lineNumber": 299,
     "interface": false,
     "extends": [
       "@serenity-js/core~Interaction"
@@ -4159,7 +4159,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 298,
+    "lineNumber": 301,
     "undocument": true
   },
   {
@@ -4173,7 +4173,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader#performAs",
     "access": "public",
     "description": " ",
-    "lineNumber": 186,
+    "lineNumber": 189,
     "params": [
       {
         "nullable": null,
@@ -4206,7 +4206,7 @@
     "longname": "src/screenplay/interactions/ChangeApiConfig.ts~ChangeApiConfigSetHeader#toString",
     "access": "public",
     "description": " ",
-    "lineNumber": 205,
+    "lineNumber": 208,
     "params": [],
     "return": {
       "types": [
@@ -4835,7 +4835,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/rest\",\n  \"version\": \"2.22.0\",\n  \"description\": \"Test REST APIs with Serenity/JS\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"http\",\n    \"rest\",\n    \"axios\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"test\": \"nyc --report-dir ../../target/coverage/rest mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 10\",\n    \"npm\": \">= 6\"\n  },\n  \"dependencies\": {\n    \"@serenity-js/core\": \"2.22.0\",\n    \"axios\": \"^0.21.1\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.19.7\",\n    \"@integration/testing-tools\": \"2.22.0\",\n    \"@serenity-js/assertions\": \"2.22.0\",\n    \"@types/mocha\": \"^8.0.4\",\n    \"axios-mock-adapter\": \"^1.19.0\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/rest\",\n  \"version\": \"2.23.0\",\n  \"description\": \"Test REST APIs with Serenity/JS\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"http\",\n    \"rest\",\n    \"axios\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish\",\n    \"test\": \"nyc --report-dir ../../target/coverage/rest mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \">= 10\",\n    \"npm\": \">= 6\"\n  },\n  \"dependencies\": {\n    \"@serenity-js/core\": \"2.23.0\",\n    \"axios\": \"^0.21.1\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.19.7\",\n    \"@integration/testing-tools\": \"2.23.0\",\n    \"@serenity-js/assertions\": \"2.23.0\",\n    \"@types/mocha\": \"^8.0.4\",\n    \"axios-mock-adapter\": \"^1.19.0\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/rest/package.json",
     "name": "package.json",
     "static": true,

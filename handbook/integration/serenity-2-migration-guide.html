@@ -337,7 +337,7 @@ So if you previously used mocha then remove your <code>mochaOpts</code> section:
 <p>The above file will need to be placed in the <code>support</code> location specified for your test runner. See previous test runner sections where the specifics of each are explained.</p>
 <p>If you want to perform global setup for all of your features, you can create a file e.g. called <code>configure_cast.ts</code> containing the following and place in the <code>support</code> location specified for your test runner:</p>
 <p>For Jasmine: </p>
-<pre><code class="lang-javascript hljs javascript"><span class="hljs-keyword">import</span> { engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { Actors } <span class="hljs-keyword">from</span> <span class="hljs-string">"../../screenplay/actors"</span>;
 
 beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
@@ -354,12 +354,12 @@ Before(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyw
 <p>Alternatively, this can be added at the top of your test(s) if you don't wish to apply this configuration globally.</p>
 <h3 id="browser-synchronisation">Browser Synchronisation</h3>
 <p>If your Serenity/JS project is testing a non-angular site you may have an <code>onPrepare</code> section in your protractor.config that contains the following:</p>
-<pre><code class="lang-javascript hljs javascript">onPrepare: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<pre><code class="lang-javascript hljs typescript">onPrepare: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     browser.ignoreSynchronization = <span class="hljs-literal">true</span>;
 },
 </code></pre>
 <p>If this is the case you will need to change this to the new syntax as follows:</p>
-<pre><code class="lang-javascript hljs javascript">onPrepare: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<pre><code class="lang-javascript hljs typescript">onPrepare: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     browser.waitForAngularEnabled(<span class="hljs-literal">false</span>);
 },
 </code></pre>

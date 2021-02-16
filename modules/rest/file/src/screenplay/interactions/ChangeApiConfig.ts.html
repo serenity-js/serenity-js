@@ -149,14 +149,15 @@
  *  executing this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} has been configured with.
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Changing API URL for all subsequent requests&lt;/caption&gt;
- *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { Navigate, Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
+ *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *  import { protractor, by } from 'protractor';
  *
  *  import axios from 'axios';
  *
- *  const actor = Actor.named('Apisitt').whoCan(
+ *  const actor = actorCalled('Apisitt').whoCan(
  *      BrowseTheWeb.using(protractor.browser),
  *
  *      // Note: no default base URL is given when the axios instance is created
@@ -182,11 +183,12 @@
  *  );
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Changing API port for all subsequent requests&lt;/caption&gt;
- *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { LocalServer, ManageALocalServer, StartLocalServer } from '<span class="hljs-doctag">@serenity</span>-js/local-server';
  *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
+ *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
- *  const actor = Actor.named('Apisitt').whoCan(
+ *  const actor = actorCalled('Apisitt').whoCan(
  *      ManageALocalServer.runningAHttpListener(someServer),
  *      CallAnApi.at('http://localhost'),
  *  );
@@ -199,10 +201,11 @@
  *  );
  *
  * <span class="hljs-doctag">@example </span>&lt;caption&gt;Setting a header for all subsequent requests&lt;/caption&gt;
- *  import { Actor, Question } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
+ *  import { actorCalled, Question } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest';
+ *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
- *  const actor = Actor.named('Apisitt').whoCan(
+ *  const actor = actorCalled('Apisitt').whoCan(
  *      CallAnApi.at('http://localhost'),
  *  );
  *
@@ -211,7 +214,7 @@
  *      Question.about(`${ name } environment variable`, actor =&gt; process.env[var_name]);
  *
  *  actor.attemptsTo(
- *      ChangeApiConfig.header('Authorization', EnvVar('TOKEN')),
+ *      ChangeApiConfig.setHeader('Authorization', EnvVar('TOKEN')),
  *      Send.a(GetRequest.to('/api')),
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );

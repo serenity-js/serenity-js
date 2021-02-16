@@ -187,11 +187,12 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-keyword">import</span> { Enter, Navigate, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
+<span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
 describe(<span class="hljs-string">'Enter'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -210,12 +211,14 @@ describe(<span class="hljs-string">'Enter'</span>, <span class="hljs-function">(
                     &lt;/form&gt;
                     &lt;script&gt;
                     function update() {
-                      document.getElementById("result").textContent = document.getElementById("field).value;
+                      document.getElementById("result").textContent = document.getElementById("field").value;
                     }
                     &lt;/script&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
         `</span>)
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter.theValue}</span> </span>*/</span>

@@ -1273,31 +1273,55 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber86",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber141",
+    "FileSystem when generating temp file paths",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber155",
+    "FileSystem when generating temp file paths allows for the prefix to be overridden",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber161",
+    "FileSystem when generating temp file paths allows for the suffix to be overridden",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber150",
+    "FileSystem when generating temp file paths uses a randomly generated file name and .tmp suffix",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber87",
     "FileSystem when removing",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber112",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber113",
     "FileSystem when removing directories",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber114",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber115",
     "FileSystem when removing directories removes the directory recursively",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber88",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber89",
     "FileSystem when removing individual files",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber90",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber91",
     "FileSystem when removing individual files removes the file",
     "test"
   ],
@@ -1987,7 +2011,7 @@ window.esdocSearchIndex = [
   ],
   [
     "stagemanager asyncoperationattempted asyncoperationfailed src/stage/stagemanager.ts~stagemanager,stagemanager src/events/asyncoperationattempted.ts~asyncoperationattempted,asyncoperationattempted src/events/asyncoperationfailed.ts~asyncoperationfailed,asyncoperationfailed",
-    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber100",
+    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber105",
     "StageManager provides details should the work in progress fail with an error",
     "test"
   ],
@@ -2454,14 +2478,20 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber83",
+    "q ",
+    "test"
+  ],
+  [
     "q src/screenplay/questions/q.ts~q,q",
-    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber91",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber101",
     "q can have the default description overridden",
     "test"
   ],
   [
     "q src/screenplay/questions/q.ts~q,q",
-    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber84",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber94",
     "q provides a sensible description of the question being asked",
     "test"
   ],
@@ -3705,6 +3735,12 @@ window.esdocSearchIndex = [
     "src/io/filesystem.ts~filesystem#store",
     "class/src/io/FileSystem.ts~FileSystem.html#instance-method-store",
     "src/io/FileSystem.ts~FileSystem#store",
+    "method"
+  ],
+  [
+    "src/io/filesystem.ts~filesystem#tempfilepath",
+    "class/src/io/FileSystem.ts~FileSystem.html#instance-method-tempFilePath",
+    "src/io/FileSystem.ts~FileSystem#tempFilePath",
     "method"
   ],
   [

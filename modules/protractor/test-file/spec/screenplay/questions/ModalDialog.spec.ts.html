@@ -187,7 +187,7 @@
 
 <span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals, isFalse, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, configure, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { AsyncOperationCompleted, AsyncOperationFailed, InteractionFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
@@ -202,6 +202,8 @@ describe(<span class="hljs-string">'ModalDialog,'</span>, <span class="hljs-func
         <span class="hljs-attr">trigger</span>:    Target.the(<span class="hljs-string">'alert trigger'</span>).located(by.id(<span class="hljs-string">'trigger'</span>)),
         <span class="hljs-attr">result</span>:     Target.the(<span class="hljs-string">'result'</span>).located(by.id(<span class="hljs-string">'result'</span>)),
     }
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     describe(<span class="hljs-string">'when working with alert(),'</span>, <span class="hljs-function">() =&gt;</span> {
 

@@ -187,21 +187,26 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { containAtLeastOneItemThat, Ensure, equals, includes, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> { Browser, ExecuteScript, Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
+<span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../UIActors'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript}</span> </span>*/</span>
 describe(<span class="hljs-string">'ExecuteScriptFromUrl'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
 
+    <span class="hljs-built_in">this</span>.timeout(<span class="hljs-number">10</span> * <span class="hljs-number">1000</span>);
+
     <span class="hljs-keyword">const</span>
-        pathToScript = <span class="hljs-string">`file://<span class="hljs-subst">${ <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./resources/execute-script-sample.js'</span>) }</span>`</span>,
-        pathToPage = <span class="hljs-string">`file://<span class="hljs-subst">${ <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./resources/execute-script-sandbox.html'</span>) }</span>`</span>;
+        pathToScript = fileUrl(<span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./resources/execute-script-sample.js'</span>)),
+        pathToPage = fileUrl(<span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./resources/execute-script-sandbox.html'</span>));
 
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sandbox</span> </span>{
         <span class="hljs-keyword">static</span> Result = Target.the(<span class="hljs-string">'sandbox result'</span>).located(by.id(<span class="hljs-string">'result'</span>));
     }
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.from}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScriptFromUrl}</span> </span>*/</span>
@@ -219,7 +224,11 @@ describe(<span class="hljs-string">'ExecuteScriptFromUrl'</span>, <span class="h
         Navigate.to(pathToPage),
 
         ExecuteScript.from(pathToScript + <span class="hljs-string">'.invalid'</span>),
-    )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Couldn't load script from <span class="hljs-subst">${ pathToScript }</span>.invalid`</span>)
+    )).to.be.rejected
+        .then(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+            expect(error).to.be.instanceOf(LogicError);
+            expect(error.message).to.match(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">`Couldn't load script from.*?<span class="hljs-subst">${ pathToScript }</span>.invalid`</span>))
+        })
         .then(<span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Joe'</span>).attemptsTo(
             Ensure.that(Browser.log(), containAtLeastOneItemThat(property(<span class="hljs-string">'message'</span>, includes(<span class="hljs-string">'execute-script-sample.js.invalid - Failed to load resource'</span>)))),
         )));
@@ -239,6 +248,20 @@ describe(<span class="hljs-string">'ExecuteScriptFromUrl'</span>, <span class="h
         expect(ExecuteScript.from(pathToScript).toString())
             .to.equal(<span class="hljs-string">`#actor executes a script from <span class="hljs-subst">${ pathToScript }</span>`</span>);
     });
+
+    <span class="hljs-comment">// based on https://github.com/sindresorhus/file-url/blob/main/index.js</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fileUrl</span>(<span class="hljs-params">filePath: <span class="hljs-built_in">string</span></span>) </span>{
+        <span class="hljs-keyword">let</span> pathName = filePath.replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);
+
+        <span class="hljs-comment">// Windows drive letter must be prefixed with a slash</span>
+        <span class="hljs-keyword">if</span> (pathName[<span class="hljs-number">0</span>] !== <span class="hljs-string">'/'</span>) {
+            pathName = <span class="hljs-string">`/<span class="hljs-subst">${pathName}</span>`</span>;
+        }
+
+        <span class="hljs-comment">// Escape required characters for path components</span>
+        <span class="hljs-comment">// See: https://tools.ietf.org/html/rfc3986#section-3.3</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">encodeURI</span>(<span class="hljs-string">`file://<span class="hljs-subst">${pathName}</span>`</span>).replace(<span class="hljs-regexp">/[?#]/g</span>, <span class="hljs-built_in">encodeURIComponent</span>);
+    }
 });
 </code></pre>
 

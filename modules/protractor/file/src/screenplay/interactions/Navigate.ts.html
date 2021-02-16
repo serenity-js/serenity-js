@@ -383,10 +383,12 @@
      */</span>
     performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.url)
-            .then(<span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span> BrowseTheWeb.as(actor).get(url))
-            .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">`Couldn't navigate to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.url }</span>`</span>, error);
-            })
+            .then(<span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span>
+                BrowseTheWeb.as(actor).get(url)
+                    .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">`Couldn't navigate to <span class="hljs-subst">${ url }</span>`</span>, error);
+                    })
+            )
     }
 
     <span class="hljs-comment">/**

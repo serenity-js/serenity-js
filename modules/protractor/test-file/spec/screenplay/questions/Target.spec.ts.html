@@ -187,10 +187,11 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { contain, Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
+<span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span> </span>*/</span>
 describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -221,6 +222,8 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
         <span class="hljs-keyword">static</span> Items        = Target.all(<span class="hljs-string">'items'</span>).of(ShoppingList.App).located(by.tagName(<span class="hljs-string">'li'</span>));
         <span class="hljs-keyword">static</span> Bought_Items = Target.all(<span class="hljs-string">'bought items'</span>).located(by.css(<span class="hljs-string">'.bought'</span>)).of(ShoppingList.List);
     }
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     describe(<span class="hljs-string">'allows the actor to locate'</span>, <span class="hljs-function">() =&gt;</span> {
 

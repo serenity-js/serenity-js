@@ -275,7 +275,9 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/FileSystem.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodeFS <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodeOS <span class="hljs-keyword">from</span> <span class="hljs-string">'os'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> gracefulFS <span class="hljs-keyword">from</span> <span class="hljs-string">'graceful-fs'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuid <span class="hljs-keyword">from</span> <span class="hljs-string">'cuid'</span>;
 <span class="hljs-keyword">import</span> { promisify } <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
 
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Path'</span>;
@@ -285,6 +287,7 @@
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> root: Path,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fs: <span class="hljs-keyword">typeof</span> nodeFS = gracefulFS,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> os: <span class="hljs-keyword">typeof</span> nodeOS = nodeOS,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> directoryMode = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'0777'</span>, <span class="hljs-number">8</span>) &amp; (~process.umask()),
     </span>)</span> {
     }
@@ -363,6 +366,10 @@
         <span class="hljs-keyword">const</span> rename = promisify(<span class="hljs-built_in">this</span>.fs.rename);
 
         <span class="hljs-keyword">return</span> rename(source.value, destination.value);
+    }
+
+    <span class="hljs-keyword">public</span> tempFilePath(prefix: <span class="hljs-built_in">string</span> = <span class="hljs-string">''</span>, <span class="hljs-attr">suffix</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">'.tmp'</span>): Path {
+        <span class="hljs-keyword">return</span> Path.from(<span class="hljs-built_in">this</span>.fs.realpathSync(<span class="hljs-built_in">this</span>.os.tmpdir()), <span class="hljs-string">`<span class="hljs-subst">${ prefix }</span><span class="hljs-subst">${ cuid() }</span><span class="hljs-subst">${ suffix }</span>`</span>);
     }
 
     <span class="hljs-keyword">private</span> write(path: Path, <span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span>, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {

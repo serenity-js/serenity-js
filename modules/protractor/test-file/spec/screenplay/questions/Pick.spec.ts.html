@@ -187,11 +187,12 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { contain, Ensure, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 <span class="hljs-keyword">import</span> { by, ElementArrayFinder, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> { Click, CSSClasses, Navigate, Pick, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
+<span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
 describe(<span class="hljs-string">'Pick'</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -231,6 +232,8 @@ describe(<span class="hljs-string">'Pick'</span>, <span class="hljs-function">()
         <span class="hljs-keyword">static</span> Item_Name    = Target.the(<span class="hljs-string">'item name'</span>).located(by.tagName(<span class="hljs-string">'span.item-name'</span>));
         <span class="hljs-keyword">static</span> Item_Names   = Target.all(<span class="hljs-string">'item names'</span>).located(by.tagName(<span class="hljs-string">'span.item-name'</span>));
     }
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     describe(<span class="hljs-string">'(when no filters are applied)'</span>, <span class="hljs-function">() =&gt;</span> {
 

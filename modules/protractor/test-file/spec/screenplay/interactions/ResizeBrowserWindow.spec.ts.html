@@ -187,11 +187,14 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, Note, TakeNote } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage, Note, TakeNote } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { ResizeBrowserWindow, Window } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ResizeBrowserWindow}</span> </span>*/</span>
 describe(<span class="hljs-string">'ResizeBrowserWindow'</span>, <span class="hljs-function">() =&gt;</span> {
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     describe(<span class="hljs-string">`to()`</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -200,8 +203,8 @@ describe(<span class="hljs-string">'ResizeBrowserWindow'</span>, <span class="hl
             actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
                 ResizeBrowserWindow.to(<span class="hljs-number">640</span>, <span class="hljs-number">480</span>),
                 Ensure.that(Window.size(), equals({<span class="hljs-attr">width</span>: <span class="hljs-number">640</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">480</span>})),
-                ResizeBrowserWindow.to(<span class="hljs-number">480</span>, <span class="hljs-number">640</span>),
-                Ensure.that(Window.size(), equals({<span class="hljs-attr">width</span>: <span class="hljs-number">480</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">640</span>})),
+                ResizeBrowserWindow.to(<span class="hljs-number">1024</span>, <span class="hljs-number">768</span>),
+                Ensure.that(Window.size(), equals({<span class="hljs-attr">width</span>: <span class="hljs-number">1024</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">768</span>})),
             ));
 
         <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ResizeBrowserWindow.to}</span> </span>*/</span>
@@ -218,7 +221,7 @@ describe(<span class="hljs-string">'ResizeBrowserWindow'</span>, <span class="hl
             actorCalled(<span class="hljs-string">'Nick'</span>).attemptsTo(
                 ResizeBrowserWindow.toMaximum(),
                 TakeNote.of(Window.size()),
-                ResizeBrowserWindow.to(<span class="hljs-number">480</span>, <span class="hljs-number">640</span>),
+                ResizeBrowserWindow.to(<span class="hljs-number">1024</span>, <span class="hljs-number">768</span>),
                 ResizeBrowserWindow.toMaximum(),
                 Ensure.that(Note.of(Window.size()), equals(Window.size())),
             ));

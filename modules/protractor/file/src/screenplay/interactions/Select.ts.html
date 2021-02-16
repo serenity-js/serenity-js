@@ -565,14 +565,15 @@
 
     <span class="hljs-keyword">const</span>
         isAlreadySelected = <span class="hljs-function">(<span class="hljs-params">option: ElementFinder</span>) =&gt;</span> option.isSelected(),
-        ensureOnlyOneApplies = <span class="hljs-function">(<span class="hljs-params">list: <span class="hljs-built_in">boolean</span>[]</span>) =&gt;</span> list.filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _ === <span class="hljs-literal">true</span>).length === <span class="hljs-number">1</span>;
+        xor = <span class="hljs-function">(<span class="hljs-params">first: <span class="hljs-built_in">boolean</span>, second: <span class="hljs-built_in">boolean</span></span>) =&gt;</span> first !== second;
 
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">option: ElementFinder</span>) =&gt;</span>
-        protractor.promise.all([
-                criterion(option),
-                isAlreadySelected(option)
-            ])
-            .then(ensureOnlyOneApplies);
+        isAlreadySelected(option)
+            .then(<span class="hljs-function"><span class="hljs-params">alreadySelected</span> =&gt;</span>
+                criterion(option).then(<span class="hljs-function"><span class="hljs-params">criterionMet</span> =&gt;</span>
+                    xor(alreadySelected, criterionMet)
+                )
+            );
 }
 </code></pre>
 

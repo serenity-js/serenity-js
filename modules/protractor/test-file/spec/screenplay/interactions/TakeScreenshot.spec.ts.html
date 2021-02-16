@@ -186,7 +186,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, configure, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 
 <span class="hljs-keyword">import</span> { Navigate, TakeScreenshot } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
@@ -216,6 +216,8 @@ describe(<span class="hljs-string">'TakeScreenshot'</span>, <span class="hljs-fu
                 &lt;/body&gt;
             &lt;/html&gt;
         `</span>);
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{TakeScreenshot.of}</span> </span>*/</span>
     it(<span class="hljs-string">'allows the actor to take a screenshot with an arbitrary name'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(

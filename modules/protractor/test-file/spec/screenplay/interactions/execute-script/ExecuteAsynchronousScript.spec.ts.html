@@ -187,7 +187,7 @@
 
 <span class="hljs-keyword">import</span> { EventRecorder, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, Question, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage, Question, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { TextData } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { Clock } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
@@ -213,6 +213,8 @@ describe(<span class="hljs-string">'ExecuteAsynchronousScript'</span>, <span cla
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sandbox</span> </span>{
         <span class="hljs-keyword">static</span> Input = Target.the(<span class="hljs-string">'input field'</span>).located(by.id(<span class="hljs-string">'name'</span>));
     }
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteScript.async}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ExecuteAsynchronousScript}</span> </span>*/</span>

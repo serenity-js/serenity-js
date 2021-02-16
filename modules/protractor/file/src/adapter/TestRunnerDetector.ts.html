@@ -183,13 +183,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/TestRunnerDetector.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileFinder, ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileFinder, FileSystem, ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { isPlainObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'is-plain-object'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>
 <span class="hljs-keyword">import</span> { Config } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">'deepmerge'</span>);
 
 <span class="hljs-keyword">import</span> { TestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'./runners/TestRunner'</span>;
+<span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">'deepmerge'</span>);
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
@@ -198,6 +197,7 @@
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader;
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> finder: FileFinder;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem;
 
     <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">protractorCliOptions</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> [
@@ -208,8 +208,9 @@
     }
 
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">cwd: Path</span>)</span> {
-        <span class="hljs-built_in">this</span>.loader = <span class="hljs-keyword">new</span> ModuleLoader(cwd.value);
-        <span class="hljs-built_in">this</span>.finder = <span class="hljs-keyword">new</span> FileFinder(cwd);
+        <span class="hljs-built_in">this</span>.loader     = <span class="hljs-keyword">new</span> ModuleLoader(cwd.value);
+        <span class="hljs-built_in">this</span>.finder     = <span class="hljs-keyword">new</span> FileFinder(cwd);
+        <span class="hljs-built_in">this</span>.fileSystem = <span class="hljs-keyword">new</span> FileSystem(cwd);
     }
 
     <span class="hljs-comment">// todo: when invoking, merge config</span>
@@ -258,6 +259,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CucumberTestRunner(
             correctedConfig,
             <span class="hljs-built_in">this</span>.loader,
+            <span class="hljs-built_in">this</span>.fileSystem,
         );
     }
 

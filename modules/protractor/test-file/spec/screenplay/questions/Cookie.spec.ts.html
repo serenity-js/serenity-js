@@ -187,13 +187,14 @@
 
 <span class="hljs-keyword">import</span> { certificates, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, Question, Transform } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage, Question, Transform } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>;
 <span class="hljs-keyword">import</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> { BrowseTheWeb, DeleteCookies, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { Cookie } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/screenplay'</span>;
+<span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
 describe(<span class="hljs-string">'Cookie'</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -214,6 +215,8 @@ describe(<span class="hljs-string">'Cookie'</span>, <span class="hljs-function">
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cookieCutterURLFor</span>(<span class="hljs-params">path: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">Question</span>&lt;<span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt;&gt; </span>{
         <span class="hljs-keyword">return</span> Transform.the(LocalServer.url(), <span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ url }</span><span class="hljs-subst">${ path }</span>`</span>);
     }
+
+    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
 
     describe(<span class="hljs-string">'over HTTP'</span>, <span class="hljs-function">() =&gt;</span> {
 

@@ -314,10 +314,13 @@
         <span class="hljs-built_in">Promise</span>.all(parameters.map(<span class="hljs-function"><span class="hljs-params">parameter</span> =&gt;</span> actor.answer(parameter)))
             .then(<span class="hljs-function"><span class="hljs-params">answers</span> =&gt;</span>
                 templates
-                    .map(<span class="hljs-function">(<span class="hljs-params">template, i</span>) =&gt;</span> i &lt; answers.length
-                        ? [ template, answers ]
-                        : [ template ])
-                    .reduce(<span class="hljs-function">(<span class="hljs-params">acc, tuple</span>) =&gt;</span> acc.concat(tuple))
+                    .map(<span class="hljs-function">(<span class="hljs-params">template, i</span>) =&gt;</span>
+                        i &lt; answers.length
+                            ? [ template, answers[i] ]
+                            : [ template ])
+                    .reduce(<span class="hljs-function">(<span class="hljs-params">acc, tuple</span>) =&gt;</span>
+                        acc.concat(tuple)
+                    )
                     .join(<span class="hljs-string">''</span>)
             )
     );
