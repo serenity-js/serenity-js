@@ -9,6 +9,7 @@ export * from './FileSystem';
 export * from './FileSystemLocation';
 export * from './formatted';
 export * from './ModuleLoader';
+export * from './OperatingSystem';
 export * from './Path';
 export * from './trimmed';
 export * from './Version';

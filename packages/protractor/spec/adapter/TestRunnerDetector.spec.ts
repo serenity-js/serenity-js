@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { OperatingSystem, Path } from '@serenity-js/core/lib/io';
 import { TestRunnerDetector } from '../../src/adapter';
 import { CucumberTestRunner } from '../../src/adapter/runners/CucumberTestRunner';
 import { JasmineTestRunner } from '../../src/adapter/runners/JasmineTestRunner';
@@ -9,10 +9,14 @@ import { MochaTestRunner } from '../../src/adapter/runners/MochaTestRunner';
 
 describe('TestRunnerDetector', () => {
 
+    const
+        macos = { platform: () => 'darwin' } as any,
+        proc  = { env: {} } as any;
+
     let detector: TestRunnerDetector;
 
     beforeEach(() => {
-        detector = new TestRunnerDetector(Path.from(__dirname));
+        detector = new TestRunnerDetector(Path.from(__dirname), new OperatingSystem(macos, proc));
     });
 
     describe('when configured with a specific runner', () => {
