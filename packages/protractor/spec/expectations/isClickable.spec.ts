@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { actorCalled, AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { isClickable, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
+import { UIActors } from '../UIActors';
 
 describe('isClickable', function () {
 
@@ -15,6 +16,8 @@ describe('isClickable', function () {
         Disabled_Button:    Target.the('disabled button').located(by.id('disabled')),
         Hidden_Button:      Target.the('hidden button').located(by.id('hidden')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     beforeEach(() => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`

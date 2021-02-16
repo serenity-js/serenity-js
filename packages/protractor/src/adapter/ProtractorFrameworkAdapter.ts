@@ -2,7 +2,6 @@ import { ArtifactArchiver, Cast, Serenity } from '@serenity-js/core';
 import deepmerge = require('deepmerge');
 import { isPlainObject } from 'is-plain-object';   // tslint:disable-line:no-var-requires fails when using default import
 import { protractor, Runner } from 'protractor';
-import { BrowseTheWeb } from '../screenplay';
 
 import { BrowserDetector, StandardisedCapabilities } from './browser-detector';
 import { Config } from './Config';

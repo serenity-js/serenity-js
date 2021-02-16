@@ -78,7 +78,8 @@ describe ('FileSystem', () => {
                 dest = new Path('outlet/some.png');
 
             return expect(out.store(dest, imageBuffer)).to.be.fulfilled.then(absolutePath => {
-                expect(absolutePath.equals(processCWD.join(dest))).to.equal(true);
+                const expected = processCWD.join(dest).value;
+                expect(absolutePath.value).to.match(new RegExp('([A-Z]:)?' + expected + '$'));
             });
         });
     });
@@ -134,6 +135,32 @@ describe ('FileSystem', () => {
                     expect(fs.existsSync(processCWD.join(new Path('outlet/another/file-not-to-be-deleted.json')).value)).to.equal(true);
                 });
             });
+        });
+    });
+
+    describe('when generating temp file paths', () => {
+
+        const
+            fs = FakeFS.with({
+                '/var/tmp': { },
+            }),
+            os = { tmpdir: () => '/var/tmp' },
+            out = new FileSystem(processCWD, fs, os as any);
+
+        it('uses a randomly generated file name and .tmp suffix', () => {
+
+            expect(out.tempFilePath().value).to.match(/\/var\/tmp\/[a-z0-9]+\.tmp/);
+        });
+
+        it('allows for the prefix to be overridden', () => {
+
+            expect(out.tempFilePath('serenity-').value).to.match(/\/var\/tmp\/serenity-[a-z0-9]+\.tmp/);
+        });
+
+
+        it('allows for the suffix to be overridden', () => {
+
+            expect(out.tempFilePath('serenity-', '.out').value).to.match(/\/var\/tmp\/serenity-[a-z0-9]+\.out/);
         });
     });
 

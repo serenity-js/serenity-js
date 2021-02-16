@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
+import { actorCalled, AssertionError, Duration, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Navigate, Target, Text, Wait } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Wait} */
 describe('Wait', () => {
@@ -27,6 +28,8 @@ describe('Wait', () => {
             </body>
         </html>
     `);
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('for', () => {
 

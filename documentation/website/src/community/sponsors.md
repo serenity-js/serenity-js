@@ -30,6 +30,10 @@ Thank you! Your support helps us implement new features, write documentation and
         <a href="https://github.com/y3rsh" target="_blank" title="@y3rsh"><img height="60" width="60" alt="@y3rsh" src="https://avatars1.githubusercontent.com/u/502770?s=460&u=26c47ef01b759c45b6a9cee3d0a1276a2c814b30&v=4" />
 <span class="name">Josh McVey</span><span class="nickname">@y3rsh</span></a>
     </li>
+    <li>
+        <a href="https://github.com/viper3400" target="_blank" title="@y3rsh"><img height="60" width="60" alt="@viper3400" src="https://avatars.githubusercontent.com/u/11006334?s=460&u=f6e1dda2c008a6168a555dce5ee4774faf771f94&v=4" />
+<span class="name"></span><span class="nickname">@viper3400</span></a>
+    </li>
 </ul>
 
 ## Previous supporters

@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Enter, Navigate, Target, Value } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Enter} */
 describe('Enter', () => {
@@ -25,12 +26,14 @@ describe('Enter', () => {
                     </form>
                     <script>
                     function update() {
-                      document.getElementById("result").textContent = document.getElementById("field).value;
+                      document.getElementById("result").textContent = document.getElementById("field").value;
                     }
                     </script>
                 </body>
             </html>
         `)
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {Enter} */
     /** @test {Enter.theValue} */

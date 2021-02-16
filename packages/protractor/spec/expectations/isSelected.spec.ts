@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { actorCalled, AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { isSelected, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
+import { UIActors } from '../UIActors';
 
 describe('isSelected', function () {
 
@@ -15,6 +16,8 @@ describe('isSelected', function () {
         JavaScript: Target.the('JavaScript option').located(by.css('select[name="languages"] > option[value="JavaScript"]')),
         Java:       Target.the('Java option').located(by.css('select[name="languages"] > option[value="Java"]')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     beforeEach(() => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`

@@ -2,7 +2,7 @@ import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
-import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, DomainEvent } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, AsyncOperationAttempted, DomainEvent } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { protractor } from 'protractor';
@@ -13,7 +13,7 @@ import { Perform } from '../fixtures';
 
 describe('Photographer', function () {
 
-    this.timeout(5000);
+    this.timeout(60 * 1000);
 
     describe('when instructed to take photos before and after all interactions', () => {
 
@@ -22,7 +22,7 @@ describe('Photographer', function () {
             recorder: EventRecorder;
 
         beforeEach(() => {
-            const testSubject = create(Duration.ofSeconds(3));
+            const testSubject = create(Duration.ofSeconds(10));
             stage = testSubject.stage;
             recorder = testSubject.recorder;
 
@@ -35,14 +35,14 @@ describe('Photographer', function () {
                 Perform.interactionThatSucceeds(1),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
 
+                const events = stringified(recorder.events);
+
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/Before Betty succeeds \(#1\)$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty succeeds \(#1\)'...$/);
                     })
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/After Betty succeeds \(#1\)$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty succeeds \(#1\)'...$/);
                     });
             })));
 
@@ -51,14 +51,14 @@ describe('Photographer', function () {
                 Perform.interactionThatFailsWith(Error),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
+                const events = stringified(recorder.events);
+
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/Before Betty fails due to Error$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty fails due to Error'...$/);
                     })
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/After Betty fails due to Error$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty fails due to Error'...$/);
                     });
             })));
 
@@ -71,14 +71,14 @@ describe('Photographer', function () {
                 ),
             )).to.be.rejected.then(() => stage.waitForNextCue().then(() => {
 
+                const events = stringified(recorder.events);
+
                 PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/Before Betty fails due to TypeError$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty fails due to TypeError'...$/);
                     })
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/After Betty fails due to TypeError$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                    .next(AsyncOperationAttempted, event => {
+                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty fails due to TypeError'...$/);
                     });
             })));
 
@@ -130,20 +130,26 @@ describe('Photographer', function () {
             then(() => protractor.browser.getCapabilities()).
             then(capabilities => {
 
+                const events = stringified(recorder.events);
+
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(
+                        expect(event.name.value, events).to.equal(
                             `${ capabilities.get('platform') }-${ capabilities.get('browserName') }-${ capabilities.get('version') }-Before Betty succeeds (#1)`,
                         );
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     })
                     .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.equal(
+                        expect(event.name.value, events).to.equal(
                             `${ capabilities.get('platform') }-${ capabilities.get('browserName') }-${ capabilities.get('version') }-After Betty succeeds (#1)`,
                         );
-                        expect(event.artifact).to.be.instanceof(Photo);
+                        expect(event.artifact, events).to.be.instanceof(Photo);
                     });
             })));
+
+        function stringified(events: DomainEvent[]): string {
+            return JSON.stringify(events.map(event => event.toJSON()), null, 4);
+        }
 
         function withCorrelationIdOf(cid: CorrelationId) {
             return (event: DomainEvent) => {

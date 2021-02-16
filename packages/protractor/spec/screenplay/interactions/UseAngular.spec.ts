@@ -2,14 +2,17 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, isTrue } from '@serenity-js/assertions';
-import { actorCalled, Question } from '@serenity-js/core';
+import { actorCalled, engage, Question } from '@serenity-js/core';
 
 import { protractor } from 'protractor';
 import { UseAngular } from '../../../src';
 import { promiseOf } from '../../../src/promiseOf';
+import { UIActors } from '../../UIActors';
 
 /** @test {UseAngular} */
 describe('UseAngular', function () {
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('synchronisation', () => {
 

@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 
 import { by } from 'protractor';
 import { Attribute, Click, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Click} */
 describe('Click', () => {
@@ -14,6 +15,8 @@ describe('Click', () => {
     const Form = {
         Checkbox: Target.the('checkbox').located(by.id('no-spam-please')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {Click.on} */
     it('allows the actor to click on an element', () => actorCalled('Bernie').attemptsTo(

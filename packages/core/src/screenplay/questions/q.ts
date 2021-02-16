@@ -38,10 +38,13 @@ export function q(templates: TemplateStringsArray, ...parameters: Array<Answerab
         Promise.all(parameters.map(parameter => actor.answer(parameter)))
             .then(answers =>
                 templates
-                    .map((template, i) => i < answers.length
-                        ? [ template, answers ]
-                        : [ template ])
-                    .reduce((acc, tuple) => acc.concat(tuple))
+                    .map((template, i) =>
+                        i < answers.length
+                            ? [ template, answers[i] ]
+                            : [ template ])
+                    .reduce((acc, tuple) =>
+                        acc.concat(tuple)
+                    )
                     .join('')
             )
     );

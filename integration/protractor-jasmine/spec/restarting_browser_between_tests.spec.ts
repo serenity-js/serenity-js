@@ -12,7 +12,7 @@ describe('@serenity-js/jasmine', function () {
      * - https://github.com/jan-molak/serenity-js/issues/56
      */
 
-    this.timeout(30000);
+    this.timeout(60000);
 
     it('supports restarting the browser between test scenarios', () =>
         protractor(

@@ -1,12 +1,15 @@
 import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 
 import { Navigate, Website } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Website', () => {
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('title', () => {
         /** @test {Website} */

@@ -9,13 +9,14 @@ exports.config = {
 
     directConnect: true,
 
-    allScriptsTimeout: 10 * 1000,
+    allScriptsTimeout: 30 * 1000,
 
     framework: 'mocha',
 
     specs: [ '**/*.spec.ts' ],
 
     mochaOpts: {
+        timeout: 10 * 1000,
         require: [
             'ts-node/register',
         ],
@@ -41,6 +42,9 @@ exports.config = {
 
         chromeOptions: {
             args: [
+                '--disable-web-security',
+                '--allow-file-access-from-files',
+                '--allow-file-access',
                 '--disable-infobars',
                 '--headless',
                 '--disable-gpu',

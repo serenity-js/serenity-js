@@ -2,14 +2,17 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Duration, TestCompromisedError } from '@serenity-js/core';
+import { actorCalled, Duration, engage, TestCompromisedError } from '@serenity-js/core';
 import { by, error as errors } from 'protractor';
 
 import { Navigate, Target, Text, Website } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Navigate} */
 describe('Navigate', () => {
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('to(url)', () => {
 
