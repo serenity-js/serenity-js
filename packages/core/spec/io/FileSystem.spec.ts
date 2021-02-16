@@ -138,6 +138,32 @@ describe ('FileSystem', () => {
         });
     });
 
+    describe('when generating temp file paths', () => {
+
+        const
+            fs = FakeFS.with({
+                '/var/tmp': { },
+            }),
+            os = { tmpdir: () => '/var/tmp' },
+            out = new FileSystem(processCWD, fs, os as any);
+
+        it('uses a randomly generated file name and .tmp suffix', () => {
+
+            expect(out.tempFilePath().value).to.match(/\/var\/tmp\/[a-z0-9]+\.tmp/);
+        });
+
+        it('allows for the prefix to be overridden', () => {
+
+            expect(out.tempFilePath('serenity-').value).to.match(/\/var\/tmp\/serenity-[a-z0-9]+\.tmp/);
+        });
+
+
+        it('allows for the suffix to be overridden', () => {
+
+            expect(out.tempFilePath('serenity-', '.out').value).to.match(/\/var\/tmp\/serenity-[a-z0-9]+\.out/);
+        });
+    });
+
     function jsonFrom(file: Buffer) {
         return JSON.parse(file.toString('ascii'));
     }

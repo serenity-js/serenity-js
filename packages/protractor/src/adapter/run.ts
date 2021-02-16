@@ -1,9 +1,8 @@
 /* istanbul ignore file */
 
 import { serenity } from '@serenity-js/core';
-import { OperatingSystem, Path } from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/lib/io';
 import { Runner } from 'protractor';
-import * as os from 'os';
 import { ProtractorFrameworkAdapter } from './ProtractorFrameworkAdapter';
 import { ProtractorReport } from './reporter';
 import { TestRunnerDetector } from './TestRunnerDetector';
@@ -19,6 +18,6 @@ export function run(runner: Runner, specs: string[]): Promise<ProtractorReport> 
     return new ProtractorFrameworkAdapter(
         serenity,
         runner,
-        new TestRunnerDetector(Path.from(runner.getConfig().configDir), new OperatingSystem(os, process)),
+        new TestRunnerDetector(Path.from(runner.getConfig().configDir)),
     ).run(specs);
 }

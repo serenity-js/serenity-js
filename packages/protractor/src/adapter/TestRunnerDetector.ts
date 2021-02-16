@@ -1,10 +1,9 @@
-import { FileFinder, ModuleLoader, OperatingSystem, Path } from '@serenity-js/core/lib/io';
+import { FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import { isPlainObject } from 'is-plain-object';
-import * as path from 'path'
 import { Config } from 'protractor';
-import deepmerge = require('deepmerge');
 
 import { TestRunner } from './runners/TestRunner';
+import deepmerge = require('deepmerge');
 
 /**
  * @private
@@ -13,6 +12,7 @@ export class TestRunnerDetector {
 
     private readonly loader: ModuleLoader;
     private readonly finder: FileFinder;
+    private readonly fileSystem: FileSystem;
 
     static protractorCliOptions() {
         return [
@@ -22,9 +22,10 @@ export class TestRunnerDetector {
         ];
     }
 
-    constructor(cwd: Path, private readonly os: OperatingSystem) {
-        this.loader = new ModuleLoader(cwd.value);
-        this.finder = new FileFinder(cwd);
+    constructor(cwd: Path) {
+        this.loader     = new ModuleLoader(cwd.value);
+        this.finder     = new FileFinder(cwd);
+        this.fileSystem = new FileSystem(cwd);
     }
 
     // todo: when invoking, merge config
@@ -73,7 +74,7 @@ export class TestRunnerDetector {
         return new CucumberTestRunner(
             correctedConfig,
             this.loader,
-            this.os,
+            this.fileSystem,
         );
     }
 
