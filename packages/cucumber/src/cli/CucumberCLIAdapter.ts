@@ -1,5 +1,5 @@
 /* istanbul ignore file covered in integration tests */
-import { ModuleLoader, Version } from '@serenity-js/core/lib/io';
+import { ModuleLoader, OperatingSystem, Version } from '@serenity-js/core/lib/io';
 import { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';
 
@@ -13,6 +13,7 @@ export class CucumberCLIAdapter {
     constructor(
         config: CucumberConfig,
         private readonly loader: ModuleLoader,
+        private readonly os: OperatingSystem,
     ) {
         this.options = new CucumberOptions(config);
     }
@@ -24,7 +25,7 @@ export class CucumberCLIAdapter {
 
         const
             argv             = this.options.asArgumentsForCucumber(version),
-            serenityListener = this.loader.resolve('@serenity-js/cucumber');
+            serenityListener = `${ this.loader.resolve('@serenity-js/cucumber') }:${ this.os.nullDevicePath() }`;
 
         if (version.isAtLeast(new Version('7.0.0'))) {
             return this.runWithCucumber7(argv, serenityListener, pathsToScenarios);

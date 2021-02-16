@@ -1,4 +1,4 @@
-import { FileFinder, ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { FileFinder, ModuleLoader, OperatingSystem, Path } from '@serenity-js/core/lib/io';
 import { isPlainObject } from 'is-plain-object';
 import * as path from 'path'
 import { Config } from 'protractor';
@@ -22,7 +22,7 @@ export class TestRunnerDetector {
         ];
     }
 
-    constructor(cwd: Path) {
+    constructor(cwd: Path, private readonly os: OperatingSystem) {
         this.loader = new ModuleLoader(cwd.value);
         this.finder = new FileFinder(cwd);
     }
@@ -73,6 +73,7 @@ export class TestRunnerDetector {
         return new CucumberTestRunner(
             correctedConfig,
             this.loader,
+            this.os,
         );
     }
 
