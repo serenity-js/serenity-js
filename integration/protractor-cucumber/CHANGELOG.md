@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.23.0](https://github.com/serenity-js/serenity-js/compare/v2.22.0...v2.23.0) (2021-02-16)
+
+
+### Bug Fixes
+
+* **protractor:** improved support for native Cucumber.js reporters on Windows ([ced153c](https://github.com/serenity-js/serenity-js/commit/ced153cbbcad6fd061adf4c1c84a4d60211a4cd3)), closes [protractor-cucumber-framework/protractor-cucumber-framework#73](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/73)
+
+
+
+
+
 # [2.22.0](https://github.com/serenity-js/serenity-js/compare/v2.21.0...v2.22.0) (2021-01-27)
 
 **Note:** Version bump only for package @integration/protractor-cucumber

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.23.0](https://github.com/serenity-js/serenity-js/compare/v2.22.0...v2.23.0) (2021-02-16)
+
+
+### Bug Fixes
+
+* **core:** q supports having multiple Answerables in a template ([05f0d9d](https://github.com/serenity-js/serenity-js/commit/05f0d9dd637e435b2acd6a408bc8c87f3d477b41))
+* **protractor:** better error message when Navigate fails ([3f4bac7](https://github.com/serenity-js/serenity-js/commit/3f4bac79b57976cabb27bd23712e2f096484c02b))
+* **protractor:** fixed potential synchronisation issue in Select ([fb451c7](https://github.com/serenity-js/serenity-js/commit/fb451c731e0553220003c70c8695d36856e6a500))
+* **protractor:** improved support for native Cucumber.js reporters on Windows ([ced153c](https://github.com/serenity-js/serenity-js/commit/ced153cbbcad6fd061adf4c1c84a4d60211a4cd3)), closes [protractor-cucumber-framework/protractor-cucumber-framework#73](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/73)
+
+
+### Features
+
+* **protractor:** Serenity/JS Cucumber adapter supports native Cucumber.js reporters ([bbf00c0](https://github.com/serenity-js/serenity-js/commit/bbf00c0a22e8d788b4c84c3d3bc94338f675e7cc)), closes [protractor-cucumber-framework/protractor-cucumber-framework#73](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/73)
+
+
+
+
+
 # [2.22.0](https://github.com/serenity-js/serenity-js/compare/v2.21.0...v2.22.0) (2021-01-27)
 
 
