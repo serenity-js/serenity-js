@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Attribute, Hover, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {Hover} */
 describe('Hover', function () {
@@ -26,6 +27,8 @@ describe('Hover', function () {
         Header: Target.the('header').located(by.css('h1')),
         Link:   Target.the('link').located(by.css('a')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {Hover.over} */
     it('allows the actor to position the mouse cursor over a given target', () => actorCalled('Mickey').attemptsTo(

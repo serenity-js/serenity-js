@@ -60,6 +60,16 @@ describe('q', () => {
         return expect(Quentin.answer(question)).to.eventually.equal('The answer is: 42!')
     });
 
+    it(`should inject answers to multiple Answerables into the template`, () => {
+        const
+            baseUrl = Question.about('url', actor => 'http://127.0.0.1:8000'),
+            itemId  = Question.about('itemId', actor => 5);
+
+        const question = q `${ baseUrl }/api/items/${ itemId }`;
+
+        return expect(Quentin.answer(question)).to.eventually.equal('http://127.0.0.1:8000/api/items/5');
+    });
+
     /** @test {q} */
     it('provides a sensible description of the question being asked', () => {
         const question = q `/products/${ 1 }/attributes/${ Promise.resolve(2) }`;

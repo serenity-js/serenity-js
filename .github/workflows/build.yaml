@@ -6,63 +6,388 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  lint:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 10.x, 12.x, 14.x ]
 
     steps:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Cache node_modules (Linux)
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - run: npm ci
+
+      - name: Lint
+        run: make lint
+
+  compile:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Cache node_modules (Linux)
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - run: npm ci
+
+      - name: Compile
+        run: make compile
+
+      - uses: actions/upload-artifact@v2
+        with:
+          retention-days: 3
+          name: compiled-libs
+          path: |
+            integration/*/lib/**/*
+            packages/*/lib/**/*
+            package.json
+
+  test:
+    needs:
+      - lint
+      - compile
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        node-version: [ 10.x, 12.x, 14.x ]
+      fail-fast: false    # todo: remove
+      max-parallel: 6
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
       - name: Update Chrome
+        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get --only-upgrade install google-chrome-stable
           google-chrome --version
 
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node_modules (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - name: Cache node_modules 1/2 (Windows)
+        if: matrix.os == 'windows-latest'
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache node_modules 2/2 (Windows)
+        uses: actions/cache@v2
+        if: matrix.os == 'windows-latest'
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - run: npm ci
+
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+
+      - name: Test
+        run: make test
+
+      - uses: actions/upload-artifact@v2
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
+        with:
+          retention-days: 3
+          name: test-reports
+          path: |
+            target/**/*
+            package.json
+
+  integration-test:
+    needs:
+      - lint
+      - compile
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        node-version: [ 10.x, 12.x, 14.x ]
+      fail-fast: false    # todo: remove
+      max-parallel: 6
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Update Chrome
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get --only-upgrade install google-chrome-stable
+          google-chrome --version
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node_modules (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - name: Cache node_modules 1/2 (Windows)
+        if: matrix.os == 'windows-latest'
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache node_modules 2/2 (Windows)
+        uses: actions/cache@v2
+        if: matrix.os == 'windows-latest'
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+
+      - run: npm ci
+
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+
+      - name: Integration Test
+        run: make integration-test
+
+  report:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Cache node_modules (Linux)
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+      - run: npm ci
+
+      - name: Download code coverage reports
+        uses: actions/download-artifact@v2
+        with:
+          name: test-reports
+
+      - name: Merge code coverage reports
+        run: make report
+
+      - name: Publish coverage
+        if: github.ref == 'refs/heads/master'
+        run: npm run coverage:publish
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
+  site:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+      - integration-test
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Cache node_modules (Linux)
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
+      - run: npm ci
+
+      - name: Build Serenity/JS website
+        run: make site
+
+      - name: Publish website
+        if: github.ref == 'refs/heads/master'
+        run: npm run site:publish
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  release:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs:
+      - test
+      - integration-test
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
       - uses: ./.github/actions/setup-lerna
         with:
           github_token:   ${{ secrets.GH_TOKEN }}
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - uses: actions/cache@v2
+          node-version: 14.x
+      - name: Cache node_modules (Linux)
+        uses: actions/cache@v2
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+            ${{ runner.os }}-
       - run: npm ci
 
-      - name: Build
-        run: make clean verify report
-
-      - name: Publish coverage
-        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
-        run: npm run coverage:publish
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
 
       - name: Publish artifacts
-        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
         run: npm run lerna:publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - name: Site
-        run: make site
-
-      - name: Publish site
-        if: matrix.node-version == '14.x' && github.ref == 'refs/heads/master'
-        run: npm run site:publish
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+#  build:
+#    if: "!contains(github.event.head_commit.message, 'ci skip')"
+#    runs-on: ${{ matrix.os }}
+#    strategy:
+#      matrix:
+#        os: [ ubuntu-latest, windows-latest ]
+#        node-version: [ 10.x, 12.x, 14.x ]
+#      fail-fast: false
+#      max-parallel: 6
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#        with:
+#          token: ${{ secrets.GH_TOKEN }}
+#          fetch-depth: 0
+#      - name: Update Chrome
+#        if: matrix.os == 'ubuntu-latest'
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get --only-upgrade install google-chrome-stable
+#          google-chrome --version
+#
+#      - uses: ./.github/actions/setup-lerna
+#        with:
+#          github_token:   ${{ secrets.GH_TOKEN }}
+#          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
+#          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
+#          npm_token:      ${{ secrets.NPM_TOKEN }}
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#      - uses: actions/cache@v2
+#        with:
+#          path: ~/.npm
+#          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: |
+#            ${{ runner.os }}-node-
+#      - run: npm ci
+#
+#      - name: Build
+#        run: make clean verify report
+#
+#      - name: Publish coverage
+#        if: matrix.node-version == '14.x' && matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
+#        run: npm run coverage:publish
+#        env:
+#          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+#
+#      - name: Publish artifacts
+#        if: matrix.node-version == '14.x' && matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
+#        run: npm run lerna:publish
+#        env:
+#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+#
+#      - name: Site
+#        if: matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
+#        run: make site
+#
+#      - name: Publish site
+#        if: matrix.node-version == '14.x' && matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
+#        run: npm run site:publish
+#        env:
+#          GH_TOKEN: ${{ secrets.GH_TOKEN }}

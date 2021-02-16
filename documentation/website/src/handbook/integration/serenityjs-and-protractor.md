@@ -184,7 +184,7 @@ To install and configure Serenity/JS reporting modules appropriate for your proj
 
 You can use [native Cucumber reporters](https://github.com/cucumber/cucumber-js/tree/master/src/formatter) together with, or instead of those provided by Serenity/JS.
 
-To do that, specify them using a `<formatterName:outputFileName>` format, for example:
+To do that, specify them using a `<formatterName:outputFileName>` format to save their output to a file, or simply `<formatterName>` to print their output to terminal. For example:
 
 ```javascript
 // protractor.conf.js
@@ -196,10 +196,10 @@ exports.config = {
     specs: [ 'features/*.feature', ],
     cucumberOpts: {
         format: [
+            'usage',                // or 'usage:usage.txt' to print to file
             'html:cucumber.html',
             'snippets:snippets.txt',
             'summary:summary.txt',
-            'usage:usage.txt',
         ],
         require: [
             'features/step_definitions/**/*.ts',    // or *.js
@@ -212,6 +212,14 @@ exports.config = {
     // ... other Protractor config omitted for brevity 
 };
 ```
+
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text"><p><strong>PRO TIP:</strong>
+        Cucumber.js supports <strong>only one native formatter per output</strong>.
+        In particular, you can't have more than one Cucumber.js formatter writing to standard output or to the same file.
+    </p></div>
+</div>
 
 ## Integrating Protractor with Serenity/JS and Jasmine
 

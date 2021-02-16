@@ -1,12 +1,13 @@
 import 'mocha';
 
 import { contain, Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by } from 'protractor';
 
 import { CSSClasses, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('CSSClasses', () => {
 
@@ -24,6 +25,8 @@ describe('CSSClasses', () => {
             </body>
             </html>
         `);
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {CSSClasses} */
     /** @test {CSSClasses.of} */

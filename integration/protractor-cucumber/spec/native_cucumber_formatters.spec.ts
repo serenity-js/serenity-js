@@ -12,6 +12,7 @@ describe('@serenity-js/protractor with @serenity-js/cucumber', function () {
     it('recognises a passing scenario', () =>
         protractor(
             './examples/protractor.conf.js',
+            '--cucumberOpts.format=usage',
             '--specs=examples/features/passing.feature',
         )
         .then(ifExitCodeIsOtherThan(0, logOutput))
@@ -28,5 +29,15 @@ describe('@serenity-js/protractor with @serenity-js/cucumber', function () {
                 .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
                 .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
             ;
+
+            // "usage" formatter output:
+            // ┌──────────────────┬──────────┬──────────────────────────────────────┐
+            // │ Pattern / Text   │ Duration │ Location                             │
+            // ├──────────────────┼──────────┼──────────────────────────────────────┤
+            // │ a passing step   │ 2.00ms   │ features/step_definitions/steps.js:3 │
+            // │   a passing step │ 2ms      │ features/passing.feature:5           │
+            // └──────────────────┴──────────┴──────────────────────────────────────┘
+
+            expect(res.stdout).to.match(/Pattern \/ Text.*?Duration.*?Location/);
         }));
 });

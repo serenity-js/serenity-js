@@ -1,13 +1,16 @@
 import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Attribute, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 describe('Attribute', () => {
+
+    beforeEach(() => engage(new UIActors()));
 
     /** @test {Attribute} */
     it('allows the actor to read an attribute of a DOM element', () => actorCalled('Bernie').attemptsTo(

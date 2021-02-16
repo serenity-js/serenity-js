@@ -9,14 +9,15 @@ import { CallAnApi } from '../abilities';
  *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.
  *
  * @example <caption>Changing API URL for all subsequent requests</caption>
- *  import { Actor } from '@serenity-js/core';
+ *  import { actorCalled } from '@serenity-js/core';
  *  import { Navigate, Target, Text } from '@serenity-js/protractor';
  *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *  import { protractor, by } from 'protractor';
  *
  *  import axios from 'axios';
  *
- *  const actor = Actor.named('Apisitt').whoCan(
+ *  const actor = actorCalled('Apisitt').whoCan(
  *      BrowseTheWeb.using(protractor.browser),
  *
  *      // Note: no default base URL is given when the axios instance is created
@@ -42,11 +43,12 @@ import { CallAnApi } from '../abilities';
  *  );
  *
  * @example <caption>Changing API port for all subsequent requests</caption>
- *  import { Actor } from '@serenity-js/core';
+ *  import { actorCalled } from '@serenity-js/core';
  *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';
  *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  const actor = Actor.named('Apisitt').whoCan(
+ *  const actor = actorCalled('Apisitt').whoCan(
  *      ManageALocalServer.runningAHttpListener(someServer),
  *      CallAnApi.at('http://localhost'),
  *  );
@@ -59,10 +61,11 @@ import { CallAnApi } from '../abilities';
  *  );
  *
  * @example <caption>Setting a header for all subsequent requests</caption>
- *  import { Actor, Question } from '@serenity-js/core';
- *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { actorCalled, Question } from '@serenity-js/core';
+ *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest';
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  const actor = Actor.named('Apisitt').whoCan(
+ *  const actor = actorCalled('Apisitt').whoCan(
  *      CallAnApi.at('http://localhost'),
  *  );
  *
@@ -71,7 +74,7 @@ import { CallAnApi } from '../abilities';
  *      Question.about(`${ name } environment variable`, actor => process.env[var_name]);
  *
  *  actor.attemptsTo(
- *      ChangeApiConfig.header('Authorization', EnvVar('TOKEN')),
+ *      ChangeApiConfig.setHeader('Authorization', EnvVar('TOKEN')),
  *      Send.a(GetRequest.to('/api')),
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );

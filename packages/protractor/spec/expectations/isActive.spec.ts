@@ -2,11 +2,12 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, not } from '@serenity-js/assertions';
-import { actorCalled, AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Click, isActive, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
+import { UIActors } from '../UIActors';
 
 describe('isActive', function () {
 
@@ -14,6 +15,8 @@ describe('isActive', function () {
         Active_Input:       Target.the('active input').located(by.id('active')),
         Inactive_Input:     Target.the('inactive input').located(by.id('inactive')),
     };
+
+    beforeEach(() => engage(new UIActors()));
 
     beforeEach(() => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`

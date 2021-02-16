@@ -2,11 +2,14 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Note, TakeNote } from '@serenity-js/core';
+import { actorCalled, engage, Note, TakeNote } from '@serenity-js/core';
 import { ResizeBrowserWindow, Window } from '../../../src';
+import { UIActors } from '../../UIActors';
 
 /** @test {ResizeBrowserWindow} */
 describe('ResizeBrowserWindow', () => {
+
+    beforeEach(() => engage(new UIActors()));
 
     describe(`to()`, () => {
 
@@ -15,8 +18,8 @@ describe('ResizeBrowserWindow', () => {
             actorCalled('Nick').attemptsTo(
                 ResizeBrowserWindow.to(640, 480),
                 Ensure.that(Window.size(), equals({width: 640, height: 480})),
-                ResizeBrowserWindow.to(480, 640),
-                Ensure.that(Window.size(), equals({width: 480, height: 640})),
+                ResizeBrowserWindow.to(1024, 768),
+                Ensure.that(Window.size(), equals({width: 1024, height: 768})),
             ));
 
         /** @test {ResizeBrowserWindow.to} */
@@ -33,7 +36,7 @@ describe('ResizeBrowserWindow', () => {
             actorCalled('Nick').attemptsTo(
                 ResizeBrowserWindow.toMaximum(),
                 TakeNote.of(Window.size()),
-                ResizeBrowserWindow.to(480, 640),
+                ResizeBrowserWindow.to(1024, 768),
                 ResizeBrowserWindow.toMaximum(),
                 Ensure.that(Note.of(Window.size()), equals(Window.size())),
             ));

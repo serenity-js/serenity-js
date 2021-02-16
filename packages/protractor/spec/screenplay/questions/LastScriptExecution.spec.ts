@@ -2,10 +2,11 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, LogicError } from '@serenity-js/core';
+import { actorCalled, engage, LogicError } from '@serenity-js/core';
 import { by } from 'protractor';
 import { Enter, ExecuteScript, LastScriptExecution, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
+import { UIActors } from '../../UIActors';
 
 /** @test {LastScriptExecution} */
 describe('LastScriptExecution', function () {
@@ -23,6 +24,8 @@ describe('LastScriptExecution', function () {
     class Sandbox {
         static Input = Target.the('input field').located(by.id('name'));
     }
+
+    beforeEach(() => engage(new UIActors()));
 
     describe('when used with ExecuteScript.sync', () => {
 

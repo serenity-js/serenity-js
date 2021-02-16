@@ -1,5 +1,7 @@
 import * as nodeFS from 'fs';
+import * as nodeOS from 'os';
 import * as gracefulFS from 'graceful-fs';
+import * as cuid from 'cuid';
 import { promisify } from 'util';
 
 import { Path } from './Path';
@@ -9,6 +11,7 @@ export class FileSystem {
     constructor(
         private readonly root: Path,
         private readonly fs: typeof nodeFS = gracefulFS,
+        private readonly os: typeof nodeOS = nodeOS,
         private readonly directoryMode = parseInt('0777', 8) & (~process.umask()),
     ) {
     }
@@ -87,6 +90,10 @@ export class FileSystem {
         const rename = promisify(this.fs.rename);
 
         return rename(source.value, destination.value);
+    }
+
+    public tempFilePath(prefix: string = '', suffix: string = '.tmp'): Path {
+        return Path.from(this.fs.realpathSync(this.os.tmpdir()), `${ prefix }${ cuid() }${ suffix }`);
     }
 
     private write(path: Path, data: any, encoding?: string): Promise<Path> {

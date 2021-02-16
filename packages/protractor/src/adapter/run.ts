@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { serenity } from '@serenity-js/core';
-import { FileFinder, ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/lib/io';
 import { Runner } from 'protractor';
 import { ProtractorFrameworkAdapter } from './ProtractorFrameworkAdapter';
 import { ProtractorReport } from './reporter';
