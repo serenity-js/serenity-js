@@ -50,6 +50,6 @@ export class ModuleLoader {
     }
 
     versionOf(moduleId: string): Version {
-        return new Version(this.require(`${ moduleId }/package`).version);
+        return new Version(this.require(`${ moduleId }/package.json`).version);
     }
 }
