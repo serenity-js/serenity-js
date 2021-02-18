@@ -29,9 +29,26 @@ export class CucumberOptions {
                 return listOf(this.flagToArg(cliOption, value as boolean));
             case cliOption === 'tags' && version.isAtLeast(new Version('2.0.0')):
                 return this.valuesToArgs(cliOption, this.tagsToCucumberExpressions(listOf(value as string | string[])));
+            case this.shouldBeIgnored(value):
+                return [];
+            case this.isObject(value):
+                return this.valuesToArgs(cliOption, JSON.stringify(value, null, 0));
             default:
                 return this.valuesToArgs(cliOption, listOf(value as string | string[]));
         }
+    }
+
+    private isObject(value: any): value is object {
+        return typeof value === 'object'
+            && Array.isArray(value) === false
+            && Object.prototype.toString.call(value) === '[object Object]';
+    }
+
+    private shouldBeIgnored(value: any): boolean {
+        return value === undefined
+            || value === null
+            || value === ''
+            || value === [];
     }
 
     /**

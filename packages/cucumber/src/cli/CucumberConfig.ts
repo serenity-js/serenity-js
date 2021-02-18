@@ -27,10 +27,10 @@ export interface CucumberConfig {
      * @desc
      *  Specify additional output formats, optionally supply PATH to redirect formatter output
      *
-     * @type {string}
+     * @type {string[] | string}
      * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats
      */
-    format?: string;
+    format?: string[] | string;
 
     /**
      * @desc
@@ -149,11 +149,14 @@ export interface CucumberConfig {
      * @desc
      *  Provide parameters that will be passed to the world constructor
      *
-     * @example <caption>Cucumber 1.x</caption>
-     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })
+     * @example <caption>worldParameters as string</caption>
+     *  worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })
      *
-     * @type {object}
+     * @example <caption>worldParameters as object</caption>
+     *  worldParameters: { isDev: process.env.NODE_ENV !== 'production' }
+     *
+     * @type {object | string}
      * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters
      */
-    worldParameters?: object;
+    worldParameters?: object | string;
 }
