@@ -22,10 +22,10 @@ describe('ModuleLoader', () => {
         expect(loader.versionOf('tiny-types')).to.equal(new Version(expectedVersion));
     });
 
-    it('complains if neither a local version or the npm-resolved version could not be found', () => {
+    it('complains if neither a local version or the npm-resolved version could be found', () => {
         const loader = new ModuleLoader(__dirname);
 
-        expect(() => loader.versionOf('non-existent-module')).to.throw(Error, `Cannot find module 'non-existent-module/package'`);
+        expect(() => loader.versionOf('non-existent-module')).to.throw(Error, `Cannot find module 'non-existent-module/package.json'`);
     });
 
     describe('when checking if a given module is available to be required', () => {
