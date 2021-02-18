@@ -131,10 +131,7 @@ class WIP {
     descriptionOfTimedOutOperations(): string {
         const now = this.clock.now();
 
-        const timedOutOperations = Array.from(this.wip.values())
-            .filter(op => now.diff(op.startedAt).isGreaterThanOrEqualTo(this.cueTimeout));
-
-        return timedOutOperations.reduce(
+        return this.activeOperations().reduce(
             (acc, op) => acc.concat(`${ now.diff(op.startedAt) } - ${ op.taskDescription.value }`),
             [`${ this.header(this.wip.size) } within a ${ this.cueTimeout } cue timeout:`],
         ).join('\n');
@@ -152,6 +149,10 @@ class WIP {
 
     resetFailedOperations() {
         this.failedOperations.length = 0;
+    }
+
+    private activeOperations() {
+        return Array.from(this.wip.values());
     }
 
     private header(numberOfFailures): string {
