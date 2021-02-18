@@ -12,6 +12,7 @@ import { Notifier, ResultMapper } from './notifier';
  *
  * @param {@serenity-js/core/lib~Serenity} serenity
  * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader
+ * @returns {cucumber~Formatter}
  */
 export function createListener(serenity: Serenity, moduleLoader: ModuleLoader): any {
 

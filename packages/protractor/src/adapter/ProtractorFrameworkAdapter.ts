@@ -28,12 +28,13 @@ export class ProtractorFrameworkAdapter {
     run(specs: string[]): Promise<ProtractorReport> {
 
         const noop      = () => void 0;
+
+        const runner    = this.detector.runnerFor(this.protractorRunner.getConfig());
+        const reporter  = new ProtractorReporter(this.protractorRunner);
+
         const config    = deepmerge<Config>(this.defaultConfig(), this.protractorRunner.getConfig(), {
             isMergeableObject: isPlainObject,
         });
-
-        const runner    = this.detector.runnerFor(config);
-        const reporter  = new ProtractorReporter(this.protractorRunner);
 
         this.serenity.configure({
             cueTimeout:     config.serenity.cueTimeout,

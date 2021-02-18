@@ -10,6 +10,9 @@ import {
 } from '@serenity-js/core/lib/model';
 import { AmbiguousStepDefinitionError } from '../../../errors';
 
+/**
+ * @package
+ */
 export class ResultMapper {
     outcomeFor(status: string, maybeError: Error | string | undefined) {
         const error = this.errorFrom(maybeError);

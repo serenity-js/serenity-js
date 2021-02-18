@@ -5,7 +5,7 @@ import { AssertionError } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithAssertionError, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
-import { CucumberRunner, cucumberVersions } from '../src';
+import { CucumberRunner, cucumberVersions } from '../../src';
 
 describe('@serenity-js/cucumber', function () {
 

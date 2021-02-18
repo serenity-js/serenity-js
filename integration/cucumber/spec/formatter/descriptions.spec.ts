@@ -4,7 +4,7 @@ import { Description, Name } from '@serenity-js/core/lib/model';
 
 import 'mocha';
 import { given } from 'mocha-testdata';
-import { CucumberRunner, cucumberVersions } from '../src';
+import { CucumberRunner, cucumberVersions } from '../../src';
 
 describe('@serenity-js/cucumber', function () {
 

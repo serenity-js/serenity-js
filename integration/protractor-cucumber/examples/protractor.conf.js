@@ -1,8 +1,4 @@
-const
-    path = require('path'),
-    { StreamReporter } = require('@serenity-js/core'),
-    { ChildProcessReporter } = require('@integration/testing-tools'),
-    { Actors } = require('./Actors');
+const { Actors } = require('./Actors');
 
 exports.config = {
     chromeDriver: require('chromedriver/lib/chromedriver').path,
@@ -20,10 +16,7 @@ exports.config = {
     serenity: {
         runner: 'cucumber',
         actors: new Actors(),
-        crew: [
-            new ChildProcessReporter(),
-            new StreamReporter(),
-        ]
+        // don't register the crew in here to allow for a native cucumber reporter test register a custom formatter
     },
 
     cucumberOpts: {

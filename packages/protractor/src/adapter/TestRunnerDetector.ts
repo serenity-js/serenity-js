@@ -1,4 +1,5 @@
 import { FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { StandardOutput, TempFileOutput } from '@serenity-js/cucumber/lib/cli'; // tslint:disable-line:no-submodule-imports
 import { isPlainObject } from 'is-plain-object';
 import { Config } from 'protractor';
 
@@ -65,6 +66,16 @@ export class TestRunnerDetector {
     private useCucumber(config: Config): TestRunner {
         const { CucumberTestRunner } = require('./runners/CucumberTestRunner');
 
+        const shouldUseSerenityReportingServices   = config?.serenity?.crew?.length > 0;
+
+        /*
+         * If we should use Serenity/JS reporting services, take over standard output,
+         * so that Cucumber.js progress formatter doesn't pollute the log.
+         */
+        const output = shouldUseSerenityReportingServices
+            ? new StandardOutput()
+            : new TempFileOutput(this.fileSystem);
+
         const correctedConfig = this.withTransformedField(
             config.cucumberOpts || {},
             'require',
@@ -74,7 +85,7 @@ export class TestRunnerDetector {
         return new CucumberTestRunner(
             correctedConfig,
             this.loader,
-            this.fileSystem,
+            output,
         );
     }
 

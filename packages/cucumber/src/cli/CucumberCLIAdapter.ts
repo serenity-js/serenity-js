@@ -1,7 +1,8 @@
 /* istanbul ignore file covered in integration tests */
-import { FileSystem, ModuleLoader, Version } from '@serenity-js/core/lib/io';
+import { ModuleLoader, Version } from '@serenity-js/core/lib/io';
 import { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';
+import { CucumberFormatterOutput, OutputDescriptor } from './output';
 
 /**
  * @private
@@ -13,7 +14,7 @@ export class CucumberCLIAdapter {
     constructor(
         config: CucumberConfig,
         private readonly loader: ModuleLoader,
-        private readonly fileSystem: FileSystem,
+        private readonly output: CucumberFormatterOutput,
     ) {
         this.options = new CucumberOptions(config);
     }
@@ -23,52 +24,60 @@ export class CucumberCLIAdapter {
             ? this.loader.versionOf('@cucumber/cucumber')
             : this.loader.versionOf('cucumber');
 
-        /*
-         *  Cucumber.js allows max 1 formatter per output
-         *      - https://github.com/cucumber/cucumber-js/blob/625fab034eea768bf74f7a46993a57182204ddf6/src/cli/index.ts#L83-L140
-         *  and doesn't allow to write to \\.\NUL on Windows (equivalent of *nix /dev/null) because of the check in OptionSplitter
-         *      - https://github.com/cucumber/cucumber-js/blob/625fab034eea768bf74f7a46993a57182204ddf6/src/cli/option_splitter.ts#L3
-         *  so instead I create a dummy temp file, which is deleted when the test run is finished.
-         */
-        const dummyOutputFile  = this.fileSystem.tempFilePath('serenity-');
-        const serenityListener = `${ this.loader.resolve('@serenity-js/cucumber') }:${ dummyOutputFile.value }`;
+        const serenityListener = this.loader.resolve('@serenity-js/cucumber');
 
-        return this.runScenarios(version, serenityListener, pathsToScenarios)
-            .then(
-                () => this.fileSystem.remove(dummyOutputFile),
-                error => this.fileSystem.remove(dummyOutputFile).then(() => { throw error }, fileRemoveError => { throw error })
-            );
+        return this.runScenarios(version, serenityListener, pathsToScenarios);
     }
 
-    private runScenarios(version: Version, serenityListener: string, pathsToScenarios): Promise<void> {
+    private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {
         const argv = this.options.asArgumentsForCucumber(version);
 
         if (version.isAtLeast(new Version('7.0.0'))) {
             return this.runWithCucumber7(argv, serenityListener, pathsToScenarios);
         }
 
+        if (version.isAtLeast(new Version('3.0.0'))) {
+            return this.runWithCucumber3to6(argv, serenityListener, pathsToScenarios);
+        }
+
         if (version.isAtLeast(new Version('2.0.0'))) {
-            return this.runWithCucumber2to6(argv, serenityListener, pathsToScenarios);
+            return this.runWithCucumber2(argv, serenityListener, pathsToScenarios);
         }
 
         return this.runWithCucumber0to1(argv, serenityListener, pathsToScenarios);
     }
 
     private runWithCucumber7(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
-        const cucumber = this.loader.require('@cucumber/cucumber');
+        const cucumber  = this.loader.require('@cucumber/cucumber');
+        const output    = this.output.get();
 
         return new cucumber.Cli({
-            argv:   argv.concat('--format', pathToSerenityListener, ...pathsToScenarios),
+            argv:   argv.concat('--format', `${ pathToSerenityListener }:${ output.value() }`, ...pathsToScenarios),
             cwd:    this.loader.cwd,
             stdout: process.stdout,
-        }).run();
+        })
+        .run()
+        .then(cleanUpAndPassThrough(output), cleanUpAndReThrow(output));
     }
 
-    private runWithCucumber2to6(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
+    private runWithCucumber3to6(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        const cucumber  = this.loader.require('cucumber');
+        const output    = this.output.get();
+
+        return new cucumber.Cli({
+            argv:   argv.concat('--format', `${ pathToSerenityListener }:${ output.value() }`, ...pathsToScenarios),
+            cwd:    this.loader.cwd,
+            stdout: process.stdout,
+        })
+        .run()
+        .then(cleanUpAndPassThrough(output), cleanUpAndReThrow(output));
+    }
+
+    private runWithCucumber2(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
         const cucumber = this.loader.require('cucumber');
 
         return new cucumber.Cli({
-            argv:   argv.concat('--format', pathToSerenityListener, ...pathsToScenarios),
+            argv:   argv.concat('--require', pathToSerenityListener, ...pathsToScenarios),
             cwd:    this.loader.cwd,
             stdout: process.stdout,
         }).run();
@@ -84,5 +93,29 @@ export class CucumberCLIAdapter {
                         : reject(new Error('Cucumber test run has failed')),
                 );
         })
+    }
+}
+
+/**
+ * @private
+ */
+function cleanUpAndPassThrough<T>(output: OutputDescriptor): (result: T) => Promise<T> {
+    return (result: T) => {
+        return output.cleanUp()
+            .then(() => result);
+    }
+}
+
+/**
+ * @private
+ */
+function cleanUpAndReThrow(output: OutputDescriptor): (error: Error) => Promise<void> {
+    return (error: Error) => {
+        return output.cleanUp()
+            .then(() => {
+                throw error;
+            }, ignored => {
+                throw error;
+            });
     }
 }

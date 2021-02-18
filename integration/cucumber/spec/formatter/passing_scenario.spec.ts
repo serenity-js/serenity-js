@@ -15,7 +15,7 @@ import {
 } from '@serenity-js/core/lib/events';
 import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
-import { CucumberRunner, cucumberVersions } from '../src';
+import { CucumberRunner, cucumberVersions } from '../../src';
 
 describe('@serenity-js/cucumber', function () {
 
