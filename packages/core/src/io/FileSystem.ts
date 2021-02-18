@@ -37,7 +37,8 @@ export class FileSystem {
     }
 
     public remove(relativeOrAbsolutePathToFileOrDirectory: Path): Promise<void> {
-        const stat = promisify(this.fs.stat),
+        const
+            stat = promisify(this.fs.stat),
             unlink = promisify(this.fs.unlink),
             readdir = promisify(this.fs.readdir),
             rmdir = promisify(this.fs.rmdir);
@@ -54,7 +55,13 @@ export class FileSystem {
                             ).then(() => rmdir(absolutePath.value)),
                         ),
                 )
-            .then(() => void 0);
+            .then(() => void 0)
+            .catch(error => {
+                if (error?.code === 'ENOENT') {
+                    return void 0;
+                }
+                throw error;
+            });
     }
 
     public ensureDirectoryExistsAt(relativeOrAbsolutePathToDirectory: Path): Promise<Path> {

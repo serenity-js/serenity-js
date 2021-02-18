@@ -108,6 +108,17 @@ describe ('FileSystem', () => {
                     expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-not-to-be-deleted.json')).value)).to.equal(true);
                 });
             });
+
+            it(`doesn't complain if the file doesn't exist anymore`, () => {
+                const
+                    fs = FakeFS.with({
+                        [processCWD.value]: {
+                        },
+                    }),
+                    out = new FileSystem(processCWD, fs);
+
+                return expect(out.remove(new Path('non-existent.tmp'))).to.be.fulfilled;
+            });
         });
 
         describe('directories', () => {
