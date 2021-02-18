@@ -63,7 +63,7 @@ describe('StageManager', () => {
      */
     it('provides details should the work in progress fail to complete', () => {
 
-        const timeout       = Duration.ofSeconds(1);
+        const timeout       = Duration.ofMilliseconds(50);
         const stageManager = new StageManager(timeout, new Clock());
 
         stageManager.notifyOf(new AsyncOperationAttempted(
@@ -76,17 +76,13 @@ describe('StageManager', () => {
             CorrelationId.create(),
         ));
 
-        // todo: remove
-        const queueDesc = JSON.stringify(Array.from((stageManager as any).wip.wip.values()), null, 4);
-        expect((stageManager as any).wip.wip.size, queueDesc).to.equal(2);
-
         return expect(stageManager.waitForNextCue()).to.be.rejected.then(error => {
             const lines = error.message.split('\n');
 
-            expect(lines, `error.message[${ error.message }]`).to.have.lengthOf(3);
-            expect(lines[0]).to.equal('2 async operations have failed to complete within a 1s cue timeout:');
-            expect(lines[1], error.message).to.match(/^1s.*?- \[Service 1] Starting...$/);
-            expect(lines[2], error.message).to.match(/^1s.*?- \[Service 2] Starting...$/);
+            expect(lines, `message: \n${ error.message }`).to.have.lengthOf(3);
+            expect(lines[0]).to.equal('2 async operations have failed to complete within a 50ms cue timeout:');
+            expect(lines[1], error.message).to.match(/^\d+ms.*?- \[Service 1] Starting...$/);
+            expect(lines[2], error.message).to.match(/^\d+ms.*?- \[Service 2] Starting...$/);
         });
     });
 
