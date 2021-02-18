@@ -2,16 +2,15 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Path } from '@serenity-js/core/lib/io';
+import { StandardOutput, TempFileOutput } from '@serenity-js/cucumber/lib/cli'; // tslint:disable-line:no-submodule-imports
+import { given } from 'mocha-testdata';
 import { TestRunnerDetector } from '../../src/adapter';
 import { CucumberTestRunner } from '../../src/adapter/runners/CucumberTestRunner';
 import { JasmineTestRunner } from '../../src/adapter/runners/JasmineTestRunner';
 import { MochaTestRunner } from '../../src/adapter/runners/MochaTestRunner';
+import { Photographer, TakePhotosOfFailures } from '../../src';
 
 describe('TestRunnerDetector', () => {
-
-    const
-        macos = { platform: () => 'darwin' } as any,
-        proc  = { env: {} } as any;
 
     let detector: TestRunnerDetector;
 
@@ -132,6 +131,65 @@ describe('TestRunnerDetector', () => {
             });
 
             expect(runner).to.be.instanceOf(MochaTestRunner);
+        });
+    });
+
+    describe('when using CucumberTestRunner', () => {
+
+        given([{
+            description: `serenity.crew is not empty and there is no cucumberOpts.format specified`,
+            config: {
+                serenity: {
+                    runner: 'cucumber',
+                    crew: [ Photographer.whoWill(TakePhotosOfFailures) ]
+                }
+            },
+        }, {
+            description: 'serenity.crew is not empty and there is a cucumberOpts.format specified',
+            config: {
+                serenity: {
+                    runner: 'cucumber',
+                    crew: [ Photographer.whoWill(TakePhotosOfFailures) ]
+                },
+                cucumberOpts: {
+                    format: 'pretty'
+                }
+            },
+        }]).
+        it('takes over standard output when', ({ config }) => {
+            const runner = detector.runnerFor(config);
+
+            // OK, I am being a bit naughty here with checking a private field,
+            // but the alternative feels like over-engineering.
+            expect((runner as any).output).instanceOf(StandardOutput);
+        });
+
+        given([{
+            description: 'serenity.crew is empty and there is no Cucumber format specified (indicating that defaults should be used)',
+            config: {
+                serenity: {
+                    runner: 'cucumber',
+                    crew: [ ]
+                }
+            },
+        }, {
+            description: 'serenity.crew is empty and a custom Cucumber format specified',
+            config: {
+                serenity: {
+                    runner: 'cucumber',
+                    crew: [ ]
+                },
+                cucumberOpts: {
+                    format: 'pretty'
+                }
+            },
+        }]).
+        it('uses a temp file output when', ({ config }) => {
+            const runner = detector.runnerFor(config);
+
+            // OK, I am being a bit naughty here with checking a private field,
+            // but the alternative feels like over-engineering.
+            expect((runner as any).output).instanceOf(TempFileOutput);
         });
     });
 

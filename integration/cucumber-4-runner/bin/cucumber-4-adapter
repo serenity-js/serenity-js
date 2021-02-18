@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+const { Path } = require('@serenity-js/core/lib/io');
+const config = JSON.parse(process.argv[2]);
+const scenario = Path.from(process.argv[3]);
+
+require('../lib/adapter')(config, scenario);

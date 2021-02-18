@@ -1,4 +1,14 @@
-const { Given } = require('@cucumber/cucumber');
+const
+    { configure, StreamReporter } = require('@serenity-js/core'),
+    { ChildProcessReporter } = require('@integration/testing-tools'),
+    { Given } = require('@cucumber/cucumber');
+
+configure({
+    crew: [
+        new ChildProcessReporter(),
+        new StreamReporter(),
+    ],
+})
 
 Given('a passing step', () => {
 

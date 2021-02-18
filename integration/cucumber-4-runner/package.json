@@ -15,6 +15,9 @@
   "config": {
     "access": "private"
   },
+  "bin": {
+    "cucumber-4-adapter": "bin/cucumber-4-adapter"
+  },
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
