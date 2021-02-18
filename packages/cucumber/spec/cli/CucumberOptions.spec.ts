@@ -147,5 +147,41 @@ describe('CucumberOptions', () => {
                 );
             });
         });
+
+        describe('empty values', () => {
+
+            given([
+                { description: 'undefined',         option: 'format',           value: undefined,   },
+                { description: 'null',              option: 'format',           value: null,        },
+                { description: 'empty list',        option: 'format',           value: [],          },
+            ]).
+            it('ignores empty values', ({ option, value }) => {
+                const options = new CucumberOptions({
+                    [option]: value,
+                });
+
+                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(
+                    ['node', 'cucumber-js'],
+                );
+            });
+        });
+
+        describe('objects', () => {
+
+            given([
+                { description: 'camelCase',   option: 'worldParameters',    value: { baseUrl: 'https://example.org' }   },
+                { description: 'kebab-case',  option: 'world-parameters',   value: { baseUrl: 'https://example.org' }   },
+                { description: 'string',      option: 'worldParameters',    value: '{"baseUrl":"https://example.org"}'  },
+            ]).
+            it('ignores empty values', ({ option, value }) => {
+                const options = new CucumberOptions({
+                    [option]: value,
+                });
+
+                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(
+                    ['node', 'cucumber-js', '--world-parameters', '{"baseUrl":"https://example.org"}'],
+                );
+            });
+        });
     });
 });
