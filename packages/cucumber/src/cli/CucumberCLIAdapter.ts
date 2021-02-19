@@ -1,16 +1,24 @@
 /* istanbul ignore file covered in integration tests */
-import { ModuleLoader, Version } from '@serenity-js/core/lib/io';
+import { ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
 import { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';
 import { CucumberFormatterOutput, OutputDescriptor } from './output';
 
 /**
- * @private
+ * @desc
+ *  Allows for programmatic execution of Cucumber test scenarios.
+ *
+ * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
  */
-export class CucumberCLIAdapter {
+export class CucumberCLIAdapter implements TestRunnerAdapter {
 
     private readonly options: CucumberOptions;
 
+    /**
+     * @param {CucumberConfig} config
+     * @param {@serenity-js/core/lib/io~ModuleLoader} loader
+     * @param {CucumberFormatterOutput} output
+     */
     constructor(
         config: CucumberConfig,
         private readonly loader: ModuleLoader,
@@ -19,6 +27,15 @@ export class CucumberCLIAdapter {
         this.options = new CucumberOptions(config);
     }
 
+    /**
+     * @desc
+     *  Instructs Cucumber to execute feature files located at `pathsToScenarios`
+     *
+     * @param {string[]} pathsToScenarios
+     *  Absolute or relative paths to feature files
+     *
+     * @returns {Promise<void>}
+     */
     async run(pathsToScenarios: string[]): Promise<void> {
         const version = this.loader.hasAvailable('@cucumber/cucumber')
             ? this.loader.versionOf('@cucumber/cucumber')

@@ -5,7 +5,7 @@ import { Path } from '@serenity-js/core/lib/io';
 import { Runner } from 'protractor';
 import { ProtractorFrameworkAdapter } from './ProtractorFrameworkAdapter';
 import { ProtractorReport } from './reporter';
-import { TestRunnerDetector } from './TestRunnerDetector';
+import { TestRunnerDetector } from './runner';
 
 /**
  * @param {protractor~Runner} runner

@@ -1,8 +1,7 @@
 /* istanbul ignore file */
-
 import * as fs from 'fs';
 import * as path from 'path';
-import { ModuleLoader } from '@serenity-js/core/lib/io';
+import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';
 import { MochaConfig } from './MochaConfig';
 
 /**
@@ -10,10 +9,16 @@ import { MochaConfig } from './MochaConfig';
  *  Allows for programmatic execution of Mocha test scenarios,
  *  using {@link SerenityReporterForMocha} to report progress.
  *
- * @package
+ * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
  */
-export class MochaAdapter {
+export class MochaAdapter implements TestRunnerAdapter {
 
+    /**
+     * @desc
+     *  test
+     * @param {MochaConfig} config
+     * @param {@serenity-js/core/lib/io~ModuleLoader} loader
+     */
     constructor(
         private readonly config: MochaConfig,
         private readonly loader: ModuleLoader,

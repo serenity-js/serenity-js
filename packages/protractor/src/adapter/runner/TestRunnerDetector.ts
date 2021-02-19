@@ -1,17 +1,16 @@
-import { FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { FileFinder, FileSystem, ModuleLoader, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
 import { StandardOutput, TempFileOutput } from '@serenity-js/cucumber/lib/cli'; // tslint:disable-line:no-submodule-imports
 import { isPlainObject } from 'is-plain-object';
 import { Config } from 'protractor';
 
-import { TestRunner } from './runners/TestRunner';
 import deepmerge = require('deepmerge');
+import { TestRunnerLoader } from './TestRunnerLoader';
 
 /**
  * @private
  */
 export class TestRunnerDetector {
 
-    private readonly loader: ModuleLoader;
     private readonly finder: FileFinder;
     private readonly fileSystem: FileSystem;
 
@@ -23,22 +22,12 @@ export class TestRunnerDetector {
         ];
     }
 
-    constructor(cwd: Path) {
-        this.loader     = new ModuleLoader(cwd.value);
+    constructor(cwd: Path, private readonly testRunnerLoader: TestRunnerLoader = new TestRunnerLoader(new ModuleLoader(cwd.value))) {
         this.finder     = new FileFinder(cwd);
         this.fileSystem = new FileSystem(cwd);
     }
 
-    // todo: when invoking, merge config
-    //      Object.assign(
-    //          {},
-    //          config.cucumberOpts,
-    //          config.capabilities.cucumberOpts
-    //      )
-    runnerFor(config: Config): TestRunner {
-
-        // todo: simplify and introduce a config object with "as(String)", "as(Object)", etc. to avoid issues with undefined
-        // todo: and config merge too, using on deepmerge
+    runnerFor(config: Config): TestRunnerAdapter {
 
         const
             specifiesRunnerFor = (type: string) =>
@@ -63,9 +52,7 @@ export class TestRunnerDetector {
         }
     }
 
-    private useCucumber(config: Config): TestRunner {
-        const { CucumberTestRunner } = require('./runners/CucumberTestRunner');
-
+    private useCucumber(config: Config): TestRunnerAdapter {
         const shouldUseSerenityReportingServices   = config?.serenity?.crew?.length > 0;
 
         /*
@@ -82,21 +69,15 @@ export class TestRunnerDetector {
             requires => this.asAbsolutePaths(requires),
         );
 
-        return new CucumberTestRunner(
-            correctedConfig,
-            this.loader,
-            output,
-        );
+        return this.testRunnerLoader.forCucumber(correctedConfig, output);
     }
 
-    private useJasmine(config: Config): TestRunner {
-        const { JasmineTestRunner } = require('./runners/JasmineTestRunner');
-        return new JasmineTestRunner(config.jasmineNodeOpts, this.loader);
+    private useJasmine(config: Config): TestRunnerAdapter {
+        return this.testRunnerLoader.forJasmine(config.jasmineNodeOpts || {});
     }
 
-    private useMocha(config: Config): TestRunner {
-        const { MochaTestRunner } = require('./runners/MochaTestRunner');
-        return new MochaTestRunner(config.mochaOpts, this.loader);
+    private useMocha(config: Config): TestRunnerAdapter {
+        return this.testRunnerLoader.forMocha(config.mochaOpts || {});
     }
 
     private withTransformedField<T extends object, K extends keyof T>(obj: T, key: K, fn: (value: T[K]) => T[K]): T {

@@ -3,14 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Serenity } from '@serenity-js/core';
 import { SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { FileSystemLocation, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
 import { Category, CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { ArtifactArchiver, Clock, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Config, Runner } from 'protractor';
 import * as sinon from 'sinon';
 
 import { ProtractorFrameworkAdapter, TestRunnerDetector } from '../../src/adapter';
-import { TestRunner } from '../../src/adapter/runners/TestRunner';
 
 describe('ProtractorFrameworkAdapter', () => {
 
@@ -24,7 +23,7 @@ describe('ProtractorFrameworkAdapter', () => {
 
     let protractorRunner:   sinon.SinonStubbedInstance<Runner>,
         testRunnerDetector: sinon.SinonStubbedInstance<TestRunnerDetector>,
-        testRunner:         TestRunner,
+        testRunnerAdapter:  TestRunnerAdapter,
         serenity:           Serenity,
         adapter:            ProtractorFrameworkAdapter;
 
@@ -41,9 +40,9 @@ describe('ProtractorFrameworkAdapter', () => {
         protractorRunner    = sinon.createStubInstance(Runner);
         testRunnerDetector  = sinon.createStubInstance(TestRunnerDetector);
         serenity            = new Serenity(discreteClock);
-        testRunner          = new SimpleTestRunner(serenity);
+        testRunnerAdapter   = new SimpleTestRunnerAdapter(serenity);
 
-        testRunnerDetector.runnerFor.returns(testRunner);
+        testRunnerDetector.runnerFor.returns(testRunnerAdapter);
 
         adapter = new ProtractorFrameworkAdapter(serenity, protractorRunner, testRunnerDetector as unknown as TestRunnerDetector);
     });
@@ -129,7 +128,7 @@ describe('ProtractorFrameworkAdapter', () => {
         });
 
         it('invokes runner.runTestPreparer before executing the tests', () => {
-            const testRunnerRunMethod = sinon.spy(testRunner, 'run');
+            const testRunnerRunMethod = sinon.spy(testRunnerAdapter, 'run');
 
             return expect(adapter.run([])).to.be.fulfilled
                 .then(() => {
@@ -148,7 +147,7 @@ describe('ProtractorFrameworkAdapter', () => {
 
             protractorRunner.getConfig.returns(protractorConfig);
 
-            const testRunnerRunMethod = sinon.spy(testRunner, 'run');
+            const testRunnerRunMethod = sinon.spy(testRunnerAdapter, 'run');
 
             return expect(adapter.run([])).to.be.fulfilled
                 .then(() => {
@@ -283,7 +282,7 @@ describe('ProtractorFrameworkAdapter', () => {
         });
     });
 
-    class SimpleTestRunner implements TestRunner {
+    class SimpleTestRunnerAdapter implements TestRunnerAdapter {
 
         constructor(private readonly serenityInstance: Serenity) {
         }

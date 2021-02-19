@@ -1,4 +1,4 @@
-import { ModuleLoader } from '@serenity-js/core/lib/io';
+import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';
 import reporter = require('../index');
 import { JasmineConfig } from './JasmineConfig';
 
@@ -6,9 +6,15 @@ import { JasmineConfig } from './JasmineConfig';
  * @desc
  *  Allows for programmatic execution of Jasmine test scenarios,
  *  using {@link SerenityReporterForJasmine} to report progress.
+ *
+ * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
  */
-export class JasmineAdapter {
+export class JasmineAdapter implements TestRunnerAdapter {
 
+    /**
+     * @param {JasmineConfig} config
+     * @param {@serenity-js/core/lib/io~ModuleLoader} loader
+     */
     constructor(
         private readonly config: JasmineConfig,
         private readonly loader: ModuleLoader,
