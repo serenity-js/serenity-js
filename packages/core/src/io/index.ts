@@ -10,5 +10,6 @@ export * from './FileSystemLocation';
 export * from './formatted';
 export * from './ModuleLoader';
 export * from './Path';
+export * from './TestRunnerAdapter';
 export * from './trimmed';
 export * from './Version';

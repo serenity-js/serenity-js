@@ -3,9 +3,15 @@ import * as path from 'path';
 import { Version } from './Version';
 
 /**
- * @package
+ * @desc
+ *  Dynamically loads Node modules located relative to `cwd`.
  */
 export class ModuleLoader {
+
+    /**
+     * @param {string} cwd
+     *  Current working directory, relative to which Node modules should be resolved.
+     */
     constructor(public readonly cwd: string) {
     }
 
@@ -25,10 +31,14 @@ export class ModuleLoader {
     }
 
     /**
-     * @package
+     * @desc
+     *  Works like `require.resolve`, but relative to specified current working directory
      *
-     * @param moduleId
-     *  NPM module id, for example 'cucumber' or '@serenity-js/core'
+     * @param {string} moduleId
+     *  NPM module id, for example `cucumber` or `@serenity-js/core`
+     *
+     * @returns {string}
+     *  Path a given Node module
      */
     resolve(moduleId: string): string {
         const fromFile = path.join(this.cwd, 'noop.js');
@@ -40,6 +50,14 @@ export class ModuleLoader {
         });
     }
 
+    /**
+     * @desc
+     *  Works like `require`, but relative to specified current working directory
+     *
+     * @param {string} moduleId
+     *
+     * @returns {any}
+     */
     require(moduleId: string): any {
         try {
             return require(this.resolve(moduleId));
@@ -49,6 +67,13 @@ export class ModuleLoader {
         }
     }
 
+    /**
+     * @desc
+     *  Returns {@link Version} of module specified by `moduleId`, based on its `package.json`.
+     *
+     * @param {string} moduleId
+     * @returns {Version}
+     */
     versionOf(moduleId: string): Version {
         return new Version(this.require(`${ moduleId }/package.json`).version);
     }
