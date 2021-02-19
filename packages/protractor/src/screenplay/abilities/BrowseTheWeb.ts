@@ -31,7 +31,7 @@ import { promiseOf } from '../../promiseOf';
  * @see https://www.protractortest.org/
  *
  * @public
- * @implements {@link @serenity-js/core/lib/screenplay~Ability}
+ * @implements {@serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
 export class BrowseTheWeb implements Ability {
