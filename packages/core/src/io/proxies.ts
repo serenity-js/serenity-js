@@ -15,5 +15,3 @@ export function caseInsensitive<T extends Dictionary>(dictionary: T): T & Dictio
         },
     });
 }
-
-// todo: would this work for optional fields? parent.child.child.child -> undefined ?
