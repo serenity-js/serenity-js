@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.23.1](https://github.com/serenity-js/serenity-js/compare/v2.23.0...v2.23.1) (2021-02-21)
+
+
+### Bug Fixes
+
+* **cucumber:** add Cucumber 1.x 'colors` option to CucumberConfig ([044d0e7](https://github.com/serenity-js/serenity-js/commit/044d0e7f37d004e74c2dce4d67dfb69c983db321))
+* **protractor:** improved support for native Cucumber reporters ([2f4bdcf](https://github.com/serenity-js/serenity-js/commit/2f4bdcf35206b1f54bd19a0f7f84d4c3d0d34090)), closes [protractor-cucumber-framework/protractor-cucumber-framework#73](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/73)
+
+
+
+
+
 # [2.23.0](https://github.com/serenity-js/serenity-js/compare/v2.22.0...v2.23.0) (2021-02-16)
 
 

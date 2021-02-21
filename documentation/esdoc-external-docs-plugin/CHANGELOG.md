@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.23.1](https://github.com/serenity-js/serenity-js/compare/v2.23.0...v2.23.1) (2021-02-21)
+
+
+### Bug Fixes
+
+* **protractor:** native Cucumber.js formatters print to unique output files when needed ([bfef775](https://github.com/serenity-js/serenity-js/commit/bfef775fefff9be9f92167459f603a44d4450642)), closes [protractor-cucumber-framework/protractor-cucumber-framework#73](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/73)
+
+
+
+
+
 # [2.23.0](https://github.com/serenity-js/serenity-js/compare/v2.22.0...v2.23.0) (2021-02-16)
 
 **Note:** Version bump only for package @documentation/esdoc-external-docs-plugin
