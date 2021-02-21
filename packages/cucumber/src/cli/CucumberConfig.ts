@@ -7,6 +7,26 @@
  * @public
  */
 export interface CucumberConfig {
+
+    /**
+     * @desc
+     *  Enable/disable colors in output. Cucumber 1.x only!
+     *  For Cucumber 2.x and above use `formatOptions: { colorsEnabled: false }`
+     *
+     *  **Please note** For Cucumber 2.x and above use the {@link CucumberConfig#formatOptions} instead.
+     *
+     * @example <caption>Disable colors in output in Cucumber 1.x</caption>
+     *  colors: false
+     *
+     * @example <caption>Disable colors in output in Cucumber 2.x and above</caption>
+     *  formatOptions: { colorsEnabled: false }
+     *
+     * @type {string}
+     * @see https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38
+     * @version 1.x
+     */
+    colors?: boolean
+
     /**
      * @desc
      *  Step definitions and support files can be written in languages that transpile to JavaScript.
@@ -39,10 +59,10 @@ export interface CucumberConfig {
      * @example <caption>Cucumber 1.x</caption>
      *  formatOptions: JSON.stringify({ option: 'value' })
      *
-     * @type {string}
+     * @type {object|string}
      * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options
      */
-    formatOptions?: string;
+    formatOptions?: object | string;
 
     /**
      * @desc

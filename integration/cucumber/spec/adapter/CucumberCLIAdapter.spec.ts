@@ -23,11 +23,11 @@ describe('@serenity-js/cucumber', function () {
 
         given([{
             runner: 'cucumber-1',
-            config: { },
+            config: { format: 'pretty', colors: false },
             expectedOutput: '✔ Given a step that passes'
         }, {
             runner: 'cucumber-2',
-            config: { format: 'pretty' },
+            config: { format: 'pretty', formatOptions: { colorsEnabled: false } },
             expectedOutput: '✔ Given a step that passes'
         }, {
             runner: 'cucumber-3',
