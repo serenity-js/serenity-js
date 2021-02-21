@@ -129,12 +129,12 @@ jobs:
             ${{ runner.os }}-node-
             ${{ runner.os }}-
 
+      - run: npm ci
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
-
-      - run: npm ci
 
       - name: Test
         run: make test
@@ -204,12 +204,12 @@ jobs:
             ${{ runner.os }}-node-
             ${{ runner.os }}-
 
+      - run: npm ci
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
-
-      - run: npm ci
 
       - name: Integration Test
         run: make integration-test
@@ -320,12 +320,12 @@ jobs:
             ${{ runner.os }}-node-
             ${{ runner.os }}-
 
+      - run: npm ci
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
-
-      - run: npm ci
 
       - name: Publish artifacts
         run: npm run lerna:publish
