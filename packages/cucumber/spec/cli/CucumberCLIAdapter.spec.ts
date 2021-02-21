@@ -18,9 +18,9 @@ import {
 } from '@serenity-js/core/lib/events';
 import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
-const { stdout } = require('test-console'); // tslint:disable-line:no-var-requires  no type defs available
-
 import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';
+
+const { stdout } = require('test-console'); // tslint:disable-line:no-var-requires  no type defs available
 
 /** @test {CucumberCLIAdapter} */
 describe('CucumberCLIAdapter', function () {
@@ -137,7 +137,7 @@ describe('CucumberCLIAdapter', function () {
     }
 
     function run(config: CucumberConfig, output: SerenityFormatterOutput): Promise<string> {
-        clearRequireCache('features/step_definitions/steps.ts');
+        clearRequireCache('steps.ts');
 
         const adapter = new CucumberCLIAdapter({
                 ...config,
