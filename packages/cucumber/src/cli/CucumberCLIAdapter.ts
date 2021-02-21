@@ -2,7 +2,7 @@
 import { ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
 import { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';
-import { CucumberFormatterOutput, OutputDescriptor } from './output';
+import { OutputDescriptor, SerenityFormatterOutput } from './output';
 
 /**
  * @desc
@@ -15,14 +15,16 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     private readonly options: CucumberOptions;
 
     /**
-     * @param {CucumberConfig} config
+     * @param {@serenity-js/core/lib/io~Config<CucumberConfig>} config
      * @param {@serenity-js/core/lib/io~ModuleLoader} loader
-     * @param {CucumberFormatterOutput} output
+     * @param {SerenityFormatterOutput} output
+     *
+     * @see {@link CucumberConfig}
      */
     constructor(
         config: CucumberConfig,
         private readonly loader: ModuleLoader,
-        private readonly output: CucumberFormatterOutput,
+        private readonly output: SerenityFormatterOutput,
     ) {
         this.options = new CucumberOptions(config);
     }

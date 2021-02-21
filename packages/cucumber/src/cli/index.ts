@@ -2,3 +2,4 @@
 export * from './output';
 export * from './CucumberCLIAdapter';
 export * from './CucumberConfig';
+export * from './CucumberFormat';

@@ -1,8 +1,8 @@
 import 'mocha';
 
 import { configure } from '@serenity-js/core';
-import { CucumberCLIAdapter, CucumberConfig, CucumberFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';
-import { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
+import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';
+import { Config, FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import * as path from 'path';
 import {
@@ -136,7 +136,7 @@ describe('CucumberCLIAdapter', function () {
             });
     }
 
-    function run(config: CucumberConfig, output: CucumberFormatterOutput): Promise<string> {
+    function run(config: CucumberConfig, output: SerenityFormatterOutput): Promise<string> {
         clearRequireCache('features/step_definitions/steps.ts');
 
         const adapter = new CucumberCLIAdapter({
