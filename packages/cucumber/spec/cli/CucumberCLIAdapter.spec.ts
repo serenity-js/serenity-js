@@ -1,8 +1,7 @@
 import 'mocha';
 
 import { configure } from '@serenity-js/core';
-import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';
-import { Config, FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
+import { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import * as path from 'path';
 import {
@@ -19,8 +18,9 @@ import {
 } from '@serenity-js/core/lib/events';
 import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
-
 const { stdout } = require('test-console'); // tslint:disable-line:no-var-requires  no type defs available
+
+import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';
 
 /** @test {CucumberCLIAdapter} */
 describe('CucumberCLIAdapter', function () {
@@ -141,7 +141,7 @@ describe('CucumberCLIAdapter', function () {
 
         const adapter = new CucumberCLIAdapter({
                 ...config,
-                require: [ 'features/step_definitions/steps.ts' ],
+                require: [ path.resolve(__dirname, 'features/step_definitions/steps.ts') ],
             },
             new LocalModuleLoader(rootDir.value),
             output,
