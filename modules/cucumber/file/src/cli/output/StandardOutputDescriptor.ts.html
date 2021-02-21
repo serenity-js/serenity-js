@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/cucumber/class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/cucumber/file/src/cli/output/StandardOutputDescriptor.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -118,10 +118,11 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html">CucumberCLIAdapter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberFormat.ts~CucumberFormat.html">CucumberFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -129,271 +130,23 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ResultMapper} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/listeners/legacy/notifier'</span></code></pre></div>
-  <span data-ice="access">public</span>
-  <span data-ice="kind">class</span>
-  
-  
-  
-  <span data-ice="source">| <span><a href="file/src/listeners/legacy/notifier/ResultMapper.ts.html#lineNumber13">source</a></span></span>
-</div>
+                <article class="content" data-ice="content"><h1 data-ice="title">src/cli/output/StandardOutputDescriptor.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { OutputDescriptor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
 
-<div class="self-detail detail">
-  <h1 data-ice="name">ResultMapper</h1>
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@private</span>
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StandardOutputDescriptor</span> <span class="hljs-title">implements</span> <span class="hljs-title">OutputDescriptor</span> </span>{
+    value(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+    }
 
-  
+    cleanUp(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-literal">undefined</span>);
+    }
+}
+</code></pre>
 
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-</div>
-
-
-
-
-
-<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html#instance-method-errorFrom">errorFrom</a></span></span><span class="code" data-ice="signature">(error: <span>Error </span> | <span> undefined </span> | <span> undefined</span>): <span>Error </span> | <span> undefined</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html#instance-method-outcomeFor">outcomeFor</a></span></span><span class="code" data-ice="signature">(status: <span>string</span>, maybeError: <span>Error </span> | <span> undefined </span> | <span> undefined</span>): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-
-
-
-
-
-
-<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-errorFrom">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">errorFrom</span><span class="code" data-ice="signature">(error: <span>Error </span> | <span> undefined </span> | <span> undefined</span>): <span>Error </span> | <span> undefined</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/listeners/legacy/notifier/ResultMapper.ts.html#lineNumber53">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">error</td>
-      <td data-ice="type" class="code"><span>Error </span> | <span> undefined </span> | <span> undefined</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>Error </span> | <span> undefined</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-outcomeFor">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">outcomeFor</span><span class="code" data-ice="signature">(status: <span>string</span>, maybeError: <span>Error </span> | <span> undefined </span> | <span> undefined</span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/listeners/legacy/notifier/ResultMapper.ts.html#lineNumber14">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">status</td>
-      <td data-ice="type" class="code"><span>string</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">maybeError</td>
-      <td data-ice="type" class="code"><span>Error </span> | <span> undefined </span> | <span> undefined</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
 </article>
             </section>
         </div>

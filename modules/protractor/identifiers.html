@@ -120,6 +120,9 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/Config.ts~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-run">run</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-runner">adapter/runner</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html">TestRunnerDetector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html">TestRunnerLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html">CucumberAdapterConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isActive">isActive</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isClickable">isClickable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEnabled">isEnabled</a></span></span></li>
@@ -237,7 +240,105 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-run">run</a></span></span><span class="code" data-ice="signature">(runner: <span>Runner</span>, specs: <span><span>string</span><span>[]</span></span>): <span>Promise</span>&lt;<span>ProtractorReport</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-run">run</a></span></span><span class="code" data-ice="signature">(runner: <span><a href="https://github.com/angular/protractor/blob/master/lib/runner.ts">Runner</a></span>, specs: <span><span>string</span><span>[]</span></span>): <span>Promise</span>&lt;<span>ProtractorReport</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div data-ice="dirSummaryWrap">
+      <h2 data-ice="dirPath" id="adapter-runner">adapter/runner</h2>
+      <div data-ice="dirSummary"><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-class">C</span>
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html">TestRunnerDetector</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Detects the <span><a href="/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span> to use,
+ based on Protractor configuration.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-class">C</span>
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html">TestRunnerLoader</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Loads a <span><a href="/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span>, needed to invoke
+ the chosen test runner programmatically.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-interface">I</span>
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html">CucumberAdapterConfig</a></span></span>
         </p>
       </div>
       <div>
@@ -1994,6 +2095,7 @@
   <div class="identifier-dir-tree d-none d-lg-block" data-ice="dirTreeWrap">
     <div class="identifier-dir-tree-header">Directories</div>
     <div class="identifier-dir-tree-content" data-ice="dirTree"><div style="padding-left: 0em"><a href="#adapter">adapter</a></div>
+<div style="padding-left: 1em"><a href="#adapter-runner">runner</a></div>
 <div style="padding-left: 0em"><a href="#expectations">expectations</a></div>
 <div style="padding-left: 1em"><a href="#screenplay-abilities">abilities</a></div>
 <div style="padding-left: 1em"><a href="#screenplay-interactions">interactions</a></div>

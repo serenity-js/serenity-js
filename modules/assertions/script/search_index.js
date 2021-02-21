@@ -408,6 +408,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~config",
+    "/modules/core/class/src/io/Config.ts~Config.html",
+    "@serenity-js/core/lib/io~Config",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~errorserialiser",
     "/modules/core/class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html",
     "@serenity-js/core/lib/io~ErrorSerialiser",
@@ -432,6 +438,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~moduleloader",
+    "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
+    "@serenity-js/core/lib/io~ModuleLoader",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~path",
     "/modules/core/class/src/io/Path.ts~Path.html",
     "@serenity-js/core/lib/io~Path",
@@ -441,6 +453,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io~serialisederror",
     "/modules/core/class/src/io/ErrorSerialiser.ts~SerialisedError.html",
     "@serenity-js/core/lib/io~SerialisedError",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io~testrunneradapter",
+    "/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html",
+    "@serenity-js/core/lib/io~TestRunnerAdapter",
     "external"
   ],
   [
@@ -1918,6 +1936,18 @@ window.esdocSearchIndex = [
     "test-file/spec/expectations/or.spec.ts.html#lineNumber38",
     "or contributes to a human-readable description",
     "test"
+  ],
+  [
+    "protractor~protractorconfig",
+    "https://github.com/angular/protractor/blob/master/lib/config.ts",
+    "protractor~ProtractorConfig",
+    "external"
+  ],
+  [
+    "protractor~runner",
+    "https://github.com/angular/protractor/blob/master/lib/runner.ts",
+    "protractor~Runner",
+    "external"
   ],
   [
     "selenium-webdriver~actions",

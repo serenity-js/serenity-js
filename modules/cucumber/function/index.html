@@ -118,10 +118,11 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html">CucumberCLIAdapter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberFormat.ts~CucumberFormat.html">CucumberFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -148,7 +149,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span><span class="code" data-ice="signature">(serenity: <span><a href="/modules/core/class/src/Serenity.ts~Serenity.html">Serenity</a></span>, moduleLoader: <span>ModuleLoader</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span><span class="code" data-ice="signature">(serenity: <span><a href="/modules/core/class/src/Serenity.ts~Serenity.html">Serenity</a></span>, moduleLoader: <span><a href="/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span>): <span>Formatter</span></span>
         </p>
       </div>
       <div>
@@ -177,7 +178,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span><span class="code" data-ice="signature">(serenity: <span><a href="/modules/core/class/src/Serenity.ts~Serenity.html">Serenity</a></span>, moduleLoader: <span>ModuleLoader</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span><span class="code" data-ice="signature">(serenity: <span><a href="/modules/core/class/src/Serenity.ts~Serenity.html">Serenity</a></span>, moduleLoader: <span><a href="/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span>): <span>Formatter</span></span>
         </p>
       </div>
       <div>
@@ -205,11 +206,11 @@
     
     
     
-    <span class="code" data-ice="name">createListener</span><span class="code" data-ice="signature">(serenity: <span><a href="/modules/core/class/src/Serenity.ts~Serenity.html">Serenity</a></span>, moduleLoader: <span>ModuleLoader</span>): <span>*</span></span>
+    <span class="code" data-ice="name">createListener</span><span class="code" data-ice="signature">(serenity: <span><a href="/modules/core/class/src/Serenity.ts~Serenity.html">Serenity</a></span>, moduleLoader: <span><a href="/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span>): <span>Formatter</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/listeners/legacy/index.ts.html#lineNumber29">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/listeners/legacy/index.ts.html#lineNumber30">source</a></span></span>
     </span>
   </h3>
 
@@ -237,7 +238,7 @@
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">moduleLoader</td>
-      <td data-ice="type" class="code"><span>ModuleLoader</span></td>
+      <td data-ice="type" class="code"><span><a href="/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -251,7 +252,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span>Formatter</span></td>
           
         </tr>
       </tbody>
@@ -283,11 +284,11 @@
     
     
     
-    <span class="code" data-ice="name">createListener</span><span class="code" data-ice="signature">(serenity: <span><a href="/modules/core/class/src/Serenity.ts~Serenity.html">Serenity</a></span>, moduleLoader: <span>ModuleLoader</span>): <span>*</span></span>
+    <span class="code" data-ice="name">createListener</span><span class="code" data-ice="signature">(serenity: <span><a href="/modules/core/class/src/Serenity.ts~Serenity.html">Serenity</a></span>, moduleLoader: <span><a href="/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span>): <span>Formatter</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/listeners/messages/index.ts.html#lineNumber25">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/listeners/messages/index.ts.html#lineNumber26">source</a></span></span>
     </span>
   </h3>
 
@@ -315,7 +316,7 @@
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">moduleLoader</td>
-      <td data-ice="type" class="code"><span>ModuleLoader</span></td>
+      <td data-ice="type" class="code"><span><a href="/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -329,7 +330,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span>Formatter</span></td>
           
         </tr>
       </tbody>

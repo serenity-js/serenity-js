@@ -118,7 +118,8 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/MochaAdapter.ts~MochaAdapter.html">MochaAdapter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -127,10 +128,9 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/MochaAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
-
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;
-<span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { MochaConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MochaConfig'</span>;
 
 <span class="hljs-comment">/**
@@ -138,10 +138,16 @@
  *  Allows for programmatic execution of Mocha test scenarios,
  *  using {<span class="hljs-doctag">@link </span>SerenityReporterForMocha} to report progress.
  *
- * <span class="hljs-doctag">@package</span>
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/io~TestRunnerAdapter}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MochaAdapter</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MochaAdapter</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunnerAdapter</span> </span>{
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  test
+     * <span class="hljs-doctag">@param <span class="hljs-type">{MochaConfig}</span> <span class="hljs-variable">config</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~ModuleLoader}</span> <span class="hljs-variable">loader</span></span>
+     */</span>
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: MochaConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,

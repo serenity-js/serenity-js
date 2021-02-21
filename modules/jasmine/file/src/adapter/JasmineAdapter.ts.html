@@ -130,7 +130,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/JasmineAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> reporter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../index'</span>);
 <span class="hljs-keyword">import</span> { JasmineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./JasmineConfig'</span>;
 
@@ -138,9 +138,15 @@
  * <span class="hljs-doctag">@desc</span>
  *  Allows for programmatic execution of Jasmine test scenarios,
  *  using {<span class="hljs-doctag">@link </span>SerenityReporterForJasmine} to report progress.
+ *
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/io~TestRunnerAdapter}</span></span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JasmineAdapter</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JasmineAdapter</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunnerAdapter</span> </span>{
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-type">{JasmineConfig}</span> <span class="hljs-variable">config</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~ModuleLoader}</span> <span class="hljs-variable">loader</span></span>
+     */</span>
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: JasmineConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,

@@ -180,6 +180,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/io~config",
+    "class/src/io/Config.ts~Config.html",
+    "<span>Config</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/errors~configurationerror",
     "class/src/errors/ConfigurationError.ts~ConfigurationError.html",
     "<span>ConfigurationError</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/errors</span>",
@@ -399,6 +405,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io/collections~mappable",
     "class/src/io/collections/mappable.ts~Mappable.html",
     "<span>Mappable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io/collections</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/io~moduleloader",
+    "class/src/io/ModuleLoader.ts~ModuleLoader.html",
+    "<span>ModuleLoader</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
     "class"
   ],
   [
@@ -651,6 +663,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/events~testrunstarts",
     "class/src/events/TestRunStarts.ts~TestRunStarts.html",
     "<span>TestRunStarts</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/events</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/io~testrunneradapter",
+    "class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html",
+    "<span>TestRunnerAdapter</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
     "class"
   ],
   [
@@ -1146,6 +1164,144 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "config src/io/config.ts~config,config",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber6",
+    "Config",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber114",
+    "Config when extracting the configuration object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber123",
+    "Config when extracting the configuration object applies any transformations",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber116",
+    "Config when extracting the configuration object returns the value equal to the underlying config object, when no transformations are used",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber40",
+    "Config when transforming the values",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber51",
+    "Config when transforming the values conditionally",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber60",
+    "Config when transforming the values conditionally does not transform the value when a condition is not met",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber53",
+    "Config when transforming the values conditionally transforms a value when a condition is met",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber68",
+    "Config when transforming the values getAsList",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber90",
+    "Config when transforming the values getAsList returns a list when the value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber92",
+    "Config when transforming the values getAsList returns a list when the value is already a list",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber98",
+    "Config when transforming the values getAsList returns a list when the value is not a list",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber104",
+    "Config when transforming the values getAsList returns a list when the value respects the transformation function, if it is defined",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber69",
+    "Config when transforming the values getAsList returns an empty list when the value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber83",
+    "Config when transforming the values getAsList returns an empty list when the value ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber77",
+    "Config when transforming the values getAsList returns an empty list when the value is null",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber71",
+    "Config when transforming the values getAsList returns an empty list when the value is undefined",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber42",
+    "Config when transforming the values transforms values using transformation functions provided for each field",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber8",
+    "Config when wrapping a plain-old configuration object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber27",
+    "Config when wrapping a plain-old configuration object ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber33",
+    "Config when wrapping a plain-old configuration object ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber15",
+    "Config when wrapping a plain-old configuration object enables access to its fields",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber21",
+    "Config when wrapping a plain-old configuration object tells if a given field exists, but is undefined",
+    "test"
+  ],
+  [
     "duration src/model/duration.ts~duration,duration",
     "test-file/spec/model/Duration.spec.ts.html#lineNumber8",
     "Duration",
@@ -1273,25 +1429,25 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber141",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber152",
     "FileSystem when generating temp file paths",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber155",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber166",
     "FileSystem when generating temp file paths allows for the prefix to be overridden",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber161",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber172",
     "FileSystem when generating temp file paths allows for the suffix to be overridden",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber150",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber161",
     "FileSystem when generating temp file paths uses a randomly generated file name and .tmp suffix",
     "test"
   ],
@@ -1303,13 +1459,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber113",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber124",
     "FileSystem when removing directories",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber115",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber126",
     "FileSystem when removing directories removes the directory recursively",
     "test"
   ],
@@ -1317,6 +1473,12 @@ window.esdocSearchIndex = [
     "",
     "test-file/spec/io/FileSystem.spec.ts.html#lineNumber89",
     "FileSystem when removing individual files",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber112",
+    "FileSystem when removing individual files ",
     "test"
   ],
   [
@@ -1490,7 +1652,7 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/spec/io/ModuleLoader.spec.ts.html#lineNumber25",
-    "ModuleLoader complains if neither a local version or the npm-resolved version could not be found",
+    "ModuleLoader complains if neither a local version or the npm-resolved version could be found",
     "test"
   ],
   [
@@ -2011,7 +2173,7 @@ window.esdocSearchIndex = [
   ],
   [
     "stagemanager asyncoperationattempted asyncoperationfailed src/stage/stagemanager.ts~stagemanager,stagemanager src/events/asyncoperationattempted.ts~asyncoperationattempted,asyncoperationattempted src/events/asyncoperationfailed.ts~asyncoperationfailed,asyncoperationfailed",
-    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber105",
+    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber101",
     "StageManager provides details should the work in progress fail with an error",
     "test"
   ],
@@ -2472,6 +2634,18 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "protractor~protractorconfig",
+    "https://github.com/angular/protractor/blob/master/lib/config.ts",
+    "protractor~ProtractorConfig",
+    "external"
+  ],
+  [
+    "protractor~runner",
+    "https://github.com/angular/protractor/blob/master/lib/runner.ts",
+    "protractor~Runner",
+    "external"
+  ],
+  [
     "q src/screenplay/questions/q.ts~q,q",
     "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber10",
     "q",
@@ -2577,6 +2751,12 @@ window.esdocSearchIndex = [
     "spec/errors/runtimeerror.spec.ts",
     "test-file/spec/errors/RuntimeError.spec.ts.html",
     "spec/errors/RuntimeError.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/io/config.spec.ts",
+    "test-file/spec/io/Config.spec.ts.html",
+    "spec/io/Config.spec.ts",
     "testFile"
   ],
   [
@@ -3618,6 +3798,60 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/io/config.ts",
+    "file/src/io/Config.ts.html",
+    "src/io/Config.ts",
+    "file"
+  ],
+  [
+    "src/io/config.ts~config#constructor",
+    "class/src/io/Config.ts~Config.html#instance-constructor-constructor",
+    "src/io/Config.ts~Config#constructor",
+    "method"
+  ],
+  [
+    "src/io/config.ts~config#get",
+    "class/src/io/Config.ts~Config.html#instance-method-get",
+    "src/io/Config.ts~Config#get",
+    "method"
+  ],
+  [
+    "src/io/config.ts~config#getaslist",
+    "class/src/io/Config.ts~Config.html#instance-method-getAsList",
+    "src/io/Config.ts~Config#getAsList",
+    "method"
+  ],
+  [
+    "src/io/config.ts~config#has",
+    "class/src/io/Config.ts~Config.html#instance-method-has",
+    "src/io/Config.ts~Config#has",
+    "method"
+  ],
+  [
+    "src/io/config.ts~config#keys",
+    "class/src/io/Config.ts~Config.html#instance-method-keys",
+    "src/io/Config.ts~Config#keys",
+    "method"
+  ],
+  [
+    "src/io/config.ts~config#object",
+    "class/src/io/Config.ts~Config.html#instance-method-object",
+    "src/io/Config.ts~Config#object",
+    "method"
+  ],
+  [
+    "src/io/config.ts~config#where",
+    "class/src/io/Config.ts~Config.html#instance-method-where",
+    "src/io/Config.ts~Config#where",
+    "method"
+  ],
+  [
+    "src/io/config.ts~config#whereif",
+    "class/src/io/Config.ts~Config.html#instance-method-whereIf",
+    "src/io/Config.ts~Config#whereIf",
+    "method"
+  ],
+  [
     "src/io/errorserialiser.ts",
     "file/src/io/ErrorSerialiser.ts.html",
     "src/io/ErrorSerialiser.ts",
@@ -3768,6 +4002,36 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/io/moduleloader.ts~moduleloader#constructor",
+    "class/src/io/ModuleLoader.ts~ModuleLoader.html#instance-constructor-constructor",
+    "src/io/ModuleLoader.ts~ModuleLoader#constructor",
+    "method"
+  ],
+  [
+    "src/io/moduleloader.ts~moduleloader#hasavailable",
+    "class/src/io/ModuleLoader.ts~ModuleLoader.html#instance-method-hasAvailable",
+    "src/io/ModuleLoader.ts~ModuleLoader#hasAvailable",
+    "method"
+  ],
+  [
+    "src/io/moduleloader.ts~moduleloader#require",
+    "class/src/io/ModuleLoader.ts~ModuleLoader.html#instance-method-require",
+    "src/io/ModuleLoader.ts~ModuleLoader#require",
+    "method"
+  ],
+  [
+    "src/io/moduleloader.ts~moduleloader#resolve",
+    "class/src/io/ModuleLoader.ts~ModuleLoader.html#instance-method-resolve",
+    "src/io/ModuleLoader.ts~ModuleLoader#resolve",
+    "method"
+  ],
+  [
+    "src/io/moduleloader.ts~moduleloader#versionof",
+    "class/src/io/ModuleLoader.ts~ModuleLoader.html#instance-method-versionOf",
+    "src/io/ModuleLoader.ts~ModuleLoader#versionOf",
+    "method"
+  ],
+  [
     "src/io/path.ts",
     "file/src/io/Path.ts.html",
     "src/io/Path.ts",
@@ -3844,6 +4108,18 @@ window.esdocSearchIndex = [
     "class/src/io/Path.ts~Path.html#static-method-fromSanitisedString",
     "src/io/Path.ts~Path.fromSanitisedString",
     "method"
+  ],
+  [
+    "src/io/testrunneradapter.ts",
+    "file/src/io/TestRunnerAdapter.ts.html",
+    "src/io/TestRunnerAdapter.ts",
+    "file"
+  ],
+  [
+    "src/io/testrunneradapter.ts~testrunneradapter#run",
+    "class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html#instance-member-run",
+    "src/io/TestRunnerAdapter.ts~TestRunnerAdapter#run",
+    "member"
   ],
   [
     "src/io/version.ts",

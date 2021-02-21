@@ -164,13 +164,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteFinished.ts~TestSuiteFinished.html">TestSuiteFinished</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteStarts.ts~TestSuiteStarts.html">TestSuiteStarts</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io">io</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html">AssertionReportDiffer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Config.ts~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html">ErrorSerialiser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileFinder.ts~FileFinder.html">FileFinder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystemLocation.ts~FileSystemLocation.html">FileSystemLocation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Path.ts~Path.html">Path</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~SerialisedError.html">SerialisedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-commaSeparated">commaSeparated</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatted">formatted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-inspected">inspected</a></span></span></li>
@@ -277,30 +280,57 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> semver = <span class="hljs-built_in">require</span>(<span class="hljs-string">'semver'</span>);
 <span class="hljs-keyword">import</span> { ensure, isDefined, isString, Predicate, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@desc</span>
+ *  A tiny type describing a version number, like `1.2.3`
+ *
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{tiny-types~TinyType}</span></span>
+ */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Version</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">version</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Version}</span></span>
+     */</span>
     <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">version: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Version(version);
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">version</span></span>
+     */</span>
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> version: <span class="hljs-built_in">string</span></span>)</span> {
         <span class="hljs-built_in">super</span>();
         ensure(<span class="hljs-string">'version'</span>, version, isDefined(), isString(), isValid());
     }
 
-    <span class="hljs-function"><span class="hljs-title">isAtLeast</span>(<span class="hljs-params">other: Version</span>)</span> {
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Version}</span> <span class="hljs-variable">other</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{boolean}</span></span>
+     */</span>
+    isAtLeast(other: Version): <span class="hljs-built_in">boolean</span> {
         <span class="hljs-keyword">return</span> semver.gte(<span class="hljs-built_in">this</span>.version, other.version);
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{number}</span></span>
+     *  Major version number of a given package version, i.e. `1` in `1.2.3`
+     */</span>
     major(): <span class="hljs-built_in">number</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">this</span>.version.split(<span class="hljs-string">'.'</span>)[<span class="hljs-number">0</span>]);
     }
 
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     */</span>
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.version }</span>`</span>;
     }
 }
 
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isValid</span>(<span class="hljs-params"></span>): <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">string</span>&gt; </span>{
     <span class="hljs-keyword">return</span> Predicate.to(<span class="hljs-string">`be a valid version number`</span>, <span class="hljs-function">(<span class="hljs-params">version: <span class="hljs-built_in">string</span></span>) =&gt;</span>
         !! semver.valid(version),

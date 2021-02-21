@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/protractor/file/src/adapter/TestRunnerDetector.ts.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/protractor/class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -120,6 +120,9 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/Config.ts~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-run">run</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-runner">adapter/runner</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html">TestRunnerDetector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html">TestRunnerLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html">CucumberAdapterConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isActive">isActive</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isClickable">isClickable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEnabled">isEnabled</a></span></span></li>
@@ -182,116 +185,212 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/TestRunnerDetector.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileFinder, FileSystem, ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { isPlainObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'is-plain-object'</span>;
-<span class="hljs-keyword">import</span> { Config } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+                <article class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {CucumberAdapterConfig} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/adapter/runner'</span></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">interface</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="file/src/adapter/runner/CucumberAdapterConfig.ts.html#lineNumber12">source</a></span></span>
+</div>
 
-<span class="hljs-keyword">import</span> { TestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'./runners/TestRunner'</span>;
-<span class="hljs-keyword">import</span> deepmerge = <span class="hljs-built_in">require</span>(<span class="hljs-string">'deepmerge'</span>);
+<div class="self-detail detail">
+  <h1 data-ice="name">CucumberAdapterConfig</h1>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@private</span>
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestRunnerDetector</span> </span>{
+  
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> finder: FileFinder;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem;
+  
 
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">protractorCliOptions</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-keyword">return</span> [
-            <span class="hljs-string">'cucumberOpts'</span>,
-            <span class="hljs-string">'jasmineNodeOpts'</span>,
-            <span class="hljs-string">'mochaOpts'</span>,
-        ];
-    }
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">cwd: Path</span>)</span> {
-        <span class="hljs-built_in">this</span>.loader     = <span class="hljs-keyword">new</span> ModuleLoader(cwd.value);
-        <span class="hljs-built_in">this</span>.finder     = <span class="hljs-keyword">new</span> FileFinder(cwd);
-        <span class="hljs-built_in">this</span>.fileSystem = <span class="hljs-keyword">new</span> FileSystem(cwd);
-    }
+  
+  
+  
 
-    <span class="hljs-comment">// todo: when invoking, merge config</span>
-    <span class="hljs-comment">//      Object.assign(</span>
-    <span class="hljs-comment">//          {},</span>
-    <span class="hljs-comment">//          config.cucumberOpts,</span>
-    <span class="hljs-comment">//          config.capabilities.cucumberOpts</span>
-    <span class="hljs-comment">//      )</span>
-    runnerFor(config: Config): TestRunner {
+  
 
-        <span class="hljs-comment">// todo: simplify and introduce a config object with "as(String)", "as(Object)", etc. to avoid issues with undefined</span>
-        <span class="hljs-comment">// todo: and config merge too, using on deepmerge</span>
+  
 
-        <span class="hljs-keyword">const</span>
-            specifiesRunnerFor = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-                !!config.serenity &amp;&amp;
-                !!config.serenity.runner &amp;&amp;
-                config.serenity.runner === <span class="hljs-keyword">type</span>;
+  
 
-        <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">'cucumber'</span>):
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useCucumber(config);
-            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">'jasmine'</span>):
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useJasmine(config);
-            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">'mocha'</span>):
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useMocha(config);
-            <span class="hljs-keyword">case</span> !! config.cucumberOpts:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useCucumber(config);
-            <span class="hljs-keyword">case</span> !! config.mochaOpts:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useMocha(config);
-            <span class="hljs-keyword">case</span> !! config.jasmineNodeOpts:
-            <span class="hljs-keyword">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useJasmine(config);
-        }
-    }
+  
+</div>
 
-    <span class="hljs-keyword">private</span> useCucumber(config: Config): TestRunner {
-        <span class="hljs-keyword">const</span> { CucumberTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./runners/CucumberTestRunner'</span>);
 
-        <span class="hljs-keyword">const</span> correctedConfig = <span class="hljs-built_in">this</span>.withTransformedField(
-            config.cucumberOpts || {},
-            <span class="hljs-string">'require'</span>,
-            <span class="hljs-function"><span class="hljs-params">requires</span> =&gt;</span> <span class="hljs-built_in">this</span>.asAbsolutePaths(requires),
-        );
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CucumberTestRunner(
-            correctedConfig,
-            <span class="hljs-built_in">this</span>.loader,
-            <span class="hljs-built_in">this</span>.fileSystem,
-        );
-    }
 
-    <span class="hljs-keyword">private</span> useJasmine(config: Config): TestRunner {
-        <span class="hljs-keyword">const</span> { JasmineTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./runners/JasmineTestRunner'</span>);
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> JasmineTestRunner(config.jasmineNodeOpts, <span class="hljs-built_in">this</span>.loader);
-    }
+<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html#instance-member-uniqueFormatterOutputs">uniqueFormatterOutputs</a></span></span><span class="code" data-ice="signature">: <span>boolean</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Add <code>runnerId</code> to names of output files produced by native Cucumber.js formatters</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html#instance-member-useStandardOutput">useStandardOutput</a></span></span><span class="code" data-ice="signature">: <span>boolean</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Instruct Serenity/JS Cucumber Adapter to take over the stdout output of native Cucumber reporters to prevent them from clobbering the log</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 
-    <span class="hljs-keyword">private</span> useMocha(config: Config): TestRunner {
-        <span class="hljs-keyword">const</span> { MochaTestRunner } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./runners/MochaTestRunner'</span>);
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MochaTestRunner(config.mochaOpts, <span class="hljs-built_in">this</span>.loader);
-    }
 
-    <span class="hljs-keyword">private</span> withTransformedField&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">object</span>, K <span class="hljs-keyword">extends</span> keyof T&gt;(obj: T, <span class="hljs-attr">key</span>: K, <span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">value: T[K]</span>) =&gt;</span> T[K]): T {
-        <span class="hljs-keyword">if</span> (! obj[key]) {
-            <span class="hljs-keyword">return</span> obj;
-        }
 
-        <span class="hljs-keyword">const</span> override = {
-            [key]: fn(obj[key]),
-        } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Partial&lt;T&gt;;
 
-        <span class="hljs-keyword">return</span> deepmerge&lt;T&gt;(obj, override, {
-            <span class="hljs-attr">isMergeableObject</span>: isPlainObject,
-        });
-    }
 
-    <span class="hljs-keyword">private</span> asAbsolutePaths(requires: <span class="hljs-built_in">string</span>[] | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): <span class="hljs-built_in">string</span>[] {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.finder.filesMatching(requires).map(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.value);
-    }
-}
-</code></pre>
+
+
+<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-uniqueFormatterOutputs">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">uniqueFormatterOutputs</span><span class="code" data-ice="signature">: <span>boolean</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/runner/CucumberAdapterConfig.ts.html#lineNumber49">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Add <code>runnerId</code> to names of output files produced by native Cucumber.js formatters</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-useStandardOutput">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">useStandardOutput</span><span class="code" data-ice="signature">: <span>boolean</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/runner/CucumberAdapterConfig.ts.html#lineNumber30">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Instruct Serenity/JS Cucumber Adapter to take over the stdout output of native Cucumber reporters to prevent them from clobbering the log</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
 
 </article>
             </section>

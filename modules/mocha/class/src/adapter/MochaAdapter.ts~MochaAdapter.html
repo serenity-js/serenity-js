@@ -14,13 +14,13 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="/modules/protractor/">
+    <base href="/modules/mocha/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
     <title> | Serenity/JS</title>
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/protractor/file/src/adapter/runners/JasmineTestRunner.ts.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/mocha/class/src/adapter/MochaAdapter.ts~MochaAdapter.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -103,13 +103,13 @@
                         <li class="chapter"><a href="/modules/cucumber" title="Serenity/JS adapter for Cucumber test runners version 1.x - 7.x" class="">@serenity-js/cucumber</a></li>
                         <li class="chapter"><a href="/modules/jasmine" title="Serenity/JS adapter for the Jasmine test runner" class="">@serenity-js/jasmine</a></li>
                         <li class="chapter"><a href="/modules/local-server" title="Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify" class="">@serenity-js/local-server</a></li>
-                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="">@serenity-js/mocha</a></li>
-                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
+                        <li class="chapter"><a href="/modules/mocha" title="Serenity/JS adapter for Mocha" class="active">@serenity-js/mocha</a></li>
+                        <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
                     </ul>
                     <ul class="summary">
-                        <li class="header"><a href="index.html">protractor</a></li>
+                        <li class="header"><a href="index.html">mocha</a></li>
                         <li class="chapter"><a href="index.html">Readme</a></li>
                         <li class="chapter"><a href="source.html">Source code</a></li>
                         <li class="chapter"><a href="test.html" data-ice="testLink">Specs</a></li>
@@ -118,91 +118,279 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/Config.ts~Config.html">Config</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-run">run</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isActive">isActive</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isClickable">isClickable</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEnabled">isEnabled</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isPresent">isPresent</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isSelected">isSelected</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isVisible">isVisible</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-abilities">screenplay/abilities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Accept.ts~Accept.html">Accept</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Clear.ts~Clear.html">Clear</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Click.ts~Click.html">Click</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Close.ts~Close.html">Close</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/DeleteCookies.ts~DeleteCookies.html">DeleteCookies</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Dismiss.ts~Dismiss.html">Dismiss</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/DoubleClick.ts~DoubleClick.html">DoubleClick</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Enter.ts~Enter.html">Enter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ExecuteScript.ts~ExecuteScript.html">ExecuteScript</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ExecuteScript.ts~ExecuteScriptWithArguments.html">ExecuteScriptWithArguments</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Hover.ts~Hover.html">Hover</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/TakeScreenshot.ts~TakeScreenshot.html">TakeScreenshot</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/UseAngular.ts~UseAngular.html">UseAngular</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Wait.ts~Wait.html">Wait</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/EnterBuilder.ts~EnterBuilder.html">EnterBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/PressBuilder.ts~PressBuilder.html">PressBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/SelectBuilder.ts~SelectBuilder.html">SelectBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/WaitBuilder.ts~WaitBuilder.html">WaitBuilder</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions">screenplay/questions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Attribute.ts~Attribute.html">Attribute</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Browser.ts~Browser.html">Browser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/CSSClasses.ts~CSSClasses.html">CSSClasses</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Cookie.ts~Cookie.html">Cookie</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/LastScriptExecution.ts~LastScriptExecution.html">LastScriptExecution</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html">ModalDialog</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Pick.ts~Pick.html">Pick</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html">ProtractorParam</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Selected.ts~Selected.html">Selected</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-text">screenplay/questions/text</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/text/Text.ts~Text.html">Text</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer">stage/crew/photographer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/Photographer.ts~Photographer.html">Photographer</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer-strategies">stage/crew/photographer/strategies</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/PhotoTakingStrategy.ts~PhotoTakingStrategy.html">PhotoTakingStrategy</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html">TakePhotosBeforeAndAfterInteractions</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailures.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfInteractions.ts~TakePhotosOfInteractions.html">TakePhotosOfInteractions</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/MochaAdapter.ts~MochaAdapter.html">MochaAdapter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></span></li>
 </ul>
 </div>
 </nav>
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/runners/JasmineTestRunner.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { JasmineAdapter, JasmineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/jasmine/lib/adapter'</span>;     <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
-<span class="hljs-keyword">import</span> { TestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TestRunner'</span>;
+                <article class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {MochaAdapter} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/mocha/lib/adapter'</span></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber21">source</a></span></span>
+</div>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@private</span>
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JasmineTestRunner</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunner</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: JasmineConfig,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
-    </span>)</span> {
-    }
+<div class="self-detail detail">
+  <h1 data-ice="name">MochaAdapter</h1>
 
-    run(pathsToScenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> JasmineAdapter(<span class="hljs-built_in">this</span>.config, <span class="hljs-built_in">this</span>.loader).run(pathsToScenarios);
-    }
-}
-</code></pre>
+  
 
+  <div class="description" data-ice="description"><p> Allows for programmatic execution of Mocha test scenarios,
+ using <span>SerenityReporterForMocha</span> to report progress.</p>
+</div>
+
+  
+  
+  
+  
+  
+  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span></li></ul></div>
+  
+  
+  
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+</div>
+
+
+
+<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(config: <span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span>, loader: <span><a href="/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> test</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-run">run</a></span></span><span class="code" data-ice="signature">(pathsToScenarios: <span><span>string</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(config: <span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span>, loader: <span><a href="/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber29">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> test</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">config</td>
+      <td data-ice="type" class="code"><span><a href="class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">loader</td>
+      <td data-ice="type" class="code"><span><a href="/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-run">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">run</span><span class="code" data-ice="signature">(pathsToScenarios: <span><span>string</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber52">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">pathsToScenarios</td>
+      <td data-ice="type" class="code"><span><span>string</span><span>[]</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>void</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
 </article>
             </section>
         </div>

@@ -414,6 +414,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~config",
+    "/modules/core/class/src/io/Config.ts~Config.html",
+    "@serenity-js/core/lib/io~Config",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~errorserialiser",
     "/modules/core/class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html",
     "@serenity-js/core/lib/io~ErrorSerialiser",
@@ -438,6 +444,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~moduleloader",
+    "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
+    "@serenity-js/core/lib/io~ModuleLoader",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~path",
     "/modules/core/class/src/io/Path.ts~Path.html",
     "@serenity-js/core/lib/io~Path",
@@ -447,6 +459,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io~serialisederror",
     "/modules/core/class/src/io/ErrorSerialiser.ts~SerialisedError.html",
     "@serenity-js/core/lib/io~SerialisedError",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io~testrunneradapter",
+    "/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html",
+    "@serenity-js/core/lib/io~TestRunnerAdapter",
     "external"
   ],
   [
@@ -1768,6 +1786,18 @@ window.esdocSearchIndex = [
     "test-file/spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts.html#lineNumber53",
     "errorReportFrom when representing non-Error \"throwables\" as Serenity BDD-standard JSON reports supports undefined",
     "test"
+  ],
+  [
+    "protractor~protractorconfig",
+    "https://github.com/angular/protractor/blob/master/lib/config.ts",
+    "protractor~ProtractorConfig",
+    "external"
+  ],
+  [
+    "protractor~runner",
+    "https://github.com/angular/protractor/blob/master/lib/runner.ts",
+    "protractor~Runner",
+    "external"
   ],
   [
     "selenium-webdriver~actions",

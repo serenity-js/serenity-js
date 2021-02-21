@@ -118,10 +118,11 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html">CucumberCLIAdapter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberFormat.ts~CucumberFormat.html">CucumberFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -193,6 +194,35 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-colors">colors</a></span></span><span class="code" data-ice="signature">: <span>string</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Enable/disable colors in output.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.x</span>
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-compiler">compiler</a></span></span><span class="code" data-ice="signature">: <span>string</span></span>
         </p>
       </div>
@@ -222,7 +252,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-format">format</a></span></span><span class="code" data-ice="signature">: <span>string</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-format">format</a></span></span><span class="code" data-ice="signature">: <span>string[] </span> | <span> string</span></span>
         </p>
       </div>
       <div>
@@ -251,7 +281,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-formatOptions">formatOptions</a></span></span><span class="code" data-ice="signature">: <span>string</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-formatOptions">formatOptions</a></span></span><span class="code" data-ice="signature">: <span>object</span> | <span>string</span></span>
         </p>
       </div>
       <div>
@@ -484,7 +514,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-worldParameters">worldParameters</a></span></span><span class="code" data-ice="signature">: <span>object</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-worldParameters">worldParameters</a></span></span><span class="code" data-ice="signature">: <span>object </span> | <span> string</span></span>
         </p>
       </div>
       <div>
@@ -512,6 +542,63 @@
 <div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-colors">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">colors</span><span class="code" data-ice="signature">: <span>string</span></span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.x</span>
+      
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber46">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Enable/disable colors in output. Cucumber 1.x only!
+ For Cucumber 2.x and above use <code>formatOptions: { colorsEnabled: false }</code></p>
+<p> <strong>Please note</strong> For Cucumber 2.x and above use the <span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-formatOptions">CucumberConfig#formatOptions</a></span> instead.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Disable colors in output in Cucumber 1.x</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> colors: <span class="hljs-literal">false</span></code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Disable colors in output in Cucumber 2.x and above</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> formatOptions: { <span class="hljs-attr">colorsEnabled</span>: <span class="hljs-literal">false</span> }</code></pre>
+    </div>
+</div>
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38">https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-compiler">
     <span class="access" data-ice="access">public</span>
     
@@ -523,7 +610,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 1.x - 3.x</span>
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber42">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber73">source</a></span></span>
     </span>
   </h3>
 
@@ -572,11 +659,11 @@
     
     
     
-    <span class="code" data-ice="name">format</span><span class="code" data-ice="signature">: <span>string</span></span>
+    <span class="code" data-ice="name">format</span><span class="code" data-ice="signature">: <span>string[] </span> | <span> string</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber62">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber93">source</a></span></span>
     </span>
   </h3>
 
@@ -616,11 +703,11 @@
     
     
     
-    <span class="code" data-ice="name">formatOptions</span><span class="code" data-ice="signature">: <span>string</span></span>
+    <span class="code" data-ice="name">formatOptions</span><span class="code" data-ice="signature">: <span>object</span> | <span>string</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber85">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 
@@ -671,7 +758,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber105">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber136">source</a></span></span>
     </span>
   </h3>
 
@@ -715,7 +802,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber135">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber166">source</a></span></span>
     </span>
   </h3>
 
@@ -767,7 +854,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber210">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber241">source</a></span></span>
     </span>
   </h3>
 
@@ -818,7 +905,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 7.x</span>
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber161">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber192">source</a></span></span>
     </span>
   </h3>
 
@@ -869,7 +956,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 7.x</span>
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber187">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber218">source</a></span></span>
     </span>
   </h3>
 
@@ -921,7 +1008,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber263">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber294">source</a></span></span>
     </span>
   </h3>
 
@@ -965,7 +1052,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber243">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber274">source</a></span></span>
     </span>
   </h3>
 
@@ -1022,11 +1109,11 @@
     
     
     
-    <span class="code" data-ice="name">worldParameters</span><span class="code" data-ice="signature">: <span>object</span></span>
+    <span class="code" data-ice="name">worldParameters</span><span class="code" data-ice="signature">: <span>object </span> | <span> string</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber286">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/CucumberConfig.ts.html#lineNumber320">source</a></span></span>
     </span>
   </h3>
 
@@ -1055,8 +1142,12 @@
     <h4 id="examples">Examples:</h4>
     
   <div class="example-doc" data-ice="exampleDoc">
-      <div class="example-caption" data-ice="exampleCaption">Cucumber 1.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">worldParameters: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">isDev</span>: process.env.NODE_ENV !== <span class="hljs-string">'production'</span> })</code></pre>
+      <div class="example-caption" data-ice="exampleCaption">worldParameters as string</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> worldParameters: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">isDev</span>: process.env.NODE_ENV !== <span class="hljs-string">'production'</span> })</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">worldParameters as object</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> worldParameters: { <span class="hljs-attr">isDev</span>: process.env.NODE_ENV !== <span class="hljs-string">'production'</span> }</code></pre>
     </div>
 </div>
 

@@ -118,10 +118,11 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html">CucumberCLIAdapter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberFormat.ts~CucumberFormat.html">CucumberFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -276,6 +277,42 @@ describe(<span class="hljs-string">'CucumberOptions'</span>, <span class="hljs-f
 
                 expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))).to.deep.equal(
                     [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>].concat(expected),
+                );
+            });
+        });
+
+        describe(<span class="hljs-string">'empty values'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            given([
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'undefined'</span>,         <span class="hljs-attr">option</span>: <span class="hljs-string">'format'</span>,           <span class="hljs-attr">value</span>: <span class="hljs-literal">undefined</span>,   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'null'</span>,              <span class="hljs-attr">option</span>: <span class="hljs-string">'format'</span>,           <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>,        },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty list'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'format'</span>,           <span class="hljs-attr">value</span>: [],          },
+            ]).
+            it(<span class="hljs-string">'ignores empty values'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+                    [option]: value,
+                });
+
+                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))).to.deep.equal(
+                    [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>],
+                );
+            });
+        });
+
+        describe(<span class="hljs-string">'objects'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            given([
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'camelCase'</span>,   <span class="hljs-attr">option</span>: <span class="hljs-string">'worldParameters'</span>,    <span class="hljs-attr">value</span>: { <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'https://example.org'</span> }   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'kebab-case'</span>,  <span class="hljs-attr">option</span>: <span class="hljs-string">'world-parameters'</span>,   <span class="hljs-attr">value</span>: { <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'https://example.org'</span> }   },
+                { <span class="hljs-attr">description</span>: <span class="hljs-string">'string'</span>,      <span class="hljs-attr">option</span>: <span class="hljs-string">'worldParameters'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">'{"baseUrl":"https://example.org"}'</span>  },
+            ]).
+            it(<span class="hljs-string">'ignores empty values'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+                    [option]: value,
+                });
+
+                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))).to.deep.equal(
+                    [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--world-parameters'</span>, <span class="hljs-string">'{"baseUrl":"https://example.org"}'</span>],
                 );
             });
         });

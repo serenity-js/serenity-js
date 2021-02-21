@@ -1,5 +1,8 @@
 /** @external {@serenity-js/protractor/lib/adapter~Config} /modules/protractor/class/src/adapter/Config.ts~Config.html */
 /** @external {@serenity-js/protractor/lib/adapter~run} /modules/protractor/function/index.html#static-function-run */
+/** @external {@serenity-js/protractor/lib/adapter/runner~CucumberAdapterConfig} /modules/protractor/class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html */
+/** @external {@serenity-js/protractor/lib/adapter/runner~TestRunnerDetector} /modules/protractor/class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html */
+/** @external {@serenity-js/protractor/lib/adapter/runner~TestRunnerLoader} /modules/protractor/class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html */
 /** @external {@serenity-js/protractor/lib/expectations~isActive} /modules/protractor/function/index.html#static-function-isActive */
 /** @external {@serenity-js/protractor/lib/expectations~isClickable} /modules/protractor/function/index.html#static-function-isClickable */
 /** @external {@serenity-js/protractor/lib/expectations~isEnabled} /modules/protractor/function/index.html#static-function-isEnabled */

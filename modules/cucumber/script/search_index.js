@@ -6,15 +6,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/cucumber/lib/cli~cucumbercliadapter",
+    "class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html",
+    "<span>CucumberCLIAdapter</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/cli</span>",
+    "class"
+  ],
+  [
     "@serenity-js/cucumber/lib/cli~cucumberconfig",
     "class/src/cli/CucumberConfig.ts~CucumberConfig.html",
     "<span>CucumberConfig</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/cli</span>",
     "class"
   ],
   [
-    "@serenity-js/cucumber/lib/listeners/legacy/notifier~resultmapper",
-    "class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html",
-    "<span>ResultMapper</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/listeners/legacy/notifier</span>",
+    "@serenity-js/cucumber/lib/cli~cucumberformat",
+    "class/src/cli/CucumberFormat.ts~CucumberFormat.html",
+    "<span>CucumberFormat</span> <span class=\"search-result-import-path\">@serenity-js/cucumber/lib/cli</span>",
     "class"
   ],
   [
@@ -294,6 +300,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~config",
+    "/modules/core/class/src/io/Config.ts~Config.html",
+    "@serenity-js/core/lib/io~Config",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~errorserialiser",
     "/modules/core/class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html",
     "@serenity-js/core/lib/io~ErrorSerialiser",
@@ -318,6 +330,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~moduleloader",
+    "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
+    "@serenity-js/core/lib/io~ModuleLoader",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~path",
     "/modules/core/class/src/io/Path.ts~Path.html",
     "@serenity-js/core/lib/io~Path",
@@ -327,6 +345,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io~serialisederror",
     "/modules/core/class/src/io/ErrorSerialiser.ts~SerialisedError.html",
     "@serenity-js/core/lib/io~SerialisedError",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io~testrunneradapter",
+    "/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html",
+    "@serenity-js/core/lib/io~TestRunnerAdapter",
     "external"
   ],
   [
@@ -960,6 +984,18 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "cucumbercliadapter src/cli/cucumbercliadapter.ts~cucumbercliadapter,cucumbercliadapter",
+    "test-file/spec/cli/CucumberCLIAdapter.spec.ts.html#lineNumber26",
+    "CucumberCLIAdapter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/CucumberCLIAdapter.spec.ts.html#lineNumber42",
+    "CucumberCLIAdapter registers @serenity-js/cucumber and",
+    "test"
+  ],
+  [
     "",
     "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber15",
     "CucumberEventProtocolAdapter",
@@ -1005,6 +1041,18 @@ window.esdocSearchIndex = [
     "",
     "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber104",
     "CucumberEventProtocolAdapter correctly recognises undefined steps",
+    "test"
+  ],
+  [
+    "cucumberformat src/cli/cucumberformat.ts~cucumberformat,cucumberformat",
+    "test-file/spec/cli/CucumberFormat.spec.ts.html#lineNumber7",
+    "CucumberFormat",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber8",
+    "CucumberMessagesListener",
     "test"
   ],
   [
@@ -1117,8 +1165,14 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber8",
-    "CucumberMessagesListener",
+    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber11",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber10",
+    "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
@@ -1225,14 +1279,8 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber11",
-    "CucumberMessagesListener when working with Cucumber 7",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber10",
-    "CucumberMessagesListener when working with Cucumber 7",
+    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber13",
+    "CucumberMessagesListener when working with Cucumber 7 ",
     "test"
   ],
   [
@@ -1256,12 +1304,6 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber37",
-    "CucumberMessagesListener when working with Cucumber 7 ",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber13",
     "CucumberMessagesListener when working with Cucumber 7 ",
     "test"
   ],
@@ -1387,8 +1429,20 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber151",
+    "CucumberOptions when used to produce command line arguments for Cucumber CLI empty values",
+    "test"
+  ],
+  [
+    "",
     "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber63",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI flags",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber169",
+    "CucumberOptions when used to produce command line arguments for Cucumber CLI objects",
     "test"
   ],
   [
@@ -1662,6 +1716,18 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "protractor~protractorconfig",
+    "https://github.com/angular/protractor/blob/master/lib/config.ts",
+    "protractor~ProtractorConfig",
+    "external"
+  ],
+  [
+    "protractor~runner",
+    "https://github.com/angular/protractor/blob/master/lib/runner.ts",
+    "protractor~Runner",
+    "external"
+  ],
+  [
     "selenium-webdriver~actions",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Actions.html",
     "selenium-webdriver~Actions",
@@ -1708,6 +1774,18 @@ window.esdocSearchIndex = [
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html",
     "selenium-webdriver~WebElement",
     "external"
+  ],
+  [
+    "spec/cli/cucumbercliadapter.spec.ts",
+    "test-file/spec/cli/CucumberCLIAdapter.spec.ts.html",
+    "spec/cli/CucumberCLIAdapter.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/cli/cucumberformat.spec.ts",
+    "test-file/spec/cli/CucumberFormat.spec.ts.html",
+    "spec/cli/CucumberFormat.spec.ts",
+    "testFile"
   ],
   [
     "spec/cli/cucumberoptions.spec.ts",
@@ -1872,10 +1950,28 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/cli/cucumbercliadapter.ts~cucumbercliadapter#constructor",
+    "class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html#instance-constructor-constructor",
+    "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#constructor",
+    "method"
+  ],
+  [
+    "src/cli/cucumbercliadapter.ts~cucumbercliadapter#run",
+    "class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html#instance-method-run",
+    "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#run",
+    "method"
+  ],
+  [
     "src/cli/cucumberconfig.ts",
     "file/src/cli/CucumberConfig.ts.html",
     "src/cli/CucumberConfig.ts",
     "file"
+  ],
+  [
+    "src/cli/cucumberconfig.ts~cucumberconfig#colors",
+    "class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-colors",
+    "src/cli/CucumberConfig.ts~CucumberConfig#colors",
+    "member"
   ],
   [
     "src/cli/cucumberconfig.ts~cucumberconfig#compiler",
@@ -1944,6 +2040,30 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/cli/cucumberformat.ts",
+    "file/src/cli/CucumberFormat.ts.html",
+    "src/cli/CucumberFormat.ts",
+    "file"
+  ],
+  [
+    "src/cli/cucumberformat.ts~cucumberformat#constructor",
+    "class/src/cli/CucumberFormat.ts~CucumberFormat.html#instance-constructor-constructor",
+    "src/cli/CucumberFormat.ts~CucumberFormat#constructor",
+    "method"
+  ],
+  [
+    "src/cli/cucumberformat.ts~cucumberformat#formatter",
+    "class/src/cli/CucumberFormat.ts~CucumberFormat.html#instance-member-formatter",
+    "src/cli/CucumberFormat.ts~CucumberFormat#formatter",
+    "member"
+  ],
+  [
+    "src/cli/cucumberformat.ts~cucumberformat#output",
+    "class/src/cli/CucumberFormat.ts~CucumberFormat.html#instance-member-output",
+    "src/cli/CucumberFormat.ts~CucumberFormat#output",
+    "member"
+  ],
+  [
     "src/cli/cucumberoptions.ts",
     "file/src/cli/CucumberOptions.ts.html",
     "src/cli/CucumberOptions.ts",
@@ -1953,6 +2073,48 @@ window.esdocSearchIndex = [
     "src/cli/index.ts",
     "file/src/cli/index.ts.html",
     "src/cli/index.ts",
+    "file"
+  ],
+  [
+    "src/cli/output/outputdescriptor.ts",
+    "file/src/cli/output/OutputDescriptor.ts.html",
+    "src/cli/output/OutputDescriptor.ts",
+    "file"
+  ],
+  [
+    "src/cli/output/serenityformatteroutput.ts",
+    "file/src/cli/output/SerenityFormatterOutput.ts.html",
+    "src/cli/output/SerenityFormatterOutput.ts",
+    "file"
+  ],
+  [
+    "src/cli/output/standardoutput.ts",
+    "file/src/cli/output/StandardOutput.ts.html",
+    "src/cli/output/StandardOutput.ts",
+    "file"
+  ],
+  [
+    "src/cli/output/standardoutputdescriptor.ts",
+    "file/src/cli/output/StandardOutputDescriptor.ts.html",
+    "src/cli/output/StandardOutputDescriptor.ts",
+    "file"
+  ],
+  [
+    "src/cli/output/tempfileoutput.ts",
+    "file/src/cli/output/TempFileOutput.ts.html",
+    "src/cli/output/TempFileOutput.ts",
+    "file"
+  ],
+  [
+    "src/cli/output/tempfileoutputdescriptor.ts",
+    "file/src/cli/output/TempFileOutputDescriptor.ts.html",
+    "src/cli/output/TempFileOutputDescriptor.ts",
+    "file"
+  ],
+  [
+    "src/cli/output/index.ts",
+    "file/src/cli/output/index.ts.html",
+    "src/cli/output/index.ts",
     "file"
   ],
   [
@@ -2182,18 +2344,6 @@ window.esdocSearchIndex = [
     "file/src/listeners/legacy/notifier/ResultMapper.ts.html",
     "src/listeners/legacy/notifier/ResultMapper.ts",
     "file"
-  ],
-  [
-    "src/listeners/legacy/notifier/resultmapper.ts~resultmapper#errorfrom",
-    "class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html#instance-method-errorFrom",
-    "src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper#errorFrom",
-    "method"
-  ],
-  [
-    "src/listeners/legacy/notifier/resultmapper.ts~resultmapper#outcomefor",
-    "class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html#instance-method-outcomeFor",
-    "src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper#outcomeFor",
-    "method"
   ],
   [
     "src/listeners/legacy/notifier/index.ts",

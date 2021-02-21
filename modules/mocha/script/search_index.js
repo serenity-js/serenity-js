@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "@serenity-js/mocha/lib/adapter~mochaadapter",
+    "class/src/adapter/MochaAdapter.ts~MochaAdapter.html",
+    "<span>MochaAdapter</span> <span class=\"search-result-import-path\">@serenity-js/mocha/lib/adapter</span>",
+    "class"
+  ],
+  [
     "@serenity-js/mocha/lib/adapter~mochaconfig",
     "class/src/adapter/MochaConfig.ts~MochaConfig.html",
     "<span>MochaConfig</span> <span class=\"search-result-import-path\">@serenity-js/mocha/lib/adapter</span>",
@@ -270,6 +276,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~config",
+    "/modules/core/class/src/io/Config.ts~Config.html",
+    "@serenity-js/core/lib/io~Config",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~errorserialiser",
     "/modules/core/class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html",
     "@serenity-js/core/lib/io~ErrorSerialiser",
@@ -294,6 +306,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~moduleloader",
+    "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
+    "@serenity-js/core/lib/io~ModuleLoader",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~path",
     "/modules/core/class/src/io/Path.ts~Path.html",
     "@serenity-js/core/lib/io~Path",
@@ -303,6 +321,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io~serialisederror",
     "/modules/core/class/src/io/ErrorSerialiser.ts~SerialisedError.html",
     "@serenity-js/core/lib/io~SerialisedError",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io~testrunneradapter",
+    "/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html",
+    "@serenity-js/core/lib/io~TestRunnerAdapter",
     "external"
   ],
   [
@@ -1044,6 +1068,18 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "protractor~protractorconfig",
+    "https://github.com/angular/protractor/blob/master/lib/config.ts",
+    "protractor~ProtractorConfig",
+    "external"
+  ],
+  [
+    "protractor~runner",
+    "https://github.com/angular/protractor/blob/master/lib/runner.ts",
+    "protractor~Runner",
+    "external"
+  ],
+  [
     "selenium-webdriver~actions",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Actions.html",
     "selenium-webdriver~Actions",
@@ -1126,6 +1162,18 @@ window.esdocSearchIndex = [
     "file/src/adapter/MochaAdapter.ts.html",
     "src/adapter/MochaAdapter.ts",
     "file"
+  ],
+  [
+    "src/adapter/mochaadapter.ts~mochaadapter#constructor",
+    "class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-constructor-constructor",
+    "src/adapter/MochaAdapter.ts~MochaAdapter#constructor",
+    "method"
+  ],
+  [
+    "src/adapter/mochaadapter.ts~mochaadapter#run",
+    "class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-run",
+    "src/adapter/MochaAdapter.ts~MochaAdapter#run",
+    "method"
   ],
   [
     "src/adapter/mochaconfig.ts",

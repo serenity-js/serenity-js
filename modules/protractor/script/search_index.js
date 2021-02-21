@@ -60,6 +60,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/protractor/lib/adapter/runner~cucumberadapterconfig",
+    "class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html",
+    "<span>CucumberAdapterConfig</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/adapter/runner</span>",
+    "class"
+  ],
+  [
     "@serenity-js/protractor/lib/screenplay/interactions~deletecookies",
     "class/src/screenplay/interactions/DeleteCookies.ts~DeleteCookies.html",
     "<span>DeleteCookies</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
@@ -261,6 +267,18 @@ window.esdocSearchIndex = [
     "@serenity-js/protractor/lib/screenplay/questions/targets~targetnestedelements",
     "class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html",
     "<span>TargetNestedElements</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions/targets</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/protractor/lib/adapter/runner~testrunnerdetector",
+    "class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html",
+    "<span>TestRunnerDetector</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/adapter/runner</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/protractor/lib/adapter/runner~testrunnerloader",
+    "class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html",
+    "<span>TestRunnerLoader</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/adapter/runner</span>",
     "class"
   ],
   [
@@ -756,6 +774,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~config",
+    "/modules/core/class/src/io/Config.ts~Config.html",
+    "@serenity-js/core/lib/io~Config",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~errorserialiser",
     "/modules/core/class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html",
     "@serenity-js/core/lib/io~ErrorSerialiser",
@@ -780,6 +804,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io~moduleloader",
+    "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
+    "@serenity-js/core/lib/io~ModuleLoader",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~path",
     "/modules/core/class/src/io/Path.ts~Path.html",
     "@serenity-js/core/lib/io~Path",
@@ -789,6 +819,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io~serialisederror",
     "/modules/core/class/src/io/ErrorSerialiser.ts~SerialisedError.html",
     "@serenity-js/core/lib/io~SerialisedError",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io~testrunneradapter",
+    "/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html",
+    "@serenity-js/core/lib/io~TestRunnerAdapter",
     "external"
   ],
   [
@@ -1362,21 +1398,27 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/cucumber/lib/cli~cucumbercliadapter",
+    "/modules/cucumber/class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html",
+    "@serenity-js/cucumber/lib/cli~CucumberCLIAdapter",
+    "external"
+  ],
+  [
     "@serenity-js/cucumber/lib/cli~cucumberconfig",
     "/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html",
     "@serenity-js/cucumber/lib/cli~CucumberConfig",
     "external"
   ],
   [
-    "@serenity-js/cucumber/lib/errors~ambiguousstepdefinitionerror",
-    "/modules/cucumber/class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html",
-    "@serenity-js/cucumber/lib/errors~AmbiguousStepDefinitionError",
+    "@serenity-js/cucumber/lib/cli~cucumberformat",
+    "/modules/cucumber/class/src/cli/CucumberFormat.ts~CucumberFormat.html",
+    "@serenity-js/cucumber/lib/cli~CucumberFormat",
     "external"
   ],
   [
-    "@serenity-js/cucumber/lib/listeners/legacy/notifier~resultmapper",
-    "/modules/cucumber/class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html",
-    "@serenity-js/cucumber/lib/listeners/legacy/notifier~ResultMapper",
+    "@serenity-js/cucumber/lib/errors~ambiguousstepdefinitionerror",
+    "/modules/cucumber/class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html",
+    "@serenity-js/cucumber/lib/errors~AmbiguousStepDefinitionError",
     "external"
   ],
   [
@@ -1443,6 +1485,12 @@ window.esdocSearchIndex = [
     "@serenity-js/local-server/lib/screenplay/questions~localserver",
     "/modules/local/class/src/screenplay/questions/LocalServer.ts~LocalServer.html",
     "@serenity-js/local-server/lib/screenplay/questions~LocalServer",
+    "external"
+  ],
+  [
+    "@serenity-js/mocha/lib/adapter~mochaadapter",
+    "/modules/mocha/class/src/adapter/MochaAdapter.ts~MochaAdapter.html",
+    "@serenity-js/mocha/lib/adapter~MochaAdapter",
     "external"
   ],
   [
@@ -2845,127 +2893,127 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber15",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber14",
     "ProtractorFrameworkAdapter",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber249",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber248",
     "ProtractorFrameworkAdapter configuration",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber287",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber286",
     "ProtractorFrameworkAdapter configuration allows for the defaults to be overridden",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber273",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber272",
     "ProtractorFrameworkAdapter configuration provides sensible defaults when no explicit configuration is provided",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber73",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber72",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\"",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber221",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber220",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" error handling",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber225",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber224",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" error handling fails the test run when runner.afterEach errors out",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber234",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber233",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" error handling fails the test run when runner.afterEach rejects the promise",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber152",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber151",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" invokes runner.getConfig().onComplete() after executing the tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber140",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber139",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" invokes runner.runTestPreparer before executing the tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber75",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber74",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber112",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber111",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes both successful and failing tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber97",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber96",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes failing tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber77",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber76",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes no test results if no tests were executed",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber84",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber83",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" produces a Protractor report that describes successful tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber196",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber195",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test fails",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber210",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber209",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test fails invokes runner.afterEach after each test",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber198",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber197",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test fails invokes runner.emit with a \"testFail\" message",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber171",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber170",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test succeeds",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber185",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber184",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test succeeds invokes runner.afterEach after each test",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber173",
+    "test-file/spec/adapter/ProtractorFrameworkAdapter.spec.ts.html#lineNumber172",
     "ProtractorFrameworkAdapter to meet the requirements described in \"Framework Adapters for Protractor\" when a test succeeds invokes runner.emit with a \"testPass\" message",
     "test"
   ],
@@ -3660,105 +3708,201 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber10",
+    "testrunnerdetector src/adapter/runner/testrunnerdetector.ts~testrunnerdetector,testrunnerdetector",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber10",
     "TestRunnerDetector",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber138",
-    "TestRunnerDetector to support test runner options specified in the capabilities section",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber20",
+    "TestRunnerDetector when using TestRunnerAdapter for",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber140",
-    "TestRunnerDetector to support test runner options specified in the capabilities section merges the cucumberOpts",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber22",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber144",
-    "TestRunnerDetector to support test runner options specified in the capabilities section merges the jasmineNodeOpts",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber28",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber ",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber142",
-    "TestRunnerDetector to support test runner options specified in the capabilities section merges the mochaOpts",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber59",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber22",
-    "TestRunnerDetector when configured with a specific runner",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber116",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader make the formatter output files unique when the config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber24",
-    "TestRunnerDetector when configured with a specific runner uses the CucumberTestRunner",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber118",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader make the formatter output files unique when the config specifies multiCapabilities",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber34",
-    "TestRunnerDetector when configured with a specific runner uses the CucumberTestRunner even when config for other runners is present as well",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber134",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader make the formatter output files unique when the config specifies shardTestFiles",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber47",
-    "TestRunnerDetector when configured with a specific runner uses the JasmineTestRunner",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber89",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to redirect output to a temp file when the config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber57",
-    "TestRunnerDetector when configured with a specific runner uses the JasmineTestRunner even when config for other runners is present as well",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber91",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to redirect output to a temp file when the config does not specify serenity.crew and there are is no cucumberOpts.format specified either",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber70",
-    "TestRunnerDetector when configured with a specific runner uses the MochaTestRunner",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber101",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to redirect output to a temp file when the config does not specify serenity.crew, but there is a cucumberOpts.format specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber80",
-    "TestRunnerDetector when configured with a specific runner uses the MochaTestRunner even when config for other runners is present as well",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber61",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to take over standard output when the config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber94",
-    "TestRunnerDetector when no specific test runner is set",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber74",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to take over standard output when the config defines serenity.crew and there is a cucumberOpts.format specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber96",
-    "TestRunnerDetector when no specific test runner is set uses the CucumberTestRunner when cucumberOpts are specified",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber63",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to take over standard output when the config defines serenity.crew and there is no cucumberOpts.format specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber111",
-    "TestRunnerDetector when no specific test runner is set uses the JasmineTestRunner when jasmineNodeOpts are specified",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber51",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber uses Cucumber test runner when cucumberOpts are present in config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber121",
-    "TestRunnerDetector when no specific test runner is set uses the JasmineTestRunner when no other runners are specified",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber38",
+    "TestRunnerDetector when using TestRunnerAdapter for Cucumber uses the configured runner even when configuration for other runners is present as well",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html#lineNumber127",
-    "TestRunnerDetector when no specific test runner is set uses the MochaTestRunner when mochaOpts are specified",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber152",
+    "TestRunnerDetector when using TestRunnerAdapter for Jasmine",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber160",
+    "TestRunnerDetector when using TestRunnerAdapter for Jasmine ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber154",
+    "TestRunnerDetector when using TestRunnerAdapter for Jasmine uses Jasmine TestRunnerAdapter when no other runners are specified",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber183",
+    "TestRunnerDetector when using TestRunnerAdapter for Jasmine uses Jasmine test runner when jasmineNodeOpts are present in config",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber170",
+    "TestRunnerDetector when using TestRunnerAdapter for Jasmine uses the configured runner even when configuration for other runners is present as well",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber192",
+    "TestRunnerDetector when using TestRunnerAdapter for Mocha",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber194",
+    "TestRunnerDetector when using TestRunnerAdapter for Mocha ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber217",
+    "TestRunnerDetector when using TestRunnerAdapter for Mocha uses Mocha test runner when jasmineNodeOpts are present in config",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber204",
+    "TestRunnerDetector when using TestRunnerAdapter for Mocha uses the configured runner even when configuration for other runners is present as well",
+    "test"
+  ],
+  [
+    "testrunnerloader src/adapter/runner/testrunnerloader.ts~testrunnerloader,testrunnerloader",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber10",
+    "TestRunnerLoader",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber20",
+    "TestRunnerLoader when loading a TestRunnerAdapter for",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber68",
+    "TestRunnerLoader when loading a TestRunnerAdapter for Cucumber",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber93",
+    "TestRunnerLoader when loading a TestRunnerAdapter for Cucumber resolves glob patterns in `require` to absolute paths",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber22",
+    "TestRunnerLoader when loading a TestRunnerAdapter for Jasmine",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber24",
+    "TestRunnerLoader when loading a TestRunnerAdapter for Jasmine passes the configuration to the adapter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber46",
+    "TestRunnerLoader when loading a TestRunnerAdapter for Mocha",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber48",
+    "TestRunnerLoader when loading a TestRunnerAdapter for Mocha passes the configuration to the adapter",
     "test"
   ],
   [
@@ -4194,6 +4338,18 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "protractor~protractorconfig",
+    "https://github.com/angular/protractor/blob/master/lib/config.ts",
+    "protractor~ProtractorConfig",
+    "external"
+  ],
+  [
+    "protractor~runner",
+    "https://github.com/angular/protractor/blob/master/lib/runner.ts",
+    "protractor~Runner",
+    "external"
+  ],
+  [
     "selenium-webdriver~actions",
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Actions.html",
     "selenium-webdriver~Actions",
@@ -4248,12 +4404,6 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
-    "spec/adapter/testrunnerdetector.spec.ts",
-    "test-file/spec/adapter/TestRunnerDetector.spec.ts.html",
-    "spec/adapter/TestRunnerDetector.spec.ts",
-    "testFile"
-  ],
-  [
     "spec/adapter/browser-detector/standardisedcapabilities.spec.ts",
     "test-file/spec/adapter/browser-detector/StandardisedCapabilities.spec.ts.html",
     "spec/adapter/browser-detector/StandardisedCapabilities.spec.ts",
@@ -4263,6 +4413,18 @@ window.esdocSearchIndex = [
     "spec/adapter/reporter/protractorreporter.spec.ts",
     "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html",
     "spec/adapter/reporter/ProtractorReporter.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/adapter/runner/testrunnerdetector.spec.ts",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html",
+    "spec/adapter/runner/TestRunnerDetector.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/adapter/runner/testrunnerloader.spec.ts",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html",
+    "spec/adapter/runner/TestRunnerLoader.spec.ts",
     "testFile"
   ],
   [
@@ -4530,12 +4692,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/adapter/testrunnerdetector.ts",
-    "file/src/adapter/TestRunnerDetector.ts.html",
-    "src/adapter/TestRunnerDetector.ts",
-    "file"
-  ],
-  [
     "src/adapter/browser-detector/browserdetector.ts",
     "file/src/adapter/browser-detector/BrowserDetector.ts.html",
     "src/adapter/browser-detector/BrowserDetector.ts",
@@ -4584,27 +4740,81 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/adapter/runners/cucumbertestrunner.ts",
-    "file/src/adapter/runners/CucumberTestRunner.ts.html",
-    "src/adapter/runners/CucumberTestRunner.ts",
+    "src/adapter/runner/cucumberadapterconfig.ts",
+    "file/src/adapter/runner/CucumberAdapterConfig.ts.html",
+    "src/adapter/runner/CucumberAdapterConfig.ts",
     "file"
   ],
   [
-    "src/adapter/runners/jasminetestrunner.ts",
-    "file/src/adapter/runners/JasmineTestRunner.ts.html",
-    "src/adapter/runners/JasmineTestRunner.ts",
+    "src/adapter/runner/cucumberadapterconfig.ts~cucumberadapterconfig#uniqueformatteroutputs",
+    "class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html#instance-member-uniqueFormatterOutputs",
+    "src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig#uniqueFormatterOutputs",
+    "member"
+  ],
+  [
+    "src/adapter/runner/cucumberadapterconfig.ts~cucumberadapterconfig#usestandardoutput",
+    "class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html#instance-member-useStandardOutput",
+    "src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig#useStandardOutput",
+    "member"
+  ],
+  [
+    "src/adapter/runner/testrunnerdetector.ts",
+    "file/src/adapter/runner/TestRunnerDetector.ts.html",
+    "src/adapter/runner/TestRunnerDetector.ts",
     "file"
   ],
   [
-    "src/adapter/runners/mochatestrunner.ts",
-    "file/src/adapter/runners/MochaTestRunner.ts.html",
-    "src/adapter/runners/MochaTestRunner.ts",
+    "src/adapter/runner/testrunnerdetector.ts~testrunnerdetector#constructor",
+    "class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html#instance-constructor-constructor",
+    "src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector#constructor",
+    "method"
+  ],
+  [
+    "src/adapter/runner/testrunnerdetector.ts~testrunnerdetector#runnerfor",
+    "class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html#instance-method-runnerFor",
+    "src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector#runnerFor",
+    "method"
+  ],
+  [
+    "src/adapter/runner/testrunnerdetector.ts~testrunnerdetector.protractorclioptions",
+    "class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html#static-method-protractorCliOptions",
+    "src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.protractorCliOptions",
+    "method"
+  ],
+  [
+    "src/adapter/runner/testrunnerloader.ts",
+    "file/src/adapter/runner/TestRunnerLoader.ts.html",
+    "src/adapter/runner/TestRunnerLoader.ts",
     "file"
   ],
   [
-    "src/adapter/runners/testrunner.ts",
-    "file/src/adapter/runners/TestRunner.ts.html",
-    "src/adapter/runners/TestRunner.ts",
+    "src/adapter/runner/testrunnerloader.ts~testrunnerloader#constructor",
+    "class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html#instance-constructor-constructor",
+    "src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader#constructor",
+    "method"
+  ],
+  [
+    "src/adapter/runner/testrunnerloader.ts~testrunnerloader#forcucumber",
+    "class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html#instance-method-forCucumber",
+    "src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader#forCucumber",
+    "method"
+  ],
+  [
+    "src/adapter/runner/testrunnerloader.ts~testrunnerloader#forjasmine",
+    "class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html#instance-method-forJasmine",
+    "src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader#forJasmine",
+    "method"
+  ],
+  [
+    "src/adapter/runner/testrunnerloader.ts~testrunnerloader#formocha",
+    "class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html#instance-method-forMocha",
+    "src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader#forMocha",
+    "method"
+  ],
+  [
+    "src/adapter/runner/index.ts",
+    "file/src/adapter/runner/index.ts.html",
+    "src/adapter/runner/index.ts",
     "file"
   ],
   [

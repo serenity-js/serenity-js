@@ -44,12 +44,15 @@
 /** @external {@serenity-js/core~actorCalled} /modules/core/function/index.html#static-function-actorCalled */
 /** @external {@serenity-js/core~actorInTheSpotlight} /modules/core/function/index.html#static-function-actorInTheSpotlight */
 /** @external {@serenity-js/core/lib/io~AssertionReportDiffer} /modules/core/class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html */
+/** @external {@serenity-js/core/lib/io~Config} /modules/core/class/src/io/Config.ts~Config.html */
 /** @external {@serenity-js/core/lib/io~SerialisedError} /modules/core/class/src/io/ErrorSerialiser.ts~SerialisedError.html */
 /** @external {@serenity-js/core/lib/io~ErrorSerialiser} /modules/core/class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html */
 /** @external {@serenity-js/core/lib/io~FileFinder} /modules/core/class/src/io/FileFinder.ts~FileFinder.html */
 /** @external {@serenity-js/core/lib/io~FileSystem} /modules/core/class/src/io/FileSystem.ts~FileSystem.html */
 /** @external {@serenity-js/core/lib/io~FileSystemLocation} /modules/core/class/src/io/FileSystemLocation.ts~FileSystemLocation.html */
+/** @external {@serenity-js/core/lib/io~ModuleLoader} /modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html */
 /** @external {@serenity-js/core/lib/io~Path} /modules/core/class/src/io/Path.ts~Path.html */
+/** @external {@serenity-js/core/lib/io~TestRunnerAdapter} /modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html */
 /** @external {@serenity-js/core/lib/io~Version} /modules/core/class/src/io/Version.ts~Version.html */
 /** @external {@serenity-js/core/lib/io/collections~Mappable} /modules/core/class/src/io/collections/mappable.ts~Mappable.html */
 /** @external {@serenity-js/core/lib/io/collections~isMappable} /modules/core/function/index.html#static-function-isMappable */

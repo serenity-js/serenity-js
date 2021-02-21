@@ -118,10 +118,11 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html">CucumberCLIAdapter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberFormat.ts~CucumberFormat.html">CucumberFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -161,9 +162,26 @@
                 <span class="hljs-keyword">return</span> listOf(<span class="hljs-built_in">this</span>.flagToArg(cliOption, value <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>));
             <span class="hljs-keyword">case</span> cliOption === <span class="hljs-string">'tags'</span> &amp;&amp; version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>)):
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, <span class="hljs-built_in">this</span>.tagsToCucumberExpressions(listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[])));
+            <span class="hljs-keyword">case</span> <span class="hljs-built_in">this</span>.shouldBeIgnored(value):
+                <span class="hljs-keyword">return</span> [];
+            <span class="hljs-keyword">case</span> <span class="hljs-built_in">this</span>.isObject(value):
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, <span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">0</span>));
             <span class="hljs-keyword">default</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]));
         }
+    }
+
+    <span class="hljs-keyword">private</span> isObject(value: <span class="hljs-built_in">any</span>): value is <span class="hljs-built_in">object</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'object'</span>
+            &amp;&amp; <span class="hljs-built_in">Array</span>.isArray(value) === <span class="hljs-literal">false</span>
+            &amp;&amp; <span class="hljs-built_in">Object</span>.prototype.toString.call(value) === <span class="hljs-string">'[object Object]'</span>;
+    }
+
+    <span class="hljs-keyword">private</span> shouldBeIgnored(value: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> value === <span class="hljs-literal">undefined</span>
+            || value === <span class="hljs-literal">null</span>
+            || value === <span class="hljs-string">''</span>
+            || value === [];
     }
 
     <span class="hljs-comment">/**

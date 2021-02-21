@@ -120,6 +120,9 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/Config.ts~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-run">run</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-runner">adapter/runner</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html">TestRunnerDetector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html">TestRunnerLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html">CucumberAdapterConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isActive">isActive</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isClickable">isClickable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEnabled">isEnabled</a></span></span></li>
@@ -188,14 +191,13 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { SceneFinished, SceneFinishes, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { FileSystemLocation, Path, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { Category, CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { ArtifactArchiver, Clock, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
 <span class="hljs-keyword">import</span> { Config, Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
 <span class="hljs-keyword">import</span> { ProtractorFrameworkAdapter, TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter'</span>;
-<span class="hljs-keyword">import</span> { TestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/TestRunner'</span>;
 
 describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -209,7 +211,7 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
 
     <span class="hljs-keyword">let</span> protractorRunner:   sinon.SinonStubbedInstance&lt;Runner&gt;,
         testRunnerDetector: sinon.SinonStubbedInstance&lt;TestRunnerDetector&gt;,
-        testRunner:         TestRunner,
+        testRunnerAdapter:  TestRunnerAdapter,
         <span class="hljs-attr">serenity</span>:           Serenity,
         <span class="hljs-attr">adapter</span>:            ProtractorFrameworkAdapter;
 
@@ -226,9 +228,9 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
         protractorRunner    = sinon.createStubInstance(Runner);
         testRunnerDetector  = sinon.createStubInstance(TestRunnerDetector);
         serenity            = <span class="hljs-keyword">new</span> Serenity(discreteClock);
-        testRunner          = <span class="hljs-keyword">new</span> SimpleTestRunner(serenity);
+        testRunnerAdapter   = <span class="hljs-keyword">new</span> SimpleTestRunnerAdapter(serenity);
 
-        testRunnerDetector.runnerFor.returns(testRunner);
+        testRunnerDetector.runnerFor.returns(testRunnerAdapter);
 
         adapter = <span class="hljs-keyword">new</span> ProtractorFrameworkAdapter(serenity, protractorRunner, testRunnerDetector <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> TestRunnerDetector);
     });
@@ -314,7 +316,7 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
         });
 
         it(<span class="hljs-string">'invokes runner.runTestPreparer before executing the tests'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> testRunnerRunMethod = sinon.spy(testRunner, <span class="hljs-string">'run'</span>);
+            <span class="hljs-keyword">const</span> testRunnerRunMethod = sinon.spy(testRunnerAdapter, <span class="hljs-string">'run'</span>);
 
             <span class="hljs-keyword">return</span> expect(adapter.run([])).to.be.fulfilled
                 .then(<span class="hljs-function">() =&gt;</span> {
@@ -333,7 +335,7 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
 
             protractorRunner.getConfig.returns(protractorConfig);
 
-            <span class="hljs-keyword">const</span> testRunnerRunMethod = sinon.spy(testRunner, <span class="hljs-string">'run'</span>);
+            <span class="hljs-keyword">const</span> testRunnerRunMethod = sinon.spy(testRunnerAdapter, <span class="hljs-string">'run'</span>);
 
             <span class="hljs-keyword">return</span> expect(adapter.run([])).to.be.fulfilled
                 .then(<span class="hljs-function">() =&gt;</span> {
@@ -468,7 +470,7 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
         });
     });
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleTestRunner</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunner</span> </span>{
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleTestRunnerAdapter</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunnerAdapter</span> </span>{
 
         <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenityInstance: Serenity</span>)</span> {
         }

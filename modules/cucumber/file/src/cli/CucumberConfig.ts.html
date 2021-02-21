@@ -118,10 +118,11 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html">CucumberCLIAdapter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/CucumberFormat.ts~CucumberFormat.html">CucumberFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/cli/CucumberConfig.ts~CucumberConfig.html">CucumberConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AmbiguousStepDefinitionError.ts~AmbiguousStepDefinitionError.html">AmbiguousStepDefinitionError</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy">listeners/legacy</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-legacy-notifier">listeners/legacy/notifier</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/listeners/legacy/notifier/ResultMapper.ts~ResultMapper.html">ResultMapper</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#listeners-messages">listeners/messages</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createListener">createListener</a></span></span></li>
 </ul>
 </div>
@@ -139,6 +140,26 @@
  * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CucumberConfig {
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Enable/disable colors in output. Cucumber 1.x only!
+     *  For Cucumber 2.x and above use `formatOptions: { colorsEnabled: false }`
+     *
+     *  **Please note** For Cucumber 2.x and above use the {<span class="hljs-doctag">@link </span>CucumberConfig#formatOptions} instead.
+     *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Disable colors in output in Cucumber 1.x&lt;/caption&gt;
+     *  colors: false
+     *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Disable colors in output in Cucumber 2.x and above&lt;/caption&gt;
+     *  formatOptions: { colorsEnabled: false }
+     *
+     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38
+     * <span class="hljs-doctag">@version </span>1.x
+     */</span>
+    colors?: <span class="hljs-built_in">boolean</span>
+
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Step definitions and support files can be written in languages that transpile to JavaScript.
@@ -159,10 +180,10 @@
      * <span class="hljs-doctag">@desc</span>
      *  Specify additional output formats, optionally supply PATH to redirect formatter output
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@type <span class="hljs-type">{string[] | string}</span></span>
      * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats
      */</span>
-    format?: <span class="hljs-built_in">string</span>;
+    format?: <span class="hljs-built_in">string</span>[] | <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
@@ -171,10 +192,10 @@
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
      *  formatOptions: JSON.stringify({ option: 'value' })
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@type <span class="hljs-type">{object|string}</span></span>
      * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options
      */</span>
-    formatOptions?: <span class="hljs-built_in">string</span>;
+    formatOptions?: <span class="hljs-built_in">object</span> | <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
@@ -281,13 +302,16 @@
      * <span class="hljs-doctag">@desc</span>
      *  Provide parameters that will be passed to the world constructor
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
-     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;worldParameters as string&lt;/caption&gt;
+     *  worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{object}</span></span>
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;worldParameters as object&lt;/caption&gt;
+     *  worldParameters: { isDev: process.env.NODE_ENV !== 'production' }
+     *
+     * <span class="hljs-doctag">@type <span class="hljs-type">{object | string}</span></span>
      * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters
      */</span>
-    worldParameters?: <span class="hljs-built_in">object</span>;
+    worldParameters?: <span class="hljs-built_in">object</span> | <span class="hljs-built_in">string</span>;
 }
 </code></pre>
 

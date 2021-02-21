@@ -164,13 +164,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteFinished.ts~TestSuiteFinished.html">TestSuiteFinished</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteStarts.ts~TestSuiteStarts.html">TestSuiteStarts</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io">io</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html">AssertionReportDiffer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Config.ts~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html">ErrorSerialiser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileFinder.ts~FileFinder.html">FileFinder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystemLocation.ts~FileSystemLocation.html">FileSystemLocation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Path.ts~Path.html">Path</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~SerialisedError.html">SerialisedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-commaSeparated">commaSeparated</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatted">formatted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-inspected">inspected</a></span></span></li>
@@ -298,10 +301,10 @@ describe(<span class="hljs-string">'ModuleLoader'</span>, <span class="hljs-func
         expect(loader.versionOf(<span class="hljs-string">'tiny-types'</span>)).to.equal(<span class="hljs-keyword">new</span> Version(expectedVersion));
     });
 
-    it(<span class="hljs-string">'complains if neither a local version or the npm-resolved version could not be found'</span>, <span class="hljs-function">() =&gt;</span> {
+    it(<span class="hljs-string">'complains if neither a local version or the npm-resolved version could be found'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(__dirname);
 
-        expect(<span class="hljs-function">() =&gt;</span> loader.versionOf(<span class="hljs-string">'non-existent-module'</span>)).to.throw(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`Cannot find module 'non-existent-module/package'`</span>);
+        expect(<span class="hljs-function">() =&gt;</span> loader.versionOf(<span class="hljs-string">'non-existent-module'</span>)).to.throw(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`Cannot find module 'non-existent-module/package.json'`</span>);
     });
 
     describe(<span class="hljs-string">'when checking if a given module is available to be required'</span>, <span class="hljs-function">() =&gt;</span> {

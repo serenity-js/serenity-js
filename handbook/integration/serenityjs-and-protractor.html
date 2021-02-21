@@ -339,6 +339,11 @@ and configure it to execute your Cucumber scenarios ("<code>specs</code>" in Pro
     <div class="text"><p><strong>PRO TIP:</strong>
         Cucumber.js supports <strong>only one native formatter per output</strong>.
         In particular, you can't have more than one Cucumber.js formatter writing to standard output or to the same file.
+    </p><p>
+        Please also note that when you configure Serenity/JS to use any of its <a href="https://serenity-js.org/handbook/reporting/index.html">reporting services</a> (via the <code>serenity.crew</code> option), the framework will <strong>automatically disable</strong>
+        any native Cucumber reporters printing to the terminal to avoid overlapping output.
+    </p><p>
+        You can, however, redirect output of such reporter to a file, so instead of <code>usage</code> use <code>usage:usage.txt</code>.
     </p></div>
 </div>
 

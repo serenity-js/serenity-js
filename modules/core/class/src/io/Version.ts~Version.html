@@ -164,13 +164,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteFinished.ts~TestSuiteFinished.html">TestSuiteFinished</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/events/TestSuiteStarts.ts~TestSuiteStarts.html">TestSuiteStarts</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io">io</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html">AssertionReportDiffer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Config.ts~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~ErrorSerialiser.html">ErrorSerialiser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileFinder.ts~FileFinder.html">FileFinder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystem.ts~FileSystem.html">FileSystem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/FileSystemLocation.ts~FileSystemLocation.html">FileSystemLocation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/ModuleLoader.ts~ModuleLoader.html">ModuleLoader</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Path.ts~Path.html">Path</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~SerialisedError.html">SerialisedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-commaSeparated">commaSeparated</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatted">formatted</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-inspected">inspected</a></span></span></li>
@@ -280,7 +283,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/io/Version.ts.html#lineNumber4">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/io/Version.ts.html#lineNumber17">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -288,11 +291,12 @@
 
   
 
-  
+  <div class="description" data-ice="description"><p> A tiny type describing a version number, like <code>1.2.3</code></p>
+</div>
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>tiny-types~TinyType</span> → Version</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>TinyType</span> → Version</div></div>
   
   
   
@@ -332,7 +336,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/io/Version.ts~Version.html#static-method-fromJSON">fromJSON</a></span></span><span class="code" data-ice="signature">(version: <span>string</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/io/Version.ts~Version.html#static-method-fromJSON">fromJSON</a></span></span><span class="code" data-ice="signature">(version: <span>string</span>): <span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span>
         </p>
       </div>
       <div>
@@ -367,7 +371,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/io/Version.ts~Version.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/io/Version.ts~Version.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(version: <span>string</span>)</span>
         </p>
       </div>
       <div>
@@ -403,7 +407,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/io/Version.ts~Version.html#instance-method-isAtLeast">isAtLeast</a></span></span><span class="code" data-ice="signature">(other: <span><a href="class/src/io/Version.ts~Version.html">Version</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/io/Version.ts~Version.html#instance-method-isAtLeast">isAtLeast</a></span></span><span class="code" data-ice="signature">(other: <span><a href="class/src/io/Version.ts~Version.html">Version</a></span>): <span>boolean</span></span>
         </p>
       </div>
       <div>
@@ -490,11 +494,11 @@
     
     
     
-    <span class="code" data-ice="name">fromJSON</span><span class="code" data-ice="signature">(version: <span>string</span>): <span>*</span></span>
+    <span class="code" data-ice="name">fromJSON</span><span class="code" data-ice="signature">(version: <span>string</span>): <span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber6">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
@@ -529,7 +533,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></td>
           
         </tr>
       </tbody>
@@ -564,11 +568,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(version: <span>string</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber30">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber43">source</a></span></span>
     </span>
   </h3>
 
@@ -579,7 +583,23 @@
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">version</td>
+      <td data-ice="type" class="code"><span>string</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -611,11 +631,11 @@
     
     
     
-    <span class="code" data-ice="name">isAtLeast</span><span class="code" data-ice="signature">(other: <span><a href="class/src/io/Version.ts~Version.html">Version</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">isAtLeast</span><span class="code" data-ice="signature">(other: <span><a href="class/src/io/Version.ts~Version.html">Version</a></span>): <span>boolean</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber15">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
@@ -650,7 +670,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span>boolean</span></td>
           
         </tr>
       </tbody>
@@ -686,7 +706,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber19">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber84">source</a></span></span>
     </span>
   </h3>
 
@@ -706,7 +726,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span>number</span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>Major version number of a given package version, i.e. <code>1</code> in <code>1.2.3</code></p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -741,7 +762,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber23">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/Version.ts.html#lineNumber102">source</a></span></span>
     </span>
   </h3>
 

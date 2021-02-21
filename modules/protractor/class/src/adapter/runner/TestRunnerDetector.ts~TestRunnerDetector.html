@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/protractor/test-file/spec/adapter/TestRunnerDetector.spec.ts.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/protractor/class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -120,6 +120,9 @@
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/Config.ts~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-run">run</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-runner">adapter/runner</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html">TestRunnerDetector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html">TestRunnerLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/runner/CucumberAdapterConfig.ts~CucumberAdapterConfig.html">CucumberAdapterConfig</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isActive">isActive</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isClickable">isClickable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEnabled">isEnabled</a></span></span></li>
@@ -182,155 +185,360 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">spec/adapter/TestRunnerDetector.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+                <article class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {TestRunnerDetector} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/adapter/runner'</span></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="file/src/adapter/runner/TestRunnerDetector.ts.html#lineNumber19">source</a></span></span>
+</div>
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter'</span>;
-<span class="hljs-keyword">import</span> { CucumberTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/CucumberTestRunner'</span>;
-<span class="hljs-keyword">import</span> { JasmineTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/JasmineTestRunner'</span>;
-<span class="hljs-keyword">import</span> { MochaTestRunner } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter/runners/MochaTestRunner'</span>;
+<div class="self-detail detail">
+  <h1 data-ice="name">TestRunnerDetector</h1>
 
-describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hljs-function">() =&gt;</span> {
+  
 
-    <span class="hljs-keyword">const</span>
-        macos = { <span class="hljs-attr">platform</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-string">'darwin'</span> } <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>,
-        proc  = { <span class="hljs-attr">env</span>: {} } <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
+  <div class="description" data-ice="description"><p> Detects the <span><a href="/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span> to use,
+ based on Protractor configuration.</p>
+</div>
 
-    <span class="hljs-keyword">let</span> detector: TestRunnerDetector;
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        detector = <span class="hljs-keyword">new</span> TestRunnerDetector(Path.from(__dirname));
-    });
+  
+  
+  
 
-    describe(<span class="hljs-string">'when configured with a specific runner'</span>, <span class="hljs-function">() =&gt;</span> {
+  
 
-        it(<span class="hljs-string">'uses the CucumberTestRunner'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({
-                <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
-                },
-            });
+  <div data-ice="tests">
+    <h4 id="tests">Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber10">TestRunnerDetector</a></span></li>
+</ul>
+  </div>
 
-            expect(runner).to.be.instanceOf(CucumberTestRunner);
-        });
+  
 
-        it(<span class="hljs-string">'uses the CucumberTestRunner even when config for other runners is present as well'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({
-                <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
-                },
-                <span class="hljs-attr">cucumberOpts</span>: {},
-                <span class="hljs-attr">jasmineNodeOpts</span>: {},
-                <span class="hljs-attr">mochaOpts</span>: {},
-            });
+  
+</div>
 
-            expect(runner).to.be.instanceOf(CucumberTestRunner);
-        });
 
-        it(<span class="hljs-string">'uses the JasmineTestRunner'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({
-                <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'jasmine'</span>,
-                },
-            });
+<div data-ice="staticMethodSummary"><h2>Static Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html#static-method-protractorCliOptions">protractorCliOptions</a></span></span><span class="code" data-ice="signature">(): <span><span>string</span><span>[]</span></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(testRunnerLoader: <span><a href="class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html">TestRunnerLoader</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 
-            expect(runner).to.be.instanceOf(JasmineTestRunner);
-        });
+<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/runner/TestRunnerDetector.ts~TestRunnerDetector.html#instance-method-runnerFor">runnerFor</a></span></span><span class="code" data-ice="signature">(config: <span><a href="https://github.com/angular/protractor/blob/master/lib/config.ts">ProtractorConfig</a></span>): <span><a href="/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 
-        it(<span class="hljs-string">'uses the JasmineTestRunner even when config for other runners is present as well'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({
-                <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'jasmine'</span>,
-                },
-                <span class="hljs-attr">cucumberOpts</span>: {},
-                <span class="hljs-attr">jasmineNodeOpts</span>: {},
-                <span class="hljs-attr">mochaOpts</span>: {},
-            });
 
-            expect(runner).to.be.instanceOf(JasmineTestRunner);
-        });
 
-        it(<span class="hljs-string">'uses the MochaTestRunner'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({
-                <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,
-                },
-            });
 
-            expect(runner).to.be.instanceOf(MochaTestRunner);
-        });
+<div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
 
-        it(<span class="hljs-string">'uses the MochaTestRunner even when config for other runners is present as well'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({
-                <span class="hljs-attr">serenity</span>: {
-                    <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,
-                },
-                <span class="hljs-attr">cucumberOpts</span>: {},
-                <span class="hljs-attr">jasmineNodeOpts</span>: {},
-                <span class="hljs-attr">mochaOpts</span>: {},
-            });
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-protractorCliOptions">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">protractorCliOptions</span><span class="code" data-ice="signature">(): <span><span>string</span><span>[]</span></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/runner/TestRunnerDetector.ts.html#lineNumber14">source</a></span></span>
+    </span>
+  </h3>
 
-            expect(runner).to.be.instanceOf(MochaTestRunner);
-        });
-    });
+  
+  
+  
+  
 
-    describe(<span class="hljs-string">'when no specific test runner is set'</span>, <span class="hljs-function">() =&gt;</span> {
+  
 
-        it(<span class="hljs-string">'uses the CucumberTestRunner when cucumberOpts are specified'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({
-                <span class="hljs-attr">cucumberOpts</span>: {
-                    <span class="hljs-attr">require</span>: [
-                        <span class="hljs-string">'features/**/*.steps.ts'</span>,
-                    ],
-                    <span class="hljs-string">'require-module'</span>: [
-                        <span class="hljs-string">'ts-node/register'</span>
-                    ]
-                },
-            });
+  <div data-ice="properties">
+</div>
 
-            expect(runner).to.be.instanceOf(CucumberTestRunner);
-        });
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><span>string</span><span>[]</span></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
-        it(<span class="hljs-string">'uses the JasmineTestRunner when jasmineNodeOpts are specified'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({
-                <span class="hljs-attr">jasmineNodeOpts</span>: {
-                    <span class="hljs-attr">grep</span>: <span class="hljs-string">'some spec.*'</span>,
-                },
-            });
+  
 
-            expect(runner).to.be.instanceOf(JasmineTestRunner);
-        });
+  
 
-        it(<span class="hljs-string">'uses the JasmineTestRunner when no other runners are specified'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({});
+  
 
-            expect(runner).to.be.instanceOf(JasmineTestRunner);
-        });
+  
 
-        it(<span class="hljs-string">'uses the MochaTestRunner when mochaOpts are specified'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> runner = detector.runnerFor({
-                <span class="hljs-attr">mochaOpts</span>: {
-                    <span class="hljs-attr">require</span>: <span class="hljs-string">'ts:ts-node/register'</span>,
-                },
-            });
+  
 
-            expect(runner).to.be.instanceOf(MochaTestRunner);
-        });
-    });
+  
 
-    describe(<span class="hljs-string">'to support test runner options specified in the capabilities section'</span>, <span class="hljs-function">() =&gt;</span> {
+  
+  
+</div>
+</div>
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
 
-        it(<span class="hljs-string">'merges the cucumberOpts'</span>);
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(testRunnerLoader: <span><a href="class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html">TestRunnerLoader</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/runner/TestRunnerDetector.ts.html#lineNumber43">source</a></span></span>
+    </span>
+  </h3>
 
-        it(<span class="hljs-string">'merges the mochaOpts'</span>);
+  
+  
+  
+  
 
-        it(<span class="hljs-string">'merges the jasmineNodeOpts'</span>);
-    });
-});
-</code></pre>
+  
 
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">testRunnerLoader</td>
+      <td data-ice="type" class="code"><span><a href="class/src/adapter/runner/TestRunnerLoader.ts~TestRunnerLoader.html">TestRunnerLoader</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-runnerFor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">runnerFor</span><span class="code" data-ice="signature">(config: <span><a href="https://github.com/angular/protractor/blob/master/lib/config.ts">ProtractorConfig</a></span>): <span><a href="/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/runner/TestRunnerDetector.ts.html#lineNumber63">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">config</td>
+      <td data-ice="type" class="code"><span><a href="https://github.com/angular/protractor/blob/master/lib/config.ts">ProtractorConfig</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
 </article>
             </section>
         </div>

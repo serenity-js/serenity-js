@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 6520,
+  "end": 7555,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 288,
+      "line": 322,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 6520,
+    "end": 7555,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 288,
+        "line": 322,
         "column": 0
       }
     },
@@ -33,14 +33,14 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 403,
-        "end": 6519,
+        "end": 7554,
         "loc": {
           "start": {
             "line": 16,
             "column": 0
           },
           "end": {
-            "line": 287,
+            "line": 321,
             "column": 1
           }
         },
@@ -84,14 +84,14 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 410,
-          "end": 6519,
+          "end": 7554,
           "loc": {
             "start": {
               "line": 16,
               "column": 7
             },
             "end": {
-              "line": 287,
+              "line": 321,
               "column": 1
             }
           },
@@ -117,38 +117,38 @@
           "body": {
             "type": "ClassBody",
             "start": 440,
-            "end": 6519,
+            "end": 7554,
             "loc": {
               "start": {
                 "line": 16,
                 "column": 37
               },
               "end": {
-                "line": 287,
+                "line": 321,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassProperty",
-                "start": 1125,
-                "end": 1143,
+                "start": 1202,
+                "end": 1218,
                 "loc": {
                   "start": {
-                    "line": 42,
+                    "line": 46,
                     "column": 4
                   },
                   "end": {
-                    "line": 42,
-                    "column": 22
+                    "line": 46,
+                    "column": 20
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
                     "start": 442,
-                    "end": 532,
+                    "end": 533,
                     "loc": {
                       "start": {
                         "line": 17,
@@ -162,16 +162,16 @@
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Step definitions and support files can be written in languages that transpile to JavaScript.\n     *  To do set the `compiler` option to <file_extension>:<module_name>\n     *\n     *  **Please note** For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n     *  compiler: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers\n     * @version 1.x - 3.x\n     ",
-                    "start": 538,
-                    "end": 1120,
+                    "value": "*\n     * @desc\n     *  Enable/disable colors in output. Cucumber 1.x only!\n     *  For Cucumber 2.x and above use `formatOptions: { colorsEnabled: false }`\n     *\n     *  **Please note** For Cucumber 2.x and above use the {@link CucumberConfig#formatOptions} instead.\n     *\n     * @example <caption>Disable colors in output in Cucumber 1.x</caption>\n     *  colors: false\n     *\n     * @example <caption>Disable colors in output in Cucumber 2.x and above</caption>\n     *  formatOptions: { colorsEnabled: false }\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38\n     * @version 1.x\n     ",
+                    "start": 540,
+                    "end": 1197,
                     "loc": {
                       "start": {
-                        "line": 28,
+                        "line": 29,
                         "column": 4
                       },
                       "end": {
-                        "line": 41,
+                        "line": 45,
                         "column": 7
                       }
                     }
@@ -180,32 +180,32 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1144,
-                    "end": 1234,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1219,
+                    "end": 1309,
                     "loc": {
                       "start": {
-                        "line": 43,
+                        "line": 47,
                         "column": 0
                       },
                       "end": {
-                        "line": 52,
+                        "line": 56,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Specify additional output formats, optionally supply PATH to redirect formatter output\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     ",
-                    "start": 1241,
-                    "end": 1473,
+                    "value": "*\n     * @desc\n     *  Step definitions and support files can be written in languages that transpile to JavaScript.\n     *  To do set the `compiler` option to <file_extension>:<module_name>\n     *\n     *  **Please note** For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n     *  compiler: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers\n     * @version 1.x - 3.x\n     ",
+                    "start": 1316,
+                    "end": 1898,
                     "loc": {
                       "start": {
-                        "line": 55,
+                        "line": 59,
                         "column": 4
                       },
                       "end": {
-                        "line": 61,
+                        "line": 72,
                         "column": 7
                       }
                     }
@@ -214,15 +214,149 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1125,
-                  "end": 1133,
+                  "start": 1202,
+                  "end": 1208,
                   "loc": {
                     "start": {
-                      "line": 42,
+                      "line": 46,
                       "column": 4
                     },
                     "end": {
-                      "line": 42,
+                      "line": 46,
+                      "column": 10
+                    },
+                    "identifierName": "colors"
+                  },
+                  "name": "colors"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 1209,
+                  "end": 1218,
+                  "loc": {
+                    "start": {
+                      "line": 46,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 46,
+                      "column": 20
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSBooleanKeyword",
+                    "start": 1211,
+                    "end": 1218,
+                    "loc": {
+                      "start": {
+                        "line": 46,
+                        "column": 13
+                      },
+                      "end": {
+                        "line": 46,
+                        "column": 20
+                      }
+                    }
+                  }
+                },
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1903,
+                "end": 1921,
+                "loc": {
+                  "start": {
+                    "line": 73,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 73,
+                    "column": 22
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1219,
+                    "end": 1309,
+                    "loc": {
+                      "start": {
+                        "line": 47,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 56,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Step definitions and support files can be written in languages that transpile to JavaScript.\n     *  To do set the `compiler` option to <file_extension>:<module_name>\n     *\n     *  **Please note** For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n     *  compiler: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers\n     * @version 1.x - 3.x\n     ",
+                    "start": 1316,
+                    "end": 1898,
+                    "loc": {
+                      "start": {
+                        "line": 59,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 72,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 1922,
+                    "end": 2027,
+                    "loc": {
+                      "start": {
+                        "line": 74,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 83,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Specify additional output formats, optionally supply PATH to redirect formatter output\n     *\n     * @type {string[] | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     ",
+                    "start": 2034,
+                    "end": 2277,
+                    "loc": {
+                      "start": {
+                        "line": 86,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 92,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1903,
+                  "end": 1911,
+                  "loc": {
+                    "start": {
+                      "line": 73,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 73,
                       "column": 12
                     },
                     "identifierName": "compiler"
@@ -233,29 +367,29 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 1134,
-                  "end": 1142,
+                  "start": 1912,
+                  "end": 1920,
                   "loc": {
                     "start": {
-                      "line": 42,
+                      "line": 73,
                       "column": 13
                     },
                     "end": {
-                      "line": 42,
+                      "line": 73,
                       "column": 21
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSStringKeyword",
-                    "start": 1136,
-                    "end": 1142,
+                    "start": 1914,
+                    "end": 1920,
                     "loc": {
                       "start": {
-                        "line": 42,
+                        "line": 73,
                         "column": 15
                       },
                       "end": {
-                        "line": 42,
+                        "line": 73,
                         "column": 21
                       }
                     }
@@ -265,47 +399,47 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 1478,
-                "end": 1494,
+                "start": 2282,
+                "end": 2309,
                 "loc": {
                   "start": {
-                    "line": 62,
+                    "line": 93,
                     "column": 4
                   },
                   "end": {
-                    "line": 62,
-                    "column": 20
+                    "line": 93,
+                    "column": 31
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1144,
-                    "end": 1234,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 1922,
+                    "end": 2027,
                     "loc": {
                       "start": {
-                        "line": 43,
+                        "line": 74,
                         "column": 0
                       },
                       "end": {
-                        "line": 52,
+                        "line": 83,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Specify additional output formats, optionally supply PATH to redirect formatter output\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     ",
-                    "start": 1241,
-                    "end": 1473,
+                    "value": "*\n     * @desc\n     *  Specify additional output formats, optionally supply PATH to redirect formatter output\n     *\n     * @type {string[] | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     ",
+                    "start": 2034,
+                    "end": 2277,
                     "loc": {
                       "start": {
-                        "line": 55,
+                        "line": 86,
                         "column": 4
                       },
                       "end": {
-                        "line": 61,
+                        "line": 92,
                         "column": 7
                       }
                     }
@@ -314,32 +448,32 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1495,
-                    "end": 1585,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 2310,
+                    "end": 2415,
                     "loc": {
                       "start": {
-                        "line": 63,
+                        "line": 94,
                         "column": 0
                       },
                       "end": {
-                        "line": 72,
+                        "line": 103,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Provide options for formatters\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     *  formatOptions: JSON.stringify({ option: 'value' })\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     ",
-                    "start": 1592,
-                    "end": 1889,
+                    "value": "*\n     * @desc\n     *  Provide options for formatters\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     *  formatOptions: JSON.stringify({ option: 'value' })\n     *\n     * @type {object|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     ",
+                    "start": 2422,
+                    "end": 2726,
                     "loc": {
                       "start": {
-                        "line": 75,
+                        "line": 106,
                         "column": 4
                       },
                       "end": {
-                        "line": 84,
+                        "line": 115,
                         "column": 7
                       }
                     }
@@ -348,15 +482,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1478,
-                  "end": 1484,
+                  "start": 2282,
+                  "end": 2288,
                   "loc": {
                     "start": {
-                      "line": 62,
+                      "line": 93,
                       "column": 4
                     },
                     "end": {
-                      "line": 62,
+                      "line": 93,
                       "column": 10
                     },
                     "identifierName": "format"
@@ -367,79 +501,126 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 1485,
-                  "end": 1493,
+                  "start": 2289,
+                  "end": 2308,
                   "loc": {
                     "start": {
-                      "line": 62,
+                      "line": 93,
                       "column": 11
                     },
                     "end": {
-                      "line": 62,
-                      "column": 19
+                      "line": 93,
+                      "column": 30
                     }
                   },
                   "typeAnnotation": {
-                    "type": "TSStringKeyword",
-                    "start": 1487,
-                    "end": 1493,
+                    "type": "TSUnionType",
+                    "start": 2291,
+                    "end": 2308,
                     "loc": {
                       "start": {
-                        "line": 62,
+                        "line": 93,
                         "column": 13
                       },
                       "end": {
-                        "line": 62,
-                        "column": 19
+                        "line": 93,
+                        "column": 30
                       }
-                    }
+                    },
+                    "types": [
+                      {
+                        "type": "TSArrayType",
+                        "start": 2291,
+                        "end": 2299,
+                        "loc": {
+                          "start": {
+                            "line": 93,
+                            "column": 13
+                          },
+                          "end": {
+                            "line": 93,
+                            "column": 21
+                          }
+                        },
+                        "elementType": {
+                          "type": "TSStringKeyword",
+                          "start": 2291,
+                          "end": 2297,
+                          "loc": {
+                            "start": {
+                              "line": 93,
+                              "column": 13
+                            },
+                            "end": {
+                              "line": 93,
+                              "column": 19
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "TSStringKeyword",
+                        "start": 2302,
+                        "end": 2308,
+                        "loc": {
+                          "start": {
+                            "line": 93,
+                            "column": 24
+                          },
+                          "end": {
+                            "line": 93,
+                            "column": 30
+                          }
+                        }
+                      }
+                    ]
                   }
                 },
                 "value": null
               },
               {
                 "type": "ClassProperty",
-                "start": 1894,
-                "end": 1917,
+                "start": 2731,
+                "end": 2763,
                 "loc": {
                   "start": {
-                    "line": 85,
+                    "line": 116,
                     "column": 4
                   },
                   "end": {
-                    "line": 85,
-                    "column": 27
+                    "line": 116,
+                    "column": 36
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1495,
-                    "end": 1585,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 2310,
+                    "end": 2415,
                     "loc": {
                       "start": {
-                        "line": 63,
+                        "line": 94,
                         "column": 0
                       },
                       "end": {
-                        "line": 72,
+                        "line": 103,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Provide options for formatters\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     *  formatOptions: JSON.stringify({ option: 'value' })\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     ",
-                    "start": 1592,
-                    "end": 1889,
+                    "value": "*\n     * @desc\n     *  Provide options for formatters\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     *  formatOptions: JSON.stringify({ option: 'value' })\n     *\n     * @type {object|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     ",
+                    "start": 2422,
+                    "end": 2726,
                     "loc": {
                       "start": {
-                        "line": 75,
+                        "line": 106,
                         "column": 4
                       },
                       "end": {
-                        "line": 84,
+                        "line": 115,
                         "column": 7
                       }
                     }
@@ -448,16 +629,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 54 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 1918,
-                    "end": 2009,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 2764,
+                    "end": 2855,
                     "loc": {
                       "start": {
-                        "line": 86,
+                        "line": 117,
                         "column": 0
                       },
                       "end": {
-                        "line": 95,
+                        "line": 126,
                         "column": 3
                       }
                     }
@@ -465,15 +646,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Only execute the scenarios with name matching the expression.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features\n     ",
-                    "start": 2016,
-                    "end": 2241,
+                    "start": 2862,
+                    "end": 3087,
                     "loc": {
                       "start": {
-                        "line": 98,
+                        "line": 129,
                         "column": 4
                       },
                       "end": {
-                        "line": 104,
+                        "line": 135,
                         "column": 7
                       }
                     }
@@ -482,15 +663,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1894,
-                  "end": 1907,
+                  "start": 2731,
+                  "end": 2744,
                   "loc": {
                     "start": {
-                      "line": 85,
+                      "line": 116,
                       "column": 4
                     },
                     "end": {
-                      "line": 85,
+                      "line": 116,
                       "column": 17
                     },
                     "identifierName": "formatOptions"
@@ -501,63 +682,95 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 1908,
-                  "end": 1916,
+                  "start": 2745,
+                  "end": 2762,
                   "loc": {
                     "start": {
-                      "line": 85,
+                      "line": 116,
                       "column": 18
                     },
                     "end": {
-                      "line": 85,
-                      "column": 26
+                      "line": 116,
+                      "column": 35
                     }
                   },
                   "typeAnnotation": {
-                    "type": "TSStringKeyword",
-                    "start": 1910,
-                    "end": 1916,
+                    "type": "TSUnionType",
+                    "start": 2747,
+                    "end": 2762,
                     "loc": {
                       "start": {
-                        "line": 85,
+                        "line": 116,
                         "column": 20
                       },
                       "end": {
-                        "line": 85,
-                        "column": 26
+                        "line": 116,
+                        "column": 35
                       }
-                    }
+                    },
+                    "types": [
+                      {
+                        "type": "TSObjectKeyword",
+                        "start": 2747,
+                        "end": 2753,
+                        "loc": {
+                          "start": {
+                            "line": 116,
+                            "column": 20
+                          },
+                          "end": {
+                            "line": 116,
+                            "column": 26
+                          }
+                        }
+                      },
+                      {
+                        "type": "TSStringKeyword",
+                        "start": 2756,
+                        "end": 2762,
+                        "loc": {
+                          "start": {
+                            "line": 116,
+                            "column": 29
+                          },
+                          "end": {
+                            "line": 116,
+                            "column": 35
+                          }
+                        }
+                      }
+                    ]
                   }
                 },
                 "value": null
               },
               {
                 "type": "ClassProperty",
-                "start": 2246,
-                "end": 2262,
+                "start": 3092,
+                "end": 3108,
                 "loc": {
                   "start": {
-                    "line": 105,
+                    "line": 136,
                     "column": 4
                   },
                   "end": {
-                    "line": 105,
+                    "line": 136,
                     "column": 20
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 54 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 1918,
-                    "end": 2009,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 2764,
+                    "end": 2855,
                     "loc": {
                       "start": {
-                        "line": 86,
+                        "line": 117,
                         "column": 0
                       },
                       "end": {
-                        "line": 95,
+                        "line": 126,
                         "column": 3
                       }
                     }
@@ -565,15 +778,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Only execute the scenarios with name matching the expression.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features\n     ",
-                    "start": 2016,
-                    "end": 2241,
+                    "start": 2862,
+                    "end": 3087,
                     "loc": {
                       "start": {
-                        "line": 98,
+                        "line": 129,
                         "column": 4
                       },
                       "end": {
-                        "line": 104,
+                        "line": 135,
                         "column": 7
                       }
                     }
@@ -582,16 +795,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 2263,
-                    "end": 2354,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 3109,
+                    "end": 3200,
                     "loc": {
                       "start": {
-                        "line": 106,
+                        "line": 137,
                         "column": 0
                       },
                       "end": {
-                        "line": 115,
+                        "line": 146,
                         "column": 3
                       }
                     }
@@ -599,15 +812,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  In order to store and reuse commonly used CLI options,\n     *  you can add a `cucumber.js` file to your project root directory.\n     *  The file should export an object where the key is the profile name\n     *  and the value is a string of CLI options.\n     *\n     *  The profile can be applied with -p <NAME> or --profile <NAME>.\n     *  This will prepend the profile's CLI options to the ones provided by the command line.\n     *  Multiple profiles can be specified at a time.\n     *\n     *  If no profile is specified and a profile named default exists,\n     *  it will be applied.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles\n     ",
-                    "start": 2361,
-                    "end": 3092,
+                    "start": 3207,
+                    "end": 3938,
                     "loc": {
                       "start": {
-                        "line": 118,
+                        "line": 149,
                         "column": 4
                       },
                       "end": {
-                        "line": 134,
+                        "line": 165,
                         "column": 7
                       }
                     }
@@ -616,15 +829,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2246,
-                  "end": 2250,
+                  "start": 3092,
+                  "end": 3096,
                   "loc": {
                     "start": {
-                      "line": 105,
+                      "line": 136,
                       "column": 4
                     },
                     "end": {
-                      "line": 105,
+                      "line": 136,
                       "column": 8
                     },
                     "identifierName": "name"
@@ -635,43 +848,43 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 2251,
-                  "end": 2261,
+                  "start": 3097,
+                  "end": 3107,
                   "loc": {
                     "start": {
-                      "line": 105,
+                      "line": 136,
                       "column": 9
                     },
                     "end": {
-                      "line": 105,
+                      "line": 136,
                       "column": 19
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSArrayType",
-                    "start": 2253,
-                    "end": 2261,
+                    "start": 3099,
+                    "end": 3107,
                     "loc": {
                       "start": {
-                        "line": 105,
+                        "line": 136,
                         "column": 11
                       },
                       "end": {
-                        "line": 105,
+                        "line": 136,
                         "column": 19
                       }
                     },
                     "elementType": {
                       "type": "TSStringKeyword",
-                      "start": 2253,
-                      "end": 2259,
+                      "start": 3099,
+                      "end": 3105,
                       "loc": {
                         "start": {
-                          "line": 105,
+                          "line": 136,
                           "column": 11
                         },
                         "end": {
-                          "line": 105,
+                          "line": 136,
                           "column": 17
                         }
                       }
@@ -682,31 +895,31 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 3097,
-                "end": 3116,
+                "start": 3943,
+                "end": 3962,
                 "loc": {
                   "start": {
-                    "line": 135,
+                    "line": 166,
                     "column": 4
                   },
                   "end": {
-                    "line": 135,
+                    "line": 166,
                     "column": 23
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 2263,
-                    "end": 2354,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 3109,
+                    "end": 3200,
                     "loc": {
                       "start": {
-                        "line": 106,
+                        "line": 137,
                         "column": 0
                       },
                       "end": {
-                        "line": 115,
+                        "line": 146,
                         "column": 3
                       }
                     }
@@ -714,15 +927,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  In order to store and reuse commonly used CLI options,\n     *  you can add a `cucumber.js` file to your project root directory.\n     *  The file should export an object where the key is the profile name\n     *  and the value is a string of CLI options.\n     *\n     *  The profile can be applied with -p <NAME> or --profile <NAME>.\n     *  This will prepend the profile's CLI options to the ones provided by the command line.\n     *  Multiple profiles can be specified at a time.\n     *\n     *  If no profile is specified and a profile named default exists,\n     *  it will be applied.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles\n     ",
-                    "start": 2361,
-                    "end": 3092,
+                    "start": 3207,
+                    "end": 3938,
                     "loc": {
                       "start": {
-                        "line": 118,
+                        "line": 149,
                         "column": 4
                       },
                       "end": {
-                        "line": 134,
+                        "line": 165,
                         "column": 7
                       }
                     }
@@ -731,16 +944,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 88 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                    "start": 3117,
-                    "end": 3207,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 108 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                    "start": 3963,
+                    "end": 4054,
                     "loc": {
                       "start": {
-                        "line": 136,
+                        "line": 167,
                         "column": 0
                       },
                       "end": {
-                        "line": 145,
+                        "line": 176,
                         "column": 3
                       }
                     }
@@ -748,15 +961,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  The number of times to retry a failing scenario before marking it as failed.\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3\n     *\n     * @type {number}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
-                    "start": 3215,
-                    "end": 3548,
+                    "start": 4062,
+                    "end": 4395,
                     "loc": {
                       "start": {
-                        "line": 149,
+                        "line": 180,
                         "column": 4
                       },
                       "end": {
-                        "line": 160,
+                        "line": 191,
                         "column": 7
                       }
                     }
@@ -765,15 +978,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 3097,
-                  "end": 3104,
+                  "start": 3943,
+                  "end": 3950,
                   "loc": {
                     "start": {
-                      "line": 135,
+                      "line": 166,
                       "column": 4
                     },
                     "end": {
-                      "line": 135,
+                      "line": 166,
                       "column": 11
                     },
                     "identifierName": "profile"
@@ -784,43 +997,43 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 3105,
-                  "end": 3115,
+                  "start": 3951,
+                  "end": 3961,
                   "loc": {
                     "start": {
-                      "line": 135,
+                      "line": 166,
                       "column": 12
                     },
                     "end": {
-                      "line": 135,
+                      "line": 166,
                       "column": 22
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSArrayType",
-                    "start": 3107,
-                    "end": 3115,
+                    "start": 3953,
+                    "end": 3961,
                     "loc": {
                       "start": {
-                        "line": 135,
+                        "line": 166,
                         "column": 14
                       },
                       "end": {
-                        "line": 135,
+                        "line": 166,
                         "column": 22
                       }
                     },
                     "elementType": {
                       "type": "TSStringKeyword",
-                      "start": 3107,
-                      "end": 3113,
+                      "start": 3953,
+                      "end": 3959,
                       "loc": {
                         "start": {
-                          "line": 135,
+                          "line": 166,
                           "column": 14
                         },
                         "end": {
-                          "line": 135,
+                          "line": 166,
                           "column": 20
                         }
                       }
@@ -831,31 +1044,31 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 3553,
-                "end": 3568,
+                "start": 4400,
+                "end": 4415,
                 "loc": {
                   "start": {
-                    "line": 161,
+                    "line": 192,
                     "column": 4
                   },
                   "end": {
-                    "line": 161,
+                    "line": 192,
                     "column": 19
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 88 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                    "start": 3117,
-                    "end": 3207,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 108 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                    "start": 3963,
+                    "end": 4054,
                     "loc": {
                       "start": {
-                        "line": 136,
+                        "line": 167,
                         "column": 0
                       },
                       "end": {
-                        "line": 145,
+                        "line": 176,
                         "column": 3
                       }
                     }
@@ -863,15 +1076,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  The number of times to retry a failing scenario before marking it as failed.\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3\n     *\n     * @type {number}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
-                    "start": 3215,
-                    "end": 3548,
+                    "start": 4062,
+                    "end": 4395,
                     "loc": {
                       "start": {
-                        "line": 149,
+                        "line": 180,
                         "column": 4
                       },
                       "end": {
-                        "line": 160,
+                        "line": 191,
                         "column": 7
                       }
                     }
@@ -880,16 +1093,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 103 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 3569,
-                    "end": 3660,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 4416,
+                    "end": 4507,
                     "loc": {
                       "start": {
-                        "line": 162,
+                        "line": 193,
                         "column": 0
                       },
                       "end": {
-                        "line": 171,
+                        "line": 202,
                         "column": 3
                       }
                     }
@@ -897,15 +1110,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Only retry tests matching the given [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3,\n     *  retryTagFilter: '@flaky',\n     *\n     * @type {string}\n     * @see  https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
-                    "start": 3667,
-                    "end": 4079,
+                    "start": 4514,
+                    "end": 4926,
                     "loc": {
                       "start": {
-                        "line": 174,
+                        "line": 205,
                         "column": 4
                       },
                       "end": {
-                        "line": 186,
+                        "line": 217,
                         "column": 7
                       }
                     }
@@ -914,15 +1127,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 3553,
-                  "end": 3558,
+                  "start": 4400,
+                  "end": 4405,
                   "loc": {
                     "start": {
-                      "line": 161,
+                      "line": 192,
                       "column": 4
                     },
                     "end": {
-                      "line": 161,
+                      "line": 192,
                       "column": 9
                     },
                     "identifierName": "retry"
@@ -933,29 +1146,29 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 3559,
-                  "end": 3567,
+                  "start": 4406,
+                  "end": 4414,
                   "loc": {
                     "start": {
-                      "line": 161,
+                      "line": 192,
                       "column": 10
                     },
                     "end": {
-                      "line": 161,
+                      "line": 192,
                       "column": 18
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSNumberKeyword",
-                    "start": 3561,
-                    "end": 3567,
+                    "start": 4408,
+                    "end": 4414,
                     "loc": {
                       "start": {
-                        "line": 161,
+                        "line": 192,
                         "column": 12
                       },
                       "end": {
-                        "line": 161,
+                        "line": 192,
                         "column": 18
                       }
                     }
@@ -965,31 +1178,31 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 4084,
-                "end": 4107,
+                "start": 4931,
+                "end": 4954,
                 "loc": {
                   "start": {
-                    "line": 187,
+                    "line": 218,
                     "column": 4
                   },
                   "end": {
-                    "line": 187,
+                    "line": 218,
                     "column": 27
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 103 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 3569,
-                    "end": 3660,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 4416,
+                    "end": 4507,
                     "loc": {
                       "start": {
-                        "line": 162,
+                        "line": 193,
                         "column": 0
                       },
                       "end": {
-                        "line": 171,
+                        "line": 202,
                         "column": 3
                       }
                     }
@@ -997,15 +1210,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Only retry tests matching the given [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3,\n     *  retryTagFilter: '@flaky',\n     *\n     * @type {string}\n     * @see  https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
-                    "start": 3667,
-                    "end": 4079,
+                    "start": 4514,
+                    "end": 4926,
                     "loc": {
                       "start": {
-                        "line": 174,
+                        "line": 205,
                         "column": 4
                       },
                       "end": {
-                        "line": 186,
+                        "line": 217,
                         "column": 7
                       }
                     }
@@ -1014,16 +1227,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 4108,
-                    "end": 4200,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 4955,
+                    "end": 5047,
                     "loc": {
                       "start": {
-                        "line": 188,
+                        "line": 219,
                         "column": 0
                       },
                       "end": {
-                        "line": 197,
+                        "line": 228,
                         "column": 3
                       }
                     }
@@ -1031,15 +1244,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Require files or node modules before executing features\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 4.x and above</caption>\n     *  require: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files\n     ",
-                    "start": 4207,
-                    "end": 4557,
+                    "start": 5054,
+                    "end": 5404,
                     "loc": {
                       "start": {
-                        "line": 200,
+                        "line": 231,
                         "column": 4
                       },
                       "end": {
-                        "line": 209,
+                        "line": 240,
                         "column": 7
                       }
                     }
@@ -1048,15 +1261,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 4084,
-                  "end": 4098,
+                  "start": 4931,
+                  "end": 4945,
                   "loc": {
                     "start": {
-                      "line": 187,
+                      "line": 218,
                       "column": 4
                     },
                     "end": {
-                      "line": 187,
+                      "line": 218,
                       "column": 18
                     },
                     "identifierName": "retryTagFilter"
@@ -1067,29 +1280,29 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 4099,
-                  "end": 4107,
+                  "start": 4946,
+                  "end": 4954,
                   "loc": {
                     "start": {
-                      "line": 187,
+                      "line": 218,
                       "column": 19
                     },
                     "end": {
-                      "line": 187,
+                      "line": 218,
                       "column": 27
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSStringKeyword",
-                    "start": 4101,
-                    "end": 4107,
+                    "start": 4948,
+                    "end": 4954,
                     "loc": {
                       "start": {
-                        "line": 187,
+                        "line": 218,
                         "column": 21
                       },
                       "end": {
-                        "line": 187,
+                        "line": 218,
                         "column": 27
                       }
                     }
@@ -1099,31 +1312,31 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 4562,
-                "end": 4581,
+                "start": 5409,
+                "end": 5428,
                 "loc": {
                   "start": {
-                    "line": 210,
+                    "line": 241,
                     "column": 4
                   },
                   "end": {
-                    "line": 210,
+                    "line": 241,
                     "column": 23
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 4108,
-                    "end": 4200,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 4955,
+                    "end": 5047,
                     "loc": {
                       "start": {
-                        "line": 188,
+                        "line": 219,
                         "column": 0
                       },
                       "end": {
-                        "line": 197,
+                        "line": 228,
                         "column": 3
                       }
                     }
@@ -1131,15 +1344,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Require files or node modules before executing features\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 4.x and above</caption>\n     *  require: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files\n     ",
-                    "start": 4207,
-                    "end": 4557,
+                    "start": 5054,
+                    "end": 5404,
                     "loc": {
                       "start": {
-                        "line": 200,
+                        "line": 231,
                         "column": 4
                       },
                       "end": {
-                        "line": 209,
+                        "line": 240,
                         "column": 7
                       }
                     }
@@ -1148,16 +1361,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 137 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 4582,
-                    "end": 4688,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 5429,
+                    "end": 5535,
                     "loc": {
                       "start": {
-                        "line": 211,
+                        "line": 242,
                         "column": 0
                       },
                       "end": {
-                        "line": 220,
+                        "line": 251,
                         "column": 3
                       }
                     }
@@ -1165,15 +1378,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Only run scenarios that match the given tags.\n     *\n     *  **Please note**: Cucumber 1.x requires the `tags` option to be an array of Cucumber tags,\n     *  while Cucumber 2.x and above uses a `string` with a [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: [ '@smoketest', '~@wip' ]\n     *\n     * @example <caption>Cucumber >= 2.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: '@smoketest and not @wip'\n     *\n     * @type {string[]|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber/tree/master/tag-expressions\n     ",
-                    "start": 4695,
-                    "end": 5632,
+                    "start": 5542,
+                    "end": 6479,
                     "loc": {
                       "start": {
-                        "line": 223,
+                        "line": 254,
                         "column": 4
                       },
                       "end": {
-                        "line": 242,
+                        "line": 273,
                         "column": 7
                       }
                     }
@@ -1182,15 +1395,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 4562,
-                  "end": 4569,
+                  "start": 5409,
+                  "end": 5416,
                   "loc": {
                     "start": {
-                      "line": 210,
+                      "line": 241,
                       "column": 4
                     },
                     "end": {
-                      "line": 210,
+                      "line": 241,
                       "column": 11
                     },
                     "identifierName": "require"
@@ -1201,43 +1414,43 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 4570,
-                  "end": 4580,
+                  "start": 5417,
+                  "end": 5427,
                   "loc": {
                     "start": {
-                      "line": 210,
+                      "line": 241,
                       "column": 12
                     },
                     "end": {
-                      "line": 210,
+                      "line": 241,
                       "column": 22
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSArrayType",
-                    "start": 4572,
-                    "end": 4580,
+                    "start": 5419,
+                    "end": 5427,
                     "loc": {
                       "start": {
-                        "line": 210,
+                        "line": 241,
                         "column": 14
                       },
                       "end": {
-                        "line": 210,
+                        "line": 241,
                         "column": 22
                       }
                     },
                     "elementType": {
                       "type": "TSStringKeyword",
-                      "start": 4572,
-                      "end": 4578,
+                      "start": 5419,
+                      "end": 5425,
                       "loc": {
                         "start": {
-                          "line": 210,
+                          "line": 241,
                           "column": 14
                         },
                         "end": {
-                          "line": 210,
+                          "line": 241,
                           "column": 20
                         }
                       }
@@ -1248,31 +1461,31 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 5637,
-                "end": 5662,
+                "start": 6484,
+                "end": 6509,
                 "loc": {
                   "start": {
-                    "line": 243,
+                    "line": 274,
                     "column": 4
                   },
                   "end": {
-                    "line": 243,
+                    "line": 274,
                     "column": 29
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 137 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 4582,
-                    "end": 4688,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 5429,
+                    "end": 5535,
                     "loc": {
                       "start": {
-                        "line": 211,
+                        "line": 242,
                         "column": 0
                       },
                       "end": {
-                        "line": 220,
+                        "line": 251,
                         "column": 3
                       }
                     }
@@ -1280,15 +1493,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Only run scenarios that match the given tags.\n     *\n     *  **Please note**: Cucumber 1.x requires the `tags` option to be an array of Cucumber tags,\n     *  while Cucumber 2.x and above uses a `string` with a [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: [ '@smoketest', '~@wip' ]\n     *\n     * @example <caption>Cucumber >= 2.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: '@smoketest and not @wip'\n     *\n     * @type {string[]|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber/tree/master/tag-expressions\n     ",
-                    "start": 4695,
-                    "end": 5632,
+                    "start": 5542,
+                    "end": 6479,
                     "loc": {
                       "start": {
-                        "line": 223,
+                        "line": 254,
                         "column": 4
                       },
                       "end": {
-                        "line": 242,
+                        "line": 273,
                         "column": 7
                       }
                     }
@@ -1297,16 +1510,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
-                    "start": 5663,
-                    "end": 5755,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 166 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 6510,
+                    "end": 6602,
                     "loc": {
                       "start": {
-                        "line": 244,
+                        "line": 275,
                         "column": 0
                       },
                       "end": {
-                        "line": 253,
+                        "line": 284,
                         "column": 3
                       }
                     }
@@ -1314,15 +1527,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Fail if there are any undefined or pending steps\n     *\n     * @type {boolean}\n     * @see https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber\n     ",
-                    "start": 5762,
-                    "end": 6003,
+                    "start": 6609,
+                    "end": 6850,
                     "loc": {
                       "start": {
-                        "line": 256,
+                        "line": 287,
                         "column": 4
                       },
                       "end": {
-                        "line": 262,
+                        "line": 293,
                         "column": 7
                       }
                     }
@@ -1331,15 +1544,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 5637,
-                  "end": 5641,
+                  "start": 6484,
+                  "end": 6488,
                   "loc": {
                     "start": {
-                      "line": 243,
+                      "line": 274,
                       "column": 4
                     },
                     "end": {
-                      "line": 243,
+                      "line": 274,
                       "column": 8
                     },
                     "identifierName": "tags"
@@ -1350,58 +1563,58 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 5642,
-                  "end": 5661,
+                  "start": 6489,
+                  "end": 6508,
                   "loc": {
                     "start": {
-                      "line": 243,
+                      "line": 274,
                       "column": 9
                     },
                     "end": {
-                      "line": 243,
+                      "line": 274,
                       "column": 28
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSUnionType",
-                    "start": 5644,
-                    "end": 5661,
+                    "start": 6491,
+                    "end": 6508,
                     "loc": {
                       "start": {
-                        "line": 243,
+                        "line": 274,
                         "column": 11
                       },
                       "end": {
-                        "line": 243,
+                        "line": 274,
                         "column": 28
                       }
                     },
                     "types": [
                       {
                         "type": "TSArrayType",
-                        "start": 5644,
-                        "end": 5652,
+                        "start": 6491,
+                        "end": 6499,
                         "loc": {
                           "start": {
-                            "line": 243,
+                            "line": 274,
                             "column": 11
                           },
                           "end": {
-                            "line": 243,
+                            "line": 274,
                             "column": 19
                           }
                         },
                         "elementType": {
                           "type": "TSStringKeyword",
-                          "start": 5644,
-                          "end": 5650,
+                          "start": 6491,
+                          "end": 6497,
                           "loc": {
                             "start": {
-                              "line": 243,
+                              "line": 274,
                               "column": 11
                             },
                             "end": {
-                              "line": 243,
+                              "line": 274,
                               "column": 17
                             }
                           }
@@ -1409,15 +1622,15 @@
                       },
                       {
                         "type": "TSStringKeyword",
-                        "start": 5655,
-                        "end": 5661,
+                        "start": 6502,
+                        "end": 6508,
                         "loc": {
                           "start": {
-                            "line": 243,
+                            "line": 274,
                             "column": 22
                           },
                           "end": {
-                            "line": 243,
+                            "line": 274,
                             "column": 28
                           }
                         }
@@ -1429,31 +1642,31 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 6008,
-                "end": 6025,
+                "start": 6855,
+                "end": 6872,
                 "loc": {
                   "start": {
-                    "line": 263,
+                    "line": 294,
                     "column": 4
                   },
                   "end": {
-                    "line": 263,
+                    "line": 294,
                     "column": 21
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
-                    "start": 5663,
-                    "end": 5755,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 166 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 6510,
+                    "end": 6602,
                     "loc": {
                       "start": {
-                        "line": 244,
+                        "line": 275,
                         "column": 0
                       },
                       "end": {
-                        "line": 253,
+                        "line": 284,
                         "column": 3
                       }
                     }
@@ -1461,15 +1674,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Fail if there are any undefined or pending steps\n     *\n     * @type {boolean}\n     * @see https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber\n     ",
-                    "start": 5762,
-                    "end": 6003,
+                    "start": 6609,
+                    "end": 6850,
                     "loc": {
                       "start": {
-                        "line": 256,
+                        "line": 287,
                         "column": 4
                       },
                       "end": {
-                        "line": 262,
+                        "line": 293,
                         "column": 7
                       }
                     }
@@ -1478,32 +1691,32 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 158 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 6026,
-                    "end": 6118,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 6873,
+                    "end": 6979,
                     "loc": {
                       "start": {
-                        "line": 264,
+                        "line": 295,
                         "column": 0
                       },
                       "end": {
-                        "line": 273,
+                        "line": 304,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @type {object}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
-                    "start": 6125,
-                    "end": 6487,
+                    "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>worldParameters as string</caption>\n     *  worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @example <caption>worldParameters as object</caption>\n     *  worldParameters: { isDev: process.env.NODE_ENV !== 'production' }\n     *\n     * @type {object | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
+                    "start": 6986,
+                    "end": 7513,
                     "loc": {
                       "start": {
-                        "line": 276,
+                        "line": 307,
                         "column": 4
                       },
                       "end": {
-                        "line": 285,
+                        "line": 319,
                         "column": 7
                       }
                     }
@@ -1512,15 +1725,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 6008,
-                  "end": 6014,
+                  "start": 6855,
+                  "end": 6861,
                   "loc": {
                     "start": {
-                      "line": 263,
+                      "line": 294,
                       "column": 4
                     },
                     "end": {
-                      "line": 263,
+                      "line": 294,
                       "column": 10
                     },
                     "identifierName": "strict"
@@ -1531,29 +1744,29 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 6015,
-                  "end": 6024,
+                  "start": 6862,
+                  "end": 6871,
                   "loc": {
                     "start": {
-                      "line": 263,
+                      "line": 294,
                       "column": 11
                     },
                     "end": {
-                      "line": 263,
+                      "line": 294,
                       "column": 20
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSBooleanKeyword",
-                    "start": 6017,
-                    "end": 6024,
+                    "start": 6864,
+                    "end": 6871,
                     "loc": {
                       "start": {
-                        "line": 263,
+                        "line": 294,
                         "column": 13
                       },
                       "end": {
-                        "line": 263,
+                        "line": 294,
                         "column": 20
                       }
                     }
@@ -1563,47 +1776,47 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 6492,
-                "end": 6517,
+                "start": 7518,
+                "end": 7552,
                 "loc": {
                   "start": {
-                    "line": 286,
+                    "line": 320,
                     "column": 4
                   },
                   "end": {
-                    "line": 286,
-                    "column": 29
+                    "line": 320,
+                    "column": 38
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 158 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 6026,
-                    "end": 6118,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 6873,
+                    "end": 6979,
                     "loc": {
                       "start": {
-                        "line": 264,
+                        "line": 295,
                         "column": 0
                       },
                       "end": {
-                        "line": 273,
+                        "line": 304,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @type {object}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
-                    "start": 6125,
-                    "end": 6487,
+                    "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>worldParameters as string</caption>\n     *  worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @example <caption>worldParameters as object</caption>\n     *  worldParameters: { isDev: process.env.NODE_ENV !== 'production' }\n     *\n     * @type {object | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
+                    "start": 6986,
+                    "end": 7513,
                     "loc": {
                       "start": {
-                        "line": 276,
+                        "line": 307,
                         "column": 4
                       },
                       "end": {
-                        "line": 285,
+                        "line": 319,
                         "column": 7
                       }
                     }
@@ -1612,15 +1825,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 6492,
-                  "end": 6507,
+                  "start": 7518,
+                  "end": 7533,
                   "loc": {
                     "start": {
-                      "line": 286,
+                      "line": 320,
                       "column": 4
                     },
                     "end": {
-                      "line": 286,
+                      "line": 320,
                       "column": 19
                     },
                     "identifierName": "worldParameters"
@@ -1631,32 +1844,64 @@
                 "optional": true,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 6508,
-                  "end": 6516,
+                  "start": 7534,
+                  "end": 7551,
                   "loc": {
                     "start": {
-                      "line": 286,
+                      "line": 320,
                       "column": 20
                     },
                     "end": {
-                      "line": 286,
-                      "column": 28
+                      "line": 320,
+                      "column": 37
                     }
                   },
                   "typeAnnotation": {
-                    "type": "TSObjectKeyword",
-                    "start": 6510,
-                    "end": 6516,
+                    "type": "TSUnionType",
+                    "start": 7536,
+                    "end": 7551,
                     "loc": {
                       "start": {
-                        "line": 286,
+                        "line": 320,
                         "column": 22
                       },
                       "end": {
-                        "line": 286,
-                        "column": 28
+                        "line": 320,
+                        "column": 37
                       }
-                    }
+                    },
+                    "types": [
+                      {
+                        "type": "TSObjectKeyword",
+                        "start": 7536,
+                        "end": 7542,
+                        "loc": {
+                          "start": {
+                            "line": 320,
+                            "column": 22
+                          },
+                          "end": {
+                            "line": 320,
+                            "column": 28
+                          }
+                        }
+                      },
+                      {
+                        "type": "TSStringKeyword",
+                        "start": 7545,
+                        "end": 7551,
+                        "loc": {
+                          "start": {
+                            "line": 320,
+                            "column": 31
+                          },
+                          "end": {
+                            "line": 320,
+                            "column": 37
+                          }
+                        }
+                      }
+                    ]
                   }
                 },
                 "value": null
@@ -1738,9 +1983,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
       "start": 442,
-      "end": 532,
+      "end": 533,
       "loc": {
         "start": {
           "line": 17,
@@ -1754,96 +1999,128 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * @desc\n     *  Step definitions and support files can be written in languages that transpile to JavaScript.\n     *  To do set the `compiler` option to <file_extension>:<module_name>\n     *\n     *  **Please note** For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n     *  compiler: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers\n     * @version 1.x - 3.x\n     ",
-      "start": 538,
-      "end": 1120,
+      "value": "*\n     * @desc\n     *  Enable/disable colors in output. Cucumber 1.x only!\n     *  For Cucumber 2.x and above use `formatOptions: { colorsEnabled: false }`\n     *\n     *  **Please note** For Cucumber 2.x and above use the {@link CucumberConfig#formatOptions} instead.\n     *\n     * @example <caption>Disable colors in output in Cucumber 1.x</caption>\n     *  colors: false\n     *\n     * @example <caption>Disable colors in output in Cucumber 2.x and above</caption>\n     *  formatOptions: { colorsEnabled: false }\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38\n     * @version 1.x\n     ",
+      "start": 540,
+      "end": 1197,
       "loc": {
         "start": {
-          "line": 28,
+          "line": 29,
           "column": 4
         },
         "end": {
-          "line": 41,
+          "line": 45,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-      "start": 1144,
-      "end": 1234,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+      "start": 1219,
+      "end": 1309,
       "loc": {
         "start": {
-          "line": 43,
+          "line": 47,
           "column": 0
         },
         "end": {
-          "line": 52,
+          "line": 56,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * @desc\n     *  Specify additional output formats, optionally supply PATH to redirect formatter output\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     ",
-      "start": 1241,
-      "end": 1473,
+      "value": "*\n     * @desc\n     *  Step definitions and support files can be written in languages that transpile to JavaScript.\n     *  To do set the `compiler` option to <file_extension>:<module_name>\n     *\n     *  **Please note** For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n     *  compiler: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers\n     * @version 1.x - 3.x\n     ",
+      "start": 1316,
+      "end": 1898,
       "loc": {
         "start": {
-          "line": 55,
+          "line": 59,
           "column": 4
-        },
-        "end": {
-          "line": 61,
-          "column": 7
-        }
-      }
-    },
-    {
-      "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-      "start": 1495,
-      "end": 1585,
-      "loc": {
-        "start": {
-          "line": 63,
-          "column": 0
         },
         "end": {
           "line": 72,
-          "column": 3
-        }
-      }
-    },
-    {
-      "type": "CommentBlock",
-      "value": "*\n     * @desc\n     *  Provide options for formatters\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     *  formatOptions: JSON.stringify({ option: 'value' })\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     ",
-      "start": 1592,
-      "end": 1889,
-      "loc": {
-        "start": {
-          "line": 75,
-          "column": 4
-        },
-        "end": {
-          "line": 84,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 54 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-      "start": 1918,
-      "end": 2009,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+      "start": 1922,
+      "end": 2027,
       "loc": {
         "start": {
-          "line": 86,
+          "line": 74,
           "column": 0
         },
         "end": {
-          "line": 95,
+          "line": 83,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Specify additional output formats, optionally supply PATH to redirect formatter output\n     *\n     * @type {string[] | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     ",
+      "start": 2034,
+      "end": 2277,
+      "loc": {
+        "start": {
+          "line": 86,
+          "column": 4
+        },
+        "end": {
+          "line": 92,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+      "start": 2310,
+      "end": 2415,
+      "loc": {
+        "start": {
+          "line": 94,
+          "column": 0
+        },
+        "end": {
+          "line": 103,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Provide options for formatters\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     *  formatOptions: JSON.stringify({ option: 'value' })\n     *\n     * @type {object|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     ",
+      "start": 2422,
+      "end": 2726,
+      "loc": {
+        "start": {
+          "line": 106,
+          "column": 4
+        },
+        "end": {
+          "line": 115,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+      "start": 2764,
+      "end": 2855,
+      "loc": {
+        "start": {
+          "line": 117,
+          "column": 0
+        },
+        "end": {
+          "line": 126,
           "column": 3
         }
       }
@@ -1851,31 +2128,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Only execute the scenarios with name matching the expression.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features\n     ",
-      "start": 2016,
-      "end": 2241,
+      "start": 2862,
+      "end": 3087,
       "loc": {
         "start": {
-          "line": 98,
+          "line": 129,
           "column": 4
         },
         "end": {
-          "line": 104,
+          "line": 135,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-      "start": 2263,
-      "end": 2354,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+      "start": 3109,
+      "end": 3200,
       "loc": {
         "start": {
-          "line": 106,
+          "line": 137,
           "column": 0
         },
         "end": {
-          "line": 115,
+          "line": 146,
           "column": 3
         }
       }
@@ -1883,31 +2160,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  In order to store and reuse commonly used CLI options,\n     *  you can add a `cucumber.js` file to your project root directory.\n     *  The file should export an object where the key is the profile name\n     *  and the value is a string of CLI options.\n     *\n     *  The profile can be applied with -p <NAME> or --profile <NAME>.\n     *  This will prepend the profile's CLI options to the ones provided by the command line.\n     *  Multiple profiles can be specified at a time.\n     *\n     *  If no profile is specified and a profile named default exists,\n     *  it will be applied.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles\n     ",
-      "start": 2361,
-      "end": 3092,
+      "start": 3207,
+      "end": 3938,
       "loc": {
         "start": {
-          "line": 118,
+          "line": 149,
           "column": 4
         },
         "end": {
-          "line": 134,
+          "line": 165,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 88 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-      "start": 3117,
-      "end": 3207,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 108 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+      "start": 3963,
+      "end": 4054,
       "loc": {
         "start": {
-          "line": 136,
+          "line": 167,
           "column": 0
         },
         "end": {
-          "line": 145,
+          "line": 176,
           "column": 3
         }
       }
@@ -1915,31 +2192,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  The number of times to retry a failing scenario before marking it as failed.\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3\n     *\n     * @type {number}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
-      "start": 3215,
-      "end": 3548,
+      "start": 4062,
+      "end": 4395,
       "loc": {
         "start": {
-          "line": 149,
+          "line": 180,
           "column": 4
         },
         "end": {
-          "line": 160,
+          "line": 191,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 103 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-      "start": 3569,
-      "end": 3660,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 123 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+      "start": 4416,
+      "end": 4507,
       "loc": {
         "start": {
-          "line": 162,
+          "line": 193,
           "column": 0
         },
         "end": {
-          "line": 171,
+          "line": 202,
           "column": 3
         }
       }
@@ -1947,31 +2224,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Only retry tests matching the given [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3,\n     *  retryTagFilter: '@flaky',\n     *\n     * @type {string}\n     * @see  https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
-      "start": 3667,
-      "end": 4079,
+      "start": 4514,
+      "end": 4926,
       "loc": {
         "start": {
-          "line": 174,
+          "line": 205,
           "column": 4
         },
         "end": {
-          "line": 186,
+          "line": 217,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-      "start": 4108,
-      "end": 4200,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+      "start": 4955,
+      "end": 5047,
       "loc": {
         "start": {
-          "line": 188,
+          "line": 219,
           "column": 0
         },
         "end": {
-          "line": 197,
+          "line": 228,
           "column": 3
         }
       }
@@ -1979,31 +2256,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Require files or node modules before executing features\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 4.x and above</caption>\n     *  require: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files\n     ",
-      "start": 4207,
-      "end": 4557,
+      "start": 5054,
+      "end": 5404,
       "loc": {
         "start": {
-          "line": 200,
+          "line": 231,
           "column": 4
         },
         "end": {
-          "line": 209,
+          "line": 240,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 137 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-      "start": 4582,
-      "end": 4688,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 157 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+      "start": 5429,
+      "end": 5535,
       "loc": {
         "start": {
-          "line": 211,
+          "line": 242,
           "column": 0
         },
         "end": {
-          "line": 220,
+          "line": 251,
           "column": 3
         }
       }
@@ -2011,31 +2288,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Only run scenarios that match the given tags.\n     *\n     *  **Please note**: Cucumber 1.x requires the `tags` option to be an array of Cucumber tags,\n     *  while Cucumber 2.x and above uses a `string` with a [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: [ '@smoketest', '~@wip' ]\n     *\n     * @example <caption>Cucumber >= 2.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: '@smoketest and not @wip'\n     *\n     * @type {string[]|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber/tree/master/tag-expressions\n     ",
-      "start": 4695,
-      "end": 5632,
+      "start": 5542,
+      "end": 6479,
       "loc": {
         "start": {
-          "line": 223,
+          "line": 254,
           "column": 4
         },
         "end": {
-          "line": 242,
+          "line": 273,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
-      "start": 5663,
-      "end": 5755,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 166 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+      "start": 6510,
+      "end": 6602,
       "loc": {
         "start": {
-          "line": 244,
+          "line": 275,
           "column": 0
         },
         "end": {
-          "line": 253,
+          "line": 284,
           "column": 3
         }
       }
@@ -2043,47 +2320,47 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Fail if there are any undefined or pending steps\n     *\n     * @type {boolean}\n     * @see https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber\n     ",
-      "start": 5762,
-      "end": 6003,
+      "start": 6609,
+      "end": 6850,
       "loc": {
         "start": {
-          "line": 256,
+          "line": 287,
           "column": 4
         },
         "end": {
-          "line": 262,
+          "line": 293,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 158 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-      "start": 6026,
-      "end": 6118,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+      "start": 6873,
+      "end": 6979,
       "loc": {
         "start": {
-          "line": 264,
+          "line": 295,
           "column": 0
         },
         "end": {
-          "line": 273,
+          "line": 304,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @type {object}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
-      "start": 6125,
-      "end": 6487,
+      "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>worldParameters as string</caption>\n     *  worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @example <caption>worldParameters as object</caption>\n     *  worldParameters: { isDev: process.env.NODE_ENV !== 'production' }\n     *\n     * @type {object | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
+      "start": 6986,
+      "end": 7513,
       "loc": {
         "start": {
-          "line": 276,
+          "line": 307,
           "column": 4
         },
         "end": {
-          "line": 285,
+          "line": 319,
           "column": 7
         }
       }
