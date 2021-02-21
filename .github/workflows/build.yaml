@@ -158,7 +158,7 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
         node-version: [ 10.x, 12.x, 14.x ]
-      fail-fast: true
+      fail-fast: false
       max-parallel: 6
 
     steps:
