@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.23.1](https://github.com/serenity-js/serenity-js/compare/v2.23.0...v2.23.1) (2021-02-21)
+
+
+### Bug Fixes
+
+* **core:** refactored test runner adapters to introduce a common interface they all implement ([bf82e7c](https://github.com/serenity-js/serenity-js/commit/bf82e7c5c494f12cd9f372fa2e6bf9e432f0e14f))
+
+
+
+
+
 # [2.23.0](https://github.com/serenity-js/serenity-js/compare/v2.22.0...v2.23.0) (2021-02-16)
 
 **Note:** Version bump only for package @serenity-js/mocha

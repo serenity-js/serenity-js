@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.23.1](https://github.com/serenity-js/serenity-js/compare/v2.23.0...v2.23.1) (2021-02-21)
+
+
+### Bug Fixes
+
+* **core:** corrected error message produced by StageManager when async operations time out ([54e2c49](https://github.com/serenity-js/serenity-js/commit/54e2c494868c6d46121f0aa723cc3c88e2dfbe82))
+* **core:** FileSystem.remove doesn't complain if the file to be removed doesn't exist ([46492e4](https://github.com/serenity-js/serenity-js/commit/46492e49e920cba30c1a12dad1a2869184a7c355))
+* **core:** refactored test runner adapters to introduce a common interface they all implement ([bf82e7c](https://github.com/serenity-js/serenity-js/commit/bf82e7c5c494f12cd9f372fa2e6bf9e432f0e14f))
+* **cucumber:** add Cucumber 1.x 'colors` option to CucumberConfig ([044d0e7](https://github.com/serenity-js/serenity-js/commit/044d0e7f37d004e74c2dce4d67dfb69c983db321))
+* **cucumber:** CucumberConfig ignores empty values and supports specifying worldParameters as object ([8ecb882](https://github.com/serenity-js/serenity-js/commit/8ecb88260c8d20b400d66287ea20a7fa8ae1011c))
+* **protractor:** improved support for native Cucumber reporters ([2f4bdcf](https://github.com/serenity-js/serenity-js/commit/2f4bdcf35206b1f54bd19a0f7f84d4c3d0d34090)), closes [protractor-cucumber-framework/protractor-cucumber-framework#73](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/73)
+* **protractor:** native Cucumber.js formatters print to unique output files when needed ([bfef775](https://github.com/serenity-js/serenity-js/commit/bfef775fefff9be9f92167459f603a44d4450642)), closes [protractor-cucumber-framework/protractor-cucumber-framework#73](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/73)
+
+
+
+
+
 # [2.23.0](https://github.com/serenity-js/serenity-js/compare/v2.22.0...v2.23.0) (2021-02-16)
 
 
