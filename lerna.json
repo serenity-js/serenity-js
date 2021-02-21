@@ -2,6 +2,7 @@
   "lerna": "3.22.1",
   "loglevel": "info",
   "hoist": true,
+  "useWorkspaces": false,
   "nohoist": [
     "@types/jasmine",
     "@types/mocha",
@@ -13,10 +14,10 @@
     "jasmine"
   ],
   "packages": [
-    "documentation/*",
-    "examples/*",
-    "integration/*",
-    "packages/*"
+    "documentation/**",
+    "examples/**",
+    "integration/**",
+    "packages/**"
   ],
   "version": "2.23.0",
   "command": {
