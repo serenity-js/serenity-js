@@ -23,12 +23,12 @@ describe('@serenity-js/cucumber', function () {
 
         given([{
             runner: 'cucumber-1',
-            config: { format: 'pretty', colors: false },
-            expectedOutput: '✔ Given a step that passes'
+            config: { colors: false },
+            expectedOutput: '1 scenario (1 passed)'
         }, {
             runner: 'cucumber-2',
-            config: { format: 'pretty', formatOptions: { colorsEnabled: false } },
-            expectedOutput: '✔ Given a step that passes'
+            config: { formatOptions: { colorsEnabled: false } },
+            expectedOutput: '1 scenario (1 passed)'
         }, {
             runner: 'cucumber-3',
             config: { format: 'usage' },
