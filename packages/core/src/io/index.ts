@@ -2,6 +2,7 @@ export * from './collections';
 export * from './json';
 export * from './AssertionReportDiffer';
 export * from './commaSeparated';
+export * from './Config';
 export * from './ErrorSerialiser';
 export * from './ErrorStackParser';
 export * from './FileFinder';
