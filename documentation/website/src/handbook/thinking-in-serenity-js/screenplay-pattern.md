@@ -37,7 +37,7 @@ The key elements of the pattern are: actors, abilities, interactions, questions,
 
 ## Screenplay by example
 
-The best way to illustrate the Screenplay Pattern is through a practical example, so let's continue experimenting with the [TodoMVC application](http://todomvc.com/examples/angularjs/#/) we've introduced in the [previous chapter](handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html). And while Serenity/JS supports [several test runners](http://todomvc.com/examples/angularjs/#/) (including [Cucumber.js](/modules/cucumber/), which we'll look into later on in the book), we'll use [Jasmine](http://localhost:3000/modules/jasmine/) for now to keep things simple.
+The best way to illustrate the Screenplay Pattern is through a practical example, so let's continue experimenting with the [TodoMVC application](http://todomvc.com/examples/angularjs/#/) we've introduced in the [previous chapter](handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html). And while Serenity/JS supports [several test runners](http://todomvc.com/examples/angularjs/#/) (including [Cucumber.js](/modules/cucumber/), which we'll look into later on in the book), we'll use [Jasmine](https://serenity-js.org/modules/jasmine/) for now to keep things simple.
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
