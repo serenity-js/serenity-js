@@ -1,20 +1,22 @@
 # Serenity/JS
 
-[Serenity/JS](https://serenity-js.org) is a Node.js library designed to make acceptance and regression testing
+[Serenity/JS](https://serenity-js.org) is a framework designed to make acceptance and regression testing
 of modern full-stack applications faster, more collaborative and easier to scale.
 
 ## Serenity/JS Console Reporter
 
-The `@serenity-js/console-reporter` module reports the progress of your Serenity/JS tests to the terminal.
+`@serenity-js/console-reporter` module reports progress of your Serenity/JS tests to the terminal.
 
-The `ConsoleReporter` supports both colour and monochromatic output, as well as simple colour themes for terminals
+`ConsoleReporter` supports both colour and monochromatic output, as well as simple colour themes for terminals
 with dark and light backgrounds.
 
 ### Installation
 
 ```console
-npm install --save-dev @serenity-js/core @serenity-js/console-reporter
+npm install --save-dev @serenity-js/{core,console-reporter}
 ```
+
+Learn more about [Serenity/JS Console Reporter](https://serenity-js.org/handbook/reporting/console-reporter.html)
 
 #### Windows
 
