@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.23.2](https://github.com/serenity-js/serenity-js/compare/v2.23.1...v2.23.2) (2021-02-23)
+
+
+### Bug Fixes
+
+* **protractor:** optional Serenity/JS modules are marked as peerDependencies to avoid NPM installing them by default ([433afa1](https://github.com/serenity-js/serenity-js/commit/433afa1ab9d92635f14df50af6f0bf720e91c69e)), closes [npm/npm#3066](https://github.com/npm/npm/issues/3066)
+
+
+
+
+
 ## [2.23.1](https://github.com/serenity-js/serenity-js/compare/v2.23.0...v2.23.1) (2021-02-21)
 
 
