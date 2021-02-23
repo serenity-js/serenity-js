@@ -96,7 +96,7 @@
                 <aside id="sidebar" class="col-lg-3 col-md-12">
                     <nav class="toc navigation text-truncate">
                         <ul>
-                            <li><a href="changelog.html#"></a></li>
+                            <li><a href="changelog.html#2-23-1-2021-02-21-">2.23.1 (2021-02-21)</a></li>
                             <li><a href="changelog.html#2-20-1-2021-01-23-">2.20.1 (2021-01-23)</a></li>
                             <li><a href="changelog.html#2-19-10-2020-12-22-">2.19.10 (2020-12-22)</a></li>
                             <li><a href="changelog.html#2-19-9-2020-12-15-">2.19.9 (2020-12-15)</a></li>
@@ -307,6 +307,17 @@
                     <article class="content"><html><head></head><body><h1 id="change-log">Change Log</h1>
 <p>All notable changes to this project will be documented in this file.
 See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
+<h2 id="2-23-1-2021-02-21-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.23.0...v2.23.1">2.23.1</a> (2021-02-21)</h2>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li><strong>core:</strong> corrected error message produced by StageManager when async operations time out (<a href="https://github.com/serenity-js/serenity-js/commit/54e2c494868c6d46121f0aa723cc3c88e2dfbe82">54e2c49</a>)</li>
+<li><strong>core:</strong> FileSystem.remove doesn't complain if the file to be removed doesn't exist (<a href="https://github.com/serenity-js/serenity-js/commit/46492e49e920cba30c1a12dad1a2869184a7c355">46492e4</a>)</li>
+<li><strong>core:</strong> refactored test runner adapters to introduce a common interface they all implement (<a href="https://github.com/serenity-js/serenity-js/commit/bf82e7c5c494f12cd9f372fa2e6bf9e432f0e14f">bf82e7c</a>)</li>
+<li><strong>cucumber:</strong> add Cucumber 1.x 'colors` option to CucumberConfig (<a href="https://github.com/serenity-js/serenity-js/commit/044d0e7f37d004e74c2dce4d67dfb69c983db321">044d0e7</a>)</li>
+<li><strong>cucumber:</strong> CucumberConfig ignores empty values and supports specifying worldParameters as object (<a href="https://github.com/serenity-js/serenity-js/commit/8ecb88260c8d20b400d66287ea20a7fa8ae1011c">8ecb882</a>)</li>
+<li><strong>protractor:</strong> improved support for native Cucumber reporters (<a href="https://github.com/serenity-js/serenity-js/commit/2f4bdcf35206b1f54bd19a0f7f84d4c3d0d34090">2f4bdcf</a>), closes <a href="https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/73">protractor-cucumber-framework/protractor-cucumber-framework#73</a></li>
+<li><strong>protractor:</strong> native Cucumber.js formatters print to unique output files when needed (<a href="https://github.com/serenity-js/serenity-js/commit/bfef775fefff9be9f92167459f603a44d4450642">bfef775</a>), closes <a href="https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/73">protractor-cucumber-framework/protractor-cucumber-framework#73</a></li>
+</ul>
 <h1 id="2-23-0-2021-02-16-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.22.0...v2.23.0">2.23.0</a> (2021-02-16)</h1>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
@@ -1470,7 +1481,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
                 <ul class="ftr-column-list">
                     <li><a href="/handbook/">Serenity/JS Handbook</a></li>
                     <li><a href="/modules/">API docs</a></li>
-                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="https://github.com/serenity-js">Template projects</a></li>
                     <li><a href="https://github.com/serenity-js/serenity-js/tree/master/examples">Examples</a></li>
                 </ul>
             </div>
@@ -1478,17 +1489,15 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
                 <h5 class="ftr-column-title ">Support</h5>
                 <ul class="ftr-column-list">
                     <li><a href="/support.html">Free Support</a></li>
-                    <li><a href="/support.html#corporate-sponsorship-and-support">Commercial Support</a></li>
-                    <li><a href="/support.html#serenity-js-mentoring">Mentoring</a></li>
-                    <li><a href="/support.html#serenity-js-training">Training</a></li>
+                    <li><a href="/support.html#training-and-support-services">Training</a></li>
+                    <li><a href="/support.html#training-and-support-services">Commercial support</a></li>
                     <li><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
-                    <li><a href="https://gitter.im/serenity-js/Lobby">Chat on Gitter</a></li>
+                    <li><a href="https://gitter.im/serenity-js/Lobby">Community Chat</a></li>
                 </ul>
             </div>
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
                     <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
                     <li><a href="/license.html">License</a></li>

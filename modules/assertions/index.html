@@ -149,9 +149,17 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="serenity-js">Serenity/JS</h1><p><a href="https://serenity-js.org">Serenity/JS</a> is a Node.js library designed to make acceptance and regression testing
+                <article class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="serenity-js">Serenity/JS</h1><p><a href="https://serenity-js.org">Serenity/JS</a> is a framework designed to make acceptance and regression testing
 of modern full-stack applications faster, more collaborative and easier to scale.</p>
-<h2 id="serenity-js-assertions">Serenity/JS Assertions</h2><p>An assertion library implementing the Screenplay Pattern.</p>
+<p>Visit <a href="https://serenity-js.org/">serenity-js.org</a> for the <a href="https://serenity-js.org/handbook/">latest tutorials</a>
+and <a href="https://serenity-js.org/modules/assertions">API docs</a>, and follow <a href="https://twitter.com/SerenityJS">@SerenityJS</a> and <a href="https://twitter.com/JanMolak">@JanMolak</a> on Twitter for project updates.</p>
+<h3 id="learning-serenity-js">Learning Serenity/JS</h3><p>To learn more about Serenity/JS, check out the video below, read the <a href="https://serenity-js.org/handbook/thinking-in-serenity-js/index.html">tutorial</a>, review the <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">examples</a>, and create your own test suite with <a href="https://github.com/serenity-js">Serenity/JS template projects</a>.</p>
+<p>If you have any questions, join us on <a href="https://gitter.im/serenity-js/Lobby">Serenity/JS Community Chat</a>.</p>
+<p><a href="https://www.youtube.com/watch?v=djPMf-n93Rw"><img src="https://img.youtube.com/vi/djPMf-n93Rw/0.jpg" alt="Full-Stack Acceptance Testing with Serenity/JS and the Screenplay Pattern"></a></p>
+<h2 id="serenity-js-assertions">Serenity/JS Assertions</h2><p><a href="https://serenity-js.org/modules/rest/"><code>@serenity-js/assertions</code></a> is an assertions library implementing the <a href="https://serenity-js.org/handbook/thinking-in-serenity-js/screenplay-pattern.html">Screenplay Pattern</a>.</p>
+<h3 id="installation">Installation</h3><p>To install this module, run the following command in your computer terminal:</p>
+<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,assertions}</span>
+</code></pre>
 <h3 id="performing-verifications-using--code-ensure--code-">Performing verifications using <code>Ensure</code></h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { Ensure, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> { Website } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
@@ -224,7 +232,7 @@ actorCalled(<span class="hljs-string">'Erica'</span>).attemptsTo(
                 <ul class="ftr-column-list">
                     <li><a href="/handbook/">Serenity/JS Handbook</a></li>
                     <li><a href="/modules/">API docs</a></li>
-                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
+                    <li><a href="https://github.com/serenity-js">Template projects</a></li>
                     <li><a href="https://github.com/serenity-js/serenity-js/tree/master/examples">Examples</a></li>
                 </ul>
             </div>
@@ -232,17 +240,15 @@ actorCalled(<span class="hljs-string">'Erica'</span>).attemptsTo(
                 <h5 class="ftr-column-title ">Support</h5>
                 <ul class="ftr-column-list">
                     <li><a href="/support.html">Free Support</a></li>
-                    <li><a href="/support.html#corporate-sponsorship-and-support">Commercial Support</a></li>
-                    <li><a href="/support.html#serenity-js-mentoring">Mentoring</a></li>
-                    <li><a href="/support.html#serenity-js-training">Training</a></li>
+                    <li><a href="/support.html#training-and-support-services">Training</a></li>
+                    <li><a href="/support.html#training-and-support-services">Commercial support</a></li>
                     <li><a href="/community/sponsors.html">Serenity/JS Sponsors</a></li>
-                    <li><a href="https://gitter.im/serenity-js/Lobby">Chat on Gitter</a></li>
+                    <li><a href="https://gitter.im/serenity-js/Lobby">Community Chat</a></li>
                 </ul>
             </div>
             <div class="col-md-2 mr-auto col-sm-4">
                 <h5 class="ftr-column-title">Developers</h5>
                 <ul class="ftr-column-list">
-                    <li><a href="https://github.com/serenity-js">Project templates</a></li>
                     <li><a href="/contributing.html">Contribute</a></li>
                     <li><a href="/changelog.html">Changelog</a></li>
                     <li><a href="/license.html">License</a></li>
