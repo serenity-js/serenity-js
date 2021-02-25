@@ -13,12 +13,12 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {
         TestCaseHookDefinition          = moduleLoader.require('@cucumber/cucumber/lib/models/test_case_hook_definition').default;
 
     return class CucumberMessagesListener extends Formatter {
-        private static readonly fakeInternalAfterHookUri = '/internal/serenity-js/cucumber';
+        static readonly fakeInternalAfterHookUri = '/internal/serenity-js/cucumber';
 
-        private readonly parser: CucumberMessagesParser;
+        readonly parser: CucumberMessagesParser;
 
-        protected log: (buffer: string | Uint8Array) => void;
-        protected supportCodeLibrary: any;
+        log: (buffer: string | Uint8Array) => void;
+        supportCodeLibrary: any;
 
         constructor(options) {
             super(options);
@@ -76,7 +76,7 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {
             this.emit(new TestRunFinished(serenity.currentTime()));
         }
 
-        private addAfterHook(code: (...args: any) => Promise<void> | void) {
+        addAfterHook(code: (...args: any) => Promise<void> | void) {
             this.supportCodeLibrary.afterTestCaseHookDefinitions.unshift(
                 new TestCaseHookDefinition({
                     code,
@@ -88,7 +88,7 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {
             );
         }
 
-        private emit(events: DomainEvent[] | DomainEvent): void {
+        emit(events: DomainEvent[] | DomainEvent): void {
             [].concat(events).forEach(event => serenity.announce(event));
         }
     }
