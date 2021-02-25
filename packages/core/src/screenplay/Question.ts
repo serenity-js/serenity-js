@@ -152,6 +152,19 @@ export abstract class Question<T> {
      *  // => Question<Promise<number[]>>
      *  //      [ 10, 30, 60 ]
      *
+     * @example <caption>Extracting values from LastResponse.body()</caption>
+     *  import { Question } from '@serenity-js/core';
+     *  import { LastResponse } from '@serenity-js/rest';
+     *
+     *  interface UserDetails {
+     *      id: number;
+     *      name: string;
+     *  }
+     *
+     *  LastResponse.body<UserDetails>().map(actor => details => details.id)
+     *
+     *  // => Question<number>
+     *
      * @param {function(value: A, index?: number): Promise<O> | O} mapping
      *  A mapping function that receives a value of type `<A>`, which is either:
      *  - an answer to the original question, if the question is defined as `Question<Promise<A>>` or `Question<A>`
