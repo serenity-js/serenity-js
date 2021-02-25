@@ -28,7 +28,7 @@ describe('MochaTestMapper', () => {
 
         const outcome = mapper.outcomeOf(test);
 
-        expect(outcome).to.equal(new ExecutionSuccessful());
+        expect(outcome).to.be.instanceof(ExecutionSuccessful);
     });
 
     it('recognises pending tests', () => {
