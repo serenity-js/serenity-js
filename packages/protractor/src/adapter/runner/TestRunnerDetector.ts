@@ -11,11 +11,15 @@ import { TestRunnerLoader } from './TestRunnerLoader';
  */
 export class TestRunnerDetector {
 
+    static cucumberOpts = 'cucumberOpts';
+    static jasmineNodeOpts = 'jasmineNodeOpts';
+    static mochaOpts = 'mochaOpts';
+
     static protractorCliOptions() {
         return [
-            'cucumberOpts',
-            'jasmineNodeOpts',
-            'mochaOpts',
+            TestRunnerDetector.cucumberOpts,
+            TestRunnerDetector.jasmineNodeOpts,
+            TestRunnerDetector.mochaOpts,
         ];
     }
 
@@ -55,21 +59,30 @@ export class TestRunnerDetector {
     }
 
     private useJasmine(config: ProtractorConfig): TestRunnerAdapter {
-        return this.testRunnerLoader.forJasmine(config.jasmineNodeOpts || {});
+        return this.testRunnerLoader.forJasmine(this.mergedConfigFor(config, TestRunnerDetector.jasmineNodeOpts));
     }
 
     private useMocha(config: ProtractorConfig): TestRunnerAdapter {
-        return this.testRunnerLoader.forMocha(config.mochaOpts || {});
+        return this.testRunnerLoader.forMocha(this.mergedConfigFor(config, TestRunnerDetector.mochaOpts));
     }
 
     private useCucumber(config: ProtractorConfig): TestRunnerAdapter {
 
         const serenityReportingServicesConfigured  = config?.serenity?.crew?.length > 0;
 
-        return this.testRunnerLoader.forCucumber(config.cucumberOpts || {}, {
+        return this.testRunnerLoader.forCucumber(this.mergedConfigFor(config, TestRunnerDetector.cucumberOpts), {
             useStandardOutput:      serenityReportingServicesConfigured,
             uniqueFormatterOutputs: this.multiCapabilitiesOrTestShardingEnabled(config),
         })
+    }
+
+    private mergedConfigFor<K extends keyof ProtractorConfig>(config: ProtractorConfig = {}, key: K): ProtractorConfig[K] {
+        // tslint:disable-next-line:prefer-object-spread
+        return Object.assign(
+            {},
+            config[key],
+            (config.capabilities || {})[key],
+        );
     }
 
     private multiCapabilitiesOrTestShardingEnabled(config: ProtractorConfig): boolean {
