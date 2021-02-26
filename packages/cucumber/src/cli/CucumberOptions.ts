@@ -8,29 +8,34 @@ export class CucumberOptions {
     constructor(private readonly config: CucumberConfig) {
     }
 
+    isStrict(): boolean {
+        return this.config.strict ?? true;
+    }
+
     asArgumentsForCucumber(version: Version): string[] {
 
         return Object.keys(this.config)
             .reduce(
                 (acc, option: keyof CucumberConfig) =>
-                    acc.concat(this.optionToValues(option, this.config[option], version)),
+                    isNotEmpty(this.config[option])
+                        ? acc.concat(this.optionToValues(option, this.config[option], version))
+                        : acc,
 
                 // Cucumber ignores the first two arguments anyway, but let's add them for completeness
                 //  https://github.com/cucumber/cucumber-js/blob/d74bc45ba98132bdd0af62e0e52d1fe9ff017006/src/cli/helpers.js#L15
                 [ 'node', 'cucumber-js' ],
-            );
+            )
+            .concat(this.config.rerun ?? []);
     }
 
     private optionToValues<O extends keyof CucumberConfig>(option: O, value: CucumberConfig[O], version: Version): string[] {
         const cliOption = this.asCliOptionName(option);
 
         switch (true) {
+            case cliOption === 'tags' && version.isAtLeast(new Version('2.0.0')) && value !== false:
+                return this.valuesToArgs(cliOption, this.tagsToCucumberExpressions(listOf(value as string | string[])));
             case typeof value === 'boolean':
                 return listOf(this.flagToArg(cliOption, value as boolean));
-            case cliOption === 'tags' && version.isAtLeast(new Version('2.0.0')):
-                return this.valuesToArgs(cliOption, this.tagsToCucumberExpressions(listOf(value as string | string[])));
-            case this.shouldBeIgnored(value):
-                return [];
             case this.isObject(value):
                 return this.valuesToArgs(cliOption, JSON.stringify(value, null, 0));
             default:
@@ -42,13 +47,6 @@ export class CucumberOptions {
         return typeof value === 'object'
             && Array.isArray(value) === false
             && Object.prototype.toString.call(value) === '[object Object]';
-    }
-
-    private shouldBeIgnored(value: any): boolean {
-        return value === undefined
-            || value === null
-            || value === ''
-            || value === [];
     }
 
     /**
@@ -66,9 +64,10 @@ export class CucumberOptions {
             .toLowerCase();
     }
 
-    private tagsToCucumberExpressions(tags: string[]): string[] {
+    private tagsToCucumberExpressions(tags: string[]): string {
         return tags.filter(tag => !! tag.replace)
-                .map(tag => tag.replace(/~/g, 'not '));
+                .map(tag => tag.replace(/~/g, 'not '))
+                .join(' and ');
     }
 
     private flagToArg(option: string, value: boolean): string {
@@ -91,6 +90,13 @@ export class CucumberOptions {
     }
 }
 
+function isNotEmpty(value: any): boolean {
+    return value !== undefined
+        && value !== null
+        && value !== ''
+        && ! (Array.isArray(value) && value.length === 0);
+}
+
 function listOf<T>(valueOrValues: T | T[]): T[] {
-    return [].concat(valueOrValues);
+    return [].concat(valueOrValues).filter(isNotEmpty);
 }

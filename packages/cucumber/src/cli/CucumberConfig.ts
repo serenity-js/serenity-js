@@ -109,6 +109,19 @@ export interface CucumberConfig {
 
     /**
      * @desc
+     *  Relative path to an output file produced by Cucumber.js [`rerun` formatter](https://github.com/cucumber/cucumber-js/blob/master/features/rerun_formatter.feature).
+     *  Please note that the name of the output file *must* start with an `@` symbol.
+     *
+     * @example <caption>Saving details of failed scenarios to @rerun-output.txt</caption>
+     *  format: [ 'rerun:@rerun-output.txt' ]
+     *
+     * @example <caption>Re-running scenarios saved to @rerun-output.txt</caption>
+     *  rerun: '@rerun-output.txt'
+     */
+    rerun?: string;
+
+    /**
+     * @desc
      *  Only retry tests matching the given [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).
      *
      * @example <caption>Cucumber 7.x</caption>
