@@ -8,6 +8,55 @@ import { CucumberOptions } from '../../src/cli/CucumberOptions';
 /** @test {CucumberOptions} */
 describe('CucumberOptions', () => {
 
+    describe('strict mode', () => {
+
+        given([
+            new Version('1.0.0'),
+            new Version('2.0.0'),
+            new Version('3.0.0'),
+            new Version('4.0.0'),
+            new Version('5.0.0'),
+        ]).
+        it('is strict by default', (majorVersion: Version) => {
+            const options = new CucumberOptions({ });
+
+            expect(options.isStrict()).to.equal(true);
+
+            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js']);
+        });
+
+        given([
+            new Version('1.0.0'),
+            new Version('2.0.0'),
+            new Version('3.0.0'),
+            new Version('4.0.0'),
+            new Version('5.0.0'),
+        ]).
+        it('can be explicitly enabled', (majorVersion: Version) => {
+            const options = new CucumberOptions({ strict: true });
+
+            expect(options.isStrict()).to.equal(true);
+
+            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js', '--strict']);
+        });
+
+        given([
+            new Version('1.0.0'),
+            new Version('2.0.0'),
+            new Version('3.0.0'),
+            new Version('4.0.0'),
+            new Version('5.0.0'),
+        ]).
+        it('can be disabled', (majorVersion: Version) => {
+            const options = new CucumberOptions({ strict: false });
+
+            expect(options.isStrict()).to.equal(false);
+
+            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js', '--no-strict']);
+        });
+
+    });
+
     describe('when used to produce command line arguments for Cucumber CLI', () => {
 
         given([
@@ -25,11 +74,33 @@ describe('CucumberOptions', () => {
 
         describe('tags', () => {
 
+            const emptyTags = [
+                {   description: 'empty string',            tags: '',                   },
+                {   description: 'null',                    tags: null,                 },
+                {   description: 'undefined',               tags: undefined,            },
+                {   description: 'empty list',              tags: [],                   },
+                {   description: 'list with empty values',  tags: ['', null, undefined] },
+            ];
+
+            given(emptyTags).it('ignores empty tags when generating tag expressions (>=2.x)', ({ tags }) => {
+                const options = new CucumberOptions({ tags });
+
+                expect(options.asArgumentsForCucumber(new Version('2.0.0'))).to.deep.equal([
+                    'node', 'cucumber-js',
+                ]);
+            });
+
+            given(emptyTags).it('ignores empty tags when working with Cucumber 1.x', ({ tags }) => {
+                const options = new CucumberOptions({ tags });
+
+                expect(options.asArgumentsForCucumber(new Version('2.0.0'))).to.deep.equal([
+                    'node', 'cucumber-js',
+                ]);
+            });
+
             given([
                 new Version('2.0.0'),
                 new Version('3.0.0'),
-                new Version('4.0.0'),
-                new Version('5.0.0'),
             ]).
             it('converts a list of tags into a Cucumber expression for Cucumber 2.x and newer', (majorVersion: Version) => {
                 const options = new CucumberOptions({
@@ -41,7 +112,7 @@ describe('CucumberOptions', () => {
                 });
 
                 expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([
-                    'node', 'cucumber-js', '--tags', '@smoke-test', '--tags', 'not @wip', '--tags', 'not @failing and not @flaky',
+                    'node', 'cucumber-js', '--tags', '@smoke-test and not @wip and not @failing and not @flaky',
                 ]);
             });
 
