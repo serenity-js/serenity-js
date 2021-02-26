@@ -132,6 +132,7 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;
 <span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { MochaConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MochaConfig'</span>;
+<span class="hljs-keyword">import</span> { ExecutionIgnored, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -152,6 +153,16 @@
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: MochaConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
     </span>)</span> {
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Scenario success threshold for this test runner.
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Outcome | { Code: number }</span></span>}
+     */</span>
+    successThreshold(): Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> } {
+        <span class="hljs-keyword">return</span> ExecutionIgnored;
     }
 
     <span class="hljs-comment">/**

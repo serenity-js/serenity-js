@@ -188,7 +188,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/reporter/ProtractorReporter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinished, SceneFinishes, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, Description, ExecutionSuccessful, ProblemIndication, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { CorrelationId, Description, ExecutionSkipped, Outcome, ProblemIndication, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
 <span class="hljs-keyword">import</span> { Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> { ProtractorReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ProtractorReport'</span>;
@@ -201,13 +201,14 @@
 
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> runner: Runner,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> successThreshold: Outcome | { Code: <span class="hljs-built_in">number</span> } = ExecutionSkipped,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> reported: ProtractorReport = { failedCount: <span class="hljs-number">0</span>, specResults: [] },
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
     </span>)</span> {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-built_in">this</span>.runner, <span class="hljs-built_in">this</span>.reported, stage);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-built_in">this</span>.runner, <span class="hljs-built_in">this</span>.successThreshold, <span class="hljs-built_in">this</span>.reported, stage);
     }
 
     notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
@@ -219,19 +220,18 @@
             <span class="hljs-built_in">this</span>.afterEach();
         }
 
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinished &amp;&amp; event.outcome <span class="hljs-keyword">instanceof</span> ExecutionSuccessful) {
-            <span class="hljs-built_in">this</span>.recordSuccess(event);
-
-            <span class="hljs-built_in">this</span>.runner.emit(<span class="hljs-string">'testPass'</span>, {
-                <span class="hljs-attr">name</span>:       event.details.name.value,
-                <span class="hljs-attr">category</span>:   event.details.category.value,
-            });
-        }
-
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinished &amp;&amp; event.outcome <span class="hljs-keyword">instanceof</span> ProblemIndication) {
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinished &amp;&amp; event.outcome.isWorseThan(<span class="hljs-built_in">this</span>.successThreshold)) {
             <span class="hljs-built_in">this</span>.recordFailure(event);
 
             <span class="hljs-built_in">this</span>.runner.emit(<span class="hljs-string">'testFail'</span>, {
+                <span class="hljs-attr">name</span>: event.details.name.value,
+                <span class="hljs-attr">category</span>: event.details.category.value,
+            });
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneFinished &amp;&amp; ! event.outcome.isWorseThan(<span class="hljs-built_in">this</span>.successThreshold)) {
+            <span class="hljs-built_in">this</span>.recordSuccess(event);
+
+            <span class="hljs-built_in">this</span>.runner.emit(<span class="hljs-string">'testPass'</span>, {
                 <span class="hljs-attr">name</span>:       event.details.name.value,
                 <span class="hljs-attr">category</span>:   event.details.category.value,
             });

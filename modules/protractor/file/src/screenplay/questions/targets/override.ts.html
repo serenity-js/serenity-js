@@ -194,7 +194,7 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">override</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">object</span>, <span class="hljs-title">K</span> <span class="hljs-title">extends</span> <span class="hljs-title">keyof</span> <span class="hljs-title">T</span>&gt;(<span class="hljs-params">obj: T, name: K, implementation: T[K]</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>&lt;T&gt;(obj, {
-        <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params">o: T, prop: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>)</span> {
+        <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params">o: T, prop: <span class="hljs-built_in">string</span> | symbol</span>)</span> {
             <span class="hljs-keyword">return</span> prop === name
                 ? implementation
                 : obj[prop];

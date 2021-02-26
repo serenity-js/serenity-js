@@ -242,6 +242,19 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
+     *  Relative path to an output file produced by Cucumber.js [`rerun` formatter](https://github.com/cucumber/cucumber-js/blob/master/features/rerun_formatter.feature).
+     *  Please note that the name of the output file *must* start with an `@` symbol.
+     *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Saving details of failed scenarios to <span class="hljs-doctag">@rerun</span>-output.txt&lt;/caption&gt;
+     *  format: [ 'rerun:<span class="hljs-doctag">@rerun</span>-output.txt' ]
+     *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Re-running scenarios saved to <span class="hljs-doctag">@rerun</span>-output.txt&lt;/caption&gt;
+     *  rerun: '<span class="hljs-doctag">@rerun</span>-output.txt'
+     */</span>
+    rerun?: <span class="hljs-built_in">string</span>;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
      *  Only retry tests matching the given [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).
      *
      * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 7.x&lt;/caption&gt;

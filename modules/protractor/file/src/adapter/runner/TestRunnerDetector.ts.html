@@ -199,11 +199,15 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestRunnerDetector</span> </span>{
 
+    <span class="hljs-keyword">static</span> cucumberOpts = <span class="hljs-string">'cucumberOpts'</span>;
+    <span class="hljs-keyword">static</span> jasmineNodeOpts = <span class="hljs-string">'jasmineNodeOpts'</span>;
+    <span class="hljs-keyword">static</span> mochaOpts = <span class="hljs-string">'mochaOpts'</span>;
+
     <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">protractorCliOptions</span>(<span class="hljs-params"></span>)</span> {
         <span class="hljs-keyword">return</span> [
-            <span class="hljs-string">'cucumberOpts'</span>,
-            <span class="hljs-string">'jasmineNodeOpts'</span>,
-            <span class="hljs-string">'mochaOpts'</span>,
+            TestRunnerDetector.cucumberOpts,
+            TestRunnerDetector.jasmineNodeOpts,
+            TestRunnerDetector.mochaOpts,
         ];
     }
 
@@ -243,21 +247,30 @@
     }
 
     <span class="hljs-keyword">private</span> useJasmine(config: ProtractorConfig): TestRunnerAdapter {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testRunnerLoader.forJasmine(config.jasmineNodeOpts || {});
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testRunnerLoader.forJasmine(<span class="hljs-built_in">this</span>.mergedConfigFor(config, TestRunnerDetector.jasmineNodeOpts));
     }
 
     <span class="hljs-keyword">private</span> useMocha(config: ProtractorConfig): TestRunnerAdapter {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testRunnerLoader.forMocha(config.mochaOpts || {});
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testRunnerLoader.forMocha(<span class="hljs-built_in">this</span>.mergedConfigFor(config, TestRunnerDetector.mochaOpts));
     }
 
     <span class="hljs-keyword">private</span> useCucumber(config: ProtractorConfig): TestRunnerAdapter {
 
         <span class="hljs-keyword">const</span> serenityReportingServicesConfigured  = config?.serenity?.crew?.length &gt; <span class="hljs-number">0</span>;
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testRunnerLoader.forCucumber(config.cucumberOpts || {}, {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testRunnerLoader.forCucumber(<span class="hljs-built_in">this</span>.mergedConfigFor(config, TestRunnerDetector.cucumberOpts), {
             <span class="hljs-attr">useStandardOutput</span>:      serenityReportingServicesConfigured,
             <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-built_in">this</span>.multiCapabilitiesOrTestShardingEnabled(config),
         })
+    }
+
+    <span class="hljs-keyword">private</span> mergedConfigFor&lt;K <span class="hljs-keyword">extends</span> keyof ProtractorConfig&gt;(config: ProtractorConfig = {}, <span class="hljs-attr">key</span>: K): ProtractorConfig[K] {
+        <span class="hljs-comment">// tslint:disable-next-line:prefer-object-spread</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign(
+            {},
+            config[key],
+            (config.capabilities || {})[key],
+        );
     }
 
     <span class="hljs-keyword">private</span> multiCapabilitiesOrTestShardingEnabled(config: ProtractorConfig): <span class="hljs-built_in">boolean</span> {

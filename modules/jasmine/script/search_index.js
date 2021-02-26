@@ -1344,6 +1344,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/adapter/jasmineadapter.ts~jasmineadapter#successthreshold",
+    "class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html#instance-method-successThreshold",
+    "src/adapter/JasmineAdapter.ts~JasmineAdapter#successThreshold",
+    "method"
+  ],
+  [
     "src/adapter/jasmineconfig.ts",
     "file/src/adapter/JasmineConfig.ts.html",
     "src/adapter/JasmineConfig.ts",

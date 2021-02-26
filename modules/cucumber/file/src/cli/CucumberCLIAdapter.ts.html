@@ -133,6 +133,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberCLIAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file covered in integration tests */</span>
 <span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { ExecutionIgnored, ImplementationPending, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberConfig'</span>;
 <span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberOptions'</span>;
 <span class="hljs-keyword">import</span> { OutputDescriptor, SerenityFormatterOutput } <span class="hljs-keyword">from</span> <span class="hljs-string">'./output'</span>;
@@ -160,6 +161,18 @@
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> output: SerenityFormatterOutput,
     </span>)</span> {
         <span class="hljs-built_in">this</span>.options = <span class="hljs-keyword">new</span> CucumberOptions(config);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Scenario success threshold for this test runner, calculated based on {<span class="hljs-doctag">@link </span>CucumberConfig}
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Outcome | { Code: number }</span></span>}
+     */</span>
+    successThreshold(): Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> } {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.options.isStrict()
+            ? ExecutionIgnored
+            : ImplementationPending;
     }
 
     <span class="hljs-comment">/**
@@ -239,11 +252,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
             <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">'cucumber'</span>)
                 .Cli(argv.concat(<span class="hljs-string">'--require'</span>, pathToSerenityListener, ...pathsToScenarios))
-                .run(<span class="hljs-function">(<span class="hljs-params">wasSuccessful: <span class="hljs-built_in">boolean</span></span>) =&gt;</span>
-                    wasSuccessful
-                        ? resolve()
-                        : reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Cucumber test run has failed'</span>)),
-                );
+                .run(<span class="hljs-function">(<span class="hljs-params">wasSuccessful: <span class="hljs-built_in">boolean</span></span>) =&gt;</span> resolve());
         })
     }
 }

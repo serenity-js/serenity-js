@@ -141,29 +141,34 @@
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: CucumberConfig</span>)</span> {
     }
 
+    isStrict(): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.asBoolean(<span class="hljs-string">'strict'</span>, <span class="hljs-literal">true</span>);
+    }
+
     asArgumentsForCucumber(version: Version): <span class="hljs-built_in">string</span>[] {
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.config)
             .reduce(
                 <span class="hljs-function">(<span class="hljs-params">acc, option: keyof CucumberConfig</span>) =&gt;</span>
-                    acc.concat(<span class="hljs-built_in">this</span>.optionToValues(option, <span class="hljs-built_in">this</span>.config[option], version)),
+                    isNotEmpty(<span class="hljs-built_in">this</span>.config[option])
+                        ? acc.concat(<span class="hljs-built_in">this</span>.optionToValues(option, <span class="hljs-built_in">this</span>.config[option], version))
+                        : acc,
 
                 <span class="hljs-comment">// Cucumber ignores the first two arguments anyway, but let's add them for completeness</span>
                 <span class="hljs-comment">//  https://github.com/cucumber/cucumber-js/blob/d74bc45ba98132bdd0af62e0e52d1fe9ff017006/src/cli/helpers.js#L15</span>
                 [ <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span> ],
-            );
+            )
+            .concat(<span class="hljs-built_in">this</span>.config.rerun ?? []);
     }
 
     <span class="hljs-keyword">private</span> optionToValues&lt;O <span class="hljs-keyword">extends</span> keyof CucumberConfig&gt;(option: O, <span class="hljs-attr">value</span>: CucumberConfig[O], <span class="hljs-attr">version</span>: Version): <span class="hljs-built_in">string</span>[] {
         <span class="hljs-keyword">const</span> cliOption = <span class="hljs-built_in">this</span>.asCliOptionName(option);
 
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
+            <span class="hljs-keyword">case</span> cliOption === <span class="hljs-string">'tags'</span> &amp;&amp; version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>)) &amp;&amp; value !== <span class="hljs-literal">false</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, <span class="hljs-built_in">this</span>.tagsToCucumberExpressions(listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[])));
             <span class="hljs-keyword">case</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'boolean'</span>:
                 <span class="hljs-keyword">return</span> listOf(<span class="hljs-built_in">this</span>.flagToArg(cliOption, value <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>));
-            <span class="hljs-keyword">case</span> cliOption === <span class="hljs-string">'tags'</span> &amp;&amp; version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>)):
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, <span class="hljs-built_in">this</span>.tagsToCucumberExpressions(listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[])));
-            <span class="hljs-keyword">case</span> <span class="hljs-built_in">this</span>.shouldBeIgnored(value):
-                <span class="hljs-keyword">return</span> [];
             <span class="hljs-keyword">case</span> <span class="hljs-built_in">this</span>.isObject(value):
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, <span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">0</span>));
             <span class="hljs-keyword">default</span>:
@@ -171,17 +176,25 @@
         }
     }
 
+    <span class="hljs-keyword">private</span> asBoolean&lt;K <span class="hljs-keyword">extends</span> keyof CucumberConfig&gt;(key: K, <span class="hljs-attr">defaultValue</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-comment">// this method will need to be smarter if it was to be public, i.e. to avoid double negatives like noStrict=false</span>
+        <span class="hljs-keyword">const</span> negated = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-string">'no'</span> + name.charAt(<span class="hljs-number">0</span>).toUpperCase() + name.slice(<span class="hljs-number">1</span>);
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span>.config[key] === <span class="hljs-string">'boolean'</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.config[key] <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span>.config[negated(key)] === <span class="hljs-string">'boolean'</span>) {
+            <span class="hljs-keyword">return</span> ! <span class="hljs-built_in">this</span>.config[negated(key)] <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>;
+        }
+
+        <span class="hljs-keyword">return</span> defaultValue;
+    }
+
     <span class="hljs-keyword">private</span> isObject(value: <span class="hljs-built_in">any</span>): value is <span class="hljs-built_in">object</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'object'</span>
             &amp;&amp; <span class="hljs-built_in">Array</span>.isArray(value) === <span class="hljs-literal">false</span>
             &amp;&amp; <span class="hljs-built_in">Object</span>.prototype.toString.call(value) === <span class="hljs-string">'[object Object]'</span>;
-    }
-
-    <span class="hljs-keyword">private</span> shouldBeIgnored(value: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> value === <span class="hljs-literal">undefined</span>
-            || value === <span class="hljs-literal">null</span>
-            || value === <span class="hljs-string">''</span>
-            || value === [];
     }
 
     <span class="hljs-comment">/**
@@ -199,9 +212,10 @@
             .toLowerCase();
     }
 
-    <span class="hljs-keyword">private</span> tagsToCucumberExpressions(tags: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">string</span>[] {
+    <span class="hljs-keyword">private</span> tagsToCucumberExpressions(tags: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> tags.filter(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> !! tag.replace)
-                .map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> tag.replace(<span class="hljs-regexp">/~/g</span>, <span class="hljs-string">'not '</span>));
+                .map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> tag.replace(<span class="hljs-regexp">/~/g</span>, <span class="hljs-string">'not '</span>))
+                .join(<span class="hljs-string">' and '</span>);
     }
 
     <span class="hljs-keyword">private</span> flagToArg(option: <span class="hljs-built_in">string</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">string</span> {
@@ -224,8 +238,15 @@
     }
 }
 
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNotEmpty</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">boolean</span> </span>{
+    <span class="hljs-keyword">return</span> value !== <span class="hljs-literal">undefined</span>
+        &amp;&amp; value !== <span class="hljs-literal">null</span>
+        &amp;&amp; value !== <span class="hljs-string">''</span>
+        &amp;&amp; ! (<span class="hljs-built_in">Array</span>.isArray(value) &amp;&amp; value.length === <span class="hljs-number">0</span>);
+}
+
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listOf</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">valueOrValues: T | T[]</span>): <span class="hljs-title">T</span>[] </span>{
-    <span class="hljs-keyword">return</span> [].concat(valueOrValues);
+    <span class="hljs-keyword">return</span> [].concat(valueOrValues).filter(isNotEmpty);
 }
 </code></pre>
 

@@ -244,6 +244,23 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
                 expect(testRunnerLoader.forCucumber).to.have.been.calledWith(emptyRunnerConfig, defaultAdapterConfig);
             });
 
+            it(<span class="hljs-string">'merges cucumberOpts present in capabilities with root config'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                    <span class="hljs-attr">cucumberOpts</span>: {
+                        <span class="hljs-attr">tags</span>: [<span class="hljs-string">'@wip'</span>],
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'example scenario'</span>,
+                    },
+                    <span class="hljs-attr">capabilities</span>: {
+                        <span class="hljs-attr">cucumberOpts</span>: {
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">'different scenario'</span>,
+                        },
+                    }
+                });
+
+                expect(testRunnerLoader.forCucumber)
+                    .to.have.been.calledWith({ <span class="hljs-attr">tags</span>: [<span class="hljs-string">'@wip'</span>], <span class="hljs-attr">name</span>: <span class="hljs-string">'different scenario'</span> }, defaultAdapterConfig);
+            });
+
             describe(<span class="hljs-string">'instructs TestRunnerLoader'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 describe(<span class="hljs-string">'to take over standard output when the config'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -375,6 +392,22 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
 
                 expect(testRunnerLoader.forJasmine).to.have.been.calledWith({});
             });
+
+            it(<span class="hljs-string">'merges jasmineNodeOpts present in capabilities with root config'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                    <span class="hljs-attr">jasmineNodeOpts</span>: {
+                        <span class="hljs-attr">defaultTimeoutInterval</span>: <span class="hljs-number">5</span>,
+                    },
+                    <span class="hljs-attr">capabilities</span>: {
+                        <span class="hljs-attr">jasmineNodeOpts</span>: {
+                            <span class="hljs-attr">defaultTimeoutInterval</span>: <span class="hljs-number">10</span>,
+                        },
+                    }
+                });
+
+                expect(testRunnerLoader.forJasmine)
+                    .to.have.been.calledWith({ <span class="hljs-attr">defaultTimeoutInterval</span>: <span class="hljs-number">10</span> });
+            });
         });
 
         describe(<span class="hljs-string">'Mocha'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -409,6 +442,23 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
 
                 expect(testRunnerLoader.forMocha).to.have.been.calledWith({});
             });
+
+            it(<span class="hljs-string">'merges mochaOpts present in capabilities with root config'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                    <span class="hljs-attr">mochaOpts</span>: {
+                        <span class="hljs-attr">timeout</span>: <span class="hljs-number">5</span>,
+                    },
+                    <span class="hljs-attr">capabilities</span>: {
+                        <span class="hljs-attr">mochaOpts</span>: {
+                            <span class="hljs-attr">timeout</span>: <span class="hljs-number">10</span>,
+                        },
+                    }
+                });
+
+                expect(testRunnerLoader.forMocha)
+                    .to.have.been.calledWith({ <span class="hljs-attr">timeout</span>: <span class="hljs-number">10</span> });
+            });
+
         });
     });
 });

@@ -4122,6 +4122,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/io/testrunneradapter.ts~testrunneradapter#successthreshold",
+    "class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html#instance-member-successThreshold",
+    "src/io/TestRunnerAdapter.ts~TestRunnerAdapter#successThreshold",
+    "member"
+  ],
+  [
     "src/io/version.ts",
     "file/src/io/Version.ts.html",
     "src/io/Version.ts",

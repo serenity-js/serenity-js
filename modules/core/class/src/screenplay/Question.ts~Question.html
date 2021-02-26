@@ -975,7 +975,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/Question.ts.html#lineNumber243">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/Question.ts.html#lineNumber256">source</a></span></span>
     </span>
   </h3>
 
@@ -1073,6 +1073,20 @@
 
  <span class="hljs-comment">// =&gt; Question&lt;Promise&lt;number[]&gt;&gt;</span>
  <span class="hljs-comment">//      [ 10, 30, 60 ]</span></code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Extracting values from LastResponse.body()</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { LastResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+
+ <span class="hljs-keyword">interface</span> UserDetails {
+     <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+     name: <span class="hljs-built_in">string</span>;
+ }
+
+ LastResponse.body&lt;UserDetails&gt;().map(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">details</span> =&gt;</span> details.id)
+
+ <span class="hljs-comment">// =&gt; Question&lt;number&gt;</span></code></pre>
     </div>
 </div>
 

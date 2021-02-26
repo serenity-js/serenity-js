@@ -431,6 +431,19 @@
      *  // =&gt; Question&lt;Promise&lt;number[]&gt;&gt;
      *  //      [ 10, 30, 60 ]
      *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Extracting values from LastResponse.body()&lt;/caption&gt;
+     *  import { Question } from '<span class="hljs-doctag">@serenity</span>-js/core';
+     *  import { LastResponse } from '<span class="hljs-doctag">@serenity</span>-js/rest';
+     *
+     *  interface UserDetails {
+     *      id: number;
+     *      name: string;
+     *  }
+     *
+     *  LastResponse.body&lt;UserDetails&gt;().map(actor =&gt; details =&gt; details.id)
+     *
+     *  // =&gt; Question&lt;number&gt;
+     *
      * <span class="hljs-doctag">@param <span class="hljs-type">{function(value: A, index?: number): Promise&lt;O&gt; | O}</span> <span class="hljs-variable">mapping</span></span>
      *  A mapping function that receives a value of type `&lt;A&gt;`, which is either:
      *  - an answer to the original question, if the question is defined as `Question&lt;Promise&lt;A&gt;&gt;` or `Question&lt;A&gt;`

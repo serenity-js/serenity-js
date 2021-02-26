@@ -1176,6 +1176,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/adapter/mochaadapter.ts~mochaadapter#successthreshold",
+    "class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-successThreshold",
+    "src/adapter/MochaAdapter.ts~MochaAdapter#successThreshold",
+    "method"
+  ],
+  [
     "src/adapter/mochaconfig.ts",
     "file/src/adapter/MochaConfig.ts.html",
     "src/adapter/MochaConfig.ts",

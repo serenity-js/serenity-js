@@ -1051,6 +1051,12 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber9",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
     "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber8",
     "CucumberMessagesListener",
     "test"
@@ -1154,12 +1160,6 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber18",
-    "CucumberMessagesListener",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber9",
     "CucumberMessagesListener",
     "test"
   ],
@@ -1418,48 +1418,54 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber11",
+    "CucumberOptions strict mode",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber75",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber132",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber218",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI camelCase to kebab-case",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber151",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber237",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI empty values",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber63",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber149",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI flags",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber169",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber255",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI objects",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber114",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber200",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI other options",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber26",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber90",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI tags",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber48",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber134",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI tags passes the tags individually to Cucumber 1.x",
     "test"
   ],
@@ -1962,6 +1968,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/cli/cucumbercliadapter.ts~cucumbercliadapter#successthreshold",
+    "class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html#instance-method-successThreshold",
+    "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#successThreshold",
+    "method"
+  ],
+  [
     "src/cli/cucumberconfig.ts",
     "file/src/cli/CucumberConfig.ts.html",
     "src/cli/CucumberConfig.ts",
@@ -2007,6 +2019,12 @@ window.esdocSearchIndex = [
     "src/cli/cucumberconfig.ts~cucumberconfig#require",
     "class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-require",
     "src/cli/CucumberConfig.ts~CucumberConfig#require",
+    "member"
+  ],
+  [
+    "src/cli/cucumberconfig.ts~cucumberconfig#rerun",
+    "class/src/cli/CucumberConfig.ts~CucumberConfig.html#instance-member-rerun",
+    "src/cli/CucumberConfig.ts~CucumberConfig#rerun",
     "member"
   ],
   [

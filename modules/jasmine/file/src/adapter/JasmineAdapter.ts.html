@@ -133,6 +133,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> reporter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../index'</span>);
 <span class="hljs-keyword">import</span> { JasmineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./JasmineConfig'</span>;
+<span class="hljs-keyword">import</span> { ExecutionIgnored, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -151,6 +152,16 @@
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: JasmineConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
     </span>)</span> {
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Scenario success threshold for this test runner.
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Outcome | { Code: number }</span></span>}
+     */</span>
+    successThreshold(): Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> } {
+        <span class="hljs-keyword">return</span> ExecutionIgnored;
     }
 
     <span class="hljs-comment">/**

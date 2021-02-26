@@ -157,7 +157,7 @@ describe(<span class="hljs-string">'MochaTestMapper'</span>, <span class="hljs-f
 
         <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
 
-        expect(outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
+        expect(outcome).to.be.instanceof(ExecutionSuccessful);
     });
 
     it(<span class="hljs-string">'recognises pending tests'</span>, <span class="hljs-function">() =&gt;</span> {

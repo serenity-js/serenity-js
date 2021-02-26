@@ -146,12 +146,12 @@
         TestCaseHookDefinition          = moduleLoader.require(<span class="hljs-string">'@cucumber/cucumber/lib/models/test_case_hook_definition'</span>).default;
 
     <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CucumberMessagesListener</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Formatter</span> </span>{
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> fakeInternalAfterHookUri = <span class="hljs-string">'/internal/serenity-js/cucumber'</span>;
+        <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> fakeInternalAfterHookUri = <span class="hljs-string">'/internal/serenity-js/cucumber'</span>;
 
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> parser: CucumberMessagesParser;
+        <span class="hljs-keyword">readonly</span> parser: CucumberMessagesParser;
 
-        <span class="hljs-keyword">protected</span> log: <span class="hljs-function">(<span class="hljs-params">buffer: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Uint8Array</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-        <span class="hljs-keyword">protected</span> supportCodeLibrary: <span class="hljs-built_in">any</span>;
+        log: <span class="hljs-function">(<span class="hljs-params">buffer: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Uint8Array</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+        supportCodeLibrary: <span class="hljs-built_in">any</span>;
 
         <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">options</span>)</span> {
             <span class="hljs-built_in">super</span>(options);
@@ -209,7 +209,7 @@
             <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(serenity.currentTime()));
         }
 
-        <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">addAfterHook</span>(<span class="hljs-params">code: (...args: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span></span>)</span> {
+        <span class="hljs-function"><span class="hljs-title">addAfterHook</span>(<span class="hljs-params">code: (...args: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span></span>)</span> {
             <span class="hljs-built_in">this</span>.supportCodeLibrary.afterTestCaseHookDefinitions.unshift(
                 <span class="hljs-keyword">new</span> TestCaseHookDefinition({
                     code,
@@ -221,7 +221,7 @@
             );
         }
 
-        <span class="hljs-keyword">private</span> emit(events: DomainEvent[] | DomainEvent): <span class="hljs-built_in">void</span> {
+        emit(events: DomainEvent[] | DomainEvent): <span class="hljs-built_in">void</span> {
             [].concat(events).forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> serenity.announce(event));
         }
     }

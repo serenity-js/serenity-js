@@ -218,7 +218,7 @@
         <span class="hljs-keyword">const</span> noop      = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
 
         <span class="hljs-keyword">const</span> runner    = <span class="hljs-built_in">this</span>.detector.runnerFor(<span class="hljs-built_in">this</span>.protractorRunner.getConfig());
-        <span class="hljs-keyword">const</span> reporter  = <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-built_in">this</span>.protractorRunner);
+        <span class="hljs-keyword">const</span> reporter  = <span class="hljs-keyword">new</span> ProtractorReporter(<span class="hljs-built_in">this</span>.protractorRunner, runner.successThreshold());
 
         <span class="hljs-keyword">const</span> config    = deepmerge&lt;Config&gt;(<span class="hljs-built_in">this</span>.defaultConfig(), <span class="hljs-built_in">this</span>.protractorRunner.getConfig(), {
             <span class="hljs-attr">isMergeableObject</span>: isPlainObject,
@@ -229,7 +229,6 @@
             <span class="hljs-attr">actors</span>:         config.serenity.actors,
             <span class="hljs-attr">crew</span>:           [
                 BrowserDetector.with(StandardisedCapabilities.of(<span class="hljs-function">() =&gt;</span> protractor.browser)),
-                <span class="hljs-comment">//</span>
                 ...config.serenity.crew,
                 reporter,
             ],

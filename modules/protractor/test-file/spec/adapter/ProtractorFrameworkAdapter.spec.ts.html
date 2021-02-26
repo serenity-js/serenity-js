@@ -192,13 +192,14 @@
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { SceneFinished, SceneFinishes, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Category, CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { Category, CorrelationId, ExecutionFailedWithError, ExecutionIgnored, ExecutionSuccessful, Name, Outcome, ProblemIndication, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { ArtifactArchiver, Clock, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
 <span class="hljs-keyword">import</span> { Config, Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
 <span class="hljs-keyword">import</span> { ProtractorFrameworkAdapter, TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter'</span>;
 
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorFrameworkAdapter}</span> </span>*/</span>
 describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/*
@@ -473,6 +474,10 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleTestRunnerAdapter</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunnerAdapter</span> </span>{
 
         <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenityInstance: Serenity</span>)</span> {
+        }
+
+        successThreshold(): Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> } {
+            <span class="hljs-keyword">return</span> ExecutionIgnored;
         }
 
         run(scenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
