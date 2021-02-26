@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';
 import { MochaConfig } from './MochaConfig';
+import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
 
 /**
  * @desc
@@ -23,6 +24,16 @@ export class MochaAdapter implements TestRunnerAdapter {
         private readonly config: MochaConfig,
         private readonly loader: ModuleLoader,
     ) {
+    }
+
+    /**
+     * @desc
+     *  Scenario success threshold for this test runner.
+     *
+     * @returns {Outcome | { Code: number }}
+     */
+    successThreshold(): Outcome | { Code: number } {
+        return ExecutionIgnored;
     }
 
     /**

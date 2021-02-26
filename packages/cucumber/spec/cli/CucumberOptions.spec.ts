@@ -55,6 +55,21 @@ describe('CucumberOptions', () => {
             expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js', '--no-strict']);
         });
 
+        given([
+            new Version('1.0.0'),
+            new Version('2.0.0'),
+            new Version('3.0.0'),
+            new Version('4.0.0'),
+            new Version('5.0.0'),
+        ]).
+        it('can be disabled via cucumberOpts.noStrict', (majorVersion: Version) => {
+            const options = new CucumberOptions({ noStrict: true } as any);
+
+            expect(options.isStrict()).to.equal(false);
+
+            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js', '--no-strict']);
+        });
+
     });
 
     describe('when used to produce command line arguments for Cucumber CLI', () => {

@@ -1,5 +1,6 @@
 /* istanbul ignore file covered in integration tests */
 import { ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
+import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
 import { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';
 import { OutputDescriptor, SerenityFormatterOutput } from './output';
@@ -27,6 +28,18 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         private readonly output: SerenityFormatterOutput,
     ) {
         this.options = new CucumberOptions(config);
+    }
+
+    /**
+     * @desc
+     *  Scenario success threshold for this test runner, calculated based on {@link CucumberConfig}
+     *
+     * @returns {Outcome | { Code: number }}
+     */
+    successThreshold(): Outcome | { Code: number } {
+        return this.options.isStrict()
+            ? ExecutionIgnored
+            : ImplementationPending;
     }
 
     /**
@@ -106,11 +119,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         return new Promise((resolve, reject) => {
             this.loader.require('cucumber')
                 .Cli(argv.concat('--require', pathToSerenityListener, ...pathsToScenarios))
-                .run((wasSuccessful: boolean) =>
-                    wasSuccessful
-                        ? resolve()
-                        : reject(new Error('Cucumber test run has failed')),
-                );
+                .run((wasSuccessful: boolean) => resolve());
         })
     }
 }

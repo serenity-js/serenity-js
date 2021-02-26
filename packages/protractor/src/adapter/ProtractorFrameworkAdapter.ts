@@ -30,7 +30,7 @@ export class ProtractorFrameworkAdapter {
         const noop      = () => void 0;
 
         const runner    = this.detector.runnerFor(this.protractorRunner.getConfig());
-        const reporter  = new ProtractorReporter(this.protractorRunner);
+        const reporter  = new ProtractorReporter(this.protractorRunner, runner.successThreshold());
 
         const config    = deepmerge<Config>(this.defaultConfig(), this.protractorRunner.getConfig(), {
             isMergeableObject: isPlainObject,
@@ -41,7 +41,6 @@ export class ProtractorFrameworkAdapter {
             actors:         config.serenity.actors,
             crew:           [
                 BrowserDetector.with(StandardisedCapabilities.of(() => protractor.browser)),
-                //
                 ...config.serenity.crew,
                 reporter,
             ],
