@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.24.0](https://github.com/serenity-js/serenity-js/compare/v2.23.2...v2.24.0) (2021-02-26)
+
+
+### Features
+
+* **protractor:** suppport for Cucumber no-strict mode ([5d13bd5](https://github.com/serenity-js/serenity-js/commit/5d13bd5c7d582e04d801c92d71db42836305516b)), closes [protractor-cucumber-framework/protractor-cucumber-framework#181](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/181)
+
+
+
+
+
 ## [2.23.2](https://github.com/serenity-js/serenity-js/compare/v2.23.1...v2.23.2) (2021-02-23)
 
 **Note:** Version bump only for package @serenity-js/mocha
