@@ -56,6 +56,23 @@ describe('TestRunnerDetector', () => {
                 expect(testRunnerLoader.forCucumber).to.have.been.calledWith(emptyRunnerConfig, defaultAdapterConfig);
             });
 
+            it('merges cucumberOpts present in capabilities with root config', () => {
+                const runner = detector.runnerFor({
+                    cucumberOpts: {
+                        tags: ['@wip'],
+                        name: 'example scenario',
+                    },
+                    capabilities: {
+                        cucumberOpts: {
+                            name: 'different scenario',
+                        },
+                    }
+                });
+
+                expect(testRunnerLoader.forCucumber)
+                    .to.have.been.calledWith({ tags: ['@wip'], name: 'different scenario' }, defaultAdapterConfig);
+            });
+
             describe('instructs TestRunnerLoader', () => {
 
                 describe('to take over standard output when the config', () => {
@@ -187,6 +204,22 @@ describe('TestRunnerDetector', () => {
 
                 expect(testRunnerLoader.forJasmine).to.have.been.calledWith({});
             });
+
+            it('merges jasmineNodeOpts present in capabilities with root config', () => {
+                const runner = detector.runnerFor({
+                    jasmineNodeOpts: {
+                        defaultTimeoutInterval: 5,
+                    },
+                    capabilities: {
+                        jasmineNodeOpts: {
+                            defaultTimeoutInterval: 10,
+                        },
+                    }
+                });
+
+                expect(testRunnerLoader.forJasmine)
+                    .to.have.been.calledWith({ defaultTimeoutInterval: 10 });
+            });
         });
 
         describe('Mocha', () => {
@@ -221,6 +254,23 @@ describe('TestRunnerDetector', () => {
 
                 expect(testRunnerLoader.forMocha).to.have.been.calledWith({});
             });
+
+            it('merges mochaOpts present in capabilities with root config', () => {
+                const runner = detector.runnerFor({
+                    mochaOpts: {
+                        timeout: 5,
+                    },
+                    capabilities: {
+                        mochaOpts: {
+                            timeout: 10,
+                        },
+                    }
+                });
+
+                expect(testRunnerLoader.forMocha)
+                    .to.have.been.calledWith({ timeout: 10 });
+            });
+
         });
     });
 });
