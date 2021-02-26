@@ -4,13 +4,14 @@ import { expect } from '@integration/testing-tools';
 import { Serenity } from '@serenity-js/core';
 import { SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
-import { Category, CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, Name, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { Category, CorrelationId, ExecutionFailedWithError, ExecutionIgnored, ExecutionSuccessful, Name, Outcome, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { ArtifactArchiver, Clock, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Config, Runner } from 'protractor';
 import * as sinon from 'sinon';
 
 import { ProtractorFrameworkAdapter, TestRunnerDetector } from '../../src/adapter';
 
+/** @test {ProtractorFrameworkAdapter} */
 describe('ProtractorFrameworkAdapter', () => {
 
     /*
@@ -285,6 +286,10 @@ describe('ProtractorFrameworkAdapter', () => {
     class SimpleTestRunnerAdapter implements TestRunnerAdapter {
 
         constructor(private readonly serenityInstance: Serenity) {
+        }
+
+        successThreshold(): Outcome | { Code: number } {
+            return ExecutionIgnored;
         }
 
         run(scenarios: string[]): Promise<void> {

@@ -1,6 +1,7 @@
 import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';
 import reporter = require('../index');
 import { JasmineConfig } from './JasmineConfig';
+import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
 
 /**
  * @desc
@@ -19,6 +20,16 @@ export class JasmineAdapter implements TestRunnerAdapter {
         private readonly config: JasmineConfig,
         private readonly loader: ModuleLoader,
     ) {
+    }
+
+    /**
+     * @desc
+     *  Scenario success threshold for this test runner.
+     *
+     * @returns {Outcome | { Code: number }}
+     */
+    successThreshold(): Outcome | { Code: number } {
+        return ExecutionIgnored;
     }
 
     /**

@@ -9,7 +9,7 @@ export class CucumberOptions {
     }
 
     isStrict(): boolean {
-        return this.config.strict ?? true;
+        return this.asBoolean('strict', true);
     }
 
     asArgumentsForCucumber(version: Version): string[] {
@@ -41,6 +41,21 @@ export class CucumberOptions {
             default:
                 return this.valuesToArgs(cliOption, listOf(value as string | string[]));
         }
+    }
+
+    private asBoolean<K extends keyof CucumberConfig>(key: K, defaultValue: boolean): boolean {
+        // this method will need to be smarter if it was to be public, i.e. to avoid double negatives like noStrict=false
+        const negated = (name: string) => 'no' + name.charAt(0).toUpperCase() + name.slice(1);
+
+        if (typeof this.config[key] === 'boolean') {
+            return this.config[key] as boolean;
+        }
+
+        if (typeof this.config[negated(key)] === 'boolean') {
+            return ! this.config[negated(key)] as boolean;
+        }
+
+        return defaultValue;
     }
 
     private isObject(value: any): value is object {

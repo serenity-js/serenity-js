@@ -1,6 +1,6 @@
 import { Stage } from '@serenity-js/core';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSuccessful, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
+import { CorrelationId, Description, ExecutionSkipped, Outcome, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
 import { StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Runner } from 'protractor';
 import { ProtractorReport } from './ProtractorReport';
@@ -13,13 +13,14 @@ export class ProtractorReporter implements StageCrewMember {
 
     constructor(
         private readonly runner: Runner,
+        private readonly successThreshold: Outcome | { Code: number } = ExecutionSkipped,
         private readonly reported: ProtractorReport = { failedCount: 0, specResults: [] },
         private readonly stage: Stage = null,
     ) {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
-        return new ProtractorReporter(this.runner, this.reported, stage);
+        return new ProtractorReporter(this.runner, this.successThreshold, this.reported, stage);
     }
 
     notifyOf(event: DomainEvent): void {
@@ -31,19 +32,18 @@ export class ProtractorReporter implements StageCrewMember {
             this.afterEach();
         }
 
-        else if (event instanceof SceneFinished && event.outcome instanceof ExecutionSuccessful) {
-            this.recordSuccess(event);
-
-            this.runner.emit('testPass', {
-                name:       event.details.name.value,
-                category:   event.details.category.value,
-            });
-        }
-
-        else if (event instanceof SceneFinished && event.outcome instanceof ProblemIndication) {
+        else if (event instanceof SceneFinished && event.outcome.isWorseThan(this.successThreshold)) {
             this.recordFailure(event);
 
             this.runner.emit('testFail', {
+                name: event.details.name.value,
+                category: event.details.category.value,
+            });
+        }
+        else if (event instanceof SceneFinished && ! event.outcome.isWorseThan(this.successThreshold)) {
+            this.recordSuccess(event);
+
+            this.runner.emit('testPass', {
                 name:       event.details.name.value,
                 category:   event.details.category.value,
             });
