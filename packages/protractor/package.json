@@ -45,8 +45,8 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": ">= 10",
-    "npm": ">= 6"
+    "node": "^10 || ^12 || ^14",
+    "npm": "^6 || ^7"
   },
   "dependencies": {
     "@serenity-js/core": "2.24.0",
@@ -60,6 +60,17 @@
     "@serenity-js/mocha": "2.23.1",
     "protractor": "^5.0.0 || ^7.0.0",
     "selenium-webdriver": "^3.6.0"
+  },
+  "peerDependenciesMeta": {
+    "@serenity-js/cucumber": {
+      "optional": true
+    },
+    "@serenity-js/jasmine": {
+      "optional": true
+    },
+    "@serenity-js/mocha": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@documentation/esdoc-template": "2.23.1",
