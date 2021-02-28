@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.24.1](https://github.com/serenity-js/serenity-js/compare/v2.24.0...v2.24.1) (2021-02-28)
+
+
+### Bug Fixes
+
+* **core:** corrected package.json to mention all the Node and NPM versions supported by Serenity/JS ([9fff39a](https://github.com/serenity-js/serenity-js/commit/9fff39a962ad6e75596e0c8e3f8534a67c20d001))
+
+
+
+
+
 # [2.24.0](https://github.com/serenity-js/serenity-js/compare/v2.23.2...v2.24.0) (2021-02-26)
 
 **Note:** Version bump only for package @integration/cucumber-6-runner
