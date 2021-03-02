@@ -342,4 +342,4 @@ While adding Cucumber into the mix could help to capture the business language a
 
 To find out what that is, we might need to change the way we think about our tests.
 
-We need to start [thinking in Serenity/JS](/handbook/thinking-in-serenity-js/screenplay-by-example.html).
+We need to start [thinking in Serenity/JS](/handbook/thinking-in-serenity-js/index.html).
