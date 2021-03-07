@@ -8,7 +8,7 @@ import { WaitBuilder } from './WaitBuilder';
 /**
  * @desc
  *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  wait before proceeding either for a set {@link @serenity-js/core~Duration}
+ *  wait before proceeding either for a set {@link @serenity-js/core/lib/model~Duration}
  *  or until a given {@link @serenity-js/assertions~Expectation} is met.
  *
  *  Useful when a test scenario can't take advantage of automatic synchronisation between
