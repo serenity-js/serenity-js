@@ -1,7 +1,6 @@
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 import { withAnswerOf } from '../../withAnswerOf';
-import { RelativeQuestion } from '../RelativeQuestion';
 import { override } from './override';
 
 /**
@@ -14,7 +13,7 @@ import { override } from './override';
  */
 export class TargetNestedElements
     extends Question<ElementArrayFinder>
-    implements RelativeQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder>
+    implements MetaQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder>
 {
 
     /**

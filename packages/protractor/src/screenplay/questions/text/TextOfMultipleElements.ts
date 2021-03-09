@@ -1,8 +1,7 @@
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 
 import { withAnswerOf } from '../../withAnswerOf';
-import { RelativeQuestion } from '../RelativeQuestion';
 import { TargetNestedElements } from '../targets';
 
 /**
@@ -10,7 +9,7 @@ import { TargetNestedElements } from '../targets';
  */
 export class TextOfMultipleElements
     extends Question<Promise<string[]>>
-    implements RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>
+    implements MetaQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>
 {
     constructor(protected readonly target: Question<ElementArrayFinder> | ElementArrayFinder) {
         super(`the text of ${ target }`);
