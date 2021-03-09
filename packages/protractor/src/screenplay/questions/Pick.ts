@@ -1,7 +1,6 @@
 import { Expectation, ExpectationMet } from '@serenity-js/assertions';
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { RelativeQuestion } from './RelativeQuestion';
 
 export interface Collection<T> {
     filter(fn: (item: T, index?: number) => boolean | Promise<boolean>): Collection<T>;
@@ -48,7 +47,7 @@ export class Pick<Item_Type, Collection_Type extends Collection<Item_Type> = Col
     }
 
     where<Property_Type>(
-        question: RelativeQuestion<Item_Type, Promise<Property_Type> | Property_Type>,
+        question: MetaQuestion<Item_Type, Promise<Property_Type> | Property_Type>,
         expectation: Expectation<any, Promise<Property_Type> | Property_Type>,
     ): Pick<Item_Type, Collection_Type> {
         return new Pick<Item_Type, Collection_Type>(
@@ -108,7 +107,7 @@ class Filter<Item_Type, Collection_Type extends Collection<Item_Type>, Property_
     extends Question<(ct: Collection_Type) => Collection_Type>
 {
     constructor(
-        private readonly question: RelativeQuestion<Item_Type, Promise<Property_Type> | Property_Type>,
+        private readonly question: MetaQuestion<Item_Type, Promise<Property_Type> | Property_Type>,
         private readonly expectation: Expectation<any, Promise<Property_Type> | Property_Type>,
     ) {
         super(formatted `${ question } does ${ expectation }`);

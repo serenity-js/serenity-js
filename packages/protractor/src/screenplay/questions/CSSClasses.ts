@@ -1,13 +1,12 @@
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { Attribute } from './Attribute';
-import { RelativeQuestion } from './RelativeQuestion';
 import { TargetNestedElement } from './targets';
 
 export class CSSClasses
     extends Question<Promise<string[]>>
-    implements RelativeQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>
+    implements MetaQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>
 {
     static of(target: Question<ElementFinder> | ElementFinder) {
         return new CSSClasses(target);
