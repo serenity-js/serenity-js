@@ -1,5 +1,5 @@
-import { Check, equals, not } from '@serenity-js/assertions';
-import { AnswersQuestions, Log, Note, PerformsActivities, Question, TakeNote, Task, UsesAbilities } from '@serenity-js/core';
+import { equals } from '@serenity-js/assertions';
+import { AnswersQuestions, Check, PerformsActivities, Question, Task, UsesAbilities } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { Spawn } from '../interactions';
 import { TerminateFlow } from '../interactions/TerminateFlow';

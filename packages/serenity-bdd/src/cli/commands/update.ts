@@ -1,5 +1,5 @@
-import { Check, isTrue } from '@serenity-js/assertions';
-import { actorCalled, configure } from '@serenity-js/core';
+import { isTrue } from '@serenity-js/assertions';
+import { actorCalled, Check, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { URL } from 'url';
 

@@ -1,15 +1,17 @@
 import 'mocha';
-import { expect } from '@integration/testing-tools';
-import { actorCalled, Interaction } from '@serenity-js/core';
 import * as sinon from 'sinon';
 
-import { Check, equals, startsWith } from '../src';
-import { isIdenticalTo } from './fixtures';
+import { expect } from '../../expect';
+import { actorCalled, Check, Expectation, Interaction } from '../../../src';
 
 /** @test {Check} */
 describe('Check', () => {
 
     const Call = (fn: () => void) => Interaction.where(`#actor calls a function`, actor => fn());
+
+    const isIdenticalTo = <T>(expected: T) =>
+        Expectation.thatActualShould<T, T>('have value identical to', expected)
+            .soThat((actualValue: T, expectedValue: T) => actualValue === expectedValue);
 
     let spy: sinon.SinonSpy;
     beforeEach(() => spy = sinon.spy());
@@ -20,7 +22,7 @@ describe('Check', () => {
         /** @test {Check#andIfSo} */
         it('makes the actor execute the activities when the expectation is met', () =>
             expect(actorCalled('Enrique').attemptsTo(
-                Check.whether('Hello World', startsWith('Hello'))
+                Check.whether('Hello World', isIdenticalTo('Hello World'))
                     .andIfSo(
                         Call(() => spy(true)),
                         Call(() => spy(true)),
@@ -35,7 +37,7 @@ describe('Check', () => {
         /** @test {Check#andIfSo} */
         it('makes the actor ignore the activities when the expectation is not met', () =>
             expect(actorCalled('Enrique').attemptsTo(
-                Check.whether('Hello World', startsWith('¡Hola'))
+                Check.whether('Hello World', isIdenticalTo('¡Hola'))
                     .andIfSo(
                         Call(() => spy(true)),
                     ),
@@ -52,7 +54,7 @@ describe('Check', () => {
         /** @test {Check#otherwise} */
         it('makes the actor execute the activities when the expectation is met', () =>
             expect(actorCalled('Enrique').attemptsTo(
-                Check.whether('Hello World', startsWith('Hello'))
+                Check.whether('Hello World', isIdenticalTo('Hello World'))
                     .andIfSo(
                         Call(() => spy(true)),
                     )
@@ -70,7 +72,7 @@ describe('Check', () => {
         /** @test {Check#otherwise} */
         it('makes the actor execute the alternative activities when the expectation is not met', () =>
             expect(actorCalled('Enrique').attemptsTo(
-                Check.whether('Hello World', startsWith('¡Hola'))
+                Check.whether('Hello World', isIdenticalTo('¡Hola'))
                     .andIfSo(
                         Call(() => spy(true)),
                     )
@@ -95,11 +97,11 @@ describe('Check', () => {
         /** @test {Check.whether} */
         /** @test {Check#whether} */
         it('provides a description of the check while correctly cleaning the output from new line characters', () => {
-            expect(Check.whether({ person: { name: 'Jan' }}, equals({
+            expect(Check.whether({ person: { name: 'Jan' }}, isIdenticalTo({
                 person: {
                     name: 'Jan',
                 },
-            })).andIfSo().toString()).to.equal(`#actor checks whether { "person": { "name": "Jan" } } does equal { "person": { "name": "Jan" } }`);
+            })).andIfSo().toString()).to.equal(`#actor checks whether { "person": { "name": "Jan" } } does have value identical to { "person": { "name": "Jan" } }`);
         });
     })
 });
