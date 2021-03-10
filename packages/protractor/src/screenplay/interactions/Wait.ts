@@ -1,5 +1,4 @@
-import { Expectation, ExpectationMet, Outcome } from '@serenity-js/assertions';
-import { Answerable, AnswersQuestions, AssertionError, Duration, Interaction, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, AssertionError, Duration, Expectation, ExpectationMet, ExpectationOutcome, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWeb } from '../abilities';
@@ -9,7 +8,7 @@ import { WaitBuilder } from './WaitBuilder';
  * @desc
  *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
  *  wait before proceeding either for a set {@link @serenity-js/core/lib/model~Duration}
- *  or until a given {@link @serenity-js/assertions~Expectation} is met.
+ *  or until a given {@link @serenity-js/core/lib/screenplay/questions~Expectation} is met.
  *
  *  Useful when a test scenario can't take advantage of automatic synchronisation between
  *  Protractor and Angular (see {@link UseAngular}), or when the application under test is animation-heavy.
@@ -152,10 +151,10 @@ export class Wait {
      *  A {@link @serenity-js/core/lib/screenplay~Question}
      *  that the {@link @serenity-js/core/lib/screenplay/actor~Actor}
      *  will keep asking until the answer meets
-     *  the {@link @serenity-js/assertions~Expectation} provided
+     *  the {@link @serenity-js/core/lib/screenplay/questions~Expectation} provided
      *
-     * @param {Expectation<any,Actual>} expectation
-     *  An {@link @serenity-js/assertions~Expectation} to be met before proceeding
+     * @param {@serenity-js/core/lib/screenplay/questions~<any,Actual>} expectation
+     *  An {@link @serenity-js/core/lib/screenplay/questions~Expectation} to be met before proceeding
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
@@ -229,7 +228,7 @@ class WaitUntil<Actual> extends Interaction {
             actual      = this.actual,
             expectation = this.expectation.answeredBy(actor);
 
-        let expectationOutcome: Outcome<any, Actual>;
+        let expectationOutcome: ExpectationOutcome<any, Actual>;
 
         return BrowseTheWeb.as(actor)
             .wait(function () {

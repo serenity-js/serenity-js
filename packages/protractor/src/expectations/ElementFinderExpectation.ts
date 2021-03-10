@@ -1,5 +1,4 @@
-import { Expectation, ExpectationMet, ExpectationNotMet, Outcome } from '@serenity-js/assertions';
-import { AnswersQuestions } from '@serenity-js/core';
+import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 import { ElementFinder } from 'protractor';
 import { promiseOf } from '../promiseOf';
 
@@ -18,7 +17,7 @@ export class ElementFinderExpectation extends Expectation<any, ElementFinder> {
         super(subject);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: ElementFinder) => Promise<Outcome<boolean, ElementFinder>> {
+    answeredBy(actor: AnswersQuestions): (actual: ElementFinder) => Promise<ExpectationOutcome<boolean, ElementFinder>> {
 
         return (actual: ElementFinder) =>
             promiseOf(this.fn(actual)).then(_ => _

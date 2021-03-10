@@ -1,5 +1,4 @@
-import { Question } from '@serenity-js/core';
-import { Expectation } from '../src';
+import { Expectation, Question } from '@serenity-js/core';
 
 export function p<T>(value: T) {
     return Promise.resolve(value);

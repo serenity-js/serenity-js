@@ -1,8 +1,5 @@
-import { AnswersQuestions } from '@serenity-js/core';
+import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 import { match } from 'tiny-types';
-
-import { Expectation } from '../Expectation';
-import { ExpectationMet, ExpectationNotMet, Outcome } from '../outcomes';
 
 export function not<Expected, Actual>(assertion: Expectation<Expected, Actual>): Expectation<Expected, Actual> {
     return new Not<Expected, Actual>(assertion);
@@ -22,12 +19,12 @@ class Not<Expected, Actual> extends Expectation<Expected, Actual> {
         super(Not.flipped(expectation.toString()));
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Expected, Actual>> {
+    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>> {
 
         return (actual: any) =>
             this.expectation.answeredBy(actor)(actual)
-                .then((outcome: Outcome<Expected, Actual>) =>
-                    match<Outcome<Expected, Actual>, Outcome<Expected, Actual>>(outcome)
+                .then((outcome: ExpectationOutcome<Expected, Actual>) =>
+                    match<ExpectationOutcome<Expected, Actual>, ExpectationOutcome<Expected, Actual>>(outcome)
                         .when(ExpectationMet, o => new ExpectationNotMet(this.subject, o.expected, o.actual))
                         .else(o => new ExpectationMet(this.subject, o.expected, o.actual)));
     }

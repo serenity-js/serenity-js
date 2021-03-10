@@ -1,5 +1,4 @@
-import { Expectation, ExpectationMet } from '@serenity-js/assertions';
-import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, Expectation, ExpectationMet, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
 export interface Collection<T> {

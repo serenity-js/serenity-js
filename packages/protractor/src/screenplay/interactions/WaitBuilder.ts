@@ -1,5 +1,4 @@
-import { Expectation } from '@serenity-js/assertions';
-import { Answerable } from '@serenity-js/core';
+import { Answerable, Expectation } from '@serenity-js/core';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
 /**
@@ -23,9 +22,9 @@ export interface WaitBuilder {
      *  A {@link @serenity-js/core/lib/screenplay~Question}
      *  that the {@link @serenity-js/core/lib/screenplay/actor~Actor}
      *  will keep asking until the answer meets
-     *  the {@link @serenity-js/assertions~Expectation} provided
+     *  the {@link @serenity-js/core/lib/screenplay/questions~Expectation} provided
      *
-     * @param {Expectation<any,Actual>} expectation
+     * @param {@serenity-js/core/lib/screenplay/questions~Expectation<any,Actual>} expectation
      *  An {@link @serenity-js/assertions~Expectation} to be met before proceeding
      *
      * @returns {Interaction}

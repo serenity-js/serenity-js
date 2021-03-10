@@ -1,8 +1,5 @@
-import { AnswersQuestions } from '@serenity-js/core';
+import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-
-import { Expectation } from '../Expectation';
-import { ExpectationMet, ExpectationNotMet, Outcome } from '../outcomes';
 
 export function property<Actual, Property extends keyof Actual>(
     propertyName: Property,
@@ -22,11 +19,11 @@ class HasProperty<Property extends keyof Actual, Actual> extends Expectation<Act
         super(formatted `have property ${ propertyName } that does ${ expectation }`);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Actual[Property], any>> {
+    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<Actual[Property], any>> {
 
         return (actual: Actual) =>
             this.expectation.answeredBy(actor)(actual[this.propertyName])
-                .then((outcome: Outcome<any, Actual[Property]>) => {
+                .then((outcome: ExpectationOutcome<any, Actual[Property]>) => {
 
                     return outcome instanceof ExpectationMet
                         ? new ExpectationMet(this.toString(), outcome.expected, actual[this.propertyName])
