@@ -1,9 +1,9 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { actorCalled, Answerable, AssertionError } from '@serenity-js/core';
+import { actorCalled, Answerable, AssertionError, Expectation } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
-import { and, Ensure, equals, Expectation, isGreaterThan, isLessThan, or } from '../src';
+import { and, Ensure, equals, isGreaterThan, isLessThan, or } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
 /** @test {Expectation} */
@@ -91,6 +91,4 @@ describe('Expectation', () => {
             )).to.be.rejectedWith(AssertionError, `Expected 9 to have value that's less than 8 or equal 8`);
         });
     });
-
-
 });

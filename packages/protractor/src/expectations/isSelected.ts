@@ -1,4 +1,5 @@
-import { and, Expectation } from '@serenity-js/assertions';
+import { and } from '@serenity-js/assertions';
+import { Expectation } from '@serenity-js/core';
 import { ElementFinder } from 'protractor';
 import { ElementFinderExpectation } from './ElementFinderExpectation';
 import { isPresent } from './isPresent';
@@ -7,7 +8,7 @@ import { isPresent } from './isPresent';
  * @desc
  *  Expectation that the element is present and selected
  *
- * @returns {Expectation<boolean, ElementFinder>}
+ * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}
  *
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/assertions~Check}

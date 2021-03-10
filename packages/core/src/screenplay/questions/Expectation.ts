@@ -1,6 +1,6 @@
-import { Answerable, AnswersQuestions, Question } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
-import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
+import { formatted } from '../../io';
+import { Answerable, AnswersQuestions, Question } from '../';
+import { ExpectationMet, ExpectationNotMet, ExpectationOutcome  } from './expectations';
 
 /**
  * @public
@@ -11,17 +11,13 @@ export type Predicate<A, E> = (actual: A, expected: E) => boolean;
 
 /**
  * @desc
- *  Defines an expectation to be used with:
- *  - {@link Ensure} - to perform a verification
- *  - {@link Check} - to control the execution flow
+ *  Defines an expectation to be used with [assertions](/modules/assertions)
+ *  and {@link Question}s like {@link List}.
  *
- * @implements {@serenity-js/core/lib/screenplay~Question}
- *
- * @see {@link Ensure}
- * @see {@link Check}
+ * @extends {Question}
  */
 export abstract class Expectation<Expected, Actual = Expected>
-    extends Question<(actual: Actual) => Promise<Outcome<Expected, Actual>>>
+    extends Question<(actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>>>
 {
 
     /**
@@ -29,8 +25,8 @@ export abstract class Expectation<Expected, Actual = Expected>
      *  Used to define a simple {@link Expectation}
      *
      * @example
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { Expectation, Ensure } from '@serenity-js/assertions';
+     *  import { actorCalled, Expectation } from '@serenity-js/core';
+     *  import { Ensure } from '@serenity-js/assertions';
      *
      *  function isDivisibleBy(expected: Answerable<number>): Expectation<number> {
      *      return Expectation.thatActualShould<number, number>('have value divisible by', expected)
@@ -61,8 +57,8 @@ export abstract class Expectation<Expected, Actual = Expected>
      *  Used to compose {@link Expectation}s.
      *
      * @example
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } from '@serenity-js/assertions';
+     *  import { actorCalled, Expectation } from '@serenity-js/core';
+     *  import { Ensure, and, or, isGreaterThan, isLessThan, equals  } from '@serenity-js/assertions';
      *
      *  function isWithin(lowerBound: number, upperBound: number) {
      *      return Expectation
@@ -91,7 +87,7 @@ export abstract class Expectation<Expected, Actual = Expected>
         };
     }
 
-    abstract answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Expected, Actual>>;
+    abstract answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>>;
 }
 
 /**
@@ -107,7 +103,7 @@ class DynamicallyGeneratedExpectation<Expected, Actual> extends Expectation<Expe
         super(`${ description } ${ formatted `${ expectedValue }` }`);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<Expected, Actual>> {
+    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>> {
 
         return (actual: Actual) => actor.answer(this.expectedValue)
             .then(expected => {
@@ -130,7 +126,7 @@ class ExpectationAlias<Actual> extends Expectation<any, Actual> {
         super(subject);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
+    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<any, Actual>> {
 
         return (actual: Actual) =>
             this.expectation.answeredBy(actor)(actual).then(_ => _ instanceof ExpectationMet

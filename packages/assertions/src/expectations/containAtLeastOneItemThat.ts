@@ -1,7 +1,5 @@
-import { AnswersQuestions } from '@serenity-js/core';
+import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Expectation } from '../Expectation';
-import { ExpectationMet, ExpectationNotMet, Outcome } from '../outcomes';
 
 export function containAtLeastOneItemThat<Actual>(expectation: Expectation<any, Actual>): Expectation<any, Actual[]> {
     return new ContainAtLeastOneItemThatMeetsExpectation(expectation);
@@ -15,7 +13,7 @@ class ContainAtLeastOneItemThatMeetsExpectation<Expected, Actual> extends Expect
         super(formatted `contain at least one item that does ${ expectation }`);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual[]) => Promise<Outcome<Expected, Actual[]>> {
+    answeredBy(actor: AnswersQuestions): (actual: Actual[]) => Promise<ExpectationOutcome<Expected, Actual[]>> {
         return (actual: Actual[]) =>
             actual.length === 0
                 ? Promise.resolve(new ExpectationNotMet(this.toString(), null, actual))

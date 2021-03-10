@@ -1,7 +1,4 @@
-import { AnswersQuestions } from '@serenity-js/core';
-
-import { Expectation } from '../Expectation';
-import { ExpectationMet, ExpectationNotMet, Outcome } from '../outcomes';
+import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 
 export function or<Actual>(...assertions: Array<Expectation<any, Actual>>): Expectation<any, Actual> {
     return new Or(assertions);
@@ -19,18 +16,18 @@ class Or<Actual> extends Expectation<any, Actual> {
             .join(Or.Separator));
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
+    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<any, Actual>> {
 
         return (actual: any) =>
             this.expectations.reduce(
                 (previous, current) =>
-                    previous.then((outcomesSoFar: Array<Outcome<any, Actual>>) =>
+                    previous.then((outcomesSoFar: Array<ExpectationOutcome<any, Actual>>) =>
                         current.answeredBy(actor)(actual)
                             .then(outcome => outcomesSoFar.concat(outcome)),        // todo: should stop on the first met expectation
                         ),
                 Promise.resolve([]),
             ).
-            then((outcomes: Array<Outcome<any, Actual>>) => {
+            then((outcomes: Array<ExpectationOutcome<any, Actual>>) => {
 
                 const
                     unmetExpectations = outcomes.filter(outcome => outcome instanceof ExpectationNotMet),

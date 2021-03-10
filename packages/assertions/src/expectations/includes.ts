@@ -1,6 +1,4 @@
-import { Answerable } from '@serenity-js/core';
-
-import { Expectation } from '../Expectation';
+import { Answerable, Expectation } from '@serenity-js/core';
 
 export function includes(expected: Answerable<string>): Expectation<string> {
     return Expectation.thatActualShould<string, string>('include', expected)

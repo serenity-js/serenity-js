@@ -1,7 +1,5 @@
-import { AnswersQuestions } from '@serenity-js/core';
+import { AnswersQuestions, Expectation, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 import { match } from 'tiny-types';
-import { Expectation } from '../Expectation';
-import { ExpectationNotMet, Outcome } from '../outcomes';
 
 export function and<Actual>(...expectations: Array<Expectation<any, Actual>>): Expectation<any, Actual> {
     return new And(expectations);
@@ -15,7 +13,7 @@ class And<Actual> extends Expectation<any, Actual> {
         super(expectations.map(assertion => assertion.toString()).join(' and '));
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
+    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<any, Actual>> {
 
         return (actual: any) =>
             this.expectations.reduce(

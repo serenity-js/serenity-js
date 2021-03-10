@@ -1,18 +1,28 @@
-import { Answerable, AnswersQuestions, AssertionError, CollectsArtifacts, Interaction, LogicError, RuntimeError, UsesAbilities } from '@serenity-js/core';
+import {
+    Answerable,
+    AnswersQuestions,
+    AssertionError,
+    CollectsArtifacts,
+    Expectation,
+    ExpectationMet,
+    ExpectationNotMet,
+    ExpectationOutcome,
+    Interaction,
+    LogicError,
+    RuntimeError,
+    UsesAbilities,
+} from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Artifact, AssertionReport, Name } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
-
-import { Expectation } from './Expectation';
-import { ExpectationMet, ExpectationNotMet, Outcome } from './outcomes';
 
 /**
  * @desc
  *  Used to perform verification of the system under test.
  *
  *  Resolves any `Answerable` describing the actual
- *  state and ensures that its value meets the {@link Expectation}s provided.
+ *  state and ensures that its value meets the {@link @serenity-js/core/lib/screenplay/questions~Expectation}s provided.
  *
  * @example <caption>Usage with static values</caption>
  *  import { actorCalled } from '@serenity-js/core';
@@ -54,7 +64,7 @@ export class Ensure<Actual> extends Interaction {
     /**
      *
      * @param {@serenity-js/core/lib/screenplay~Answerable<T>} actual
-     * @param {Expectation<any, A>} expectation
+     * @param {@serenity-js/core/lib/screenplay/questions~Expectation<any, A>} expectation
      *
      * @returns {Ensure<A>}
      */
@@ -63,8 +73,8 @@ export class Ensure<Actual> extends Interaction {
     }
 
     /**
-     * @param {Answera@serenity-js/core/lib/screenplay~Answerable<T>} actual
-     * @param {Expectation<T>} expectation
+     * @param {@serenity-js/core/lib/screenplay~Answerable<T>} actual
+     * @param {@serenity-js/core/lib/screenplay/questions~Expectation<T>} expectation
      */
     constructor(
         protected readonly actual: Answerable<Actual>,
@@ -93,7 +103,7 @@ export class Ensure<Actual> extends Interaction {
         ]).
         then(([ actual, expectation ]) =>
             expectation(actual).then(outcome =>
-                match<Outcome<any, Actual>, void>(outcome)
+                match<ExpectationOutcome<any, Actual>, void>(outcome)
                     .when(ExpectationNotMet, o => {
                         actor.collect(this.artifactFrom(o.expected, o.actual), new Name(`Assertion Report`));
 
@@ -101,7 +111,7 @@ export class Ensure<Actual> extends Interaction {
                     })
                     .when(ExpectationMet, _ => void 0)
                     .else(o => {
-                        throw new LogicError(formatted `An Expectation should return an instance of an Outcome, not ${ o }`);
+                        throw new LogicError(formatted `An Expectation should return an instance of an ExpectationOutcome, not ${ o }`);
                     }),
                 ),
             );
@@ -136,14 +146,14 @@ export class Ensure<Actual> extends Interaction {
 
     /**
      * @desc
-     *  Maps an {@link Outcome} to appropriate {@link @serenity-js/core/lib/errors~RuntimeError}.
+     *  Maps an {@link @serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome} to appropriate {@link @serenity-js/core/lib/errors~RuntimeError}.
      *
-     * @param {Outcome} outcome
+     * @param {@serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome} outcome
      * @returns {@serenity-js/core/lib/errors~RuntimeError}
      *
      * @protected
      */
-    protected errorForOutcome(outcome: Outcome<any, Actual>): RuntimeError {
+    protected errorForOutcome(outcome: ExpectationOutcome<any, Actual>): RuntimeError {
         return this.asAssertionError(outcome);
     }
 
@@ -156,7 +166,7 @@ export class Ensure<Actual> extends Interaction {
      *
      * @protected
      */
-    protected asAssertionError(outcome: Outcome<any, Actual>): AssertionError {
+    protected asAssertionError(outcome: ExpectationOutcome<any, Actual>): AssertionError {
         return new AssertionError(
             `Expected ${ formatted`${ this.actual }` } to ${ outcome.message }`,
             outcome.expected,
@@ -185,7 +195,7 @@ class EnsureOrFailWithCustomError<Actual> extends Ensure<Actual> {
         super(actual, expectation);
     }
 
-    protected errorForOutcome(outcome: Outcome<any, Actual>): RuntimeError {
+    protected errorForOutcome(outcome: ExpectationOutcome<any, Actual>): RuntimeError {
         const assertionError = this.asAssertionError(outcome);
 
         return new this.typeOfRuntimeError(this.message || assertionError.message, assertionError);

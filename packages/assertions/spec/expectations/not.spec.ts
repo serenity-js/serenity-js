@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { actorCalled, AssertionError } from '@serenity-js/core';
+import { actorCalled, AssertionError, Expectation } from '@serenity-js/core';
 import {
     and,
     contain,
@@ -9,7 +9,6 @@ import {
     endsWith,
     Ensure,
     equals,
-    Expectation,
     includes,
     isFalse,
     isGreaterThan,

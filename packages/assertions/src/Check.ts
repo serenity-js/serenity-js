@@ -1,7 +1,5 @@
-import { Activity, Answerable, AnswersQuestions, PerformsActivities, Task } from '@serenity-js/core';
+import { Activity, Answerable, AnswersQuestions, Expectation, ExpectationMet, PerformsActivities, Task } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Expectation } from './Expectation';
-import { ExpectationMet } from './outcomes';
 
 /**
  * @desc

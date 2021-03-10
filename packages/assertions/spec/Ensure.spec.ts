@@ -1,11 +1,11 @@
 import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, LogicError, Question, RuntimeError, TestCompromisedError } from '@serenity-js/core';
+import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, Expectation, ExpectationOutcome, LogicError, Question, RuntimeError, TestCompromisedError } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
-import { Ensure, equals, Expectation, Outcome } from '../src';
+import { Ensure, equals } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
 /** @test {Ensure} */
@@ -59,14 +59,14 @@ describe('Ensure', () => {
                 super(`broken`);
             }
 
-            answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<Outcome<any, Actual>> {
+            answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<any, Actual>> {
                 return (actual: Actual) => Promise.resolve(null);
             }
         }
 
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(4, new BrokenExpectation()),
-        )).to.be.rejectedWith(LogicError, 'An Expectation should return an instance of an Outcome, not null');
+        )).to.be.rejectedWith(LogicError, 'An Expectation should return an instance of an ExpectationOutcome, not null');
     });
 
     describe('when emitting an artifact', () => {
