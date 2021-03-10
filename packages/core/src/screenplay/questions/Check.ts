@@ -1,5 +1,10 @@
-import { Activity, Answerable, AnswersQuestions, Expectation, ExpectationMet, PerformsActivities, Task } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { formatted } from '../../io';
+import { AnswersQuestions, PerformsActivities } from '../actor';
+import { Activity } from '../Activity';
+import { Expectation } from './Expectation';
+import { Answerable } from '../Answerable';
+import { Task } from '../Task';
+import { ExpectationMet } from './expectations';
 
 /**
  * @desc
@@ -8,7 +13,8 @@ import { formatted } from '@serenity-js/core/lib/io';
  *  or to choose which of the two provided series of activities to perform.
  *
  * @example <caption>Choose from two alternatives</caption>
- *  import { Check, equals } from '@serenity-js/assertions';
+ *  import { equals } from '@serenity-js/assertions';
+ *  import { Check } from '@serenity-js/core';
  *
  *  actor.attemptsTo(
  *      Check.whether(process.env.MODE, equals('prod'))
@@ -21,8 +27,9 @@ import { formatted } from '@serenity-js/core/lib/io';
  *  );
  *
  * @example <caption>Choose whether or not to perform an activity</caption>
- *  import { Check, equals } from '@serenity-js/assertions';
- *  import { isDiplayed } from '@serenity-js/protractor';
+ *  import { equals } from '@serenity-js/assertions';
+ *  import { Check } from '@serenity-js/core';
+ *  import { isDisplayed } from '@serenity-js/protractor';
  *
  *  actor.attemptsTo(
  *      Check.whether(NewsletterModal(), isDisplayed())
