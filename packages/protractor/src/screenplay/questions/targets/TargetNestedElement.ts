@@ -5,11 +5,15 @@ import { override } from './override';
 
 /**
  * @desc
- *  Locates a single web element located within another web element.
- *  Instead of using this class directly, please use {@link Target.the} instead.
+ *  Locates a single {@link WebElement} located within another {@link WebElement}.
+ *
+ *  Instead of using this class directly, please use {@link Target.the} and {@link TargetElement#of} instead.
  *
  * @public
  * @see {@link Target}
+ *
+ * @extends {@serenity-js/core/lib/screenplay~Question}
+ * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class TargetNestedElement
     extends Question<ElementFinder>
@@ -30,8 +34,14 @@ export class TargetNestedElement
     }
 
     /**
+     * @desc
+     *  Retrieves a {@link WebElement} located by `locator`,
+     *  resolved in the context of a `parent` {@link WebElement}.
+     *
      * @param {Question<ElementFinder> | ElementFinder} parent
      * @returns {TargetNestedElement}
+     *
+     * @see {@link Target}
      */
     of(parent: Question<ElementFinder> | ElementFinder) {
         return new TargetNestedElement(parent, this);

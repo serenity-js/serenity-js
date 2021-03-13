@@ -95,14 +95,17 @@ import { TargetNestedElements } from './TargetNestedElements';
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .get(1)
  *
- *  @example <caption>Using multiple filter and nested targets</caption>
+ *  @example <caption>Using multiple filters and nested targets</caption>
  *   import { Target, Text } from '@serenity-js/protractor';
  *   import { contain, endsWith } from '@serenity-js/assertions';
  *   import { by, ElementFinder } from 'protractor';
  *
  *   class Basket {
  *       static component = Target.the('basket').located(by.id('basket'));
- *       static items     = Target.all('items').located(by.css('li')).of(Basket.component);
+ *
+ *       static items     = Target.all('items').located(by.css('li'))
+ *          .of(Basket.component);
+ *
  *       static link      = Target.the('link').located(by.css('a'));
  *   }
  *

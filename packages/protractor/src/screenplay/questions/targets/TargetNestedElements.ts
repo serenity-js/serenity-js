@@ -6,11 +6,15 @@ import { ElementArrayFinderListAdapter } from '../lists';
 
 /**
  * @desc
- *  Locates a group of web element located within another web element.
- *  Instead of using this class directly, please use {@link Target.all} instead.
+ *  Locates a group of {@link WebElement}s located within another {@link WebElement}.
+ *
+ *  Instead of using this class directly, please use {@link Target.all} and {@link TargetElements#of} instead.
  *
  * @public
  * @see {@link Target}
+ *
+ * @extends {@serenity-js/core/lib/screenplay~Question}
+ * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class TargetNestedElements
     extends Question<ElementArrayFinder>
@@ -33,8 +37,14 @@ export class TargetNestedElements
     }
 
     /**
+     * @desc
+     *  Retrieves a group of {@link WebElement}s located by `locator`,
+     *  resolved in the context of a `parent` {@link WebElement}.
+     *
      * @param {Question<ElementFinder> | ElementFinder} parent
      * @returns {TargetNestedElements}
+     *
+     * @see {@link Target}
      */
     of(parent: Question<ElementFinder> | ElementFinder) {
         return new TargetNestedElements(parent, this);
