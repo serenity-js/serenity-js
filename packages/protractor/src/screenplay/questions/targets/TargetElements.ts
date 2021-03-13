@@ -1,8 +1,9 @@
-import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementArrayFinder, ElementFinder, Locator } from 'protractor';
 import { BrowseTheWeb } from '../../abilities';
 import { override } from './override';
 import { TargetNestedElements } from './TargetNestedElements';
+import { ElementArrayFinderListAdapter } from '../lists';
 
 /**
  * @desc
@@ -16,6 +17,7 @@ export class TargetElements
     extends Question<ElementArrayFinder>
     implements MetaQuestion<Question<ElementFinder> | ElementFinder, ElementArrayFinder>
 {
+    private readonly list: List<ElementArrayFinderListAdapter, ElementFinder, ElementArrayFinder>;
 
     /**
      * @desc
@@ -28,6 +30,7 @@ export class TargetElements
         private readonly locator: Locator,
     ) {
         super(`the ${ description }`);
+        this.list = new List(new ElementArrayFinderListAdapter(this));
     }
 
     /**
@@ -36,6 +39,74 @@ export class TargetElements
      */
     of(parent: Question<ElementFinder> | ElementFinder) {
         return new TargetNestedElements(parent, this);
+    }
+
+    /**
+     * @desc
+     *  Returns the number of {@link ElementFinder}s matched by the `locator`
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<number>>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/questions~List}
+     */
+    count(): Question<Promise<number>> {
+        return this.list.count();
+    }
+
+    /**
+     * @desc
+     *  Returns the first of {@link ElementFinder}s matched by the `locator`
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<ElementFinder>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/questions~List}
+     */
+    first(): Question<ElementFinder> {
+        return this.list.first()
+    }
+
+    /**
+     * @desc
+     *  Returns the last of {@link ElementFinder}s matched by the `locator`
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<ElementFinder>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/questions~List}
+     */
+    last(): Question<ElementFinder> {
+        return this.list.last()
+    }
+
+    /**
+     * @desc
+     *  Returns an {@link ElementFinder} at `index` for `locator`
+     *
+     * @param {number} index
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Question<ElementFinder>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/questions~List}
+     */
+    get(index: number): Question<ElementFinder> {
+        return this.list.get(index);
+    }
+
+    /**
+     * @desc
+     *  Filters the list of {@link ElementFinder}s matched by `locator` to those that meet the additional {@link @serenity-js/core/lib/screenplay/questions~Expectation}s.
+     *
+     * @param {@serenity-js/core/lib/screenplay/questions~MetaQuestion<ElementFinder, Promise<Answer_Type> | Answer_Type>} question
+     * @param {@serenity-js/core/lib/screenplay/questions~Expectation<any, Answer_type>} expectation
+     *
+     * @returns {@serenity-js/core/lib/screenplay/questions~List<ElementArrayFinderListAdapter, ElementFinder, ElementArrayFinder>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/questions~List}
+     */
+    where<Answer_Type>(
+        question: MetaQuestion<ElementFinder, Promise<Answer_Type> | Answer_Type>,
+        expectation: Expectation<any, Answer_Type>,
+    ): List<ElementArrayFinderListAdapter, ElementFinder, ElementArrayFinder> {
+        return this.list.where(question, expectation);
     }
 
     /**
