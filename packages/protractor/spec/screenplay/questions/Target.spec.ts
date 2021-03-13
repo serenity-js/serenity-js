@@ -9,7 +9,6 @@ import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 import { given } from 'mocha-testdata';
 
-
 /** @test {Target} */
 describe('Target', () => {
 
@@ -30,13 +29,13 @@ describe('Target', () => {
     `);
 
     class ShoppingList {
-        static App                  = Target.the('shopping list app').located(by.id('shopping-list-app'));
-        static Progress             = Target.the('progress bar').located(by.css('.progress')).of(ShoppingList.App);
+        static App = Target.the('shopping list app').located(by.id('shopping-list-app'));
+        static Progress = Target.the('progress bar').located(by.css('.progress')).of(ShoppingList.App);
         static Number_Of_Items_Left = Target.the('number of items left').of(ShoppingList.Progress).located(by.css('span'));
 
-        static Header       = Target.the('header').located(by.tagName('h1'));
-        static List         = Target.the('shopping list').located(by.tagName('ul'));
-        static Items        = Target.all('items').of(ShoppingList.App).located(by.tagName('li'));
+        static Header = Target.the('header').located(by.tagName('h1'));
+        static List = Target.the('shopping list').located(by.tagName('ul'));
+        static Items = Target.all('items').of(ShoppingList.App).located(by.tagName('li'));
         static Bought_Items = Target.all('bought items').located(by.css('.bought')).of(ShoppingList.List);
     }
 
@@ -49,22 +48,24 @@ describe('Target', () => {
          * @test {Target.the}
          * @test {TargetElement}
          */
-        it('a single web element matching the selector', () => actorCalled('Bernie').attemptsTo(
-            Navigate.to(shoppingListPage),
+        it('a single web element matching the selector', () =>
+            actorCalled('Bernie').attemptsTo(
+                Navigate.to(shoppingListPage),
 
-            Ensure.that(Text.of(ShoppingList.Header), equals('Shopping list')),
-        ));
+                Ensure.that(Text.of(ShoppingList.Header), equals('Shopping list')),
+            ));
 
         /**
          * @test {Target}
          * @test {Target.all}
          * @test {TargetElements}
          */
-        it('all web elements matching the selector', () => actorCalled('Bernie').attemptsTo(
-            Navigate.to(shoppingListPage),
+        it('all web elements matching the selector', () =>
+            actorCalled('Bernie').attemptsTo(
+                Navigate.to(shoppingListPage),
 
-            Ensure.that(Text.ofAll(ShoppingList.Items), contain('oats')),
-        ));
+                Ensure.that(Text.ofAll(ShoppingList.Items), contain('oats')),
+            ));
 
         /**
          * @test {Target}
@@ -72,11 +73,12 @@ describe('Target', () => {
          * @test {TargetNestedElement}
          * @test {TargetNestedElement#of}
          */
-        it('an element relative to another target', () => actorCalled('Bernie').attemptsTo(
-            Navigate.to(shoppingListPage),
+        it('an element relative to another target', () =>
+            actorCalled('Bernie').attemptsTo(
+                Navigate.to(shoppingListPage),
 
-            Ensure.that(Text.of(ShoppingList.Number_Of_Items_Left), equals('2')),
-        ));
+                Ensure.that(Text.of(ShoppingList.Number_Of_Items_Left), equals('2')),
+            ));
 
         /**
          * @test {Target}
@@ -84,11 +86,12 @@ describe('Target', () => {
          * @test {TargetNestedElements}
          * @test {TargetNestedElements#of}
          */
-        it('all elements relative to another target', () => actorCalled('Bernie').attemptsTo(
-            Navigate.to(shoppingListPage),
+        it('all elements relative to another target', () =>
+            actorCalled('Bernie').attemptsTo(
+                Navigate.to(shoppingListPage),
 
-            Ensure.that(Text.ofAll(ShoppingList.Bought_Items), equals(['coffee'])),
-        ));
+                Ensure.that(Text.ofAll(ShoppingList.Bought_Items), equals(['coffee'])),
+            ));
     });
 
     describe('provides a sensible description of', () => {
@@ -178,11 +181,11 @@ describe('Target', () => {
         `);
 
         class Page {
-            static Article      = Target.the('article').located(by.css('article'));
-            static Header       = Target.the('header').located(by.css('header'));
-            static Title        = Target.the('title').located(by.css('h1'));
-            static TOC          = Target.the('table of contents').located(by.css('ul#toc'));
-            static Topics       = Target.all('topics').located(by.css('li'));
+            static Article = Target.the('article').located(by.css('article'));
+            static Header = Target.the('header').located(by.css('header'));
+            static Title = Target.the('title').located(by.css('h1'));
+            static TOC = Target.the('table of contents').located(by.css('ul#toc'));
+            static Topics = Target.all('topics').located(by.css('li'));
             static Topic_Number = Target.the('topic number').located(by.css('.number'));
         }
 
@@ -246,11 +249,11 @@ describe('Target', () => {
 
                     Ensure.that(
                         Text.ofAll(filteredTopics),
-                        equals(['topic 2'])
+                        equals(['topic 2']),
                     ),
                     Ensure.that(
                         filteredTopics.toString(),
-                        equals(`the topics of the table of contents where the text of the topic number does equal '2'`)
+                        equals(`the topics of the table of contents where the text of the topic number does equal '2'`),
                     ),
                 ));
 
@@ -266,7 +269,7 @@ describe('Target', () => {
 
                     Ensure.that(
                         filteredTopics.count(),
-                        equals(1)
+                        equals(1),
                     ),
                 ));
 
@@ -282,7 +285,7 @@ describe('Target', () => {
 
                     Ensure.that(
                         Text.of(filteredTopics.first()),
-                        equals('topic 2')
+                        equals('topic 2'),
                     ),
                 ));
 
@@ -298,7 +301,7 @@ describe('Target', () => {
 
                     Ensure.that(
                         Text.of(filteredTopics.last()),
-                        equals('topic 2')
+                        equals('topic 2'),
                     ),
                 ));
 
@@ -314,7 +317,7 @@ describe('Target', () => {
 
                     Ensure.that(
                         Text.of(filteredTopics.get(0)),
-                        equals('topic 2')
+                        equals('topic 2'),
                     ),
                 ));
         });
@@ -370,22 +373,24 @@ describe('Target', () => {
                  * @test {Target.all}
                  * @test {TargetElements#count}
                  */
-                it('gets the number of items', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
+                it('gets the number of items', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
 
-                    Ensure.that(AdvancedShoppingList.Titles.count(), equals(3)),
-                ));
+                        Ensure.that(AdvancedShoppingList.Titles.count(), equals(3)),
+                    ));
 
                 /**
                  * @test {Target}
                  * @test {Target.all}
                  * @test {TargetElements}
                  */
-                it('picks all the items', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
+                it('picks all the items', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
 
-                    Ensure.that(Text.ofAll(AdvancedShoppingList.Titles), contain('coconut milk')),
-                ));
+                        Ensure.that(Text.ofAll(AdvancedShoppingList.Titles), contain('coconut milk')),
+                    ));
 
                 /**
                  * @test {Target}
@@ -393,11 +398,12 @@ describe('Target', () => {
                  * @test {TargetElements}
                  * @test {TargetElements#first}
                  */
-                it('picks the first item', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
+                it('picks the first item', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
 
-                    Ensure.that(Text.of(AdvancedShoppingList.Titles.first()), equals('oats')),
-                ));
+                        Ensure.that(Text.of(AdvancedShoppingList.Titles.first()), equals('oats')),
+                    ));
 
                 /**
                  * @test {Target}
@@ -405,11 +411,12 @@ describe('Target', () => {
                  * @test {TargetElements}
                  * @test {TargetElements#last}
                  */
-                it('picks the last item', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
+                it('picks the last item', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
 
-                    Ensure.that(Text.of(AdvancedShoppingList.Titles.last()), equals('coffee')),
-                ));
+                        Ensure.that(Text.of(AdvancedShoppingList.Titles.last()), equals('coffee')),
+                    ));
 
                 /**
                  * @test {Target}
@@ -417,11 +424,12 @@ describe('Target', () => {
                  * @test {TargetElements}
                  * @test {TargetElements#get}
                  */
-                it('picks the nth item', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
+                it('picks the nth item', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
 
-                    Ensure.that(Text.of(AdvancedShoppingList.Titles.get(1)), equals('coconut milk')),
-                ));
+                        Ensure.that(Text.of(AdvancedShoppingList.Titles.get(1)), equals('coconut milk')),
+                    ));
             });
 
             describe('provides a sensible description when it', () => {
@@ -477,8 +485,7 @@ describe('Target', () => {
                     { description: '42nd', index: 41 },
                     { description: '115th', index: 114 },
                     { description: '1522nd', index: 1521 },
-                ]).
-                it('picks the nth item', ({ description, index }) => {
+                ]).it('picks the nth item', ({ description, index }) => {
                     expect(AdvancedShoppingList.Items.get(index).toString())
                         .to.equal(`the ${ description } of the shopping list items`);
                 });
@@ -614,51 +621,56 @@ describe('Target', () => {
                  * @test {Target}
                  * @test {Target.all}
                  */
-                it('gets the number of items', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
+                it('gets the number of items', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
 
-                    Ensure.that(list.count(), equals(1)),
-                ));
-
-                /**
-                 * @test {Target}
-                 * @test {Target.all}
-                 */
-                it('picks all the items', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
-
-                    Ensure.that(Text.ofAll(list), contain('coconut milk x')),
-                ));
+                        Ensure.that(list.count(), equals(1)),
+                    ));
 
                 /**
                  * @test {Target}
                  * @test {Target.all}
                  */
-                it('picks the first item', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
+                it('picks all the items', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
 
-                    Ensure.that(Text.of(list.first()), startsWith('coconut milk')),
-                ));
-
-                /**
-                 * @test {Target}
-                 * @test {Target.all}
-                 */
-                it('picks the last item', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
-
-                    Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
-                ));
+                        Ensure.that(Text.ofAll(list), contain('coconut milk x')),
+                    ));
 
                 /**
                  * @test {Target}
                  * @test {Target.all}
                  */
-                it('picks the nth item', () => actorCalled('Peter').attemptsTo(
-                    Navigate.to(advancedShoppingList),
+                it('picks the first item', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
 
-                    Ensure.that(Text.of(list.get(0)), startsWith('coconut milk')),
-                ));
+                        Ensure.that(Text.of(list.first()), startsWith('coconut milk')),
+                    ));
+
+                /**
+                 * @test {Target}
+                 * @test {Target.all}
+                 */
+                it('picks the last item', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
+                    ));
+
+                /**
+                 * @test {Target}
+                 * @test {Target.all}
+                 */
+                it('picks the nth item', () =>
+                    actorCalled('Peter').attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(list.get(0)), startsWith('coconut milk')),
+                    ));
             });
 
             describe('provides a sensible description when it', () => {
@@ -732,26 +744,28 @@ describe('Target', () => {
              * @test {Target}
              * @test {Target.all}
              */
-            it('makes it easy for an actor to pick the element of interest', () => actorCalled('Peter').attemptsTo(
-                Navigate.to(advancedShoppingList),
+            it('makes it easy for an actor to pick the element of interest', () =>
+                actorCalled('Peter').attemptsTo(
+                    Navigate.to(advancedShoppingList),
 
-                Click.on(LinkTo(ItemCalled('coffee'))),
+                    Click.on(LinkTo(ItemCalled('coffee'))),
 
-                Ensure.that(CSSClasses.of(ItemCalled('coffee')), contain('buy')),
-            ));
+                    Ensure.that(CSSClasses.of(ItemCalled('coffee')), contain('buy')),
+                ));
 
             /**
              * @test {Target}
              * @test {Target.all}
              */
-            it('makes it easy for an actor to pick all elements of interest', () => actorCalled('Peter').attemptsTo(
-                Navigate.to(advancedShoppingList),
+            it('makes it easy for an actor to pick all elements of interest', () =>
+                actorCalled('Peter').attemptsTo(
+                    Navigate.to(advancedShoppingList),
 
-                Click.on(LinkTo(ItemCalled('coconut milk'))),
-                Click.on(LinkTo(ItemCalled('coffee'))),
+                    Click.on(LinkTo(ItemCalled('coconut milk'))),
+                    Click.on(LinkTo(ItemCalled('coffee'))),
 
-                Ensure.that(Text.ofAll(ItemsLeftToBuy()), equals(['oats x', 'coffee x'])),
-            ));
+                    Ensure.that(Text.ofAll(ItemsLeftToBuy()), equals(['oats x', 'coffee x'])),
+                ));
         });
-    })
+    });
 });
