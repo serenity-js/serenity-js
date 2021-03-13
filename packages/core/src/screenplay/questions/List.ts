@@ -28,9 +28,10 @@ export class List<
      * @desc
      *  Instantiates a new {@link List} configured to support standard {@link Array}.
      *
-     *  **Please note:** Don't use `List.of` to wrap `Question<ElementArrayFinder>` returned by [`Target.all`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all).
-     *  Instead, use [`Target.all(...).located(...).where(...)`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html), which uses a Protractor-specific
-     *  {@link ListAdapter}.
+     *  **Please note:** Don't use `List.of` to wrap `Question<ElementArrayFinder>` returned by
+     *  [`Target.all`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all).
+     *  Instead, use [`Target.all(...).located(...).where(...)`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html),
+     *  which uses a Protractor-specific {@link ListAdapter}.
      *
      * @param {Answerable<Item_Type[]>} items
      *
