@@ -3,7 +3,6 @@ export * from './Browser';
 export * from './Cookie';
 export * from './CSSClasses';
 export * from './LastScriptExecution';
-export * from './List';
 export * from './ModalDialog';
 export { Pick } from './Pick';
 export * from './ProtractorParam';

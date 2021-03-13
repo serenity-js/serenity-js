@@ -1,9 +1,11 @@
 import 'mocha';
 import { given } from 'mocha-testdata';
 
-import { actorCalled, Answerable, List, Question } from '../../../../src';
+import { actorCalled, Answerable, AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '../../../../src';
 import { expect } from '../../../expect';
+import { formatted } from '../../../../src/io';
 
+/** @test {List} */
 describe('List', () => {
 
     const Lisa = actorCalled('Lisa');
@@ -14,6 +16,16 @@ describe('List', () => {
     const p = <T>(value: T) =>
         Promise.resolve(value);
 
+    const isIdenticalTo = <T>(expected: T) =>
+        Expectation.thatActualShould<T, T>('have value identical to', expected)
+            .soThat((actualValue: T, expectedValue: T) => actualValue === expectedValue);
+
+    const isGreaterThan = (expected: number) =>
+        Expectation.thatActualShould('have value greater than', expected)
+            .soThat((actualValue: number, expectedValue: number) => actualValue > expectedValue);
+
+
+    /** @test {List#of} */
     describe('when wrapping an Array', () => {
 
         const collection = [ 'first', 'second', 'third' ];
@@ -44,7 +56,7 @@ describe('List', () => {
 
         given(examples).
         it('returns the underlying collection', ({ answerable }: { answerable: Answerable<string[]> }) =>
-            expect(List.of(answerable).items().answeredBy(Lisa))
+            expect(List.of(answerable).answeredBy(Lisa))
                 .to.eventually.deep.equal(collection)
         );
 
@@ -66,17 +78,18 @@ describe('List', () => {
                 .to.eventually.deep.equal(collection[1])
         );
 
+        /** @test {List#toString} */
         describe('provides a sensible description when it', () => {
 
             given(examples).
             it('returns the number of items', ({ answerable, collectionDescription }: { answerable: Answerable<string[]>, collectionDescription: string }) =>
                 expect(List.of(answerable).count().toString())
-                    .to.equal(`the item count of ${ collectionDescription }`)
+                    .to.equal(`the number of ${ collectionDescription }`)
             );
 
             given(examples).
             it('returns the underlying collection', ({ answerable, collectionDescription }: { answerable: Answerable<string[]>, collectionDescription: string }) =>
-                expect(List.of(answerable).items().toString())
+                expect(List.of(answerable).toString())
                     .to.equal(collectionDescription)
             );
 
@@ -117,12 +130,90 @@ describe('List', () => {
             });
         });
 
-        describe('and using a single filter', () => {
-            // todo:
-        });
+        /** @test {List#where} */
+        describe('and using filters', () => {
+            interface Person {
+                name: string;
+                age: number;
+                pets: number;
+            }
 
-        describe('and using multiple filter', () => {
-            // todo:
+            const
+                alice   = { name: 'Alice',  age: 27, pets: 3 },
+                bob     = { name: 'Bob',    age: 42, pets: 1 },
+                cindy   = { name: 'Cindy',  age: 55, pets: 3 };
+
+            const people = [ alice, bob, cindy ];
+
+            class Name extends Question<Promise<string>> {
+                static of(person: Answerable<Person>): Question<Promise<string>> {
+                    return new Name(person);
+                }
+
+                constructor(private readonly person: Answerable<Person>) {
+                    super(formatted `the name of ${ person }`);
+                }
+
+                answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
+                    return actor.answer(this.person)
+                        .then(person => person.name);
+                }
+            }
+
+            const PropertyCalled = <K extends keyof Person>(name: K) => ({
+                of: (person: Answerable<Person>) =>
+                    Question.about(formatted `${ name } of ${ person }`, actor => {
+                        return actor.answer(person).then(answer => answer[name]);
+                    }),
+                toString() {
+                    return `property "${ name }"`;
+                }
+            });
+
+            /** @test {List#of} */
+            it('lets you narrow down the list of items to those that match the filter', async () => {
+                const found = await List.of(people)
+                    .where(Name, isIdenticalTo('Bob'))
+                    .first()
+                    .answeredBy(Lisa);
+
+                expect(found).to.deep.equal(bob);
+            });
+
+            /** @test {List#of} */
+            it('lets you narrow down the list of items to those that match the filter', async () => {
+                const found = await List.of(people)
+                    .where(Name, isIdenticalTo('Bob'))
+                    .first()
+                    .answeredBy(Lisa);
+
+                expect(found).to.deep.equal(bob);
+            });
+
+            /** @test {List#of} */
+            it('lets you narrow down the list of items to those that match several filters', async () => {
+                const found = await List.of(people)
+                    .where(PropertyCalled('pets'), isIdenticalTo(3))
+                    .where(PropertyCalled('age'), isGreaterThan(30))
+                    .first()
+                    .answeredBy(Lisa);
+
+                expect(found).to.deep.equal(cindy);
+            });
+
+            /** @test {List#of} */
+            it('describes the filters applied', () => {
+                const People = () =>
+                    Question.about('people', actor => people);
+
+                const items = List.of(People())
+                    .where(PropertyCalled('pets'), isIdenticalTo(3))
+                    .where(PropertyCalled('age'), isGreaterThan(30))
+                    .first();
+
+                expect(items.toString())
+                    .to.equal('the first of people where property "pets" does have value identical to 3 and property "age" does have value greater than 30')
+            });
         });
     });
 });

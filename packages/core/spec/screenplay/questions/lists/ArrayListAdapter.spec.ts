@@ -5,6 +5,7 @@ import { ArrayListAdapter } from '../../../../src/screenplay/questions/lists';
 import { actorCalled, Answerable, Question } from '../../../../src';
 import { formatted } from '../../../../src/io';
 
+/** @test {ArrayListAdapter} */
 describe('ArrayListAdapter', () => {
 
     const Ariana = actorCalled('Ariana');
@@ -51,6 +52,7 @@ describe('ArrayListAdapter', () => {
             .to.equal(formatted`${ answerable }`)
     );
 
+    /** @test {ArrayListAdapter#count} */
     describe('count()', () => {
 
         given(invalidExamples).
@@ -66,6 +68,7 @@ describe('ArrayListAdapter', () => {
         );
     });
 
+    /** @test {ArrayListAdapter#items} */
     describe('items()', () => {
 
         given(invalidExamples).
@@ -81,6 +84,7 @@ describe('ArrayListAdapter', () => {
         );
     });
 
+    /** @test {ArrayListAdapter#first} */
     describe('first()', () => {
 
         given(invalidExamples).
@@ -118,6 +122,7 @@ describe('ArrayListAdapter', () => {
         });
     });
 
+    /** @test {ArrayListAdapter#last} */
     describe('last()', () => {
 
         given(invalidExamples).
@@ -155,6 +160,7 @@ describe('ArrayListAdapter', () => {
         });
     });
 
+    /** @test {ArrayListAdapter#get} */
     describe('get(index)', () => {
 
         given(invalidExamples).
