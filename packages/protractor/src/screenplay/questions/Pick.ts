@@ -11,7 +11,12 @@ export interface Collection<T> {
 }
 
 /**
+ * @deprecated
+ *  Please use [Target.all](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html) instead.
+ *
  * @experimental
+ *
+ * @see {@link @serenity-js/core/lib/screenplay/questions~List}
  */
 export class Pick<Item_Type, Collection_Type extends Collection<Item_Type> = Collection<Item_Type>> {
 
