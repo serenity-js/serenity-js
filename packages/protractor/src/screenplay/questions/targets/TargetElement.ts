@@ -6,11 +6,15 @@ import { TargetNestedElement } from './TargetNestedElement';
 
 /**
  * @desc
- *  Locates a single web element.
+ *  Locates a single {@link WebElement}.
+ *
  *  Instead of using this class directly, please use {@link Target.the} instead.
  *
  * @public
  * @see {@link Target}
+ *
+ * @extends {@serenity-js/core/lib/screenplay~Question}
+ * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class TargetElement
     extends Question<ElementFinder>
@@ -30,8 +34,14 @@ export class TargetElement
     }
 
     /**
+     * @desc
+     *  Retrieves a {@link WebElement} located by `locator`,
+     *  resolved in the context of a `parent` {@link WebElement}.
+     *
      * @param {Question<ElementFinder> | ElementFinder} parent
      * @returns {TargetNestedElement}
+     *
+     * @see {@link Target}
      */
     of(parent: Question<ElementFinder> | ElementFinder) {
         return new TargetNestedElement(parent, this);
