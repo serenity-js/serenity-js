@@ -2,16 +2,13 @@ import 'mocha';
 import * as sinon from 'sinon';
 
 import { expect } from '../../expect';
-import { actorCalled, Check, Expectation, Interaction } from '../../../src';
+import { actorCalled, Check, Interaction } from '../../../src';
+import { isIdenticalTo } from '../../isIdenticalTo';
 
 /** @test {Check} */
 describe('Check', () => {
 
     const Call = (fn: () => void) => Interaction.where(`#actor calls a function`, actor => fn());
-
-    const isIdenticalTo = <T>(expected: T) =>
-        Expectation.thatActualShould<T, T>('have value identical to', expected)
-            .soThat((actualValue: T, expectedValue: T) => actualValue === expectedValue);
 
     let spy: sinon.SinonSpy;
     beforeEach(() => spy = sinon.spy());

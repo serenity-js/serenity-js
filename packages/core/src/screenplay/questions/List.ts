@@ -8,8 +8,49 @@ import { AnswersQuestions, UsesAbilities } from '../actor';
 
 /**
  * @desc
- *  Filters a list of items based on the criteria provided.
+ *  Filters an {@link Answerable} list of items based on the criteria provided.
  *  Instantiate via {@link List.of}
+ *
+ * @example <caption>Example data structure</caption>
+ *  interface TestAccount {
+ *      username: string;
+ *      role: string;
+ *      environments: string[];
+ *  }
+ *
+ *  const testAccounts: TestAccount[] = [
+ *      {
+ *          "username": "tester.one@example.com",
+ *          "role": "test-automation"
+ *          "environments": [ "dev", "sit" ],
+ *      },
+ *      {
+ *          "username": "tester.two@example.com",
+ *          "role": "test-automation"
+ *          "environments": [ "dev", "sit", "prod" ],
+ *      },
+ *      {
+ *          "username": "release.bot@example.com",
+ *          "role": "release-automation"
+ *          "environments": [ "dev", "sit", "prod" ],
+ *      }
+ *  ]
+ *
+ * @example <caption>Using with Property</caption>
+ *  import { actorCalled, List, Property } from '@serenity-js/core';
+ *  import { contain, Ensure, equals } from '@serenity-js/assertions';
+ *
+ *  actorCalled('Lisa').attemptsTo(
+ *      Ensure.that(
+ *          Property.of(
+ *              List.of(testAccounts)
+ *                  .where(Property.at<TestAccount>().environments, contain('prod'))
+ *                  .where(Property.at<TestAccount>().role, equals('test-automation'))
+ *                  .first()
+ *              ).username,
+ *          equals('tester.two@example.com')
+ *      )
+ *  )
  *
  * @extends {Question}
  * @see {@link MetaQuestion}
@@ -54,6 +95,17 @@ export class List<
      * @desc
      *  Returns the number of items left after applying any filters,
      *
+     * @example <caption>Counting items</caption>
+     *  import { actorCalled, List } from '@serenity-js/core';
+     *  import { Ensure, equals, property } from '@serenity-js/assertions';
+     *
+     *  actorCalled('Lisa').attemptsTo(
+     *      Ensure.that(
+     *          List.of(testAccounts).count(),
+     *          equals(3)
+     *      )
+     *  )
+     *
      * @returns {Question<Promise<number>>}
      *
      * @see {@link List#where}
@@ -67,6 +119,17 @@ export class List<
     /**
      * @desc
      *  Returns the first of items left after applying any filters,
+     *
+     * @example <caption>Retrieving the first item</caption>
+     *  import { actorCalled, List } from '@serenity-js/core';
+     *  import { Ensure, equals, property } from '@serenity-js/assertions';
+     *
+     *  actorCalled('Lisa').attemptsTo(
+     *      Ensure.that(
+     *          List.of(testAccounts).first(),
+     *          property('username', equals('tester.one@example.com'))
+     *      )
+     *  )
      *
      * @returns {Question<Item_Return_Type>}
      *
@@ -82,6 +145,17 @@ export class List<
      * @desc
      *  Returns the last of items left after applying any filters,
      *
+     * @example <caption>Retrieving the last item</caption>
+     *  import { actorCalled, List } from '@serenity-js/core';
+     *  import { Ensure, equals, property } from '@serenity-js/assertions';
+     *
+     *  actorCalled('Lisa').attemptsTo(
+     *      Ensure.that(
+     *          List.of(testAccounts).last(),
+     *          property('username', equals('release.bot@example.com'))
+     *      )
+     *  )
+     *
      * @returns {Question<Item_Return_Type>}
      *
      * @see {@link List#where}
@@ -95,6 +169,17 @@ export class List<
     /**
      * @desc
      *  Returns the nth of the items left after applying any filters,
+     *
+     * @example <caption>Retrieving the nth item</caption>
+     *  import { actorCalled, List } from '@serenity-js/core';
+     *  import { Ensure, equals, property } from '@serenity-js/assertions';
+     *
+     *  actorCalled('Lisa').attemptsTo(
+     *      Ensure.that(
+     *          List.of(testAccounts).get(1),
+     *          property('username', equals('tester.two@example.com'))
+     *      )
+     *  )
      *
      * @param {number} index
      *  Zero-based index of the item to return
@@ -113,6 +198,20 @@ export class List<
      * @desc
      *  Filters the underlying collection so that the result contains only those elements that meet the {@link Expectation}
      *
+     * @example <caption>Filtering a list</caption>
+     *  import { actorCalled, List, Property } from '@serenity-js/core';
+     *  import { contain, Ensure, equals, property } from '@serenity-js/assertions';
+     *
+     *  actorCalled('Lisa').attemptsTo(
+     *      Ensure.that(
+     *          List.of(testAccounts)
+     *              .where(Property.at<TestAccount>().environments, contain('prod'))
+     *              .where(Property.at<TestAccount>().role, equals('test-automation'))
+     *              .first(),
+     *          property('username', equals('tester.two@example.com'))
+     *      )
+     *  )
+     *
      * @param {MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>} question
      * @param {Expectation<any, Answer_Type>} expectation
      *
@@ -129,7 +228,7 @@ export class List<
 
     /**
      * @desc
-     *  Makes the provided {Actor} answer this {Question} and return the underlying collection.
+     *  Makes the provided {@link Actor} answer this {@link Question} and return the underlying collection.
      *
      * @param {AnswersQuestions & UsesAbilities} actor
      * @returns {Collection_Return_Type}

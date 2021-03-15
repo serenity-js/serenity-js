@@ -1,9 +1,10 @@
 import 'mocha';
 import { given } from 'mocha-testdata';
 
-import { actorCalled, Answerable, AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '../../../../src';
+import { actorCalled, Answerable, AnswersQuestions, Expectation, List, Question, UsesAbilities } from '../../../../src';
 import { expect } from '../../../expect';
 import { formatted } from '../../../../src/io';
+import { isIdenticalTo } from '../../../isIdenticalTo';
 
 /** @test {List} */
 describe('List', () => {
@@ -16,14 +17,9 @@ describe('List', () => {
     const p = <T>(value: T) =>
         Promise.resolve(value);
 
-    const isIdenticalTo = <T>(expected: T) =>
-        Expectation.thatActualShould<T, T>('have value identical to', expected)
-            .soThat((actualValue: T, expectedValue: T) => actualValue === expectedValue);
-
     const isGreaterThan = (expected: number) =>
         Expectation.thatActualShould('have value greater than', expected)
             .soThat((actualValue: number, expectedValue: number) => actualValue > expectedValue);
-
 
     /** @test {List#of} */
     describe('when wrapping an Array', () => {

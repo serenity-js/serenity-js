@@ -1,8 +1,9 @@
 import 'mocha';
 
-import { actorCalled, Answerable, AssertionError, Expectation, ExpectationMet, ExpectationNotMet, Question } from '../../../src';
+import { actorCalled, Expectation, ExpectationMet, ExpectationNotMet, Question } from '../../../src';
 import { given } from 'mocha-testdata';
 import { expect } from '../../expect';
+import { isIdenticalTo } from '../../isIdenticalTo';
 
 /** @test {Expectation} */
 describe('Expectation', () => {
@@ -14,10 +15,6 @@ describe('Expectation', () => {
 
     const q = <T>(value: T) =>
         Question.about(`some value`, actor => value);
-
-    const isIdenticalTo = <T>(expected: T) =>
-        Expectation.thatActualShould<T, T>('have value identical to', expected)
-            .soThat((actualValue: T, expectedValue: T) => actualValue === expectedValue);
 
     /** @test {Expectation.thatActualShould} */
     describe('thatActualShould()', () => {

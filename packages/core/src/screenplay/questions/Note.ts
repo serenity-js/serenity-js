@@ -64,7 +64,7 @@ export class Note<Answer> extends Question<Promise<Answer>> {
     /**
      * @desc
      *  Makes the provided {@link Actor}
-     *  answer this {Question}.
+     *  answer this {@link Question}.
      *
      * @param {AnswersQuestions & UsesAbilities} actor
      * @returns {Promise<Answer>}
