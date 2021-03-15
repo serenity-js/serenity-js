@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -192,7 +192,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/text/Text.ts.html#lineNumber17">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/text/Text.ts.html#lineNumber26">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -200,14 +200,21 @@
 
   
 
-  
+  <div class="description" data-ice="description"><p> Resolves to the visible (i.e. not hidden by CSS) <code>innerText</code> of:</p>
+<ul>
+<li>a given <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>, represented by <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span> or <code>Question&lt;ElementFinder&gt;</code>,</li>
+<li><p>a group of <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>s, represented by <span><a href="https://www.protractortest.org/#/api?view=ElementArrayFinder">ElementArrayFinder</a></span> or <code>Question&lt;ElementArrayFinder&gt;</code>.</p>
+<p>The result includes the visible text of any sub-elements, without any leading or trailing whitespace.</p>
+</li>
+</ul>
+</div>
 
   
   
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span> → Text</div></div>
   
   
-  
-  
+  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html">MetaQuestion</a></span></li></ul></div>
   
   
   
@@ -244,13 +251,16 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/text/Text.ts~Text.html#static-method-of">of</a></span></span><span class="code" data-ice="signature">(target: <span>Question </span> | <span> ElementFinder</span>): <span>Question &amp; RelativeQuestion</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/text/Text.ts~Text.html#static-method-of">of</a></span></span><span class="code" data-ice="signature">(target: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>string&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder</span>&gt;|<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span>Promise</span>&lt;<span>string</span>&gt;&gt;</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Retrieves text of a single <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>,
+ represented by <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>
+ or <code>Question&lt;ElementFinder&gt;</code>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -272,13 +282,16 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/text/Text.ts~Text.html#static-method-ofAll">ofAll</a></span></span><span class="code" data-ice="signature">(target: <span>Question </span> | <span> ElementArrayFinder</span>): <span>Question &amp; RelativeQuestion</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/text/Text.ts~Text.html#static-method-ofAll">ofAll</a></span></span><span class="code" data-ice="signature">(target: <span>Question&lt;ElementArrayFinder&gt; </span> | <span> ElementArrayFinder</span>): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>string[]&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder</span>&gt;|<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span>Promise</span>&lt;<span><span>string</span><span>[]</span></span>&gt;&gt;</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Retrieves text of a group of <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>s,
+ represented by <span><a href="https://www.protractortest.org/#/api?view=ElementArrayFinder">ElementArrayFinder</a></span>
+ or <code>Question&lt;ElementArrayFinder&gt;</code></p>
+</div>
       </div>
     </td>
     <td>
@@ -306,18 +319,21 @@
     
     
     
-    <span class="code" data-ice="name">of</span><span class="code" data-ice="signature">(target: <span>Question </span> | <span> ElementFinder</span>): <span>Question &amp; RelativeQuestion</span></span>
+    <span class="code" data-ice="name">of</span><span class="code" data-ice="signature">(target: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>string&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder</span>&gt;|<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span>Promise</span>&lt;<span>string</span>&gt;&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/text/Text.ts.html#lineNumber12">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/text/Text.ts.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Retrieves text of a single <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>,
+ represented by <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>
+ or <code>Question&lt;ElementFinder&gt;</code>.</p>
+</div>
 
   
 
@@ -331,7 +347,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">target</td>
-      <td data-ice="type" class="code"><span>Question </span> | <span> ElementFinder</span></td>
+      <td data-ice="type" class="code"><span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -345,7 +361,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>Question &amp; RelativeQuestion</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>string&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder</span>&gt;|<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span>Promise</span>&lt;<span>string</span>&gt;&gt;</td>
           
         </tr>
       </tbody>
@@ -373,7 +389,7 @@
 </ul>
   </div>
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html">MetaQuestion</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -384,18 +400,21 @@
     
     
     
-    <span class="code" data-ice="name">ofAll</span><span class="code" data-ice="signature">(target: <span>Question </span> | <span> ElementArrayFinder</span>): <span>Question &amp; RelativeQuestion</span></span>
+    <span class="code" data-ice="name">ofAll</span><span class="code" data-ice="signature">(target: <span>Question&lt;ElementArrayFinder&gt; </span> | <span> ElementArrayFinder</span>): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>string[]&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder</span>&gt;|<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span>Promise</span>&lt;<span><span>string</span><span>[]</span></span>&gt;&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/text/Text.ts.html#lineNumber18">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/text/Text.ts.html#lineNumber86">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Retrieves text of a group of <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>s,
+ represented by <span><a href="https://www.protractortest.org/#/api?view=ElementArrayFinder">ElementArrayFinder</a></span>
+ or <code>Question&lt;ElementArrayFinder&gt;</code></p>
+</div>
 
   
 
@@ -409,7 +428,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">target</td>
-      <td data-ice="type" class="code"><span>Question </span> | <span> ElementArrayFinder</span></td>
+      <td data-ice="type" class="code"><span>Question&lt;ElementArrayFinder&gt; </span> | <span> ElementArrayFinder</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -423,7 +442,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>Question &amp; RelativeQuestion</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>string[]&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder</span>&gt;|<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span>Promise</span>&lt;<span><span>string</span><span>[]</span></span>&gt;&gt;</td>
           
         </tr>
       </tbody>
@@ -451,7 +470,7 @@
 </ul>
   </div>
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html">MetaQuestion</a></span></span></li></ul></div>
   
 </div>
 </div>

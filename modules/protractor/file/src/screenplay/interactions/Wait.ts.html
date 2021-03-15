@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -186,8 +186,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Wait.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Expectation, ExpectationMet, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, AssertionError, Duration, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, AssertionError, Duration, Expectation, ExpectationMet, ExpectationOutcome, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
 <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
@@ -196,8 +195,8 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
- *  wait before proceeding either for a set {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core~Duration}
- *  or until a given {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/assertions~Expectation} is met.
+ *  wait before proceeding either for a set {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/model~Duration}
+ *  or until a given {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions~Expectation} is met.
  *
  *  Useful when a test scenario can't take advantage of automatic synchronisation between
  *  Protractor and Angular (see {<span class="hljs-doctag">@link </span>UseAngular}), or when the application under test is animation-heavy.
@@ -340,10 +339,10 @@
      *  A {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}
      *  that the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
      *  will keep asking until the answer meets
-     *  the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/assertions~Expectation} provided
+     *  the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions~Expectation} provided
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Expectation&lt;any,Actual&gt;}</span> <span class="hljs-variable">expectation</span></span>
-     *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/assertions~Expectation} to be met before proceeding
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~&lt;any,Actual&gt;}</span> <span class="hljs-variable">expectation</span></span>
+     *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions~Expectation} to be met before proceeding
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
      */</span>
@@ -417,7 +416,7 @@
             actual      = <span class="hljs-built_in">this</span>.actual,
             expectation = <span class="hljs-built_in">this</span>.expectation.answeredBy(actor);
 
-        <span class="hljs-keyword">let</span> expectationOutcome: Outcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;;
+        <span class="hljs-keyword">let</span> expectationOutcome: ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;;
 
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor)
             .wait(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{

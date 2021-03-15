@@ -96,6 +96,7 @@
                 <aside id="sidebar" class="col-lg-3 col-md-12">
                     <nav class="toc navigation text-truncate">
                         <ul>
+                            <li><a href="changelog.html#"></a></li>
                             <li><a href="changelog.html#2-24-1-2021-02-28-">2.24.1 (2021-02-28)</a></li>
                             <li><a href="changelog.html#2-23-2-2021-02-23-">2.23.2 (2021-02-23)</a></li>
                             <li><a href="changelog.html#2-23-1-2021-02-21-">2.23.1 (2021-02-21)</a></li>
@@ -309,6 +310,22 @@
                     <article class="content"><html><head></head><body><h1 id="change-log">Change Log</h1>
 <p>All notable changes to this project will be documented in this file.
 See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
+<h1 id="2-25-0-2021-03-15-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.24.1...v2.25.0">2.25.0</a> (2021-03-15)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li><strong>core:</strong> moved RelativeQuestion interface to core and renamed to MetaQuestion (<a href="https://github.com/serenity-js/serenity-js/commit/fdc9500d68509497d2a6036a5e416637f94b8632">fdc9500</a>)</li>
+<li><strong>protractor:</strong> added an explicit dependency on @serenity-js/assertions (<a href="https://github.com/serenity-js/serenity-js/commit/0d0dda3fc6d346eb3940e959b8a314e900ea27ed">0d0dda3</a>)</li>
+<li><strong>protractor:</strong> deprecated experimental Pick; use Target.all().located().where(...) instead (<a href="https://github.com/serenity-js/serenity-js/commit/81b9c36436421ac1f280bb501dde558f442c1ead">81b9c36</a>)</li>
+</ul>
+<h3 id="features">Features</h3>
+<ul>
+<li><strong>assertions:</strong> re-exported Expectation and Check from core to avoid breaking tests using Serenity/JS 2.24.1 and older (<a href="https://github.com/serenity-js/serenity-js/commit/5ef10966f6af88c24a7d27b7123ec4087f0e2d66">5ef1096</a>)</li>
+<li><strong>core:</strong> moved Check from @serenity-js/assertions to @serenity-js/core (<a href="https://github.com/serenity-js/serenity-js/commit/1f365811796f8581064ae3601985cf10f6565feb">1f36581</a>)</li>
+<li><strong>core:</strong> moved Expectation from @serenity-js/assertions to @serenity-js/core (<a href="https://github.com/serenity-js/serenity-js/commit/208391e7b0f9dab177e0b5305e6b8fb2415cb7f4">208391e</a>)</li>
+<li><strong>core:</strong> new question List to help retrieve a specific item from a collection (<a href="https://github.com/serenity-js/serenity-js/commit/2de991a7ba893098cc999110678f6390b7101e03">2de991a</a>)</li>
+<li><strong>core:</strong> new questions Property.of and Property.at help retrieve properties of Answerable<object> (<a href="https://github.com/serenity-js/serenity-js/commit/a807df9aeba5770a290abdb80b5e212702aa3b6c">a807df9</a>)</object></li>
+<li><strong>protractor:</strong> new APIs to make it easier to pick a specific element from Target.all (<a href="https://github.com/serenity-js/serenity-js/commit/f697d3917db6185000911304d390df1f5163c27f">f697d39</a>)</li>
+</ul>
 <h2 id="2-24-1-2021-02-28-"><a href="https://github.com/serenity-js/serenity-js/compare/v2.24.0...v2.24.1">2.24.1</a> (2021-02-28)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>

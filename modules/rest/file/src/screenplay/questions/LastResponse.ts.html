@@ -209,7 +209,34 @@
      *      })),
      *  );
      *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving an item at path using Property.of&lt;/caption&gt;
+     *  import { Property } from '<span class="hljs-doctag">@serenity</span>-js/core';
+     *
+     *  actor.attemptsTo(
+     *      Ensure.that(
+     *          Property.of(LastResponse.body&lt;Book&gt;()).title,
+     *          equals('Zen and the Art of Motorcycle Maintenance: An Inquiry into Values'),
+     *      )
+     *  )
+     *
+     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Filtering response body using List&lt;/caption&gt;
+     *  import { Property } from '<span class="hljs-doctag">@serenity</span>-js/core';
+     *  import { property, startsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+     *
+     *  actor.attemptsTo(
+     *      Ensure.that(
+     *          // imagine the API returns an array of books
+     *          List.of(LastResponse.body&lt;Book[]&gt;())
+     *              .where(Property.at&lt;Book&gt;().author, equals('Robert M. Pirsig'))
+     *              .first(),
+     *          property('title', startsWith('Zen and the Art of Motorcycle Maintenance')),
+     *      )
+     *  )
+     *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;any&gt;}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~Property}</span></span>
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~List}</span></span>
      */</span>
     <span class="hljs-keyword">static</span> body&lt;T = <span class="hljs-built_in">any</span>&gt;(): Question&lt;T&gt; {
         <span class="hljs-keyword">return</span> Question.about&lt;T&gt;(<span class="hljs-string">`the body of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {

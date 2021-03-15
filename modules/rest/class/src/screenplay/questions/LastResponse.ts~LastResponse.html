@@ -361,7 +361,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber107">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber134">source</a></span></span>
     </span>
   </h3>
 
@@ -426,6 +426,32 @@
      })),
  );</code></pre>
     </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Retrieving an item at path using Property.of</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+
+ actor.attemptsTo(
+     Ensure.that(
+         Property.of(LastResponse.body&lt;Book&gt;()).title,
+         equals(<span class="hljs-string">'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values'</span>),
+     )
+ )</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Filtering response body using List</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { property, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+
+ actor.attemptsTo(
+     Ensure.that(
+         <span class="hljs-comment">// imagine the API returns an array of books</span>
+         List.of(LastResponse.body&lt;Book[]&gt;())
+             .where(Property.at&lt;Book&gt;().author, equals(<span class="hljs-string">'Robert M. Pirsig'</span>))
+             .first(),
+         property(<span class="hljs-string">'title'</span>, startsWith(<span class="hljs-string">'Zen and the Art of Motorcycle Maintenance'</span>)),
+     )
+ )</code></pre>
+    </div>
 </div>
 
   <div data-ice="tests">
@@ -438,7 +464,8 @@
 </ul>
   </div>
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/questions/Property.ts~Property.html">Property</a></span></span></li>
+<li><span><span><a href="/modules/core/class/src/screenplay/questions/List.ts~List.html">List</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -453,7 +480,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber135">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber162">source</a></span></span>
     </span>
   </h3>
 
@@ -531,7 +558,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber159">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/LastResponse.ts.html#lineNumber186">source</a></span></span>
     </span>
   </h3>
 

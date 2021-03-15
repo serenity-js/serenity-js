@@ -42,11 +42,11 @@
 /** @external {@serenity-js/protractor/lib/screenplay/questions~ModalDialog} /modules/protractor/class/src/screenplay/questions/ModalDialog.ts~ModalDialog.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Pick} /modules/protractor/class/src/screenplay/questions/Pick.ts~Pick.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~ProtractorParam} /modules/protractor/class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html */
-/** @external {@serenity-js/protractor/lib/screenplay/questions~RelativeQuestion} /modules/protractor/class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Selected} /modules/protractor/class/src/screenplay/questions/Selected.ts~Selected.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Value} /modules/protractor/class/src/screenplay/questions/Value.ts~Value.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Website} /modules/protractor/class/src/screenplay/questions/Website.ts~Website.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions~Window} /modules/protractor/class/src/screenplay/questions/Window.ts~Window.html */
+/** @external {@serenity-js/protractor/lib/screenplay/questions/lists~ElementArrayFinderListAdapter} /modules/protractor/class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions/targets~Target} /modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions/targets~TargetElement} /modules/protractor/class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html */
 /** @external {@serenity-js/protractor/lib/screenplay/questions/targets~TargetElements} /modules/protractor/class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html */

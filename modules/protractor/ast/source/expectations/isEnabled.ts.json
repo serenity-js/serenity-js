@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 647,
+  "end": 684,
   "loc": {
     "start": {
       "line": 1,
@@ -16,7 +16,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 647,
+    "end": 684,
     "loc": {
       "start": {
         "line": 1,
@@ -33,7 +33,7 @@
       {
         "type": "ImportDeclaration",
         "start": 0,
-        "end": 54,
+        "end": 48,
         "loc": {
           "start": {
             "line": 1,
@@ -41,7 +41,7 @@
           },
           "end": {
             "line": 1,
-            "column": 54
+            "column": 48
           }
         },
         "importKind": "value",
@@ -99,7 +99,7 @@
         "source": {
           "type": "StringLiteral",
           "start": 28,
-          "end": 53,
+          "end": 47,
           "loc": {
             "start": {
               "line": 1,
@@ -107,20 +107,20 @@
             },
             "end": {
               "line": 1,
-              "column": 53
+              "column": 47
             }
           },
           "extra": {
-            "rawValue": "@serenity-js/assertions",
-            "raw": "'@serenity-js/assertions'"
+            "rawValue": "@serenity-js/core",
+            "raw": "'@serenity-js/core'"
           },
-          "value": "@serenity-js/assertions"
+          "value": "@serenity-js/core"
         }
       },
       {
         "type": "ImportDeclaration",
-        "start": 55,
-        "end": 98,
+        "start": 49,
+        "end": 92,
         "loc": {
           "start": {
             "line": 2,
@@ -135,8 +135,8 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 64,
-            "end": 77,
+            "start": 58,
+            "end": 71,
             "loc": {
               "start": {
                 "line": 2,
@@ -149,8 +149,8 @@
             },
             "imported": {
               "type": "Identifier",
-              "start": 64,
-              "end": 77,
+              "start": 58,
+              "end": 71,
               "loc": {
                 "start": {
                   "line": 2,
@@ -166,8 +166,8 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 64,
-              "end": 77,
+              "start": 58,
+              "end": 71,
               "loc": {
                 "start": {
                   "line": 2,
@@ -185,8 +185,8 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 85,
-          "end": 97,
+          "start": 79,
+          "end": 91,
           "loc": {
             "start": {
               "line": 2,
@@ -206,8 +206,8 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 99,
-        "end": 169,
+        "start": 93,
+        "end": 163,
         "loc": {
           "start": {
             "line": 3,
@@ -222,8 +222,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {Expectation} \n ",
-            "start": 170,
-            "end": 245,
+            "start": 164,
+            "end": 239,
             "loc": {
               "start": {
                 "line": 4,
@@ -237,9 +237,9 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
-            "start": 248,
-            "end": 479,
+            "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
+            "start": 242,
+            "end": 516,
             "loc": {
               "start": {
                 "line": 14,
@@ -256,8 +256,8 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 108,
-            "end": 132,
+            "start": 102,
+            "end": 126,
             "loc": {
               "start": {
                 "line": 3,
@@ -270,8 +270,8 @@
             },
             "imported": {
               "type": "Identifier",
-              "start": 108,
-              "end": 132,
+              "start": 102,
+              "end": 126,
               "loc": {
                 "start": {
                   "line": 3,
@@ -287,8 +287,8 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 108,
-              "end": 132,
+              "start": 102,
+              "end": 126,
               "loc": {
                 "start": {
                   "line": 3,
@@ -306,8 +306,8 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 140,
-          "end": 168,
+          "start": 134,
+          "end": 162,
           "loc": {
             "start": {
               "line": 3,
@@ -327,8 +327,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 480,
-        "end": 646,
+        "start": 517,
+        "end": 683,
         "loc": {
           "start": {
             "line": 24,
@@ -343,8 +343,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {Expectation} \n ",
-            "start": 170,
-            "end": 245,
+            "start": 164,
+            "end": 239,
             "loc": {
               "start": {
                 "line": 4,
@@ -358,9 +358,9 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
-            "start": 248,
-            "end": 479,
+            "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
+            "start": 242,
+            "end": 516,
             "loc": {
               "start": {
                 "line": 14,
@@ -378,8 +378,8 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 487,
-          "end": 646,
+          "start": 524,
+          "end": 683,
           "loc": {
             "start": {
               "line": 24,
@@ -392,8 +392,8 @@
           },
           "id": {
             "type": "Identifier",
-            "start": 496,
-            "end": 505,
+            "start": 533,
+            "end": 542,
             "loc": {
               "start": {
                 "line": 24,
@@ -412,8 +412,8 @@
           "params": [],
           "returnType": {
             "type": "TSTypeAnnotation",
-            "start": 507,
-            "end": 544,
+            "start": 544,
+            "end": 581,
             "loc": {
               "start": {
                 "line": 24,
@@ -426,8 +426,8 @@
             },
             "typeAnnotation": {
               "type": "TSTypeReference",
-              "start": 509,
-              "end": 544,
+              "start": 546,
+              "end": 581,
               "loc": {
                 "start": {
                   "line": 24,
@@ -440,8 +440,8 @@
               },
               "typeName": {
                 "type": "Identifier",
-                "start": 509,
-                "end": 520,
+                "start": 546,
+                "end": 557,
                 "loc": {
                   "start": {
                     "line": 24,
@@ -457,8 +457,8 @@
               },
               "typeParameters": {
                 "type": "TSTypeParameterInstantiation",
-                "start": 520,
-                "end": 544,
+                "start": 557,
+                "end": 581,
                 "loc": {
                   "start": {
                     "line": 24,
@@ -472,8 +472,8 @@
                 "params": [
                   {
                     "type": "TSBooleanKeyword",
-                    "start": 521,
-                    "end": 528,
+                    "start": 558,
+                    "end": 565,
                     "loc": {
                       "start": {
                         "line": 24,
@@ -487,8 +487,8 @@
                   },
                   {
                     "type": "TSTypeReference",
-                    "start": 530,
-                    "end": 543,
+                    "start": 567,
+                    "end": 580,
                     "loc": {
                       "start": {
                         "line": 24,
@@ -501,8 +501,8 @@
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 530,
-                      "end": 543,
+                      "start": 567,
+                      "end": 580,
                       "loc": {
                         "start": {
                           "line": 24,
@@ -523,8 +523,8 @@
           },
           "body": {
             "type": "BlockStatement",
-            "start": 545,
-            "end": 646,
+            "start": 582,
+            "end": 683,
             "loc": {
               "start": {
                 "line": 24,
@@ -538,8 +538,8 @@
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 551,
-                "end": 644,
+                "start": 588,
+                "end": 681,
                 "loc": {
                   "start": {
                     "line": 25,
@@ -552,8 +552,8 @@
                 },
                 "argument": {
                   "type": "CallExpression",
-                  "start": 558,
-                  "end": 643,
+                  "start": 595,
+                  "end": 680,
                   "loc": {
                     "start": {
                       "line": 25,
@@ -566,8 +566,8 @@
                   },
                   "callee": {
                     "type": "MemberExpression",
-                    "start": 558,
-                    "end": 595,
+                    "start": 595,
+                    "end": 632,
                     "loc": {
                       "start": {
                         "line": 25,
@@ -580,8 +580,8 @@
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 558,
-                      "end": 582,
+                      "start": 595,
+                      "end": 619,
                       "loc": {
                         "start": {
                           "line": 25,
@@ -598,8 +598,8 @@
                     "computed": false,
                     "property": {
                       "type": "Identifier",
-                      "start": 583,
-                      "end": 595,
+                      "start": 620,
+                      "end": 632,
                       "loc": {
                         "start": {
                           "line": 25,
@@ -617,8 +617,8 @@
                   "arguments": [
                     {
                       "type": "StringLiteral",
-                      "start": 596,
-                      "end": 612,
+                      "start": 633,
+                      "end": 649,
                       "loc": {
                         "start": {
                           "line": 25,
@@ -637,8 +637,8 @@
                     },
                     {
                       "type": "ArrowFunctionExpression",
-                      "start": 614,
-                      "end": 642,
+                      "start": 651,
+                      "end": 679,
                       "loc": {
                         "start": {
                           "line": 25,
@@ -655,8 +655,8 @@
                       "params": [
                         {
                           "type": "Identifier",
-                          "start": 614,
-                          "end": 620,
+                          "start": 651,
+                          "end": 657,
                           "loc": {
                             "start": {
                               "line": 25,
@@ -673,8 +673,8 @@
                       ],
                       "body": {
                         "type": "CallExpression",
-                        "start": 624,
-                        "end": 642,
+                        "start": 661,
+                        "end": 679,
                         "loc": {
                           "start": {
                             "line": 25,
@@ -687,8 +687,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 624,
-                          "end": 640,
+                          "start": 661,
+                          "end": 677,
                           "loc": {
                             "start": {
                               "line": 25,
@@ -701,8 +701,8 @@
                           },
                           "object": {
                             "type": "Identifier",
-                            "start": 624,
-                            "end": 630,
+                            "start": 661,
+                            "end": 667,
                             "loc": {
                               "start": {
                                 "line": 25,
@@ -719,8 +719,8 @@
                           "computed": false,
                           "property": {
                             "type": "Identifier",
-                            "start": 631,
-                            "end": 640,
+                            "start": 668,
+                            "end": 677,
                             "loc": {
                               "start": {
                                 "line": 25,
@@ -748,8 +748,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {Expectation} \n ",
-              "start": 170,
-              "end": 245,
+              "start": 164,
+              "end": 239,
               "loc": {
                 "start": {
                   "line": 4,
@@ -763,9 +763,9 @@
             },
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
-              "start": 248,
-              "end": 479,
+              "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
+              "start": 242,
+              "end": 516,
               "loc": {
                 "start": {
                   "line": 14,
@@ -788,8 +788,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {Expectation} \n ",
-      "start": 170,
-      "end": 245,
+      "start": 164,
+      "end": 239,
       "loc": {
         "start": {
           "line": 4,
@@ -803,9 +803,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
-      "start": 248,
-      "end": 479,
+      "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/assertions~Check}\n * @see {@link Wait}\n ",
+      "start": 242,
+      "end": 516,
       "loc": {
         "start": {
           "line": 14,

@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -189,12 +189,13 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { contain, Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { contain, Ensure, equals, isGreaterThan, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage, Question, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { by, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { Click, CSSClasses, Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
 <span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span> </span>*/</span>
 describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -216,13 +217,13 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
     `</span>);
 
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShoppingList</span> </span>{
-        <span class="hljs-keyword">static</span> App                  = Target.the(<span class="hljs-string">'shopping list app'</span>).located(by.id(<span class="hljs-string">'shopping-list-app'</span>));
-        <span class="hljs-keyword">static</span> Progress             = Target.the(<span class="hljs-string">'progress bar'</span>).located(by.css(<span class="hljs-string">'.progress'</span>)).of(ShoppingList.App);
+        <span class="hljs-keyword">static</span> App = Target.the(<span class="hljs-string">'shopping list app'</span>).located(by.id(<span class="hljs-string">'shopping-list-app'</span>));
+        <span class="hljs-keyword">static</span> Progress = Target.the(<span class="hljs-string">'progress bar'</span>).located(by.css(<span class="hljs-string">'.progress'</span>)).of(ShoppingList.App);
         <span class="hljs-keyword">static</span> Number_Of_Items_Left = Target.the(<span class="hljs-string">'number of items left'</span>).of(ShoppingList.Progress).located(by.css(<span class="hljs-string">'span'</span>));
 
-        <span class="hljs-keyword">static</span> Header       = Target.the(<span class="hljs-string">'header'</span>).located(by.tagName(<span class="hljs-string">'h1'</span>));
-        <span class="hljs-keyword">static</span> List         = Target.the(<span class="hljs-string">'shopping list'</span>).located(by.tagName(<span class="hljs-string">'ul'</span>));
-        <span class="hljs-keyword">static</span> Items        = Target.all(<span class="hljs-string">'items'</span>).of(ShoppingList.App).located(by.tagName(<span class="hljs-string">'li'</span>));
+        <span class="hljs-keyword">static</span> Header = Target.the(<span class="hljs-string">'header'</span>).located(by.tagName(<span class="hljs-string">'h1'</span>));
+        <span class="hljs-keyword">static</span> List = Target.the(<span class="hljs-string">'shopping list'</span>).located(by.tagName(<span class="hljs-string">'ul'</span>));
+        <span class="hljs-keyword">static</span> Items = Target.all(<span class="hljs-string">'items'</span>).of(ShoppingList.App).located(by.tagName(<span class="hljs-string">'li'</span>));
         <span class="hljs-keyword">static</span> Bought_Items = Target.all(<span class="hljs-string">'bought items'</span>).located(by.css(<span class="hljs-string">'.bought'</span>)).of(ShoppingList.List);
     }
 
@@ -232,43 +233,53 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target.the}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElement}</span></span>
          */</span>
-        it(<span class="hljs-string">'a single web element matching the selector'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Navigate.to(shoppingListPage),
+        it(<span class="hljs-string">'a single web element matching the selector'</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                Navigate.to(shoppingListPage),
 
-            Ensure.that(Text.of(ShoppingList.Header), equals(<span class="hljs-string">'Shopping list'</span>)),
-        ));
+                Ensure.that(Text.of(ShoppingList.Header), equals(<span class="hljs-string">'Shopping list'</span>)),
+            ));
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
          */</span>
-        it(<span class="hljs-string">'all web elements matching the selector'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Navigate.to(shoppingListPage),
+        it(<span class="hljs-string">'all web elements matching the selector'</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                Navigate.to(shoppingListPage),
 
-            Ensure.that(Text.ofAll(ShoppingList.Items), contain(<span class="hljs-string">'oats'</span>)),
-        ));
+                Ensure.that(Text.ofAll(ShoppingList.Items), contain(<span class="hljs-string">'oats'</span>)),
+            ));
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target.the}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement#of}</span></span>
          */</span>
-        it(<span class="hljs-string">'an element relative to another target'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Navigate.to(shoppingListPage),
+        it(<span class="hljs-string">'an element relative to another target'</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                Navigate.to(shoppingListPage),
 
-            Ensure.that(Text.of(ShoppingList.Number_Of_Items_Left), equals(<span class="hljs-string">'2'</span>)),
-        ));
+                Ensure.that(Text.of(ShoppingList.Number_Of_Items_Left), equals(<span class="hljs-string">'2'</span>)),
+            ));
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements#of}</span></span>
          */</span>
-        it(<span class="hljs-string">'all elements relative to another target'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Navigate.to(shoppingListPage),
+        it(<span class="hljs-string">'all elements relative to another target'</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                Navigate.to(shoppingListPage),
 
-            Ensure.that(Text.ofAll(ShoppingList.Bought_Items), equals([<span class="hljs-string">'coffee'</span>])),
-        ));
+                Ensure.that(Text.ofAll(ShoppingList.Bought_Items), equals([<span class="hljs-string">'coffee'</span>])),
+            ));
     });
 
     describe(<span class="hljs-string">'provides a sensible description of'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -277,6 +288,7 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.the}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElement}</span></span>
              */</span>
             it(<span class="hljs-string">'is being targeted'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -286,6 +298,7 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.the}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElement}</span></span>
              */</span>
             it(<span class="hljs-string">'has been located'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -295,7 +308,9 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.the}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement#of}</span></span>
              */</span>
             it(<span class="hljs-string">'is nested'</span>, <span class="hljs-function">() =&gt;</span>
                 expect(ShoppingList.Number_Of_Items_Left.answeredBy(actorCalled(<span class="hljs-string">'Bernie'</span>)).toString())
@@ -306,6 +321,7 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
              */</span>
             it(<span class="hljs-string">'are being targeted'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -315,6 +331,7 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
              */</span>
             it(<span class="hljs-string">'have been located'</span>, <span class="hljs-function">() =&gt;</span>
@@ -323,6 +340,8 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
 
             <span class="hljs-comment">/**
              * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#of}</span></span>
              * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
              */</span>
             it(<span class="hljs-string">'are nested'</span>, <span class="hljs-function">() =&gt;</span>
@@ -340,9 +359,9 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
                             &lt;h1&gt;Title&lt;/h1&gt;
                         &lt;/header&gt;
                         &lt;ul id="toc"&gt;
-                            &lt;li&gt;topic 1&lt;/li&gt;
-                            &lt;li&gt;topic 2&lt;/li&gt;
-                            &lt;li&gt;topic 3&lt;/li&gt;
+                            &lt;li&gt;topic &lt;span class="number"&gt;1&lt;/span&gt;&lt;/li&gt;
+                            &lt;li&gt;topic &lt;span class="number"&gt;2&lt;/span&gt;&lt;/li&gt;
+                            &lt;li&gt;topic &lt;span class="number"&gt;3&lt;/span&gt;&lt;/li&gt;
                         &lt;/ul&gt;
                     &lt;/article&gt;
                 &lt;/body&gt;
@@ -351,44 +370,591 @@ describe(<span class="hljs-string">'Target'</span>, <span class="hljs-function">
 
         <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page</span> </span>{
             <span class="hljs-keyword">static</span> Article = Target.the(<span class="hljs-string">'article'</span>).located(by.css(<span class="hljs-string">'article'</span>));
-            <span class="hljs-keyword">static</span> Header  = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'header'</span>));
-            <span class="hljs-keyword">static</span> Title   = Target.the(<span class="hljs-string">'title'</span>).located(by.css(<span class="hljs-string">'h1'</span>));
-            <span class="hljs-keyword">static</span> TOC     = Target.the(<span class="hljs-string">'table of contents'</span>).located(by.css(<span class="hljs-string">'ul#toc'</span>));
-            <span class="hljs-keyword">static</span> Topics  = Target.all(<span class="hljs-string">'topics'</span>).located(by.css(<span class="hljs-string">'li'</span>));
+            <span class="hljs-keyword">static</span> Header = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'header'</span>));
+            <span class="hljs-keyword">static</span> Title = Target.the(<span class="hljs-string">'title'</span>).located(by.css(<span class="hljs-string">'h1'</span>));
+            <span class="hljs-keyword">static</span> TOC = Target.the(<span class="hljs-string">'table of contents'</span>).located(by.css(<span class="hljs-string">'ul#toc'</span>));
+            <span class="hljs-keyword">static</span> Topics = Target.all(<span class="hljs-string">'topics'</span>).located(by.css(<span class="hljs-string">'li'</span>));
+            <span class="hljs-keyword">static</span> Topic_Number = Target.the(<span class="hljs-string">'topic number'</span>).located(by.css(<span class="hljs-string">'.number'</span>));
         }
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target.the}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElement#of}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement}</span></span>
          */</span>
-        it(<span class="hljs-string">'allows for Target&lt;ElementFinder&gt; to be nested within another Target&lt;ElementFinder&gt;'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Navigate.to(pageWithNestedTargets),
+        it(<span class="hljs-string">'allows for Target&lt;ElementFinder&gt; to be nested within another Target&lt;ElementFinder&gt;'</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                Navigate.to(pageWithNestedTargets),
 
-            Ensure.that(Text.of(Page.Header.of(Page.Article)), equals(<span class="hljs-string">'Title'</span>)),
-            Ensure.that(Page.Header.of(Page.Article).toString(), equals(<span class="hljs-string">'the header of the article'</span>)),
-        ));
+                Ensure.that(Text.of(Page.Header.of(Page.Article)), equals(<span class="hljs-string">'Title'</span>)),
+                Ensure.that(Page.Header.of(Page.Article).toString(), equals(<span class="hljs-string">'the header of the article'</span>)),
+            ));
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target.the}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElement#of}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElement#of}</span></span>
          */</span>
-        it(<span class="hljs-string">'allows for Target&lt;ElementFinder&gt; to form a chain with other Target&lt;ElementFinder&gt;s'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Navigate.to(pageWithNestedTargets),
+        it(<span class="hljs-string">'allows for Target&lt;ElementFinder&gt; to form a chain with other Target&lt;ElementFinder&gt;s'</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                Navigate.to(pageWithNestedTargets),
 
-            Ensure.that(Text.of(Page.Title.of(Page.Header).of(Page.Article)), equals(<span class="hljs-string">'Title'</span>)),
-            Ensure.that(Page.Title.of(Page.Header.of(Page.Article)).toString(), equals(<span class="hljs-string">'the title of the header of the article'</span>)),
-        ));
+                Ensure.that(Text.of(Page.Title.of(Page.Header).of(Page.Article)), equals(<span class="hljs-string">'Title'</span>)),
+                Ensure.that(Page.Title.of(Page.Header.of(Page.Article)).toString(), equals(<span class="hljs-string">'the title of the header of the article'</span>)),
+            ));
 
         <span class="hljs-comment">/**
          * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#of}</span></span>
          * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
+         * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements#of}</span></span>
          */</span>
-        it(<span class="hljs-string">'allows for Target&lt;ElementArrayFinder&gt; to be nested within another Target&lt;ElementFinder&gt;'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Navigate.to(pageWithNestedTargets),
+        it(<span class="hljs-string">'allows for Target&lt;ElementArrayFinder&gt; to be nested within another Target&lt;ElementFinder&gt;'</span>, <span class="hljs-function">() =&gt;</span>
+            actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                Navigate.to(pageWithNestedTargets),
 
-            Ensure.that(Text.ofAll(Page.Topics.of(Page.TOC).of(Page.Article)), equals([<span class="hljs-string">'topic 1'</span>, <span class="hljs-string">'topic 2'</span>, <span class="hljs-string">'topic 3'</span>])),
-            Ensure.that(Page.Topics.of(Page.TOC).of(Page.Article).toString(), equals(<span class="hljs-string">'the topics of the table of contents of the article'</span>)),
-        ));
+                Ensure.that(Text.ofAll(Page.Topics.of(Page.TOC).of(Page.Article)), equals([<span class="hljs-string">'topic 1'</span>, <span class="hljs-string">'topic 2'</span>, <span class="hljs-string">'topic 3'</span>])),
+                Ensure.that(Page.Topics.of(Page.TOC).of(Page.Article).toString(), equals(<span class="hljs-string">'the topics of the table of contents of the article'</span>)),
+            ));
+
+        describe(<span class="hljs-string">'and filtering them'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            <span class="hljs-keyword">const</span> filteredTopics = Page.Topics.of(Page.TOC).where(Text.of(Page.Topic_Number), equals(<span class="hljs-string">'2'</span>));
+
+            <span class="hljs-comment">/**
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#of}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
+             */</span>
+            it(<span class="hljs-string">'allows for nested Target&lt;ElementArrayFinder&gt; to be filtered'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                    Navigate.to(pageWithNestedTargets),
+
+                    Ensure.that(
+                        Text.ofAll(filteredTopics),
+                        equals([<span class="hljs-string">'topic 2'</span>]),
+                    ),
+                    Ensure.that(
+                        filteredTopics.toString(),
+                        equals(<span class="hljs-string">`the topics of the table of contents where the text of the topic number does equal '2'`</span>),
+                    ),
+                ));
+
+            <span class="hljs-comment">/**
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#of}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
+             */</span>
+            it(<span class="hljs-string">'allows for nested Target&lt;ElementArrayFinder&gt; to be counted'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                    Navigate.to(pageWithNestedTargets),
+
+                    Ensure.that(
+                        filteredTopics.count(),
+                        equals(<span class="hljs-number">1</span>),
+                    ),
+                ));
+
+            <span class="hljs-comment">/**
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#of}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
+             */</span>
+            it(<span class="hljs-string">'allows for the first of nested Target&lt;ElementArrayFinder&gt; to be retrieved'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                    Navigate.to(pageWithNestedTargets),
+
+                    Ensure.that(
+                        Text.of(filteredTopics.first()),
+                        equals(<span class="hljs-string">'topic 2'</span>),
+                    ),
+                ));
+
+            <span class="hljs-comment">/**
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#of}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
+             */</span>
+            it(<span class="hljs-string">'allows for the last of nested Target&lt;ElementArrayFinder&gt; to be retrieved'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                    Navigate.to(pageWithNestedTargets),
+
+                    Ensure.that(
+                        Text.of(filteredTopics.last()),
+                        equals(<span class="hljs-string">'topic 2'</span>),
+                    ),
+                ));
+
+            <span class="hljs-comment">/**
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#of}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{TargetNestedElements}</span></span>
+             */</span>
+            it(<span class="hljs-string">'allows for the nth of nested Target&lt;ElementArrayFinder&gt; to be retrieved'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+                    Navigate.to(pageWithNestedTargets),
+
+                    Ensure.that(
+                        Text.of(filteredTopics.get(<span class="hljs-number">0</span>)),
+                        equals(<span class="hljs-string">'topic 2'</span>),
+                    ),
+                ));
+        });
+    });
+
+    describe(<span class="hljs-string">'when filtering a list of targets'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-keyword">const</span> advancedShoppingList = pageFromTemplate(<span class="hljs-string">`
+            &lt;html&gt;
+            &lt;body&gt;
+            &lt;div id="shopping-list-app"&gt;
+                &lt;h1&gt;Shopping list&lt;/h1&gt;
+                &lt;ul&gt;
+                    &lt;li class="buy 1st"&gt;
+                        &lt;span class="item-name"&gt;oats&lt;/span&gt;
+                        &lt;a onclick="toggle(this)"&gt;x&lt;/a&gt;
+                    &lt;/li&gt;
+                    &lt;li class="buy 2nd"&gt;
+                        &lt;span class="item-name"&gt;coconut milk&lt;/span&gt;
+                        &lt;a onclick="toggle(this)"&gt;x&lt;/a&gt;
+                    &lt;/li&gt;
+                    &lt;li class="3rd"&gt;
+                        &lt;span class="item-name"&gt;coffee&lt;/span&gt;
+                        &lt;a onclick="toggle(this)"&gt;x&lt;/a&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;script&gt;
+                function toggle(event) {
+                    event.parentNode.classList.toggle('buy');
+                }
+            &lt;/script&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+        `</span>);
+
+        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedShoppingList</span> </span>{
+            <span class="hljs-keyword">static</span> Items = Target.all(<span class="hljs-string">'shopping list items'</span>).located(by.css(<span class="hljs-string">'li'</span>));
+            <span class="hljs-keyword">static</span> Item = Target.the(<span class="hljs-string">'shopping list item'</span>).located(by.css(<span class="hljs-string">'li'</span>));
+            <span class="hljs-keyword">static</span> Titles = Target.all(<span class="hljs-string">'shopping list item titles'</span>).located(by.css(<span class="hljs-string">'li span.item-name'</span>));
+            <span class="hljs-keyword">static</span> Item_Name = Target.the(<span class="hljs-string">'item name'</span>).located(by.tagName(<span class="hljs-string">'span.item-name'</span>));
+            <span class="hljs-keyword">static</span> Item_Names = Target.all(<span class="hljs-string">'item names'</span>).located(by.tagName(<span class="hljs-string">'span.item-name'</span>));
+        }
+
+        beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
+
+        describe(<span class="hljs-string">'and no filters are applied'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            describe(<span class="hljs-string">'lets the actor interact with the list of matching elements so that it'</span>, <span class="hljs-function">() =&gt;</span> {
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#count}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'gets the number of items'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(AdvancedShoppingList.Titles.count(), equals(<span class="hljs-number">3</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.ofAll(AdvancedShoppingList.Titles), contain(<span class="hljs-string">'coconut milk'</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#first}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(AdvancedShoppingList.Titles.first()), equals(<span class="hljs-string">'oats'</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#last}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(AdvancedShoppingList.Titles.last()), equals(<span class="hljs-string">'coffee'</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#get}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(AdvancedShoppingList.Titles.get(<span class="hljs-number">1</span>)), equals(<span class="hljs-string">'coconut milk'</span>)),
+                    ));
+            });
+
+            describe(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#count}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#toString}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(AdvancedShoppingList.Items.count().toString())
+                        .to.equal(<span class="hljs-string">'the number of the shopping list items'</span>));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#toString}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(AdvancedShoppingList.Items.toString())
+                        .to.equal(<span class="hljs-string">'the shopping list items'</span>));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#first}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#toString}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(AdvancedShoppingList.Items.first().toString())
+                        .to.equal(<span class="hljs-string">'the first of the shopping list items'</span>));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#last}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements#toString}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(AdvancedShoppingList.Items.last().toString())
+                        .to.equal(<span class="hljs-string">'the last of the shopping list items'</span>));
+
+                given([
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'1st'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">0</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'2nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'3rd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">2</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'4th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">3</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'5th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">4</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'10th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">9</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'11th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">10</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'20th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">19</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'42nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">41</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'115th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">114</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'1522nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1521</span> },
+                ]).it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
+                    expect(AdvancedShoppingList.Items.get(index).toString())
+                        .to.equal(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items`</span>);
+                });
+            });
+        });
+
+        describe(<span class="hljs-string">'and a filter is applied'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            <span class="hljs-keyword">const</span> list = AdvancedShoppingList.Items.where(CSSClasses, contain(<span class="hljs-string">'buy'</span>));
+
+            describe(<span class="hljs-string">'lets the actor filter the list of matching elements so that it'</span>, <span class="hljs-function">() =&gt;</span> {
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'gets the number of items'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(list.count(), equals(<span class="hljs-number">2</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.ofAll(list), contain(<span class="hljs-string">'coconut milk x'</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(list.first()), startsWith(<span class="hljs-string">'oats'</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(list.last()), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{TargetElements}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(list.get(<span class="hljs-number">1</span>)), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                    ));
+            });
+
+            describe(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(list.count().toString())
+                        .to.equal(<span class="hljs-string">`the number of the shopping list items where CSSClasses property does contain 'buy'`</span>));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(list.toString())
+                        .to.equal(<span class="hljs-string">`the shopping list items where CSSClasses property does contain 'buy'`</span>));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(list.first().toString())
+                        .to.equal(<span class="hljs-string">`the first of the shopping list items where CSSClasses property does contain 'buy'`</span>));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(list.last().toString())
+                        .to.equal(<span class="hljs-string">`the last of the shopping list items where CSSClasses property does contain 'buy'`</span>));
+
+                given([
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'1st'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">0</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'2nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'3rd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">2</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'4th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">3</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'5th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">4</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'10th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">9</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'11th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">10</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'20th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">19</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'42nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">41</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'115th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">114</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'1522nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1521</span> },
+                ]).it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
+                    expect(list.get(index).toString()).to.equal(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items where CSSClasses property does contain 'buy'`</span>);
+                });
+            });
+        });
+
+        describe(<span class="hljs-string">'and multiple filters are applied'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            <span class="hljs-keyword">const</span> list = AdvancedShoppingList.Items.where(CSSClasses, contain(<span class="hljs-string">'buy'</span>)).where(Text, startsWith(<span class="hljs-string">'coconut'</span>));
+
+            describe(<span class="hljs-string">'lets the actor filter the list of matching elements so that it'</span>, <span class="hljs-function">() =&gt;</span> {
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'gets the number of items'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(list.count(), equals(<span class="hljs-number">1</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.ofAll(list), contain(<span class="hljs-string">'coconut milk x'</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(list.first()), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(list.last()), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                    ));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span>
+                    actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                        Navigate.to(advancedShoppingList),
+
+                        Ensure.that(Text.of(list.get(<span class="hljs-number">0</span>)), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                    ));
+            });
+
+            describe(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'returns the number of answers'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(list.count().toString())
+                        .to.equal(<span class="hljs-string">`the number of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(list.toString())
+                        .to.equal(<span class="hljs-string">`the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(list.first().toString())
+                        .to.equal(<span class="hljs-string">`the first of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
+
+                <span class="hljs-comment">/**
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+                 * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+                 */</span>
+                it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                    expect(list.last().toString())
+                        .to.equal(<span class="hljs-string">`the last of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
+
+                given([
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'1st'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">0</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'2nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'3rd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">2</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'4th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">3</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'5th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">4</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'10th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">9</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'11th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">10</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'20th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">19</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'42nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">41</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'115th'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">114</span> },
+                    { <span class="hljs-attr">description</span>: <span class="hljs-string">'1522nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1521</span> },
+                ]).it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
+                    expect(list.get(index).toString())
+                        .to.equal(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>);
+                });
+            });
+        });
+
+        describe(<span class="hljs-string">'and interacting with elements on screen'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            <span class="hljs-keyword">const</span> ItemCalled = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+                AdvancedShoppingList.Items
+                    .where(Text.of(AdvancedShoppingList.Item_Name), equals(name))
+                    .first();
+
+            <span class="hljs-keyword">const</span> ItemsLeftToBuy = <span class="hljs-function">() =&gt;</span>
+                AdvancedShoppingList.Items
+                    .where(CSSClasses, contain(<span class="hljs-string">'buy'</span>));
+
+            <span class="hljs-keyword">const</span> LinkTo = <span class="hljs-function">(<span class="hljs-params">item: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span>
+                Target.the(<span class="hljs-string">'link to element'</span>).of(item).located(by.css(<span class="hljs-string">'a'</span>));
+
+            <span class="hljs-comment">/**
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+             */</span>
+            it(<span class="hljs-string">'makes it easy for an actor to pick the element of interest'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                    Navigate.to(advancedShoppingList),
+
+                    Click.on(LinkTo(ItemCalled(<span class="hljs-string">'coffee'</span>))),
+
+                    Ensure.that(CSSClasses.of(ItemCalled(<span class="hljs-string">'coffee'</span>)), contain(<span class="hljs-string">'buy'</span>)),
+                ));
+
+            <span class="hljs-comment">/**
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target}</span></span>
+             * <span class="hljs-doctag">@test <span class="hljs-type">{Target.all}</span></span>
+             */</span>
+            it(<span class="hljs-string">'makes it easy for an actor to pick all elements of interest'</span>, <span class="hljs-function">() =&gt;</span>
+                actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
+                    Navigate.to(advancedShoppingList),
+
+                    Click.on(LinkTo(ItemCalled(<span class="hljs-string">'coconut milk'</span>))),
+                    Click.on(LinkTo(ItemCalled(<span class="hljs-string">'coffee'</span>))),
+
+                    Ensure.that(Text.ofAll(ItemsLeftToBuy()), equals([<span class="hljs-string">'oats x'</span>, <span class="hljs-string">'coffee x'</span>])),
+                ));
+        });
     });
 });
 </code></pre>

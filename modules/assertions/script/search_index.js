@@ -1,38 +1,8 @@
 window.esdocSearchIndex = [
   [
-    "@serenity-js/assertions~check",
-    "class/src/Check.ts~Check.html",
-    "<span>Check</span> <span class=\"search-result-import-path\">@serenity-js/assertions</span>",
-    "class"
-  ],
-  [
     "@serenity-js/assertions~ensure",
     "class/src/Ensure.ts~Ensure.html",
     "<span>Ensure</span> <span class=\"search-result-import-path\">@serenity-js/assertions</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/assertions~expectation",
-    "class/src/Expectation.ts~Expectation.html",
-    "<span>Expectation</span> <span class=\"search-result-import-path\">@serenity-js/assertions</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/assertions~expectationmet",
-    "class/src/outcomes.ts~ExpectationMet.html",
-    "<span>ExpectationMet</span> <span class=\"search-result-import-path\">@serenity-js/assertions</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/assertions~expectationnotmet",
-    "class/src/outcomes.ts~ExpectationNotMet.html",
-    "<span>ExpectationNotMet</span> <span class=\"search-result-import-path\">@serenity-js/assertions</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/assertions~outcome",
-    "class/src/outcomes.ts~Outcome.html",
-    "<span>Outcome</span> <span class=\"search-result-import-path\">@serenity-js/assertions</span>",
     "class"
   ],
   [
@@ -810,6 +780,36 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationmet",
+    "/modules/core/class/src/screenplay/questions/expectations/ExpectationMet.ts~ExpectationMet.html",
+    "@serenity-js/core/lib/screenplay/questions/expectations~ExpectationMet",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationnotmet",
+    "/modules/core/class/src/screenplay/questions/expectations/ExpectationNotMet.ts~ExpectationNotMet.html",
+    "@serenity-js/core/lib/screenplay/questions/expectations~ExpectationNotMet",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationoutcome",
+    "/modules/core/class/src/screenplay/questions/expectations/ExpectationOutcome.ts~ExpectationOutcome.html",
+    "@serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/lists~arraylistadapter",
+    "/modules/core/class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html",
+    "@serenity-js/core/lib/screenplay/questions/lists~ArrayListAdapter",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/lists~listadapter",
+    "/modules/core/class/src/screenplay/questions/lists/ListAdapter.ts~ListAdapter.html",
+    "@serenity-js/core/lib/screenplay/questions/lists~ListAdapter",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
     "/modules/core/function/index.html#static-function-append",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
@@ -876,9 +876,39 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions~check",
+    "/modules/core/class/src/screenplay/questions/Check.ts~Check.html",
+    "@serenity-js/core/lib/screenplay/questions~Check",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~expectation",
+    "/modules/core/class/src/screenplay/questions/Expectation.ts~Expectation.html",
+    "@serenity-js/core/lib/screenplay/questions~Expectation",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~list",
+    "/modules/core/class/src/screenplay/questions/List.ts~List.html",
+    "@serenity-js/core/lib/screenplay/questions~List",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~metaquestion",
+    "/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html",
+    "@serenity-js/core/lib/screenplay/questions~MetaQuestion",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/questions~note",
     "/modules/core/class/src/screenplay/questions/Note.ts~Note.html",
     "@serenity-js/core/lib/screenplay/questions~Note",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~property",
+    "/modules/core/class/src/screenplay/questions/Property.ts~Property.html",
+    "@serenity-js/core/lib/screenplay/questions~Property",
     "external"
   ],
   [
@@ -1062,66 +1092,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "check src/check.ts~check,check",
-    "test-file/spec/Check.spec.ts.html#lineNumber10",
-    "Check",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/Check.spec.ts.html#lineNumber17",
-    "Check (if branch)",
-    "test"
-  ],
-  [
-    "check#andifso check#andifso,check#andifso",
-    "test-file/spec/Check.spec.ts.html#lineNumber21",
-    "Check (if branch) makes the actor execute the activities when the expectation is met",
-    "test"
-  ],
-  [
-    "check#andifso check#andifso,check#andifso",
-    "test-file/spec/Check.spec.ts.html#lineNumber36",
-    "Check (if branch) makes the actor ignore the activities when the expectation is not met",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/Check.spec.ts.html#lineNumber49",
-    "Check (if/else branches)",
-    "test"
-  ],
-  [
-    "check#otherwise src/check.ts~check#otherwise,check#otherwise",
-    "test-file/spec/Check.spec.ts.html#lineNumber53",
-    "Check (if/else branches) makes the actor execute the activities when the expectation is met",
-    "test"
-  ],
-  [
-    "check#otherwise src/check.ts~check#otherwise,check#otherwise",
-    "test-file/spec/Check.spec.ts.html#lineNumber71",
-    "Check (if/else branches) makes the actor execute the alternative activities when the expectation is not met",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/Check.spec.ts.html#lineNumber87",
-    "Check reporting",
-    "test"
-  ],
-  [
-    "check#whether check#whether,check#whether",
-    "test-file/spec/Check.spec.ts.html#lineNumber91",
-    "Check reporting provides a description of the check",
-    "test"
-  ],
-  [
-    "check#whether check#whether,check#whether",
-    "test-file/spec/Check.spec.ts.html#lineNumber97",
-    "Check reporting provides a description of the check while correctly cleaning the output from new line characters",
-    "test"
-  ],
-  [
     "elementarrayfinder",
     "https://www.protractortest.org/#/api?view=ElementArrayFinder",
     "ElementArrayFinder",
@@ -1194,7 +1164,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "expectation src/expectation.ts~expectation,expectation",
+    "expectation @serenity-js/core/lib/screenplay/questions~expectation,expectation",
     "test-file/spec/Expectation.spec.ts.html#lineNumber10",
     "Expectation",
     "test"
@@ -1206,13 +1176,13 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "expectation.to src/expectation.ts~expectation.to,expectation.to",
+    "expectation.to expectation.to,expectation.to",
     "test-file/spec/Expectation.spec.ts.html#lineNumber70",
     "Expectation allows to alias an expectation, so that the alias contributes to a human-readable description",
     "test"
   ],
   [
-    "expectation.to src/expectation.ts~expectation.to,expectation.to",
+    "expectation.to expectation.to,expectation.to",
     "test-file/spec/Expectation.spec.ts.html#lineNumber76",
     "Expectation allows to alias an expectation, so that the alias provides a precise failure message when the expectation is not met",
     "test"
@@ -1242,13 +1212,13 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "expectation.to src/expectation.ts~expectation.to,expectation.to",
+    "expectation.to expectation.to,expectation.to",
     "test-file/spec/Expectation.spec.ts.html#lineNumber110",
     "Expectation allows to override the description of an expectation, so that the new version provides a precise failure message when the expectation is not met",
     "test"
   ],
   [
-    "expectation.to src/expectation.ts~expectation.to,expectation.to",
+    "expectation.to expectation.to,expectation.to",
     "test-file/spec/Expectation.spec.ts.html#lineNumber104",
     "Expectation allows to override the description of an expectation, so that the new version replaces the old description",
     "test"
@@ -1257,6 +1227,12 @@ window.esdocSearchIndex = [
     "protractorbrowser",
     "https://www.protractortest.org/#/api?view=ProtractorBrowser",
     "ProtractorBrowser",
+    "external"
+  ],
+  [
+    "proxy",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "Proxy",
     "external"
   ],
   [
@@ -1639,265 +1615,265 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber23",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber22",
     "not",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber26",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber25",
     "not allows for the actor flow to continue when the \"actual\" meets the expectation",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber33",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber32",
     "not breaks the actor flow when \"actual\" does not meet the expectation",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber44",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber43",
     "not contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber57",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber56",
     "not double negative",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber59",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber58",
     "not double negative contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber49",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber48",
     "not flips the outcome of an assertion, but doesn't hide any errors that might have happened while making it",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber65",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber64",
     "not when combined with other assertions, such as",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber67",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber66",
     "not when combined with other assertions, such as and,",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber83",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber82",
     "not when combined with other assertions, such as and, contributes to a human-readable description",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber71",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber70",
     "not when combined with other assertions, such as and, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber111",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber110",
     "not when combined with other assertions, such as containAtLeastOneItemThat,",
     "test"
   ],
   [
     "containatleastoneitemthat src/expectations/containatleastoneitemthat.ts~containatleastoneitemthat,containatleastoneitemthat",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber127",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber126",
     "not when combined with other assertions, such as containAtLeastOneItemThat, contributes to a human-readable description",
     "test"
   ],
   [
     "containatleastoneitemthat src/expectations/containatleastoneitemthat.ts~containatleastoneitemthat,containatleastoneitemthat",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber115",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber114",
     "not when combined with other assertions, such as containAtLeastOneItemThat, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber89",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber88",
     "not when combined with other assertions, such as contains,",
     "test"
   ],
   [
     "contains contains,contains",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber105",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber104",
     "not when combined with other assertions, such as contains, contributes to a human-readable description",
     "test"
   ],
   [
     "contains contains,contains",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber93",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber92",
     "not when combined with other assertions, such as contains, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber133",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber132",
     "not when combined with other assertions, such as endsWith,",
     "test"
   ],
   [
     "endswith src/expectations/endswith.ts~endswith,endswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber149",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber148",
     "not when combined with other assertions, such as endsWith, contributes to a human-readable description",
     "test"
   ],
   [
     "endswith src/expectations/endswith.ts~endswith,endswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber137",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber136",
     "not when combined with other assertions, such as endsWith, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber155",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber154",
     "not when combined with other assertions, such as equals,",
     "test"
   ],
   [
     "equals src/expectations/equals.ts~equals,equals",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber171",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber170",
     "not when combined with other assertions, such as equals, contributes to a human-readable description",
     "test"
   ],
   [
     "equals src/expectations/equals.ts~equals,equals",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber159",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber158",
     "not when combined with other assertions, such as equals, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber221",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber220",
     "not when combined with other assertions, such as includes,",
     "test"
   ],
   [
     "includes src/expectations/includes.ts~includes,includes",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber237",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber236",
     "not when combined with other assertions, such as includes, contributes to a human-readable description",
     "test"
   ],
   [
     "includes src/expectations/includes.ts~includes,includes",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber225",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber224",
     "not when combined with other assertions, such as includes, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber199",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber198",
     "not when combined with other assertions, such as isFalse,",
     "test"
   ],
   [
     "isfalse src/expectations/isfalse.ts~isfalse,isfalse",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber215",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber214",
     "not when combined with other assertions, such as isFalse, contributes to a human-readable description",
     "test"
   ],
   [
     "isfalse src/expectations/isfalse.ts~isfalse,isfalse",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber203",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber202",
     "not when combined with other assertions, such as isFalse, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber243",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber242",
     "not when combined with other assertions, such as isGreaterThan,",
     "test"
   ],
   [
     "isgreaterthan src/expectations/isgreaterthan.ts~isgreaterthan,isgreaterthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber259",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber258",
     "not when combined with other assertions, such as isGreaterThan, contributes to a human-readable description",
     "test"
   ],
   [
     "isgreaterthan src/expectations/isgreaterthan.ts~isgreaterthan,isgreaterthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber247",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber246",
     "not when combined with other assertions, such as isGreaterThan, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber265",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber264",
     "not when combined with other assertions, such as isLessThan,",
     "test"
   ],
   [
     "islessthan src/expectations/islessthan.ts~islessthan,islessthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber281",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber280",
     "not when combined with other assertions, such as isLessThan, contributes to a human-readable description",
     "test"
   ],
   [
     "islessthan src/expectations/islessthan.ts~islessthan,islessthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber269",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber268",
     "not when combined with other assertions, such as isLessThan, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber177",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber176",
     "not when combined with other assertions, such as isTrue,",
     "test"
   ],
   [
     "istrue src/expectations/istrue.ts~istrue,istrue",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber193",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber192",
     "not when combined with other assertions, such as isTrue, contributes to a human-readable description",
     "test"
   ],
   [
     "istrue src/expectations/istrue.ts~istrue,istrue",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber181",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber180",
     "not when combined with other assertions, such as isTrue, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber287",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber286",
     "not when combined with other assertions, such as or,",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber303",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber302",
     "not when combined with other assertions, such as or, contributes to a human-readable description",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber291",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber290",
     "not when combined with other assertions, such as or, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber309",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber308",
     "not when combined with other assertions, such as startsWith,",
     "test"
   ],
   [
     "startswith src/expectations/startswith.ts~startswith,startswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber325",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber324",
     "not when combined with other assertions, such as startsWith, contributes to a human-readable description",
     "test"
   ],
   [
     "startswith src/expectations/startswith.ts~startswith,startswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber313",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber312",
     "not when combined with other assertions, such as startsWith, produces a sensible error message",
     "test"
   ],
@@ -1996,12 +1972,6 @@ window.esdocSearchIndex = [
     "https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html",
     "selenium-webdriver~WebElement",
     "external"
-  ],
-  [
-    "spec/check.spec.ts",
-    "test-file/spec/Check.spec.ts.html",
-    "spec/Check.spec.ts",
-    "testFile"
   ],
   [
     "spec/ensure.spec.ts",
@@ -2130,42 +2100,6 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
-    "src/check.ts",
-    "file/src/Check.ts.html",
-    "src/Check.ts",
-    "file"
-  ],
-  [
-    "src/check.ts~check#constructor",
-    "class/src/Check.ts~Check.html#instance-constructor-constructor",
-    "src/Check.ts~Check#constructor",
-    "method"
-  ],
-  [
-    "src/check.ts~check#otherwise",
-    "class/src/Check.ts~Check.html#instance-method-otherwise",
-    "src/Check.ts~Check#otherwise",
-    "method"
-  ],
-  [
-    "src/check.ts~check#performas",
-    "class/src/Check.ts~Check.html#instance-method-performAs",
-    "src/Check.ts~Check#performAs",
-    "method"
-  ],
-  [
-    "src/check.ts~check#tostring",
-    "class/src/Check.ts~Check.html#instance-method-toString",
-    "src/Check.ts~Check#toString",
-    "method"
-  ],
-  [
-    "src/check.ts~check.whether",
-    "class/src/Check.ts~Check.html#static-method-whether",
-    "src/Check.ts~Check.whether",
-    "method"
-  ],
-  [
     "src/ensure.ts",
     "file/src/Ensure.ts.html",
     "src/Ensure.ts",
@@ -2212,30 +2146,6 @@ window.esdocSearchIndex = [
     "class/src/Ensure.ts~Ensure.html#static-method-that",
     "src/Ensure.ts~Ensure.that",
     "method"
-  ],
-  [
-    "src/expectation.ts",
-    "file/src/Expectation.ts.html",
-    "src/Expectation.ts",
-    "file"
-  ],
-  [
-    "src/expectation.ts~expectation.thatactualshould",
-    "class/src/Expectation.ts~Expectation.html#static-method-thatActualShould",
-    "src/Expectation.ts~Expectation.thatActualShould",
-    "method"
-  ],
-  [
-    "src/expectation.ts~expectation.to",
-    "class/src/Expectation.ts~Expectation.html#static-method-to",
-    "src/Expectation.ts~Expectation.to",
-    "method"
-  ],
-  [
-    "src/expectation.ts~predicate<a,e>",
-    "typedef/index.html#static-typedef-Predicate<A,E>",
-    "src/Expectation.ts~Predicate<A,E>",
-    "typedef"
   ],
   [
     "src/expectations/and.ts",
@@ -2356,18 +2266,6 @@ window.esdocSearchIndex = [
     "file/src/index.ts.html",
     "src/index.ts",
     "file"
-  ],
-  [
-    "src/outcomes.ts",
-    "file/src/outcomes.ts.html",
-    "src/outcomes.ts",
-    "file"
-  ],
-  [
-    "src/outcomes.ts~outcome#constructor",
-    "class/src/outcomes.ts~Outcome.html#instance-constructor-constructor",
-    "src/outcomes.ts~Outcome#constructor",
-    "method"
   ],
   [
     "",

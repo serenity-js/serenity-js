@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -186,24 +186,29 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/TargetNestedElements.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { ElementArrayFinder, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../withAnswerOf'</span>;
-<span class="hljs-keyword">import</span> { RelativeQuestion } <span class="hljs-keyword">from</span> <span class="hljs-string">'../RelativeQuestion'</span>;
 <span class="hljs-keyword">import</span> { override } <span class="hljs-keyword">from</span> <span class="hljs-string">'./override'</span>;
+<span class="hljs-keyword">import</span> { ElementArrayFinderListAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../lists'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Locates a group of web element located within another web element.
- *  Instead of using this class directly, please use {<span class="hljs-doctag">@link </span>Target.all} instead.
+ *  Locates a group of {<span class="hljs-doctag">@link </span>WebElement}s located within another {<span class="hljs-doctag">@link </span>WebElement}.
+ *
+ *  Instead of using this class directly, please use {<span class="hljs-doctag">@link </span>Target.all} and {<span class="hljs-doctag">@link </span>TargetElements#of} instead.
  *
  * <span class="hljs-doctag">@public</span>
  * <span class="hljs-doctag">@see <span class="hljs-type">{@link Target}</span></span>
+ *
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question}</span></span>
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~MetaQuestion}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TargetNestedElements</span>
     <span class="hljs-keyword">extends</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">ElementArrayFinder</span>&gt;
-    <span class="hljs-title">implements</span> <span class="hljs-title">RelativeQuestion</span>&lt;<span class="hljs-title">Question</span>&lt;<span class="hljs-title">ElementFinder</span>&gt; | <span class="hljs-title">ElementFinder</span>, <span class="hljs-title">ElementArrayFinder</span>&gt;
+    <span class="hljs-title">implements</span> <span class="hljs-title">MetaQuestion</span>&lt;<span class="hljs-title">Question</span>&lt;<span class="hljs-title">ElementFinder</span>&gt; | <span class="hljs-title">ElementFinder</span>, <span class="hljs-title">ElementArrayFinder</span>&gt;
 </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> list: List&lt;ElementArrayFinderListAdapter, ElementFinder, ElementArrayFinder&gt;;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
@@ -216,14 +221,89 @@
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> children: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder,
     </span>)</span> {
         <span class="hljs-built_in">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ children.toString() }</span> of <span class="hljs-subst">${ parent }</span>`</span>);
+        <span class="hljs-built_in">this</span>.list = <span class="hljs-keyword">new</span> List(<span class="hljs-keyword">new</span> ElementArrayFinderListAdapter(<span class="hljs-built_in">this</span>));
     }
 
     <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Retrieves a group of {<span class="hljs-doctag">@link </span>WebElement}s located by `locator`,
+     *  resolved in the context of a `parent` {<span class="hljs-doctag">@link </span>WebElement}.
+     *
      * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">parent</span></span>
      * <span class="hljs-doctag">@returns <span class="hljs-type">{TargetNestedElements}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Target}</span></span>
      */</span>
     <span class="hljs-function"><span class="hljs-title">of</span>(<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TargetNestedElements(parent, <span class="hljs-built_in">this</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns the number of {<span class="hljs-doctag">@link </span>ElementFinder}s matched by the `locator`
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;number&gt;&gt;}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~List}</span></span>
+     */</span>
+    count(): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.list.count();
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns the first of {<span class="hljs-doctag">@link </span>ElementFinder}s matched by the `locator`
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;ElementFinder&gt;}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~List}</span></span>
+     */</span>
+    first(): Question&lt;ElementFinder&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.list.first()
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns the last of {<span class="hljs-doctag">@link </span>ElementFinder}s matched by the `locator`
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;ElementFinder&gt;}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~List}</span></span>
+     */</span>
+    last(): Question&lt;ElementFinder&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.list.last()
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Returns an {<span class="hljs-doctag">@link </span>ElementFinder} at `index` for `locator`
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> <span class="hljs-variable">index</span></span>
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;ElementFinder&gt;}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~List}</span></span>
+     */</span>
+    get(index: <span class="hljs-built_in">number</span>): Question&lt;ElementFinder&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.list.get(index);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Filters the list of {<span class="hljs-doctag">@link </span>ElementFinder}s matched by `locator` to those that meet the additional {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions~Expectation}s.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~MetaQuestion&lt;ElementFinder, Promise&lt;Answer_Type&gt; | Answer_Type&gt;}</span> <span class="hljs-variable">question</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~Expectation&lt;any, Answer_type&gt;}</span> <span class="hljs-variable">expectation</span></span>
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~List&lt;ElementArrayFinderListAdapter, ElementFinder, ElementArrayFinder&gt;}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~List}</span></span>
+     */</span>
+    where&lt;Answer_Type&gt;(
+        question: MetaQuestion&lt;ElementFinder, <span class="hljs-built_in">Promise</span>&lt;Answer_Type&gt; | Answer_Type&gt;,
+        expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Answer_Type&gt;,
+    ): List&lt;ElementArrayFinderListAdapter, ElementFinder, ElementArrayFinder&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.list.where(question, expectation);
     }
 
     <span class="hljs-comment">/**

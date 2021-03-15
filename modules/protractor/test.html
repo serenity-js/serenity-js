@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -2497,130 +2497,492 @@
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber12"><p>Target</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber13"><p>Target</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber127"><p>allows the actor to locate</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber128"><p>allows the actor to locate</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber133"><p>a single web element matching the selector</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber135"><p>a single web element matching the selector</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span>
 <span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber143"><p>all web elements matching the selector</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber147"><p>all web elements matching the selector</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
 <span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber153"><p>an element relative to another target</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber160"><p>an element relative to another target</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
-<span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span></td>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html#instance-method-of">TargetNestedElement#of</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber163"><p>all elements relative to another target</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber173"><p>all elements relative to another target</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html#instance-method-of">TargetNestedElements#of</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber181"><p>provides a sensible description of</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber183"><p>an element that</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber190"><p>is being targeted</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber200"><p>has been located</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber211"><p>is nested</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html#instance-method-of">TargetNestedElement#of</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber216"><p>elements that</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber223"><p>are being targeted</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber233"><p>have been located</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber243"><p>are nested</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-of">TargetElements#of</a></span>
 <span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber170"><p>provides a sensible description of</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber249"><p>when nesting targets</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber172"><p>an element that</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
-  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber178"><p>is being targeted</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber355"><p>allows for Target&lt;ElementFinder&gt; to be nested within another Target&lt;ElementFinder&gt;</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
-<span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
-  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber187"><p>has been located</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
-<span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
-  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber196"><p>is nested</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html#instance-method-of">TargetElement#of</a></span>
 <span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber201"><p>elements that</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber370"><p>allows for Target&lt;ElementFinder&gt; to form a chain with other Target&lt;ElementFinder&gt;s</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html#instance-method-of">TargetElement#of</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html#instance-method-of">TargetNestedElement#of</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber385"><p>allows for Target&lt;ElementArrayFinder&gt; to be nested within another Target&lt;ElementFinder&gt;</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-of">TargetElements#of</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html#instance-method-of">TargetNestedElements#of</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber393"><p>and filtering them</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
-  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber207"><p>are being targeted</p>
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber403"><p>allows for nested Target&lt;ElementArrayFinder&gt; to be filtered</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
-<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-of">TargetElements#of</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
-  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber216"><p>have been located</p>
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber423"><p>allows for nested Target&lt;ElementArrayFinder&gt; to be counted</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
-<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-of">TargetElements#of</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
-  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber224"><p>are nested</p>
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber439"><p>allows for the first of nested Target&lt;ElementArrayFinder&gt; to be retrieved</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-of">TargetElements#of</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber455"><p>allows for the last of nested Target&lt;ElementArrayFinder&gt; to be retrieved</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-of">TargetElements#of</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber471"><p>allows for the nth of nested Target&lt;ElementArrayFinder&gt; to be retrieved</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-of">TargetElements#of</a></span>
 <span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber230"><p>when nesting targets</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber483"><p>when filtering a list of targets</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber322"><p>allows for Target&lt;ElementFinder&gt; to be nested within another Target&lt;ElementFinder&gt;</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber586"><p>and no filters are applied</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber588"><p>lets the actor interact with the list of matching elements so that it</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber595"><p>gets the number of items</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
-<span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span></td>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-count">TargetElements#count</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber607"><p>picks all the items</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber620"><p>picks the first item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-first">TargetElements#first</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber633"><p>picks the last item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-last">TargetElements#last</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber646"><p>picks the nth item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-get">TargetElements#get</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber654"><p>provides a sensible description when it</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber662"><p>returns the number of items</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-count">TargetElements#count</a></span>
+<span>TargetElements#toString</span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber671"><p>picks all the items</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span>TargetElements#toString</span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber681"><p>picks the first item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-first">TargetElements#first</a></span>
+<span>TargetElements#toString</span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber691"><p>picks the last item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-last">TargetElements#last</a></span>
+<span>TargetElements#toString</span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber333"><p>allows for Target&lt;ElementFinder&gt; to form a chain with other Target&lt;ElementFinder&gt;s</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber714"><p>and a filter is applied</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber718"><p>lets the actor filter the list of matching elements so that it</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber725"><p>gets the number of items</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
-<span><a href="class/src/screenplay/questions/targets/TargetNestedElement.ts~TargetNestedElement.html">TargetNestedElement</a></span></td>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber737"><p>picks all the items</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber749"><p>picks the first item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber761"><p>picks the last item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber773"><p>picks the nth item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span>
+<span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber781"><p>provides a sensible description when it</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber787"><p>returns the number of items</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber795"><p>picks all the items</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber803"><p>picks the first item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber811"><p>picks the last item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber344"><p>allows for Target&lt;ElementArrayFinder&gt; to be nested within another Target&lt;ElementFinder&gt;</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber833"><p>and multiple filters are applied</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber837"><p>lets the actor filter the list of matching elements so that it</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber843"><p>gets the number of items</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
-<span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span></td>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber854"><p>picks all the items</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber865"><p>picks the first item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber876"><p>picks the last item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber887"><p>picks the nth item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber895"><p>provides a sensible description when it</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber901"><p>returns the number of answers</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber909"><p>picks all the items</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber917"><p>picks the first item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="4">
+  <td data-ice="testDescription" style="padding-left: 50px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber925"><p>picks the last item</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber948"><p>and interacting with elements on screen</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber966"><p>makes it easy for an actor to pick the element of interest</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="3">
+  <td data-ice="testDescription" style="padding-left: 40px"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber979"><p>makes it easy for an actor to pick all elements of interest</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span>
+<span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">

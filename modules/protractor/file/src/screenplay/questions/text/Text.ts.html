@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -186,25 +186,56 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/text/Text.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { MetaQuestion, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { ElementArrayFinder, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { RelativeQuestion } <span class="hljs-keyword">from</span> <span class="hljs-string">'../RelativeQuestion'</span>;
 <span class="hljs-keyword">import</span> { TextOfMultipleElements } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TextOfMultipleElements'</span>;
 <span class="hljs-keyword">import</span> { TextOfSingleElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TextOfSingleElement'</span>;
 
 <span class="hljs-comment">/**
+ * <span class="hljs-doctag">@desc</span>
+ *  Resolves to the visible (i.e. not hidden by CSS) `innerText` of:
+ *  - a given {<span class="hljs-doctag">@link </span>WebElement}, represented by {<span class="hljs-doctag">@link </span>ElementFinder} or `Question&lt;ElementFinder&gt;`,
+ *  - a group of {<span class="hljs-doctag">@link </span>WebElement}s, represented by {<span class="hljs-doctag">@link </span>ElementArrayFinder} or `Question&lt;ElementArrayFinder&gt;`.
+ *
+ *  The result includes the visible text of any sub-elements, without any leading or trailing whitespace.
+ *
  * <span class="hljs-doctag">@public</span>
+ *
+ * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question}</span></span>
+ * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~MetaQuestion}</span></span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Text</span> </span>{
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Retrieves text of a single {<span class="hljs-doctag">@link </span>WebElement},
+     *  represented by {<span class="hljs-doctag">@link </span>ElementFinder}
+     *  or `Question&lt;ElementFinder&gt;`.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">target</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;string&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, Promise&lt;string&gt;&gt;}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}</span></span>
+     */</span>
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(target: Question&lt;ElementFinder&gt; | ElementFinder):
-        Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; RelativeQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;
+        Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;
     {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TextOfSingleElement(target);
     }
 
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Retrieves text of a group of {<span class="hljs-doctag">@link </span>WebElement}s,
+     *  represented by {<span class="hljs-doctag">@link </span>ElementArrayFinder}
+     *  or `Question&lt;ElementArrayFinder&gt;`
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementArrayFinder&gt; | ElementArrayFinder}</span> <span class="hljs-variable">target</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;string[]&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, Promise&lt;string[]&gt;&gt;}</span></span>
+     *
+     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}</span></span>
+     */</span>
     <span class="hljs-keyword">static</span> ofAll(target: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder):
-        Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; &amp; RelativeQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;
+        Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;
     {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TextOfMultipleElements(target);
     }

@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -192,7 +192,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber23">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber27">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -200,16 +200,16 @@
 
   
 
-  <div class="description" data-ice="description"><p> Locates a group of web element.
- Instead of using this class directly, please use <span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span> instead.</p>
+  <div class="description" data-ice="description"><p> Locates a group of <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>s.</p>
+<p> Instead of using this class directly, please use <span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all">Target.all</a></span> instead.</p>
 </div>
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>@serenity-js/core~Question</span> → TargetElements</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span> → TargetElements</div></div>
   
   
-  
+  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html">MetaQuestion</a></span></li></ul></div>
   
   
   
@@ -224,9 +224,18 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber143">Target allows the actor to locate all web elements matching the selector</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber207">Target provides a sensible description of elements that are being targeted</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber216">Target provides a sensible description of elements that have been located</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber147">Target allows the actor to locate all web elements matching the selector</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber223">Target provides a sensible description of elements that are being targeted</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber233">Target provides a sensible description of elements that have been located</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber607">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber620">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber633">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber646">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber725">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber737">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber749">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber761">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber773">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the nth item</a></span></li>
 </ul>
   </div>
 
@@ -321,13 +330,160 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-count">count</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>number</span>&gt;&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Returns the number of <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>s matched by the <code>locator</code></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-first">first</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Returns the first of <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>s matched by the <code>locator</code></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-get">get</a></span></span><span class="code" data-ice="signature">(index: <span>number</span>): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Returns an <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span> at <code>index</code> for <code>locator</code></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-last">last</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Returns the last of <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>s matched by the <code>locator</code></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-of">of</a></span></span><span class="code" data-ice="signature">(parent: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>): <span><a href="class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html">TargetNestedElements</a></span></span>
         </p>
       </div>
       <div>
         
         
+        <div data-ice="description"><p> Retrieves a group of <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>s located by <code>locator</code>,
+ resolved in the context of a <code>parent</code> <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-where">where</a></span></span><span class="code" data-ice="signature">(question: <span><a href="/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html">MetaQuestion</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span>Promise</span>&lt;<span>Answer_Type</span>&gt;|<span>Answer_Type</span>&gt;, expectation: <span><a href="/modules/core/class/src/screenplay/questions/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>any</span>, <span>Answer_type</span>&gt;): <span><a href="/modules/core/class/src/screenplay/questions/List.ts~List.html">List</a></span>&lt;<span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span>, <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span><a href="https://www.protractortest.org/#/api?view=ElementArrayFinder">ElementArrayFinder</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
         
+        
+        <div data-ice="description"><p> Filters the list of <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>s matched by <code>locator</code> to those that meet the additional <span><a href="/modules/core/class/src/screenplay/questions/Expectation.ts~Expectation.html">Expectation</a></span>s.</p>
+</div>
       </div>
     </td>
     <td>
@@ -357,7 +513,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber34">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber50">source</a></span></span>
     </span>
   </h3>
 
@@ -428,7 +584,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber85">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber237">source</a></span></span>
     </span>
   </h3>
 
@@ -492,6 +648,273 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-count">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">count</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>number</span>&gt;&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber102">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Returns the number of <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>s matched by the <code>locator</code></p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span>Promise</span>&lt;<span>number</span>&gt;&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber595">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber662">Target when filtering a list of targets and no filters are applied provides a sensible description when it returns the number of items</a></span></li>
+</ul>
+  </div>
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/questions/List.ts~List.html">List</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-first">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">first</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber125">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Returns the first of <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>s matched by the <code>locator</code></p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber620">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber681">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the first item</a></span></li>
+</ul>
+  </div>
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/questions/List.ts~List.html">List</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-get">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">get</span><span class="code" data-ice="signature">(index: <span>number</span>): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber175">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Returns an <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span> at <code>index</code> for <code>locator</code></p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">index</td>
+      <td data-ice="type" class="code"><span>number</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber646">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item</a></span></li>
+</ul>
+  </div>
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/questions/List.ts~List.html">List</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-last">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">last</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber148">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Returns the last of <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>s matched by the <code>locator</code></p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber633">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber691">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the last item</a></span></li>
+</ul>
+  </div>
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/questions/List.ts~List.html">List</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-of">
     <span class="access" data-ice="access">public</span>
     
@@ -503,14 +926,16 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber56">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber79">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Retrieves a group of <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>s located by <code>locator</code>,
+ resolved in the context of a <code>parent</code> <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>.</p>
+</div>
 
   
 
@@ -557,9 +982,99 @@
 
   
 
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber243">Target provides a sensible description of elements that are nested</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber385">Target when nesting targets allows for Target<elementarrayfinder> to be nested within another Target<elementfinder></elementfinder></elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber403">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be filtered</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber423">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be counted</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber439">Target when nesting targets and filtering them allows for the first of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber455">Target when nesting targets and filtering them allows for the last of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber471">Target when nesting targets and filtering them allows for the nth of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+</ul>
+  </div>
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-where">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">where</span><span class="code" data-ice="signature">(question: <span><a href="/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html">MetaQuestion</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span>Promise</span>&lt;<span>Answer_Type</span>&gt;|<span>Answer_Type</span>&gt;, expectation: <span><a href="/modules/core/class/src/screenplay/questions/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>any</span>, <span>Answer_type</span>&gt;): <span><a href="/modules/core/class/src/screenplay/questions/List.ts~List.html">List</a></span>&lt;<span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span>, <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span><a href="https://www.protractortest.org/#/api?view=ElementArrayFinder">ElementArrayFinder</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElements.ts.html#lineNumber205">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Filters the list of <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>s matched by <code>locator</code> to those that meet the additional <span><a href="/modules/core/class/src/screenplay/questions/Expectation.ts~Expectation.html">Expectation</a></span>s.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">question</td>
+      <td data-ice="type" class="code"><span><a href="/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html">MetaQuestion</a></span>&lt;<span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span>Promise</span>&lt;<span>Answer_Type</span>&gt;|<span>Answer_Type</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">expectation</td>
+      <td data-ice="type" class="code"><span><a href="/modules/core/class/src/screenplay/questions/Expectation.ts~Expectation.html">Expectation</a></span>&lt;<span>any</span>, <span>Answer_type</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/questions/List.ts~List.html">List</a></span>&lt;<span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span>, <span><a href="https://www.protractortest.org/#/api?view=ElementFinder">ElementFinder</a></span>, <span><a href="https://www.protractortest.org/#/api?view=ElementArrayFinder">ElementArrayFinder</a></span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/questions/List.ts~List.html">List</a></span></span></li></ul></div>
   
 </div>
 </div>

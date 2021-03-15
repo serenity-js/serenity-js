@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -192,7 +192,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/targets/TargetElement.ts.html#lineNumber23">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/targets/TargetElement.ts.html#lineNumber26">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -200,16 +200,16 @@
 
   
 
-  <div class="description" data-ice="description"><p> Locates a single web element.
- Instead of using this class directly, please use <span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span> instead.</p>
+  <div class="description" data-ice="description"><p> Locates a single <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>.</p>
+<p> Instead of using this class directly, please use <span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the">Target.the</a></span> instead.</p>
 </div>
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>@serenity-js/core~Question</span> → TargetElement</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a></span> → TargetElement</div></div>
   
   
-  
+  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html">MetaQuestion</a></span></li></ul></div>
   
   
   
@@ -224,9 +224,9 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber133">Target allows the actor to locate a single web element matching the selector</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber178">Target provides a sensible description of an element that is being targeted</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber187">Target provides a sensible description of an element that has been located</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber135">Target allows the actor to locate a single web element matching the selector</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber190">Target provides a sensible description of an element that is being targeted</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber200">Target provides a sensible description of an element that has been located</a></span></li>
 </ul>
   </div>
 
@@ -327,7 +327,9 @@
       <div>
         
         
-        
+        <div data-ice="description"><p> Retrieves a <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span> located by <code>locator</code>,
+ resolved in the context of a <code>parent</code> <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -357,7 +359,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElement.ts.html#lineNumber33">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElement.ts.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
@@ -428,7 +430,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElement.ts.html#lineNumber84">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElement.ts.html#lineNumber93">source</a></span></span>
     </span>
   </h3>
 
@@ -503,14 +505,16 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElement.ts.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/TargetElement.ts.html#lineNumber64">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Retrieves a <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span> located by <code>locator</code>,
+ resolved in the context of a <code>parent</code> <span><a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html">WebElement</a></span>.</p>
+</div>
 
   
 
@@ -557,9 +561,16 @@
 
   
 
-  
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber355">Target when nesting targets allows for Target<elementfinder> to be nested within another Target<elementfinder></elementfinder></elementfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber370">Target when nesting targets allows for Target<elementfinder> to form a chain with other Target<elementfinder>s</elementfinder></elementfinder></a></span></li>
+</ul>
+  </div>
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li></ul></div>
   
 </div>
 </div>

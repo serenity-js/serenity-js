@@ -118,13 +118,7 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Check.ts~Check.html">Check</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationMet.html">ExpectationMet</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationNotMet.html">ExpectationNotMet</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Predicate<A,E>">Predicate&lt;A,E&gt;</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-and">and</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-contain">contain</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-containAtLeastOneItemThat">containAtLeastOneItemThat</a></span></span></li>
@@ -150,10 +144,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/or.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-
-<span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Expectation'</span>;
-<span class="hljs-keyword">import</span> { ExpectationMet, ExpectationNotMet, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'../outcomes'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">or</span>&lt;<span class="hljs-title">Actual</span>&gt;(<span class="hljs-params">...assertions: <span class="hljs-built_in">Array</span>&lt;Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt;</span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">Actual</span>&gt; </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Or(assertions);
@@ -171,18 +162,18 @@
             .join(Or.Separator));
     }
 
-    answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;Outcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt; {
+    answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt; {
 
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: <span class="hljs-built_in">any</span></span>) =&gt;</span>
             <span class="hljs-built_in">this</span>.expectations.reduce(
                 <span class="hljs-function">(<span class="hljs-params">previous, current</span>) =&gt;</span>
-                    previous.then(<span class="hljs-function">(<span class="hljs-params">outcomesSoFar: <span class="hljs-built_in">Array</span>&lt;Outcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt;</span>) =&gt;</span>
+                    previous.then(<span class="hljs-function">(<span class="hljs-params">outcomesSoFar: <span class="hljs-built_in">Array</span>&lt;ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt;</span>) =&gt;</span>
                         current.answeredBy(actor)(actual)
                             .then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> outcomesSoFar.concat(outcome)),        <span class="hljs-comment">// todo: should stop on the first met expectation</span>
                         ),
                 <span class="hljs-built_in">Promise</span>.resolve([]),
             ).
-            then(<span class="hljs-function">(<span class="hljs-params">outcomes: <span class="hljs-built_in">Array</span>&lt;Outcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt;</span>) =&gt;</span> {
+            then(<span class="hljs-function">(<span class="hljs-params">outcomes: <span class="hljs-built_in">Array</span>&lt;ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt;</span>) =&gt;</span> {
 
                 <span class="hljs-keyword">const</span>
                     unmetExpectations = outcomes.filter(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> outcome <span class="hljs-keyword">instanceof</span> ExpectationNotMet),

@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -186,10 +186,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Pick.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { Expectation, ExpectationMet } from '@serenity-js/assertions';
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions, Expectation, ExpectationMet, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { RelativeQuestion } from './RelativeQuestion';
 
 export interface Collection&lt;T&gt; {
     filter(fn: (item: T, index?: number) =&gt; boolean | Promise&lt;boolean&gt;): Collection&lt;T&gt;;
@@ -201,7 +199,12 @@ export interface Collection&lt;T&gt; {
 }
 
 /**
+ * @deprecated
+ *  Please use [Target.all](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html) instead.
+ *
  * @experimental
+ *
+ * @see {@link @serenity-js/core/lib/screenplay/questions~List}
  */
 export class Pick&lt;Item_Type, Collection_Type extends Collection&lt;Item_Type&gt; = Collection&lt;Item_Type&gt;&gt; {
 
@@ -236,7 +239,7 @@ export class Pick&lt;Item_Type, Collection_Type extends Collection&lt;Item_Type&
     }
 
     where&lt;Property_Type&gt;(
-        question: RelativeQuestion&lt;Item_Type, Promise&lt;Property_Type&gt; | Property_Type&gt;,
+        question: MetaQuestion&lt;Item_Type, Promise&lt;Property_Type&gt; | Property_Type&gt;,
         expectation: Expectation&lt;any, Promise&lt;Property_Type&gt; | Property_Type&gt;,
     ): Pick&lt;Item_Type, Collection_Type&gt; {
         return new Pick&lt;Item_Type, Collection_Type&gt;(
@@ -296,7 +299,7 @@ class Filter&lt;Item_Type, Collection_Type extends Collection&lt;Item_Type&gt;, 
     extends Question&lt;(ct: Collection_Type) =&gt; Collection_Type&gt;
 {
     constructor(
-        private readonly question: RelativeQuestion&lt;Item_Type, Promise&lt;Property_Type&gt; | Property_Type&gt;,
+        private readonly question: MetaQuestion&lt;Item_Type, Promise&lt;Property_Type&gt; | Property_Type&gt;,
         private readonly expectation: Expectation&lt;any, Promise&lt;Property_Type&gt; | Property_Type&gt;,
     ) {
         super(formatted `${ question } does ${ expectation }`);

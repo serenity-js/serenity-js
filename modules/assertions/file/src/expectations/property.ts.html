@@ -118,13 +118,7 @@
                 <div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Check.ts~Check.html">Check</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Expectation.ts~Expectation.html">Expectation</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationMet.html">ExpectationMet</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~ExpectationNotMet.html">ExpectationNotMet</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Predicate<A,E>">Predicate&lt;A,E&gt;</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Ensure.ts~Ensure.html">Ensure</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#expectations">expectations</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-and">and</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-contain">contain</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-containAtLeastOneItemThat">containAtLeastOneItemThat</a></span></span></li>
@@ -150,11 +144,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/property.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions } from '@serenity-js/core';
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-
-import { Expectation } from '../Expectation';
-import { ExpectationMet, ExpectationNotMet, Outcome } from '../outcomes';
 
 export function property&lt;Actual, Property extends keyof Actual&gt;(
     propertyName: Property,
@@ -174,11 +165,11 @@ class HasProperty&lt;Property extends keyof Actual, Actual&gt; extends Expectati
         super(formatted `have property ${ propertyName } that does ${ expectation }`);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) =&gt; Promise&lt;Outcome&lt;Actual[Property], any&gt;&gt; {
+    answeredBy(actor: AnswersQuestions): (actual: Actual) =&gt; Promise&lt;ExpectationOutcome&lt;Actual[Property], any&gt;&gt; {
 
         return (actual: Actual) =&gt;
             this.expectation.answeredBy(actor)(actual[this.propertyName])
-                .then((outcome: Outcome&lt;any, Actual[Property]&gt;) =&gt; {
+                .then((outcome: ExpectationOutcome&lt;any, Actual[Property]&gt;) =&gt; {
 
                     return outcome instanceof ExpectationMet
                         ? new ExpectationMet(this.toString(), outcome.expected, actual[this.propertyName])

@@ -166,7 +166,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Value.ts~Value.html">Value</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Website.ts~Website.html">Website</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/Window.ts~Window.html">Window</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html">RelativeQuestion</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-lists">screenplay/questions/lists</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html">ElementArrayFinderListAdapter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-questions-targets">screenplay/questions/targets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/Target.ts~Target.html">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElement.ts~TargetElement.html">TargetElement</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html">TargetElements</a></span></span></li>
@@ -192,7 +192,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/targets/Target.ts.html#lineNumber94">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/targets/Target.ts.html#lineNumber161">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -224,81 +224,154 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Imaginary website under test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;body&gt;
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"basket"</span>&gt;</span>
-         <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>Apple<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-         <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>Banana<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-         <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>Coconut<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-     <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"summary"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"out-of-stock"</span>&gt;</span>Coconut<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span> is not available<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>&gt;</span>Proceed to Checkout<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
- &lt;/body&gt;</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  &lt;body&gt;
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"basket"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>Apple<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>Banana<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>Coconut<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"has-discount"</span>&gt;</span>Date<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"summary"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"out-of-stock"</span>&gt;</span>Coconut<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span> is not available<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>&gt;</span>Proceed to Checkout<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+  &lt;/body&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Locating a single element</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-keyword">const</span> proceedToCheckoutButton =
-     Target.the(<span class="hljs-string">'Proceed to Checkout button'</span>).located(by.css(<span class="hljs-string">`button[type='submit']`</span>));</code></pre>
+  <span class="hljs-keyword">const</span> proceedToCheckoutButton =
+      Target.the(<span class="hljs-string">'Proceed to Checkout button'</span>).located(by.css(<span class="hljs-string">`button[type='submit']`</span>));</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Locating multiple elements</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-keyword">const</span> basketItems =
-     Target.all(<span class="hljs-string">'items in the basket'</span>).located(by.css(<span class="hljs-string">'ul#basket li'</span>));</code></pre>
+  <span class="hljs-keyword">const</span> basketItems =
+      Target.all(<span class="hljs-string">'items in the basket'</span>).located(by.css(<span class="hljs-string">'ul#basket li'</span>));</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Locating element relative to another element</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-keyword">const</span> summary =
-     Target.the(<span class="hljs-string">'summary'</span>).located(by.id(<span class="hljs-string">'message'</span>));
+  <span class="hljs-keyword">const</span> summary =
+      Target.the(<span class="hljs-string">'summary'</span>).located(by.id(<span class="hljs-string">'message'</span>));
 
- <span class="hljs-keyword">const</span> outOfStockItem =
-     Target.the(<span class="hljs-string">'out of stock item'</span>).of(summary).located(by.css(<span class="hljs-string">'.out-of-stock'</span>))</code></pre>
+  <span class="hljs-keyword">const</span> outOfStockItem =
+      Target.the(<span class="hljs-string">'out of stock item'</span>).of(summary).located(by.css(<span class="hljs-string">'.out-of-stock'</span>))</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Filtering elements matched by a locator</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+  <span class="hljs-keyword">const</span> basketItems =
+      Target.all(<span class="hljs-string">'items in the basket'</span>).located(by.css(<span class="hljs-string">'ul#basket li'</span>))
+         .where(Text, endsWith(<span class="hljs-string">'e'</span>));    <span class="hljs-comment">// Apple, Date</span></code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Counting items matched by a locator</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+  <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+  <span class="hljs-keyword">const</span> basketItemsCount: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt; =
+      Target.all(<span class="hljs-string">'items in the basket'</span>).located(by.css(<span class="hljs-string">'ul#basket li'</span>))
+         .count()    <span class="hljs-comment">// 4</span></code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Getting first item matched by a locator</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+  <span class="hljs-keyword">import</span> { by, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+  <span class="hljs-keyword">const</span> apple: Question&lt;ElementFinder&gt;  =
+      Target.all(<span class="hljs-string">'items in the basket'</span>).located(by.css(<span class="hljs-string">'ul#basket li'</span>))
+         .first()</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Getting last item matched by a locator</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+  <span class="hljs-keyword">import</span> { by, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+  <span class="hljs-keyword">const</span> date: Question&lt;ElementFinder&gt;  =
+      Target.all(<span class="hljs-string">'items in the basket'</span>).located(by.css(<span class="hljs-string">'ul#basket li'</span>))
+         .last()</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Getting nth item matched by a locator</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+  <span class="hljs-keyword">import</span> { by, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+  <span class="hljs-keyword">const</span> banana: Question&lt;ElementFinder&gt;  =
+      Target.all(<span class="hljs-string">'items in the basket'</span>).located(by.css(<span class="hljs-string">'ul#basket li'</span>))
+         .get(<span class="hljs-number">1</span>)</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using multiple filters and nested targets</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { contain, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+  <span class="hljs-keyword">import</span> { by, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Basket</span> </span>{
+      <span class="hljs-keyword">static</span> component = Target.the(<span class="hljs-string">'basket'</span>).located(by.id(<span class="hljs-string">'basket'</span>));
+
+      <span class="hljs-keyword">static</span> items     = Target.all(<span class="hljs-string">'items'</span>).located(by.css(<span class="hljs-string">'li'</span>))
+         .of(Basket.component);
+
+      <span class="hljs-keyword">static</span> link      = Target.the(<span class="hljs-string">'link'</span>).located(by.css(<span class="hljs-string">'a'</span>));
+  }
+
+  <span class="hljs-keyword">const</span> date: Question&lt;ElementFinder&gt;  =
+      Basket.items
+         .where(Text, endsWith(<span class="hljs-string">'e'</span>))
+         .where(CSSClasses.of(Basket.link), contain(<span class="hljs-string">'has-discount'</span>))
+         .first()</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Clicking on an element</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Click } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+  <span class="hljs-keyword">import</span> { BrowseTheWeb, Click } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Jane'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Click.on(proceedToCheckoutButton),
-     );</code></pre>
+  actorCalled(<span class="hljs-string">'Jane'</span>)
+      .whoCan(BrowseTheWeb.using(protractor.browser))
+      .attemptsTo(
+          Click.on(proceedToCheckoutButton),
+      );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving text of multiple elements and performing an assertion</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Ensure, contain } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Click, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { Ensure, contain } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+  <span class="hljs-keyword">import</span> { BrowseTheWeb, Click, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-keyword">const</span> basketItemNames = Text.ofAll(basketItems);
+  <span class="hljs-keyword">const</span> basketItemNames = Text.ofAll(basketItems);
 
- actorCalled(<span class="hljs-string">'Jane'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Ensure.that(basketItemNames, contain(<span class="hljs-string">'Apple'</span>))
-     );</code></pre>
+  actorCalled(<span class="hljs-string">'Jane'</span>)
+      .whoCan(BrowseTheWeb.using(protractor.browser))
+      .attemptsTo(
+          Ensure.that(basketItemNames, contain(<span class="hljs-string">'Apple'</span>))
+      );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Waiting on an element</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Click, Text, Wait, isClickable } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+  <span class="hljs-keyword">import</span> { BrowseTheWeb, Click, Text, Wait, isClickable } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Jane'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Wait.until(proceedToCheckoutButton, isClickable()),
-     );</code></pre>
+  actorCalled(<span class="hljs-string">'Jane'</span>)
+      .whoCan(BrowseTheWeb.using(protractor.browser))
+      .attemptsTo(
+          Wait.until(proceedToCheckoutButton, isClickable()),
+      );</code></pre>
     </div>
 </div>
 
@@ -306,20 +379,54 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber12">Target</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber133">Target allows the actor to locate a single web element matching the selector</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber143">Target allows the actor to locate all web elements matching the selector</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber153">Target allows the actor to locate an element relative to another target</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber163">Target allows the actor to locate all elements relative to another target</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber178">Target provides a sensible description of an element that is being targeted</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber187">Target provides a sensible description of an element that has been located</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber196">Target provides a sensible description of an element that is nested</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber207">Target provides a sensible description of elements that are being targeted</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber216">Target provides a sensible description of elements that have been located</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber224">Target provides a sensible description of elements that are nested</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber322">Target when nesting targets allows for Target<elementfinder> to be nested within another Target<elementfinder></elementfinder></elementfinder></a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber333">Target when nesting targets allows for Target<elementfinder> to form a chain with other Target<elementfinder>s</elementfinder></elementfinder></a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber344">Target when nesting targets allows for Target<elementarrayfinder> to be nested within another Target<elementfinder></elementfinder></elementarrayfinder></a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber13">Target</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber135">Target allows the actor to locate a single web element matching the selector</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber147">Target allows the actor to locate all web elements matching the selector</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber160">Target allows the actor to locate an element relative to another target</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber173">Target allows the actor to locate all elements relative to another target</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber190">Target provides a sensible description of an element that is being targeted</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber200">Target provides a sensible description of an element that has been located</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber211">Target provides a sensible description of an element that is nested</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber223">Target provides a sensible description of elements that are being targeted</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber233">Target provides a sensible description of elements that have been located</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber243">Target provides a sensible description of elements that are nested</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber355">Target when nesting targets allows for Target<elementfinder> to be nested within another Target<elementfinder></elementfinder></elementfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber370">Target when nesting targets allows for Target<elementfinder> to form a chain with other Target<elementfinder>s</elementfinder></elementfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber385">Target when nesting targets allows for Target<elementarrayfinder> to be nested within another Target<elementfinder></elementfinder></elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber403">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be filtered</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber423">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be counted</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber439">Target when nesting targets and filtering them allows for the first of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber455">Target when nesting targets and filtering them allows for the last of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber471">Target when nesting targets and filtering them allows for the nth of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber595">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber607">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber620">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber633">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber646">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber662">Target when filtering a list of targets and no filters are applied provides a sensible description when it returns the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber671">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber681">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber691">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber725">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber737">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber749">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber761">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber773">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the nth item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber787">Target when filtering a list of targets and a filter is applied provides a sensible description when it returns the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber795">Target when filtering a list of targets and a filter is applied provides a sensible description when it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber803">Target when filtering a list of targets and a filter is applied provides a sensible description when it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber811">Target when filtering a list of targets and a filter is applied provides a sensible description when it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber843">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber854">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber865">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber876">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber887">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the nth item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber901">Target when filtering a list of targets and multiple filters are applied provides a sensible description when it returns the number of answers</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber909">Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber917">Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber925">Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber966">Target when filtering a list of targets and interacting with elements on screen makes it easy for an actor to pick the element of interest</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber979">Target when filtering a list of targets and interacting with elements on screen makes it easy for an actor to pick all elements of interest</a></span></li>
 </ul>
   </div>
 
@@ -415,7 +522,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/Target.ts.html#lineNumber154">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/Target.ts.html#lineNumber221">source</a></span></span>
     </span>
   </h3>
 
@@ -471,7 +578,52 @@
 
   
 
-  
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber147">Target allows the actor to locate all web elements matching the selector</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber173">Target allows the actor to locate all elements relative to another target</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber223">Target provides a sensible description of elements that are being targeted</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber233">Target provides a sensible description of elements that have been located</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber243">Target provides a sensible description of elements that are nested</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber385">Target when nesting targets allows for Target<elementarrayfinder> to be nested within another Target<elementfinder></elementfinder></elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber403">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be filtered</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber423">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be counted</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber439">Target when nesting targets and filtering them allows for the first of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber455">Target when nesting targets and filtering them allows for the last of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber471">Target when nesting targets and filtering them allows for the nth of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber595">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber607">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber620">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber633">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber646">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber662">Target when filtering a list of targets and no filters are applied provides a sensible description when it returns the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber671">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber681">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber691">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber725">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber737">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber749">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber761">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber773">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the nth item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber787">Target when filtering a list of targets and a filter is applied provides a sensible description when it returns the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber795">Target when filtering a list of targets and a filter is applied provides a sensible description when it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber803">Target when filtering a list of targets and a filter is applied provides a sensible description when it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber811">Target when filtering a list of targets and a filter is applied provides a sensible description when it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber843">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber854">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber865">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber876">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber887">Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the nth item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber901">Target when filtering a list of targets and multiple filters are applied provides a sensible description when it returns the number of answers</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber909">Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber917">Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber925">Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber966">Target when filtering a list of targets and interacting with elements on screen makes it easy for an actor to pick the element of interest</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber979">Target when filtering a list of targets and interacting with elements on screen makes it easy for an actor to pick all elements of interest</a></span></li>
+</ul>
+  </div>
 
   
   
@@ -488,7 +640,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/Target.ts.html#lineNumber118">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/targets/Target.ts.html#lineNumber185">source</a></span></span>
     </span>
   </h3>
 
@@ -544,7 +696,19 @@
 
   
 
-  
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber135">Target allows the actor to locate a single web element matching the selector</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber160">Target allows the actor to locate an element relative to another target</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber190">Target provides a sensible description of an element that is being targeted</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber200">Target provides a sensible description of an element that has been located</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber211">Target provides a sensible description of an element that is nested</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber355">Target when nesting targets allows for Target<elementfinder> to be nested within another Target<elementfinder></elementfinder></elementfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber370">Target when nesting targets allows for Target<elementfinder> to form a chain with other Target<elementfinder>s</elementfinder></elementfinder></a></span></li>
+</ul>
+  </div>
 
   
   

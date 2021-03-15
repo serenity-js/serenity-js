@@ -132,39 +132,9 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/assertions~check",
-    "/modules/assertions/class/src/Check.ts~Check.html",
-    "@serenity-js/assertions~Check",
-    "external"
-  ],
-  [
     "@serenity-js/assertions~ensure",
     "/modules/assertions/class/src/Ensure.ts~Ensure.html",
     "@serenity-js/assertions~Ensure",
-    "external"
-  ],
-  [
-    "@serenity-js/assertions~expectation",
-    "/modules/assertions/class/src/Expectation.ts~Expectation.html",
-    "@serenity-js/assertions~Expectation",
-    "external"
-  ],
-  [
-    "@serenity-js/assertions~expectationmet",
-    "/modules/assertions/class/src/outcomes.ts~ExpectationMet.html",
-    "@serenity-js/assertions~ExpectationMet",
-    "external"
-  ],
-  [
-    "@serenity-js/assertions~expectationnotmet",
-    "/modules/assertions/class/src/outcomes.ts~ExpectationNotMet.html",
-    "@serenity-js/assertions~ExpectationNotMet",
-    "external"
-  ],
-  [
-    "@serenity-js/assertions~outcome",
-    "/modules/assertions/class/src/outcomes.ts~Outcome.html",
-    "@serenity-js/assertions~Outcome",
     "external"
   ],
   [
@@ -834,6 +804,36 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationmet",
+    "/modules/core/class/src/screenplay/questions/expectations/ExpectationMet.ts~ExpectationMet.html",
+    "@serenity-js/core/lib/screenplay/questions/expectations~ExpectationMet",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationnotmet",
+    "/modules/core/class/src/screenplay/questions/expectations/ExpectationNotMet.ts~ExpectationNotMet.html",
+    "@serenity-js/core/lib/screenplay/questions/expectations~ExpectationNotMet",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationoutcome",
+    "/modules/core/class/src/screenplay/questions/expectations/ExpectationOutcome.ts~ExpectationOutcome.html",
+    "@serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/lists~arraylistadapter",
+    "/modules/core/class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html",
+    "@serenity-js/core/lib/screenplay/questions/lists~ArrayListAdapter",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/lists~listadapter",
+    "/modules/core/class/src/screenplay/questions/lists/ListAdapter.ts~ListAdapter.html",
+    "@serenity-js/core/lib/screenplay/questions/lists~ListAdapter",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
     "/modules/core/function/index.html#static-function-append",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
@@ -900,9 +900,39 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions~check",
+    "/modules/core/class/src/screenplay/questions/Check.ts~Check.html",
+    "@serenity-js/core/lib/screenplay/questions~Check",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~expectation",
+    "/modules/core/class/src/screenplay/questions/Expectation.ts~Expectation.html",
+    "@serenity-js/core/lib/screenplay/questions~Expectation",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~list",
+    "/modules/core/class/src/screenplay/questions/List.ts~List.html",
+    "@serenity-js/core/lib/screenplay/questions~List",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~metaquestion",
+    "/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html",
+    "@serenity-js/core/lib/screenplay/questions~MetaQuestion",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/questions~note",
     "/modules/core/class/src/screenplay/questions/Note.ts~Note.html",
     "@serenity-js/core/lib/screenplay/questions~Note",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~property",
+    "/modules/core/class/src/screenplay/questions/Property.ts~Property.html",
+    "@serenity-js/core/lib/screenplay/questions~Property",
     "external"
   ],
   [
@@ -1251,6 +1281,12 @@ window.esdocSearchIndex = [
     "protractorbrowser",
     "https://www.protractortest.org/#/api?view=ProtractorBrowser",
     "ProtractorBrowser",
+    "external"
+  ],
+  [
+    "proxy",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "Proxy",
     "external"
   ],
   [

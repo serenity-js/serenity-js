@@ -66,6 +66,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions/lists~arraylistadapter",
+    "class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html",
+    "<span>ArrayListAdapter</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/lists</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/model~artifact",
     "class/src/model/Artifact.ts~Artifact.html",
     "<span>Artifact</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model</span>",
@@ -165,6 +171,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/model~category",
     "class/src/model/Category.ts~Category.html",
     "<span>Category</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~check",
+    "class/src/screenplay/questions/Check.ts~Check.html",
+    "<span>Check</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions</span>",
     "class"
   ],
   [
@@ -282,6 +294,30 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions~expectation",
+    "class/src/screenplay/questions/Expectation.ts~Expectation.html",
+    "<span>Expectation</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationmet",
+    "class/src/screenplay/questions/expectations/ExpectationMet.ts~ExpectationMet.html",
+    "<span>ExpectationMet</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/expectations</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationnotmet",
+    "class/src/screenplay/questions/expectations/ExpectationNotMet.ts~ExpectationNotMet.html",
+    "<span>ExpectationNotMet</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/expectations</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationoutcome",
+    "class/src/screenplay/questions/expectations/ExpectationOutcome.ts~ExpectationOutcome.html",
+    "<span>ExpectationOutcome</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/expectations</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/events~featurenarrativedetected",
     "class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html",
     "<span>FeatureNarrativeDetected</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/events</span>",
@@ -366,6 +402,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions~list",
+    "class/src/screenplay/questions/List.ts~List.html",
+    "<span>List</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/lists~listadapter",
+    "class/src/screenplay/questions/lists/ListAdapter.ts~ListAdapter.html",
+    "<span>ListAdapter</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions/lists</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/actor~listenstodomainevents",
     "class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html",
     "<span>ListensToDomainEvents</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/actor</span>",
@@ -405,6 +453,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io/collections~mappable",
     "class/src/io/collections/mappable.ts~Mappable.html",
     "<span>Mappable</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io/collections</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~metaquestion",
+    "class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html",
+    "<span>MetaQuestion</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions</span>",
     "class"
   ],
   [
@@ -459,6 +513,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/model~problemindication",
     "class/src/model/outcomes.ts~ProblemIndication.html",
     "<span>ProblemIndication</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~property",
+    "class/src/screenplay/questions/Property.ts~Property.html",
+    "<span>Property</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/questions</span>",
     "class"
   ],
   [
@@ -996,6 +1056,132 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "arraylistadapter src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter,arraylistadapter",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber9",
+    "ArrayListAdapter",
+    "test"
+  ],
+  [
+    "arraylistadapter#count src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#count,arraylistadapter#count",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber102",
+    "ArrayListAdapter count()",
+    "test"
+  ],
+  [
+    "arraylistadapter#first src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#first,arraylistadapter#first",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber134",
+    "ArrayListAdapter first()",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber148",
+    "ArrayListAdapter first() ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber149",
+    "ArrayListAdapter first()  ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber154",
+    "ArrayListAdapter first()  ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber159",
+    "ArrayListAdapter first()  ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber164",
+    "ArrayListAdapter first()  ",
+    "test"
+  ],
+  [
+    "arraylistadapter#get src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#get,arraylistadapter#get",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber210",
+    "ArrayListAdapter get(index)",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber224",
+    "ArrayListAdapter get(index) ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber227",
+    "ArrayListAdapter get(index)  ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber232",
+    "ArrayListAdapter get(index)  ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber237",
+    "ArrayListAdapter get(index)  ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber242",
+    "ArrayListAdapter get(index)  ",
+    "test"
+  ],
+  [
+    "arraylistadapter#items src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#items,arraylistadapter#items",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber118",
+    "ArrayListAdapter items()",
+    "test"
+  ],
+  [
+    "arraylistadapter#last src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#last,arraylistadapter#last",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber172",
+    "ArrayListAdapter last()",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber186",
+    "ArrayListAdapter last() ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber187",
+    "ArrayListAdapter last()  ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber192",
+    "ArrayListAdapter last()  ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber197",
+    "ArrayListAdapter last()  ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber202",
+    "ArrayListAdapter last()  ",
+    "test"
+  ],
+  [
     "",
     "test-file/spec/model/Artifact.spec.ts.html#lineNumber4",
     "Artifact",
@@ -1162,6 +1348,66 @@ window.esdocSearchIndex = [
     "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L76",
     "AxiosResponse",
     "external"
+  ],
+  [
+    "check src/screenplay/questions/check.ts~check,check",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber9",
+    "Check",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber16",
+    "Check (if branch)",
+    "test"
+  ],
+  [
+    "check#andifso check#andifso,check#andifso",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber20",
+    "Check (if branch) makes the actor execute the activities when the expectation is met",
+    "test"
+  ],
+  [
+    "check#andifso check#andifso,check#andifso",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber35",
+    "Check (if branch) makes the actor ignore the activities when the expectation is not met",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber48",
+    "Check (if/else branches)",
+    "test"
+  ],
+  [
+    "check#otherwise src/screenplay/questions/check.ts~check#otherwise,check#otherwise",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber52",
+    "Check (if/else branches) makes the actor execute the activities when the expectation is met",
+    "test"
+  ],
+  [
+    "check#otherwise src/screenplay/questions/check.ts~check#otherwise,check#otherwise",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber70",
+    "Check (if/else branches) makes the actor execute the alternative activities when the expectation is not met",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber86",
+    "Check reporting",
+    "test"
+  ],
+  [
+    "check#whether check#whether,check#whether",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber90",
+    "Check reporting provides a description of the check",
+    "test"
+  ],
+  [
+    "check#whether check#whether,check#whether",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber96",
+    "Check reporting provides a description of the check while correctly cleaning the output from new line characters",
+    "test"
   ],
   [
     "config src/io/config.ts~config,config",
@@ -1383,6 +1629,48 @@ window.esdocSearchIndex = [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
     "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber10",
     "ErrorSerialiser serialises an Error object to JSON",
+    "test"
+  ],
+  [
+    "expectation src/screenplay/questions/expectation.ts~expectation,expectation",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber9",
+    "Expectation",
+    "test"
+  ],
+  [
+    "expectation.thatactualshould src/screenplay/questions/expectation.ts~expectation.thatactualshould,expectation.thatactualshould",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber20",
+    "Expectation thatActualShould()",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber24",
+    "Expectation thatActualShould() provides a way to easily create custom expectation that",
+    "test"
+  ],
+  [
+    "expectation.to src/screenplay/questions/expectation.ts~expectation.to,expectation.to",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber73",
+    "Expectation to()",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber81",
+    "Expectation to() provides a way to alias and compose expectations",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber83",
+    "Expectation to() provides a way to alias and compose expectations resolves to ExpectationMet when the expectation is met and the message alias",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber95",
+    "Expectation to() provides a way to alias and compose expectations resolves with ExpectationNotMet when the expectation is not met and the original message for any unmet expectations",
     "test"
   ],
   [
@@ -1632,6 +1920,54 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "list src/screenplay/questions/list.ts~list,list",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber10",
+    "List",
+    "test"
+  ],
+  [
+    "list#of list#of,list#of",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber25",
+    "List when wrapping an Array",
+    "test"
+  ],
+  [
+    "list#where src/screenplay/questions/list.ts~list#where,list#where",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber295",
+    "List when wrapping an Array and using filters",
+    "test"
+  ],
+  [
+    "list#of list#of,list#of",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber450",
+    "List when wrapping an Array and using filters describes the filters applied",
+    "test"
+  ],
+  [
+    "list#of list#of,list#of",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber439",
+    "List when wrapping an Array and using filters lets you narrow down the list of items to those that match several filters",
+    "test"
+  ],
+  [
+    "list#of list#of,list#of",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber419",
+    "List when wrapping an Array and using filters lets you narrow down the list of items to those that match the filter",
+    "test"
+  ],
+  [
+    "list#of list#of,list#of",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber429",
+    "List when wrapping an Array and using filters lets you narrow down the list of items to those that match the filter",
+    "test"
+  ],
+  [
+    "list#tostring src/screenplay/question.ts~question#tostring,list#tostring",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber133",
+    "List when wrapping an Array provides a sensible description when it",
+    "test"
+  ],
+  [
     "loop src/screenplay/tasks/loop.ts~loop,loop",
     "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber14",
     "Loop",
@@ -1812,9 +2148,87 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "property src/screenplay/questions/property.ts~property,property",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber8",
+    "Property",
+    "test"
+  ],
+  [
+    "property.of property.at property list src/screenplay/questions/property.ts~property.of,property.of src/screenplay/questions/property.ts~property.at,property.at src/screenplay/questions/property.ts~property,property src/screenplay/questions/list.ts~list,list",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber393",
+    "Property helps to filter lists of objects",
+    "test"
+  ],
+  [
+    "property.at src/screenplay/questions/property.ts~property.at,property.at",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber269",
+    "Property when generating MetaQuestions",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber347",
+    "Property when generating MetaQuestions ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber355",
+    "Property when generating MetaQuestions complains when the property",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber357",
+    "Property when generating MetaQuestions complains when the property ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber371",
+    "Property when generating MetaQuestions complains when the property ",
+    "test"
+  ],
+  [
+    "property.of src/screenplay/questions/property.ts~property.of,property.of",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber131",
+    "Property when wrapping an Answerable<object>",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber228",
+    "Property when wrapping an Answerable<object> ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber236",
+    "Property when wrapping an Answerable<object> complains when the property",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber238",
+    "Property when wrapping an Answerable<object> complains when the property ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber252",
+    "Property when wrapping an Answerable<object> complains when the property ",
+    "test"
+  ],
+  [
     "protractorbrowser",
     "https://www.protractortest.org/#/api?view=ProtractorBrowser",
     "ProtractorBrowser",
+    "external"
+  ],
+  [
+    "proxy",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "Proxy",
     "external"
   ],
   [
@@ -2898,15 +3312,45 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/questions/check.spec.ts",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html",
+    "spec/screenplay/questions/Check.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/expectation.spec.ts",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html",
+    "spec/screenplay/questions/Expectation.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/questions/note.spec.ts",
     "test-file/spec/screenplay/questions/Note.spec.ts.html",
     "spec/screenplay/questions/Note.spec.ts",
     "testFile"
   ],
   [
+    "spec/screenplay/questions/property.spec.ts",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html",
+    "spec/screenplay/questions/Property.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/questions/transform.spec.ts",
     "test-file/spec/screenplay/questions/Transform.spec.ts.html",
     "spec/screenplay/questions/Transform.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/lists/arraylistadapter.spec.ts",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html",
+    "spec/screenplay/questions/lists/ArrayListAdapter.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/screenplay/questions/lists/list.spec.ts",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html",
+    "spec/screenplay/questions/lists/List.spec.ts",
     "testFile"
   ],
   [
@@ -5538,6 +5982,138 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/screenplay/questions/check.ts",
+    "file/src/screenplay/questions/Check.ts.html",
+    "src/screenplay/questions/Check.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/check.ts~check#constructor",
+    "class/src/screenplay/questions/Check.ts~Check.html#instance-constructor-constructor",
+    "src/screenplay/questions/Check.ts~Check#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/check.ts~check#otherwise",
+    "class/src/screenplay/questions/Check.ts~Check.html#instance-method-otherwise",
+    "src/screenplay/questions/Check.ts~Check#otherwise",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/check.ts~check#performas",
+    "class/src/screenplay/questions/Check.ts~Check.html#instance-method-performAs",
+    "src/screenplay/questions/Check.ts~Check#performAs",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/check.ts~check#tostring",
+    "class/src/screenplay/questions/Check.ts~Check.html#instance-method-toString",
+    "src/screenplay/questions/Check.ts~Check#toString",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/check.ts~check.whether",
+    "class/src/screenplay/questions/Check.ts~Check.html#static-method-whether",
+    "src/screenplay/questions/Check.ts~Check.whether",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/expectation.ts",
+    "file/src/screenplay/questions/Expectation.ts.html",
+    "src/screenplay/questions/Expectation.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/expectation.ts~expectation.thatactualshould",
+    "class/src/screenplay/questions/Expectation.ts~Expectation.html#static-method-thatActualShould",
+    "src/screenplay/questions/Expectation.ts~Expectation.thatActualShould",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/expectation.ts~expectation.to",
+    "class/src/screenplay/questions/Expectation.ts~Expectation.html#static-method-to",
+    "src/screenplay/questions/Expectation.ts~Expectation.to",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/expectation.ts~predicate<a,e>",
+    "typedef/index.html#static-typedef-Predicate<A,E>",
+    "src/screenplay/questions/Expectation.ts~Predicate<A,E>",
+    "typedef"
+  ],
+  [
+    "src/screenplay/questions/list.ts",
+    "file/src/screenplay/questions/List.ts.html",
+    "src/screenplay/questions/List.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/list.ts~list#answeredby",
+    "class/src/screenplay/questions/List.ts~List.html#instance-method-answeredBy",
+    "src/screenplay/questions/List.ts~List#answeredBy",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/list.ts~list#constructor",
+    "class/src/screenplay/questions/List.ts~List.html#instance-constructor-constructor",
+    "src/screenplay/questions/List.ts~List#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/list.ts~list#count",
+    "class/src/screenplay/questions/List.ts~List.html#instance-method-count",
+    "src/screenplay/questions/List.ts~List#count",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/list.ts~list#first",
+    "class/src/screenplay/questions/List.ts~List.html#instance-method-first",
+    "src/screenplay/questions/List.ts~List#first",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/list.ts~list#get",
+    "class/src/screenplay/questions/List.ts~List.html#instance-method-get",
+    "src/screenplay/questions/List.ts~List#get",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/list.ts~list#last",
+    "class/src/screenplay/questions/List.ts~List.html#instance-method-last",
+    "src/screenplay/questions/List.ts~List#last",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/list.ts~list#where",
+    "class/src/screenplay/questions/List.ts~List.html#instance-method-where",
+    "src/screenplay/questions/List.ts~List#where",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/list.ts~list.of",
+    "class/src/screenplay/questions/List.ts~List.html#static-method-of",
+    "src/screenplay/questions/List.ts~List.of",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/metaquestion.ts",
+    "file/src/screenplay/questions/MetaQuestion.ts.html",
+    "src/screenplay/questions/MetaQuestion.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/metaquestion.ts~metaquestion#of",
+    "class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html#instance-member-of",
+    "src/screenplay/questions/MetaQuestion.ts~MetaQuestion#of",
+    "member"
+  ],
+  [
+    "src/screenplay/questions/metaquestion.ts~metaquestion#tostring",
+    "class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html#instance-member-toString",
+    "src/screenplay/questions/MetaQuestion.ts~MetaQuestion#toString",
+    "member"
+  ],
+  [
     "src/screenplay/questions/note.ts",
     "file/src/screenplay/questions/Note.ts.html",
     "src/screenplay/questions/Note.ts",
@@ -5559,6 +6135,24 @@ window.esdocSearchIndex = [
     "src/screenplay/questions/note.ts~note.of",
     "class/src/screenplay/questions/Note.ts~Note.html#static-method-of",
     "src/screenplay/questions/Note.ts~Note.of",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/property.ts",
+    "file/src/screenplay/questions/Property.ts.html",
+    "src/screenplay/questions/Property.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/property.ts~property.at",
+    "class/src/screenplay/questions/Property.ts~Property.html#static-method-at",
+    "src/screenplay/questions/Property.ts~Property.at",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/property.ts~property.of",
+    "class/src/screenplay/questions/Property.ts~Property.html#static-method-of",
+    "src/screenplay/questions/Property.ts~Property.of",
     "method"
   ],
   [
@@ -5604,9 +6198,105 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/questions/expectations/expectationmet.ts",
+    "file/src/screenplay/questions/expectations/ExpectationMet.ts.html",
+    "src/screenplay/questions/expectations/ExpectationMet.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/expectations/expectationnotmet.ts",
+    "file/src/screenplay/questions/expectations/ExpectationNotMet.ts.html",
+    "src/screenplay/questions/expectations/ExpectationNotMet.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/expectations/expectationoutcome.ts",
+    "file/src/screenplay/questions/expectations/ExpectationOutcome.ts.html",
+    "src/screenplay/questions/expectations/ExpectationOutcome.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/expectations/expectationoutcome.ts~expectationoutcome#constructor",
+    "class/src/screenplay/questions/expectations/ExpectationOutcome.ts~ExpectationOutcome.html#instance-constructor-constructor",
+    "src/screenplay/questions/expectations/ExpectationOutcome.ts~ExpectationOutcome#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/expectations/index.ts",
+    "file/src/screenplay/questions/expectations/index.ts.html",
+    "src/screenplay/questions/expectations/index.ts",
+    "file"
+  ],
+  [
     "src/screenplay/questions/index.ts",
     "file/src/screenplay/questions/index.ts.html",
     "src/screenplay/questions/index.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/lists/arraylistadapter.ts",
+    "file/src/screenplay/questions/lists/ArrayListAdapter.ts.html",
+    "src/screenplay/questions/lists/ArrayListAdapter.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#constructor",
+    "class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html#instance-constructor-constructor",
+    "src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#count",
+    "class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html#instance-method-count",
+    "src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter#count",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#first",
+    "class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html#instance-method-first",
+    "src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter#first",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#get",
+    "class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html#instance-method-get",
+    "src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter#get",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#items",
+    "class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html#instance-method-items",
+    "src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter#items",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#last",
+    "class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html#instance-method-last",
+    "src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter#last",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#tostring",
+    "class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html#instance-method-toString",
+    "src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter#toString",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#withfilter",
+    "class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html#instance-method-withFilter",
+    "src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter#withFilter",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/listadapter.ts",
+    "file/src/screenplay/questions/lists/ListAdapter.ts.html",
+    "src/screenplay/questions/lists/ListAdapter.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/lists/index.ts",
+    "file/src/screenplay/questions/lists/index.ts.html",
+    "src/screenplay/questions/lists/index.ts",
     "file"
   ],
   [
@@ -5697,6 +6387,42 @@ window.esdocSearchIndex = [
     "src/screenplay/questions/mappings/string/trim.ts",
     "file/src/screenplay/questions/mappings/string/trim.ts.html",
     "src/screenplay/questions/mappings/string/trim.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/proxies/propertypathkey.ts",
+    "file/src/screenplay/questions/proxies/PropertyPathKey.ts.html",
+    "src/screenplay/questions/proxies/PropertyPathKey.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/proxies/createmetaquestionproxy.ts",
+    "file/src/screenplay/questions/proxies/createMetaQuestionProxy.ts.html",
+    "src/screenplay/questions/proxies/createMetaQuestionProxy.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/proxies/createquestionproxy.ts",
+    "file/src/screenplay/questions/proxies/createQuestionProxy.ts.html",
+    "src/screenplay/questions/proxies/createQuestionProxy.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/proxies/describepath.ts",
+    "file/src/screenplay/questions/proxies/describePath.ts.html",
+    "src/screenplay/questions/proxies/describePath.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/proxies/index.ts",
+    "file/src/screenplay/questions/proxies/index.ts.html",
+    "src/screenplay/questions/proxies/index.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/proxies/key.ts",
+    "file/src/screenplay/questions/proxies/key.ts.html",
+    "src/screenplay/questions/proxies/key.ts",
     "file"
   ],
   [

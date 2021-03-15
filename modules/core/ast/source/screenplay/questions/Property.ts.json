@@ -1,0 +1,1456 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 3490,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 134,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 3490,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 134,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 43,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 43
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 19,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 19
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 19,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                },
+                "identifierName": "Answerable"
+              },
+              "name": "Answerable"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 19,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                },
+                "identifierName": "Answerable"
+              },
+              "name": "Answerable"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 27,
+          "end": 42,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 27
+            },
+            "end": {
+              "line": 1,
+              "column": 42
+            }
+          },
+          "extra": {
+            "rawValue": "../Answerable",
+            "raw": "'../Answerable'"
+          },
+          "value": "../Answerable"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 44,
+        "end": 175,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 131
+          }
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
+            "start": 176,
+            "end": 221,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Enables easy access to properties of the value of a given {@link Answerable}.\n *\n * @example <caption>Example API response</caption>\n *  interface EnvironmentDetails {\n *      name: string;\n *      url:  string;\n *  }\n *\n *  interface EnvironmentsResponse {\n *      environments: EnvironmentDetails[];\n *  }\n *\n *  const response: EnvironmentsResponse = {\n *     \"environments\": [\n *         {\n *             \"name\": \"dev\",\n *             \"url\":  \"https://dev.example.com\"\n *         },\n *         {\n *             \"name\": \"sit\",\n *             \"url\":  \"https://sit.example.com\"\n *         }\n *     ]\n *  }\n *\n * @example <caption>Combining Property.of and Property.at</caption>\n *  import { actorCalled, List, Property } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  actorCalled('Lisa').attemptsTo(\n *      Ensure.that(\n *          Property.of(\n *              List.of(response.environments)\n *                  .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n *                  .first(),\n *          ).url,\n *          equals('https://dev.example.com')\n *      )\n *  )\n *\n * @see {@link Question}\n * @see {@link List}\n ",
+            "start": 224,
+            "end": 1428,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 55,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 53,
+            "end": 76,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 32
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 53,
+              "end": 76,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 32
+                },
+                "identifierName": "createMetaQuestionProxy"
+              },
+              "name": "createMetaQuestionProxy"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 53,
+              "end": 76,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 32
+                },
+                "identifierName": "createMetaQuestionProxy"
+              },
+              "name": "createMetaQuestionProxy"
+            }
+          },
+          {
+            "type": "ImportSpecifier",
+            "start": 78,
+            "end": 97,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 34
+              },
+              "end": {
+                "line": 2,
+                "column": 53
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 78,
+              "end": 97,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 34
+                },
+                "end": {
+                  "line": 2,
+                  "column": 53
+                },
+                "identifierName": "createQuestionProxy"
+              },
+              "name": "createQuestionProxy"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 78,
+              "end": 97,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 34
+                },
+                "end": {
+                  "line": 2,
+                  "column": 53
+                },
+                "identifierName": "createQuestionProxy"
+              },
+              "name": "createQuestionProxy"
+            }
+          },
+          {
+            "type": "ImportSpecifier",
+            "start": 99,
+            "end": 128,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 55
+              },
+              "end": {
+                "line": 2,
+                "column": 84
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 99,
+              "end": 128,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 55
+                },
+                "end": {
+                  "line": 2,
+                  "column": 84
+                },
+                "identifierName": "WithPropertiesAsMetaQuestions"
+              },
+              "name": "WithPropertiesAsMetaQuestions"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 99,
+              "end": 128,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 55
+                },
+                "end": {
+                  "line": 2,
+                  "column": 84
+                },
+                "identifierName": "WithPropertiesAsMetaQuestions"
+              },
+              "name": "WithPropertiesAsMetaQuestions"
+            }
+          },
+          {
+            "type": "ImportSpecifier",
+            "start": 130,
+            "end": 155,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 86
+              },
+              "end": {
+                "line": 2,
+                "column": 111
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 130,
+              "end": 155,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 86
+                },
+                "end": {
+                  "line": 2,
+                  "column": 111
+                },
+                "identifierName": "WithPropertiesAsQuestions"
+              },
+              "name": "WithPropertiesAsQuestions"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 130,
+              "end": 155,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 86
+                },
+                "end": {
+                  "line": 2,
+                  "column": 111
+                },
+                "identifierName": "WithPropertiesAsQuestions"
+              },
+              "name": "WithPropertiesAsQuestions"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 163,
+          "end": 174,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 119
+            },
+            "end": {
+              "line": 2,
+              "column": 130
+            }
+          },
+          "extra": {
+            "rawValue": "./proxies",
+            "raw": "'./proxies'"
+          },
+          "value": "./proxies"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1429,
+        "end": 3489,
+        "loc": {
+          "start": {
+            "line": 56,
+            "column": 0
+          },
+          "end": {
+            "line": 133,
+            "column": 1
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
+            "start": 176,
+            "end": 221,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Enables easy access to properties of the value of a given {@link Answerable}.\n *\n * @example <caption>Example API response</caption>\n *  interface EnvironmentDetails {\n *      name: string;\n *      url:  string;\n *  }\n *\n *  interface EnvironmentsResponse {\n *      environments: EnvironmentDetails[];\n *  }\n *\n *  const response: EnvironmentsResponse = {\n *     \"environments\": [\n *         {\n *             \"name\": \"dev\",\n *             \"url\":  \"https://dev.example.com\"\n *         },\n *         {\n *             \"name\": \"sit\",\n *             \"url\":  \"https://sit.example.com\"\n *         }\n *     ]\n *  }\n *\n * @example <caption>Combining Property.of and Property.at</caption>\n *  import { actorCalled, List, Property } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  actorCalled('Lisa').attemptsTo(\n *      Ensure.that(\n *          Property.of(\n *              List.of(response.environments)\n *                  .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n *                  .first(),\n *          ).url,\n *          equals('https://dev.example.com')\n *      )\n *  )\n *\n * @see {@link Question}\n * @see {@link List}\n ",
+            "start": 224,
+            "end": 1428,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 55,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 1436,
+          "end": 3489,
+          "loc": {
+            "start": {
+              "line": 56,
+              "column": 7
+            },
+            "end": {
+              "line": 133,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 1442,
+            "end": 1450,
+            "loc": {
+              "start": {
+                "line": 56,
+                "column": 13
+              },
+              "end": {
+                "line": 56,
+                "column": 21
+              },
+              "identifierName": "Property"
+            },
+            "name": "Property"
+          },
+          "superClass": null,
+          "body": {
+            "type": "ClassBody",
+            "start": 1451,
+            "end": 3489,
+            "loc": {
+              "start": {
+                "line": 56,
+                "column": 22
+              },
+              "end": {
+                "line": 133,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassMethod",
+                "start": 2287,
+                "end": 2448,
+                "loc": {
+                  "start": {
+                    "line": 92,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 94,
+                    "column": 5
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {Answerable} subject \n * @return \n * {WithPropertiesAsQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1453,
+                    "end": 1622,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 70,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn the properties of the value it will resolve to into {@link Question}s.\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          Property.of(response).environments[0].name,\n     *          equals('dev')\n     *      )\n     *  )\n     *\n     * @param {Answerable<Subject>} subject\n     * @returns {Proxy<Subject>}\n     ",
+                    "start": 1629,
+                    "end": 2282,
+                    "loc": {
+                      "start": {
+                        "line": 73,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 91,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {WithPropertiesAsMetaQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2449,
+                    "end": 2586,
+                    "loc": {
+                      "start": {
+                        "line": 95,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 106,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn any of its properties into {@link MetaQuestion}s\n     *  to be used when filtering a {@link List},\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(response.environments)\n     *              .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n     *              .first(),\n     *          equals(response.environments[0])\n     *      )\n     *  )\n     *\n     * @returns {Proxy<Subject>}\n     ",
+                    "start": 2593,
+                    "end": 3348,
+                    "loc": {
+                      "start": {
+                        "line": 109,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 129,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "static": true,
+                "key": {
+                  "type": "Identifier",
+                  "start": 2294,
+                  "end": 2296,
+                  "loc": {
+                    "start": {
+                      "line": 92,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 92,
+                      "column": 13
+                    },
+                    "identifierName": "of"
+                  },
+                  "name": "of"
+                },
+                "computed": false,
+                "kind": "method",
+                "typeParameters": {
+                  "type": "TSTypeParameterDeclaration",
+                  "start": 2296,
+                  "end": 2320,
+                  "loc": {
+                    "start": {
+                      "line": 92,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 92,
+                      "column": 37
+                    }
+                  },
+                  "params": [
+                    {
+                      "type": "TSTypeParameter",
+                      "start": 2297,
+                      "end": 2319,
+                      "loc": {
+                        "start": {
+                          "line": 92,
+                          "column": 14
+                        },
+                        "end": {
+                          "line": 92,
+                          "column": 36
+                        }
+                      },
+                      "name": "Subject",
+                      "constraint": {
+                        "type": "TSObjectKeyword",
+                        "start": 2313,
+                        "end": 2319,
+                        "loc": {
+                          "start": {
+                            "line": 92,
+                            "column": 30
+                          },
+                          "end": {
+                            "line": 92,
+                            "column": 36
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "Identifier",
+                    "start": 2321,
+                    "end": 2349,
+                    "loc": {
+                      "start": {
+                        "line": 92,
+                        "column": 38
+                      },
+                      "end": {
+                        "line": 92,
+                        "column": 66
+                      },
+                      "identifierName": "subject"
+                    },
+                    "name": "subject",
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 2328,
+                      "end": 2349,
+                      "loc": {
+                        "start": {
+                          "line": 92,
+                          "column": 45
+                        },
+                        "end": {
+                          "line": 92,
+                          "column": 66
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSTypeReference",
+                        "start": 2330,
+                        "end": 2349,
+                        "loc": {
+                          "start": {
+                            "line": 92,
+                            "column": 47
+                          },
+                          "end": {
+                            "line": 92,
+                            "column": 66
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 2330,
+                          "end": 2340,
+                          "loc": {
+                            "start": {
+                              "line": 92,
+                              "column": 47
+                            },
+                            "end": {
+                              "line": 92,
+                              "column": 57
+                            },
+                            "identifierName": "Answerable"
+                          },
+                          "name": "Answerable"
+                        },
+                        "typeParameters": {
+                          "type": "TSTypeParameterInstantiation",
+                          "start": 2340,
+                          "end": 2349,
+                          "loc": {
+                            "start": {
+                              "line": 92,
+                              "column": 57
+                            },
+                            "end": {
+                              "line": 92,
+                              "column": 66
+                            }
+                          },
+                          "params": [
+                            {
+                              "type": "TSTypeReference",
+                              "start": 2341,
+                              "end": 2348,
+                              "loc": {
+                                "start": {
+                                  "line": 92,
+                                  "column": 58
+                                },
+                                "end": {
+                                  "line": 92,
+                                  "column": 65
+                                }
+                              },
+                              "typeName": {
+                                "type": "Identifier",
+                                "start": 2341,
+                                "end": 2348,
+                                "loc": {
+                                  "start": {
+                                    "line": 92,
+                                    "column": 58
+                                  },
+                                  "end": {
+                                    "line": 92,
+                                    "column": 65
+                                  },
+                                  "identifierName": "Subject"
+                                },
+                                "name": "Subject"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ],
+                "returnType": {
+                  "type": "TSTypeAnnotation",
+                  "start": 2350,
+                  "end": 2386,
+                  "loc": {
+                    "start": {
+                      "line": 92,
+                      "column": 67
+                    },
+                    "end": {
+                      "line": 92,
+                      "column": 103
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeReference",
+                    "start": 2352,
+                    "end": 2386,
+                    "loc": {
+                      "start": {
+                        "line": 92,
+                        "column": 69
+                      },
+                      "end": {
+                        "line": 92,
+                        "column": 103
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 2352,
+                      "end": 2377,
+                      "loc": {
+                        "start": {
+                          "line": 92,
+                          "column": 69
+                        },
+                        "end": {
+                          "line": 92,
+                          "column": 94
+                        },
+                        "identifierName": "WithPropertiesAsQuestions"
+                      },
+                      "name": "WithPropertiesAsQuestions"
+                    },
+                    "typeParameters": {
+                      "type": "TSTypeParameterInstantiation",
+                      "start": 2377,
+                      "end": 2386,
+                      "loc": {
+                        "start": {
+                          "line": 92,
+                          "column": 94
+                        },
+                        "end": {
+                          "line": 92,
+                          "column": 103
+                        }
+                      },
+                      "params": [
+                        {
+                          "type": "TSTypeReference",
+                          "start": 2378,
+                          "end": 2385,
+                          "loc": {
+                            "start": {
+                              "line": 92,
+                              "column": 95
+                            },
+                            "end": {
+                              "line": 92,
+                              "column": 102
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 2378,
+                            "end": 2385,
+                            "loc": {
+                              "start": {
+                                "line": 92,
+                                "column": 95
+                              },
+                              "end": {
+                                "line": 92,
+                                "column": 102
+                              },
+                              "identifierName": "Subject"
+                            },
+                            "name": "Subject"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 2387,
+                  "end": 2448,
+                  "loc": {
+                    "start": {
+                      "line": 92,
+                      "column": 104
+                    },
+                    "end": {
+                      "line": 94,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ReturnStatement",
+                      "start": 2397,
+                      "end": 2442,
+                      "loc": {
+                        "start": {
+                          "line": 93,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 93,
+                          "column": 53
+                        }
+                      },
+                      "argument": {
+                        "type": "CallExpression",
+                        "start": 2404,
+                        "end": 2441,
+                        "loc": {
+                          "start": {
+                            "line": 93,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 93,
+                            "column": 52
+                          }
+                        },
+                        "callee": {
+                          "type": "Identifier",
+                          "start": 2404,
+                          "end": 2423,
+                          "loc": {
+                            "start": {
+                              "line": 93,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 93,
+                              "column": 34
+                            },
+                            "identifierName": "createQuestionProxy"
+                          },
+                          "name": "createQuestionProxy"
+                        },
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "start": 2433,
+                            "end": 2440,
+                            "loc": {
+                              "start": {
+                                "line": 93,
+                                "column": 44
+                              },
+                              "end": {
+                                "line": 93,
+                                "column": 51
+                              },
+                              "identifierName": "subject"
+                            },
+                            "name": "subject"
+                          }
+                        ],
+                        "typeParameters": {
+                          "type": "TSTypeParameterInstantiation",
+                          "start": 2423,
+                          "end": 2432,
+                          "loc": {
+                            "start": {
+                              "line": 93,
+                              "column": 34
+                            },
+                            "end": {
+                              "line": 93,
+                              "column": 43
+                            }
+                          },
+                          "params": [
+                            {
+                              "type": "TSTypeReference",
+                              "start": 2424,
+                              "end": 2431,
+                              "loc": {
+                                "start": {
+                                  "line": 93,
+                                  "column": 35
+                                },
+                                "end": {
+                                  "line": 93,
+                                  "column": 42
+                                }
+                              },
+                              "typeName": {
+                                "type": "Identifier",
+                                "start": 2424,
+                                "end": 2431,
+                                "loc": {
+                                  "start": {
+                                    "line": 93,
+                                    "column": 35
+                                  },
+                                  "end": {
+                                    "line": 93,
+                                    "column": 42
+                                  },
+                                  "identifierName": "Subject"
+                                },
+                                "name": "Subject"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "directives": []
+                }
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3353,
+                "end": 3487,
+                "loc": {
+                  "start": {
+                    "line": 130,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 132,
+                    "column": 5
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {WithPropertiesAsMetaQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2449,
+                    "end": 2586,
+                    "loc": {
+                      "start": {
+                        "line": 95,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 106,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn any of its properties into {@link MetaQuestion}s\n     *  to be used when filtering a {@link List},\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(response.environments)\n     *              .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n     *              .first(),\n     *          equals(response.environments[0])\n     *      )\n     *  )\n     *\n     * @returns {Proxy<Subject>}\n     ",
+                    "start": 2593,
+                    "end": 3348,
+                    "loc": {
+                      "start": {
+                        "line": 109,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 129,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "static": true,
+                "key": {
+                  "type": "Identifier",
+                  "start": 3360,
+                  "end": 3362,
+                  "loc": {
+                    "start": {
+                      "line": 130,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 130,
+                      "column": 13
+                    },
+                    "identifierName": "at"
+                  },
+                  "name": "at"
+                },
+                "computed": false,
+                "kind": "method",
+                "typeParameters": {
+                  "type": "TSTypeParameterDeclaration",
+                  "start": 3362,
+                  "end": 3386,
+                  "loc": {
+                    "start": {
+                      "line": 130,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 130,
+                      "column": 37
+                    }
+                  },
+                  "params": [
+                    {
+                      "type": "TSTypeParameter",
+                      "start": 3363,
+                      "end": 3385,
+                      "loc": {
+                        "start": {
+                          "line": 130,
+                          "column": 14
+                        },
+                        "end": {
+                          "line": 130,
+                          "column": 36
+                        }
+                      },
+                      "name": "Subject",
+                      "constraint": {
+                        "type": "TSObjectKeyword",
+                        "start": 3379,
+                        "end": 3385,
+                        "loc": {
+                          "start": {
+                            "line": 130,
+                            "column": 30
+                          },
+                          "end": {
+                            "line": 130,
+                            "column": 36
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "id": null,
+                "generator": false,
+                "async": false,
+                "params": [],
+                "returnType": {
+                  "type": "TSTypeAnnotation",
+                  "start": 3388,
+                  "end": 3428,
+                  "loc": {
+                    "start": {
+                      "line": 130,
+                      "column": 39
+                    },
+                    "end": {
+                      "line": 130,
+                      "column": 79
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeReference",
+                    "start": 3390,
+                    "end": 3428,
+                    "loc": {
+                      "start": {
+                        "line": 130,
+                        "column": 41
+                      },
+                      "end": {
+                        "line": 130,
+                        "column": 79
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 3390,
+                      "end": 3419,
+                      "loc": {
+                        "start": {
+                          "line": 130,
+                          "column": 41
+                        },
+                        "end": {
+                          "line": 130,
+                          "column": 70
+                        },
+                        "identifierName": "WithPropertiesAsMetaQuestions"
+                      },
+                      "name": "WithPropertiesAsMetaQuestions"
+                    },
+                    "typeParameters": {
+                      "type": "TSTypeParameterInstantiation",
+                      "start": 3419,
+                      "end": 3428,
+                      "loc": {
+                        "start": {
+                          "line": 130,
+                          "column": 70
+                        },
+                        "end": {
+                          "line": 130,
+                          "column": 79
+                        }
+                      },
+                      "params": [
+                        {
+                          "type": "TSTypeReference",
+                          "start": 3420,
+                          "end": 3427,
+                          "loc": {
+                            "start": {
+                              "line": 130,
+                              "column": 71
+                            },
+                            "end": {
+                              "line": 130,
+                              "column": 78
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 3420,
+                            "end": 3427,
+                            "loc": {
+                              "start": {
+                                "line": 130,
+                                "column": 71
+                              },
+                              "end": {
+                                "line": 130,
+                                "column": 78
+                              },
+                              "identifierName": "Subject"
+                            },
+                            "name": "Subject"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 3429,
+                  "end": 3487,
+                  "loc": {
+                    "start": {
+                      "line": 130,
+                      "column": 80
+                    },
+                    "end": {
+                      "line": 132,
+                      "column": 5
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "ReturnStatement",
+                      "start": 3439,
+                      "end": 3481,
+                      "loc": {
+                        "start": {
+                          "line": 131,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 131,
+                          "column": 50
+                        }
+                      },
+                      "argument": {
+                        "type": "CallExpression",
+                        "start": 3446,
+                        "end": 3480,
+                        "loc": {
+                          "start": {
+                            "line": 131,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 131,
+                            "column": 49
+                          }
+                        },
+                        "callee": {
+                          "type": "Identifier",
+                          "start": 3446,
+                          "end": 3469,
+                          "loc": {
+                            "start": {
+                              "line": 131,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 131,
+                              "column": 38
+                            },
+                            "identifierName": "createMetaQuestionProxy"
+                          },
+                          "name": "createMetaQuestionProxy"
+                        },
+                        "arguments": [],
+                        "typeParameters": {
+                          "type": "TSTypeParameterInstantiation",
+                          "start": 3469,
+                          "end": 3478,
+                          "loc": {
+                            "start": {
+                              "line": 131,
+                              "column": 38
+                            },
+                            "end": {
+                              "line": 131,
+                              "column": 47
+                            }
+                          },
+                          "params": [
+                            {
+                              "type": "TSTypeReference",
+                              "start": 3470,
+                              "end": 3477,
+                              "loc": {
+                                "start": {
+                                  "line": 131,
+                                  "column": 39
+                                },
+                                "end": {
+                                  "line": 131,
+                                  "column": 46
+                                }
+                              },
+                              "typeName": {
+                                "type": "Identifier",
+                                "start": 3470,
+                                "end": 3477,
+                                "loc": {
+                                  "start": {
+                                    "line": 131,
+                                    "column": 39
+                                  },
+                                  "end": {
+                                    "line": 131,
+                                    "column": 46
+                                  },
+                                  "identifierName": "Subject"
+                                },
+                                "name": "Subject"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "directives": []
+                }
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
+              "start": 176,
+              "end": 221,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 0
+                },
+                "end": {
+                  "line": 8,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  Enables easy access to properties of the value of a given {@link Answerable}.\n *\n * @example <caption>Example API response</caption>\n *  interface EnvironmentDetails {\n *      name: string;\n *      url:  string;\n *  }\n *\n *  interface EnvironmentsResponse {\n *      environments: EnvironmentDetails[];\n *  }\n *\n *  const response: EnvironmentsResponse = {\n *     \"environments\": [\n *         {\n *             \"name\": \"dev\",\n *             \"url\":  \"https://dev.example.com\"\n *         },\n *         {\n *             \"name\": \"sit\",\n *             \"url\":  \"https://sit.example.com\"\n *         }\n *     ]\n *  }\n *\n * @example <caption>Combining Property.of and Property.at</caption>\n *  import { actorCalled, List, Property } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  actorCalled('Lisa').attemptsTo(\n *      Ensure.that(\n *          Property.of(\n *              List.of(response.environments)\n *                  .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n *                  .first(),\n *          ).url,\n *          equals('https://dev.example.com')\n *      )\n *  )\n *\n * @see {@link Question}\n * @see {@link List}\n ",
+              "start": 224,
+              "end": 1428,
+              "loc": {
+                "start": {
+                  "line": 11,
+                  "column": 0
+                },
+                "end": {
+                  "line": 55,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
+      "start": 176,
+      "end": 221,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Enables easy access to properties of the value of a given {@link Answerable}.\n *\n * @example <caption>Example API response</caption>\n *  interface EnvironmentDetails {\n *      name: string;\n *      url:  string;\n *  }\n *\n *  interface EnvironmentsResponse {\n *      environments: EnvironmentDetails[];\n *  }\n *\n *  const response: EnvironmentsResponse = {\n *     \"environments\": [\n *         {\n *             \"name\": \"dev\",\n *             \"url\":  \"https://dev.example.com\"\n *         },\n *         {\n *             \"name\": \"sit\",\n *             \"url\":  \"https://sit.example.com\"\n *         }\n *     ]\n *  }\n *\n * @example <caption>Combining Property.of and Property.at</caption>\n *  import { actorCalled, List, Property } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  actorCalled('Lisa').attemptsTo(\n *      Ensure.that(\n *          Property.of(\n *              List.of(response.environments)\n *                  .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n *                  .first(),\n *          ).url,\n *          equals('https://dev.example.com')\n *      )\n *  )\n *\n * @see {@link Question}\n * @see {@link List}\n ",
+      "start": 224,
+      "end": 1428,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 0
+        },
+        "end": {
+          "line": 55,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {Answerable} subject \n * @return \n * {WithPropertiesAsQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+      "start": 1453,
+      "end": 1622,
+      "loc": {
+        "start": {
+          "line": 57,
+          "column": 0
+        },
+        "end": {
+          "line": 70,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn the properties of the value it will resolve to into {@link Question}s.\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          Property.of(response).environments[0].name,\n     *          equals('dev')\n     *      )\n     *  )\n     *\n     * @param {Answerable<Subject>} subject\n     * @returns {Proxy<Subject>}\n     ",
+      "start": 1629,
+      "end": 2282,
+      "loc": {
+        "start": {
+          "line": 73,
+          "column": 4
+        },
+        "end": {
+          "line": 91,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {WithPropertiesAsMetaQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+      "start": 2449,
+      "end": 2586,
+      "loc": {
+        "start": {
+          "line": 95,
+          "column": 0
+        },
+        "end": {
+          "line": 106,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn any of its properties into {@link MetaQuestion}s\n     *  to be used when filtering a {@link List},\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(response.environments)\n     *              .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n     *              .first(),\n     *          equals(response.environments[0])\n     *      )\n     *  )\n     *\n     * @returns {Proxy<Subject>}\n     ",
+      "start": 2593,
+      "end": 3348,
+      "loc": {
+        "start": {
+          "line": 109,
+          "column": 4
+        },
+        "end": {
+          "line": 129,
+          "column": 7
+        }
+      }
+    }
+  ]
+}

@@ -84,6 +84,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/protractor/lib/screenplay/questions/lists~elementarrayfinderlistadapter",
+    "class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html",
+    "<span>ElementArrayFinderListAdapter</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions/lists</span>",
+    "class"
+  ],
+  [
     "@serenity-js/protractor/lib/screenplay/interactions~enter",
     "class/src/screenplay/interactions/Enter.ts~Enter.html",
     "<span>Enter</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/interactions</span>",
@@ -165,12 +171,6 @@ window.esdocSearchIndex = [
     "@serenity-js/protractor/lib/screenplay/questions~protractorparam",
     "class/src/screenplay/questions/ProtractorParam.ts~ProtractorParam.html",
     "<span>ProtractorParam</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
-    "class"
-  ],
-  [
-    "@serenity-js/protractor/lib/screenplay/questions~relativequestion",
-    "class/src/screenplay/questions/RelativeQuestion.ts~RelativeQuestion.html",
-    "<span>RelativeQuestion</span> <span class=\"search-result-import-path\">@serenity-js/protractor/lib/screenplay/questions</span>",
     "class"
   ],
   [
@@ -474,39 +474,9 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/assertions~check",
-    "/modules/assertions/class/src/Check.ts~Check.html",
-    "@serenity-js/assertions~Check",
-    "external"
-  ],
-  [
     "@serenity-js/assertions~ensure",
     "/modules/assertions/class/src/Ensure.ts~Ensure.html",
     "@serenity-js/assertions~Ensure",
-    "external"
-  ],
-  [
-    "@serenity-js/assertions~expectation",
-    "/modules/assertions/class/src/Expectation.ts~Expectation.html",
-    "@serenity-js/assertions~Expectation",
-    "external"
-  ],
-  [
-    "@serenity-js/assertions~expectationmet",
-    "/modules/assertions/class/src/outcomes.ts~ExpectationMet.html",
-    "@serenity-js/assertions~ExpectationMet",
-    "external"
-  ],
-  [
-    "@serenity-js/assertions~expectationnotmet",
-    "/modules/assertions/class/src/outcomes.ts~ExpectationNotMet.html",
-    "@serenity-js/assertions~ExpectationNotMet",
-    "external"
-  ],
-  [
-    "@serenity-js/assertions~outcome",
-    "/modules/assertions/class/src/outcomes.ts~Outcome.html",
-    "@serenity-js/assertions~Outcome",
     "external"
   ],
   [
@@ -1176,6 +1146,36 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationmet",
+    "/modules/core/class/src/screenplay/questions/expectations/ExpectationMet.ts~ExpectationMet.html",
+    "@serenity-js/core/lib/screenplay/questions/expectations~ExpectationMet",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationnotmet",
+    "/modules/core/class/src/screenplay/questions/expectations/ExpectationNotMet.ts~ExpectationNotMet.html",
+    "@serenity-js/core/lib/screenplay/questions/expectations~ExpectationNotMet",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/expectations~expectationoutcome",
+    "/modules/core/class/src/screenplay/questions/expectations/ExpectationOutcome.ts~ExpectationOutcome.html",
+    "@serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/lists~arraylistadapter",
+    "/modules/core/class/src/screenplay/questions/lists/ArrayListAdapter.ts~ArrayListAdapter.html",
+    "@serenity-js/core/lib/screenplay/questions/lists~ArrayListAdapter",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions/lists~listadapter",
+    "/modules/core/class/src/screenplay/questions/lists/ListAdapter.ts~ListAdapter.html",
+    "@serenity-js/core/lib/screenplay/questions/lists~ListAdapter",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
     "/modules/core/function/index.html#static-function-append",
     "@serenity-js/core/lib/screenplay/questions/mappings/string~append",
@@ -1242,9 +1242,39 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/screenplay/questions~check",
+    "/modules/core/class/src/screenplay/questions/Check.ts~Check.html",
+    "@serenity-js/core/lib/screenplay/questions~Check",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~expectation",
+    "/modules/core/class/src/screenplay/questions/Expectation.ts~Expectation.html",
+    "@serenity-js/core/lib/screenplay/questions~Expectation",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~list",
+    "/modules/core/class/src/screenplay/questions/List.ts~List.html",
+    "@serenity-js/core/lib/screenplay/questions~List",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~metaquestion",
+    "/modules/core/class/src/screenplay/questions/MetaQuestion.ts~MetaQuestion.html",
+    "@serenity-js/core/lib/screenplay/questions~MetaQuestion",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/screenplay/questions~note",
     "/modules/core/class/src/screenplay/questions/Note.ts~Note.html",
     "@serenity-js/core/lib/screenplay/questions~Note",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/screenplay/questions~property",
+    "/modules/core/class/src/screenplay/questions/Property.ts~Property.html",
+    "@serenity-js/core/lib/screenplay/questions~Property",
     "external"
   ],
   [
@@ -3054,6 +3084,12 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "proxy",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "Proxy",
+    "external"
+  ],
+  [
     "resizebrowserwindow src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow,resizebrowserwindow",
     "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber10",
     "ResizeBrowserWindow",
@@ -3595,116 +3631,392 @@ window.esdocSearchIndex = [
   ],
   [
     "target src/screenplay/questions/targets/target.ts~target,target",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber13",
     "Target",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber127",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber128",
     "Target allows the actor to locate",
     "test"
   ],
   [
-    "target targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber133",
+    "target target.the targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber135",
     "Target allows the actor to locate a single web element matching the selector",
     "test"
   ],
   [
-    "target targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber163",
+    "target target.all targetnestedelements targetnestedelements#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#of,targetnestedelements#of",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber173",
     "Target allows the actor to locate all elements relative to another target",
     "test"
   ],
   [
-    "target targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber143",
+    "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber147",
     "Target allows the actor to locate all web elements matching the selector",
     "test"
   ],
   [
-    "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber153",
+    "target target.the targetnestedelement targetnestedelement#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement#of,targetnestedelement#of",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber160",
     "Target allows the actor to locate an element relative to another target",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber170",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber181",
     "Target provides a sensible description of",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber172",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber183",
     "Target provides a sensible description of an element that",
     "test"
   ],
   [
-    "target targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber187",
+    "target target.the targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber200",
     "Target provides a sensible description of an element that has been located",
     "test"
   ],
   [
-    "target targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber178",
+    "target target.the targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber190",
     "Target provides a sensible description of an element that is being targeted",
     "test"
   ],
   [
-    "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber196",
+    "target target.the targetnestedelement targetnestedelement#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement#of,targetnestedelement#of",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber211",
     "Target provides a sensible description of an element that is nested",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber201",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber216",
     "Target provides a sensible description of elements that",
     "test"
   ],
   [
-    "target targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber207",
+    "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber223",
     "Target provides a sensible description of elements that are being targeted",
     "test"
   ],
   [
-    "target targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber224",
+    "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber243",
     "Target provides a sensible description of elements that are nested",
     "test"
   ],
   [
-    "target targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber216",
+    "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber233",
     "Target provides a sensible description of elements that have been located",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber230",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber483",
+    "Target when filtering a list of targets",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber714",
+    "Target when filtering a list of targets and a filter is applied",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber718",
+    "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it",
+    "test"
+  ],
+  [
+    "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber725",
+    "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it gets the number of items",
+    "test"
+  ],
+  [
+    "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber737",
+    "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks all the items",
+    "test"
+  ],
+  [
+    "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber749",
+    "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the first item",
+    "test"
+  ],
+  [
+    "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber761",
+    "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the last item",
+    "test"
+  ],
+  [
+    "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber773",
+    "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the nth item",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber781",
+    "Target when filtering a list of targets and a filter is applied provides a sensible description when it",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber795",
+    "Target when filtering a list of targets and a filter is applied provides a sensible description when it picks all the items",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber803",
+    "Target when filtering a list of targets and a filter is applied provides a sensible description when it picks the first item",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber811",
+    "Target when filtering a list of targets and a filter is applied provides a sensible description when it picks the last item",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber787",
+    "Target when filtering a list of targets and a filter is applied provides a sensible description when it returns the number of items",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber948",
+    "Target when filtering a list of targets and interacting with elements on screen",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber979",
+    "Target when filtering a list of targets and interacting with elements on screen makes it easy for an actor to pick all elements of interest",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber966",
+    "Target when filtering a list of targets and interacting with elements on screen makes it easy for an actor to pick the element of interest",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber833",
+    "Target when filtering a list of targets and multiple filters are applied",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber837",
+    "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber843",
+    "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it gets the number of items",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber854",
+    "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks all the items",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber865",
+    "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the first item",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber876",
+    "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the last item",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber887",
+    "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the nth item",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber895",
+    "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber909",
+    "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks all the items",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber917",
+    "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks the first item",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber925",
+    "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks the last item",
+    "test"
+  ],
+  [
+    "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber901",
+    "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it returns the number of answers",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber586",
+    "Target when filtering a list of targets and no filters are applied",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber588",
+    "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it",
+    "test"
+  ],
+  [
+    "target target.all targetelements#count src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#count,targetelements#count",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber595",
+    "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items",
+    "test"
+  ],
+  [
+    "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber607",
+    "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks all the items",
+    "test"
+  ],
+  [
+    "target target.all targetelements targetelements#first src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements src/screenplay/questions/targets/targetelements.ts~targetelements#first,targetelements#first",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber620",
+    "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item",
+    "test"
+  ],
+  [
+    "target target.all targetelements targetelements#last src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements src/screenplay/questions/targets/targetelements.ts~targetelements#last,targetelements#last",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber633",
+    "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item",
+    "test"
+  ],
+  [
+    "target target.all targetelements targetelements#get src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements src/screenplay/questions/targets/targetelements.ts~targetelements#get,targetelements#get",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber646",
+    "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber654",
+    "Target when filtering a list of targets and no filters are applied provides a sensible description when it",
+    "test"
+  ],
+  [
+    "target target.all targetelements#tostring src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all targetelements#tostring,targetelements#tostring",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber671",
+    "Target when filtering a list of targets and no filters are applied provides a sensible description when it picks all the items",
+    "test"
+  ],
+  [
+    "target target.all targetelements#first targetelements#tostring src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#first,targetelements#first targetelements#tostring,targetelements#tostring",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber681",
+    "Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the first item",
+    "test"
+  ],
+  [
+    "target target.all targetelements#last targetelements#tostring src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#last,targetelements#last targetelements#tostring,targetelements#tostring",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber691",
+    "Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the last item",
+    "test"
+  ],
+  [
+    "target target.all targetelements#count targetelements#tostring src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#count,targetelements#count targetelements#tostring,targetelements#tostring",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber662",
+    "Target when filtering a list of targets and no filters are applied provides a sensible description when it returns the number of items",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber249",
     "Target when nesting targets",
     "test"
   ],
   [
-    "target targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber344",
+    "target target.all targetelements#of targetnestedelements targetnestedelements#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#of,targetnestedelements#of",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber385",
     "Target when nesting targets allows for Target<ElementArrayFinder> to be nested within another Target<ElementFinder>",
     "test"
   ],
   [
-    "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber322",
+    "target target.the targetelement#of targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement#of,targetelement#of src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber355",
     "Target when nesting targets allows for Target<ElementFinder> to be nested within another Target<ElementFinder>",
     "test"
   ],
   [
-    "target targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber333",
+    "target target.the targetelement#of targetnestedelement targetnestedelement#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement#of,targetelement#of src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement#of,targetnestedelement#of",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber370",
     "Target when nesting targets allows for Target<ElementFinder> to form a chain with other Target<ElementFinder>s",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber393",
+    "Target when nesting targets and filtering them",
+    "test"
+  ],
+  [
+    "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber423",
+    "Target when nesting targets and filtering them allows for nested Target<ElementArrayFinder> to be counted",
+    "test"
+  ],
+  [
+    "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber403",
+    "Target when nesting targets and filtering them allows for nested Target<ElementArrayFinder> to be filtered",
+    "test"
+  ],
+  [
+    "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber439",
+    "Target when nesting targets and filtering them allows for the first of nested Target<ElementArrayFinder> to be retrieved",
+    "test"
+  ],
+  [
+    "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber455",
+    "Target when nesting targets and filtering them allows for the last of nested Target<ElementArrayFinder> to be retrieved",
+    "test"
+  ],
+  [
+    "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber471",
+    "Target when nesting targets and filtering them allows for the nth of nested Target<ElementArrayFinder> to be retrieved",
     "test"
   ],
   [
@@ -5928,12 +6240,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/screenplay/questions/relativequestion.ts",
-    "file/src/screenplay/questions/RelativeQuestion.ts.html",
-    "src/screenplay/questions/RelativeQuestion.ts",
-    "file"
-  ],
-  [
     "src/screenplay/questions/selected.ts",
     "file/src/screenplay/questions/Selected.ts.html",
     "src/screenplay/questions/Selected.ts",
@@ -6036,6 +6342,66 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/screenplay/questions/lists/elementarrayfinderlistadapter.ts",
+    "file/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts.html",
+    "src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/questions/lists/elementarrayfinderlistadapter.ts~elementarrayfinderlistadapter#constructor",
+    "class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html#instance-constructor-constructor",
+    "src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/elementarrayfinderlistadapter.ts~elementarrayfinderlistadapter#count",
+    "class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html#instance-method-count",
+    "src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter#count",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/elementarrayfinderlistadapter.ts~elementarrayfinderlistadapter#first",
+    "class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html#instance-method-first",
+    "src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter#first",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/elementarrayfinderlistadapter.ts~elementarrayfinderlistadapter#get",
+    "class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html#instance-method-get",
+    "src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter#get",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/elementarrayfinderlistadapter.ts~elementarrayfinderlistadapter#items",
+    "class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html#instance-method-items",
+    "src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter#items",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/elementarrayfinderlistadapter.ts~elementarrayfinderlistadapter#last",
+    "class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html#instance-method-last",
+    "src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter#last",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/elementarrayfinderlistadapter.ts~elementarrayfinderlistadapter#tostring",
+    "class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html#instance-method-toString",
+    "src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter#toString",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/elementarrayfinderlistadapter.ts~elementarrayfinderlistadapter#withfilter",
+    "class/src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter.html#instance-method-withFilter",
+    "src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts~ElementArrayFinderListAdapter#withFilter",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/lists/index.ts",
+    "file/src/screenplay/questions/lists/index.ts.html",
+    "src/screenplay/questions/lists/index.ts",
+    "file"
+  ],
+  [
     "src/screenplay/questions/targets/target.ts",
     "file/src/screenplay/questions/targets/Target.ts.html",
     "src/screenplay/questions/targets/Target.ts",
@@ -6096,9 +6462,39 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/questions/targets/targetelements.ts~targetelements#count",
+    "class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-count",
+    "src/screenplay/questions/targets/TargetElements.ts~TargetElements#count",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/targets/targetelements.ts~targetelements#first",
+    "class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-first",
+    "src/screenplay/questions/targets/TargetElements.ts~TargetElements#first",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/targets/targetelements.ts~targetelements#get",
+    "class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-get",
+    "src/screenplay/questions/targets/TargetElements.ts~TargetElements#get",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/targets/targetelements.ts~targetelements#last",
+    "class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-last",
+    "src/screenplay/questions/targets/TargetElements.ts~TargetElements#last",
+    "method"
+  ],
+  [
     "src/screenplay/questions/targets/targetelements.ts~targetelements#of",
     "class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-of",
     "src/screenplay/questions/targets/TargetElements.ts~TargetElements#of",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/targets/targetelements.ts~targetelements#where",
+    "class/src/screenplay/questions/targets/TargetElements.ts~TargetElements.html#instance-method-where",
+    "src/screenplay/questions/targets/TargetElements.ts~TargetElements#where",
     "method"
   ],
   [
@@ -6144,9 +6540,39 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#count",
+    "class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html#instance-method-count",
+    "src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements#count",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#first",
+    "class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html#instance-method-first",
+    "src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements#first",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#get",
+    "class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html#instance-method-get",
+    "src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements#get",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#last",
+    "class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html#instance-method-last",
+    "src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements#last",
+    "method"
+  ],
+  [
     "src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#of",
     "class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html#instance-method-of",
     "src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements#of",
+    "method"
+  ],
+  [
+    "src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#where",
+    "class/src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements.html#instance-method-where",
+    "src/screenplay/questions/targets/TargetNestedElements.ts~TargetNestedElements#where",
     "method"
   ],
   [

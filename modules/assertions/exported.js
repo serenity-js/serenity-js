@@ -1,6 +1,4 @@
-/** @external {@serenity-js/assertions~Check} /modules/assertions/class/src/Check.ts~Check.html */
 /** @external {@serenity-js/assertions~Ensure} /modules/assertions/class/src/Ensure.ts~Ensure.html */
-/** @external {@serenity-js/assertions~Expectation} /modules/assertions/class/src/Expectation.ts~Expectation.html */
 /** @external {@serenity-js/assertions/lib/expectations~and} /modules/assertions/function/index.html#static-function-and */
 /** @external {@serenity-js/assertions/lib/expectations~contain} /modules/assertions/function/index.html#static-function-contain */
 /** @external {@serenity-js/assertions/lib/expectations~containAtLeastOneItemThat} /modules/assertions/function/index.html#static-function-containAtLeastOneItemThat */
@@ -19,6 +17,3 @@
 /** @external {@serenity-js/assertions/lib/expectations~or} /modules/assertions/function/index.html#static-function-or */
 /** @external {@serenity-js/assertions/lib/expectations~property} /modules/assertions/function/index.html#static-function-property */
 /** @external {@serenity-js/assertions/lib/expectations~startsWith} /modules/assertions/function/index.html#static-function-startsWith */
-/** @external {@serenity-js/assertions~Outcome} /modules/assertions/class/src/outcomes.ts~Outcome.html */
-/** @external {@serenity-js/assertions~ExpectationMet} /modules/assertions/class/src/outcomes.ts~ExpectationMet.html */
-/** @external {@serenity-js/assertions~ExpectationNotMet} /modules/assertions/class/src/outcomes.ts~ExpectationNotMet.html */
