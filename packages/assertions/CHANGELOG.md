@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.25.0](https://github.com/serenity-js/serenity-js/compare/v2.24.1...v2.25.0) (2021-03-15)
+
+
+### Features
+
+* **assertions:** re-exported Expectation and Check from core to avoid breaking tests using Serenity/JS 2.24.1 and older ([5ef1096](https://github.com/serenity-js/serenity-js/commit/5ef10966f6af88c24a7d27b7123ec4087f0e2d66))
+* **core:** moved Check from @serenity-js/assertions to @serenity-js/core ([1f36581](https://github.com/serenity-js/serenity-js/commit/1f365811796f8581064ae3601985cf10f6565feb))
+* **core:** moved Expectation from @serenity-js/assertions to @serenity-js/core ([208391e](https://github.com/serenity-js/serenity-js/commit/208391e7b0f9dab177e0b5305e6b8fb2415cb7f4))
+
+
+
+
+
 ## [2.24.1](https://github.com/serenity-js/serenity-js/compare/v2.24.0...v2.24.1) (2021-02-28)
 
 

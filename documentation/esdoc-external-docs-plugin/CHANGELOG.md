@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.25.0](https://github.com/serenity-js/serenity-js/compare/v2.24.1...v2.25.0) (2021-03-15)
+
+
+### Features
+
+* **core:** new questions Property.of and Property.at help retrieve properties of Answerable<object> ([a807df9](https://github.com/serenity-js/serenity-js/commit/a807df9aeba5770a290abdb80b5e212702aa3b6c))
+
+
+
+
+
 ## [2.24.1](https://github.com/serenity-js/serenity-js/compare/v2.24.0...v2.24.1) (2021-02-28)
 
 
