@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.25.0](https://github.com/serenity-js/serenity-js/compare/v2.24.1...v2.25.0) (2021-03-15)
+
+
+### Bug Fixes
+
+* **core:** moved RelativeQuestion interface to core and renamed to MetaQuestion ([fdc9500](https://github.com/serenity-js/serenity-js/commit/fdc9500d68509497d2a6036a5e416637f94b8632))
+* **protractor:** added an explicit dependency on @serenity-js/assertions ([0d0dda3](https://github.com/serenity-js/serenity-js/commit/0d0dda3fc6d346eb3940e959b8a314e900ea27ed))
+* **protractor:** deprecated experimental Pick; use Target.all().located().where(...) instead ([81b9c36](https://github.com/serenity-js/serenity-js/commit/81b9c36436421ac1f280bb501dde558f442c1ead))
+
+
+### Features
+
+* **core:** moved Expectation from @serenity-js/assertions to @serenity-js/core ([208391e](https://github.com/serenity-js/serenity-js/commit/208391e7b0f9dab177e0b5305e6b8fb2415cb7f4))
+* **core:** new question List to help retrieve a specific item from a collection ([2de991a](https://github.com/serenity-js/serenity-js/commit/2de991a7ba893098cc999110678f6390b7101e03))
+* **protractor:** new APIs to make it easier to pick a specific element from Target.all ([f697d39](https://github.com/serenity-js/serenity-js/commit/f697d3917db6185000911304d390df1f5163c27f))
+
+
+
+
+
 ## [2.24.1](https://github.com/serenity-js/serenity-js/compare/v2.24.0...v2.24.1) (2021-02-28)
 
 
