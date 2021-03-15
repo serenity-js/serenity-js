@@ -69,7 +69,34 @@ export class LastResponse {
      *      })),
      *  );
      *
+     * @example <caption>Retrieving an item at path using Property.of</caption>
+     *  import { Property } from '@serenity-js/core';
+     *
+     *  actor.attemptsTo(
+     *      Ensure.that(
+     *          Property.of(LastResponse.body<Book>()).title,
+     *          equals('Zen and the Art of Motorcycle Maintenance: An Inquiry into Values'),
+     *      )
+     *  )
+     *
+     * @example <caption>Filtering response body using List</caption>
+     *  import { Property } from '@serenity-js/core';
+     *  import { property, startsWith } from '@serenity-js/assertions';
+     *
+     *  actor.attemptsTo(
+     *      Ensure.that(
+     *          // imagine the API returns an array of books
+     *          List.of(LastResponse.body<Book[]>())
+     *              .where(Property.at<Book>().author, equals('Robert M. Pirsig'))
+     *              .first(),
+     *          property('title', startsWith('Zen and the Art of Motorcycle Maintenance')),
+     *      )
+     *  )
+     *
      * @returns {@serenity-js/core/lib/screenplay~Question<any>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/questions~Property}
+     * @see {@link @serenity-js/core/lib/screenplay/questions~List}
      */
     static body<T = any>(): Question<T> {
         return Question.about<T>(`the body of the last response`, actor => {
