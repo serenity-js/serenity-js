@@ -2,5 +2,48 @@
   "extends": [
     "config:base"
   ],
-  "rangeStrategy": "bump"
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "@types/chai",
+        "@types/chai-as-promised",
+        "@types/sinon",
+        "@types/sinon-chai",
+        "chai",
+        "chai-as-promised",
+        "istanbul",
+        "istanbul-merge",
+        "mocha-testdata",
+        "nyc",
+        "sinon",
+        "sinon-chai"
+      ],
+      "groupName": "test dependencies"
+    },
+    {
+      "packagePatterns": [
+        "ts-node",
+        "tslint",
+        "tslint-microsoft-contrib",
+        "typescript"
+      ],
+      "groupName": "TypeScript dependencies"
+    },
+    {
+      "packagePatterns": [
+        "esdoc",
+        "esdoc-accessor-plugin",
+        "esdoc-coverage-plugin",
+        "esdoc-external-ecmascript-plugin",
+        "esdoc-integrate-test-plugin",
+        "esdoc-lint-plugin",
+        "esdoc-publish-html-plugin",
+        "esdoc-type-inference-plugin",
+        "esdoc-undocumented-identifier-plugin",
+        "esdoc-unexported-identifier-plugin"
+      ],
+      "groupName": "documentation dependencies"
+    }
+  ]
 }
