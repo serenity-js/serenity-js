@@ -25,15 +25,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Cache Node Modules
-        id: npm-cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            **/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        uses: bahmutov/npm-install@v1
       - name: Install Node Modules
-        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
   lint:
@@ -49,14 +42,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Cache Node Modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            **/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        uses: bahmutov/npm-install@v1
       - name: Install Node Modules
-        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Lint
         run: make lint
