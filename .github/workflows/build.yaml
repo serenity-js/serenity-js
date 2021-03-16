@@ -10,10 +10,8 @@ jobs:
     if:       "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on:  ubuntu-20.04
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -28,9 +26,8 @@ jobs:
     if:       "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on:  ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Setup Node 14.x
         uses: actions/setup-node@v1
         with:
@@ -60,10 +57,8 @@ jobs:
       fail-fast: false
       max-parallel: 3
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: apt-get update
         run: sudo apt-get update
         continue-on-error: true
@@ -106,10 +101,8 @@ jobs:
       fail-fast: false
       max-parallel: 3
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -136,10 +129,8 @@ jobs:
       fail-fast: false
       max-parallel: 3
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: apt-get update
         run: sudo apt-get update
         continue-on-error: true
@@ -173,10 +164,8 @@ jobs:
       fail-fast: false
       max-parallel: 3
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -196,10 +185,8 @@ jobs:
     runs-on:  ubuntu-20.04
     needs:    test-linux
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Setup Node 14.x
         uses: actions/setup-node@v1
         with:
@@ -271,9 +258,8 @@ jobs:
     if: always()
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - uses: ./.github/actions/setup-lerna
         with:
           github_token:   ${{ secrets.GITHUB_TOKEN }}
