@@ -6,7 +6,7 @@
 
 [![Build Status](https://github.com/serenity-js/serenity-js/workflows/Release%20Pipeline/badge.svg)](https://github.com/serenity-js/serenity-js/actions)
 [![Known Vulnerabilities](https://snyk.io/test/github/serenity-js/serenity-js/badge.svg)](https://snyk.io/test/github/serenity-js/serenity-js)
-[![Dependabot](https://badgen.net/github/dependabot/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js)
+[![Dependencies Status](https://status.david-dm.org/gh/serenity-js/serenity-js.svg?path=packages%2Fcore)](https://david-dm.org/serenity-js/serenity-js?path=packages/core)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js?ref=badge_shield)
 [![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=master)](https://coveralls.io/github/serenity-js/serenity-js?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/serenity-js/serenity-js/badge)](https://www.codefactor.io/repository/github/serenity-js/serenity-js)
