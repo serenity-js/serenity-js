@@ -4,8 +4,34 @@ on:
   push:
   pull_request:
     branches: [ master ]
+    types: [ opened, synchronize ]
 
 jobs:
+
+  verify-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node-version: [ 10.x, 12.x, 14.x ]
+      fail-fast: false
+      max-parallel: 3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup Node Modules
+        uses: bahmutov/npm-install@v1
+
+      - name: Compile
+        run: make compile
+      - name: Test
+        run: make test
+      - name: Integration Test
+        run: make integration-test
+
   lint:
     if:       "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on:  ubuntu-20.04
@@ -59,6 +85,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
       - name: apt-get update
         run: sudo apt-get update
         continue-on-error: true
@@ -73,11 +103,6 @@ jobs:
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
 
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-
       - name: Test
         run: make test
 
@@ -89,34 +114,6 @@ jobs:
           path: |
             target/**/*
             package.json
-
-  test-windows:
-    needs:
-      - lint
-      - compile
-    runs-on:  windows-latest
-    strategy:
-      matrix:
-        node-version: [ 10.x, 12.x, 14.x ]
-      fail-fast: false
-      max-parallel: 3
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-
-      - name: Test
-        run: make test
 
   integration-test-linux:
     needs:
@@ -131,6 +128,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
       - name: apt-get update
         run: sudo apt-get update
         continue-on-error: true
@@ -144,39 +145,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-
-      - name: Integration Test
-        run: make integration-test
-
-  integration-test-windows:
-    needs:
-      - lint
-      - compile
-    runs-on:  windows-latest
-    strategy:
-      matrix:
-        node-version: [ 10.x, 12.x, 14.x ]
-      fail-fast: false
-      max-parallel: 3
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
 
       - name: Integration Test
         run: make integration-test
@@ -213,9 +181,8 @@ jobs:
     runs-on: ubuntu-20.04
     needs:
       - test-linux
-      - test-windows
       - integration-test-linux
-      - integration-test-windows
+      - verify-windows
     steps:
       - uses: actions/checkout@v2
         with:
@@ -226,17 +193,16 @@ jobs:
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
       - name: Setup Node 14.x
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
 
       - name: Publish artifacts
         run: npm run lerna:publish
@@ -266,18 +232,17 @@ jobs:
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
+      - name: Download changelog
+        if: needs.release.result == 'success'
+        uses: actions/download-artifact@v2
+        with:
+          name: changelog
       - name: Setup Node 14.x
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-
-      - name: Download changelog
-        if: needs.release.result == 'success'
-        uses: actions/download-artifact@v2
-        with:
-          name: changelog
 
       - name: Build Serenity/JS website
         run: make site
