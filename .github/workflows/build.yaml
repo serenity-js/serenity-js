@@ -141,7 +141,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Verify
-        run: make verify
+        run: make compile test integration-test
 
   report:
     runs-on:  ubuntu-20.04
