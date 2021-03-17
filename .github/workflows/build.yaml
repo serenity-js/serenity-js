@@ -24,9 +24,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-
-      - name: Compile, Test, Integration Test
-        run: make compile test integration-test
+      - name: Compile
+        run: make compile
+      - name: Test
+        run: make test
+      - name: Integration Test
+        run: make integration-test
 
   lint:
     if:       "!contains(github.event.head_commit.message, 'ci skip')"
