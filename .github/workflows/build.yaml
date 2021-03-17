@@ -37,7 +37,7 @@ jobs:
       - name: Compile
         run: make compile
       - name: Debug
-        run: tree /a /f > directories.txt
+        run: "tree /a /f > directories-${{ matrix.node-version }}.txt"
         if: always()
       - uses: actions/upload-artifact@v2
         if: always()
