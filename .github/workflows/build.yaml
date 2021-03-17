@@ -36,6 +36,17 @@ jobs:
 
       - name: Compile
         run: make compile
+      - name: Debug
+        run: tree /a /f > directories.txt
+        if: always()
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          retention-days: 1
+          name: debug
+          path: |
+            directories.txt
+
       - name: Test
         run: make test
       - name: Integration Test
