@@ -45,7 +45,7 @@ jobs:
           retention-days: 1
           name: debug
           path: |
-            directories.txt
+            directories-*.txt
 
       - name: Test
         run: make test
