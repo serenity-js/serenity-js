@@ -175,9 +175,8 @@ jobs:
     runs-on: ubuntu-20.04
     needs:
       - test-linux
-      - test-windows
       - integration-test-linux
-      - integration-test-windows
+      - windows-verify
     steps:
       - uses: actions/checkout@v2
         with:

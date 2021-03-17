@@ -398,7 +398,7 @@ Check out the [Design Guide](/handbook/design) to [learn more about tasks](/hand
 
 Now that you understand one of the core patterns behind Serenity/JS it's time to move on to the next one, the [Lean Page Objects](/handbook/thinking-in-serenity-js/lean-page-objects.html).
 
-In this [next article](/handbook/thinking-in-serenity-js/lean-page-objects.html)) we'll improve the test we've just written and look at ways to structure our code better.
+In this [next article](/handbook/thinking-in-serenity-js/lean-page-objects.html) we'll improve the test we've just written and look at ways to structure our code better.
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
