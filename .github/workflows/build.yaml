@@ -176,7 +176,7 @@ jobs:
     needs:
       - test-linux
       - integration-test-linux
-      - windows-verify
+      - verify-windows
     steps:
       - uses: actions/checkout@v2
         with:
