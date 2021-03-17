@@ -22,17 +22,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Cache Node Modules 1/2 (Windows)
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Cache Node Modules 2/2 (Windows)
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - name: Install Node Modules
-        run: npm ci
+      - name: Setup Node Modules
+        uses: bahmutov/npm-install@v1
 
       - name: Compile
         run: make compile
