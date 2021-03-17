@@ -23,13 +23,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Cache Node Modules 1/2 (Windows)
-        if: matrix.os == 'windows-latest'
         id: npm-cache
         run: |
           echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node Modules 2/2 (Windows)
         uses: actions/cache@v2
-        if: matrix.os == 'windows-latest'
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
