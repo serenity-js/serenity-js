@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.1](https://github.com/serenity-js/serenity-js/compare/v2.25.0...v2.25.1) (2021-03-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.13.11 ([92167a5](https://github.com/serenity-js/serenity-js/commit/92167a5f7fd10e7ca4ee54ba6e965a957d436a6f))
+* **deps:** update dependency fast-glob to ^3.2.5 ([92ab1c4](https://github.com/serenity-js/serenity-js/commit/92ab1c4aae0b9d32c9df78049cb30dbc601ceb8e))
+* **deps:** update dependency graceful-fs to ^4.2.6 ([978275a](https://github.com/serenity-js/serenity-js/commit/978275acb6d21d0148d40bd0c100005372011b37))
+* **deps:** update dependency yargs to ^16.2.0 ([dd7ddf5](https://github.com/serenity-js/serenity-js/commit/dd7ddf586b0dd6ee3f29fc96e4767568c7a311d0))
+* **protractor:** relaxed peerDependencies version range ([2542bf2](https://github.com/serenity-js/serenity-js/commit/2542bf2ef09216dc6ef8b8ac08395f6bf101d878))
+
+
+
+
+
 # [2.25.0](https://github.com/serenity-js/serenity-js/compare/v2.24.1...v2.25.0) (2021-03-15)
 
 
