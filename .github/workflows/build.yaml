@@ -222,17 +222,16 @@ jobs:
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
       - name: Setup Node 14.x
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
 
       - name: Publish artifacts
         run: npm run lerna:publish
@@ -262,18 +261,17 @@ jobs:
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
+      - name: Download changelog
+        if: needs.release.result == 'success'
+        uses: actions/download-artifact@v2
+        with:
+          name: changelog
       - name: Setup Node 14.x
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-
-      - name: Download changelog
-        if: needs.release.result == 'success'
-        uses: actions/download-artifact@v2
-        with:
-          name: changelog
 
       - name: Build Serenity/JS website
         run: make site
