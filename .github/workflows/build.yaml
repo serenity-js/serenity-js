@@ -256,6 +256,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - uses: ./.github/actions/setup-lerna
+        if: github.ref == 'refs/heads/master'
         with:
           github_token:   ${{ secrets.GITHUB_TOKEN }}
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
