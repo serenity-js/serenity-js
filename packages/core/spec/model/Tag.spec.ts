@@ -21,6 +21,7 @@ describe('Tag', () => {
         [ '@issue:ABC-123,DEF-456',     [ new IssueTag('ABC-123'), new IssueTag('DEF-456') ] ],
         [ '@issues:ABC-123,DEF-456',    [ new IssueTag('ABC-123'), new IssueTag('DEF-456') ] ],
         [ '@regression',                [ new ArbitraryTag('regression')                   ] ],
+        [ '@known_issues',              [ new ArbitraryTag('known_issues')                 ] ],
     ).
     it('can be constructed from a string', (stringTag: string, expectedResults: Tag[]) => {
         const results = Tags.from(stringTag);
