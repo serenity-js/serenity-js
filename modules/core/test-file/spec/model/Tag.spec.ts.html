@@ -311,6 +311,7 @@ describe(<span class="hljs-string">'Tag'</span>, <span class="hljs-function">() 
         [ <span class="hljs-string">'@issue:ABC-123,DEF-456'</span>,     [ <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">'ABC-123'</span>), <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">'DEF-456'</span>) ] ],
         [ <span class="hljs-string">'@issues:ABC-123,DEF-456'</span>,    [ <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">'ABC-123'</span>), <span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">'DEF-456'</span>) ] ],
         [ <span class="hljs-string">'@regression'</span>,                [ <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'regression'</span>)                   ] ],
+        [ <span class="hljs-string">'@known_issues'</span>,              [ <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'known_issues'</span>)                 ] ],
     ).
     it(<span class="hljs-string">'can be constructed from a string'</span>, <span class="hljs-function">(<span class="hljs-params">stringTag: <span class="hljs-built_in">string</span>, expectedResults: Tag[]</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> results = Tags.from(stringTag);
