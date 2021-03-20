@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.3](https://github.com/serenity-js/serenity-js/compare/v2.25.2...v2.25.3) (2021-03-20)
+
+
+### Bug Fixes
+
+* **core:** Support tags with "issues" in their name, i.e. "known_issues". ([d53c9be](https://github.com/serenity-js/serenity-js/commit/d53c9bec261eef6d7c11aeeeca309bff9a7c9739))
+
+
+
+
+
 ## [2.25.2](https://github.com/serenity-js/serenity-js/compare/v2.25.1...v2.25.2) (2021-03-18)
 
 **Note:** Version bump only for package @serenity-js/core
