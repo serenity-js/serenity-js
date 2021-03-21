@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.4](https://github.com/serenity-js/serenity-js/compare/v2.25.3...v2.25.4) (2021-03-21)
+
+
+### Bug Fixes
+
+* **deps:** updated dependencies ([32a41eb](https://github.com/serenity-js/serenity-js/commit/32a41eb8a8b4386b6b03111c1adf48e1e0aabdbb))
+
+
+
+
+
 ## [2.25.3](https://github.com/serenity-js/serenity-js/compare/v2.25.2...v2.25.3) (2021-03-20)
 
 **Note:** Version bump only for package @serenity-js-examples/cucumber-domain-level-testing
