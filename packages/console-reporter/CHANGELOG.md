@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.3](https://github.com/serenity-js/serenity-js/compare/v2.25.2...v2.25.3) (2021-03-20)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
+## [2.25.2](https://github.com/serenity-js/serenity-js/compare/v2.25.1...v2.25.2) (2021-03-18)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
+## [2.25.1](https://github.com/serenity-js/serenity-js/compare/v2.25.0...v2.25.1) (2021-03-17)
+
+
+### Bug Fixes
+
+* **protractor:** relaxed peerDependencies version range ([2542bf2](https://github.com/serenity-js/serenity-js/commit/2542bf2ef09216dc6ef8b8ac08395f6bf101d878))
+
+
+
+
+
 # [2.25.0](https://github.com/serenity-js/serenity-js/compare/v2.24.1...v2.25.0) (2021-03-15)
 
 **Note:** Version bump only for package @serenity-js/console-reporter
