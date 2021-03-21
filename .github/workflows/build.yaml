@@ -60,10 +60,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
       - name: apt-get update
         run: sudo apt-get update
         continue-on-error: true
@@ -77,6 +73,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
 
       - name: Test
         run: make test
@@ -103,16 +103,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
       - name: Test
         run: make test
 
@@ -129,10 +129,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
       - name: apt-get update
         run: sudo apt-get update
         continue-on-error: true
@@ -146,6 +142,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
 
       - name: Integration Test
         run: make integration-test
@@ -163,16 +163,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
       - name: Integration Test
         run: make integration-test
 
