@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.6](https://github.com/serenity-js/serenity-js/compare/v2.25.5...v2.25.6) (2021-03-22)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** support for reporting descriptions of Cucumber Rules ([1f21725](https://github.com/serenity-js/serenity-js/commit/1f217256457711c468f0c56897395a71ab1dd09c))
+
+
+
+
+
 ## [2.25.5](https://github.com/serenity-js/serenity-js/compare/v2.25.4...v2.25.5) (2021-03-22)
 
 
