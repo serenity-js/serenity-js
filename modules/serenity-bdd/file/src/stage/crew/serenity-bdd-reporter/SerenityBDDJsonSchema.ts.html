@@ -148,7 +148,7 @@
     tags: Tag[];
     startTime: <span class="hljs-built_in">number</span>;
     duration: <span class="hljs-built_in">number</span>;
-    rule: <span class="hljs-built_in">string</span>;
+    rule: BusinessRule;
     projectKey: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor</span>
     sessionId?: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor</span>
     driver?: <span class="hljs-built_in">string</span>;                    <span class="hljs-comment">// todo [ ]     protractor     'chrome:jill'</span>
@@ -165,6 +165,11 @@
     testFailureSummary?: <span class="hljs-built_in">string</span>;
     backgroundTitle?: <span class="hljs-built_in">string</span>;
     backgroundDescription?: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> BusinessRule <span class="hljs-keyword">extends</span> JSONObject {
+    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+    description?: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> TestStep <span class="hljs-keyword">extends</span> JSONObject {

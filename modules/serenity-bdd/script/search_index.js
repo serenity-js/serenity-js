@@ -1405,7 +1405,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_business_rules.spec.ts.html#lineNumber79",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_business_rules.spec.ts.html#lineNumber80",
     "SerenityBDDReporter captures information about the business rule for scene sequences",
     "test"
   ],

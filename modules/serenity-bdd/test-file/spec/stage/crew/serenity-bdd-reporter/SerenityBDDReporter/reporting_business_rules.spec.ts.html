@@ -202,7 +202,8 @@ describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hl
 
         <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-        expect(report.rule).to.equal(<span class="hljs-string">'my rule name'</span>);
+        expect(report.rule.name).to.equal(<span class="hljs-string">'my rule name'</span>);
+        expect(report.rule.description).to.equal(<span class="hljs-string">'my rule description'</span>);
     });
 
     it(<span class="hljs-string">'captures information about the business rule for scene sequences'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -241,7 +242,8 @@ describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hl
 
         <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-        expect(report.rule).to.equal(<span class="hljs-string">'my rule name'</span>);
+        expect(report.rule.name).to.equal(<span class="hljs-string">'my rule name'</span>);
+        expect(report.rule.description).to.equal(<span class="hljs-string">'my rule description'</span>);
     });
 });
 </code></pre>
