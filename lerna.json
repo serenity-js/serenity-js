@@ -36,15 +36,13 @@
       "allowBranch": "master",
       "conventionalCommits": true,
       "createRelease": "github",
+      "private": false,
       "exact": true,
       "message": "chore(release): %s\n[ci skip]",
       "loglevel": "verbose"
     }
   },
   "ignoreChanges": [
-    "**/documentation/**",
-    "**/examples/**",
-    "**/integration/**",
     "**/*.md",
     "**/spec/**",
     "./package.json",
