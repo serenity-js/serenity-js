@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.5](https://github.com/serenity-js/serenity-js/compare/v2.25.4...v2.25.5) (2021-03-22)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** upgraded Serenity BDD CLI to 2.3.31 and migrated from Bintray to Maven Central ([1e0e98f](https://github.com/serenity-js/serenity-js/commit/1e0e98fcd69c9d68625854eb05639a182c9dd5fe))
+
+
+
+
+
 ## [2.25.4](https://github.com/serenity-js/serenity-js/compare/v2.25.3...v2.25.4) (2021-03-21)
 
 
