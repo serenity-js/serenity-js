@@ -7,10 +7,10 @@ import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 export function businessRuleOf<Context extends SerenityBDDReportContext>(rule: BusinessRule) {
     return (context: Context): Context => {
 
-        context.report.rule = rule.name.value;
-
-        // todo: Serenity BDD v. 2.3.10 doesn't support business rule descriptions yet
-        //  context.report.?? = rule.description.value;
+        context.report.rule = {
+            name: rule.name.value,
+            description: rule.description.value,
+        };
 
         return context;
     }
