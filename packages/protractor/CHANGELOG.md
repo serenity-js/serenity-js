@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.7](https://github.com/serenity-js/serenity-js/compare/v2.25.6...v2.25.7) (2021-03-23)
+
+
+### Bug Fixes
+
+* **deps-dev:** (internal) standardised internal dev-dependency versions across Serenity/JS modules ([a411cea](https://github.com/serenity-js/serenity-js/commit/a411ceabadc83e82ec87a492a1738b13773adb13))
+
+
+
+
+
 ## [2.25.6](https://github.com/serenity-js/serenity-js/compare/v2.25.5...v2.25.6) (2021-03-22)
 
 **Note:** Version bump only for package @serenity-js/protractor
