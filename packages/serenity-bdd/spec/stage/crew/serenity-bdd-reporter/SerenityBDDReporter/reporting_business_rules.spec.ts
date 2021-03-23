@@ -73,7 +73,8 @@ describe('SerenityBDDReporter', () => {
 
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
-        expect(report.rule).to.equal('my rule name');
+        expect(report.rule.name).to.equal('my rule name');
+        expect(report.rule.description).to.equal('my rule description');
     });
 
     it('captures information about the business rule for scene sequences', () => {
@@ -112,6 +113,7 @@ describe('SerenityBDDReporter', () => {
 
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
-        expect(report.rule).to.equal('my rule name');
+        expect(report.rule.name).to.equal('my rule name');
+        expect(report.rule.description).to.equal('my rule description');
     });
 });
