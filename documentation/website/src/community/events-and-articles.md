@@ -12,9 +12,7 @@ to share the news with the community!
 ## Events
 
 - **2021-03-24, Aftertest online: Creating acceptance tests with Serenity/JS (in Spanish)**  
-[Crear tests de aceptación con Serenity/JS](https://www.aftertest.es/events/aftertest-online-automatizar-pruebas-con-serenity-js/)
-  * [video](https://www.youtube.com/watch?v=4MQHJWaRDsE)
-  * [slides](https://docs.google.com/presentation/d/1c3oz5QW5OM64506vYsRXZTEU2Nbh5wsU54_MoaBNaY4/edit#slide=id.gc1edf83f9b_0_307)  
+[Crear tests de aceptación con Serenity/JS](https://www.aftertest.es/events/aftertest-online-automatizar-pruebas-con-serenity-js/) - [video](https://www.aftertest.es/video-aftertest-online-24-03/) | [slides](https://docs.google.com/presentation/d/1c3oz5QW5OM64506vYsRXZTEU2Nbh5wsU54_MoaBNaY4/edit#slide=id.gc1edf83f9b_0_307)  
 _by [Manuel Fidalgo](https://www.linkedin.com/in/manuelfidalgo/)_
 
 - **2020-02-03, Automation Guild, online conference**  
