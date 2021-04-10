@@ -17,7 +17,7 @@ When an API is marked as `@deprectated`, the documentation of the API will provi
 
 Removing a deprecated API will not affect the major version number of the Serenity/JS framework.
 
-You can [watch](https://help.github.com/en/github/receiving-notifications-about-activity-on-github/watching-and-unwatching-repositories) the [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js) repository to be notified of deprecated APIs. 
+You can [watch](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository) the [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js) repository to be notified of deprecated APIs. 
 
 ## Experimental APIs
 
@@ -27,4 +27,4 @@ When a new experimental API is introduced to the framework, a ticket marked as [
  
 Please be aware that experimental APIs might change or get removed without prior notice and without affecting the major version number of the Serenity/JS framework.
 
-You can [watch](https://help.github.com/en/github/receiving-notifications-about-activity-on-github/watching-and-unwatching-repositories) the [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js) repository to be notified of experimental APIs.
+You can [watch](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository) the [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js) repository to be notified of experimental APIs.
