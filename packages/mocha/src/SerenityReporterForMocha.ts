@@ -11,9 +11,12 @@ import {
     TestRunFinishes,
     TestRunnerDetected,
     TestRunStarts,
+    TestSuiteFinished,
+    TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, FeatureTag, Name } from '@serenity-js/core/lib/model';
-import { MochaOptions, reporters, Runnable, Runner, Test } from 'mocha';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, TestSuiteDetails } from '@serenity-js/core/lib/model';
+import { MochaOptions, reporters, Runnable, Runner, Suite, Test } from 'mocha';
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
 import { OutcomeRecorder } from './OutcomeRecorder';
 
@@ -27,6 +30,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
     private readonly recorder: OutcomeRecorder = new OutcomeRecorder();
 
+    private suiteIds: CorrelationId[] = [];
     private currentSceneId: CorrelationId = null;
 
     /**
@@ -45,6 +49,22 @@ export class SerenityReporterForMocha extends reporters.Base {
                 this.emit(
                     new TestRunStarts(this.serenity.currentTime())
                 );
+            },
+        );
+
+        runner.on(Runner.constants.EVENT_SUITE_BEGIN,
+            (suite: Suite) => {
+                if (suite.root === false) {
+                    this.announceSuiteStartsFor(suite);
+                }
+            },
+        );
+
+        runner.on(Runner.constants.EVENT_SUITE_END,
+            (suite: Suite) => {
+                if (suite.root === false) {
+                    this.announceSuiteFinishedFor(suite);
+                }
             },
         );
 
@@ -115,6 +135,44 @@ export class SerenityReporterForMocha extends reporters.Base {
                 this.emit(new TestRunFinished(this.serenity.currentTime()))     // todo: consider adding outcome to TestRunFinished
             })
             .then(() => fn(failures));
+    }
+
+    private announceSuiteStartsFor(suite: Suite): void {
+        const suiteId = CorrelationId.create();
+        this.suiteIds.push(suiteId);
+
+        const details = new TestSuiteDetails(
+            new Name(suite.title),
+            new FileSystemLocation(Path.from(suite.file!)), // all suites except for the root suite should have .file property set
+            suiteId,
+        );
+
+        this.emit(
+            new TestSuiteStarts(details, this.serenity.currentTime())
+        );
+    }
+
+    private announceSuiteFinishedFor(suite: Suite): void {
+        const details = new TestSuiteDetails(
+            new Name(suite.title),
+            new FileSystemLocation(Path.from(suite.file!)), // all suites except for the root suite should have .file property set
+            this.suiteIds.pop(),
+        );
+
+        const outcomes = suite.tests.map(test =>
+            this.recorder.outcomeOf(test) || this.outcomeMapper.outcomeOf(test)
+        );
+
+        const worstOutcome = outcomes.reduce((worstSoFar, outcome) =>
+            outcome.isWorseThan(worstSoFar)
+                ? outcome
+                : worstSoFar,
+            new ExecutionSuccessful()
+        );
+
+        this.emit(
+            new TestSuiteFinished(details, worstOutcome, this.serenity.currentTime())
+        );
     }
 
     private announceSceneStartsFor(test: Test): void {
