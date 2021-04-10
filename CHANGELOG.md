@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.9](https://github.com/serenity-js/serenity-js/compare/v2.25.8...v2.25.9) (2021-04-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.13.15 ([cf170e8](https://github.com/serenity-js/serenity-js/commit/cf170e87bfed177f95e8db5e778b3d7494e65389))
+* **deps:** update dependency find-java-home to ^1.2.0 ([5fd4a25](https://github.com/serenity-js/serenity-js/commit/5fd4a2585b7b9f96c49790f877954c39eef53424))
+* **deps:** updated dependencies ([6a8cdf8](https://github.com/serenity-js/serenity-js/commit/6a8cdf8e57f62c1f332bc22114ef3933ecf915c0))
+* **website:** fixed a link ([3641235](https://github.com/serenity-js/serenity-js/commit/364123558a48b7a185b98691fb205d211916c380)), closes [#803](https://github.com/serenity-js/serenity-js/issues/803)
+
+
+
+
+
 ## [2.25.8](https://github.com/serenity-js/serenity-js/compare/v2.25.7...v2.25.8) (2021-03-27)
 
 
