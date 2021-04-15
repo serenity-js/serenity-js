@@ -21,7 +21,7 @@ describe('@serenity-js/mocha', function () {
     this.timeout(15000);
 
     it('recognises nested suites', () => mocha('examples/suites.spec.js')
-        .then(ifExitCodeIsOtherThan(10, logOutput))
+        .then(ifExitCodeIsOtherThan(1, logOutput))
         .then(res => {
 
             expect(res.exitCode).to.equal(1);
