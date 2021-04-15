@@ -4,6 +4,7 @@ import {
     BusinessRuleDetected,
     DomainEvent,
     FeatureNarrativeDetected,
+    RetryableSceneDetected,
     SceneDescriptionDetected,
     SceneFinished,
     SceneFinishes,
@@ -153,7 +154,8 @@ export class CucumberMessagesParser {
             testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.testCaseStartedId),
             currentSceneId  = this.serenity.currentSceneId();
 
-        return this.extract(this.scenarioOutcomeFrom(testCaseAttempt), ({ outcome, tags }) => [
+        return this.extract(this.scenarioOutcomeFrom(testCaseAttempt), ({ outcome, willBeRetried, tags }) => [
+            willBeRetried ? new RetryableSceneDetected(currentSceneId, this.serenity.currentTime()) : undefined,
             ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
             new SceneFinished(
                 currentSceneId,
@@ -329,7 +331,7 @@ export class CucumberMessagesParser {
         }
     }
 
-    private scenarioOutcomeFrom(testCaseAttempt: ITestCaseAttempt): { outcome: Outcome, tags: Tag[] } {
+    private scenarioOutcomeFrom(testCaseAttempt: ITestCaseAttempt): { outcome: Outcome, willBeRetried: boolean, tags: Tag[] } {
         const parsed = this.formatterHelpers.parseTestCaseAttempt({
             cwd: this.cwd,
             snippetBuilder: this.snippetBuilder,
@@ -337,17 +339,21 @@ export class CucumberMessagesParser {
             testCaseAttempt
         });
 
-        const outcome = this.outcomeFrom(parsed.testCase.worstTestStepResult, ...parsed.testSteps);
+        const worstStepResult   = parsed.testCase.worstTestStepResult;
+        const willBeRetried     = worstStepResult.willBeRetried;
+        const outcome           = this.outcomeFrom(worstStepResult, ...parsed.testSteps);
 
-        // todo: can't tag the first attempt because the information about max number of attempts is not available to Cucumber formatters
-        //  so we don't know if a scenario that has just failed is going to be retried at all
-        //  https://github.com/cucumber/cucumber-js/issues/1535
+        const tags = [];
 
-        const tags = testCaseAttempt.attempt > 0
-            ? [ new ArbitraryTag('retried'), new ExecutionRetriedTag(testCaseAttempt.attempt) ]
-            : [];
+        if (testCaseAttempt.attempt > 0 || willBeRetried) {
+            tags.push(new ArbitraryTag('retried'));
+        }
 
-        return { outcome, tags };
+        if (testCaseAttempt.attempt > 0) {
+            tags.push(new ExecutionRetriedTag(testCaseAttempt.attempt));
+        }
+
+        return { outcome, willBeRetried, tags };
     }
 }
 
