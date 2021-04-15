@@ -1,8 +1,8 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, ExecutionIgnored, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
+import { RetryableSceneDetected, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
+import { ArbitraryTag, CorrelationId, ExecutionIgnored, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
 import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
@@ -16,11 +16,17 @@ describe('@serenity-js/mocha', function () {
 
                 expect(res.exitCode).to.equal(0);
 
+                let sceneId: CorrelationId;
+
                 PickEvent.from(res.events)
                     .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
 
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
+                    .next(SceneStarts,         event => {
+                        expect(event.details.name).to.equal(new Name('A scenario passes the third time'))
+                        sceneId = event.sceneId;
+                    })
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
+                    .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(sceneId))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneFinished,       event => {
                         const outcome: ProblemIndication = event.outcome as ProblemIndication;
@@ -28,8 +34,12 @@ describe('@serenity-js/mocha', function () {
                         expect(outcome.error.name).to.equal('Error');
                         expect(outcome.error.message).to.equal('Something happened');
                     })
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
+                    .next(SceneStarts,         event => {
+                        expect(event.details.name).to.equal(new Name('A scenario passes the third time'))
+                        sceneId = event.sceneId;
+                    })
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
+                    .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(sceneId))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(1)))
                     .next(SceneFinished,       event => {
@@ -38,7 +48,10 @@ describe('@serenity-js/mocha', function () {
                         expect(outcome.error.name).to.equal('Error');
                         expect(outcome.error.message).to.equal('Something happened');
                     })
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
+                    .next(SceneStarts,         event => {
+                        expect(event.details.name).to.equal(new Name('A scenario passes the third time'))
+                        sceneId = event.sceneId;
+                    })
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(2)))

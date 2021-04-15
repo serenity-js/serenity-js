@@ -12,6 +12,7 @@ export * from './DomainEvent';
 export * from './FeatureNarrativeDetected';
 export * from './InteractionFinished';
 export * from './InteractionStarts';
+export * from './RetryableSceneDetected';
 export * from './SceneBackgroundDetected';
 export * from './SceneDescriptionDetected';
 export * from './SceneStarts';
