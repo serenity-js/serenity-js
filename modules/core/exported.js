@@ -21,6 +21,7 @@
 /** @external {@serenity-js/core/lib/events~FeatureNarrativeDetected} /modules/core/class/src/events/FeatureNarrativeDetected.ts~FeatureNarrativeDetected.html */
 /** @external {@serenity-js/core/lib/events~InteractionFinished} /modules/core/class/src/events/InteractionFinished.ts~InteractionFinished.html */
 /** @external {@serenity-js/core/lib/events~InteractionStarts} /modules/core/class/src/events/InteractionStarts.ts~InteractionStarts.html */
+/** @external {@serenity-js/core/lib/events~RetryableSceneDetected} /modules/core/class/src/events/RetryableSceneDetected.ts~RetryableSceneDetected.html */
 /** @external {@serenity-js/core/lib/events~SceneBackgroundDetected} /modules/core/class/src/events/SceneBackgroundDetected.ts~SceneBackgroundDetected.html */
 /** @external {@serenity-js/core/lib/events~SceneDescriptionDetected} /modules/core/class/src/events/SceneDescriptionDetected.ts~SceneDescriptionDetected.html */
 /** @external {@serenity-js/core/lib/events~SceneFinished} /modules/core/class/src/events/SceneFinished.ts~SceneFinished.html */

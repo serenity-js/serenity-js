@@ -246,6 +246,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/events~retryablescenedetected",
+    "/modules/core/class/src/events/RetryableSceneDetected.ts~RetryableSceneDetected.html",
+    "@serenity-js/core/lib/events~RetryableSceneDetected",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/events~scenebackgrounddetected",
     "/modules/core/class/src/events/SceneBackgroundDetected.ts~SceneBackgroundDetected.html",
     "@serenity-js/core/lib/events~SceneBackgroundDetected",
@@ -2266,5 +2272,17 @@ window.esdocSearchIndex = [
     "file/src/stage/index.ts.html",
     "src/stage/index.ts",
     "file"
+  ],
+  [
+    "tiny-types~jsonobject",
+    "https://jan-molak.github.io/tiny-types/file/src/types/json.ts.html",
+    "tiny-types~JSONObject",
+    "external"
+  ],
+  [
+    "tiny-types~tinytype",
+    "https://jan-molak.github.io/tiny-types/class/src/TinyType.ts~TinyType.html",
+    "tiny-types~TinyType",
+    "external"
   ]
 ]

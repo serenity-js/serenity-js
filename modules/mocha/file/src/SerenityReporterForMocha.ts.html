@@ -131,7 +131,7 @@
 
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    DomainEvent,
+    DomainEvent, RetryableSceneDetected,
     SceneFinished,
     SceneFinishes,
     SceneStarts,
@@ -140,9 +140,12 @@
     TestRunFinishes,
     TestRunnerDetected,
     TestRunStarts,
+    TestSuiteFinished,
+    TestSuiteStarts,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { MochaOptions, reporters, Runnable, Runner, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, TestSuiteDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { MochaOptions, reporters, Runnable, Runner, Suite, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
 <span class="hljs-keyword">import</span> { MochaOutcomeMapper, MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mappers'</span>;
 <span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutcomeRecorder'</span>;
 
@@ -156,6 +159,7 @@
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> recorder: OutcomeRecorder = <span class="hljs-keyword">new</span> OutcomeRecorder();
 
+    <span class="hljs-keyword">private</span> suiteIds: CorrelationId[] = [];
     <span class="hljs-keyword">private</span> currentSceneId: CorrelationId = <span class="hljs-literal">null</span>;
 
     <span class="hljs-comment">/**
@@ -174,6 +178,22 @@
                 <span class="hljs-built_in">this</span>.emit(
                     <span class="hljs-keyword">new</span> TestRunStarts(<span class="hljs-built_in">this</span>.serenity.currentTime())
                 );
+            },
+        );
+
+        runner.on(Runner.constants.EVENT_SUITE_BEGIN,
+            <span class="hljs-function">(<span class="hljs-params">suite: Suite</span>) =&gt;</span> {
+                <span class="hljs-keyword">if</span> (suite.root === <span class="hljs-literal">false</span>) {
+                    <span class="hljs-built_in">this</span>.announceSuiteStartsFor(suite);
+                }
+            },
+        );
+
+        runner.on(Runner.constants.EVENT_SUITE_END,
+            <span class="hljs-function">(<span class="hljs-params">suite: Suite</span>) =&gt;</span> {
+                <span class="hljs-keyword">if</span> (suite.root === <span class="hljs-literal">false</span>) {
+                    <span class="hljs-built_in">this</span>.announceSuiteFinishedFor(suite);
+                }
             },
         );
 
@@ -244,6 +264,44 @@
                 <span class="hljs-built_in">this</span>.emit(<span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-built_in">this</span>.serenity.currentTime()))     <span class="hljs-comment">// todo: consider adding outcome to TestRunFinished</span>
             })
             .then(<span class="hljs-function">() =&gt;</span> fn(failures));
+    }
+
+    <span class="hljs-keyword">private</span> announceSuiteStartsFor(suite: Suite): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">const</span> suiteId = CorrelationId.create();
+        <span class="hljs-built_in">this</span>.suiteIds.push(suiteId);
+
+        <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> TestSuiteDetails(
+            <span class="hljs-keyword">new</span> Name(suite.title),
+            <span class="hljs-keyword">new</span> FileSystemLocation(Path.from(suite.file!)), <span class="hljs-comment">// all suites except for the root suite should have .file property set</span>
+            suiteId,
+        );
+
+        <span class="hljs-built_in">this</span>.emit(
+            <span class="hljs-keyword">new</span> TestSuiteStarts(details, <span class="hljs-built_in">this</span>.serenity.currentTime())
+        );
+    }
+
+    <span class="hljs-keyword">private</span> announceSuiteFinishedFor(suite: Suite): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> TestSuiteDetails(
+            <span class="hljs-keyword">new</span> Name(suite.title),
+            <span class="hljs-keyword">new</span> FileSystemLocation(Path.from(suite.file!)), <span class="hljs-comment">// all suites except for the root suite should have .file property set</span>
+            <span class="hljs-built_in">this</span>.suiteIds.pop(),
+        );
+
+        <span class="hljs-keyword">const</span> outcomes = suite.tests.map(<span class="hljs-function"><span class="hljs-params">test</span> =&gt;</span>
+            <span class="hljs-built_in">this</span>.recorder.outcomeOf(test) || <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test)
+        );
+
+        <span class="hljs-keyword">const</span> worstOutcome = outcomes.reduce(<span class="hljs-function">(<span class="hljs-params">worstSoFar, outcome</span>) =&gt;</span>
+            outcome.isWorseThan(worstSoFar)
+                ? outcome
+                : worstSoFar,
+            <span class="hljs-keyword">new</span> ExecutionSuccessful()
+        );
+
+        <span class="hljs-built_in">this</span>.emit(
+            <span class="hljs-keyword">new</span> TestSuiteFinished(details, worstOutcome, <span class="hljs-built_in">this</span>.serenity.currentTime())
+        );
     }
 
     <span class="hljs-keyword">private</span> announceSceneStartsFor(test: Test): <span class="hljs-built_in">void</span> {
@@ -327,6 +385,9 @@
         }
 
         <span class="hljs-built_in">this</span>.emit(
+            <span class="hljs-keyword">new</span> RetryableSceneDetected(
+                <span class="hljs-built_in">this</span>.currentSceneId,
+            ),
             <span class="hljs-keyword">new</span> SceneTagged(
                 <span class="hljs-built_in">this</span>.currentSceneId,
                 <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'retried'</span>),

@@ -540,6 +540,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/events~retryablescenedetected",
+    "class/src/events/RetryableSceneDetected.ts~RetryableSceneDetected.html",
+    "<span>RetryableSceneDetected</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/events</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/errors~runtimeerror",
     "class/src/errors/RuntimeError.ts~RuntimeError.html",
     "<span>RuntimeError</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/errors</span>",
@@ -3912,6 +3918,24 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/events/retryablescenedetected.ts",
+    "file/src/events/RetryableSceneDetected.ts.html",
+    "src/events/RetryableSceneDetected.ts",
+    "file"
+  ],
+  [
+    "src/events/retryablescenedetected.ts~retryablescenedetected#constructor",
+    "class/src/events/RetryableSceneDetected.ts~RetryableSceneDetected.html#instance-constructor-constructor",
+    "src/events/RetryableSceneDetected.ts~RetryableSceneDetected#constructor",
+    "method"
+  ],
+  [
+    "src/events/retryablescenedetected.ts~retryablescenedetected.fromjson",
+    "class/src/events/RetryableSceneDetected.ts~RetryableSceneDetected.html#static-method-fromJSON",
+    "src/events/RetryableSceneDetected.ts~RetryableSceneDetected.fromJSON",
+    "method"
+  ],
+  [
     "src/events/scenebackgrounddetected.ts",
     "file/src/events/SceneBackgroundDetected.ts.html",
     "src/events/SceneBackgroundDetected.ts",
@@ -6772,6 +6796,18 @@ window.esdocSearchIndex = [
     "file/src/stage/index.ts.html",
     "src/stage/index.ts",
     "file"
+  ],
+  [
+    "tiny-types~jsonobject",
+    "https://jan-molak.github.io/tiny-types/file/src/types/json.ts.html",
+    "tiny-types~JSONObject",
+    "external"
+  ],
+  [
+    "tiny-types~tinytype",
+    "https://jan-molak.github.io/tiny-types/class/src/TinyType.ts~TinyType.html",
+    "tiny-types~TinyType",
+    "external"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",

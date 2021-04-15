@@ -137,6 +137,7 @@
 <span class="hljs-keyword">import</span> {
     ActivityFinished,
     ActivityStarts,
+    RetryableSceneDetected,
     SceneFinished,
     SceneFinishes,
     SceneStarts,
@@ -145,7 +146,7 @@
     TestRunFinishes,
     TestRunStarts,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { cucumber7 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./bin/cucumber-7'</span>;
 
 describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
@@ -167,29 +168,42 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
             .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
                 expect(res.exitCode).to.equal(<span class="hljs-number">0</span>);
 
+                <span class="hljs-keyword">let</span> sceneId: CorrelationId;
+
                 PickEvent.from(res.events)
                     .next(TestRunStarts,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.be.instanceof(Timestamp))
 
-                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>)))
+                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>))
+                        sceneId = event.sceneId;
+                    })
                     .next(ActivityStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a step that eventually passes'</span>)))
                     .next(ActivityFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
-                    <span class="hljs-comment">// todo: information not available due to https://github.com/cucumber/cucumber-js/issues/1535</span>
-                    <span class="hljs-comment">// .next(SceneTagged,         event =&gt; expect(event.tag).to.equal(new ArbitraryTag('retried')))</span>
                     .next(SceneFinishes,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                    .next(RetryableSceneDetected, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.sceneId).to.equal(sceneId))
+                    .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'retried'</span>)))
                     .next(SceneFinished,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
 
-                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>)))
+                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>))
+                        sceneId = event.sceneId;
+                    })
                     .next(ActivityStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a step that eventually passes'</span>)))
                     .next(ActivityFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                     .next(SceneFinishes,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                    .next(RetryableSceneDetected, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.sceneId).to.equal(sceneId))
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'retried'</span>)))
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> ExecutionRetriedTag(<span class="hljs-number">1</span>)))
                     .next(SceneFinished,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
 
-                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>)))
+                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>))
+                        sceneId = event.sceneId;
+                    })
                     .next(ActivityStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a step that eventually passes'</span>)))
                     .next(ActivityFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
                     .next(SceneFinishes,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
+                    <span class="hljs-comment">// the scene is no longer retryable, so no RetryableSceneDetected</span>
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'retried'</span>)))
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> ExecutionRetriedTag(<span class="hljs-number">2</span>)))
                     .next(SceneFinished,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
@@ -197,6 +211,10 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                     .next(TestRunFinishes,     <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.be.instanceof(Timestamp))
                     .next(TestRunFinished,     <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.be.instanceof(Timestamp))
                 ;
+
+                <span class="hljs-keyword">const</span> retryableSceneDetectedEvents = res.events.filter(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event <span class="hljs-keyword">instanceof</span> RetryableSceneDetected)
+
+                expect(retryableSceneDetectedEvents).to.have.lengthOf(<span class="hljs-number">2</span>);
             }));
 
         it(<span class="hljs-string">'reports scenarios that have been retried and failed'</span>, <span class="hljs-function">() =&gt;</span>
@@ -212,19 +230,29 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
             .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
                 expect(res.exitCode).to.equal(<span class="hljs-number">1</span>);
 
+                <span class="hljs-keyword">let</span> sceneId: CorrelationId;
+
                 PickEvent.from(res.events)
-                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>)))
+                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>))
+                        sceneId = event.sceneId;
+                    })
                     .next(ActivityStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a step that eventually passes'</span>)))
                     .next(ActivityFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
-                    <span class="hljs-comment">// todo: information not available due to https://github.com/cucumber/cucumber-js/issues/1535</span>
-                    <span class="hljs-comment">// .next(SceneTagged,         event =&gt; expect(event.tag).to.equal(new ArbitraryTag('retried')))</span>
                     .next(SceneFinishes,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                    .next(RetryableSceneDetected, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.sceneId).to.equal(sceneId))
+                    .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'retried'</span>)))
                     .next(SceneFinished,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
 
-                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>)))
+                    .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>))
+                        sceneId = event.sceneId;
+                    })
                     .next(ActivityStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a step that eventually passes'</span>)))
                     .next(ActivityFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
                     .next(SceneFinishes,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+
+                    <span class="hljs-comment">// the scene is no longer retryable, so no RetryableSceneDetected</span>
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'retried'</span>)))
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> ExecutionRetriedTag(<span class="hljs-number">1</span>)))
                     .next(SceneFinished,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
@@ -232,6 +260,10 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                     .next(TestRunFinishes,     <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event).to.be.instanceOf(TestRunFinishes))
                     .next(TestRunFinished,     <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event).to.be.instanceOf(TestRunFinished))
                 ;
+
+                <span class="hljs-keyword">const</span> retryableSceneDetectedEvents = res.events.filter(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event <span class="hljs-keyword">instanceof</span> RetryableSceneDetected)
+
+                expect(retryableSceneDetectedEvents).to.have.lengthOf(<span class="hljs-number">1</span>);
             }));
     });
 });

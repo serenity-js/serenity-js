@@ -233,7 +233,7 @@ graph TB
 <h2 id="usage">Usage</h2>
 <p>To use the <a href="/modules/serenity-bdd/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html"><code>SerenityBDDReporter</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a>, together with the <a href="/handbook/reporting/artifact-archiver.html"><code>ArtifactArchiver</code></a>:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure, ArtifactArchiver } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
+<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/serenity-bdd'</span>;
 
 configure({
     <span class="hljs-attr">crew</span>: [

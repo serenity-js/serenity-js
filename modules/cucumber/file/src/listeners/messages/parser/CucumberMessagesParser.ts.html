@@ -137,6 +137,7 @@
     BusinessRuleDetected,
     DomainEvent,
     FeatureNarrativeDetected,
+    RetryableSceneDetected,
     SceneDescriptionDetected,
     SceneFinished,
     SceneFinishes,
@@ -286,7 +287,8 @@
             testCaseAttempt = <span class="hljs-built_in">this</span>.eventDataCollector.getTestCaseAttempt(message.testCaseStartedId),
             currentSceneId  = <span class="hljs-built_in">this</span>.serenity.currentSceneId();
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.extract(<span class="hljs-built_in">this</span>.scenarioOutcomeFrom(testCaseAttempt), <span class="hljs-function">(<span class="hljs-params">{ outcome, tags }</span>) =&gt;</span> [
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.extract(<span class="hljs-built_in">this</span>.scenarioOutcomeFrom(testCaseAttempt), <span class="hljs-function">(<span class="hljs-params">{ outcome, willBeRetried, tags }</span>) =&gt;</span> [
+            willBeRetried ? <span class="hljs-keyword">new</span> RetryableSceneDetected(currentSceneId, <span class="hljs-built_in">this</span>.serenity.currentTime()) : <span class="hljs-literal">undefined</span>,
             ...tags.map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> SceneTagged(currentSceneId, tag, <span class="hljs-built_in">this</span>.serenity.currentTime())),
             <span class="hljs-keyword">new</span> SceneFinished(
                 currentSceneId,
@@ -462,7 +464,7 @@
         }
     }
 
-    <span class="hljs-keyword">private</span> scenarioOutcomeFrom(testCaseAttempt: ITestCaseAttempt): { <span class="hljs-attr">outcome</span>: Outcome, <span class="hljs-attr">tags</span>: Tag[] } {
+    <span class="hljs-keyword">private</span> scenarioOutcomeFrom(testCaseAttempt: ITestCaseAttempt): { <span class="hljs-attr">outcome</span>: Outcome, <span class="hljs-attr">willBeRetried</span>: <span class="hljs-built_in">boolean</span>, <span class="hljs-attr">tags</span>: Tag[] } {
         <span class="hljs-keyword">const</span> parsed = <span class="hljs-built_in">this</span>.formatterHelpers.parseTestCaseAttempt({
             <span class="hljs-attr">cwd</span>: <span class="hljs-built_in">this</span>.cwd,
             <span class="hljs-attr">snippetBuilder</span>: <span class="hljs-built_in">this</span>.snippetBuilder,
@@ -470,17 +472,21 @@
             testCaseAttempt
         });
 
-        <span class="hljs-keyword">const</span> outcome = <span class="hljs-built_in">this</span>.outcomeFrom(parsed.testCase.worstTestStepResult, ...parsed.testSteps);
+        <span class="hljs-keyword">const</span> worstStepResult   = parsed.testCase.worstTestStepResult;
+        <span class="hljs-keyword">const</span> willBeRetried     = worstStepResult.willBeRetried;
+        <span class="hljs-keyword">const</span> outcome           = <span class="hljs-built_in">this</span>.outcomeFrom(worstStepResult, ...parsed.testSteps);
 
-        <span class="hljs-comment">// todo: can't tag the first attempt because the information about max number of attempts is not available to Cucumber formatters</span>
-        <span class="hljs-comment">//  so we don't know if a scenario that has just failed is going to be retried at all</span>
-        <span class="hljs-comment">//  https://github.com/cucumber/cucumber-js/issues/1535</span>
+        <span class="hljs-keyword">const</span> tags = [];
 
-        <span class="hljs-keyword">const</span> tags = testCaseAttempt.attempt &gt; <span class="hljs-number">0</span>
-            ? [ <span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'retried'</span>), <span class="hljs-keyword">new</span> ExecutionRetriedTag(testCaseAttempt.attempt) ]
-            : [];
+        <span class="hljs-keyword">if</span> (testCaseAttempt.attempt &gt; <span class="hljs-number">0</span> || willBeRetried) {
+            tags.push(<span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'retried'</span>));
+        }
 
-        <span class="hljs-keyword">return</span> { outcome, tags };
+        <span class="hljs-keyword">if</span> (testCaseAttempt.attempt &gt; <span class="hljs-number">0</span>) {
+            tags.push(<span class="hljs-keyword">new</span> ExecutionRetriedTag(testCaseAttempt.attempt));
+        }
+
+        <span class="hljs-keyword">return</span> { outcome, willBeRetried, tags };
     }
 }
 

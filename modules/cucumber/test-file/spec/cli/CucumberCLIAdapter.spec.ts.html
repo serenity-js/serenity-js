@@ -176,7 +176,7 @@ describe(<span class="hljs-string">'CucumberCLIAdapter'</span>, <span class="hlj
 
         given&lt;Example&gt;([ {
             <span class="hljs-attr">description</span>: <span class="hljs-string">'no custom formats =&gt; default output'</span>,
-            <span class="hljs-attr">config</span>: {},
+            <span class="hljs-attr">config</span>: { <span class="hljs-attr">formatOptions</span>: { <span class="hljs-attr">colorsEnabled</span>: <span class="hljs-literal">false</span> } },
             <span class="hljs-attr">expectedOutput</span>: trimmed<span class="hljs-string">`
                 | ..
                 |
@@ -186,7 +186,8 @@ describe(<span class="hljs-string">'CucumberCLIAdapter'</span>, <span class="hlj
         }, {
             <span class="hljs-attr">description</span>: <span class="hljs-string">'custom formats =&gt; custom output'</span>,
             <span class="hljs-attr">config</span>: {
-                <span class="hljs-attr">format</span>: [ <span class="hljs-string">'usage'</span> ]
+                <span class="hljs-attr">format</span>: [ <span class="hljs-string">'usage'</span> ],
+                <span class="hljs-attr">formatOptions</span>: { <span class="hljs-attr">colorsEnabled</span>: <span class="hljs-literal">false</span> }
             },
             <span class="hljs-attr">expectedOutput</span>: <span class="hljs-string">'Pattern / Text'</span>
         } ]).

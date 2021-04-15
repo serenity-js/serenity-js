@@ -162,6 +162,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/events~retryablescenedetected",
+    "/modules/core/class/src/events/RetryableSceneDetected.ts~RetryableSceneDetected.html",
+    "@serenity-js/core/lib/events~RetryableSceneDetected",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/events~scenebackgrounddetected",
     "/modules/core/class/src/events/SceneBackgroundDetected.ts~SceneBackgroundDetected.html",
     "@serenity-js/core/lib/events~SceneBackgroundDetected",
@@ -1219,7 +1225,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber18",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber19",
     "CucumberMessagesListener",
     "test"
   ],
@@ -1333,7 +1339,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber22",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber23",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
@@ -1459,13 +1465,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber69",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber87",
     "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and failed",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber24",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber25",
     "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and succeeded",
     "test"
   ],
@@ -2482,5 +2488,17 @@ window.esdocSearchIndex = [
     "file/src/listeners/messages/parser/types/index.ts.html",
     "src/listeners/messages/parser/types/index.ts",
     "file"
+  ],
+  [
+    "tiny-types~jsonobject",
+    "https://jan-molak.github.io/tiny-types/file/src/types/json.ts.html",
+    "tiny-types~JSONObject",
+    "external"
+  ],
+  [
+    "tiny-types~tinytype",
+    "https://jan-molak.github.io/tiny-types/class/src/TinyType.ts~TinyType.html",
+    "tiny-types~TinyType",
+    "external"
   ]
 ]
