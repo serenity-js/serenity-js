@@ -43,7 +43,7 @@ describe('CucumberCLIAdapter', function () {
 
         given<Example>([ {
             description: 'no custom formats => default output',
-            config: {},
+            config: { formatOptions: { colorsEnabled: false } },
             expectedOutput: trimmed`
                 | ..
                 |
@@ -53,7 +53,8 @@ describe('CucumberCLIAdapter', function () {
         }, {
             description: 'custom formats => custom output',
             config: {
-                format: [ 'usage' ]
+                format: [ 'usage' ],
+                formatOptions: { colorsEnabled: false }
             },
             expectedOutput: 'Pattern / Text'
         } ]).
