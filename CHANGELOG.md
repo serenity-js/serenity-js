@@ -3,6 +3,115 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.1](https://github.com/serenity-js/serenity-js/compare/v2.26.0...v2.26.1) (2021-04-21)
+
+
+### Bug Fixes
+
+* **cucumber:** upgraded Cucumber to 7.1.0 ([ee4ba3d](https://github.com/serenity-js/serenity-js/commit/ee4ba3da46f8351961b486280e9830a08789d764)), closes [cucumber/cucumber-js#1646](https://github.com/cucumber/cucumber-js/issues/1646)
+
+
+
+
+
+# [2.26.0](https://github.com/serenity-js/serenity-js/compare/v2.25.9...v2.26.0) (2021-04-15)
+
+
+### Bug Fixes
+
+* **core:** a new RetryableSceneDetected event emitted by Mocha and Cucumber adapters ([eda5b00](https://github.com/serenity-js/serenity-js/commit/eda5b0006c33d708b619a8fdedc89a64da3251fc)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+
+
+### Features
+
+* **mocha:** serenity/JS Mocha reporter emits TestSuiteStarts and TestSuiteFinished domain events ([8d67f79](https://github.com/serenity-js/serenity-js/commit/8d67f7941e4d70068f8f2110b88af6ef8425e64d)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+
+
+
+
+
+## [2.25.9](https://github.com/serenity-js/serenity-js/compare/v2.25.8...v2.25.9) (2021-04-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.13.15 ([cf170e8](https://github.com/serenity-js/serenity-js/commit/cf170e87bfed177f95e8db5e778b3d7494e65389))
+* **deps:** update dependency find-java-home to ^1.2.0 ([5fd4a25](https://github.com/serenity-js/serenity-js/commit/5fd4a2585b7b9f96c49790f877954c39eef53424))
+* **deps:** updated dependencies ([6a8cdf8](https://github.com/serenity-js/serenity-js/commit/6a8cdf8e57f62c1f332bc22114ef3933ecf915c0))
+* **website:** fixed a link ([3641235](https://github.com/serenity-js/serenity-js/commit/364123558a48b7a185b98691fb205d211916c380)), closes [#803](https://github.com/serenity-js/serenity-js/issues/803)
+
+
+
+
+
+## [2.25.8](https://github.com/serenity-js/serenity-js/compare/v2.25.7...v2.25.8) (2021-03-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.13.13 ([998f549](https://github.com/serenity-js/serenity-js/commit/998f549140f82d33439e78321e7f717f04277648))
+* **deps:** update dependency @cucumber/messages to v15 ([f3286af](https://github.com/serenity-js/serenity-js/commit/f3286af3d44e553c290553993be9e31cff04cf28))
+
+
+
+
+
+## [2.25.7](https://github.com/serenity-js/serenity-js/compare/v2.25.6...v2.25.7) (2021-03-23)
+
+
+### Bug Fixes
+
+* **deps-dev:** (internal) standardised internal dev-dependency versions across Serenity/JS modules ([a411cea](https://github.com/serenity-js/serenity-js/commit/a411ceabadc83e82ec87a492a1738b13773adb13))
+
+
+
+
+
+## [2.25.6](https://github.com/serenity-js/serenity-js/compare/v2.25.5...v2.25.6) (2021-03-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.13.12 ([a5c7a9c](https://github.com/serenity-js/serenity-js/commit/a5c7a9c4b5360b0eec01d562e04a0d855521512a))
+* **serenity-bdd:** support for reporting descriptions of Cucumber Rules ([1f21725](https://github.com/serenity-js/serenity-js/commit/1f217256457711c468f0c56897395a71ab1dd09c))
+
+
+
+
+
+## [2.25.5](https://github.com/serenity-js/serenity-js/compare/v2.25.4...v2.25.5) (2021-03-22)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** upgraded Serenity BDD CLI to 2.3.31 and migrated from Bintray to Maven Central ([1e0e98f](https://github.com/serenity-js/serenity-js/commit/1e0e98fcd69c9d68625854eb05639a182c9dd5fe))
+
+
+
+
+
+## [2.25.4](https://github.com/serenity-js/serenity-js/compare/v2.25.3...v2.25.4) (2021-03-21)
+
+
+### Bug Fixes
+
+* **deps:** updated dependencies ([32a41eb](https://github.com/serenity-js/serenity-js/commit/32a41eb8a8b4386b6b03111c1adf48e1e0aabdbb))
+
+
+
+
+
+## [2.25.3](https://github.com/serenity-js/serenity-js/compare/v2.25.2...v2.25.3) (2021-03-20)
+
+
+### Bug Fixes
+
+* **core:** Support tags with "issues" in their name, i.e. "known_issues". ([d53c9be](https://github.com/serenity-js/serenity-js/commit/d53c9bec261eef6d7c11aeeeca309bff9a7c9739))
+
+
+
+
+
 ## [2.25.2](https://github.com/serenity-js/serenity-js/compare/v2.25.1...v2.25.2) (2021-03-18)
 
 **Note:** Version bump only for package serenity-js-monorepo

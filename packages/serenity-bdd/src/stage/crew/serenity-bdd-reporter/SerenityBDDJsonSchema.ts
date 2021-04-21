@@ -19,7 +19,7 @@ export interface SerenityBDDReport extends JSONObject {
     tags: Tag[];
     startTime: number;
     duration: number;
-    rule: string;
+    rule: BusinessRule;
     projectKey: string;                 // todo [ ]     protractor
     sessionId?: string;                 // todo [ ]     protractor
     driver?: string;                    // todo [ ]     protractor     'chrome:jill'
@@ -36,6 +36,11 @@ export interface SerenityBDDReport extends JSONObject {
     testFailureSummary?: string;
     backgroundTitle?: string;
     backgroundDescription?: string;
+}
+
+export interface BusinessRule extends JSONObject {
+    name: string;
+    description?: string;
 }
 
 export interface TestStep extends JSONObject {

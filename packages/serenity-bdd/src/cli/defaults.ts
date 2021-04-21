@@ -15,8 +15,8 @@
  * @public
  */
 export const defaults = {
-    artifact:    'net.serenity-bdd:serenity-cli:jar:all:2.1.12',
-    repository:  'https://jcenter.bintray.com/',
+    artifact:    'net.serenity-bdd:serenity-cli:jar:2.3.31',
+    repository:  'https://repo1.maven.org/maven2/',
     cacheDir:    'node_modules/@serenity-js/serenity-bdd/cache',
     sourceDir:   'target/site/serenity',
     reportDir:   'target/site/serenity',
