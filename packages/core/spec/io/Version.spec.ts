@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { Version } from '../../src/io';
 import { expect } from '../expect';
 
