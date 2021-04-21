@@ -7,7 +7,7 @@ import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
 
-    this.timeout(5000);
+    this.timeout(30000);
 
     it('reports each retry of a retryable scenario', () =>
         mocha('examples/retries.spec.js', '--retries=2')
