@@ -23,7 +23,7 @@
     "integration/**",
     "packages/**"
   ],
-  "version": "2.25.2",
+  "version": "2.26.1",
   "command": {
     "create": {
       "homepage": "https://serenity-js.org",
@@ -36,15 +36,13 @@
       "allowBranch": "master",
       "conventionalCommits": true,
       "createRelease": "github",
+      "private": false,
       "exact": true,
       "message": "chore(release): %s\n[ci skip]",
       "loglevel": "verbose"
     }
   },
   "ignoreChanges": [
-    "**/documentation/**",
-    "**/examples/**",
-    "**/integration/**",
     "**/*.md",
     "**/spec/**",
     "./package.json",

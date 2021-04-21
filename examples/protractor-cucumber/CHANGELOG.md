@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.25.5](https://github.com/serenity-js/serenity-js/compare/v2.25.4...v2.25.5) (2021-03-22)
+
+**Note:** Version bump only for package @serenity-js-examples/protractor-cucumber
+
+
+
+
+
+## [2.25.4](https://github.com/serenity-js/serenity-js/compare/v2.25.3...v2.25.4) (2021-03-21)
+
+**Note:** Version bump only for package @serenity-js-examples/protractor-cucumber
+
+
+
+
+
+## [2.25.3](https://github.com/serenity-js/serenity-js/compare/v2.25.2...v2.25.3) (2021-03-20)
+
+**Note:** Version bump only for package @serenity-js-examples/protractor-cucumber
+
+
+
+
+
 ## [2.25.2](https://github.com/serenity-js/serenity-js/compare/v2.25.1...v2.25.2) (2021-03-18)
 
 **Note:** Version bump only for package @serenity-js-examples/protractor-cucumber
