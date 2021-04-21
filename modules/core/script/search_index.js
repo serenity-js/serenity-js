@@ -2809,25 +2809,25 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/Version.spec.ts.html#lineNumber4",
+    "test-file/spec/io/Version.spec.ts.html#lineNumber6",
     "Version",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Version.spec.ts.html#lineNumber10",
+    "test-file/spec/io/Version.spec.ts.html#lineNumber12",
     "Version grants access to the major version number",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Version.spec.ts.html#lineNumber14",
+    "test-file/spec/io/Version.spec.ts.html#lineNumber16",
     "Version provides a sensible description",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Version.spec.ts.html#lineNumber6",
+    "test-file/spec/io/Version.spec.ts.html#lineNumber8",
     "Version represents a comparable version number",
     "test"
   ],

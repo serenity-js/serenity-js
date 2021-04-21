@@ -19577,7 +19577,7 @@
     "__docId__": 893,
     "kind": "file",
     "name": "src/stage/index.ts",
-    "content": "export * from './Cast';\nexport * from './Clock';\nexport * from './Cast';\nexport * from './DressingRoom';\nexport * from './crew';\nexport * from './StageCrewMember';\nexport * from './StageManager';\nexport * from './Stage';\nexport * from './WithStage';\n",
+    "content": "export * from './crew';\nexport * from './Cast';\nexport * from './Clock';\nexport * from './DressingRoom';\nexport * from './Stage';\nexport * from './StageCrewMember';\nexport * from './StageManager';\nexport * from './WithStage';\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/core/src/stage/index.ts",
     "access": "public",
@@ -20904,7 +20904,7 @@
     "__docId__": 989,
     "kind": "testFile",
     "name": "spec/io/Version.spec.ts",
-    "content": "import { Version } from '../../src/io';\nimport { expect } from '../expect';\n\ndescribe('Version', () => {\n\n    it('represents a comparable version number', () => {\n        expect(new Version('1.2.3').isAtLeast(new Version('1.0.0'))).to.equal(true);\n    });\n\n    it('grants access to the major version number', () => {\n        expect(new Version('1.2.3').major()).to.equal(1);\n    });\n\n    it('provides a sensible description', () => {\n        expect(new Version('1.2.3').toString()).to.equal('1.2.3');\n    });\n});\n",
+    "content": "import 'mocha';\n\nimport { Version } from '../../src/io';\nimport { expect } from '../expect';\n\ndescribe('Version', () => {\n\n    it('represents a comparable version number', () => {\n        expect(new Version('1.2.3').isAtLeast(new Version('1.0.0'))).to.equal(true);\n    });\n\n    it('grants access to the major version number', () => {\n        expect(new Version('1.2.3').major()).to.equal(1);\n    });\n\n    it('provides a sensible description', () => {\n        expect(new Version('1.2.3').toString()).to.equal('1.2.3');\n    });\n});\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/core/spec/io/Version.spec.ts",
     "access": null,
@@ -20922,7 +20922,7 @@
     "longname": "spec/io/Version.spec.ts~describe86",
     "access": null,
     "description": "Version",
-    "lineNumber": 4
+    "lineNumber": 6
   },
   {
     "__docId__": 991,
@@ -20935,7 +20935,7 @@
     "longname": "spec/io/Version.spec.ts~describe86.it87",
     "access": null,
     "description": "represents a comparable version number",
-    "lineNumber": 6
+    "lineNumber": 8
   },
   {
     "__docId__": 992,
@@ -20948,7 +20948,7 @@
     "longname": "spec/io/Version.spec.ts~describe86.it88",
     "access": null,
     "description": "grants access to the major version number",
-    "lineNumber": 10
+    "lineNumber": 12
   },
   {
     "__docId__": 993,
@@ -20961,7 +20961,7 @@
     "longname": "spec/io/Version.spec.ts~describe86.it89",
     "access": null,
     "description": "provides a sensible description",
-    "lineNumber": 14
+    "lineNumber": 16
   },
   {
     "__docId__": 994,
