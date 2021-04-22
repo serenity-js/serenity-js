@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.2](https://github.com/serenity-js/serenity-js/compare/v2.26.1...v2.26.2) (2021-04-22)
+
+
+### Bug Fixes
+
+* **cucumber:** updated Cucumber to 7.2.1 ([ec1a765](https://github.com/serenity-js/serenity-js/commit/ec1a765dfaf1ed0b7e26756f209204d778aa3d11)), closes [cucumber/cucumber-js#1646](https://github.com/cucumber/cucumber-js/issues/1646)
+
+
+
+
+
 ## [2.26.1](https://github.com/serenity-js/serenity-js/compare/v2.26.0...v2.26.1) (2021-04-21)
 
 
