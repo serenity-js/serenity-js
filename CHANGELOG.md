@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.2](https://github.com/serenity-js/serenity-js/compare/v2.26.1...v2.26.2) (2021-04-22)
+
+
+### Bug Fixes
+
+* **cucumber:** updated Cucumber to 7.2.1 ([ec1a765](https://github.com/serenity-js/serenity-js/commit/ec1a765dfaf1ed0b7e26756f209204d778aa3d11)), closes [cucumber/cucumber-js#1646](https://github.com/cucumber/cucumber-js/issues/1646)
+* **deps:** update dependency @babel/parser to ^7.13.16 ([3b91999](https://github.com/serenity-js/serenity-js/commit/3b919995e5fba7321dd16fde00e95136cceb3c7c))
+* **deps:** update dependency chalk to ^4.1.1 ([89011dd](https://github.com/serenity-js/serenity-js/commit/89011dda2aaf795d8991f68821e74256ed0d62e3))
+
+
+
+
+
+## [2.26.1](https://github.com/serenity-js/serenity-js/compare/v2.26.0...v2.26.1) (2021-04-21)
+
+
+### Bug Fixes
+
+* **cucumber:** upgraded Cucumber to 7.1.0 ([ee4ba3d](https://github.com/serenity-js/serenity-js/commit/ee4ba3da46f8351961b486280e9830a08789d764)), closes [cucumber/cucumber-js#1646](https://github.com/cucumber/cucumber-js/issues/1646)
+
+
+
+
+
 # [2.26.0](https://github.com/serenity-js/serenity-js/compare/v2.25.9...v2.26.0) (2021-04-15)
 
 
