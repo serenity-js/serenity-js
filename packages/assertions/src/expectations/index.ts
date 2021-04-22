@@ -16,3 +16,4 @@ export * from './not';
 export * from './or';
 export * from './property';
 export * from './startsWith';
+export * from './containItemsInAnyOrder';
