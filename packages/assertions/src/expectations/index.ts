@@ -1,6 +1,7 @@
 export * from './and';
 export * from './contain';
 export * from './containAtLeastOneItemThat';
+export * from './containInAnyOrder';
 export * from './containItemsWhereEachItem';
 export * from './endsWith';
 export * from './equals';
@@ -16,4 +17,3 @@ export * from './not';
 export * from './or';
 export * from './property';
 export * from './startsWith';
-export * from './containItemsInAnyOrder';

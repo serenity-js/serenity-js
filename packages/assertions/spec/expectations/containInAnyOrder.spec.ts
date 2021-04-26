@@ -2,24 +2,24 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError, Question } from '@serenity-js/core';
-import { containItemsInAnyOrder, Ensure } from '../../src';
+import { containInAnyOrder, Ensure } from '../../src';
 
-describe('containsInAnyOrder', () => {
+describe('containInAnyOrder', () => {
 
     const expected = ['milk', 'butter', 'eggs', 'sugar', 'butter']
 
-    /** @test {containsInAnyOrder} */
+    /** @test {containInAnyOrder} */
     it('allows for the actor flow to continue when the "actual" contains "expected" in any order', () => {
         return expect(actorCalled('Simon').attemptsTo(
             Ensure.that(['milk', 'sugar', 'butter', 'eggs', 'butter'],
-                containItemsInAnyOrder(expected)),
+                containInAnyOrder(expected)),
         )).to.be.fulfilled;
     });
 
-    /** @test {containsInAnyOrder} */
+    /** @test {containInAnyOrder} */
     it('breaks the actor flow when "actual" is an empty list', () => {
         return expect(actorCalled('Simon').attemptsTo(
-            Ensure.that([], containItemsInAnyOrder(expected)),
+            Ensure.that([], containInAnyOrder(expected)),
         )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain all items in any order from [ 'butter', 'butter', 'eggs', 'milk', 'sugar' ]`)
             .then((error: AssertionError) => {
                 expect(error.expected).to.equal(expected);
@@ -27,10 +27,10 @@ describe('containsInAnyOrder', () => {
             });
     });
 
-    /** @test {containsInAnyOrder} */
+    /** @test {containInAnyOrder} */
     it('breaks the actor flow when "actual" is missing an item from "expected"', () => {
         return expect(actorCalled('Simon').attemptsTo(
-            Ensure.that(['milk', 'sugar', 'eggs', 'butter'], containItemsInAnyOrder(expected)),
+            Ensure.that(['milk', 'sugar', 'eggs', 'butter'], containInAnyOrder(expected)),
         )).to.be.rejectedWith(AssertionError, `Expected [ 'butter', 'eggs', 'milk', 'sugar' ] to contain all items in any order from [ 'butter', 'butter', 'eggs', 'milk', 'sugar' ]`)
             .then((error: AssertionError) => {
                 expect(error.expected).to.equal(expected);
@@ -38,11 +38,11 @@ describe('containsInAnyOrder', () => {
             });
     });
 
-    /** @test {containsInAnyOrder} */
+    /** @test {containInAnyOrder} */
     it('contributes to a human-readable description', () => {
         const actual = () => Question.about('list of items', actor => expected);
 
-        expect(Ensure.that(actual(), containItemsInAnyOrder(expected)).toString())
+        expect(Ensure.that(actual(), containInAnyOrder(expected)).toString())
             .to.equal(`#actor ensures that list of items does contain all items in any order from [ 'butter', 'butter', 'eggs', 'milk', 'sugar' ]`);
     });
 });
