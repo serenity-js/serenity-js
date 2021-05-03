@@ -1,4 +1,4 @@
-import WritableStream = NodeJS.WritableStream;
+import { OutputStream } from '@serenity-js/core/lib/io';
 
 /**
  * @desc
@@ -11,9 +11,9 @@ export class Printer {
     private indentation = new Indentation(2);
 
     /**
-     * @param {WritableStream} stdout
+     * @param {@serenity-js/core/lib/io~OutputStream} stdout
      */
-    constructor(private readonly stdout: WritableStream = process.stdout) {
+    constructor(private readonly stdout: OutputStream = process.stdout) {
     }
 
     /**
