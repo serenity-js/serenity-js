@@ -2,7 +2,7 @@ import 'mocha';
 
 import { EventStreamEmitter, expect } from '@integration/testing-tools';
 import { Actor, Cast, Clock, Duration, Stage, StageManager } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { OutputStream, trimmed } from '@serenity-js/core/lib/io';
 import { ConsoleReporter } from '../../../../src';
 import { Printer } from '../../../../src/stage/crew/console-reporter/Printer';
 import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/console-reporter/themes';
@@ -21,10 +21,7 @@ describe('ConsoleReporter', () => {
         stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()));
         emitter = new EventStreamEmitter(stage);
 
-        reporter = new ConsoleReporter(
-            new Printer(stdout as unknown as NodeJS.WritableStream),
-            new ThemeForMonochromaticTerminals(),
-        );
+        reporter = ConsoleReporter.forMonochromaticTerminals().build({ stage, outputStream: stdout });
 
         stage.assign(reporter);
     });
@@ -365,12 +362,12 @@ describe('ConsoleReporter', () => {
     });
 });
 
-class FakeWritableStream implements Partial<NodeJS.WritableStream> {
+class FakeWritableStream implements OutputStream {
     constructor(public buffer: string = '') {
     }
 
     // @ts-ignore
-    write(chunk: string, encoding: string): boolean {
+    write(chunk: string): boolean {
         this.buffer += chunk;
     }
 }

@@ -1,6 +1,6 @@
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
 import { CorrelationId, Description, Duration, Timestamp } from '../model';
-import { ListensToDomainEvents } from '../screenplay';
+import { ListensToDomainEvents } from '../stage';
 import { Clock } from './Clock';
 
 export class StageManager {
