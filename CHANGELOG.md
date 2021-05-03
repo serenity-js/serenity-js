@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.27.0](https://github.com/serenity-js/serenity-js/compare/v2.26.2...v2.27.0) (2021-05-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.14.0 ([5f97160](https://github.com/serenity-js/serenity-js/commit/5f97160cd165f8d2271c3f4f066edcd93b9a4a7e))
+* **deps:** update dependency filenamify to ^4.3.0 ([35d8de9](https://github.com/serenity-js/serenity-js/commit/35d8de93b138e9df3fbbc6e7db49937c867eec1c))
+* **deps:** update dependency yargs to v17 ([8ad524a](https://github.com/serenity-js/serenity-js/commit/8ad524a512814f93c721494db9922dce537102d2))
+
+
+### Features
+
+* **core:** new interface StageCrewMemberBuilder and an easy way to redirect output to a file ([40c3086](https://github.com/serenity-js/serenity-js/commit/40c3086c6783f1bb56fffc84b30949d697bed182)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+
+
+
+
+
 ## [2.26.2](https://github.com/serenity-js/serenity-js/compare/v2.26.1...v2.26.2) (2021-04-22)
 
 
