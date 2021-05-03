@@ -1,5 +1,6 @@
 import { Duration } from './model';
-import { Cast, StageCrewMember } from './stage';
+import { Cast, StageCrewMember, StageCrewMemberBuilder } from './stage';
+import { OutputStream } from './io';
 
 /**
  * @interface
@@ -18,12 +19,12 @@ export abstract class SerenityConfig {
 
     /**
      * @desc
-     *  A list of {@link StageCrewMember}s to be notified of {@link DomainEvent}s
-     *  that occur during the scenario execution.
+     *  A list of {@link StageCrewMemberBuilder}s or {@link StageCrewMember}s
+     *  to be notified of {@link DomainEvent}s that occur during the scenario execution.
      *
-     * @type {?StageCrewMember[]}
+     * @type {?Array<StageCrewMember | StageCrewMemberBuilder>}
      */
-    crew?:          StageCrewMember[];
+    crew?:          Array<StageCrewMember | StageCrewMemberBuilder>;
 
     /**
      * @desc
@@ -35,4 +36,14 @@ export abstract class SerenityConfig {
      * @type {?Duration}
      */
     cueTimeout?:    Duration;
+
+    /**
+     * @desc
+     *  An output stream to be injected into {@link StageCrewMemberBuilder}s
+     *
+     *  Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).
+     *
+     * @type {?OutputStream}
+     */
+    outputStream?: OutputStream;
 }

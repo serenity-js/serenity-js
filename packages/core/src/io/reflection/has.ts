@@ -1,0 +1,36 @@
+/**
+ * @desc
+ *  Checks if the `candidate` value "quacks like a duck".
+ *  In particular, it checks if the `candidate`:
+ *  - is not `null`
+ *  - is not `undefined`
+ *  - has expected methods or fields (evaluated via [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof))
+ *
+ * @example
+ *  const looksLikeADuck = has({
+ *      name:   'string',
+ *      quack:  'function',
+ *  })
+ *
+ *  const daisy = {
+ *      name: 'Daisy',
+ *      quack: () => 'quack',
+ *  }
+ *
+ *  looksLikeADuck(daisy) // true
+ *
+ * @param {object} api
+ *  An object where the keys are names of member fields and methods expected on the `candidate`,
+ *  and values are the names of their types, i.e. `function`, `object`, etc.
+ *
+ * @returns {boolean}
+ */
+export function has<T>(api: Record<keyof T, string>): (candidate: unknown) => candidate is T {
+    return (candidate: unknown): candidate is T =>
+        candidate !== null
+        && candidate !== undefined
+        && Object.entries(api).reduce((result, [key, type]) =>
+            result && (typeof candidate[key]) === type,
+            true,
+        )
+}
