@@ -3,8 +3,8 @@ import { ensure, isDefined } from 'tiny-types';
 import { ConfigurationError, LogicError } from '../errors';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes, SceneStarts, TestRunFinishes } from '../events';
 import { CorrelationId, Description, Timestamp } from '../model';
-import { ListensToDomainEvents } from '../screenplay';
 import { Actor } from '../screenplay/actor';
+import { ListensToDomainEvents } from '../stage';
 import { Cast } from './Cast';
 import { StageManager } from './StageManager';
 
