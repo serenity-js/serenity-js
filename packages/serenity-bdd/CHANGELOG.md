@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.27.0](https://github.com/serenity-js/serenity-js/compare/v2.26.2...v2.27.0) (2021-05-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency yargs to v17 ([8ad524a](https://github.com/serenity-js/serenity-js/commit/8ad524a512814f93c721494db9922dce537102d2))
+
+
+
+
+
 ## [2.26.2](https://github.com/serenity-js/serenity-js/compare/v2.26.1...v2.26.2) (2021-04-22)
 
 
