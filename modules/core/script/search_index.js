@@ -414,9 +414,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@serenity-js/core/lib/screenplay/actor~listenstodomainevents",
-    "class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html",
-    "<span>ListensToDomainEvents</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/screenplay/actor</span>",
+    "@serenity-js/core/lib/stage~listenstodomainevents",
+    "class/src/stage/ListensToDomainEvents.ts~ListensToDomainEvents.html",
+    "<span>ListensToDomainEvents</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/stage</span>",
     "class"
   ],
   [
@@ -483,6 +483,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/model~outcome",
     "class/src/model/outcomes.ts~Outcome.html",
     "<span>Outcome</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/io~outputstream",
+    "class/src/io/OutputStream.ts~OutputStream.html",
+    "<span>OutputStream</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
     "class"
   ],
   [
@@ -651,6 +657,18 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/stage~stagecrewmember",
     "class/src/stage/StageCrewMember.ts~StageCrewMember.html",
     "<span>StageCrewMember</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/stage</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/stage~stagecrewmemberbuilder",
+    "class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html",
+    "<span>StageCrewMemberBuilder</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/stage</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/core/lib/stage~stagecrewmemberbuilderdependencies",
+    "class/src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies.html",
+    "<span>StageCrewMemberBuilderDependencies</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/stage</span>",
     "class"
   ],
   [
@@ -849,6 +867,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io~formatted",
     "function/index.html#static-function-formatted",
     "<span>formatted</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io</span>",
+    "function"
+  ],
+  [
+    "@serenity-js/core/lib/io/reflection~has",
+    "function/index.html#static-function-has",
+    "<span>has</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/io/reflection</span>",
     "function"
   ],
   [
@@ -2377,26 +2401,50 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber11",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber14",
     "Serenity",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber113",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber183",
+    "Serenity ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber239",
     "Serenity allows for external parties, such as test runner adapters, to announce DomainEvents",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber13",
-    "Serenity constructs a Stage and connects it with a provided Cast",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber16",
+    "Serenity when constructing a Stage",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber57",
-    "Serenity enables propagation of DomainEvents triggered by Actors' Activities and StageCrewMembers",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber130",
+    "Serenity when constructing a Stage ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber17",
+    "Serenity when constructing a Stage connects it with a provided Cast",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber61",
+    "Serenity when constructing a Stage connects it with provided StageCrewMembers",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber90",
+    "Serenity when constructing a Stage injects dependencies into StageCrewMemberBuilders",
     "test"
   ],
   [
@@ -3048,6 +3096,12 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "has src/io/config.ts~config#has,has",
+    "test-file/spec/io/reflection/has.spec.ts.html#lineNumber7",
+    "has",
+    "test"
+  ],
+  [
     "question#map src/screenplay/question.ts~question#map,question#map",
     "test-file/spec/screenplay/questions/mappings/string/normalize.spec.ts.html#lineNumber10",
     "normalize",
@@ -3237,6 +3291,12 @@ window.esdocSearchIndex = [
     "spec/io/json/cycle.spec.ts",
     "test-file/spec/io/json/cycle.spec.ts.html",
     "spec/io/json/cycle.spec.ts",
+    "testFile"
+  ],
+  [
+    "spec/io/reflection/has.spec.ts",
+    "test-file/spec/io/reflection/has.spec.ts.html",
+    "spec/io/reflection/has.spec.ts",
     "testFile"
   ],
   [
@@ -3555,6 +3615,12 @@ window.esdocSearchIndex = [
     "src/serenityconfig.ts~serenityconfig#cuetimeout",
     "class/src/SerenityConfig.ts~SerenityConfig.html#instance-member-cueTimeout",
     "src/SerenityConfig.ts~SerenityConfig#cueTimeout",
+    "member"
+  ],
+  [
+    "src/serenityconfig.ts~serenityconfig#outputstream",
+    "class/src/SerenityConfig.ts~SerenityConfig.html#instance-member-outputStream",
+    "src/SerenityConfig.ts~SerenityConfig#outputStream",
     "member"
   ],
   [
@@ -4500,6 +4566,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/io/outputstream.ts",
+    "file/src/io/OutputStream.ts.html",
+    "src/io/OutputStream.ts",
+    "file"
+  ],
+  [
+    "src/io/outputstream.ts~outputstream#write",
+    "class/src/io/OutputStream.ts~OutputStream.html#instance-member-write",
+    "src/io/OutputStream.ts~OutputStream#write",
+    "member"
+  ],
+  [
     "src/io/path.ts",
     "file/src/io/Path.ts.html",
     "src/io/Path.ts",
@@ -4707,6 +4785,18 @@ window.esdocSearchIndex = [
     "src/io/proxies.ts",
     "file/src/io/proxies.ts.html",
     "src/io/proxies.ts",
+    "file"
+  ],
+  [
+    "src/io/reflection/has.ts",
+    "file/src/io/reflection/has.ts.html",
+    "src/io/reflection/has.ts",
+    "file"
+  ],
+  [
+    "src/io/reflection/index.ts",
+    "file/src/io/reflection/index.ts.html",
+    "src/io/reflection/index.ts",
     "file"
   ],
   [
@@ -5874,12 +5964,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/screenplay/actor/listenstodomainevents.ts",
-    "file/src/screenplay/actor/ListensToDomainEvents.ts.html",
-    "src/screenplay/actor/ListensToDomainEvents.ts",
-    "file"
-  ],
-  [
     "src/screenplay/actor/performsactivities.ts",
     "file/src/screenplay/actor/PerformsActivities.ts.html",
     "src/screenplay/actor/PerformsActivities.ts",
@@ -6558,6 +6642,18 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/stage/listenstodomainevents.ts",
+    "file/src/stage/ListensToDomainEvents.ts.html",
+    "src/stage/ListensToDomainEvents.ts",
+    "file"
+  ],
+  [
+    "src/stage/listenstodomainevents.ts~listenstodomainevents#notifyof",
+    "class/src/stage/ListensToDomainEvents.ts~ListensToDomainEvents.html#instance-member-notifyOf",
+    "src/stage/ListensToDomainEvents.ts~ListensToDomainEvents#notifyOf",
+    "member"
+  ],
+  [
     "src/stage/stage.ts",
     "file/src/stage/Stage.ts.html",
     "src/stage/Stage.ts",
@@ -6658,6 +6754,42 @@ window.esdocSearchIndex = [
     "file/src/stage/StageCrewMember.ts.html",
     "src/stage/StageCrewMember.ts",
     "file"
+  ],
+  [
+    "src/stage/stagecrewmember.ts~stagecrewmember#assignedto",
+    "class/src/stage/StageCrewMember.ts~StageCrewMember.html#instance-member-assignedTo",
+    "src/stage/StageCrewMember.ts~StageCrewMember#assignedTo",
+    "member"
+  ],
+  [
+    "src/stage/stagecrewmemberbuilder.ts",
+    "file/src/stage/StageCrewMemberBuilder.ts.html",
+    "src/stage/StageCrewMemberBuilder.ts",
+    "file"
+  ],
+  [
+    "src/stage/stagecrewmemberbuilder.ts~stagecrewmemberbuilder#build",
+    "class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html#instance-member-build",
+    "src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder#build",
+    "member"
+  ],
+  [
+    "src/stage/stagecrewmemberbuilderdependencies.ts",
+    "file/src/stage/StageCrewMemberBuilderDependencies.ts.html",
+    "src/stage/StageCrewMemberBuilderDependencies.ts",
+    "file"
+  ],
+  [
+    "src/stage/stagecrewmemberbuilderdependencies.ts~stagecrewmemberbuilderdependencies#outputstream",
+    "class/src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies.html#instance-member-outputStream",
+    "src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies#outputStream",
+    "member"
+  ],
+  [
+    "src/stage/stagecrewmemberbuilderdependencies.ts~stagecrewmemberbuilderdependencies#stage",
+    "class/src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies.html#instance-member-stage",
+    "src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies#stage",
+    "member"
   ],
   [
     "src/stage/stagemanager.ts",

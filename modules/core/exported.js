@@ -52,6 +52,7 @@
 /** @external {@serenity-js/core/lib/io~FileSystem} /modules/core/class/src/io/FileSystem.ts~FileSystem.html */
 /** @external {@serenity-js/core/lib/io~FileSystemLocation} /modules/core/class/src/io/FileSystemLocation.ts~FileSystemLocation.html */
 /** @external {@serenity-js/core/lib/io~ModuleLoader} /modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html */
+/** @external {@serenity-js/core/lib/io~OutputStream} /modules/core/class/src/io/OutputStream.ts~OutputStream.html */
 /** @external {@serenity-js/core/lib/io~Path} /modules/core/class/src/io/Path.ts~Path.html */
 /** @external {@serenity-js/core/lib/io~TestRunnerAdapter} /modules/core/class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html */
 /** @external {@serenity-js/core/lib/io~Version} /modules/core/class/src/io/Version.ts~Version.html */
@@ -63,6 +64,7 @@
 /** @external {@serenity-js/core/lib/io~inspected} /modules/core/function/index.html#static-function-inspected */
 /** @external {@serenity-js/core/lib/io/json~stringify} /modules/core/function/index.html#static-function-stringify */
 /** @external {@serenity-js/core/lib/io/json~parse} /modules/core/function/index.html#static-function-parse */
+/** @external {@serenity-js/core/lib/io/reflection~has} /modules/core/function/index.html#static-function-has */
 /** @external {@serenity-js/core/lib/io~trimmed} /modules/core/function/index.html#static-function-trimmed */
 /** @external {@serenity-js/core/lib/model~ActivityDetails} /modules/core/class/src/model/ActivityDetails.ts~ActivityDetails.html */
 /** @external {@serenity-js/core/lib/model~Artifact} /modules/core/class/src/model/Artifact.ts~Artifact.html */
@@ -117,7 +119,6 @@
 /** @external {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} /modules/core/class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~CanHaveAbilities} /modules/core/class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~CollectsArtifacts} /modules/core/class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html */
-/** @external {@serenity-js/core/lib/screenplay/actor~ListensToDomainEvents} /modules/core/class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~PerformsActivities} /modules/core/class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html */
 /** @external {@serenity-js/core/lib/screenplay/actor~UsesAbilities} /modules/core/class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html */
 /** @external {@serenity-js/core/lib/screenplay/interactions~Log} /modules/core/class/src/screenplay/interactions/Log.ts~Log.html */
@@ -151,8 +152,11 @@
 /** @external {@serenity-js/core/lib/stage~Cast} /modules/core/class/src/stage/Cast.ts~Cast.html */
 /** @external {@serenity-js/core/lib/stage~Clock} /modules/core/class/src/stage/Clock.ts~Clock.html */
 /** @external {@serenity-js/core/lib/stage~DressingRoom} /modules/core/class/src/stage/DressingRoom.ts~DressingRoom.html */
+/** @external {@serenity-js/core/lib/stage~ListensToDomainEvents} /modules/core/class/src/stage/ListensToDomainEvents.ts~ListensToDomainEvents.html */
 /** @external {@serenity-js/core/lib/stage~Stage} /modules/core/class/src/stage/Stage.ts~Stage.html */
 /** @external {@serenity-js/core/lib/stage~StageCrewMember} /modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html */
+/** @external {@serenity-js/core/lib/stage~StageCrewMemberBuilder} /modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html */
+/** @external {@serenity-js/core/lib/stage~StageCrewMemberBuilderDependencies} /modules/core/class/src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies.html */
 /** @external {@serenity-js/core/lib/stage~StageManager} /modules/core/class/src/stage/StageManager.ts~StageManager.html */
 /** @external {@serenity-js/core/lib/stage~WithStage} /modules/core/class/src/stage/WithStage.ts~WithStage.html */
 /** @external {@serenity-js/core/lib/stage/crew/artifact-archiver~ArtifactArchiver} /modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html */

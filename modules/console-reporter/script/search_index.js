@@ -306,6 +306,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io/reflection~has",
+    "/modules/core/function/index.html#static-function-has",
+    "@serenity-js/core/lib/io/reflection~has",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~assertionreportdiffer",
     "/modules/core/class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html",
     "@serenity-js/core/lib/io~AssertionReportDiffer",
@@ -345,6 +351,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io~moduleloader",
     "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
     "@serenity-js/core/lib/io~ModuleLoader",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io~outputstream",
+    "/modules/core/class/src/io/OutputStream.ts~OutputStream.html",
+    "@serenity-js/core/lib/io~OutputStream",
     "external"
   ],
   [
@@ -678,12 +690,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/core/lib/screenplay/actor~listenstodomainevents",
-    "/modules/core/class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html",
-    "@serenity-js/core/lib/screenplay/actor~ListensToDomainEvents",
-    "external"
-  ],
-  [
     "@serenity-js/core/lib/screenplay/actor~performsactivities",
     "/modules/core/class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html",
     "@serenity-js/core/lib/screenplay/actor~PerformsActivities",
@@ -930,6 +936,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/stage~listenstodomainevents",
+    "/modules/core/class/src/stage/ListensToDomainEvents.ts~ListensToDomainEvents.html",
+    "@serenity-js/core/lib/stage~ListensToDomainEvents",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/stage~stage",
     "/modules/core/class/src/stage/Stage.ts~Stage.html",
     "@serenity-js/core/lib/stage~Stage",
@@ -939,6 +951,18 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/stage~stagecrewmember",
     "/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html",
     "@serenity-js/core/lib/stage~StageCrewMember",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/stage~stagecrewmemberbuilder",
+    "/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html",
+    "@serenity-js/core/lib/stage~StageCrewMemberBuilder",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/stage~stagecrewmemberbuilderdependencies",
+    "/modules/core/class/src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies.html",
+    "@serenity-js/core/lib/stage~StageCrewMemberBuilderDependencies",
     "external"
   ],
   [
@@ -1033,73 +1057,73 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber32",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber29",
     "ConsoleReporter when instantiated",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber34",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber31",
     "ConsoleReporter when instantiated ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber39",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber36",
     "ConsoleReporter when instantiated ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber295",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber292",
     "ConsoleReporter when the developer logs arbitrary data",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber298",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber295",
     "ConsoleReporter when the developer logs arbitrary data ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber84",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber81",
     "ConsoleReporter when the scenario fails with an error",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber228",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber225",
     "ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber128",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber125",
     "ConsoleReporter when the scenario fails with an error prints any steps that were skipped as a result of the failure",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber170",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber167",
     "ConsoleReporter when the scenario fails with an error prints the details of the failed assertion",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber87",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber84",
     "ConsoleReporter when the scenario fails with an error prints the error message next to the step that has failed, and a full stack trace at the bottom",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber45",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber42",
     "ConsoleReporter when the scenario passes",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber48",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber45",
     "ConsoleReporter when the scenario passes prints the passing steps and the scenario summary",
     "test"
   ],
@@ -1246,12 +1270,6 @@ window.esdocSearchIndex = [
     "file/src/stage/crew/console-reporter/ConsoleReporter.ts.html",
     "src/stage/crew/console-reporter/ConsoleReporter.ts",
     "file"
-  ],
-  [
-    "src/stage/crew/console-reporter/consolereporter.ts~consolereporter#assignedto",
-    "class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#instance-method-assignedTo",
-    "src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter#assignedTo",
-    "method"
   ],
   [
     "src/stage/crew/console-reporter/consolereporter.ts~consolereporter#constructor",

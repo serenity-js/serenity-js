@@ -132,7 +132,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/Printer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> WritableStream = NodeJS.WritableStream;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { OutputStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -145,9 +145,9 @@
     <span class="hljs-keyword">private</span> indentation = <span class="hljs-keyword">new</span> Indentation(<span class="hljs-number">2</span>);
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{WritableStream}</span> <span class="hljs-variable">stdout</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~OutputStream}</span> <span class="hljs-variable">stdout</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stdout: WritableStream = process.stdout</span>)</span> {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stdout: OutputStream = process.stdout</span>)</span> {
     }
 
     <span class="hljs-comment">/**

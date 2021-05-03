@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 658,
+  "end": 748,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 40,
+      "line": 41,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 658,
+    "end": 748,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 40,
+        "line": 41,
         "column": 0
       }
     },
@@ -33,7 +33,7 @@
       {
         "type": "ImportDeclaration",
         "start": 0,
-        "end": 43,
+        "end": 40,
         "loc": {
           "start": {
             "line": 1,
@@ -41,15 +41,15 @@
           },
           "end": {
             "line": 1,
-            "column": 43
+            "column": 40
           }
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
-            "start": 44,
-            "end": 88,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 41,
+            "end": 86,
             "loc": {
               "start": {
                 "line": 2,
@@ -63,16 +63,16 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A {@link StageCrewMember} or an {@link Actor} that can listen and react to\n *  {@link DomainEvent}s\n * @interface ",
-            "start": 91,
-            "end": 224,
+            "value": "*\n * @desc\n *  A {@link StageCrewMember} that can listen and react to {@link DomainEvent}s\n *\n * @see {@link StageCrewMember}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link Serenity#configure}\n * @see {@link SerenityConfig#crew}\n * @interface ",
+            "start": 89,
+            "end": 343,
             "loc": {
               "start": {
                 "line": 10,
                 "column": 0
               },
               "end": {
-                "line": 14,
+                "line": 18,
                 "column": 16
               }
             }
@@ -133,7 +133,7 @@
         "source": {
           "type": "StringLiteral",
           "start": 28,
-          "end": 42,
+          "end": 39,
           "loc": {
             "start": {
               "line": 1,
@@ -141,36 +141,36 @@
             },
             "end": {
               "line": 1,
-              "column": 42
+              "column": 39
             }
           },
           "extra": {
-            "rawValue": "../../events",
-            "raw": "'../../events'"
+            "rawValue": "../events",
+            "raw": "'../events'"
           },
-          "value": "../../events"
+          "value": "../events"
         }
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 225,
-        "end": 657,
+        "start": 344,
+        "end": 747,
         "loc": {
           "start": {
-            "line": 15,
+            "line": 19,
             "column": 0
           },
           "end": {
-            "line": 39,
+            "line": 40,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
-            "start": 44,
-            "end": 88,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 41,
+            "end": 86,
             "loc": {
               "start": {
                 "line": 2,
@@ -184,16 +184,16 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A {@link StageCrewMember} or an {@link Actor} that can listen and react to\n *  {@link DomainEvent}s\n * @interface ",
-            "start": 91,
-            "end": 224,
+            "value": "*\n * @desc\n *  A {@link StageCrewMember} that can listen and react to {@link DomainEvent}s\n *\n * @see {@link StageCrewMember}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link Serenity#configure}\n * @see {@link SerenityConfig#crew}\n * @interface ",
+            "start": 89,
+            "end": 343,
             "loc": {
               "start": {
                 "line": 10,
                 "column": 0
               },
               "end": {
-                "line": 14,
+                "line": 18,
                 "column": 16
               }
             }
@@ -204,30 +204,30 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 232,
-          "end": 657,
+          "start": 351,
+          "end": 747,
           "loc": {
             "start": {
-              "line": 15,
+              "line": 19,
               "column": 7
             },
             "end": {
-              "line": 39,
+              "line": 40,
               "column": 1
             }
           },
           "abstract": true,
           "id": {
             "type": "Identifier",
-            "start": 247,
-            "end": 268,
+            "start": 366,
+            "end": 387,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 19,
                 "column": 22
               },
               "end": {
-                "line": 15,
+                "line": 19,
                 "column": 43
               },
               "identifierName": "ListensToDomainEvents"
@@ -237,62 +237,62 @@
           "superClass": null,
           "body": {
             "type": "ClassBody",
-            "start": 269,
-            "end": 657,
+            "start": 388,
+            "end": 747,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 19,
                 "column": 44
               },
               "end": {
-                "line": 39,
+                "line": 40,
                 "column": 1
               }
             },
             "body": [
               {
-                "type": "TSDeclareMethod",
-                "start": 620,
-                "end": 655,
+                "type": "ClassProperty",
+                "start": 706,
+                "end": 745,
                 "loc": {
                   "start": {
-                    "line": 38,
+                    "line": 39,
                     "column": 4
                   },
                   "end": {
-                    "line": 38,
-                    "column": 39
+                    "line": 39,
+                    "column": 43
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 271,
-                    "end": 396,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 390,
+                    "end": 482,
                     "loc": {
                       "start": {
-                        "line": 16,
+                        "line": 20,
                         "column": 0
                       },
                       "end": {
-                        "line": 27,
+                        "line": 29,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  this {@link StageCrewMember} is assigned to.\n     *\n     * @param {DomainEvent} event\n     * @returns void\n     ",
-                    "start": 403,
-                    "end": 615,
+                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  that this {@link StageCrewMember} is assigned to.\n     *\n     * @type {function(event: DomainEvent): void}\n     ",
+                    "start": 489,
+                    "end": 701,
                     "loc": {
                       "start": {
-                        "line": 30,
+                        "line": 32,
                         "column": 4
                       },
                       "end": {
-                        "line": 37,
+                        "line": 38,
                         "column": 7
                       }
                     }
@@ -301,15 +301,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 620,
-                  "end": 628,
+                  "start": 706,
+                  "end": 714,
                   "loc": {
                     "start": {
-                      "line": 38,
+                      "line": 39,
                       "column": 4
                     },
                     "end": {
-                      "line": 38,
+                      "line": 39,
                       "column": 12
                     },
                     "identifierName": "notifyOf"
@@ -317,115 +317,142 @@
                   "name": "notifyOf"
                 },
                 "computed": false,
-                "kind": "method",
-                "id": null,
-                "generator": false,
-                "async": false,
-                "params": [
-                  {
-                    "type": "Identifier",
-                    "start": 629,
-                    "end": 647,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 13
-                      },
-                      "end": {
-                        "line": 38,
-                        "column": 31
-                      },
-                      "identifierName": "event"
-                    },
-                    "name": "event",
-                    "typeAnnotation": {
-                      "type": "TSTypeAnnotation",
-                      "start": 634,
-                      "end": 647,
-                      "loc": {
-                        "start": {
-                          "line": 38,
-                          "column": 18
-                        },
-                        "end": {
-                          "line": 38,
-                          "column": 31
-                        }
-                      },
-                      "typeAnnotation": {
-                        "type": "TSTypeReference",
-                        "start": 636,
-                        "end": 647,
-                        "loc": {
-                          "start": {
-                            "line": 38,
-                            "column": 20
-                          },
-                          "end": {
-                            "line": 38,
-                            "column": 31
-                          }
-                        },
-                        "typeName": {
-                          "type": "Identifier",
-                          "start": 636,
-                          "end": 647,
-                          "loc": {
-                            "start": {
-                              "line": 38,
-                              "column": 20
-                            },
-                            "end": {
-                              "line": 38,
-                              "column": 31
-                            },
-                            "identifierName": "DomainEvent"
-                          },
-                          "name": "DomainEvent"
-                        }
-                      }
-                    }
-                  }
-                ],
-                "returnType": {
+                "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 648,
-                  "end": 654,
+                  "start": 714,
+                  "end": 744,
                   "loc": {
                     "start": {
-                      "line": 38,
-                      "column": 32
+                      "line": 39,
+                      "column": 12
                     },
                     "end": {
-                      "line": 38,
-                      "column": 38
+                      "line": 39,
+                      "column": 42
                     }
                   },
                   "typeAnnotation": {
-                    "type": "TSVoidKeyword",
-                    "start": 650,
-                    "end": 654,
+                    "type": "TSFunctionType",
+                    "start": 716,
+                    "end": 744,
                     "loc": {
                       "start": {
-                        "line": 38,
-                        "column": 34
+                        "line": 39,
+                        "column": 14
                       },
                       "end": {
-                        "line": 38,
-                        "column": 38
+                        "line": 39,
+                        "column": 42
+                      }
+                    },
+                    "parameters": [
+                      {
+                        "type": "Identifier",
+                        "start": 717,
+                        "end": 735,
+                        "loc": {
+                          "start": {
+                            "line": 39,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 39,
+                            "column": 33
+                          },
+                          "identifierName": "event"
+                        },
+                        "name": "event",
+                        "typeAnnotation": {
+                          "type": "TSTypeAnnotation",
+                          "start": 722,
+                          "end": 735,
+                          "loc": {
+                            "start": {
+                              "line": 39,
+                              "column": 20
+                            },
+                            "end": {
+                              "line": 39,
+                              "column": 33
+                            }
+                          },
+                          "typeAnnotation": {
+                            "type": "TSTypeReference",
+                            "start": 724,
+                            "end": 735,
+                            "loc": {
+                              "start": {
+                                "line": 39,
+                                "column": 22
+                              },
+                              "end": {
+                                "line": 39,
+                                "column": 33
+                              }
+                            },
+                            "typeName": {
+                              "type": "Identifier",
+                              "start": 724,
+                              "end": 735,
+                              "loc": {
+                                "start": {
+                                  "line": 39,
+                                  "column": 22
+                                },
+                                "end": {
+                                  "line": 39,
+                                  "column": 33
+                                },
+                                "identifierName": "DomainEvent"
+                              },
+                              "name": "DomainEvent"
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 737,
+                      "end": 744,
+                      "loc": {
+                        "start": {
+                          "line": 39,
+                          "column": 35
+                        },
+                        "end": {
+                          "line": 39,
+                          "column": 42
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSVoidKeyword",
+                        "start": 740,
+                        "end": 744,
+                        "loc": {
+                          "start": {
+                            "line": 39,
+                            "column": 38
+                          },
+                          "end": {
+                            "line": 39,
+                            "column": 42
+                          }
+                        }
                       }
                     }
                   }
-                }
+                },
+                "value": null
               }
             ]
           },
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
-              "start": 44,
-              "end": 88,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+              "start": 41,
+              "end": 86,
               "loc": {
                 "start": {
                   "line": 2,
@@ -439,16 +466,16 @@
             },
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc\n *  A {@link StageCrewMember} or an {@link Actor} that can listen and react to\n *  {@link DomainEvent}s\n * @interface ",
-              "start": 91,
-              "end": 224,
+              "value": "*\n * @desc\n *  A {@link StageCrewMember} that can listen and react to {@link DomainEvent}s\n *\n * @see {@link StageCrewMember}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link Serenity#configure}\n * @see {@link SerenityConfig#crew}\n * @interface ",
+              "start": 89,
+              "end": 343,
               "loc": {
                 "start": {
                   "line": 10,
                   "column": 0
                 },
                 "end": {
-                  "line": 14,
+                  "line": 18,
                   "column": 16
                 }
               }
@@ -463,9 +490,9 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n ",
-      "start": 44,
-      "end": 88,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+      "start": 41,
+      "end": 86,
       "loc": {
         "start": {
           "line": 2,
@@ -479,48 +506,48 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc\n *  A {@link StageCrewMember} or an {@link Actor} that can listen and react to\n *  {@link DomainEvent}s\n * @interface ",
-      "start": 91,
-      "end": 224,
+      "value": "*\n * @desc\n *  A {@link StageCrewMember} that can listen and react to {@link DomainEvent}s\n *\n * @see {@link StageCrewMember}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link Serenity#configure}\n * @see {@link SerenityConfig#crew}\n * @interface ",
+      "start": 89,
+      "end": 343,
       "loc": {
         "start": {
           "line": 10,
           "column": 0
         },
         "end": {
-          "line": 14,
+          "line": 18,
           "column": 16
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-      "start": 271,
-      "end": 396,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+      "start": 390,
+      "end": 482,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 20,
           "column": 0
         },
         "end": {
-          "line": 27,
+          "line": 29,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  this {@link StageCrewMember} is assigned to.\n     *\n     * @param {DomainEvent} event\n     * @returns void\n     ",
-      "start": 403,
-      "end": 615,
+      "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  that this {@link StageCrewMember} is assigned to.\n     *\n     * @type {function(event: DomainEvent): void}\n     ",
+      "start": 489,
+      "end": 701,
       "loc": {
         "start": {
-          "line": 30,
+          "line": 32,
           "column": 4
         },
         "end": {
-          "line": 37,
+          "line": 38,
           "column": 7
         }
       }

@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/core/file/src/screenplay/actor/ListensToDomainEvents.ts.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/core/file/src/io/reflection/index.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -174,6 +174,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Path.ts~Path.html">Path</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~SerialisedError.html">SerialisedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/OutputStream.ts~OutputStream.html">OutputStream</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-commaSeparated">commaSeparated</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatted">formatted</a></span></span></li>
@@ -185,6 +186,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Mapping<V,O>">Mapping&lt;V,O&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io-json">io/json</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parse">parse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringify">stringify</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io-reflection">io/reflection</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-has">has</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model">model</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/ActivityDetails.ts~ActivityDetails.html">ActivityDetails</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Artifact.ts~Artifact.html">Artifact</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/BusinessRule.ts~BusinessRule.html">BusinessRule</a></span></span></li>
@@ -239,7 +241,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -278,7 +279,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/StageManager.ts~StageManager.html">StageManager</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/DressingRoom.ts~DressingRoom.html">DressingRoom</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies.html">StageCrewMemberBuilderDependencies</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/WithStage.ts~WithStage.html">WithStage</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-artifact-archiver">stage/crew/artifact-archiver</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html">ArtifactArchiver</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-stream-reporter">stage/crew/stream-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html">StreamReporter</a></span></span></li>
@@ -288,26 +292,8 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/ListensToDomainEvents.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../events'</span>;
-
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  A {<span class="hljs-doctag">@link </span>StageCrewMember} or an {<span class="hljs-doctag">@link </span>Actor} that can listen and react to
- *  {<span class="hljs-doctag">@link </span>DomainEvent}s
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ListensToDomainEvents {
-
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Handles {<span class="hljs-doctag">@link </span>DomainEvent} objects emitted by the {<span class="hljs-doctag">@link </span>Stage}
-     *  this {<span class="hljs-doctag">@link </span>StageCrewMember} is assigned to.
-     *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{DomainEvent}</span> <span class="hljs-variable">event</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-variable">void</span></span>
-     */</span>
-    notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span>;
-}
+                <article class="content" data-ice="content"><h1 data-ice="title">src/io/reflection/index.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">export</span> * <span class="hljs-keyword">from</span> <span class="hljs-string">'./has'</span>;
 </code></pre>
 
 </article>

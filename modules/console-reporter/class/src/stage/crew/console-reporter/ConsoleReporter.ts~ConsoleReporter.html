@@ -138,7 +138,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber83">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber94">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -158,7 +158,7 @@
   
   
   
-  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></li></ul></div>
+  <div class="flat-list" data-ice="implements"><h4>Implements:</h4><ul><li><span><a href="/modules/core/class/src/stage/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></li></ul></div>
   
   
   
@@ -176,6 +176,17 @@
  <span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
 
  configure({
+     <span class="hljs-attr">crew</span>: [ ConsoleReporter.withDefaultColourSupport() ],
+ });</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Redirecting output to a file</div>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
+ <span class="hljs-keyword">import</span> { createWriteStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+
+ configure({
+     <span class="hljs-attr">outputStream</span>: createWriteStream(<span class="hljs-string">'./output.log'</span>),
      <span class="hljs-attr">crew</span>: [ ConsoleReporter.withDefaultColourSupport() ],
  });</code></pre>
     </div>
@@ -205,12 +216,12 @@
     <ul>
       
     <li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber11">ConsoleReporter</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber228">ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber298">ConsoleReporter when the developer logs arbitrary data </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber48">ConsoleReporter when the scenario passes prints the passing steps and the scenario summary</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber87">ConsoleReporter when the scenario fails with an error prints the error message next to the step that has failed, and a full stack trace at the bottom</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber128">ConsoleReporter when the scenario fails with an error prints any steps that were skipped as a result of the failure</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber170">ConsoleReporter when the scenario fails with an error prints the details of the failed assertion</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber225">ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber295">ConsoleReporter when the developer logs arbitrary data </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber45">ConsoleReporter when the scenario passes prints the passing steps and the scenario summary</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber84">ConsoleReporter when the scenario fails with an error prints the error message next to the step that has failed, and a full stack trace at the bottom</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber125">ConsoleReporter when the scenario fails with an error prints any steps that were skipped as a result of the failure</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber167">ConsoleReporter when the scenario fails with an error prints the details of the failed assertion</a></span></li>
 </ul>
   </div>
 
@@ -238,7 +249,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#static-method-forDarkTerminals">forDarkTerminals</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#static-method-forDarkTerminals">forDarkTerminals</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span>
         </p>
       </div>
       <div>
@@ -267,7 +278,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#static-method-forLightTerminals">forLightTerminals</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#static-method-forLightTerminals">forLightTerminals</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span>
         </p>
       </div>
       <div>
@@ -296,7 +307,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#static-method-forMonochromaticTerminals">forMonochromaticTerminals</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#static-method-forMonochromaticTerminals">forMonochromaticTerminals</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span>
         </p>
       </div>
       <div>
@@ -325,7 +336,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#static-method-withDefaultColourSupport">withDefaultColourSupport</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#static-method-withDefaultColourSupport">withDefaultColourSupport</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span>
         </p>
       </div>
       <div>
@@ -403,36 +414,6 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#instance-method-assignedTo">assignedTo</a></span></span><span class="code" data-ice="signature">(stage: <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>): <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p> Creates a new instance of this <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span>
- and assigns it to a given <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
           <span class="code" data-ice="name"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html#instance-method-notifyOf">notifyOf</a></span></span><span class="code" data-ice="signature">(event: <span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>): <span>void</span></span>
         </p>
       </div>
@@ -465,11 +446,11 @@
     
     
     
-    <span class="code" data-ice="name">forDarkTerminals</span><span class="code" data-ice="signature">(): <span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></span>
+    <span class="code" data-ice="name">forDarkTerminals</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber222">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber229">source</a></span></span>
     </span>
   </h3>
 
@@ -489,7 +470,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></td>
           
         </tr>
       </tbody>
@@ -521,11 +502,11 @@
     
     
     
-    <span class="code" data-ice="name">forLightTerminals</span><span class="code" data-ice="signature">(): <span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></span>
+    <span class="code" data-ice="name">forLightTerminals</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber248">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber252">source</a></span></span>
     </span>
   </h3>
 
@@ -545,7 +526,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></td>
           
         </tr>
       </tbody>
@@ -577,11 +558,11 @@
     
     
     
-    <span class="code" data-ice="name">forMonochromaticTerminals</span><span class="code" data-ice="signature">(): <span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></span>
+    <span class="code" data-ice="name">forMonochromaticTerminals</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber196">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber206">source</a></span></span>
     </span>
   </h3>
 
@@ -604,7 +585,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></td>
           
         </tr>
       </tbody>
@@ -636,11 +617,11 @@
     
     
     
-    <span class="code" data-ice="name">withDefaultColourSupport</span><span class="code" data-ice="signature">(): <span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></span>
+    <span class="code" data-ice="name">withDefaultColourSupport</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber167">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber180">source</a></span></span>
     </span>
   </h3>
 
@@ -668,7 +649,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html">ConsoleReporter</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></td>
           
         </tr>
       </tbody>
@@ -707,7 +688,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber260">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber261">source</a></span></span>
     </span>
   </h3>
 
@@ -772,81 +753,6 @@
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-assignedTo">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">assignedTo</span><span class="code" data-ice="signature">(stage: <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>): <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber292">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p> Creates a new instance of this <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span>
- and assigns it to a given <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span>.</p>
-</div>
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">stage</td>
-      <td data-ice="type" class="code"><span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>An instance of a <span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span> this <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span> will be assigned to</p>
-</td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>A new instance of this <span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span></li></ul></div>
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-notifyOf">
     <span class="access" data-ice="access">public</span>
     
@@ -858,7 +764,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber320">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/console-reporter/ConsoleReporter.ts.html#lineNumber296">source</a></span></span>
     </span>
   </h3>
 

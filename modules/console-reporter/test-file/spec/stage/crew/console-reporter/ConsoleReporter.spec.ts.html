@@ -136,7 +136,7 @@
 
 <span class="hljs-keyword">import</span> { EventStreamEmitter, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Actor, Cast, Clock, Duration, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { OutputStream, trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
 <span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/Printer'</span>;
 <span class="hljs-keyword">import</span> { ThemeForMonochromaticTerminals } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/themes'</span>;
@@ -155,10 +155,7 @@ describe(<span class="hljs-string">'ConsoleReporter'</span>, <span class="hljs-f
         stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> Clock()));
         emitter = <span class="hljs-keyword">new</span> EventStreamEmitter(stage);
 
-        reporter = <span class="hljs-keyword">new</span> ConsoleReporter(
-            <span class="hljs-keyword">new</span> Printer(stdout <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> NodeJS.WritableStream),
-            <span class="hljs-keyword">new</span> ThemeForMonochromaticTerminals(),
-        );
+        reporter = ConsoleReporter.forMonochromaticTerminals().build({ stage, <span class="hljs-attr">outputStream</span>: stdout });
 
         stage.assign(reporter);
     });
@@ -499,12 +496,12 @@ describe(<span class="hljs-string">'ConsoleReporter'</span>, <span class="hljs-f
     });
 });
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FakeWritableStream</span> <span class="hljs-title">implements</span> <span class="hljs-title">Partial</span>&lt;<span class="hljs-title">NodeJS</span>.<span class="hljs-title">WritableStream</span>&gt; </span>{
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FakeWritableStream</span> <span class="hljs-title">implements</span> <span class="hljs-title">OutputStream</span> </span>{
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> buffer: <span class="hljs-built_in">string</span> = <span class="hljs-string">''</span></span>)</span> {
     }
 
     <span class="hljs-comment">// @ts-ignore</span>
-    write(chunk: <span class="hljs-built_in">string</span>, <span class="hljs-attr">encoding</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">boolean</span> {
+    write(chunk: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">boolean</span> {
         <span class="hljs-built_in">this</span>.buffer += chunk;
     }
 }

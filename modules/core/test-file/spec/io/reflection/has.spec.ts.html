@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/core/class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/core/test-file/spec/io/reflection/has.spec.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -174,6 +174,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Path.ts~Path.html">Path</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/io/Version.ts~Version.html">Version</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/ErrorSerialiser.ts~SerialisedError.html">SerialisedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/OutputStream.ts~OutputStream.html">OutputStream</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html">TestRunnerAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-commaSeparated">commaSeparated</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-formatted">formatted</a></span></span></li>
@@ -185,6 +186,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Mapping<V,O>">Mapping&lt;V,O&gt;</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io-json">io/json</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parse">parse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringify">stringify</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#io-reflection">io/reflection</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-has">has</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model">model</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/ActivityDetails.ts~ActivityDetails.html">ActivityDetails</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/Artifact.ts~Artifact.html">Artifact</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/BusinessRule.ts~BusinessRule.html">BusinessRule</a></span></span></li>
@@ -239,7 +241,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CanHaveAbilities.ts~CanHaveAbilities.html">CanHaveAbilities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/CollectsArtifacts.ts~CollectsArtifacts.html">CollectsArtifacts</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html">PerformsActivities</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#screenplay-interactions">screenplay/interactions</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Log.ts~Log.html">Log</a></span></span></li>
@@ -278,7 +279,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/StageManager.ts~StageManager.html">StageManager</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/Cast.ts~Cast.html">Cast</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/DressingRoom.ts~DressingRoom.html">DressingRoom</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/ListensToDomainEvents.ts~ListensToDomainEvents.html">ListensToDomainEvents</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html">StageCrewMemberBuilder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies.html">StageCrewMemberBuilderDependencies</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/stage/WithStage.ts~WithStage.html">WithStage</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-artifact-archiver">stage/crew/artifact-archiver</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html">ArtifactArchiver</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-stream-reporter">stage/crew/stream-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html">StreamReporter</a></span></span></li>
@@ -288,60 +292,49 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ListensToDomainEvents} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/actor'</span></code></pre></div>
-  <span data-ice="access">public</span>
-  <span data-ice="kind">interface</span>
-  
-  
-  
-  <span data-ice="source">| <span><a href="file/src/screenplay/actor/ListensToDomainEvents.ts.html#lineNumber15">source</a></span></span>
-</div>
+                <article class="content" data-ice="content"><h1 data-ice="title">spec/io/reflection/has.spec.ts</h1>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
+<span class="hljs-keyword">import</span> { has } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/io'</span>;
 
-<div class="self-detail detail">
-  <h1 data-ice="name">ListensToDomainEvents</h1>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{has}</span> </span>*/</span>
+describe(<span class="hljs-string">'has'</span>, <span class="hljs-function">() =&gt;</span> {
 
-  
+    <span class="hljs-keyword">const</span> looksLikeADuck = has({
+        <span class="hljs-attr">name</span>:   <span class="hljs-string">'string'</span>,
+        <span class="hljs-attr">quack</span>:  <span class="hljs-string">'function'</span>,
+    });
 
-  <div class="description" data-ice="description"><p> A <span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span> or an <span><a href="class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> that can listen and react to
- <span><a href="class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>s</p>
-</div>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Duck</span> </span>{
+        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name</span>)</span> {
+        }
+        <span class="hljs-function"><span class="hljs-title">quack</span>(<span class="hljs-params"></span>)</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'quack'</span>;
+        }
+    }
 
-  
-  
-  
-  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclasses:</h4><div><span><a href="class/src/stage/StageCrewMember.ts~StageCrewMember.html">StageCrewMember</a></span></div></div>
-  
-  
-  
-  
-  
+    given([
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'plain object'</span>,  <span class="hljs-attr">example</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Daisy'</span>, <span class="hljs-attr">quack</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-string">'quack'</span> }    },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'instance'</span>,      <span class="hljs-attr">example</span>: <span class="hljs-keyword">new</span> Duck(<span class="hljs-string">'Daisy'</span>)                          },
+    ]).
+    it(<span class="hljs-string">'returns true when the candidate has the expected fields and methods'</span>, <span class="hljs-function">(<span class="hljs-params">{ example }</span>) =&gt;</span> {
+        expect(looksLikeADuck(example)).to.equal(<span class="hljs-literal">true</span>);
+    });
 
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+    given([
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'null'</span>,              <span class="hljs-attr">example</span>: <span class="hljs-literal">null</span>                                   },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'undefined'</span>,         <span class="hljs-attr">example</span>: <span class="hljs-literal">undefined</span>                              },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty object'</span>,      <span class="hljs-attr">example</span>: { }                                    },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'missing methods'</span>,   <span class="hljs-attr">example</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Pluto'</span> }                      },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'missing field'</span>,     <span class="hljs-attr">example</span>: { <span class="hljs-attr">quack</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-string">'quack'</span> }               },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'wrong type'</span>,        <span class="hljs-attr">example</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Donald'</span>, <span class="hljs-attr">quack</span>: <span class="hljs-string">'quack'</span>   }   },
+    ]).
+    it(<span class="hljs-string">'returns false when the candidate does not meet the expectations'</span>, <span class="hljs-function">(<span class="hljs-params">{ example }</span>) =&gt;</span> {
+        expect(looksLikeADuck(example)).to.equal(<span class="hljs-literal">false</span>);
+    });
+});
+</code></pre>
 
 </article>
             </section>

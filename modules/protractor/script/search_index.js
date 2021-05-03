@@ -744,6 +744,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/io/reflection~has",
+    "/modules/core/function/index.html#static-function-has",
+    "@serenity-js/core/lib/io/reflection~has",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/io~assertionreportdiffer",
     "/modules/core/class/src/io/AssertionReportDiffer.ts~AssertionReportDiffer.html",
     "@serenity-js/core/lib/io~AssertionReportDiffer",
@@ -783,6 +789,12 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/io~moduleloader",
     "/modules/core/class/src/io/ModuleLoader.ts~ModuleLoader.html",
     "@serenity-js/core/lib/io~ModuleLoader",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/io~outputstream",
+    "/modules/core/class/src/io/OutputStream.ts~OutputStream.html",
+    "@serenity-js/core/lib/io~OutputStream",
     "external"
   ],
   [
@@ -1116,12 +1128,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/core/lib/screenplay/actor~listenstodomainevents",
-    "/modules/core/class/src/screenplay/actor/ListensToDomainEvents.ts~ListensToDomainEvents.html",
-    "@serenity-js/core/lib/screenplay/actor~ListensToDomainEvents",
-    "external"
-  ],
-  [
     "@serenity-js/core/lib/screenplay/actor~performsactivities",
     "/modules/core/class/src/screenplay/actor/PerformsActivities.ts~PerformsActivities.html",
     "@serenity-js/core/lib/screenplay/actor~PerformsActivities",
@@ -1368,6 +1374,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/stage~listenstodomainevents",
+    "/modules/core/class/src/stage/ListensToDomainEvents.ts~ListensToDomainEvents.html",
+    "@serenity-js/core/lib/stage~ListensToDomainEvents",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/stage~stage",
     "/modules/core/class/src/stage/Stage.ts~Stage.html",
     "@serenity-js/core/lib/stage~Stage",
@@ -1377,6 +1389,18 @@ window.esdocSearchIndex = [
     "@serenity-js/core/lib/stage~stagecrewmember",
     "/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html",
     "@serenity-js/core/lib/stage~StageCrewMember",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/stage~stagecrewmemberbuilder",
+    "/modules/core/class/src/stage/StageCrewMemberBuilder.ts~StageCrewMemberBuilder.html",
+    "@serenity-js/core/lib/stage~StageCrewMemberBuilder",
+    "external"
+  ],
+  [
+    "@serenity-js/core/lib/stage~stagecrewmemberbuilderdependencies",
+    "/modules/core/class/src/stage/StageCrewMemberBuilderDependencies.ts~StageCrewMemberBuilderDependencies.html",
+    "@serenity-js/core/lib/stage~StageCrewMemberBuilderDependencies",
     "external"
   ],
   [

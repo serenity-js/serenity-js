@@ -1,0 +1,1247 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 1229,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 48,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 1229,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 48,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 872,
+        "end": 1228,
+        "loc": {
+          "start": {
+            "line": 39,
+            "column": 0
+          },
+          "end": {
+            "line": 47,
+            "column": 1
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @param \n * {Record} api \n * @return \n * {Function} \n ",
+            "start": 1,
+            "end": 101,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Checks if the `candidate` value \"quacks like a duck\".\n *  In particular, it checks if the `candidate`:\n *  - is not `null`\n *  - is not `undefined`\n *  - has expected methods or fields (evaluated via [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof))\n *\n * @example\n *  const looksLikeADuck = has({\n *      name:   'string',\n *      quack:  'function',\n *  })\n *\n *  const daisy = {\n *      name: 'Daisy',\n *      quack: () => 'quack',\n *  }\n *\n *  looksLikeADuck(daisy) // true\n *\n * @param {object} api\n *  An object where the keys are names of member fields and methods expected on the `candidate`,\n *  and values are the names of their types, i.e. `function`, `object`, etc.\n *\n * @returns {boolean}\n ",
+            "start": 102,
+            "end": 871,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 38,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "FunctionDeclaration",
+          "start": 879,
+          "end": 1228,
+          "loc": {
+            "start": {
+              "line": 39,
+              "column": 7
+            },
+            "end": {
+              "line": 47,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 888,
+            "end": 891,
+            "loc": {
+              "start": {
+                "line": 39,
+                "column": 16
+              },
+              "end": {
+                "line": 39,
+                "column": 19
+              },
+              "identifierName": "has"
+            },
+            "name": "has"
+          },
+          "generator": false,
+          "async": false,
+          "typeParameters": {
+            "type": "TSTypeParameterDeclaration",
+            "start": 891,
+            "end": 894,
+            "loc": {
+              "start": {
+                "line": 39,
+                "column": 19
+              },
+              "end": {
+                "line": 39,
+                "column": 22
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeParameter",
+                "start": 892,
+                "end": 893,
+                "loc": {
+                  "start": {
+                    "line": 39,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 39,
+                    "column": 21
+                  }
+                },
+                "name": "T"
+              }
+            ]
+          },
+          "params": [
+            {
+              "type": "Identifier",
+              "start": 895,
+              "end": 923,
+              "loc": {
+                "start": {
+                  "line": 39,
+                  "column": 23
+                },
+                "end": {
+                  "line": 39,
+                  "column": 51
+                },
+                "identifierName": "api"
+              },
+              "name": "api",
+              "typeAnnotation": {
+                "type": "TSTypeAnnotation",
+                "start": 898,
+                "end": 923,
+                "loc": {
+                  "start": {
+                    "line": 39,
+                    "column": 26
+                  },
+                  "end": {
+                    "line": 39,
+                    "column": 51
+                  }
+                },
+                "typeAnnotation": {
+                  "type": "TSTypeReference",
+                  "start": 900,
+                  "end": 923,
+                  "loc": {
+                    "start": {
+                      "line": 39,
+                      "column": 28
+                    },
+                    "end": {
+                      "line": 39,
+                      "column": 51
+                    }
+                  },
+                  "typeName": {
+                    "type": "Identifier",
+                    "start": 900,
+                    "end": 906,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 28
+                      },
+                      "end": {
+                        "line": 39,
+                        "column": 34
+                      },
+                      "identifierName": "Record"
+                    },
+                    "name": "Record"
+                  },
+                  "typeParameters": {
+                    "type": "TSTypeParameterInstantiation",
+                    "start": 906,
+                    "end": 923,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 34
+                      },
+                      "end": {
+                        "line": 39,
+                        "column": 51
+                      }
+                    },
+                    "params": [
+                      {
+                        "type": "TSTypeOperator",
+                        "start": 907,
+                        "end": 914,
+                        "loc": {
+                          "start": {
+                            "line": 39,
+                            "column": 35
+                          },
+                          "end": {
+                            "line": 39,
+                            "column": 42
+                          }
+                        },
+                        "operator": "keyof",
+                        "typeAnnotation": {
+                          "type": "TSTypeReference",
+                          "start": 913,
+                          "end": 914,
+                          "loc": {
+                            "start": {
+                              "line": 39,
+                              "column": 41
+                            },
+                            "end": {
+                              "line": 39,
+                              "column": 42
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 913,
+                            "end": 914,
+                            "loc": {
+                              "start": {
+                                "line": 39,
+                                "column": 41
+                              },
+                              "end": {
+                                "line": 39,
+                                "column": 42
+                              },
+                              "identifierName": "T"
+                            },
+                            "name": "T"
+                          }
+                        }
+                      },
+                      {
+                        "type": "TSStringKeyword",
+                        "start": 916,
+                        "end": 922,
+                        "loc": {
+                          "start": {
+                            "line": 39,
+                            "column": 44
+                          },
+                          "end": {
+                            "line": 39,
+                            "column": 50
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ],
+          "returnType": {
+            "type": "TSTypeAnnotation",
+            "start": 924,
+            "end": 964,
+            "loc": {
+              "start": {
+                "line": 39,
+                "column": 52
+              },
+              "end": {
+                "line": 39,
+                "column": 92
+              }
+            },
+            "typeAnnotation": {
+              "type": "TSFunctionType",
+              "start": 926,
+              "end": 964,
+              "loc": {
+                "start": {
+                  "line": 39,
+                  "column": 54
+                },
+                "end": {
+                  "line": 39,
+                  "column": 92
+                }
+              },
+              "parameters": [
+                {
+                  "type": "Identifier",
+                  "start": 927,
+                  "end": 945,
+                  "loc": {
+                    "start": {
+                      "line": 39,
+                      "column": 55
+                    },
+                    "end": {
+                      "line": 39,
+                      "column": 73
+                    },
+                    "identifierName": "candidate"
+                  },
+                  "name": "candidate",
+                  "typeAnnotation": {
+                    "type": "TSTypeAnnotation",
+                    "start": 936,
+                    "end": 945,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 64
+                      },
+                      "end": {
+                        "line": 39,
+                        "column": 73
+                      }
+                    },
+                    "typeAnnotation": {
+                      "type": "TSUnknownKeyword",
+                      "start": 938,
+                      "end": 945,
+                      "loc": {
+                        "start": {
+                          "line": 39,
+                          "column": 66
+                        },
+                        "end": {
+                          "line": 39,
+                          "column": 73
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "typeAnnotation": {
+                "type": "TSTypeAnnotation",
+                "start": 947,
+                "end": 964,
+                "loc": {
+                  "start": {
+                    "line": 39,
+                    "column": 75
+                  },
+                  "end": {
+                    "line": 39,
+                    "column": 92
+                  }
+                },
+                "typeAnnotation": {
+                  "type": "TSTypePredicate",
+                  "start": 950,
+                  "end": 964,
+                  "loc": {
+                    "start": {
+                      "line": 39,
+                      "column": 78
+                    },
+                    "end": {
+                      "line": 39,
+                      "column": 92
+                    }
+                  },
+                  "parameterName": {
+                    "type": "Identifier",
+                    "start": 950,
+                    "end": 959,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 78
+                      },
+                      "end": {
+                        "line": 39,
+                        "column": 87
+                      },
+                      "identifierName": "candidate"
+                    },
+                    "name": "candidate"
+                  },
+                  "typeAnnotation": {
+                    "type": "TSTypeAnnotation",
+                    "start": 963,
+                    "end": 964,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 91
+                      },
+                      "end": {
+                        "line": 39,
+                        "column": 92
+                      }
+                    },
+                    "typeAnnotation": {
+                      "type": "TSTypeReference",
+                      "start": 963,
+                      "end": 964,
+                      "loc": {
+                        "start": {
+                          "line": 39,
+                          "column": 91
+                        },
+                        "end": {
+                          "line": 39,
+                          "column": 92
+                        }
+                      },
+                      "typeName": {
+                        "type": "Identifier",
+                        "start": 963,
+                        "end": 964,
+                        "loc": {
+                          "start": {
+                            "line": 39,
+                            "column": 91
+                          },
+                          "end": {
+                            "line": 39,
+                            "column": 92
+                          },
+                          "identifierName": "T"
+                        },
+                        "name": "T"
+                      }
+                    }
+                  },
+                  "asserts": false
+                }
+              }
+            }
+          },
+          "body": {
+            "type": "BlockStatement",
+            "start": 965,
+            "end": 1228,
+            "loc": {
+              "start": {
+                "line": 39,
+                "column": 93
+              },
+              "end": {
+                "line": 47,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ReturnStatement",
+                "start": 971,
+                "end": 1226,
+                "loc": {
+                  "start": {
+                    "line": 40,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 46,
+                    "column": 9
+                  }
+                },
+                "argument": {
+                  "type": "ArrowFunctionExpression",
+                  "start": 978,
+                  "end": 1226,
+                  "loc": {
+                    "start": {
+                      "line": 40,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 46,
+                      "column": 9
+                    }
+                  },
+                  "returnType": {
+                    "type": "TSTypeAnnotation",
+                    "start": 998,
+                    "end": 1014,
+                    "loc": {
+                      "start": {
+                        "line": 40,
+                        "column": 31
+                      },
+                      "end": {
+                        "line": 40,
+                        "column": 47
+                      }
+                    },
+                    "typeAnnotation": {
+                      "type": "TSTypePredicate",
+                      "start": 1000,
+                      "end": 1014,
+                      "loc": {
+                        "start": {
+                          "line": 40,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 40,
+                          "column": 47
+                        }
+                      },
+                      "parameterName": {
+                        "type": "Identifier",
+                        "start": 1000,
+                        "end": 1009,
+                        "loc": {
+                          "start": {
+                            "line": 40,
+                            "column": 33
+                          },
+                          "end": {
+                            "line": 40,
+                            "column": 42
+                          },
+                          "identifierName": "candidate"
+                        },
+                        "name": "candidate"
+                      },
+                      "typeAnnotation": {
+                        "type": "TSTypeAnnotation",
+                        "start": 1013,
+                        "end": 1014,
+                        "loc": {
+                          "start": {
+                            "line": 40,
+                            "column": 46
+                          },
+                          "end": {
+                            "line": 40,
+                            "column": 47
+                          }
+                        },
+                        "typeAnnotation": {
+                          "type": "TSTypeReference",
+                          "start": 1013,
+                          "end": 1014,
+                          "loc": {
+                            "start": {
+                              "line": 40,
+                              "column": 46
+                            },
+                            "end": {
+                              "line": 40,
+                              "column": 47
+                            }
+                          },
+                          "typeName": {
+                            "type": "Identifier",
+                            "start": 1013,
+                            "end": 1014,
+                            "loc": {
+                              "start": {
+                                "line": 40,
+                                "column": 46
+                              },
+                              "end": {
+                                "line": 40,
+                                "column": 47
+                              },
+                              "identifierName": "T"
+                            },
+                            "name": "T"
+                          }
+                        }
+                      },
+                      "asserts": false
+                    }
+                  },
+                  "id": null,
+                  "generator": false,
+                  "async": false,
+                  "params": [
+                    {
+                      "type": "Identifier",
+                      "start": 979,
+                      "end": 997,
+                      "loc": {
+                        "start": {
+                          "line": 40,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 40,
+                          "column": 30
+                        },
+                        "identifierName": "candidate"
+                      },
+                      "name": "candidate",
+                      "typeAnnotation": {
+                        "type": "TSTypeAnnotation",
+                        "start": 988,
+                        "end": 997,
+                        "loc": {
+                          "start": {
+                            "line": 40,
+                            "column": 21
+                          },
+                          "end": {
+                            "line": 40,
+                            "column": 30
+                          }
+                        },
+                        "typeAnnotation": {
+                          "type": "TSUnknownKeyword",
+                          "start": 990,
+                          "end": 997,
+                          "loc": {
+                            "start": {
+                              "line": 40,
+                              "column": 23
+                            },
+                            "end": {
+                              "line": 40,
+                              "column": 30
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "body": {
+                    "type": "LogicalExpression",
+                    "start": 1026,
+                    "end": 1226,
+                    "loc": {
+                      "start": {
+                        "line": 41,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 46,
+                        "column": 9
+                      }
+                    },
+                    "left": {
+                      "type": "LogicalExpression",
+                      "start": 1026,
+                      "end": 1079,
+                      "loc": {
+                        "start": {
+                          "line": 41,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 42,
+                          "column": 34
+                        }
+                      },
+                      "left": {
+                        "type": "BinaryExpression",
+                        "start": 1026,
+                        "end": 1044,
+                        "loc": {
+                          "start": {
+                            "line": 41,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 41,
+                            "column": 26
+                          }
+                        },
+                        "left": {
+                          "type": "Identifier",
+                          "start": 1026,
+                          "end": 1035,
+                          "loc": {
+                            "start": {
+                              "line": 41,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 41,
+                              "column": 17
+                            },
+                            "identifierName": "candidate"
+                          },
+                          "name": "candidate"
+                        },
+                        "operator": "!==",
+                        "right": {
+                          "type": "NullLiteral",
+                          "start": 1040,
+                          "end": 1044,
+                          "loc": {
+                            "start": {
+                              "line": 41,
+                              "column": 22
+                            },
+                            "end": {
+                              "line": 41,
+                              "column": 26
+                            }
+                          }
+                        }
+                      },
+                      "operator": "&&",
+                      "right": {
+                        "type": "BinaryExpression",
+                        "start": 1056,
+                        "end": 1079,
+                        "loc": {
+                          "start": {
+                            "line": 42,
+                            "column": 11
+                          },
+                          "end": {
+                            "line": 42,
+                            "column": 34
+                          }
+                        },
+                        "left": {
+                          "type": "Identifier",
+                          "start": 1056,
+                          "end": 1065,
+                          "loc": {
+                            "start": {
+                              "line": 42,
+                              "column": 11
+                            },
+                            "end": {
+                              "line": 42,
+                              "column": 20
+                            },
+                            "identifierName": "candidate"
+                          },
+                          "name": "candidate"
+                        },
+                        "operator": "!==",
+                        "right": {
+                          "type": "Identifier",
+                          "start": 1070,
+                          "end": 1079,
+                          "loc": {
+                            "start": {
+                              "line": 42,
+                              "column": 25
+                            },
+                            "end": {
+                              "line": 42,
+                              "column": 34
+                            },
+                            "identifierName": "undefined"
+                          },
+                          "name": "undefined"
+                        }
+                      }
+                    },
+                    "operator": "&&",
+                    "right": {
+                      "type": "CallExpression",
+                      "start": 1091,
+                      "end": 1226,
+                      "loc": {
+                        "start": {
+                          "line": 43,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 46,
+                          "column": 9
+                        }
+                      },
+                      "extra": {
+                        "trailingComma": 1215
+                      },
+                      "callee": {
+                        "type": "MemberExpression",
+                        "start": 1091,
+                        "end": 1117,
+                        "loc": {
+                          "start": {
+                            "line": 43,
+                            "column": 11
+                          },
+                          "end": {
+                            "line": 43,
+                            "column": 37
+                          }
+                        },
+                        "object": {
+                          "type": "CallExpression",
+                          "start": 1091,
+                          "end": 1110,
+                          "loc": {
+                            "start": {
+                              "line": 43,
+                              "column": 11
+                            },
+                            "end": {
+                              "line": 43,
+                              "column": 30
+                            }
+                          },
+                          "callee": {
+                            "type": "MemberExpression",
+                            "start": 1091,
+                            "end": 1105,
+                            "loc": {
+                              "start": {
+                                "line": 43,
+                                "column": 11
+                              },
+                              "end": {
+                                "line": 43,
+                                "column": 25
+                              }
+                            },
+                            "object": {
+                              "type": "Identifier",
+                              "start": 1091,
+                              "end": 1097,
+                              "loc": {
+                                "start": {
+                                  "line": 43,
+                                  "column": 11
+                                },
+                                "end": {
+                                  "line": 43,
+                                  "column": 17
+                                },
+                                "identifierName": "Object"
+                              },
+                              "name": "Object"
+                            },
+                            "computed": false,
+                            "property": {
+                              "type": "Identifier",
+                              "start": 1098,
+                              "end": 1105,
+                              "loc": {
+                                "start": {
+                                  "line": 43,
+                                  "column": 18
+                                },
+                                "end": {
+                                  "line": 43,
+                                  "column": 25
+                                },
+                                "identifierName": "entries"
+                              },
+                              "name": "entries"
+                            }
+                          },
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "start": 1106,
+                              "end": 1109,
+                              "loc": {
+                                "start": {
+                                  "line": 43,
+                                  "column": 26
+                                },
+                                "end": {
+                                  "line": 43,
+                                  "column": 29
+                                },
+                                "identifierName": "api"
+                              },
+                              "name": "api"
+                            }
+                          ]
+                        },
+                        "computed": false,
+                        "property": {
+                          "type": "Identifier",
+                          "start": 1111,
+                          "end": 1117,
+                          "loc": {
+                            "start": {
+                              "line": 43,
+                              "column": 31
+                            },
+                            "end": {
+                              "line": 43,
+                              "column": 37
+                            },
+                            "identifierName": "reduce"
+                          },
+                          "name": "reduce"
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "type": "ArrowFunctionExpression",
+                          "start": 1118,
+                          "end": 1197,
+                          "loc": {
+                            "start": {
+                              "line": 43,
+                              "column": 38
+                            },
+                            "end": {
+                              "line": 44,
+                              "column": 54
+                            }
+                          },
+                          "id": null,
+                          "generator": false,
+                          "async": false,
+                          "params": [
+                            {
+                              "type": "Identifier",
+                              "start": 1119,
+                              "end": 1125,
+                              "loc": {
+                                "start": {
+                                  "line": 43,
+                                  "column": 39
+                                },
+                                "end": {
+                                  "line": 43,
+                                  "column": 45
+                                },
+                                "identifierName": "result"
+                              },
+                              "name": "result"
+                            },
+                            {
+                              "type": "ArrayPattern",
+                              "start": 1127,
+                              "end": 1138,
+                              "loc": {
+                                "start": {
+                                  "line": 43,
+                                  "column": 47
+                                },
+                                "end": {
+                                  "line": 43,
+                                  "column": 58
+                                }
+                              },
+                              "elements": [
+                                {
+                                  "type": "Identifier",
+                                  "start": 1128,
+                                  "end": 1131,
+                                  "loc": {
+                                    "start": {
+                                      "line": 43,
+                                      "column": 48
+                                    },
+                                    "end": {
+                                      "line": 43,
+                                      "column": 51
+                                    },
+                                    "identifierName": "key"
+                                  },
+                                  "name": "key"
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "start": 1133,
+                                  "end": 1137,
+                                  "loc": {
+                                    "start": {
+                                      "line": 43,
+                                      "column": 53
+                                    },
+                                    "end": {
+                                      "line": 43,
+                                      "column": 57
+                                    },
+                                    "identifierName": "type"
+                                  },
+                                  "name": "type"
+                                }
+                              ]
+                            }
+                          ],
+                          "body": {
+                            "type": "LogicalExpression",
+                            "start": 1155,
+                            "end": 1197,
+                            "loc": {
+                              "start": {
+                                "line": 44,
+                                "column": 12
+                              },
+                              "end": {
+                                "line": 44,
+                                "column": 54
+                              }
+                            },
+                            "left": {
+                              "type": "Identifier",
+                              "start": 1155,
+                              "end": 1161,
+                              "loc": {
+                                "start": {
+                                  "line": 44,
+                                  "column": 12
+                                },
+                                "end": {
+                                  "line": 44,
+                                  "column": 18
+                                },
+                                "identifierName": "result"
+                              },
+                              "name": "result"
+                            },
+                            "operator": "&&",
+                            "right": {
+                              "type": "BinaryExpression",
+                              "start": 1165,
+                              "end": 1197,
+                              "loc": {
+                                "start": {
+                                  "line": 44,
+                                  "column": 22
+                                },
+                                "end": {
+                                  "line": 44,
+                                  "column": 54
+                                }
+                              },
+                              "left": {
+                                "type": "UnaryExpression",
+                                "start": 1166,
+                                "end": 1187,
+                                "loc": {
+                                  "start": {
+                                    "line": 44,
+                                    "column": 23
+                                  },
+                                  "end": {
+                                    "line": 44,
+                                    "column": 44
+                                  }
+                                },
+                                "extra": {
+                                  "parenthesized": true,
+                                  "parenStart": 1165
+                                },
+                                "operator": "typeof",
+                                "prefix": true,
+                                "argument": {
+                                  "type": "MemberExpression",
+                                  "start": 1173,
+                                  "end": 1187,
+                                  "loc": {
+                                    "start": {
+                                      "line": 44,
+                                      "column": 30
+                                    },
+                                    "end": {
+                                      "line": 44,
+                                      "column": 44
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "Identifier",
+                                    "start": 1173,
+                                    "end": 1182,
+                                    "loc": {
+                                      "start": {
+                                        "line": 44,
+                                        "column": 30
+                                      },
+                                      "end": {
+                                        "line": 44,
+                                        "column": 39
+                                      },
+                                      "identifierName": "candidate"
+                                    },
+                                    "name": "candidate"
+                                  },
+                                  "computed": true,
+                                  "property": {
+                                    "type": "Identifier",
+                                    "start": 1183,
+                                    "end": 1186,
+                                    "loc": {
+                                      "start": {
+                                        "line": 44,
+                                        "column": 40
+                                      },
+                                      "end": {
+                                        "line": 44,
+                                        "column": 43
+                                      },
+                                      "identifierName": "key"
+                                    },
+                                    "name": "key"
+                                  }
+                                }
+                              },
+                              "operator": "===",
+                              "right": {
+                                "type": "Identifier",
+                                "start": 1193,
+                                "end": 1197,
+                                "loc": {
+                                  "start": {
+                                    "line": 44,
+                                    "column": 50
+                                  },
+                                  "end": {
+                                    "line": 44,
+                                    "column": 54
+                                  },
+                                  "identifierName": "type"
+                                },
+                                "name": "type"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "BooleanLiteral",
+                          "start": 1211,
+                          "end": 1215,
+                          "loc": {
+                            "start": {
+                              "line": 45,
+                              "column": 12
+                            },
+                            "end": {
+                              "line": 45,
+                              "column": 16
+                            }
+                          },
+                          "value": true
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ],
+            "directives": []
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @param \n * {Record} api \n * @return \n * {Function} \n ",
+              "start": 1,
+              "end": 101,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 11,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  Checks if the `candidate` value \"quacks like a duck\".\n *  In particular, it checks if the `candidate`:\n *  - is not `null`\n *  - is not `undefined`\n *  - has expected methods or fields (evaluated via [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof))\n *\n * @example\n *  const looksLikeADuck = has({\n *      name:   'string',\n *      quack:  'function',\n *  })\n *\n *  const daisy = {\n *      name: 'Daisy',\n *      quack: () => 'quack',\n *  }\n *\n *  looksLikeADuck(daisy) // true\n *\n * @param {object} api\n *  An object where the keys are names of member fields and methods expected on the `candidate`,\n *  and values are the names of their types, i.e. `function`, `object`, etc.\n *\n * @returns {boolean}\n ",
+              "start": 102,
+              "end": 871,
+              "loc": {
+                "start": {
+                  "line": 12,
+                  "column": 0
+                },
+                "end": {
+                  "line": 38,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @param \n * {Record} api \n * @return \n * {Function} \n ",
+      "start": 1,
+      "end": 101,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 11,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Checks if the `candidate` value \"quacks like a duck\".\n *  In particular, it checks if the `candidate`:\n *  - is not `null`\n *  - is not `undefined`\n *  - has expected methods or fields (evaluated via [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof))\n *\n * @example\n *  const looksLikeADuck = has({\n *      name:   'string',\n *      quack:  'function',\n *  })\n *\n *  const daisy = {\n *      name: 'Daisy',\n *      quack: () => 'quack',\n *  }\n *\n *  looksLikeADuck(daisy) // true\n *\n * @param {object} api\n *  An object where the keys are names of member fields and methods expected on the `candidate`,\n *  and values are the names of their types, i.e. `function`, `object`, etc.\n *\n * @returns {boolean}\n ",
+      "start": 102,
+      "end": 871,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 0
+        },
+        "end": {
+          "line": 38,
+          "column": 3
+        }
+      }
+    }
+  ]
+}
