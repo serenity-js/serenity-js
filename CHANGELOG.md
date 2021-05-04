@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.27.1](https://github.com/serenity-js/serenity-js/compare/v2.27.0...v2.27.1) (2021-05-04)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** downgraded Yargs to v16.2.0 to avoid dropping support for Node 10 just yet ([5bedd26](https://github.com/serenity-js/serenity-js/commit/5bedd260fb5e2a8313ff95088b82efba1a752fef))
+
+
+
+
+
 # [2.27.0](https://github.com/serenity-js/serenity-js/compare/v2.26.2...v2.27.0) (2021-05-03)
 
 
