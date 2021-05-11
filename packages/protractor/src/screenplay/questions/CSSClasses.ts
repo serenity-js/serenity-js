@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
@@ -67,7 +68,7 @@ export class CSSClasses
      * @param {Question<ElementFinder> | ElementFinder} target
      * @returns {CSSClasses}
      */
-    static of(target: Question<ElementFinder> | ElementFinder) {
+    static of(target: Question<ElementFinder> | ElementFinder): CSSClasses {
         return new CSSClasses(target);
     }
 

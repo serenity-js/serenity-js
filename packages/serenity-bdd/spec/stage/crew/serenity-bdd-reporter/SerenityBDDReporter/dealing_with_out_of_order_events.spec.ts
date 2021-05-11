@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
 import 'mocha';
 
 import { EventRecorder, EventStreamEmitter, expect, PickEvent } from '@integration/testing-tools';

@@ -1,16 +1,18 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
 
 import sinon = require('sinon');
+import { ConfigurationError } from '../src';
 import { ActivityFinished, ActivityStarts, DomainEvent, TestRunnerDetected } from '../src/events';
+import { OutputStream } from '../src/io';
 import { CorrelationId, Name } from '../src/model';
 import { Actor, Interaction } from '../src/screenplay';
 import { Serenity } from '../src/Serenity';
 import { Cast, Clock, ListensToDomainEvents, Stage, StageCrewMember, StageCrewMemberBuilder } from '../src/stage';
-import { expect } from './expect';
-import { OutputStream } from '../src/io';
-import { ConfigurationError } from '../src';
 import { StageCrewMemberBuilderDependencies } from '../src/stage/StageCrewMemberBuilderDependencies';
+import { expect } from './expect';
 
+/** @test {Serenity} */
 describe('Serenity', () => {
 
     describe('when constructing a Stage', () => {
@@ -34,7 +36,7 @@ describe('Serenity', () => {
 
             const Joe = serenity.theActorCalled('Joe');
 
-            expect(prepareSpy).to.have.been.calledOnce;                      // tslint:disable-line:no-unused-expression
+            expect(prepareSpy).to.have.been.calledOnce;
             expect(prepareSpy.getCall(0).args[0]).to.equal(Joe);
         });
 
@@ -103,11 +105,11 @@ describe('Serenity', () => {
                 serenity.configure({
                     crew: [
                         stageCrewMemberBuilder,
-                        null,
+                        undefined,
                     ]
                 });
             }).to.throw(ConfigurationError,
-                'Entries under `crew` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, null found at index 1'
+                'Entries under `crew` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, `undefined` found at index 1'
             )
         });
     });
@@ -120,9 +122,10 @@ describe('Serenity', () => {
             }
         }
 
-        const PerformSomeInteraction = () => Interaction.where(`#actor performs some interaction`, actor => {
-            return void 0;
-        });
+        const PerformSomeInteraction = () =>
+            Interaction.where(`#actor performs some interaction`, actor => {
+                return void 0;
+            });
 
         const frozenClock = new Clock(() => new Date('1983-07-03'));
         const serenity = new Serenity(frozenClock);
@@ -172,7 +175,7 @@ describe('Serenity', () => {
     class Listener<Event_Type extends DomainEvent> implements StageCrewMember {
         public readonly events: Event_Type[] = [];
 
-        constructor(private stage: Stage = null) {
+        constructor(private stage?: Stage) {
         }
 
         assignedTo(stage: Stage): StageCrewMember {

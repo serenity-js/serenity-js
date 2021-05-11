@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
@@ -14,6 +15,7 @@ import {
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
+
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', () => {
@@ -29,10 +31,10 @@ describe('CucumberMessagesListener', () => {
                 './examples/features/failing_scenario.feature',
             )
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(1);
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(TestRunStarts,       event => expect(event).to.be.instanceOf(TestRunStarts))
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('A failing scenario'))

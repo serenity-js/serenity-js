@@ -107,7 +107,7 @@ export class Clear extends Interaction {
     }
 
     private capitaliseFirstLetter(text: string) {
-        return text.charAt(0).toUpperCase() + text.substring(1);
+        return text.charAt(0).toUpperCase() + text.slice(1);
     }
 
     private removeCharactersFrom(elf: ElementFinder, numberOfCharacters: number): PromiseLike<void> {
@@ -119,7 +119,7 @@ export class Clear extends Interaction {
             );
     }
 
-    private times(n: number, key: string) {
-        return Array.from(new Array(n)).map(() => key);
+    private times(length: number, key: string) {
+        return Array.from({ length }).map(() => key);
     }
 }

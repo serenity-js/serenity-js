@@ -1,4 +1,5 @@
 import 'mocha';
+
 import { given } from 'mocha-testdata';
 
 import { q, Question, Serenity } from '../../../src';
@@ -31,9 +32,9 @@ describe('q', () => {
 
     /** @test {q} */
     it('returns the original string value if no parameters are provided', () => {
-       const question = q `some value`;
+        const question = q`some value`;
 
-       return expect(Quentin.answer(question)).to.eventually.equal('some value')
+        return expect(Quentin.answer(question)).to.eventually.equal('some value');
     });
 
     given([

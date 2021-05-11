@@ -1,6 +1,7 @@
 import 'mocha';
-import { expect } from '../expect';
+
 import { Config } from '../../src/io';
+import { expect } from '../expect';
 
 /** @test {Config} */
 describe('Config', () => {
@@ -75,7 +76,7 @@ describe('Config', () => {
                 });
 
                 it('is null', () => {
-                    const config = new Config({ null: null });
+                    const config = new Config({ null: null });      // eslint-disable-line unicorn/no-null
 
                     expect(config.getAsList('null')).to.deep.equal([]);
                 });

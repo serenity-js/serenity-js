@@ -1,5 +1,5 @@
 import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
-import { ActivityDetails, CorrelationId, ExecutionSuccessful } from '../../model';
+import { ActivityDetails, ExecutionSuccessful } from '../../model';
 import { Stage } from '../../stage';
 import { Activity } from '../Activity';
 import { AnswersQuestions, PerformsActivities, UsesAbilities } from '../actor';
@@ -44,7 +44,7 @@ export class TrackedActivity implements Activity {
             });
     }
 
-    toString() {
+    toString(): string {
         return this.activity.toString();
     }
 }

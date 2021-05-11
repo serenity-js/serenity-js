@@ -4,16 +4,7 @@ import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 /**
  * @package
  */
-export function reportIdIncluding<Context extends SerenityBDDReportContext>(...segments: string[]) {
-
-    function nonempty(value: string | undefined) {
-        return !! value;
-    }
-
-    function unique(values: string[]) {
-        return [...new Set(values)];
-    }
-
+export function reportIdIncluding<Context extends SerenityBDDReportContext>(...segments: string[]): (context: Context) => Context {
     return (context: Context): Context => {
         context.report.id = unique([
             ...(context.report.id || '').split(';'),
@@ -22,4 +13,18 @@ export function reportIdIncluding<Context extends SerenityBDDReportContext>(...s
 
         return context;
     }
+}
+
+/**
+ * @package
+ */
+function nonempty(value: string | undefined) {
+    return !! value;
+}
+
+/**
+ * @package
+ */
+function unique(values: string[]) {
+    return [...new Set(values)];
 }

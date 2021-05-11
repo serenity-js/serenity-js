@@ -13,7 +13,7 @@ export class Version extends TinyType {
      * @param {string} version
      * @returns {Version}
      */
-    static fromJSON(version: string) {
+    static fromJSON(version: string): Version {
         return new Version(version);
     }
 

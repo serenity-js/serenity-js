@@ -1,4 +1,5 @@
 import { Description } from '@serenity-js/core/lib/model';
+
 import { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 
 export function scenarioOutlineOf(outline: Description) {

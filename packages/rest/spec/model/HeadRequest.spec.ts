@@ -1,4 +1,5 @@
 import 'mocha';
+
 import { HeadRequest } from '../../src/model';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
@@ -22,17 +23,17 @@ describe('HeadRequest', () => {
      */
     it('allows for additional request properties to be specified', () =>
         expect(actor.answer(HeadRequest.to('/products/2').using({
-                headers: {
-                    Accept: 'application/json',
-                },
-            })))
-            .to.eventually.deep.equal({
-                method: 'HEAD',
-                url: '/products/2',
-                headers: {
-                    Accept: 'application/json',
-                },
-            }));
+            headers: {
+                Accept: 'application/json',
+            },
+        }))).
+        to.eventually.deep.equal({
+            method: 'HEAD',
+            url: '/products/2',
+            headers: {
+                Accept: 'application/json',
+            },
+        }));
 
     /** @test {HeadRequest#toString} */
     it('provides a sensible description of the interaction being performed', () => {

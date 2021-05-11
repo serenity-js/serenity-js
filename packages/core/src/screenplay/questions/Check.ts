@@ -1,9 +1,9 @@
 import { formatted } from '../../io';
-import { AnswersQuestions, PerformsActivities } from '../actor';
 import { Activity } from '../Activity';
-import { Expectation } from './Expectation';
+import { AnswersQuestions, PerformsActivities } from '../actor';
 import { Answerable } from '../Answerable';
 import { Task } from '../Task';
+import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
 
 /**
@@ -43,6 +43,7 @@ import { ExpectationMet } from './expectations';
  * @see https://en.wikipedia.org/wiki/Control_flow
  */
 export class Check<Actual> extends Task {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     static whether<A>(actual: Answerable<A>, expectation: Expectation<any, A>) {
         return {
             andIfSo: (...activities: Activity[]) => new Check(actual, expectation, activities),
@@ -91,9 +92,9 @@ export class Check<Actual> extends Task {
             actor.answer(this.expectation),
         ]).then(([actual, expectation]) =>
             expectation(actual).then(outcome =>
-                    outcome instanceof ExpectationMet
-                        ? actor.attemptsTo(...this.activities)
-                        : actor.attemptsTo(...this.alternativeActivities),
+                outcome instanceof ExpectationMet
+                    ? actor.attemptsTo(...this.activities)
+                    : actor.attemptsTo(...this.alternativeActivities),
             ),
         );
     }

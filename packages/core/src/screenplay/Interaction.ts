@@ -68,7 +68,7 @@ class DynamicallyGeneratedInteraction extends Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return this.description;
     }
 }

@@ -27,7 +27,7 @@
   ],
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
-    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js .",
     "test": "nyc --report-dir ../../target/coverage/core mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"

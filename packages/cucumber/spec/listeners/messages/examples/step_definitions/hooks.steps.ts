@@ -1,4 +1,4 @@
-import { After, AfterAll, AfterStep, Before, BeforeAll, BeforeStep, defineParameterType, Given, Then } from '@cucumber/cucumber';
+import { After, AfterAll, AfterStep, Before, BeforeAll, BeforeStep, defineParameterType, Given } from '@cucumber/cucumber';
 import { Actor, actorCalled, actorInTheSpotlight, Interaction } from '@serenity-js/core';
 
 const Perform = {

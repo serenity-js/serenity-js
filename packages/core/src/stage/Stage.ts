@@ -46,9 +46,9 @@ export class Stage {
      *
      * @private
      */
-    private actorInTheSpotlight: Actor = null;
+    private actorInTheSpotlight: Actor = undefined;
 
-    private currentActivity: CorrelationId = null;
+    private currentActivity: CorrelationId = undefined;
     private currentScene: CorrelationId = new CorrelationId('unknown');
 
     /**
@@ -241,7 +241,7 @@ export class Stage {
      *
      * @returns {CorrelationId}
      */
-    assignNewActivityId() {
+    assignNewActivityId(): CorrelationId {
         // todo: inject an id factory to make it easier to test
         this.currentActivity = CorrelationId.create();
 
@@ -284,8 +284,8 @@ export class Stage {
     private dismiss(activeActors: Map<string, Actor>): Promise<void> {
         const actors = Array.from(activeActors.values());
 
-        if (actors.find(actor => actor === this.actorInTheSpotlight)) {
-            this.actorInTheSpotlight = null;
+        if (actors.includes(this.actorInTheSpotlight)) {
+            this.actorInTheSpotlight = undefined;
         }
 
         return Promise
@@ -303,10 +303,8 @@ export class Stage {
                             new Description(`[${ this.constructor.name }] Dismissed ${ actor.name } successfully`),
                             id,
                         )))
-                        // todo: ActorFinished
                     .catch(error =>
                         this.announce(new AsyncOperationFailed(error, id)),     // todo: serialise the error!
-                        // todo: ActorFinished (error ?)
                     );
 
             }))

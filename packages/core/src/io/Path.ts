@@ -7,17 +7,17 @@ export class Path extends TinyType {
     private static readonly Separator = '/';
     public readonly value: string;
 
-    static fromJSON(v: string) {
+    static fromJSON(v: string): Path {
         return new Path(v);
-    };
+    }
 
-    static from(...segments: string[]) {
+    static from(...segments: string[]): Path {
         return new Path(path.joinSafe(...segments));
     }
 
-    static fromSanitisedString(value: string) {
+    static fromSanitisedString(value: string): Path {
         const
-            normalised = path.normalize(value).replace(/[\/\\"':]/gi, ''),
+            normalised = path.normalize(value).replace(/["'/:\\]/gi, ''),
             extension  = path.extname(normalised),
             basename   = path.basename(normalised, extension),
             filename   = filenamify(basename, { replacement: '-', maxLength: 250 })
@@ -37,7 +37,7 @@ export class Path extends TinyType {
         this.value = path.normalize(value);
     }
 
-    join(another: Path) {
+    join(another: Path): Path {
         return new Path(path.join(this.value, another.value));
     }
 
@@ -47,11 +47,11 @@ export class Path extends TinyType {
             .filter(segment => !! segment); // so that we ignore the trailing path separator in absolute paths
     }
 
-    resolve(another: Path) {
+    resolve(another: Path): Path {
         return new Path(path.resolve(this.value, another.value));
     }
 
-    directory() {
+    directory(): Path {
         return new Path(path.dirname(this.value));
     }
 

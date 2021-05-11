@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 import { Actor, Cast, TakeNotes } from '@serenity-js/core';
 import { ManageALocalServer } from '@serenity-js/local-server';
 import { CallAnApi } from '@serenity-js/rest';

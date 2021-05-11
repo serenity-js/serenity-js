@@ -1,5 +1,5 @@
 import { Answerable, Expectation } from '@serenity-js/core';
-import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
+import { equal } from 'tiny-types/lib/objects';
 
 export function equals<Expected>(expectedValue: Answerable<Expected>): Expectation<Expected> {
     return Expectation.thatActualShould<Expected, Expected>('equal', expectedValue)

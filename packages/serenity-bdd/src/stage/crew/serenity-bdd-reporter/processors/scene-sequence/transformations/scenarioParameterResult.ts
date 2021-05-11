@@ -1,4 +1,5 @@
 import { Outcome, ScenarioDetails } from '@serenity-js/core/lib/model';
+
 import { outcomeReportFrom } from '../../mappers';
 import { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 

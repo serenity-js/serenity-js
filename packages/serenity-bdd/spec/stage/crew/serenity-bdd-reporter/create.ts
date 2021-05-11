@@ -1,8 +1,9 @@
 import { Actor, Cast, Stage, StageManager } from '@serenity-js/core';
 import * as sinon from 'sinon';
+
 import { SerenityBDDReporter } from '../../../../src';
 
-export function create() {
+export function create(): { stageManager: sinon.SinonStubbedInstance<StageManager>, reporter: SerenityBDDReporter } {
     class Extras implements Cast {
         prepare(actor: Actor): Actor {
             return actor;
@@ -15,7 +16,6 @@ export function create() {
         reporter        = new SerenityBDDReporter(stage);
 
     return {
-        stage,
         stageManager,
         reporter,
     };

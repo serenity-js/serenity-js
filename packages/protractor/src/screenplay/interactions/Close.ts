@@ -115,7 +115,7 @@ class CloseWindowsOtherThan extends Interaction {
             );
     }
 
-    toString() {
+    toString(): string {
         return this.description;
     }
 
@@ -130,7 +130,7 @@ class CloseWindowsOtherThan extends Interaction {
                 this.isDefined(windowToKeep) && allWindows.length > 1
                     ? allWindows.filter(handle => handle !== windowToKeep)
                     : []
-        )
+            )
     }
 
     /**
@@ -177,7 +177,7 @@ class CloseCurrentWindow extends Interaction {
         return BrowseTheWeb.as(actor).closeCurrentWindow();
     }
 
-    toString() {
+    toString(): string {
         return `#actor closes current browser window`;
     }
 }

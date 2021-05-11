@@ -1,4 +1,4 @@
-// tslint:disable:no-var-requires
+
 export = [
     require('./barebones'),
     require('./express'),

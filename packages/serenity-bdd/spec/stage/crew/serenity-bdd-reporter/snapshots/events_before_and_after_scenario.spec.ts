@@ -1,9 +1,11 @@
+/* eslint-disable unicorn/filename-case */
 import 'mocha';
 
 import { contentsOf, EventRecorder, EventStreamEmitter, expect } from '@integration/testing-tools';
 import { Actor, Cast, Clock, Duration, Stage, StageManager } from '@serenity-js/core';
 import { ArtifactGenerated, DomainEvent } from '@serenity-js/core/lib/events';
 import { TestReport } from '@serenity-js/core/lib/model';
+
 import { SerenityBDDReporter } from '../../../../../src';
 
 describe('SerenityBDDReporter', () => {

@@ -15,7 +15,7 @@ import {
 export class Summary {
     private readonly records: SummaryRecord[] = [];
 
-    record(details: ScenarioDetails, outcome: Outcome, duration: Duration) {
+    record(details: ScenarioDetails, outcome: Outcome, duration: Duration): void {
         this.records.push({ details, outcome, duration });
     }
 

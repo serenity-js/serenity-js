@@ -1,5 +1,6 @@
 import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
 import { Outcome } from '@serenity-js/core/lib/model';
+
 import { TerminalTheme } from './TerminalTheme';
 
 /**
@@ -87,7 +88,7 @@ export class ThemeForMonochromaticTerminals extends TerminalTheme {
      *
      * @returns {string}
      */
-    log(...parts): string {
+    log(...parts: any[]): string {
         return this.joined(parts);
     }
 }

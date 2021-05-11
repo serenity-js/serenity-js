@@ -1,8 +1,8 @@
 import 'mocha';
 
 import * as sinon from 'sinon';
-import { ConfigurationError, TestCompromisedError } from '../../src/errors';
 
+import { ConfigurationError, TestCompromisedError } from '../../src/errors';
 import { InteractionFinished, InteractionStarts } from '../../src/events';
 import { CorrelationId, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
 import { Ability, Actor, Initialisable, See } from '../../src/screenplay';
@@ -117,7 +117,7 @@ describe('Actor', () => {
 
             class UseDatabase implements Initialisable, Ability {
                 public callsToInitialise = 0;
-                private connection = null;
+                private connection;
 
                 initialise(): Promise<void> | void {
                     this.connection = 'some connection';

@@ -35,7 +35,7 @@ export class Notifier {
     constructor(private readonly serenity: Serenity) {
     }
 
-    testRunStarts() {
+    testRunStarts(): void {
         this.emit(
             new TestRunStarts(this.serenity.currentTime()),
         );
@@ -107,7 +107,7 @@ export class Notifier {
         this.emitSceneFinishes(this.detailsOf(scenario, feature), outcome);
     }
 
-    currentScenarioFinishes(outcome: Outcome) {
+    currentScenarioFinishes(outcome: Outcome): void {
         this.emitSceneFinishes(this.currentScenario, outcome);
     }
 
@@ -124,19 +124,19 @@ export class Notifier {
         );
     }
 
-    testRunFinishes() {
+    testRunFinishes(): void {
         this.emit(
             new TestRunFinishes(this.serenity.currentTime()),
         );
     }
 
-    testRunFinished() {
+    testRunFinished(): void {
         this.emit(
             new TestRunFinished(this.serenity.currentTime()),
         );
     }
 
-    private emitSceneFinishes(details: ScenarioDetails, outcome: Outcome) {
+    private emitSceneFinishes(details: ScenarioDetails, outcome: Outcome): void {
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,

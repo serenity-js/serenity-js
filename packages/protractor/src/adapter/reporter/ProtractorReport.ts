@@ -1,4 +1,4 @@
-import { SpecResult } from 'protractor/built/plugins';              // tslint:disable-line:no-submodule-imports
+import { SpecResult } from 'protractor/built/plugins';
 
 /**
  * @desc

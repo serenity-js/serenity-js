@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { AxiosRequestConfig } from 'axios';
@@ -43,27 +44,27 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<AxiosRequestConfig> {
         return Promise.all([
-                this.resourceUri ? actor.answer(this.resourceUri)   : Promise.resolve(void 0),
-                this.config      ? actor.answer(this.config)        : Promise.resolve({}),
-                this.data        ? actor.answer(this.data)          : Promise.resolve(void 0),
-            ])
-            .then(([url, config, data]) =>
-                // tslint:disable-next-line:prefer-object-spread
-                Object.assign(
-                    {},
-                    { url, data },
-                    config,
-                    { method: this.httpMethodName() },
-                ),
-            )
-            .then(config =>
-                Object.keys(config).reduce((acc, key) => {
-                    if (!! config[key]) {
-                        acc[key] = config[key];
-                    }
-                    return acc;
-                }, {})
-            );
+            this.resourceUri ? actor.answer(this.resourceUri)   : Promise.resolve(void 0),
+            this.config      ? actor.answer(this.config)        : Promise.resolve({}),
+            this.data        ? actor.answer(this.data)          : Promise.resolve(void 0),
+        ]).
+        then(([url, config, data]) =>
+
+            Object.assign(
+                {},
+                { url, data },
+                config,
+                { method: this.httpMethodName() },
+            ),
+        ).
+        then(config =>
+            Object.keys(config).reduce((acc, key) => {
+                if (config[key]) {
+                    acc[key] = config[key];
+                }
+                return acc;
+            }, {})
+        );
     }
 
     /**

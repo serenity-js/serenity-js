@@ -1,4 +1,6 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 import { FileSystem, Path } from '@serenity-js/core/lib/io';
+
 import { OutputDescriptor } from './OutputDescriptor';
 
 /**
@@ -11,7 +13,7 @@ import { OutputDescriptor } from './OutputDescriptor';
  *
  * @package
  */
-export class TempFileOutputDescriptor implements OutputDescriptor{
+export class TempFileOutputDescriptor implements OutputDescriptor {  // eslint-disable-line unicorn/prevent-abbreviations
     private readonly path: Path;
 
     constructor(private readonly fileSystem: FileSystem) {

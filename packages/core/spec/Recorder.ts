@@ -5,15 +5,17 @@ export class Recorder implements StageCrewMember {
 
     constructor(
         public readonly events: DomainEvent[] = [],
-        private readonly stage: Stage = null,
+        private stage?: Stage,
     ) {
     }
 
-    assignedTo(stage: Stage) {
-        return new Recorder(this.events, stage);
+    assignedTo(stage: Stage): Recorder {
+        this.stage = stage;
+
+        return this;
     }
 
-    notifyOf(event: DomainEvent) {
+    notifyOf(event: DomainEvent): void {
         this.events.push(event);
     }
 }

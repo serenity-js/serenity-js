@@ -1,7 +1,7 @@
 import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
-import { CucumberFormat, StandardOutput, TempFileOutput } from '@serenity-js/cucumber/lib/cli'; // tslint:disable-line:no-submodule-imports
+import { CucumberFormat, StandardOutput, TempFileOutput } from '@serenity-js/cucumber/lib/cli';
 import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 import { TestRunnerLoader } from '../../../src/adapter';
@@ -23,7 +23,7 @@ describe('TestRunnerLoader', () => {
 
             it('passes the configuration to the adapter', () => {
 
-                const jasmineNodeOpts = {
+                const jasmineNodeOpts = {   // eslint-disable-line unicorn/prevent-abbreviations
                     requires: [
                         'ts-node/register',
                     ],
@@ -37,7 +37,7 @@ describe('TestRunnerLoader', () => {
                 const JasmineAdapter = sinon.spy();
                 moduleLoader.require.withArgs('@serenity-js/jasmine/lib/adapter').returns({ JasmineAdapter })
 
-                const runner = testRunnerLoader.forJasmine(jasmineNodeOpts);
+                const runner_ = testRunnerLoader.forJasmine(jasmineNodeOpts);
 
                 expect(JasmineAdapter).to.have.been.calledWith(jasmineNodeOpts);
             });
@@ -47,7 +47,7 @@ describe('TestRunnerLoader', () => {
 
             it('passes the configuration to the adapter', () => {
 
-                const mochaOpts = {
+                const mochaOpts = {   // eslint-disable-line unicorn/prevent-abbreviations
                     require: [
                         'ts-node/register',
                     ],
@@ -59,7 +59,7 @@ describe('TestRunnerLoader', () => {
                 const MochaAdapter = sinon.spy();
                 moduleLoader.require.withArgs('@serenity-js/mocha/lib/adapter').returns({ MochaAdapter })
 
-                const runner = testRunnerLoader.forMocha(mochaOpts);
+                const runner_ = testRunnerLoader.forMocha(mochaOpts);
 
                 expect(MochaAdapter).to.have.been.calledWith(mochaOpts);
             });
@@ -85,13 +85,14 @@ describe('TestRunnerLoader', () => {
                 const CucumberCLIAdapter = sinon.spy();
                 moduleLoader.require.withArgs('@serenity-js/cucumber/lib/cli').returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
 
-                const runner = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
+                const runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
 
                 expect(CucumberCLIAdapter).to.have.been.calledWith(cucumberOpts, moduleLoader, sinon.match.instanceOf(expectedOutput));
             });
 
             it('resolves glob patterns in `require` to absolute paths', () => {
 
+                // eslint-disable-next-line unicorn/consistent-function-scoping
                 function absolutePathTo(relativePath: string): string {
                     return Path.from(__dirname, relativePath).value;
                 }
@@ -101,13 +102,13 @@ describe('TestRunnerLoader', () => {
                 const CucumberCLIAdapter = sinon.spy();
                 moduleLoader.require.withArgs('@serenity-js/cucumber/lib/cli').returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
 
-                const cucumberOpts = {
+                const cucumberOpts = {    // eslint-disable-line unicorn/prevent-abbreviations
                     require: [
                         'features/**/*.steps.ts',
                     ]
                 };
 
-                const runner = testRunnerLoader.forCucumber(cucumberOpts, { useStandardOutput: false, uniqueFormatterOutputs: false });
+                const runner_ = testRunnerLoader.forCucumber(cucumberOpts, { useStandardOutput: false, uniqueFormatterOutputs: false });
 
                 expect(CucumberCLIAdapter).to.have.been.calledWith({
                     require: [
@@ -178,7 +179,7 @@ describe('TestRunnerLoader', () => {
                 const CucumberCLIAdapter = sinon.spy();
                 moduleLoader.require.withArgs('@serenity-js/cucumber/lib/cli').returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
 
-                const runner = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
+                const runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
 
                 expect(CucumberCLIAdapter).to.have.been.calledWith(expectedCucumberOpts, moduleLoader, sinon.match.instanceOf(expectedOutput));
             });

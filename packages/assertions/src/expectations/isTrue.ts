@@ -1,4 +1,5 @@
 import { Expectation } from '@serenity-js/core';
+
 import { equals } from './equals';
 
 export function isTrue(): Expectation<boolean> {

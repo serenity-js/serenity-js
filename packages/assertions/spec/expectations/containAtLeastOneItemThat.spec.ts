@@ -2,6 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError, Question } from '@serenity-js/core';
+
 import { containAtLeastOneItemThat, Ensure, equals, isGreaterThan } from '../../src';
 
 describe('containAtLeastOneItemThat', () => {
@@ -30,14 +31,16 @@ describe('containAtLeastOneItemThat', () => {
             Ensure.that([], containAtLeastOneItemThat(equals(42))),
         )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain at least one item that does equal 42`)
             .then((error: AssertionError) => {
-                expect(error.expected).to.equal(null);
+                expect(error.expected).to.equal(undefined);
                 expect(error.actual).to.deep.equal([ ]);
             });
     });
 
     /** @test {atLeastOne} */
     it('contributes to a human-readable description', () => {
-        const numbers = () => Question.about('list of numbers', actor => [ 0, 1, 2 ]);
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        const numbers = () =>
+            Question.about('list of numbers', actor => [ 0, 1, 2 ]);
 
         expect(Ensure.that(numbers(), containAtLeastOneItemThat(isGreaterThan(1))).toString())
             .to.equal(`#actor ensures that list of numbers does contain at least one item that does have value greater than 1`);

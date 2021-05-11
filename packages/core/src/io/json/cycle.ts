@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars,unicorn/better-regex,unicorn/escape-case,no-useless-escape,no-control-regex,@typescript-eslint/explicit-module-boundary-types */
+import { JSONValue } from 'tiny-types';
+
 // Based on work of Douglas Crockford
 //  https://github.com/jan-molak/JSON-js/blob/master/cycle.js
 
@@ -15,7 +18,7 @@
  * @param {string | number} [space]
  *  Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
  */
-export function stringify<T>(value: any, replacer?: (this: any, key: string, value: any) => any, space?: string | number): string {
+export function stringify(value: unknown, replacer?: (this: any, key: string, value: any) => any, space?: string | number): string {
     return JSON.stringify(decycle(value), replacer, space);
 }
 
@@ -102,7 +105,7 @@ function decycle(object: any) {
                 });
             } else {
 
-            // If it is an object, replicate the object.
+                // If it is an object, replicate the object.
 
                 nu = {};
                 Object.keys(value).forEach(function (name) {
@@ -166,7 +169,7 @@ function retrocycle($: any) {
                     if (typeof element === 'object' && element !== null) {
                         const path = element.$ref;
                         if (typeof path === 'string' && px.test(path)) {
-                            value[i] = eval(path);      // tslint:disable-line:no-eval
+                            value[i] = eval(path);
                         } else {
                             rez(element);
                         }
@@ -178,7 +181,7 @@ function retrocycle($: any) {
                     if (typeof item === 'object' && item !== null) {
                         const path = item.$ref;
                         if (typeof path === 'string' && px.test(path)) {
-                            value[name] = eval(path);   // tslint:disable-line:no-eval
+                            value[name] = eval(path);
                         } else {
                             rez(item);
                         }

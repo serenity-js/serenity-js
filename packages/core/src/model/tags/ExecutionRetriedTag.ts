@@ -1,4 +1,5 @@
 import { JSONObject } from 'tiny-types';
+
 import { Tag } from './Tag';
 
 /**
@@ -11,7 +12,7 @@ import { Tag } from './Tag';
 export class ExecutionRetriedTag extends Tag {
     static readonly Type = 'retry';
 
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): ExecutionRetriedTag {
         return new ExecutionRetriedTag(o.retry as number, o.description as string);
     }
 

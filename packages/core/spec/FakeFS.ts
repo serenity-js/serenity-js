@@ -1,6 +1,8 @@
+/* eslint-disable unicorn/filename-case */
 import fs = require('fs');
 import path = require('upath');
-const { createFsFromVolume, Volume } = require('memfs'); // tslint:disable-line:no-var-requires Typings incorrectly assume the presence of "dom" lib
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { createFsFromVolume, Volume } = require('memfs'); // Typings incorrectly assume the presence of "dom" lib
 
 export interface DirectoryStructure {
     [ key: string ]: DirectoryStructure | string;
@@ -13,7 +15,7 @@ export class FakeFS {
 
         function flatten(
             currentStructure: DirectoryStructure | string,
-            currentPath: string = '',
+            currentPath = '',
         ): { [key: string]: string } {
 
             if (typeof currentStructure === 'string') {
@@ -24,7 +26,7 @@ export class FakeFS {
 
             const entries = Object.keys(currentStructure);
 
-            if (! entries.length) {
+            if (entries.length === 0) {
                 return ({
                     [ currentPath ]: void 0,
                 });

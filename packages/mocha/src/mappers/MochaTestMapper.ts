@@ -39,14 +39,14 @@ export class MochaTestMapper {
     }
 
     private fullNameOf(scenario: Test | Suite): string {
-        return !! scenario.parent
+        return scenario.parent
             ? `${ this.fullNameOf(scenario.parent) } ${ scenario.title }`.trim()
             : scenario.title;
     }
 
     private nameOf(scenario: Test | Suite): string {
         return this.fullNameOf(scenario)
-            .substring(this.featureNameFor(scenario).length)
+            .slice(this.featureNameFor(scenario).length)
             .trim();
     }
 }

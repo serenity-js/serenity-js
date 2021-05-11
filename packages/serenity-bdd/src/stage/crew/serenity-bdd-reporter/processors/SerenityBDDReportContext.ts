@@ -1,4 +1,6 @@
-import { CorrelationId, ExecutionSuccessful, Outcome } from '@serenity-js/core/lib/model';
+/* eslint-disable unicorn/filename-case */
+import { CorrelationId } from '@serenity-js/core/lib/model';
+
 import { SerenityBDDReport } from '../SerenityBDDJsonSchema';
 import { LinkedTestStep } from './LinkedTestStep';
 
@@ -9,7 +11,7 @@ export abstract class SerenityBDDReportContext {
 
     public readonly report: Partial<SerenityBDDReport> = {};
     public readonly steps: Map<string, LinkedTestStep> = new Map();
-    public currentActivityId: CorrelationId = null;
+    public currentActivityId: CorrelationId = undefined;
 
     with(fn: (report: this) => this): this {
         return fn(this);
@@ -44,6 +46,6 @@ export abstract class SerenityBDDReportContext {
         return {
             ...this.report,
             testSteps,
-        } as SerenityBDDReport; // tslint:disable-line:no-object-literal-type-assertion
+        } as SerenityBDDReport;
     }
 }

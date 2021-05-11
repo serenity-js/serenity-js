@@ -4,7 +4,7 @@ import { CorrelationId, Description, Name } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class SceneBackgroundDetected extends DomainEvent {
-    public static fromJSON(o: JSONObject) {
+    public static fromJSON(o: JSONObject): SceneBackgroundDetected {
         return new SceneBackgroundDetected(
             CorrelationId.fromJSON(o.sceneId as string),
             Name.fromJSON(o.name as string),

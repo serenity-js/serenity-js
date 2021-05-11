@@ -1,5 +1,5 @@
 import { ArtifactArchiver, Serenity } from '@serenity-js/core';
-import { isPlainObject } from 'is-plain-object'; // tslint:disable-line:no-var-requires fails when using default import
+import { isPlainObject } from 'is-plain-object'; // fails when using default import
 import { protractor, Runner } from 'protractor';
 import deepmerge = require('deepmerge');
 
@@ -26,8 +26,6 @@ export class ProtractorFrameworkAdapter {
      * @return {Promise<ProtractorReport>}
      */
     run(specs: string[]): Promise<ProtractorReport> {
-
-        const noop      = () => void 0;
 
         const runner    = this.detector.runnerFor(this.protractorRunner.getConfig());
         const reporter  = new ProtractorReporter(this.protractorRunner, runner.successThreshold());
@@ -62,4 +60,9 @@ export class ProtractorFrameworkAdapter {
             },
         };
     }
+}
+
+/** @private */
+function noop() {
+    // no-op
 }

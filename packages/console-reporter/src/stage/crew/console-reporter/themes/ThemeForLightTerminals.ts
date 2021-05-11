@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 
-import { Chalk } from 'chalk';
+import { Chalk } from 'chalk';  // eslint-disable-line unicorn/import-style
+
 import { ThemeForColourTerminals } from './ThemeForColourTerminals';
 
 /**
@@ -56,7 +57,7 @@ export class ThemeForLightTerminals extends ThemeForColourTerminals {
      *
      * @returns {string}
      */
-    log(...parts): string {
+    log(...parts: any[]): string {
         return this.joined(parts);
     }
 }

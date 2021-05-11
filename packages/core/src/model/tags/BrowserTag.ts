@@ -1,4 +1,5 @@
 import { JSONObject } from 'tiny-types';
+
 import { Tag } from './Tag';
 
 /**
@@ -7,7 +8,7 @@ import { Tag } from './Tag';
 export class BrowserTag extends Tag {
     static readonly Type = 'browser';
 
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): BrowserTag {
         return new BrowserTag(o.browserName as string, o.browserVersion as string);
     }
 
@@ -23,7 +24,7 @@ export class BrowserTag extends Tag {
         );
     }
 
-    toJSON() {
+    toJSON(): { name: string, type: string, browserName: string, browserVersion: string } {
         return {
             name: this.name,
             type: BrowserTag.Type,

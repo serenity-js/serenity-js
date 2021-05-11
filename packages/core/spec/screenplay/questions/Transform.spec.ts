@@ -1,3 +1,6 @@
+/* eslint-disable unicorn/consistent-function-scoping */
+import 'mocha';
+
 import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 
@@ -26,9 +29,10 @@ describe('TransformAnswer', () => {
         q(p(expectedAnswer)),
     ]).
     it('transforms an answer to Answerable<T> to another type', (answerable: Answerable<EA>) =>
-       expect(
-           Transform.the(answerable, complexObject => complexObject.headers.header).answeredBy(actor),
-       ).to.eventually.equal(expectedAnswer.headers.header));
+        expect(
+            Transform.the(answerable, complexObject => complexObject.headers.header).answeredBy(actor),
+        ).to.eventually.equal(expectedAnswer.headers.header)
+    );
 
     it('transforms answers to Array<Answerable<T>> to another type', () =>
         expect(
@@ -36,7 +40,8 @@ describe('TransformAnswer', () => {
                 [ q(p(expectedAnswer)), q(expectedAnswer), expectedAnswer],
                 (ea1: EA, ea2: EA, ea3: EA) => ea1.headers.header + ea2.body + Object.keys(ea3).length,
             ).answeredBy(actor),
-        ).to.eventually.equal(expectedAnswer.headers.header + expectedAnswer.body + Object.keys(expectedAnswer).length));
+        ).to.eventually.equal(expectedAnswer.headers.header + expectedAnswer.body + Object.keys(expectedAnswer).length)
+    );
 
     it('transforms answers to questions of different types to another type', () =>
         expect(
@@ -44,7 +49,8 @@ describe('TransformAnswer', () => {
                 [ q('the answer to life the universe and everything'), q(p(42)) ],
                 (a1: string, a2: number) => `${ a1 } is ${ a2 }`,
             ).answeredBy(actor),
-        ).to.eventually.equal(`the answer to life the universe and everything is 42`));
+        ).to.eventually.equal(`the answer to life the universe and everything is 42`)
+    );
 
     it('provides a sensible default description', () => {
         expect(Transform.the(expectedAnswer, _ => _).toString()).to.equal('a transformed answer');

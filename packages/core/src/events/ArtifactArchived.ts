@@ -5,7 +5,7 @@ import { Artifact, ArtifactType, CorrelationId, Name, Timestamp } from '../model
 import { DomainEvent } from './DomainEvent';
 
 export class ArtifactArchived extends DomainEvent {
-    static fromJSON<E>(o: JSONObject) {
+    static fromJSON(o: JSONObject): ArtifactArchived {
         return new ArtifactArchived(
             CorrelationId.fromJSON(o.sceneId as string),
             Name.fromJSON(o.name as string),

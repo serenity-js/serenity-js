@@ -1,7 +1,7 @@
 import { Ability, ConfigurationError, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
 import axios, { AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
-const mergeConfig = require('axios/lib/core/mergeConfig');       // tslint:disable-line:no-var-requires no-submodule-imports
-const buildFullPath = require('axios/lib/core/buildFullPath');   // tslint:disable-line:no-var-requires no-submodule-imports
+const mergeConfig = require('axios/lib/core/mergeConfig');      // eslint-disable-line @typescript-eslint/no-var-requires
+const buildFullPath = require('axios/lib/core/buildFullPath');  // eslint-disable-line @typescript-eslint/no-var-requires
 
 /**
  * @desc
@@ -68,7 +68,7 @@ export class CallAnApi implements Ability {
      * @param {string} baseURL
      * @returns {CallAnApi}
      */
-    static at(baseURL: string) {
+    static at(baseURL: string): CallAnApi {
         return new CallAnApi(axios.create({
             baseURL,
             timeout: 2000,
@@ -89,7 +89,7 @@ export class CallAnApi implements Ability {
      *
      * @see {@link AxiosInstance}
      */
-    static using(axiosInstance: AxiosInstance) {
+    static using(axiosInstance: AxiosInstance): CallAnApi {
         return new CallAnApi(axiosInstance);
     }
 
@@ -187,25 +187,25 @@ export class CallAnApi implements Ability {
     private captureResponseOf(promisedResponse: AxiosPromise): AxiosPromise {
         return promisedResponse
             .then(
-                fulfilled => {
-                    this.lastResponse = fulfilled;
+                lastResponse => {
+                    this.lastResponse = lastResponse;
 
-                    return fulfilled;
+                    return lastResponse;
                 },
-                rejected => {
+                error => {
                     switch (true) {
-                        case /timeout.*exceeded/.test(rejected.message):
-                            throw new TestCompromisedError(`The request has timed out`, rejected);
-                        case /Network Error/.test(rejected.message):
-                            throw new TestCompromisedError(`A network error has occurred`, rejected);
-                        case rejected instanceof TypeError:
-                            throw new ConfigurationError(`Looks like there was an issue with Axios configuration`, rejected);
-                        case ! (rejected as AxiosError).response:
-                            throw new TestCompromisedError(`The API call has failed`, rejected);
+                        case /timeout.*exceeded/.test(error.message):
+                            throw new TestCompromisedError(`The request has timed out`, error);
+                        case /Network Error/.test(error.message):
+                            throw new TestCompromisedError(`A network error has occurred`, error);
+                        case error instanceof TypeError:
+                            throw new ConfigurationError(`Looks like there was an issue with Axios configuration`, error);
+                        case ! (error as AxiosError).response:
+                            throw new TestCompromisedError(`The API call has failed`, error);
                         default:
-                            this.lastResponse = rejected.response;
+                            this.lastResponse = error.response;
 
-                            return rejected.response;
+                            return error.response;
                     }
                 },
             );

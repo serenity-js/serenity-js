@@ -1,5 +1,7 @@
-const Module = require('module');             // tslint:disable-line:no-var-requires     No type definitions available
-import * as path from 'path';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Module = require('module'); // No type definitions available
+import * as path from 'path';   // eslint-disable-line unicorn/import-style
+
 import { Version } from './Version';
 
 /**
@@ -25,7 +27,7 @@ export class ModuleLoader {
     hasAvailable(moduleId: string): boolean {
         try {
             return !! this.require(moduleId);
-        } catch (e) {
+        } catch {
             return false;
         }
     }
@@ -62,7 +64,7 @@ export class ModuleLoader {
         try {
             return require(this.resolve(moduleId));
         }
-        catch (e) {
+        catch {
             return require(moduleId);
         }
     }

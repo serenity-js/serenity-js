@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 import { Stage, StageCrewMember } from '@serenity-js/core';
 import { ArtifactGenerated, DomainEvent, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { CorrelationId } from '@serenity-js/core/lib/model';
@@ -56,9 +57,9 @@ export class SerenityBDDReporter implements StageCrewMember {
     private readonly eventQueue: DomainEvent[] = [];
 
     /**
-     * @param {@serenity-js/core/lib/stage~Stage} [stage=null] stage
+     * @param {@serenity-js/core/lib/stage~Stage} [stage=undefined] stage
      */
-    constructor(private readonly stage: Stage = null) {
+    constructor(private readonly stage?: Stage) {
     }
 
     /**
@@ -109,6 +110,6 @@ export class SerenityBDDReporter implements StageCrewMember {
     }
 
     private isSceneSpecific(event: DomainEvent): event is DomainEvent & { sceneId: CorrelationId } {
-        return event.hasOwnProperty('sceneId');
+        return Object.prototype.hasOwnProperty.call(event, 'sceneId');
     }
 }

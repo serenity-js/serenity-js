@@ -3,7 +3,8 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { actorCalled, Answerable, AssertionError } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
-import { and, Ensure, Expectation, equals, isGreaterThan, isLessThan, or } from '../src';
+
+import { and, Ensure, equals, Expectation, isGreaterThan, isLessThan, or } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
 /** @test {Expectation} */
@@ -28,7 +29,7 @@ describe('Expectation', () => {
         it('stops the actor flow when the assertion fails', () => {
             return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(4, isIdenticalTo('4' as any)),
-            )).to.be.rejectedWith(AssertionError, "Expected 4 to have value identical to '4'");
+            )).to.be.rejectedWith(AssertionError, `Expected 4 to have value identical to '4'`);
         });
 
         given<Answerable<number>>(
@@ -46,12 +47,13 @@ describe('Expectation', () => {
 
     describe('allows to alias an expectation, so that the alias', () => {
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         function isWithin(lowerBound: number, upperBound: number) {
             return Expectation
                 .to(`have value within ${ lowerBound } and ${ upperBound }`)
                 .soThatActual(and(
-                   or(isGreaterThan(lowerBound), equals(lowerBound)),
-                   or(isLessThan(upperBound), equals(upperBound)),
+                    or(isGreaterThan(lowerBound), equals(lowerBound)),
+                    or(isLessThan(upperBound), equals(upperBound)),
                 ));
         }
 
@@ -71,11 +73,12 @@ describe('Expectation', () => {
 
     describe('allows to override the description of an expectation, so that the new version', () => {
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         function isWithin(lowerBound: number, upperBound: number) {
             return and(
-                    or(isGreaterThan(lowerBound), equals(lowerBound)),
-                    or(isLessThan(upperBound), equals(upperBound)),
-                ).describedAs(`have value within ${ lowerBound } and ${ upperBound }`);
+                or(isGreaterThan(lowerBound), equals(lowerBound)),
+                or(isLessThan(upperBound), equals(upperBound)),
+            ).describedAs(`have value within ${ lowerBound } and ${ upperBound }`);
         }
 
         /** @test {Expectation.to} */

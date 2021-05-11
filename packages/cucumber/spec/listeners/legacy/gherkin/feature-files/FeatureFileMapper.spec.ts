@@ -106,7 +106,8 @@ describe('FeatureFileMapper', () => {
                             new Name('Given a prerequisite'),
                         ),
                     ],
-            ));
+                )
+            );
         }));
 
         it('associates the background steps with the scenarios', parse('backgrounds.feature', map => {
@@ -218,39 +219,43 @@ describe('FeatureFileMapper', () => {
         it('recognises the different names and descriptions of example sets', parse('scenario_outlines.feature', map => {
             const path = fixtures.join(new Path('scenario_outlines.feature'));
 
-            expect(map.get(ScenarioOutline).onLine(17)).to.equal(new ScenarioOutline(
-                new FileSystemLocation(path, 17, 3),
-                new Name('The one with more examples'),
-                new Description('Description of the scenario with more examples'),
-                [
-                    new Step(
-                        new FileSystemLocation(path, 21, 5),
-                        new Name('Given step with a <parameter>'),
-                    ),
-                ],
-                {
-                    28: new ScenarioParameters(
-                            new Name('Name of the first set of examples'),
-                            new Description('Description of the first set of examples'),
-                            { parameter: 'value one' },
+            /* eslint-disable @typescript-eslint/indent */
+            expect(map.get(ScenarioOutline).onLine(17)).to.equal(
+                new ScenarioOutline(
+                    new FileSystemLocation(path, 17, 3),
+                    new Name('The one with more examples'),
+                    new Description('Description of the scenario with more examples'),
+                    [
+                        new Step(
+                            new FileSystemLocation(path, 21, 5),
+                            new Name('Given step with a <parameter>'),
                         ),
-                    29: new ScenarioParameters(
-                            new Name('Name of the first set of examples'),
-                            new Description('Description of the first set of examples'),
-                            { parameter: 'value two' },
-                        ),
-                    36: new ScenarioParameters(
-                            new Name('Name of the second set of examples'),
-                            new Description('Description of the second set of examples'),
-                            { parameter: 'value three' },
-                        ),
-                    37: new ScenarioParameters(
-                            new Name('Name of the second set of examples'),
-                            new Description('Description of the second set of examples'),
-                            { parameter: 'value four' },
-                        ),
-                },
-            ));
+                    ],
+                    {
+                        28: new ScenarioParameters(
+                                new Name('Name of the first set of examples'),
+                                new Description('Description of the first set of examples'),
+                                { parameter: 'value one' },
+                            ),
+                        29: new ScenarioParameters(
+                                new Name('Name of the first set of examples'),
+                                new Description('Description of the first set of examples'),
+                                { parameter: 'value two' },
+                            ),
+                        36: new ScenarioParameters(
+                                new Name('Name of the second set of examples'),
+                                new Description('Description of the second set of examples'),
+                                { parameter: 'value three' },
+                            ),
+                        37: new ScenarioParameters(
+                                new Name('Name of the second set of examples'),
+                                new Description('Description of the second set of examples'),
+                                { parameter: 'value four' },
+                            ),
+                    },
+                )
+            );
+            /* eslint-enable */
         }));
     });
 

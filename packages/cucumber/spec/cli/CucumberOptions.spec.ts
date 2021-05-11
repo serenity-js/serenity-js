@@ -1,8 +1,10 @@
+/* eslint-disable unicorn/no-null */
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Version } from '@serenity-js/core/lib/io';
 import { given } from 'mocha-testdata';
+
 import { CucumberOptions } from '../../src/cli/CucumberOptions';
 
 /** @test {CucumberOptions} */

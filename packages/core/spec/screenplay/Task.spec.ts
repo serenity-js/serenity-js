@@ -1,6 +1,8 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
 
 import * as sinon from 'sinon';
+
 import { ImplementationPendingError } from '../../src/errors';
 import { CorrelationId } from '../../src/model';
 import { Actor, Interaction, Task } from '../../src/screenplay';

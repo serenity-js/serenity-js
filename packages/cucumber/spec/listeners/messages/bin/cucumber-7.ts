@@ -1,5 +1,5 @@
 import { spawner, SpawnResult } from '@integration/testing-tools';
-import * as path from 'path';
+import * as path from 'path';   // eslint-disable-line unicorn/import-style
 
 const cucumberExecutable = path.resolve(
     require.resolve('@cucumber/cucumber/package.json'),

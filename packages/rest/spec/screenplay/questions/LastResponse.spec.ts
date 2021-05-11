@@ -2,6 +2,7 @@ import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { LogicError } from '@serenity-js/core';
+
 import { GetRequest, LastResponse, Send } from '../../../src';
 import { actorUsingAMockedAxiosInstance } from '../../actors';
 import { expect } from '../../expect';

@@ -1,3 +1,5 @@
+/*eslint-disable unicorn/filename-case */
+
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';

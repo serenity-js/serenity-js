@@ -1,4 +1,5 @@
 import { inspect } from 'util';
+
 import { Answerable } from '../screenplay/Answerable';
 import { Question } from '../screenplay/Question';
 
@@ -49,10 +50,10 @@ export function inspected(value: Answerable<any>): string {
     }
 
     if (! hasCustomInspectionFunction(value) && isPlainObject(value) && isSerialisableAsJSON(value)) {
-        return JSON.stringify(value, null, 4);
+        return JSON.stringify(value, undefined, 4);
     }
 
-    return inspect(value, { breakLength: Infinity, compact: true, sorted: false  });
+    return inspect(value, { breakLength: Number.POSITIVE_INFINITY, compact: true, sorted: false  });
 }
 
 /**
@@ -120,7 +121,7 @@ function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
  * @private
  * @param {Answerable<any>} v
  */
-function isANamedFunction<T>(v: any): v is { name: string } {
+function isANamedFunction(v: any): v is { name: string } {
     return {}.toString.call(v) === '[object Function]' && (v as any).name !== '';
 }
 
@@ -132,7 +133,7 @@ function isANamedFunction<T>(v: any): v is { name: string } {
  * @private
  * @param {Answerable<any>} v
  */
-function hasCustomInspectionFunction(v: Answerable<any>): v is object {
+function hasCustomInspectionFunction(v: Answerable<any>): v is object { // eslint-disable-line @typescript-eslint/ban-types
     return v && v[Symbol.for('nodejs.util.inspect.custom')];
 }
 
@@ -143,7 +144,7 @@ function hasCustomInspectionFunction(v: Answerable<any>): v is object {
  * @private
  * @param {Answerable<any>} v
  */
-function isPlainObject(v: Answerable<any>): v is object {
+function isPlainObject(v: Answerable<any>): v is object {   // eslint-disable-line @typescript-eslint/ban-types
 
     // Basic check for Type object that's not null
     if (typeof v === 'object' && v !== null) {
@@ -170,12 +171,12 @@ function isPlainObject(v: Answerable<any>): v is object {
  * @private
  * @param {Answerable<any>} v
  */
-function isSerialisableAsJSON<T>(v: any): v is object {
+function isSerialisableAsJSON(v: any): v is object {    // eslint-disable-line @typescript-eslint/ban-types
     try {
         JSON.stringify(v);
 
         return true;
-    } catch (e) {
+    } catch {
         return false;
     }
 }
@@ -184,25 +185,25 @@ function isSerialisableAsJSON<T>(v: any): v is object {
  * https://davidwalsh.name/detect-native-function
  * @param {any} v
  */
-function isNative(v: any): v is Function {      // tslint:disable-line:ban-types
+function isNative(v: any): v is Function {  // eslint-disable-line @typescript-eslint/ban-types
 
     const
-        toString        = Object.prototype.toString,       // Used to resolve the internal `[[Class]]` of values
-        fnToString      = Function.prototype.toString,   // Used to resolve the decompiled source of functions
-        hostConstructor = /^\[object .+?Constructor\]$/; // Used to detect host constructors (Safari > 4; really typed array specific)
+        toString        = Object.prototype.toString,    // Used to resolve the internal `[[Class]]` of values
+        fnToString      = Function.prototype.toString,  // Used to resolve the decompiled source of functions
+        hostConstructor = /^\[object .+?Constructor]$/; // Used to detect host constructors (Safari > 4; really typed array specific)
 
     // Compile a regexp using a common native method as a template.
     // We chose `Object#toString` because there's a good chance it is not being mucked with.
-    const nativeFnTemplate = RegExp(
+    const nativeFunctionTemplate = new RegExp(
         '^' +
         // Coerce `Object#toString` to a string
         String(toString)
         // Escape any special regexp characters
-            .replace(/[.*+?^${}()|[\]\/\\]/g, '\\$&')
+            .replace(/[$()*+./?[\\\]^{|}]/g , '\\$&')
             // Replace mentions of `toString` with `.*?` to keep the template generic.
             // Replace thing like `for ...` to support environments like Rhino which add extra info
             // such as method arity.
-            .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') +
+            .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\])/g, '$1.*?') +
         '$',
     );
 
@@ -210,7 +211,7 @@ function isNative(v: any): v is Function {      // tslint:disable-line:ban-types
     return type === 'function'
         // Use `Function#toString` to bypass the value's own `toString` method
         // and avoid being faked out.
-        ? nativeFnTemplate.test(fnToString.call(v))
+        ? nativeFunctionTemplate.test(fnToString.call(v))
         // Fallback to a host object check because some environments will represent
         // things like typed arrays as DOM methods which may not conform to the
         // normal native pattern.

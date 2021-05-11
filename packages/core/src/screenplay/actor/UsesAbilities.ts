@@ -1,6 +1,5 @@
 import { Ability } from '../Ability';
 import { AbilityType } from '../AbilityType';
-import { Activity } from '../Activity';
 
 /**
  * @desc

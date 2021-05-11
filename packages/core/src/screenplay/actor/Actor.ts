@@ -135,8 +135,10 @@ export class Actor implements
      *
      * @param {Artifact} artifact
      * @param {?(string | Name)} name
+     *
+     * @returns {void}
      */
-    collect(artifact: Artifact, name?: string | Name) {
+    collect(artifact: Artifact, name?: string | Name): void {
         this.stage.announce(new ActivityRelatedArtifactGenerated(
             this.stage.currentSceneId(),
             this.stage.currentActivityId(),
@@ -155,7 +157,8 @@ export class Actor implements
      */
     dismiss(): Promise<void> {
         return this.findAbilitiesOfType<Discardable>('discard')
-            .reduce((previous: Promise<void>, ability: (Discardable & Ability)) =>
+            .reduce(
+                (previous: Promise<void>, ability: (Discardable & Ability)) =>
                     previous.then(() => ability.discard()),
                 Promise.resolve(void 0),
             ) as Promise<void>;
@@ -167,7 +170,7 @@ export class Actor implements
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         const abilities = Array.from(this.abilities.keys()).map(type => type.name);
 
         return `Actor(name=${ this.name }, abilities=[${ abilities.join(', ') }])`;
@@ -179,7 +182,8 @@ export class Actor implements
     private initialiseAbilities(): Promise<void> {
         return this.findAbilitiesOfType<Initialisable>('initialise', 'isInitialised')
             .filter(ability => ! ability.isInitialised())
-            .reduce((previous: Promise<void>, ability: (Initialisable & Ability)) =>
+            .reduce(
+                (previous: Promise<void>, ability: (Initialisable & Ability)) =>
                     previous
                         .then(() => ability.initialise())
                         .catch(error => {
@@ -209,7 +213,7 @@ export class Actor implements
      * @private
      */
     private findAbilityTo<T extends Ability>(doSomething: AbilityType<T>): T | undefined {
-        for (const [abilityType, ability] of this.abilities) {
+        for (const [abilityType_, ability] of this.abilities) {
             if (ability instanceof doSomething) {
                 return ability as T;
             }

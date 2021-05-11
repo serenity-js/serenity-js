@@ -2,6 +2,8 @@ import { ErrorStackParser } from '@serenity-js/core/lib/io';
 
 const parser = new ErrorStackParser();
 
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/ban-types */
+
 /**
  * @desc
  *  Monkey-patches Jasmine domain model constructors so that they
@@ -37,6 +39,8 @@ export function monkeyPatched(
     return result;
 }
 
+// eslint-enable
+
 /**
  * @desc
  *  Retrieves the file system location of the caller function.
@@ -44,11 +48,11 @@ export function monkeyPatched(
  * @package
  */
 function callerLocation() {
-    const callers = parser.parse(new Error())
+    const found = parser.parse(new Error('fake error'))
         .filter(frame => ! /(node_modules)/.test(frame.fileName))
-        .filter(frame => /^(Suite|Object)/.test(frame.functionName));
+        .find(frame => /^(Suite|Object)/.test(frame.functionName));
 
-    const caller = callers[0] || { fileName: 'unknown', lineNumber: 0, columnNumber: 0 };
+    const caller = found || { fileName: 'unknown', lineNumber: 0, columnNumber: 0 };
 
     return {
         path: caller.fileName,

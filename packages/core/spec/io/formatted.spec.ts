@@ -1,6 +1,8 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
+
 import { given } from 'mocha-testdata';
-import * as util from 'util';
+import * as util from 'util';   // eslint-disable-line unicorn/import-style
 
 import { formatted } from '../../src/io';
 import { Question } from '../../src/screenplay';

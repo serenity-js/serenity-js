@@ -8,7 +8,7 @@
  * @param {Array<string>} placeholders
  * @returns {string}
  */
-export function trimmed(templates: TemplateStringsArray, ...placeholders: string[]) {
+export function trimmed(templates: TemplateStringsArray, ...placeholders: string[]): string {
 
     const lines = templates
         .map((template, i) => i < placeholders.length

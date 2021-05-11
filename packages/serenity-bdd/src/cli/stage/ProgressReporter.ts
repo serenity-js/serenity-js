@@ -1,6 +1,7 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
 import { ArtifactGenerated, DomainEvent } from '@serenity-js/core/lib/events';
 import * as ProgressBar from 'progress';
+
 import { DownloadProgressReport } from '../model';
 import { Printer } from '../Printer';
 
@@ -13,8 +14,8 @@ import { Printer } from '../Printer';
 export class ProgressReporter implements StageCrewMember {
     constructor(
         private readonly printer: Printer,
-        private readonly stage: Stage = null,
-        private progressBar: ProgressBar = null,
+        private readonly stage?: Stage,
+        private progressBar?: ProgressBar,
     ) {
     }
 

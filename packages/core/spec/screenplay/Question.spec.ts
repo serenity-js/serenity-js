@@ -1,10 +1,11 @@
+/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null */
 import 'mocha';
+
 import { given } from 'mocha-testdata';
 
-import { actorCalled, AnswersQuestions } from '../../src';
+import { actorCalled } from '../../src';
 import { Mappable } from '../../src/io';
 import { Actor, Question, replace, toNumber, trim } from '../../src/screenplay';
-
 import { expect } from '../expect';
 
 /** @test {Question} */

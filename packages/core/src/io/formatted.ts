@@ -11,13 +11,18 @@ import { inspected } from './inspected';
  * @param {Array<Answerable<any>>} placeholders
  * @returns {string}
  */
-export function formatted(templates: TemplateStringsArray, ...placeholders: Array<Answerable<any>>) {
-    const compacted = (multiline: string) => multiline.replace(/\r?\n/g, ' ').replace(/\s+/g, ' ');
-
+export function formatted(templates: TemplateStringsArray, ...placeholders: Array<Answerable<any>>): string {
     return templates
         .map((template, i) => i < placeholders.length
             ? [ template, compacted(inspected(placeholders[i])) ]
             : [ template ])
         .reduce((acc, tuple) => acc.concat(tuple))
         .join('');
+}
+
+/** @private */
+function compacted(multiline: string) {
+    return multiline
+        .replace(/\r?\n/g, ' ')
+        .replace(/\s+/g, ' ');
 }

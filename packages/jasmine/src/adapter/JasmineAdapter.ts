@@ -1,7 +1,8 @@
 import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';
 import reporter = require('../index');
-import { JasmineConfig } from './JasmineConfig';
 import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
+
+import { JasmineConfig } from './JasmineConfig';
 
 /**
  * @desc
@@ -37,7 +38,7 @@ export class JasmineAdapter implements TestRunnerAdapter {
      * @returns {Promise<void>}
      */
     run(pathsToScenarios: string[]): Promise<void> {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             const
                 JasmineRunner   = this.loader.require('jasmine'),
                 runner          = new JasmineRunner({           // instantiating the JasmineRunner has a side-effect...
@@ -51,7 +52,6 @@ export class JasmineAdapter implements TestRunnerAdapter {
 
             runner.clearReporters();
 
-            // tslint:disable-next-line:prefer-object-spread
             runner.loadConfig(Object.assign(
                 {
                     /*

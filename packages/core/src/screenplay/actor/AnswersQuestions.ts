@@ -1,5 +1,4 @@
 import { Answerable } from '../Answerable';
-import { Question } from '../Question';
 
 /**
  * @desc

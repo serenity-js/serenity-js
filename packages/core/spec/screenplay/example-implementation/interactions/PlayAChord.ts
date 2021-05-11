@@ -3,7 +3,7 @@ import { PlayAGuitar } from '../abilities';
 import { Chord } from '../Chord';
 
 export class PlayAChord extends Interaction {
-    static of(chord: Chord) {
+    static of(chord: Chord): PlayAChord {
         return new PlayAChord(chord);
     }
 
@@ -15,5 +15,7 @@ export class PlayAChord extends Interaction {
         return PlayAGuitar.as(actor).play(this.chord);
     }
 
-    toString = () => `#actor plays the chord of ${ this.chord.name }`;
+    toString(): string {
+        return `#actor plays the chord of ${ this.chord.name }`;
+    }
 }

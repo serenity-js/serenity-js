@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
@@ -9,8 +10,8 @@ import {
     SceneTagged,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-
 import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
+
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', () => {
@@ -25,10 +26,10 @@ describe('CucumberMessagesListener', () => {
                 './examples/features/passing_scenario.feature',
             )
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(1);
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('A passing scenario')))
                     .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('A passing feature')))
@@ -36,29 +37,29 @@ describe('CucumberMessagesListener', () => {
                     .next(ActivityFinished, event => {
                         expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
 
-                        const err = (event.outcome as ExecutionFailedWithError).error;
+                        const error = (event.outcome as ExecutionFailedWithError).error;
 
-                        const lines = err.message.split('\n');
+                        const lines = error.message.split('\n');
 
                         expect(lines[0]).to.equal('Multiple step definitions match:');
-                        expect(lines[1]).to.contain('/^.*step (?:.*) passes$/');
+                        expect(lines[1]).to.contain('/^.*step .* passes$/');
                         expect(lines[1]).to.contain('ambiguous.steps.ts');
-                        expect(lines[2]).to.contain('/^.*step (?:.*) passes$/');
+                        expect(lines[2]).to.contain('/^.*step .* passes$/');
                         expect(lines[2]).to.contain('ambiguous.steps.ts');
                     })
                     .next(SceneFinishes, event => {
                         expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
 
-                        const err = (event.outcome as ExecutionFailedWithError).error;
+                        const error = (event.outcome as ExecutionFailedWithError).error;
 
-                        expect(err.message).to.match(/^Multiple step definitions match/);
+                        expect(error.message).to.match(/^Multiple step definitions match/);
                     })
                     .next(SceneFinished, event => {
                         expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
 
-                        const err = (event.outcome as ExecutionFailedWithError).error;
+                        const error = (event.outcome as ExecutionFailedWithError).error;
 
-                        expect(err.message).to.match(/^Multiple step definitions match/);
+                        expect(error.message).to.match(/^Multiple step definitions match/);
                     })
                 ;
             }));

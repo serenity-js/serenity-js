@@ -1,4 +1,6 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import { ensure, isDefined, isNotBlank, isString } from 'tiny-types';
+
 import { AnswersQuestions } from '../../../actor';
 import { AnswerMappingFunction } from '../AnswerMappingFunction';
 

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
@@ -96,7 +97,7 @@ describe('SerenityBDDReporter', () => {
         const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
 
         expect(report.name).to.equal(name.value);
-        expect(report.dataTable).to.exist;  // tslint:disable-line:no-unused-expression
+        expect(report.dataTable).to.exist;
         expect(report.dataTable.scenarioOutline).to.equal(template.value);
         expect(report.dataTable.headers).to.deep.equal([
             'Developer',

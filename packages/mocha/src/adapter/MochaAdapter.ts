@@ -1,9 +1,10 @@
 /* istanbul ignore file */
-import * as fs from 'fs';
-import * as path from 'path';
 import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';
-import { MochaConfig } from './MochaConfig';
 import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
+import * as fs from 'fs';
+import * as path from 'path';   // eslint-disable-line unicorn/import-style
+
+import { MochaConfig } from './MochaConfig';
 
 /**
  * @desc
@@ -61,7 +62,7 @@ export class MochaAdapter implements TestRunnerAdapter {
     }
 
     private requireAny(filesOrModules: string | string[]) {
-        const requires = !! filesOrModules
+        const requires = filesOrModules
             ? [].concat(filesOrModules).filter(item => !! item)
             : [];
 

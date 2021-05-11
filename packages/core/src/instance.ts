@@ -21,8 +21,8 @@ export const serenity = new Serenity(clock);
  *
  * @see {@link Serenity#configure}
  */
-export function configure(config: SerenityConfig) {
-    return serenity.configure(config);
+export function configure(config: SerenityConfig): void {
+    serenity.configure(config);
 }
 
 /**
@@ -78,8 +78,8 @@ export function configure(config: SerenityConfig) {
  *
  * @see {@link Serenity#engage}
  */
-export function engage(actors: Cast) {
-    return serenity.engage(actors);
+export function engage(actors: Cast): void {
+    serenity.engage(actors);
 }
 
 /**

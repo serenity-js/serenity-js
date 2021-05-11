@@ -11,7 +11,7 @@ import { Printer } from '../Printer';
 import { DownloadArtifact, FileExists, Notify } from '../screenplay';
 import { NotificationReporter, ProgressReporter, UpdateCommandActors } from '../stage';
 
-const yargs = require('yargs'); // tslint:disable-line:no-var-requires
+const yargs = require('yargs'); // eslint-disable-line @typescript-eslint/no-var-requires
 
 export = {
     command: 'update',
@@ -38,7 +38,7 @@ export = {
             describe: `The GAV identifier of the Serenity BDD CLI artifact to use; You're best off with the default option unless you want to experiment.`,
         },
     },
-    handler: (argv: Argv) => {
+    handler: (argv: Argv): Promise<void> => {
 
         const
             printer         = new Printer(process.stdout, process.stderr),
@@ -57,7 +57,8 @@ export = {
             ],
         });
 
-        return Promise.resolve().then(() =>
+        return Promise.resolve()
+            .then(() =>
                 actorCalled('Serenity/JS Updater').attemptsTo(
                     Check.whether(FileExists.at(pathToArtifact), isTrue())
                         .andIfSo(

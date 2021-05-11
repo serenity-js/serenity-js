@@ -8,15 +8,13 @@ import { DomainEvent } from './DomainEvent';
  * @extends {DomainEvent}
  */
 export class TestRunStarts extends DomainEvent {
-    static fromJSON(v: string) {
+    static fromJSON(v: string): TestRunStarts {
         return new TestRunStarts(
             Timestamp.fromJSON(v as string),
         );
     }
 
-    constructor(
-        timestamp?: Timestamp,
-    ) {
+    constructor(timestamp?: Timestamp) {
         super(timestamp);
     }
 }

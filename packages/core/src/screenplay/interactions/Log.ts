@@ -31,7 +31,7 @@ export class Log extends Interaction {
      *  The items to be logged
      * @returns {Interaction}
      */
-    static the(...items: Array<Answerable<any>>) {
+    static the(...items: Array<Answerable<any>>): Interaction {
         return new Log(items);
     }
 
@@ -59,9 +59,8 @@ export class Log extends Interaction {
      * @see {@link CollectsArtifacts}
      */
     performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
-        return Promise.all(
-                this.items.map(item => actor.answer(item)),
-            )
+        return Promise
+            .all(this.items.map(item => actor.answer(item)))
             .then(items =>
                 items.forEach((item, i) =>
                     actor.collect(LogEntry.fromJSON({ data: inspected(item) }), new Name(inspected(this.items[i]))),
@@ -75,7 +74,7 @@ export class Log extends Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return `#actor logs: ${ this.items.join(', ') }`;
     }
 }

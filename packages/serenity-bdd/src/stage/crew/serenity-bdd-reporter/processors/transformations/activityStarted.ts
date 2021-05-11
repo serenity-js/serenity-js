@@ -1,10 +1,11 @@
 import { CorrelationId, Name, Timestamp } from '@serenity-js/core/lib/model';
+
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package
  */
-export function activityStarted<Context extends SerenityBDDReportContext>(activityId: CorrelationId, name: Name, startedAt: Timestamp) {
+export function activityStarted<Context extends SerenityBDDReportContext>(activityId: CorrelationId, name: Name, startedAt: Timestamp): (context: Context) => Context {
     return (context: Context): Context => {
 
         const step = {

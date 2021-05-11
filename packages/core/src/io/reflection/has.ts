@@ -29,8 +29,9 @@ export function has<T>(api: Record<keyof T, string>): (candidate: unknown) => ca
     return (candidate: unknown): candidate is T =>
         candidate !== null
         && candidate !== undefined
-        && Object.entries(api).reduce((result, [key, type]) =>
-            result && (typeof candidate[key]) === type,
+        && Object.entries(api).reduce(
+            (result, [key, type]) =>
+                result && (typeof candidate[key]) === type,
             true,
         )
 }

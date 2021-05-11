@@ -1,14 +1,17 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
+
 import * as sinon from 'sinon';
 
-import { expect } from '../../expect';
 import { actorCalled, Check, Interaction } from '../../../src';
+import { expect } from '../../expect';
 import { isIdenticalTo } from '../../isIdenticalTo';
 
 /** @test {Check} */
 describe('Check', () => {
 
-    const Call = (fn: () => void) => Interaction.where(`#actor calls a function`, actor => fn());
+    const Call = (fn: () => void) =>
+        Interaction.where(`#actor calls a function`, actor => fn());
 
     let spy: sinon.SinonSpy;
     beforeEach(() => spy = sinon.spy());
@@ -40,7 +43,7 @@ describe('Check', () => {
                     ),
             )).to.be.fulfilled.
             then(() => {
-                expect(spy).to.not.have.been.called;    // tslint:disable-line:no-unused-expression
+                expect(spy).to.not.have.been.called;
             }),
         );
     });

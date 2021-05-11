@@ -1,9 +1,9 @@
 /**
  * @package
  */
-export function dashify(text: string) {
+export function dashify(text: string): string {
     return text
-        .replace(/[ \t\W]/g, '-')
+        .replace(/\W/g, '-')
         .replace(/^-+|-+$/g, '')
         .toLowerCase();
 }

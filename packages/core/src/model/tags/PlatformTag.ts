@@ -1,4 +1,5 @@
 import { JSONObject } from 'tiny-types';
+
 import { Tag } from './Tag';
 
 /**
@@ -7,7 +8,7 @@ import { Tag } from './Tag';
 export class PlatformTag extends Tag {
     static readonly Type = 'platform';
 
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): PlatformTag {
         return new PlatformTag(o.platformName as string, o.platformVersion as string);
     }
 
@@ -23,7 +24,7 @@ export class PlatformTag extends Tag {
         );
     }
 
-    toJSON() {
+    toJSON(): { name: string, type: string, platformName: string, platformVersion: string } {
         return {
             name: this.name,
             type: PlatformTag.Type,

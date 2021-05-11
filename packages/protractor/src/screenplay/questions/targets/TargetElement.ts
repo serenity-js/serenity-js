@@ -43,7 +43,7 @@ export class TargetElement
      *
      * @see {@link Target}
      */
-    of(parent: Question<ElementFinder> | ElementFinder) {
+    of(parent: Question<ElementFinder> | ElementFinder): TargetNestedElement {
         return new TargetNestedElement(parent, this);
     }
 

@@ -15,7 +15,7 @@ export class ProtractorReporter implements StageCrewMember {
         private readonly runner: Runner,
         private readonly successThreshold: Outcome | { Code: number } = ExecutionSkipped,
         private readonly reported: ProtractorReport = { failedCount: 0, specResults: [] },
-        private readonly stage: Stage = null,
+        private stage?: Stage,
     ) {
     }
 

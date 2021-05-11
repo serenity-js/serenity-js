@@ -1,6 +1,6 @@
 import { actorCalled, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
-import * as path from 'path';
+import * as path from 'path';   // eslint-disable-line unicorn/import-style
 
 import { Argv } from '../Argv';
 import { defaults } from '../defaults';
@@ -10,7 +10,7 @@ import { Printer } from '../Printer';
 import { InvokeSerenityBDD, SerenityBDDArguments, SystemProperties } from '../screenplay';
 import { NotificationReporter, ProgressReporter, RunCommandActors } from '../stage';
 
-const yargs = require('yargs'); // tslint:disable-line:no-var-requires
+const yargs = require('yargs'); // eslint-disable-line @typescript-eslint/no-var-requires
 
 export = {
     command: 'run',
@@ -60,7 +60,7 @@ export = {
             describe: `A Logback log level to pass to the Serenity BDD CLI jar`,
         },
     },
-    handler: (argv: Argv) => {
+    handler: (argv: Argv): Promise<void> => {
 
         const
             printer         = new Printer(process.stdout, process.stderr),
@@ -76,7 +76,8 @@ export = {
             ],
         });
 
-        return Promise.resolve().then(() =>
+        return Promise.resolve()
+            .then(() =>
                 actorCalled('Serenity/JS Updater').attemptsTo(
                     InvokeSerenityBDD.at(pathToArtifact)
                         .withProperties(SystemProperties.of({

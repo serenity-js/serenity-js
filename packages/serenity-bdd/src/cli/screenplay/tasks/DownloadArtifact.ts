@@ -2,6 +2,7 @@ import { AnswersQuestions, PerformsActivities, Task, UsesAbilities } from '@sere
 import { Path } from '@serenity-js/core/lib/io';
 import { GetRequest } from '@serenity-js/rest';
 import { URL } from 'url';
+
 import { GAV } from '../../model';
 import { CreateDirectory, Notify, StreamResponse } from '../interactions';
 import { RenameFile } from '../interactions/RenameFile';
@@ -11,7 +12,7 @@ import { VerifyChecksum } from './VerifyChecksum';
  * @package
  */
 export class DownloadArtifact extends Task {
-    static identifiedBy(artifactIdentifier: GAV) {
+    static identifiedBy(artifactIdentifier: GAV) {  // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         return {
             availableFrom: (repository: URL) => ({
                 to: (destinationDirectory: Path) => new DownloadArtifact(artifactIdentifier, repository, destinationDirectory),
@@ -42,8 +43,8 @@ export class DownloadArtifact extends Task {
      */
     performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): PromiseLike<void> | PromiseLike<any> {
         const
-            tempFileName        = new Path(`${ this.gav.toPath().value }.download`),
-            pathToTempFile      = this.destinationDirectory.join(tempFileName),
+            tempFileName        = new Path(`${ this.gav.toPath().value }.download`),    // eslint-disable-line unicorn/prevent-abbreviations
+            pathToTempFile      = this.destinationDirectory.join(tempFileName),         // eslint-disable-line unicorn/prevent-abbreviations
             pathToFinishedFile  = this.destinationDirectory.join(this.gav.toPath());
 
         return actor.attemptsTo(

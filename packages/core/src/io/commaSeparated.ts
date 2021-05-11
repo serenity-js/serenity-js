@@ -11,7 +11,7 @@
 export function commaSeparated(
     list: Array<string | { toString: () => string }>,
     map = item => `${ item }`.trim(),
-    acc: string = '',
+    acc = '',
 ): string {
     switch (list.length) {
         case 0:     return acc;

@@ -27,7 +27,7 @@ export class Printer {
      *
      * @returns {void}
      */
-    println(...args: any[]) {
+    println(...args: any[]): void {
         return this.print(...args, '\n');
     }
 
@@ -40,7 +40,7 @@ export class Printer {
      *
      * @returns {void}
      */
-    print(...args: any[]) {
+    print(...args: any[]): void {
         this.stdout.write(
             this.indentation.indented(`${ args.map(String).join('') }`),
         );
@@ -52,7 +52,7 @@ export class Printer {
      *
      * @returns {void}
      */
-    indent() {
+    indent(): void {
         this.indentation.increase();
     }
 
@@ -62,7 +62,7 @@ export class Printer {
      *
      * @returns {void}
      */
-    outdent() {
+    outdent(): void {
         this.indentation.decrease();
     }
 }
@@ -89,7 +89,10 @@ class Indentation {
     indented(...fragments: string[]) {
         return fragments.join('')
             .split('\n')
-            .map(line => !! line ? ' '.repeat(this.current) + line : '')
+            .map(line => line
+                ? ' '.repeat(this.current) + line
+                : ''
+            )
             .join('\n');
     }
 }

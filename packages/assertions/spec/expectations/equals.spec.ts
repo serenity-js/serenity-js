@@ -4,6 +4,7 @@ import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { TinyTypeOf } from 'tiny-types';
+
 import { Ensure, equals } from '../../src';
 
 /** @test {equals} */
@@ -17,7 +18,7 @@ describe('equals', () => {
         { description: 'boolean',   expected: false,            actual: false               },
         { description: 'object',    expected: { k: 'v' },       actual: { k: 'v' }          },
         { description: 'TinyType',  expected: new Name('Jan'),  actual: new Name('Jan')     },
-        { description: 'array',     expected: [ null, 2, '3' ], actual: [ null, 2, '3' ]    },
+        { description: 'array',     expected: [ null, 2, '3' ], actual: [ null, 2, '3' ]    },      // eslint-disable-line unicorn/no-null
         { description: 'Date',      expected: new Date('Jan 27, 2019'), actual: new Date('Jan 27, 2019') },
     ]).
     it('compares the value of "actual" and "expected" and allows for the actor flow to continue when they match', ({ actual, expected }) => {

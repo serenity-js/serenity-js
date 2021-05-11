@@ -8,6 +8,7 @@ import {
     Outcome,
 } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
+
 import { ErrorDetails } from '../../SerenityBDDJsonSchema';
 import { errorReportFrom } from './errorReportFrom';
 

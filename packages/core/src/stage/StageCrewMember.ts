@@ -1,7 +1,5 @@
-import { DomainEvent } from '../events';
 import { ListensToDomainEvents } from './ListensToDomainEvents';
 import { Stage } from './Stage';
-import { StageManager } from './StageManager';
 
 /**
  * @desc

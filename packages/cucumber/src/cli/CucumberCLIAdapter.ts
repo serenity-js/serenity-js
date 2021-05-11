@@ -1,6 +1,8 @@
+/* eslint-disable unicorn/filename-case */
 /* istanbul ignore file covered in integration tests */
 import { ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
+
 import { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';
 import { OutputDescriptor, SerenityFormatterOutput } from './output';
@@ -142,7 +144,7 @@ function cleanUpAndReThrow(output: OutputDescriptor): (error: Error) => Promise<
         return output.cleanUp()
             .then(() => {
                 throw error;
-            }, ignored => {
+            }, ignoredError => {
                 throw error;
             });
     }

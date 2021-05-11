@@ -91,7 +91,7 @@ class DynamicallyGeneratedTask extends Task {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return this.description;
     }
 }
@@ -127,7 +127,7 @@ class NotImplementedTask extends Task {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return this.description;
     }
 }

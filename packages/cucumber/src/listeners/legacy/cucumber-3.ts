@@ -1,6 +1,7 @@
 import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter';
 import { Dependencies } from './Dependencies';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export = function (dependencies: Dependencies) {
 
     dependencies.cucumber.defineSupportCode(({ BeforeAll, After, AfterAll }) => {

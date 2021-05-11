@@ -1,8 +1,8 @@
+/* eslint-disable unicorn/filename-case */
 import 'mocha';
-import * as sinon from 'sinon';
 
 import { expect } from '@integration/testing-tools';
-import { AssertionError, ImplementationPendingError, Stage, StageManager, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, ImplementationPendingError, StageManager, TestCompromisedError } from '@serenity-js/core';
 import { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
@@ -22,6 +22,7 @@ import {
     TestReport,
     Timestamp,
 } from '@serenity-js/core/lib/model';
+import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../src/stage';
 import { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
@@ -63,15 +64,13 @@ describe('SerenityBDDReporter', () => {
         ),
     );
 
-    let stage: Stage,
-        stageManager: sinon.SinonStubbedInstance<StageManager>,
+    let stageManager: sinon.SinonStubbedInstance<StageManager>,
         reporter: SerenityBDDReporter;
 
     beforeEach(() => {
         const env = create();
 
         stageManager    = env.stageManager;
-        stage           = env.stage;
         reporter        = env.reporter;
     });
 
@@ -380,14 +379,14 @@ describe('SerenityBDDReporter', () => {
              * @test {ExecutionCompromised}
              */
             it('has been compromised', () => {
-                const dbError = new Error(`Could not connect to the database`);
-                dbError.stack = [
+                const databaseError = new Error(`Could not connect to the database`);
+                databaseError.stack = [
                     'Error: Could not connect to the database',
                     '    at callFn (/fake/path/node_modules/db-module/index.js:56:78)',
                     // and so on
                 ].join('\n');
 
-                const error = new TestCompromisedError(`Test database not deployed, no point running the test`, dbError);
+                const error = new TestCompromisedError(`Test database not deployed, no point running the test`, databaseError);
                 error.stack = [
                     'TestCompromisedError: Test database not deployed, no point running the test',
                     '    at callFn (/fake/path/my-test/index.js:12:34)',

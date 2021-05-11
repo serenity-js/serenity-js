@@ -1,3 +1,6 @@
+/* eslint-disable unicorn/filename-case */
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
 import {
@@ -11,7 +14,6 @@ import {
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { BusinessRule, Category, CorrelationId, Description, ExecutionSuccessful, Name, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
-import 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src';

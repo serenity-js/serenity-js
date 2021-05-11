@@ -6,10 +6,10 @@ import Table = require('cli-table3');
  */
 export class TestStepFormatter {
 
-    public format(keyword: string, text: string = '', argument?: {
+    public format(keyword: string, text = '', argument?: {
         docString?: messages.GherkinDocument.Feature.Step.IDocString,
         dataTable?: messages.GherkinDocument.Feature.Step.IDataTable,
-    }) {
+    }): string {
         return [
             keyword,
             text,

@@ -1,16 +1,17 @@
 import { ensure, isDefined, isGreaterThan, isString, JSONObject, property, TinyType } from 'tiny-types';
+
 import * as TagTypes from './index';
 
 /**
  * @access public
  */
 export abstract class Tag extends TinyType {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): Tag {
         const type: string = ensure('serialised tag type', o.type, isDefined(), isString()) as string;
 
         const found = Object.keys(TagTypes).find(t => TagTypes[t].Type === type) || TagTypes.ArbitraryTag.name;
 
-        if (TagTypes[found].hasOwnProperty('fromJSON')) {
+        if (Object.prototype.hasOwnProperty.call(TagTypes[found], 'fromJSON')) {
             return TagTypes[found].fromJSON(o);
         }
 

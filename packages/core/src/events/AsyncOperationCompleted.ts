@@ -1,9 +1,10 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
+
 import { CorrelationId, Description, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class AsyncOperationCompleted extends DomainEvent {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): AsyncOperationCompleted {
         return new AsyncOperationCompleted(
             Description.fromJSON(o.taskDescription as string),
             CorrelationId.fromJSON(o.correlationId as string),

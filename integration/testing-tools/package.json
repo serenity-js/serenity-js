@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js",
     "compile": "tsc --project tsconfig.json"
   },
   "repository": {

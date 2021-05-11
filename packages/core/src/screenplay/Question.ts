@@ -92,7 +92,7 @@ export abstract class Question<T> {
      *
      * @returns {boolean}
      */
-    static isAQuestion<T>(maybeQuestion: any): maybeQuestion is Question<T> {
+    static isAQuestion<T>(maybeQuestion: unknown): maybeQuestion is Question<T> {
         return !! maybeQuestion && !! (maybeQuestion as any).answeredBy;
     }
 
@@ -102,7 +102,7 @@ export abstract class Question<T> {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return this.subject;
     }
 
@@ -213,10 +213,10 @@ type AnswerOrItemOfMappableCollection<V> =
  */
 type Mapped<T, O> =
     T extends PromiseLike<infer PromisedValue>
-        ? PromisedValue extends Mappable<infer Item>
+        ? PromisedValue extends Mappable<infer Item>        // eslint-disable-line @typescript-eslint/no-unused-vars
             ? O[]
             : O
-        : T extends Mappable<infer Item>
+        : T extends Mappable<infer Item>                    // eslint-disable-line @typescript-eslint/no-unused-vars
             ? O[]
             : O
 

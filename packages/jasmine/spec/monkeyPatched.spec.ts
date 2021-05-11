@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { TestCompromisedError } from '@serenity-js/core';
 import * as sinon from 'sinon';
@@ -81,7 +83,7 @@ describe('@serenity-js/jasmine', () => {
 
                 serenityReporterForJasmine(jasmine);
 
-                const spec = new jasmine.Spec(attrs);
+                const spec_ = new jasmine.Spec(attrs);
 
                 const result = attrs.expectationResultFactory({ passing: false, error });
 
@@ -113,7 +115,7 @@ describe('@serenity-js/jasmine', () => {
 
                 serenityReporterForJasmine(jasmine);
 
-                const suite = new jasmine.Suite(attrs);
+                const suite_ = new jasmine.Suite(attrs);
 
                 const result = attrs.expectationResultFactory({ passing: false, error });
 

@@ -65,7 +65,7 @@ export class Photographer implements StageCrewMember {
      */
     constructor(
         private readonly photoTakingStrategy: PhotoTakingStrategy,
-        private readonly stage: Stage = null,
+        private stage?: Stage,
     ) {
     }
 

@@ -1,4 +1,3 @@
-
 /**
  * @desc
  *  An Ability enables the {@link Actor} to interact with an external interface of the system under test.
@@ -97,5 +96,5 @@
  *
  * @access public
  */
-export interface Ability {  // tslint:disable-line:no-empty-interface
+export interface Ability {  // eslint-disable-line @typescript-eslint/no-empty-interface
 }

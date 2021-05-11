@@ -21,8 +21,8 @@ export class ElementFinderExpectation extends Expectation<any, ElementFinder> {
 
         return (actual: ElementFinder) =>
             promiseOf(this.fn(actual)).then(_ => _
-                ? new ExpectationMet(this.toString(), null, actual)
-                : new ExpectationNotMet(this.toString(), null, actual),
+                ? new ExpectationMet(this.toString(), undefined, actual)
+                : new ExpectationNotMet(this.toString(), undefined, actual),
             );
     }
 }

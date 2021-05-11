@@ -3,8 +3,15 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { withAnswerOf } from '../withAnswerOf';
 
+// todo: it might be better to swap the order of arguments
+//  - Attribute.called('href').of(link) to make it work with ArrayListFilter
+
 export class Attribute extends Question<Promise<string>> {
-    static of(target: Question<ElementFinder> | ElementFinder) {
+    /**
+     * @param {Question<ElementFinder> | ElementFinder} target
+     * @returns {AttributeBuilder}
+     */
+    static of(target: Question<ElementFinder> | ElementFinder): AttributeBuilder {
         return {
             called: (name: Answerable<string>) => new Attribute(target, name),
         };
@@ -33,4 +40,8 @@ export class Attribute extends Question<Promise<string>> {
         return actor.answer(this.name)
             .then(name => withAnswerOf(actor, this.target, elf => elf.getAttribute(name)));
     }
+}
+
+interface AttributeBuilder {
+    called(name: Answerable<string>): Attribute;
 }

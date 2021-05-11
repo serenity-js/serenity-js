@@ -3,7 +3,7 @@ import { Answerable, AnswersQuestions, Interaction } from '../../../src/screenpl
 export class Spy extends Interaction {
     private static callArgs: any[][] = [];
 
-    static on(...answerables: Array<Answerable<any>>) {
+    static on(...answerables: Array<Answerable<any>>): Spy {
         return new Spy(answerables);
     }
 

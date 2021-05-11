@@ -1,6 +1,6 @@
 import { AnswersQuestions, UsesAbilities } from '../../actor';
-import { MetaQuestion } from '../MetaQuestion';
 import { Expectation } from '../Expectation';
+import { MetaQuestion } from '../MetaQuestion';
 
 /**
  * @desc

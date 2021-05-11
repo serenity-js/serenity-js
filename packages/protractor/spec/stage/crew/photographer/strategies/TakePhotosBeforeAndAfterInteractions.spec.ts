@@ -146,17 +146,17 @@ describe('Photographer', function () {
                         expect(event.artifact, events).to.be.instanceof(Photo);
                     });
             })));
-
-        function stringified(events: DomainEvent[]): string {
-            return JSON.stringify(events.map(event => event.toJSON()), null, 4);
-        }
-
-        function withCorrelationIdOf(cid: CorrelationId) {
-            return (event: DomainEvent) => {
-                const activityId = (event as ActivityRelatedArtifactGenerated | ActivityStarts | ActivityFinished).activityId;
-
-                return activityId && cid.equals(activityId);
-            };
-        }
     });
 });
+
+function stringified(events: DomainEvent[]): string {
+    return JSON.stringify(events.map(event => event.toJSON()), undefined, 4);
+}
+
+function withCorrelationIdOf(cid: CorrelationId) {
+    return (event: DomainEvent) => {
+        const activityId = (event as ActivityRelatedArtifactGenerated | ActivityStarts | ActivityFinished).activityId;
+
+        return activityId && cid.equals(activityId);
+    };
+}

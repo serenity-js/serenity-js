@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
@@ -191,7 +192,7 @@ describe('SerenityBDDReporter', () => {
                     new TaskFinished(sceneId, activityIds[0], pickACard, new ExecutionSuccessful()),
                     new TaskStarts(sceneId, activityIds[1], makePayment),
                         new ActivityRelatedArtifactGenerated(sceneId, activityIds[1], new Name('make a payment message'), JSONData.fromJSON({ amount: '£42' })),
-                        new ActivityRelatedArtifactArchived(sceneId, activityIds[1], new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json')),   // tslint:disable-line:max-line-length
+                        new ActivityRelatedArtifactArchived(sceneId, activityIds[1], new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json')),
                         new ActivityRelatedArtifactGenerated(sceneId, activityIds[1], new Name('server log'), TextData.fromJSON({ contentType: 'text/plain', data: 'received payment request' })),
                     new TaskFinished(sceneId, activityIds[1], makePayment, new ExecutionSuccessful()),
                 new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
@@ -208,7 +209,7 @@ describe('SerenityBDDReporter', () => {
             expect(report.testSteps[1].number).to.equal(2);
 
             expect(report.testSteps[1].reportData[0].title).to.equal('make a payment message');
-            expect(report.testSteps[1].reportData[0].contents).to.deep.equal('{\n    \"amount\": \"£42\"\n}');
+            expect(report.testSteps[1].reportData[0].contents).to.deep.equal('{\n    "amount": "£42"\n}');
 
             expect(report.testSteps[1].reportData[1].title).to.equal('server log');
             expect(report.testSteps[1].reportData[1].contents).to.deep.equal('received payment request');

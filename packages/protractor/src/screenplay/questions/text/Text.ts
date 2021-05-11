@@ -30,7 +30,7 @@ export class Text {
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     static of(target: Question<ElementFinder> | ElementFinder):
-        Question<Promise<string>> & MetaQuestion<Question<ElementFinder> | ElementFinder, Promise<string>>
+        Question<Promise<string>> & MetaQuestion<Question<ElementFinder> | ElementFinder, Promise<string>>  // eslint-disable-line @typescript-eslint/indent
     {
         return new TextOfSingleElement(target);
     }
@@ -47,7 +47,7 @@ export class Text {
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     static ofAll(target: Question<ElementArrayFinder> | ElementArrayFinder):
-        Question<Promise<string[]>> & MetaQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>
+        Question<Promise<string[]>> & MetaQuestion<Question<ElementFinder> | ElementFinder, Promise<string[]>>  // eslint-disable-line @typescript-eslint/indent
     {
         return new TextOfMultipleElements(target);
     }

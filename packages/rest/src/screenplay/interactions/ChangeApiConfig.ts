@@ -1,5 +1,6 @@
-import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Log, LogicError, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
 import { URL } from 'url';
+
 import { CallAnApi } from '../abilities';
 
 /**
@@ -136,7 +137,7 @@ class ChangeApiConfigSetUrl extends Interaction {
             .then(newApiUrl => CallAnApi.as(actor).modifyConfig(config => config.baseURL = newApiUrl));
     }
 
-    toString() {
+    toString(): string {
         return `#actor changes API URL configuration to ${ this.newApiUrl }`;
     }
 }
@@ -161,13 +162,13 @@ class ChangeApiConfigSetPort  extends Interaction {
                     newUrl.port = `${ newPort }`;
                     config.baseURL = newUrl.toString();
                 }
-                catch (e) {
-                    throw new LogicError(`Could not change the API port`, e);
+                catch (error) {
+                    throw new LogicError(`Could not change the API port`, error);
                 }
             }));
     }
 
-    toString() {
+    toString(): string {
         return `#actor changes API port configuration to ${ this.newPort }`;
     }
 }
@@ -205,7 +206,7 @@ class ChangeApiConfigSetHeader extends Interaction {
         });
     }
 
-    toString() {
+    toString(): string {
         return `#actor changes API URL and sets header "${ this.name }" to "${ this.value }"`;
     }
 }

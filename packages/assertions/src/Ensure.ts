@@ -100,10 +100,9 @@ export class Ensure<Actual> extends Interaction {
         return Promise.all([
             actor.answer(this.actual),
             actor.answer(this.expectation),
-        ]).
-        then(([ actual, expectation ]) =>
+        ]).then(([ actual, expectation ]) =>
             expectation(actual).then(outcome =>
-                match<ExpectationOutcome<any, Actual>, void>(outcome)
+                match<ExpectationOutcome<unknown, Actual>, void>(outcome)
                     .when(ExpectationNotMet, o => {
                         actor.collect(this.artifactFrom(o.expected, o.actual), new Name(`Assertion Report`));
 
@@ -113,8 +112,8 @@ export class Ensure<Actual> extends Interaction {
                     .else(o => {
                         throw new LogicError(formatted `An Expectation should return an instance of an ExpectationOutcome, not ${ o }`);
                     }),
-                ),
-            );
+            ),
+        );
     }
 
     /**

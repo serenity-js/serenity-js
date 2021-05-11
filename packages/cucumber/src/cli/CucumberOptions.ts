@@ -1,4 +1,5 @@
 import { Version } from '@serenity-js/core/lib/io';
+
 import { CucumberConfig } from './CucumberConfig';
 
 /**
@@ -37,16 +38,13 @@ export class CucumberOptions {
             case typeof value === 'boolean':
                 return listOf(this.flagToArg(cliOption, value as boolean));
             case this.isObject(value):
-                return this.valuesToArgs(cliOption, JSON.stringify(value, null, 0));
+                return this.valuesToArgs(cliOption, JSON.stringify(value, undefined, 0));
             default:
                 return this.valuesToArgs(cliOption, listOf(value as string | string[]));
         }
     }
 
     private asBoolean<K extends keyof CucumberConfig>(key: K, defaultValue: boolean): boolean {
-        // this method will need to be smarter if it was to be public, i.e. to avoid double negatives like noStrict=false
-        const negated = (name: string) => 'no' + name.charAt(0).toUpperCase() + name.slice(1);
-
         if (typeof this.config[key] === 'boolean') {
             return this.config[key] as boolean;
         }
@@ -58,7 +56,7 @@ export class CucumberOptions {
         return defaultValue;
     }
 
-    private isObject(value: any): value is object {
+    private isObject(value: any): value is object { // eslint-disable-line @typescript-eslint/ban-types
         return typeof value === 'object'
             && Array.isArray(value) === false
             && Object.prototype.toString.call(value) === '[object Object]';
@@ -75,7 +73,7 @@ export class CucumberOptions {
      */
     private asCliOptionName(option: string): string {
         return option
-            .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
+            .replace(/([\da-z]|(?=[A-Z]))([A-Z])/g, '$1-$2')
             .toLowerCase();
     }
 
@@ -86,8 +84,6 @@ export class CucumberOptions {
     }
 
     private flagToArg(option: string, value: boolean): string {
-        const isNegated = (optionName: string) => optionName.startsWith('no-');
-
         switch (true) {
             case !! value:
                 return `--${ option }`;
@@ -103,6 +99,15 @@ export class CucumberOptions {
             .map(value => [ `--${ option }`, value])
             .reduce((acc, tuple) => acc.concat(tuple), []);
     }
+}
+
+function isNegated(optionName: string) {
+    return optionName.startsWith('no-');
+}
+
+// this method will need to be smarter if it was to be public, i.e. to avoid double negatives like noStrict=false
+function negated(name: string) {
+    return 'no' + name.charAt(0).toUpperCase() + name.slice(1);
 }
 
 function isNotEmpty(value: any): boolean {

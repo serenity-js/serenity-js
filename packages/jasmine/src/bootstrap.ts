@@ -1,4 +1,5 @@
 import { RuntimeError, serenity } from '@serenity-js/core';
+
 import { monkeyPatched } from './monkeyPatched';
 import { SerenityReporterForJasmine } from './SerenityReporterForJasmine';
 
@@ -21,13 +22,13 @@ import { SerenityReporterForJasmine } from './SerenityReporterForJasmine';
  * @param {jasmine} jasmine - the global.jasmine instance
  * @returns {SerenityReporterForJasmine}
  */
-export function bootstrap(jasmine = (global as any).jasmine) {
+export function bootstrap(jasmine = (global as any).jasmine): SerenityReporterForJasmine {
     const wrappers = {
-        expectationResultFactory: originalExpectationResultFactory => ((attrs: { passed: boolean, error: Error }) => {
-            const result = originalExpectationResultFactory(attrs);
+        expectationResultFactory: originalExpectationResultFactory => ((attributes: { passed: boolean, error: Error }) => {
+            const result = originalExpectationResultFactory(attributes);
 
-            if (! attrs.passed && attrs.error instanceof RuntimeError) {
-                result.stack = attrs.error.stack;
+            if (! attributes.passed && attributes.error instanceof RuntimeError) {
+                result.stack = attributes.error.stack;
             }
 
             return result;

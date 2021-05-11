@@ -2,6 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError, Expectation } from '@serenity-js/core';
+
 import {
     and,
     contain,
@@ -46,7 +47,11 @@ describe('not', () => {
     });
 
     it('flips the outcome of an assertion, but doesn\'t hide any errors that might have happened while making it', () => {
-        const blowsUp = () => Expectation.thatActualShould('blow up', 'expected').soThat((actual, expected) => { throw new Error('boom'); });
+        const blowsUp = () =>
+            Expectation.thatActualShould('blow up', 'expected')
+                .soThat((actual, expected) => {
+                    throw new Error('boom');
+                });
 
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', not(blowsUp())),
@@ -89,15 +94,16 @@ describe('not', () => {
 
             /** @test {not} */
             /** @test {contains} */
-            it('produces a sensible error message', () => {
-                return expect(actorCalled('Astrid').attemptsTo(
-                    Ensure.that([ 1, 2, 3 ], not(contain(2)),
-                ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain 2`)
-                    .then((error: AssertionError) => {
-                        expect(error.expected).to.equal(2);
-                        expect(error.actual).to.deep.equal([ 1, 2, 3 ]);
-                    });
-            });
+            it('produces a sensible error message', () =>
+                expect(actorCalled('Astrid').attemptsTo(
+                    Ensure.that([ 1, 2, 3 ], not(contain(2))),
+                )).
+                to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain 2`).
+                then((error: AssertionError) => {
+                    expect(error.expected).to.equal(2);
+                    expect(error.actual).to.deep.equal([ 1, 2, 3 ]);
+                })
+            );
 
             /** @test {not} */
             /** @test {contains} */
@@ -111,15 +117,16 @@ describe('not', () => {
 
             /** @test {not} */
             /** @test {containAtLeastOneItemThat} */
-            it('produces a sensible error message', () => {
-                return expect(actorCalled('Astrid').attemptsTo(
-                    Ensure.that([ 1, 2, 3 ], not(containAtLeastOneItemThat(equals(2))),
-                ))).to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2`)
-                    .then((error: AssertionError) => {
-                        expect(error.expected).to.equal(2);
-                        expect(error.actual).to.deep.equal([ 1, 2, 3 ]);
-                    });
-            });
+            it('produces a sensible error message', () =>
+                expect(actorCalled('Astrid').attemptsTo(
+                    Ensure.that([ 1, 2, 3 ], not(containAtLeastOneItemThat(equals(2)))),
+                )).
+                to.be.rejectedWith(AssertionError, `Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2`).
+                then((error: AssertionError) => {
+                    expect(error.expected).to.equal(2);
+                    expect(error.actual).to.deep.equal([ 1, 2, 3 ]);
+                })
+            );
 
             /** @test {not} */
             /** @test {containAtLeastOneItemThat} */

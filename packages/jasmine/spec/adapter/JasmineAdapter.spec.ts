@@ -1,6 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import { ModuleLoader } from '@serenity-js/core/lib/io';
 import * as sinon from 'sinon';
+
 import { JasmineAdapter } from '../../src/adapter';
 import { FakeJasmineRunner } from './FakeJasmineRunner';
 

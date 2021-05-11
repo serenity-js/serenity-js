@@ -4,7 +4,7 @@ import { CorrelationId, ScenarioDetails, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class SceneSequenceDetected extends DomainEvent {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): SceneSequenceDetected {
         return new SceneSequenceDetected(
             CorrelationId.fromJSON(o.sceneId as string),
             ScenarioDetails.fromJSON(o.details as JSONObject),

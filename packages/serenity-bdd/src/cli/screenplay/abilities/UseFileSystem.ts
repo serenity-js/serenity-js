@@ -6,7 +6,7 @@ import { ReadStream, Stats, WriteStream } from 'fs';
  * @package
  */
 export class UseFileSystem implements Ability {
-    static at(root: Path) {
+    static at(root: Path): UseFileSystem {
         return new UseFileSystem(new FileSystem(root));
     }
 
@@ -25,7 +25,7 @@ export class UseFileSystem implements Ability {
         return this.fileSystem.createWriteStreamTo(relativePathToFile);
     }
 
-    createDirectory(relativePathToDirectory: Path) {
+    createDirectory(relativePathToDirectory: Path): Promise<Path> {
         return this.fileSystem.ensureDirectoryExistsAt(relativePathToDirectory);
     }
 

@@ -7,8 +7,6 @@ const version = loader.hasAvailable('@cucumber/cucumber')
     ? loader.versionOf('@cucumber/cucumber')
     : loader.versionOf('cucumber');
 
-// tslint:disable:no-var-requires
 export = version.isAtLeast(new Version('7.0.0'))
-    ? require('./listeners/messages').createListener(serenity, loader)
-    : require('./listeners/legacy').createListener(serenity, loader)
-// tslint:enable:no-var-requires
+    ? require('./listeners/messages').createListener(serenity, loader)  // eslint-disable-line @typescript-eslint/no-var-requires
+    : require('./listeners/legacy').createListener(serenity, loader)    // eslint-disable-line @typescript-eslint/no-var-requires

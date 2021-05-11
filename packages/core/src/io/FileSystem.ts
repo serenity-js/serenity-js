@@ -1,7 +1,7 @@
-import * as nodeFS from 'fs';
-import * as nodeOS from 'os';
-import * as gracefulFS from 'graceful-fs';
 import * as cuid from 'cuid';
+import * as nodeFS from 'fs';
+import * as gracefulFS from 'graceful-fs';
+import * as nodeOS from 'os';
 import { promisify } from 'util';
 
 import { Path } from './Path';
@@ -12,11 +12,11 @@ export class FileSystem {
         private readonly root: Path,
         private readonly fs: typeof nodeFS = gracefulFS,
         private readonly os: typeof nodeOS = nodeOS,
-        private readonly directoryMode = parseInt('0777', 8) & (~process.umask()),
+        private readonly directoryMode = Number.parseInt('0777', 8) & (~process.umask()),
     ) {
     }
 
-    public store(relativeOrAbsolutePathToFile: Path, data: any, encoding?: string): Promise<Path> {
+    public store(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, encoding?: string): Promise<Path> {
         return Promise.resolve()
             .then(() => this.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory()))
             .then(() => this.write(this.root.resolve(relativeOrAbsolutePathToFile), data, encoding));
@@ -47,14 +47,15 @@ export class FileSystem {
 
         return stat(absolutePath.value)
             .then(result =>
-                    result.isFile()
-                        ? unlink(absolutePath.value)
-                        : readdir(absolutePath.value).then(entries =>
+                result.isFile()
+                    ? unlink(absolutePath.value)
+                    : readdir(absolutePath.value)
+                        .then(entries =>
                             Promise.all(entries.map(entry =>
                                 this.remove(absolutePath.join(new Path(entry)))),
                             ).then(() => rmdir(absolutePath.value)),
                         ),
-                )
+            )
             .then(() => void 0)
             .catch(error => {
                 if (error?.code === 'ENOENT') {
@@ -82,8 +83,8 @@ export class FileSystem {
                         throw new Error(`EACCES: permission denied, mkdir '${ parent.value }'`);
                     }
 
-                    const caughtErr = !! ~['EACCES', 'EPERM', 'EISDIR'].indexOf(error.code);
-                    if (! caughtErr || (caughtErr && current.equals(relativeOrAbsolutePathToDirectory))) {
+                    const caughtError = !! ~['EACCES', 'EPERM', 'EISDIR'].indexOf(error.code);
+                    if (! caughtError || (caughtError && current.equals(relativeOrAbsolutePathToDirectory))) {
                         throw error; // Throw if it's just the last created dir.
                     }
 
@@ -99,11 +100,11 @@ export class FileSystem {
         return rename(source.value, destination.value);
     }
 
-    public tempFilePath(prefix: string = '', suffix: string = '.tmp'): Path {
+    public tempFilePath(prefix = '', suffix = '.tmp'): Path {
         return Path.from(this.fs.realpathSync(this.os.tmpdir()), `${ prefix }${ cuid() }${ suffix }`);
     }
 
-    private write(path: Path, data: any, encoding?: string): Promise<Path> {
+    private write(path: Path, data: string | NodeJS.ArrayBufferView, encoding?: string): Promise<Path> {
         return new Promise((resolve, reject) => {
             this.fs.writeFile(
                 path.value,
