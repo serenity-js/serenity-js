@@ -1,9 +1,9 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { Category, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+
 import { MochaTestMapper } from '../../src/mappers';
 import { exampleTest } from '../exampleTest';
 

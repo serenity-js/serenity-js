@@ -1,4 +1,5 @@
 import 'mocha';
+
 import * as sinon from 'sinon';
 
 import { ArtifactGenerated } from '../../src/events';

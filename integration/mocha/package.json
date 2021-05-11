@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js",
     "test": "mocha --parallel --config ../../.mocharc.yml 'spec/**/*.spec.*'"
   },
   "repository": {

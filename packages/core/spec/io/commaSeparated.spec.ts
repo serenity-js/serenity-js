@@ -1,15 +1,11 @@
 import 'mocha';
+
 import { given } from 'mocha-testdata';
+
 import { commaSeparated } from '../../src/io';
-import { Question } from '../../src/screenplay';
 import { expect } from '../expect';
 
 describe('commaSeparated', () => {
-
-    const
-        p = value => Promise.resolve(value),
-        q = value => Question.about(`the meaning of life`, actor => value),
-        ts = value => ({ toString: () => value });
 
     it('returns an empty string for an empty list', () => {
         expect(commaSeparated([])).to.equal('');

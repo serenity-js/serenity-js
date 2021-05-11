@@ -17,7 +17,7 @@ class UIActors implements Cast {
     }
 }
 
-export function create(timeout: Duration = Duration.ofSeconds(1)) {
+export function create(timeout: Duration = Duration.ofSeconds(1)): { stage: Stage, recorder: EventRecorder } {
     const clock = new Clock();
 
     const

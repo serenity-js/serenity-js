@@ -17,7 +17,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf target",
-    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "protractor ./protractor.conf.js",
     "test:report": "serenity-bdd run",

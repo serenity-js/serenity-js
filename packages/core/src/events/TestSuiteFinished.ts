@@ -4,7 +4,7 @@ import { Outcome, SerialisedOutcome, TestSuiteDetails, Timestamp } from '../mode
 import { DomainEvent } from './DomainEvent';
 
 export class TestSuiteFinished extends DomainEvent {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): TestSuiteFinished {
         return new TestSuiteFinished(
             TestSuiteDetails.fromJSON(o.details as JSONObject),
             Outcome.fromJSON(o.outcome as SerialisedOutcome),

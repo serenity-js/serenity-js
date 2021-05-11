@@ -1,6 +1,6 @@
+import { OutputDescriptor } from './OutputDescriptor';
 import { SerenityFormatterOutput } from './SerenityFormatterOutput';
 import { StandardOutputDescriptor } from './StandardOutputDescriptor';
-import { OutputDescriptor } from './OutputDescriptor';
 
 /**
  * @package

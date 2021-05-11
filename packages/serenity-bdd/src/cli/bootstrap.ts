@@ -1,6 +1,6 @@
-const yargs = require('yargs');             // tslint:disable-line:no-var-requires
+const yargs = require('yargs'); // eslint-disable-line @typescript-eslint/no-var-requires
 
-const pkg = require('../../package.json');  // tslint:disable-line:no-var-requires
+const pkg = require('../../package.json');  // eslint-disable-line @typescript-eslint/no-var-requires
 
 /**
  * @desc
@@ -22,7 +22,7 @@ export type Interceptor = (error: Error, parsed: { [key: string]: string | numbe
  *
  * @package
  */
-export function bootstrap(argv: string[], interceptor?: Interceptor) {
+export function bootstrap(argv: string[], interceptor?: Interceptor): void {
     yargs()
         .version(pkg.version)
         .demand(1)

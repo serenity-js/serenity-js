@@ -1,5 +1,6 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
 import { ArtifactGenerated, DomainEvent } from '@serenity-js/core/lib/events';
+
 import { Complaint, Notification } from '../model';
 import { Printer } from '../Printer';
 
@@ -12,7 +13,7 @@ import { Printer } from '../Printer';
 export class NotificationReporter implements StageCrewMember {
     constructor(
         private readonly printer: Printer,
-        private readonly stage: Stage = null,
+        private readonly stage?: Stage,
     ) {
     }
 

@@ -1,8 +1,10 @@
+/* eslint-disable unicorn/filename-case */
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneFinished, SceneFinishes, SceneParametersDetected, SceneSequenceDetected, SceneStarts } from '@serenity-js/core/lib/events';
 import { Category, Description, Name } from '@serenity-js/core/lib/model';
+
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', () => {
@@ -17,8 +19,8 @@ describe('CucumberMessagesListener', () => {
                 './examples/features/scenario_outlines.feature',
             )
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(1);
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
 
                 const
                     expectedScenarioName = new Name('Sample outline'),
@@ -30,7 +32,7 @@ describe('CucumberMessagesListener', () => {
                     expectedExamplesName = new Name('Example results'),
                     expectedExamplesDescription = new Description('Description of the examples');
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneSequenceDetected, event => {
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { BrowseTheWeb } from '../abilities';
@@ -47,7 +48,7 @@ export class ProtractorParam<T = any>
      * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
      * @returns {ProtractorParam<R>}
      */
-    static called<R>(name: Answerable<string>) {
+    static called<R>(name: Answerable<string>): ProtractorParam {
         return new ProtractorParam<R>(name);
     }
 

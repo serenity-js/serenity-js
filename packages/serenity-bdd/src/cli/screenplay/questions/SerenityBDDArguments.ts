@@ -1,4 +1,6 @@
+/* eslint-disable unicorn/filename-case */
 import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+
 import { Argv } from '../../Argv';
 
 /**
@@ -15,7 +17,7 @@ export class SerenityBDDArguments extends Question<string[]> {
         'source',
     ];
 
-    static from(argv: Argv) {
+    static from(argv: Argv): SerenityBDDArguments {
         return new SerenityBDDArguments(argv);
     }
 

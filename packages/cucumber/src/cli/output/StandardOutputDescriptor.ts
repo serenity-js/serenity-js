@@ -9,6 +9,6 @@ export class StandardOutputDescriptor implements OutputDescriptor {
     }
 
     cleanUp(): Promise<void> {
-        return Promise.resolve(undefined);
+        return Promise.resolve();
     }
 }

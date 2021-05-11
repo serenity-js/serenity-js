@@ -1,8 +1,10 @@
+/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null,unicorn/no-useless-undefined */
 import 'mocha';
 
 import { given } from 'mocha-testdata';
+
 import { actorCalled } from '../../../../../src';
-import { trim, Question } from '../../../../../src/screenplay';
+import { Question,trim } from '../../../../../src/screenplay';
 import { expect } from '../../../../expect';
 
 /** @test {trim} */

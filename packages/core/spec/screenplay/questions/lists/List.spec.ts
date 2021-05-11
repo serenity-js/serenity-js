@@ -1,9 +1,11 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
+
 import { given } from 'mocha-testdata';
 
 import { actorCalled, Answerable, AnswersQuestions, Expectation, List, Question, UsesAbilities } from '../../../../src';
-import { expect } from '../../../expect';
 import { formatted } from '../../../../src/io';
+import { expect } from '../../../expect';
 import { isIdenticalTo } from '../../../isIdenticalTo';
 
 /** @test {List} */

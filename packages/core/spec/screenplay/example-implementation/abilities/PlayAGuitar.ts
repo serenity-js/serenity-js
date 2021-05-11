@@ -10,7 +10,7 @@ export class PlayAGuitar implements Ability {
      * @param instrument
      * @return {PlayAGuitar}
      */
-    static suchAs(instrument: Guitar) {
+    static suchAs(instrument: Guitar): PlayAGuitar {
         return new PlayAGuitar(instrument);
     }
 
@@ -39,11 +39,11 @@ export class PlayAGuitar implements Ability {
      *
      * @param chord
      */
-    play(chord: Chord): PromiseLike<void> {
+    play(chord: Chord): Promise<void> {
         return this.guitar.play(chord);
     }
 
-    availableStrings(): PromiseLike<string[]> {
+    availableStrings(): Promise<string[]> {
         return this.guitar.availableStrings();
     }
 }

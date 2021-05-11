@@ -1,4 +1,5 @@
 import 'mocha';
+
 import * as sinon from 'sinon';
 
 import { Actor, StageCrewMember } from '../../../../src';
@@ -6,7 +7,6 @@ import { ArtifactArchived, ArtifactGenerated, DomainEvent } from '../../../../sr
 import { FileSystem, Path } from '../../../../src/io';
 import { CorrelationId, Duration, JSONData, Name, TestReport } from '../../../../src/model';
 import { ArtifactArchiver, Cast, Clock, Stage, StageManager } from '../../../../src/stage';
-
 import { expect } from '../../../expect';
 import { photo } from '../samples';
 
@@ -170,8 +170,8 @@ describe('ArtifactArchiver', () => {
                 someEvent,
             );
 
-            expect(stageManager.notifyOf).to.not.have.been.called;            // tslint:disable-line:no-unused-expression
-            expect(fs.store).to.not.have.been.called;                         // tslint:disable-line:no-unused-expression
+            expect(stageManager.notifyOf).to.not.have.been.called;
+            expect(fs.store).to.not.have.been.called;
         });
     });
 

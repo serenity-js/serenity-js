@@ -56,7 +56,7 @@ export class Scroll extends Interaction {
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static to(target: Question<ElementFinder> | ElementFinder) {
+    static to(target: Question<ElementFinder> | ElementFinder): Scroll {
         return new Scroll(target);
     }
 

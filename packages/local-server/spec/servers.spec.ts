@@ -4,13 +4,15 @@ import { certificates, expect } from '@integration/testing-tools';
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { Actor, actorCalled, actorInTheSpotlight, Cast, configure, LogicError } from '@serenity-js/core';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
-
 import axios from 'axios';
 import * as https from 'https';
 import { given } from 'mocha-testdata';
-import { satisfies } from 'semver'; // tslint:disable-line:no-implicit-dependencies
+import { satisfies } from 'semver';
+
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src';
 import servers = require('./servers');
+
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 describe('ManageALocalServer', () => {
 
@@ -42,7 +44,7 @@ describe('ManageALocalServer', () => {
                 Send.a(GetRequest.to(LocalServer.url())),
                 Ensure.that(LastResponse.status(), equals(200)),
                 Ensure.that(LastResponse.body<string>(), equals('Hello World!')),
-            )).to.be.fulfilled; // tslint:disable-line:no-unused-expression
+            )).to.be.fulfilled;
         });
 
         given(servers).
@@ -117,7 +119,7 @@ describe('ManageALocalServer', () => {
                 actors: new Actors(),
             });
 
-            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled; // tslint:disable-line:no-unused-expression
+            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled;
         });
 
         it('allows the Actor to start, stop and access the location of a HTTPS Hapi app', function () {
@@ -154,7 +156,7 @@ describe('ManageALocalServer', () => {
                 actors: new Actors(),
             });
 
-            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled; // tslint:disable-line:no-unused-expression
+            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled;
         });
 
         it('allows the Actor to start, stop and access the location of a Restify app', function () {
@@ -187,7 +189,7 @@ describe('ManageALocalServer', () => {
                 actors: new Actors(),
             });
 
-            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled; // tslint:disable-line:no-unused-expression
+            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled;
         });
     });
 

@@ -6,8 +6,6 @@
 
 import { messages } from '@cucumber/messages';
 
-// tslint:disable:interface-name
-
 /**
  * https://github.com/cucumber/cucumber-js/blob/3d8d2327c794c01fd9c9fca58f4f924b9f9bde7a/src/formatter/helpers/event_data_collector.ts#L15
  *

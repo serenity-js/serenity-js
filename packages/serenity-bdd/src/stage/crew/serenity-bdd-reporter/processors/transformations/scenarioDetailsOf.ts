@@ -1,17 +1,13 @@
 import { Path } from '@serenity-js/core/lib/io';
 import { ScenarioDetails } from '@serenity-js/core/lib/model';
+
 import { dashify } from '../mappers';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package
  */
-export function scenarioDetailsOf<Context extends SerenityBDDReportContext>(details: ScenarioDetails) {
-
-    function isFeatureFile(path: Path) {
-        return path && path.value.endsWith('.feature');
-    }
-
+export function scenarioDetailsOf<Context extends SerenityBDDReportContext>(details: ScenarioDetails): (context: Context) => Context  {
     return (context: Context): Context => {
         context.report.name = details.name.value;
         context.report.title = details.name.value;
@@ -28,4 +24,13 @@ export function scenarioDetailsOf<Context extends SerenityBDDReportContext>(deta
 
         return context;
     }
+}
+
+/**
+ * @package
+ * @param {Path} path
+ * @returns {boolean}
+ */
+function isFeatureFile(path: Path): boolean {
+    return path && path.value.endsWith('.feature');
 }

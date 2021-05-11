@@ -1,6 +1,7 @@
 import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
 import { Artifact, HTTPRequestResponse, Name, RequestAndResponse } from '@serenity-js/core/lib/model';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
+
 import { CallAnApi } from '../abilities';
 
 /**
@@ -72,7 +73,8 @@ export class Send extends Interaction {
                         this.responseToArtifact(resolvedUrl, response),
                         this.requestToArtifactName(response.config.method, resolvedUrl),
                     );
-            }));
+                })
+            );
     }
 
     /**
@@ -81,7 +83,7 @@ export class Send extends Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return `#actor sends ${ this.request.toString() }`;
     }
 

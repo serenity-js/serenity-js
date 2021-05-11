@@ -1,8 +1,9 @@
 import 'mocha';
 
 import { given } from 'mocha-testdata';
-import { expect } from '../expect';
+
 import { FileFinder, Path } from '../../src/io';
+import { expect } from '../expect';
 
 /** @test {FileFinder} */
 describe('FileFinder', () => {
@@ -15,7 +16,7 @@ describe('FileFinder', () => {
     });
 
     given([
-        null,
+        null,       // eslint-disable-line unicorn/no-null
         undefined
     ]).
     it('returns an empty list when given an undefined pattern', (pattern: any) => {

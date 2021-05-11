@@ -14,6 +14,7 @@ import {
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name, Timestamp } from '@serenity-js/core/lib/model';
+
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', function () {
@@ -32,12 +33,12 @@ describe('CucumberMessagesListener', function () {
                 './examples/features/retry.feature',
             )
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(0);
+            .then(result => {
+                expect(result.exitCode).to.equal(0);
 
                 let sceneId: CorrelationId;
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
 
                     .next(SceneStarts,         event => {
@@ -79,7 +80,7 @@ describe('CucumberMessagesListener', function () {
                     .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
                 ;
 
-                const retryableSceneDetectedEvents = res.events.filter(event => event instanceof RetryableSceneDetected)
+                const retryableSceneDetectedEvents = result.events.filter(event => event instanceof RetryableSceneDetected)
 
                 expect(retryableSceneDetectedEvents).to.have.lengthOf(2);
             }));
@@ -94,12 +95,12 @@ describe('CucumberMessagesListener', function () {
                 './examples/features/retry.feature',
             )
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(1);
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
 
                 let sceneId: CorrelationId;
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('An eventually passing scenario'))
                         sceneId = event.sceneId;
@@ -128,7 +129,7 @@ describe('CucumberMessagesListener', function () {
                     .next(TestRunFinished,     event => expect(event).to.be.instanceOf(TestRunFinished))
                 ;
 
-                const retryableSceneDetectedEvents = res.events.filter(event => event instanceof RetryableSceneDetected)
+                const retryableSceneDetectedEvents = result.events.filter(event => event instanceof RetryableSceneDetected)
 
                 expect(retryableSceneDetectedEvents).to.have.lengthOf(1);
             }));

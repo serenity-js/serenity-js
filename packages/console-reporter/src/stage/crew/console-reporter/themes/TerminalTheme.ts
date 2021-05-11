@@ -48,7 +48,7 @@ export abstract class TerminalTheme {
      *
      * @returns {string}
      */
-    protected repeat(pattern: string, maxLength = 80) {
+    protected repeat(pattern: string, maxLength = 80): string {
         if (! pattern) {
             return '';
         }

@@ -34,10 +34,10 @@ describe ('FileSystem', () => {
                     [ processCWD.value ]: FakeFS.Empty_Directory,
                 }),
                 out = new FileSystem(processCWD, fs),
-                dest = new Path('outlet/some.json');
+                destination = new Path('outlet/some.json');
 
-            return expect(out.store(dest, JSON.stringify(originalJSON))).to.be.fulfilled.
-                then(result => expect(result.equals(processCWD.resolve(dest))));
+            return expect(out.store(destination, JSON.stringify(originalJSON))).to.be.fulfilled.
+                then(result => expect(result.equals(processCWD.resolve(destination))));
         });
 
         it (`complains when the file can't be written`, () => {
@@ -75,10 +75,10 @@ describe ('FileSystem', () => {
                     [ processCWD.value ]: FakeFS.Empty_Directory,
                 }),
                 out = new FileSystem(processCWD, fs),
-                dest = new Path('outlet/some.png');
+                destination = new Path('outlet/some.png');
 
-            return expect(out.store(dest, imageBuffer)).to.be.fulfilled.then(absolutePath => {
-                const expected = processCWD.join(dest).value;
+            return expect(out.store(destination, imageBuffer)).to.be.fulfilled.then(absolutePath => {
+                const expected = processCWD.join(destination).value;
                 expect(absolutePath.value).to.match(new RegExp('([A-Z]:)?' + expected + '$'));
             });
         });
@@ -160,26 +160,25 @@ describe ('FileSystem', () => {
 
         it('uses a randomly generated file name and .tmp suffix', () => {
 
-            expect(out.tempFilePath().value).to.match(/\/var\/tmp\/[a-z0-9]+\.tmp/);
+            expect(out.tempFilePath().value).to.match(/\/var\/tmp\/[\da-z]+\.tmp/);
         });
 
         it('allows for the prefix to be overridden', () => {
 
-            expect(out.tempFilePath('serenity-').value).to.match(/\/var\/tmp\/serenity-[a-z0-9]+\.tmp/);
+            expect(out.tempFilePath('serenity-').value).to.match(/\/var\/tmp\/serenity-[\da-z]+\.tmp/);
         });
-
 
         it('allows for the suffix to be overridden', () => {
 
-            expect(out.tempFilePath('serenity-', '.out').value).to.match(/\/var\/tmp\/serenity-[a-z0-9]+\.out/);
+            expect(out.tempFilePath('serenity-', '.out').value).to.match(/\/var\/tmp\/serenity-[\da-z]+\.out/);
         });
     });
-
-    function jsonFrom(file: Buffer) {
-        return JSON.parse(file.toString('ascii'));
-    }
-
-    function pictureAt(file: Buffer) {
-        return Buffer.from(file).toString('base64');
-    }
 });
+
+function jsonFrom(file: Buffer) {
+    return JSON.parse(file.toString('ascii'));
+}
+
+function pictureAt(file: Buffer) {
+    return Buffer.from(file).toString('base64');
+}

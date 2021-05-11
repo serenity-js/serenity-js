@@ -1,5 +1,4 @@
 import { Ability } from '../Ability';
-import { Activity } from '../Activity';
 import { UsesAbilities } from './UsesAbilities';
 
 /**

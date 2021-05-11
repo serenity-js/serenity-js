@@ -18,34 +18,33 @@ describe('FeatureFileParser', () => {
         return loader.parse(sampleFeature)
             .then(document => {
                 expect(document).to.deep.equal({
-                        type: 'GherkinDocument',
-                        feature: {
-                            type: 'Feature',
+                    type: 'GherkinDocument',
+                    feature: {
+                        type: 'Feature',
+                        tags: [],
+                        location: { line: 1, column: 1 },
+                        language: 'en',
+                        keyword: 'Feature',
+                        name: 'Sample feature',
+                        description: '  Description of the feature',
+                        children: [ {
+                            type: 'Scenario',
                             tags: [],
-                            location: { line: 1, column: 1 },
-                            language: 'en',
-                            keyword: 'Feature',
-                            name: 'Sample feature',
-                            description: '  Description of the feature',
-                            children: [ {
-                                type: 'Scenario',
-                                tags: [],
-                                location: { line: 5, column: 3 },
-                                keyword: 'Scenario',
-                                name: 'Sample scenario',
-                                description: '    Description of a scenario',
-                                steps: [ {
-                                    argument: undefined,
-                                    type: 'Step',
-                                    location: { line: 9, column: 5 },
-                                    keyword: 'Given ',
-                                    text: 'some step',
-                                } ],
+                            location: { line: 5, column: 3 },
+                            keyword: 'Scenario',
+                            name: 'Sample scenario',
+                            description: '    Description of a scenario',
+                            steps: [ {
+                                argument: undefined,
+                                type: 'Step',
+                                location: { line: 9, column: 5 },
+                                keyword: 'Given ',
+                                text: 'some step',
                             } ],
-                        },
-                        comments: [],
+                        } ],
                     },
-                );
+                    comments: [],
+                });
             });
     });
 

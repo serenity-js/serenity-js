@@ -6,9 +6,9 @@ import { Actor, actorCalled, actorInTheSpotlight, Cast, configure } from '@seren
 import { given } from 'mocha-testdata';
 import { Server } from 'net';
 import { satisfies } from 'semver';
-import { RequestListener } from '../../../src/screenplay/abilities';
 
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../../../src';
+import { RequestListener } from '../../../src/screenplay/abilities';
 import servers = require('../../servers');
 
 /** @test {StartALocalServer} */
@@ -36,7 +36,7 @@ describe('StartALocalServer', () => {
         return expect(actorCalled('Nadia').attemptsTo(
             StartLocalServer.onPort(30000),
             Ensure.that(LocalServer.port(), equals(30000)),
-        )).to.be.fulfilled; // tslint:disable-line:no-unused-expression
+        )).to.be.fulfilled;
     });
 
     given(servers).
@@ -50,7 +50,7 @@ describe('StartALocalServer', () => {
         return expect(actorCalled('Nadia').attemptsTo(
             StartLocalServer.onRandomPort(),
             Ensure.that(LocalServer.port(), and(or(equals(8000), isGreaterThan(8000)), or(isLessThan(65535), equals(65535)))),
-        )).to.be.fulfilled; // tslint:disable-line:no-unused-expression
+        )).to.be.fulfilled;
     });
 
     given(servers).
@@ -64,7 +64,7 @@ describe('StartALocalServer', () => {
         return expect(actorCalled('Nadia').attemptsTo(
             StartLocalServer.onRandomPortBetween(8080, 9090),
             Ensure.that(LocalServer.port(), and(or(equals(8080), isGreaterThan(8080)), or(isLessThan(9090), equals(9090)))),
-        )).to.be.fulfilled; // tslint:disable-line:no-unused-expression
+        )).to.be.fulfilled;
     });
 
     afterEach(() => actorInTheSpotlight().attemptsTo(

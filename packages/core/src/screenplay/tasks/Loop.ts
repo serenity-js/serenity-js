@@ -111,8 +111,8 @@ import { Task } from '../Task';
  * @see {@link Question}
  */
 export class Loop<Item> extends Task {
-    private static currentItem:     unknown = undefined;
-    private static currentIndex:    number  = 0;
+    private static currentItem: unknown = undefined;
+    private static currentIndex = 0;
 
     /**
      * @desc
@@ -123,7 +123,7 @@ export class Loop<Item> extends Task {
      * @param {items: Answerable<ReducibleCollection>} items
      * @returns {LoopBuilder}
      */
-    static over<T>(items: Answerable<Reducible>) {
+    static over<T>(items: Answerable<Reducible>): { to: (...activities: Activity[]) => Loop<T> } {
         return {
             to: (...activities: Activity[]) =>
                 new Loop<T>(items, activities)

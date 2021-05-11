@@ -1,17 +1,17 @@
 import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
+import { ConfigurationError } from './errors';
 import { DomainEvent } from './events';
+import { formatted, has, OutputStream } from './io';
 import { CorrelationId, Duration, Timestamp } from './model';
 import { Actor } from './screenplay/actor/Actor';
 import { SerenityConfig } from './SerenityConfig';
+import { StageCrewMember, StageCrewMemberBuilder } from './stage';
 import { Cast } from './stage/Cast';
 import { Clock } from './stage/Clock';
+import { Extras } from './stage/Extras';
 import { Stage } from './stage/Stage';
 import { StageManager } from './stage/StageManager';
-import { Extras } from './stage/Extras';
-import { formatted, has, OutputStream } from './io';
-import { StageCrewMember, StageCrewMemberBuilder } from './stage';
-import { ConfigurationError } from './errors';
 
 export class Serenity {
     private static defaultCueTimeout    = Duration.ofSeconds(5);
@@ -44,7 +44,7 @@ export class Serenity {
         const looksLikeBuilder          = has<StageCrewMemberBuilder>({ build: 'function' });
         const looksLikeStageCrewMember  = has<StageCrewMember>({ assignedTo: 'function', notifyOf: 'function' });
 
-        const cueTimeout = !! config.cueTimeout
+        const cueTimeout = config.cueTimeout
             ? ensure('cueTimeout', config.cueTimeout, isInstanceOf(Duration))
             : Serenity.defaultCueTimeout;
 
@@ -57,7 +57,7 @@ export class Serenity {
             new StageManager(cueTimeout, this.clock),
         );
 
-        if (!! config.actors) {
+        if (config.actors) {
             this.engage(config.actors);
         }
 
@@ -73,7 +73,7 @@ export class Serenity {
                     }
 
                     throw new ConfigurationError(
-                        formatted `Entries under \`crew\` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, ${ stageCrewMember } found at index ${ i }`
+                        formatted `Entries under \`crew\` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, \`${ stageCrewMember }\` found at index ${ i }`
                     );
                 }),
             );

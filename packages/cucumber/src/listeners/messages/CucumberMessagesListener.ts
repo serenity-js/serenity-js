@@ -1,12 +1,13 @@
-// import { Formatter, formatterHelpers } from '@cucumber/cucumber';
+// import type { Formatter, formatterHelpers } from '@cucumber/cucumber';
 import { IdGenerator, messages } from '@cucumber/messages';
 import { Serenity } from '@serenity-js/core';
 import { DomainEvent, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
 import { ModuleLoader } from '@serenity-js/core/lib/io';
+
 import { CucumberMessagesParser } from './parser/CucumberMessagesParser';
 import { IParsedTestStep } from './types/cucumber';
 
-export = function (serenity: Serenity, moduleLoader: ModuleLoader) {
+export = function (serenity: Serenity, moduleLoader: ModuleLoader) {    // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 
     const
         { Formatter, formatterHelpers } = moduleLoader.require('@cucumber/cucumber'),

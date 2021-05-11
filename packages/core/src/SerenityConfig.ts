@@ -1,6 +1,6 @@
+import { OutputStream } from './io';
 import { Duration } from './model';
 import { Cast, StageCrewMember, StageCrewMemberBuilder } from './stage';
-import { OutputStream } from './io';
 
 /**
  * @interface

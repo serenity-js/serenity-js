@@ -2,7 +2,7 @@ import { Answerable, AnswersQuestions, Question } from '@serenity-js/core';
 import { commaSeparated, formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction, UsesAbilities } from '@serenity-js/core/lib/screenplay';
-import { by, ElementFinder, protractor } from 'protractor';
+import { by, ElementFinder } from 'protractor';
 import { promise } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
 import { withAnswerOf } from '../withAnswerOf';
@@ -288,8 +288,7 @@ class SelectValues implements Interaction {
 
                 const
                     hasRequiredValue = (option: ElementFinder) =>
-                        option.getAttribute('value').then(value => !! ~values.indexOf(value)),
-                    select = (option: ElementFinder) => option.click();
+                        option.getAttribute('value').then(value => !! ~values.indexOf(value));
 
                 return promiseOf(
                     withAnswerOf(actor, this.target, (element: ElementFinder) =>
@@ -350,8 +349,7 @@ class SelectOptions implements Interaction {
 
                 const
                     hasRequiredText = (option: ElementFinder) =>
-                        option.getText().then(value => !! ~values.indexOf(value)),
-                    select = (option: ElementFinder) => option.click();
+                        option.getText().then(value => !! ~values.indexOf(value));
 
                 return promiseOf(
                     withAnswerOf(actor, this.target, (element: ElementFinder) =>
@@ -377,11 +375,6 @@ function flatten<T>(listOfLists: Array<T[] | T>): T[] {
 
 /** @package */
 function optionsToSelect(criterion: (option: ElementFinder) => promise.Promise<boolean>) {
-
-    const
-        isAlreadySelected = (option: ElementFinder) => option.isSelected(),
-        xor = (first: boolean, second: boolean) => first !== second;
-
     return (option: ElementFinder) =>
         isAlreadySelected(option)
             .then(alreadySelected =>
@@ -389,4 +382,19 @@ function optionsToSelect(criterion: (option: ElementFinder) => promise.Promise<b
                     xor(alreadySelected, criterionMet)
                 )
             );
+}
+
+/** @package */
+function select(option: ElementFinder): promise.Promise<void> {
+    return option.click();
+}
+
+/** @package */
+function isAlreadySelected(option: ElementFinder): promise.Promise<boolean> {
+    return option.isSelected();
+}
+
+/** @package */
+function xor(first: boolean, second: boolean): boolean {
+    return first !== second;
 }

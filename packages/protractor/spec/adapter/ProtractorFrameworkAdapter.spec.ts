@@ -163,50 +163,50 @@ describe('ProtractorFrameworkAdapter', () => {
 
             it('invokes runner.emit with a "testPass" message', () =>
                 expect(adapter.run([
-                        sample('passing.spec.ts').path,
-                    ]))
-                    .to.be.fulfilled
-                    .then(() => {
-                        expect(protractorRunner.emit).to.have.been.calledWith('testPass', {
-                            name:       sample('passing.spec.ts').name,
-                            category:   sample('passing.spec.ts').category,
-                        });
-                    }));
+                    sample('passing.spec.ts').path,
+                ]))
+                .to.be.fulfilled
+                .then(() => {
+                    expect(protractorRunner.emit).to.have.been.calledWith('testPass', {
+                        name:       sample('passing.spec.ts').name,
+                        category:   sample('passing.spec.ts').category,
+                    });
+                }));
 
             it('invokes runner.afterEach after each test', () =>
                 expect(adapter.run([
-                        sample('passing.spec.ts').path,
-                        sample('passing.spec.ts').path,
-                    ]))
-                    .to.be.fulfilled
-                    .then(() => {
-                        expect(protractorRunner.afterEach).to.have.been.calledTwice;    // tslint:disable-line:no-unused-expression
-                    }));
+                    sample('passing.spec.ts').path,
+                    sample('passing.spec.ts').path,
+                ]))
+                .to.be.fulfilled
+                .then(() => {
+                    expect(protractorRunner.afterEach).to.have.been.calledTwice;
+                }));
         });
 
         describe('when a test fails', () => {
 
             it('invokes runner.emit with a "testFail" message', () =>
                 expect(adapter.run([
-                        sample('failing.spec.ts').path,
-                    ]))
-                    .to.be.fulfilled
-                    .then(() => {
-                        expect(protractorRunner.emit).to.have.been.calledWith('testFail', {
-                            name:       sample('failing.spec.ts').name,
-                            category:   sample('failing.spec.ts').category,
-                        });
-                    }));
+                    sample('failing.spec.ts').path,
+                ]))
+                .to.be.fulfilled
+                .then(() => {
+                    expect(protractorRunner.emit).to.have.been.calledWith('testFail', {
+                        name:       sample('failing.spec.ts').name,
+                        category:   sample('failing.spec.ts').category,
+                    });
+                }));
 
             it('invokes runner.afterEach after each test', () =>
                 expect(adapter.run([
-                        sample('failing.spec.ts').path,
-                        sample('failing.spec.ts').path,
-                    ]))
-                    .to.be.fulfilled            // promise resolved even upon test failure; test suite failure is determined based on the ProtractorReport
-                    .then(() => {
-                        expect(protractorRunner.afterEach).to.have.been.calledTwice;    // tslint:disable-line:no-unused-expression
-                    }));
+                    sample('failing.spec.ts').path,
+                    sample('failing.spec.ts').path,
+                ]))
+                .to.be.fulfilled            // promise resolved even upon test failure; test suite failure is determined based on the ProtractorReport
+                .then(() => {
+                    expect(protractorRunner.afterEach).to.have.been.calledTwice;
+                }));
         });
 
         describe('error handling', function () {
@@ -217,27 +217,30 @@ describe('ProtractorFrameworkAdapter', () => {
                 protractorRunner.afterEach.throws(expectedError);
 
                 return expect(adapter.run([
-                        sample('passing.spec.ts').path,
-                    ]))
-                    .to.be.rejectedWith(expectedError);
+                    sample('passing.spec.ts').path,
+                ]))
+                .to.be.rejectedWith(expectedError);
             });
 
             it('fails the test run when runner.afterEach rejects the promise', () => {
                 protractorRunner.afterEach.rejects(expectedError);
 
                 return expect(adapter.run([
-                        sample('passing.spec.ts').path,
-                    ]))
-                    .to.be.rejectedWith(Error, [
-                        `1 async operation has failed to complete:`,
-                        `[ProtractorReporter] Invoking ProtractorRunner.afterEach... - ${ expectedError.stack }`,
-                        `---`,
-                    ''].join('\n'));
+                    sample('passing.spec.ts').path,
+                ]))
+                .to.be.rejectedWith(Error, [
+                    `1 async operation has failed to complete:`,
+                    `[ProtractorReporter] Invoking ProtractorRunner.afterEach... - ${ expectedError.stack }`,
+                    `---`,
+                    '',
+                ].join('\n'));
             });
         });
     });
 
     describe('configuration', () => {
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         function pickOne<T extends StageCrewMember>(type: new (...args: any[]) => T, crew: StageCrewMember[]): T {
             const found = crew.filter(member => member instanceof type);
 

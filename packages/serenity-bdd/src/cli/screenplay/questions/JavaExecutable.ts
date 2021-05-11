@@ -1,8 +1,8 @@
 import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
-import * as path from 'path';
+import * as path from 'path';   // eslint-disable-line unicorn/import-style
 import { promisify } from 'util';
-const findJavaHome = promisify(require('find-java-home'));  // tslint:disable-line:no-var-requires
+const findJavaHome = promisify(require('find-java-home'));  // eslint-disable-line  @typescript-eslint/no-var-requires
 
 /**
  * @package

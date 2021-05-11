@@ -1,4 +1,5 @@
 import { JSONObject } from 'tiny-types';
+
 import * as serenitySpecificErrors from '../errors';
 import { parse, stringify } from './json';
 
@@ -52,15 +53,15 @@ export class ErrorSerialiser {
         // todo: de-serialise the cause map well
         const constructor = ErrorSerialiser.recognisedErrors.find(errorType => errorType.name === serialisedError.name) || Error;
         const deserialised = Object.create(constructor.prototype);
-        for (const prop in serialisedError) {
-            if (serialisedError.hasOwnProperty(prop)) {
-                deserialised[prop] = serialisedError[prop];
+        for (const property in serialisedError) {
+            if (Object.prototype.hasOwnProperty.call(serialisedError, property)) {
+                deserialised[property] = serialisedError[property];
             }
         }
         return deserialised;
     }
 
-    static deserialiseFromStackTrace(stack: string) {
+    static deserialiseFromStackTrace(stack: string): Error {
         const lines = stack.split('\n');
 
         const pattern = /^([^\s:]*Error):\s(.*)$/;

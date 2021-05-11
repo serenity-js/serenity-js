@@ -4,7 +4,7 @@ import { CorrelationId, Tag, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class SceneTagged extends DomainEvent {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): SceneTagged {
         return new SceneTagged(
             CorrelationId.fromJSON(o.sceneId as string),
             Tag.fromJSON(o.tag as JSONObject),

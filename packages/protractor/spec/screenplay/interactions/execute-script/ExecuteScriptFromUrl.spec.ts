@@ -63,18 +63,18 @@ describe('ExecuteScriptFromUrl', function () {
         expect(ExecuteScript.from(pathToScript).toString())
             .to.equal(`#actor executes a script from ${ pathToScript }`);
     });
-
-    // based on https://github.com/sindresorhus/file-url/blob/main/index.js
-    function fileUrl(filePath: string) {
-        let pathName = filePath.replace(/\\/g, '/');
-
-        // Windows drive letter must be prefixed with a slash
-        if (pathName[0] !== '/') {
-            pathName = `/${pathName}`;
-        }
-
-        // Escape required characters for path components
-        // See: https://tools.ietf.org/html/rfc3986#section-3.3
-        return encodeURI(`file://${pathName}`).replace(/[?#]/g, encodeURIComponent);
-    }
 });
+
+// based on https://github.com/sindresorhus/file-url/blob/main/index.js
+function fileUrl(filePath: string) {
+    let pathName = filePath.replace(/\\/g, '/');
+
+    // Windows drive letter must be prefixed with a slash
+    if (pathName[0] !== '/') {
+        pathName = `/${pathName}`;
+    }
+
+    // Escape required characters for path components
+    // See: https://tools.ietf.org/html/rfc3986#section-3.3
+    return encodeURI(`file://${pathName}`).replace(/[#?]/g, encodeURIComponent);
+}

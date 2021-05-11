@@ -18,7 +18,7 @@ export class RetryableSceneDetected extends DomainEvent {
      * @param {tiny-types~JSONObject} o
      * @returns {RetryableSceneDetected}
      */
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): RetryableSceneDetected {
         return new RetryableSceneDetected(
             CorrelationId.fromJSON(o.sceneId as string),
             Timestamp.fromJSON(o.timestamp as string),

@@ -67,7 +67,7 @@ export class Property {
      * @param {Answerable<Subject>} subject
      * @returns {Proxy<Subject>}
      */
-    static of<Subject extends object>(subject: Answerable<Subject>): WithPropertiesAsQuestions<Subject> {
+    static of<Subject extends object>(subject: Answerable<Subject>): WithPropertiesAsQuestions<Subject> {   // eslint-disable-line @typescript-eslint/ban-types
         return createQuestionProxy<Subject>(subject);
     }
 
@@ -92,7 +92,7 @@ export class Property {
      *
      * @returns {Proxy<Subject>}
      */
-    static at<Subject extends object>(): WithPropertiesAsMetaQuestions<Subject> {
+    static at<Subject extends object>(): WithPropertiesAsMetaQuestions<Subject> {   // eslint-disable-line @typescript-eslint/ban-types
         return createMetaQuestionProxy<Subject>();
     }
 }

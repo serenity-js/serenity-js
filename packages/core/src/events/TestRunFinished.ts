@@ -6,15 +6,13 @@ import { DomainEvent } from './DomainEvent';
  *  Emitted when all the tests have finished running.
  */
 export class TestRunFinished extends DomainEvent {
-    static fromJSON(v: string) {
+    static fromJSON(v: string): TestRunFinished {
         return new TestRunFinished(
             Timestamp.fromJSON(v as string),
         );
     }
 
-    constructor(
-        timestamp?: Timestamp,
-    ) {
+    constructor(timestamp?: Timestamp) {
         super(timestamp);
     }
 }
