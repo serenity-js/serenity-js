@@ -104,7 +104,7 @@ module.exports.requestListener = express().
 
 ```javascript
 // listener.js
-const hapi = require('hapi');
+const hapi = require('@hapi/hapi');
 
 const server = new hapi.Server();
 server.route({ method: 'GET', path: '/', handler: (req, h) => 'Hello World!' })
