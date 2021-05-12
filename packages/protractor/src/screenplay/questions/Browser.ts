@@ -47,7 +47,7 @@ export class Browser {
      * @see https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#loggingpreferences-json-object
      * @returns {Question<Promise<logging.Entry[]>>}
      */
-    static log() {
+    static log(): Question<Promise<logging.Entry[]>> {
         return Question.about<Promise<logging.Entry[]>>(`browser log`, actor =>
             promiseOf(BrowseTheWeb.as(actor).manage().logs().get('browser')));
     }

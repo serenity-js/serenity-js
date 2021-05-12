@@ -42,6 +42,7 @@ import {
     Tags,
     ThemeTag,
 } from '@serenity-js/core/lib/model';
+
 import { EventDataCollector, IParsedTestStep, ITestCaseAttempt } from '../types/cucumber';
 import { TestStepFormatter } from './TestStepFormatter';
 import { ExtractedScenario, ExtractedScenarioOutline } from './types';
@@ -62,7 +63,7 @@ export class CucumberMessagesParser {
 
     constructor(
         private readonly serenity: Serenity,
-        private readonly formatterHelpers: any,
+        private readonly formatterHelpers: any,     // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         formatterOptionsAndDependencies: {
             cwd: string,
             eventDataCollector: EventDataCollector,
@@ -299,22 +300,23 @@ export class CucumberMessagesParser {
             case Status.SKIPPED:
                 return new ExecutionSkipped();
 
-            case Status.UNDEFINED:
+            case Status.UNDEFINED: {
                 const snippets = steps
                     .filter(step => step.result.status === Status.UNDEFINED)
                     .map(step => step.snippet);
 
                 const message = snippets.length > 0
-                    ? [ 'Step implementation missing:', ...snippets ].join('\n\n')
+                    ? ['Step implementation missing:', ...snippets].join('\n\n')
                     : 'Step implementation missing';
 
                 return new ImplementationPending(new ImplementationPendingError(message));
+            }
 
             case Status.PENDING:
                 return new ImplementationPending(new ImplementationPendingError('Step implementation pending'));
 
             case Status.AMBIGUOUS:
-            case Status.FAILED:
+            case Status.FAILED: {
                 const error = ErrorSerialiser.deserialiseFromStackTrace(worstResult.message);
                 if (error instanceof AssertionError) {
                     return new ExecutionFailedWithAssertionError(error);
@@ -323,10 +325,11 @@ export class CucumberMessagesParser {
                     return new ExecutionCompromised(error);
                 }
                 return new ExecutionFailedWithError(error);
+            }
 
             case Status.UNKNOWN:
                 // ignore
-            case Status.PASSED:
+            case Status.PASSED: // eslint-disable-line no-fallthrough
                 return new ExecutionSuccessful();
         }
     }

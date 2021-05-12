@@ -1,10 +1,11 @@
 import { JSONObject } from 'tiny-types';
+
 import { Artifact } from '../Artifact';
 
 export class TestReport extends Artifact {
 
-    static fromJSON(value: JSONObject) {
-        return new TestReport(Buffer.from(JSON.stringify(value, null, 0), 'utf8').toString('base64'));
+    static fromJSON(value: JSONObject): TestReport {
+        return new TestReport(Buffer.from(JSON.stringify(value, undefined, 0), 'utf8').toString('base64'));
     }
 
     map<O>(fn: (decodedValue: JSONObject) => O): O {

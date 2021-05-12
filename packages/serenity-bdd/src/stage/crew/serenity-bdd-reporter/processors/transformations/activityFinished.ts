@@ -1,11 +1,12 @@
 import { CorrelationId, Outcome, Timestamp } from '@serenity-js/core/lib/model';
+
 import { outcomeReportFrom } from '../mappers';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package
  */
-export function activityFinished<Context extends SerenityBDDReportContext>(activityId: CorrelationId, outcome: Outcome, finishedAt: Timestamp) {
+export function activityFinished<Context extends SerenityBDDReportContext>(activityId: CorrelationId, outcome: Outcome, finishedAt: Timestamp): (context: Context) => Context {
     return (context: Context): Context => {
 
         const linkedStep = context.steps.get(activityId.value);

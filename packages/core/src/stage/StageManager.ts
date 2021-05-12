@@ -11,11 +11,11 @@ export class StageManager {
         this.wip = new WIP(cueTimeout, clock);
     }
 
-    register(...subscribers: ListensToDomainEvents[]) {
+    register(...subscribers: ListensToDomainEvents[]): void {
         this.subscribers.push(...subscribers);
     }
 
-    deregister(subscriber: ListensToDomainEvents) {
+    deregister(subscriber: ListensToDomainEvents): void {
         this.subscribers.splice(this.subscribers.indexOf(subscriber), 1);
     }
 
@@ -28,10 +28,7 @@ export class StageManager {
     waitForNextCue(): Promise<void> {
         return new Promise((resolve, reject) => {
 
-            let interval: NodeJS.Timer,
-                timeout: NodeJS.Timer;
-
-            timeout = setTimeout(() => {
+            const timeout = setTimeout(() => {
                 clearInterval(interval);
 
                 if (this.wip.hasFailedOperations()) {
@@ -52,7 +49,7 @@ export class StageManager {
 
             }, this.cueTimeout.inMilliseconds());
 
-            interval = setInterval(() => {
+            const interval = setInterval(() => {
                 if (this.wip.hasAllOperationsCompleted()) {
                     clearTimeout(timeout);
                     clearInterval(interval);
@@ -173,14 +170,14 @@ class WIP {
         this.wip.delete(this.asReference(correlationId))
     }
 
-    private asReference(key: CorrelationId) {
-        for (const [ k, v ] of this.wip.entries()) {
+    private asReference(key: CorrelationId): CorrelationId | undefined {
+        for (const [ k, v_ ] of this.wip.entries()) {
             if (k.equals(key)) {
                 return k;
             }
         }
 
-        return undefined;
+        return undefined;   // eslint:disable-line:unicorn/no-useless-undefined
     }
 }
 

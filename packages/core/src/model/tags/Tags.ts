@@ -6,15 +6,15 @@ import { ArbitraryTag, IssueTag, ManualTag, Tag } from './';
  * @package
  */
 export class Tags {
-    private static Pattern = /^@([\w-]+)[:\s]?(.*)/i;
+    private static Pattern = /^@([\w-]+)[\s:]?(.*)/i ;
 
     public static from(text: string): Tag[] {
-        const [ , type, val ] = Tags.Pattern.exec(text);
+        const [ , type, value ] = Tags.Pattern.exec(text);
 
         return match<Tag[]>(type.toLowerCase())
             .when('manual',     _ => [ new ManualTag() ])
             // todo: map as arbitrary tag if value === ''; look up ticket id
-            .when(/^issues?$/,  _ => val.split(',').map(value => new IssueTag(value.trim())))
+            .when(/^issues?$/,  _ => value.split(',').map(value => new IssueTag(value.trim())))
             .else(value           => [ new ArbitraryTag(value.trim()) ]);
     }
 }

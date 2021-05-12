@@ -39,7 +39,7 @@ export abstract class PhotoTakingStrategy {
 
             try {
                 browseTheWeb = BrowseTheWeb.as(stage.theActorInTheSpotlight());
-            } catch (error) {
+            } catch {
                 return void 0;
             }
 

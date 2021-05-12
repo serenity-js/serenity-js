@@ -7,7 +7,7 @@ export class Printer {
 
     constructor(
         public readonly out: NodeJS.WritableStream,
-        public readonly err: NodeJS.WritableStream,
+        public readonly err: NodeJS.WritableStream,     // eslint-disable-line unicorn/prevent-abbreviations
     ) {
     }
 

@@ -4,12 +4,13 @@ import { PropertyPathKey } from './PropertyPathKey';
  * @package
  */
 export function describePath(parts: PropertyPathKey[]): string {
-    return parts.reduce((acc, segment) =>
-        acc.concat(
-            isNumber(segment)
-                ? `[${ segment }]`
-                : segment
-        ),
+    return parts.reduce(
+        (acc, segment) =>
+            acc.concat(
+                isNumber(segment)
+                    ? `[${ segment }]`
+                    : segment
+            ),
         [],
     ).join('.');
 }
@@ -18,5 +19,5 @@ export function describePath(parts: PropertyPathKey[]): string {
  * @private
  */
 function isNumber(segment: PropertyPathKey): segment is number {
-    return parseInt(String(segment), 10).toString() === segment;
+    return Number.parseInt(String(segment), 10).toString() === segment;
 }

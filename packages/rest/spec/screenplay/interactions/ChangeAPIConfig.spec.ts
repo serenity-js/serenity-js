@@ -1,7 +1,9 @@
+/* eslint-disable unicorn/filename-case */
 import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { LogicError } from '@serenity-js/core';
+
 import { ChangeApiConfig, GetRequest, LastResponse, Send } from '../../../src';
 import { actorUsingAMockedAxiosInstance } from '../../actors';
 import { expect } from '../../expect';
@@ -70,7 +72,7 @@ describe('ChangeApiConfig', () => {
          */
         it('complains if the url has not been set prior to attempted port change', () =>
             expect(actor.attemptsTo(
-                ChangeApiConfig.setUrlTo(undefined),
+                ChangeApiConfig.setUrlTo(undefined),    // eslint-disable-line unicorn/no-useless-undefined
                 ChangeApiConfig.setPortTo(8080),
             )).to.be.rejectedWith(LogicError, `Can't change the port of a baseURL that has not been set.`));
 

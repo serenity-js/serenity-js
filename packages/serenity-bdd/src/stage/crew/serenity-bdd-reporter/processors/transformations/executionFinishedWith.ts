@@ -1,11 +1,12 @@
 import { Outcome } from '@serenity-js/core/lib/model';
+
 import { outcomeReportFrom } from '../mappers';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package
  */
-export function executionFinishedWith<Context extends SerenityBDDReportContext>(outcome: Outcome) {
+export function executionFinishedWith<Context extends SerenityBDDReportContext>(outcome: Outcome): (context: Context) => Context {
     return (context: Context): Context => {
 
         const outcomeReport = outcomeReportFrom(outcome);

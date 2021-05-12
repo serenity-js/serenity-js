@@ -1,6 +1,7 @@
 import 'mocha';
 
 import * as sinon from 'sinon';
+
 import { LogicError } from '../../../src/errors';
 import { CorrelationId } from '../../../src/model';
 import { Ability, Actor, Log, Note, Question, TakeNote, TakeNotes } from '../../../src/screenplay';
@@ -17,8 +18,7 @@ describe('Note', () => {
         sceneId = new CorrelationId('some-scene-id'),
         activityId = new CorrelationId('some-activity-id');
 
-    let stage: sinon.SinonStubbedInstance<Stage>,
-        Noah: Actor;
+    let stage: sinon.SinonStubbedInstance<Stage>;
 
     beforeEach(() => {
         stage = sinon.createStubInstance(Stage);
@@ -26,9 +26,6 @@ describe('Note', () => {
         stage.currentSceneId.returns(sceneId);
         stage.assignNewActivityId.returns(activityId);
         stage.currentActivityId.returns(activityId);
-
-        Noah = new Actor('Noah', stage as unknown as Stage)
-            .whoCan(TakeNotes.usingAnEmptyNotepad());
     });
 
     /**

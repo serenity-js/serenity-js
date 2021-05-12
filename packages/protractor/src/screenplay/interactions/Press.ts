@@ -101,7 +101,7 @@ export class Press extends Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return `#actor presses ${ describeSequenceOf(this.keys) } in ${ this.field.toString() }`;
     }
 }
@@ -123,7 +123,7 @@ function isModifier(key: string) {
 function nameOf(key: string) {
 
     for (const candidate in Key) {
-        if (Key.hasOwnProperty(candidate) && Key[ candidate ] === key) {
+        if (Object.prototype.hasOwnProperty.call(Key, candidate) && Key[ candidate ] === key) {
             return candidate;
         }
     }

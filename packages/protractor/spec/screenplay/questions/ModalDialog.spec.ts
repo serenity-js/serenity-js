@@ -3,7 +3,7 @@ import 'mocha';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
 import { actorCalled, configure, engage } from '@serenity-js/core';
-import { AsyncOperationCompleted, AsyncOperationFailed, InteractionFinished } from '@serenity-js/core/lib/events';
+import { AsyncOperationCompleted, InteractionFinished } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
 import { by } from 'protractor';
 import { Accept, Click, Dismiss, Enter, ModalDialog, Navigate, Photographer, TakePhotosOfInteractions, Target, Text, Wait } from '../../../src';
@@ -239,9 +239,10 @@ describe('ModalDialog,', function () {
         );
 
     });
+});
 
-    function sandboxWith(script: string) {
-        return pageFromTemplate(`
+function sandboxWith(script: string) {
+    return pageFromTemplate(`
                 <html>
                 <body>
                     <button id="trigger" onclick="trigger()">Trigger Alert</button>
@@ -254,5 +255,4 @@ describe('ModalDialog,', function () {
                 </body>
                 </html>
             `)
-    }
-});
+}

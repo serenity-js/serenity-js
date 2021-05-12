@@ -39,7 +39,7 @@ export class See<S> extends Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return `#actor checks ${this.question}`;
     }
 }

@@ -70,7 +70,7 @@ describe('Photographer', () => {
 
         given(
             { description: 'compromised',               outcome: new ExecutionCompromised(new Error('Database is down'))                                                },
-            { description: 'error',                     outcome: new ExecutionFailedWithError(new TypeError())                                                          },
+            { description: 'error',                     outcome: new ExecutionFailedWithError(new TypeError('Wrong type'))                                                          },
             { description: 'assertion error',           outcome: new ExecutionFailedWithAssertionError(new AssertionError(`expected false to equal true`, false, true)) },
             { description: 'implementation pending',    outcome: new ImplementationPending(new ImplementationPendingError('method missing'))                            },
             { description: 'ignored',                   outcome: new ExecutionIgnored(new Error('Failed, retrying'))                                                    },

@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js",
     "compile": "tsc --project tsconfig.json"
   },
   "repository": {
@@ -32,7 +32,7 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^10 || ^12 || ^14",
+    "node": "^12 || ^14 || ^16",
     "npm": "^6 || ^7"
   },
   "peerDependencies": {

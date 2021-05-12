@@ -4,6 +4,7 @@ import { expect } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
 import { FileSystemLocation, Path, trimmed } from '@serenity-js/core/lib/io';
 import { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+
 import { Summary } from '../../../../src/stage/crew/console-reporter/Summary';
 import { SummaryFormatter } from '../../../../src/stage/crew/console-reporter/SummaryFormatter';
 import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/console-reporter/themes';

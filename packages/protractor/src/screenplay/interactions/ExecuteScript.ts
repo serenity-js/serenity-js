@@ -89,7 +89,7 @@ export class ExecuteScript {
      *
      * @see {@link LastScriptExecution.result}
      */
-    static async(script: string | Function): ExecuteScriptWithArguments {                // tslint:disable-line:ban-types
+    static async(script: string | Function): ExecuteScriptWithArguments {   // eslint-disable-line @typescript-eslint/ban-types
         return new ExecuteAsynchronousScript(script);
     }
 
@@ -120,7 +120,7 @@ export class ExecuteScript {
      *
      * @see {@link LastScriptExecution.result}
      */
-    static sync(script: string | Function): ExecuteScriptWithArguments {                  // tslint:disable-line:ban-types
+    static sync(script: string | Function): ExecuteScriptWithArguments {    // eslint-disable-line @typescript-eslint/ban-types
         return new ExecuteSynchronousScript(script);
     }
 }
@@ -148,7 +148,7 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
      *  Arguments to parametrise the script with
      */
     constructor(
-        protected readonly script: string | Function,                                   // tslint:disable-line:ban-types
+        protected readonly script: string | Function,           // eslint-disable-line @typescript-eslint/ban-types
         protected readonly args: Array<Answerable<any>> = [],
     ) {
         super();
@@ -206,7 +206,7 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
                     ? arg.answeredBy(actor)
                     : arg;
 
-                const maybePromise = !! maybeElementFinder.getWebElement
+                const maybePromise = maybeElementFinder.getWebElement
                     ? maybeElementFinder.getWebElement()
                     : maybeElementFinder;
 
@@ -228,7 +228,6 @@ class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
         return BrowseTheWeb.as(actor).executeAsyncScript(this.script, ...args);
     }
 
-    // tslint:disable-next-line:member-ordering
     toString(): string {
         return this.args.length > 0
             ? formatted `#actor executes an asynchronous script with arguments: ${ this.args }`
@@ -260,34 +259,38 @@ class ExecuteScriptFromUrl extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<any> {
-        return BrowseTheWeb.as(actor).executeAsyncScript(`
-            var src = arguments[0];
-            var callback = arguments[arguments.length - 1];
-
-            var alreadyLoadedScripts = Array.prototype.slice
-                .call(document.getElementsByTagName('script'))
-                .map(script => script.src);
-
-            if (!! ~ alreadyLoadedScripts.indexOf(src)) {
-                return callback("Script from " + src + " has already been loaded");
-            }
-
-            var script = document.createElement('script');
-            script.onload = function () {
-                return callback();
-            };
-            script.onerror = function () {
-                return callback("Couldn't load script from " + this.src);
-            };
-
-            script.src = src;
-            script.async = true;
-            document.head.appendChild(script);
-        `, this.sourceUrl).then(errorMessage => {
-            if (!! errorMessage) {
-                throw new LogicError(errorMessage);
-            }
-        });
+        return BrowseTheWeb.as(actor)
+            .executeAsyncScript(
+                `   var src = arguments[0];
+                    var callback = arguments[arguments.length - 1];
+        
+                    var alreadyLoadedScripts = Array.prototype.slice
+                        .call(document.getElementsByTagName('script'))
+                        .map(script => script.src);
+        
+                    if (!! ~ alreadyLoadedScripts.indexOf(src)) {
+                        return callback("Script from " + src + " has already been loaded");
+                    }
+        
+                    var script = document.createElement('script');
+                    script.onload = function () {
+                        return callback();
+                    };
+                    script.onerror = function () {
+                        return callback("Couldn't load script from " + this.src);
+                    };
+        
+                    script.src = src;
+                    script.async = true;
+                    document.head.appendChild(script);
+                `,
+                this.sourceUrl
+            )
+            .then(errorMessage => {
+                if (errorMessage) {
+                    throw new LogicError(errorMessage);
+                }
+            });
     }
 
     /**
@@ -314,7 +317,6 @@ class ExecuteSynchronousScript extends ExecuteScriptWithArguments {
         return BrowseTheWeb.as(actor).executeScript(this.toString(), this.script, ...args);
     }
 
-    // tslint:disable-next-line:member-ordering
     toString(): string {
         return this.args.length > 0
             ? formatted `#actor executes a synchronous script with arguments: ${ this.args }`

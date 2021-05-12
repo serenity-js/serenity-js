@@ -1,4 +1,6 @@
+/* eslint-disable unicorn/filename-case */
 import { JSONObject } from 'tiny-types';
+
 import { JSONData } from './JSONData';
 
 /**
@@ -28,7 +30,7 @@ export interface RequestAndResponse extends JSONObject {
  * @public
  */
 export class HTTPRequestResponse extends JSONData {
-    static fromJSON(value: RequestAndResponse) {
-        return new HTTPRequestResponse(Buffer.from(JSON.stringify(value, null, 0), 'utf8').toString('base64'));
+    static fromJSON(value: RequestAndResponse): HTTPRequestResponse {
+        return new HTTPRequestResponse(Buffer.from(JSON.stringify(value, undefined, 0), 'utf8').toString('base64'));
     }
 }

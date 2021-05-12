@@ -29,10 +29,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node 14.x
+      - name: Setup Node 16.x
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
 
@@ -54,7 +54,7 @@ jobs:
     runs-on:  ubuntu-20.04
     strategy:
       matrix:
-        node-version: [ 10.x, 12.x, 14.x ]
+        node-version: [ 12.x, 14.x, 16.x ]
       fail-fast: false
       max-parallel: 3
     steps:
@@ -82,7 +82,7 @@ jobs:
         run: make test
 
       - uses: actions/upload-artifact@v2
-        if:   matrix.node-version == '14.x'
+        if:   matrix.node-version == '16.x'
         with:
           retention-days: 3
           name: test-reports
@@ -97,7 +97,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        node-version: [ 10.x, 12.x, 14.x ]
+        node-version: [ 12.x, 14.x, 16.x ]
       fail-fast: false
       max-parallel: 3
     steps:
@@ -123,7 +123,7 @@ jobs:
     runs-on:  ubuntu-20.04
     strategy:
       matrix:
-        node-version: [ 10.x, 12.x, 14.x ]
+        node-version: [ 12.x, 14.x, 16.x ]
       fail-fast: false
       max-parallel: 3
     steps:
@@ -157,7 +157,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        node-version: [ 10.x, 12.x, 14.x ]
+        node-version: [ 12.x, 14.x, 16.x ]
       fail-fast: false
       max-parallel: 3
     steps:
@@ -182,10 +182,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node 14.x
+      - name: Setup Node 16.x
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
 
@@ -225,10 +225,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
-      - name: Setup Node 14.x
+      - name: Setup Node 16.x
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
 
@@ -266,10 +266,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: changelog
-      - name: Setup Node 14.x
+      - name: Setup Node 16.x
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
 

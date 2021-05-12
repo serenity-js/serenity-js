@@ -4,7 +4,7 @@ import { Artifact, CorrelationId, Name, SerialisedArtifact, Timestamp } from '..
 import { ArtifactGenerated } from './ArtifactGenerated';
 
 export class ActivityRelatedArtifactGenerated extends ArtifactGenerated {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): ActivityRelatedArtifactGenerated {
         return new ActivityRelatedArtifactGenerated(
             CorrelationId.fromJSON(o.sceneId as string),
             CorrelationId.fromJSON(o.activityId as string),

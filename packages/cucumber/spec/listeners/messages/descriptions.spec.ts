@@ -2,8 +2,8 @@ import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { FeatureNarrativeDetected, SceneDescriptionDetected, SceneStarts } from '@serenity-js/core/lib/events';
-
 import { Description, Name } from '@serenity-js/core/lib/model';
+
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', () => {
@@ -19,10 +19,10 @@ describe('CucumberMessagesListener', () => {
                 './examples/features/descriptions.feature',
             )
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(0);
+            .then(result => {
+                expect(result.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('First scenario')))
                     .next(FeatureNarrativeDetected, event => {
                         expect(event.description).to.equal(new Description(

@@ -3,6 +3,7 @@ import 'mocha';
 import { EventStreamEmitter, expect } from '@integration/testing-tools';
 import { Actor, Cast, Clock, Duration, Stage, StageManager } from '@serenity-js/core';
 import { OutputStream, trimmed } from '@serenity-js/core/lib/io';
+
 import { ConsoleReporter } from '../../../../src';
 import { Printer } from '../../../../src/stage/crew/console-reporter/Printer';
 import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/console-reporter/themes';
@@ -29,12 +30,12 @@ describe('ConsoleReporter', () => {
     describe('when instantiated', () => {
 
         it(`complains when not given a printer`, () => {
-            expect(() => new ConsoleReporter(null, new ThemeForMonochromaticTerminals()))
+            expect(() => new ConsoleReporter(undefined, new ThemeForMonochromaticTerminals()))
                 .to.throw(Error, 'printer should be defined');
         });
 
         it(`complains when not given a theme`, () => {
-            expect(() => new ConsoleReporter(new Printer(), null))
+            expect(() => new ConsoleReporter(new Printer(), undefined))
                 .to.throw(Error, 'theme should be defined');
         });
     });
@@ -366,8 +367,7 @@ class FakeWritableStream implements OutputStream {
     constructor(public buffer: string = '') {
     }
 
-    // @ts-ignore
-    write(chunk: string): boolean {
+    write(chunk: string): void {
         this.buffer += chunk;
     }
 }

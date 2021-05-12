@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
@@ -5,16 +6,17 @@ import { ImplementationPendingError, Serenity } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, ModuleLoader, Path, Version } from '@serenity-js/core/lib/io';
 import { Category, ExecutionFailedWithError, ExecutionSkipped, ExecutionSuccessful, FeatureTag, ImplementationPending, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
-
 import { EventEmitter } from 'events';
 import * as sinon from 'sinon';
 import { JSONObject } from 'tiny-types';
+
 import { AmbiguousStepDefinitionError } from '../../../src/errors';
 import { createListener } from '../../../src/listeners/legacy';
 
 describe('CucumberEventProtocolAdapter', () => {
 
-    type CucumberHook = (event?: object) => Promise<void> | void;
+    type CucumberHook = (event?: object) =>     // eslint-disable-line @typescript-eslint/ban-types
+    Promise<void> | void;
 
     let afterHook: CucumberHook;
 
@@ -52,7 +54,7 @@ describe('CucumberEventProtocolAdapter', () => {
 
         const listener = createListener(serenity, moduleLoader);
 
-        adapter = new listener({ eventBroadcaster, log });
+        adapter = new listener({ eventBroadcaster, log });  // eslint-disable-line @typescript-eslint/no-unused-vars
     });
 
     it('correctly recognises Cucumber Event Protocol events', () => {
@@ -277,6 +279,7 @@ describe('CucumberEventProtocolAdapter', () => {
 
         emitAllFrom(require('./samples/scenario-outline.json'));
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         const expectedScenarioDetails = (line: number) => new ScenarioDetails(
             new Name('The things I like'),
             new Category('Event Protocol'),
@@ -354,7 +357,7 @@ describe('CucumberEventProtocolAdapter', () => {
     function emitAllFrom(events: JSONObject[]): void {
         events.forEach(event => {
             // I can't use the convenient { type, ...body } construct because ESDoc/Babylon doesn't understand it; falling back to es5:
-            const emitted = Object.assign({}, event);   // tslint:disable-line:prefer-object-spread
+            const emitted = Object.assign({}, event);
             delete emitted.type;
             eventBroadcaster.emit(event.type as string, emitted);
         });

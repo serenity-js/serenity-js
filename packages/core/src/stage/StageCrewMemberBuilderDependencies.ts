@@ -1,5 +1,5 @@
-import { Stage } from './Stage';
 import { OutputStream } from '../io';
+import { Stage } from './Stage';
 
 /**
  * @desc

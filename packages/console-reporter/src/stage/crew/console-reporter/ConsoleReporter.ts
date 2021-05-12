@@ -29,8 +29,9 @@ import {
     ProblemIndication,
     Timestamp,
 } from '@serenity-js/core/lib/model';
-import { Instance as ChalkInstance } from 'chalk';
+import { Instance as ChalkInstance } from 'chalk';  // eslint-disable-line unicorn/import-style
 import { ensure, isDefined, match } from 'tiny-types';
+
 import { Printer } from './Printer';
 import { Summary } from './Summary';
 import { SummaryFormatter } from './SummaryFormatter';
@@ -153,7 +154,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     constructor(
         private readonly printer: Printer,
         private readonly theme: TerminalTheme,
-        private readonly stage: Stage = null,
+        private readonly stage?: Stage,
     ) {
         ensure('printer', printer, isDefined());
         ensure('theme', theme, isDefined());
@@ -187,7 +188,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
                 this.printer.println();
             })
 
-            // todo: add SceneTagged ...
+        // todo: add SceneTagged ...
 
             .when(TaskStarts, (e: TaskStarts) => {
 
@@ -218,21 +219,21 @@ export class ConsoleReporter implements ListensToDomainEvents {
                     }
                 }
 
-                const artifacts = this.artifacts.recordedFor(e.activityId);
+                const artifactGeneratedEvents = this.artifacts.recordedFor(e.activityId);
 
-                if (artifacts.filter(a => a instanceof AssertionReport || a instanceof LogEntry).length > 0) {
+                if (artifactGeneratedEvents.filter(a => a instanceof AssertionReport || a instanceof LogEntry).length > 0) {
                     this.printer.println();
                 }
 
-                artifacts.forEach(evt => {
-                    if (evt.artifact instanceof AssertionReport) {
-                        const details = evt.artifact.map(
+                artifactGeneratedEvents.forEach(artifactGenerated => {
+                    if (artifactGenerated.artifact instanceof AssertionReport) {
+                        const details = artifactGenerated.artifact.map(
                             (artifactContents: { expected: string, actual: string }) =>
                                 this.theme.diff(
                                     artifactContents.expected,
                                     artifactContents.actual,
                                 ),
-                            );
+                        );
 
                         this.printer.println();
 
@@ -241,11 +242,11 @@ export class ConsoleReporter implements ListensToDomainEvents {
                         this.printer.println();
                     }
 
-                    if (evt.artifact instanceof LogEntry) {
-                        const details = evt.artifact.map((artifactContents: { data: string }) => artifactContents.data);
+                    if (artifactGenerated.artifact instanceof LogEntry) {
+                        const details = artifactGenerated.artifact.map((artifactContents: { data: string }) => artifactContents.data);
 
-                        if (evt.name.value !== details) {
-                            this.printer.println(this.theme.log(evt.name.value, ':'));
+                        if (artifactGenerated.name.value !== details) {
+                            this.printer.println(this.theme.log(artifactGenerated.name.value, ':'));
                         }
 
                         this.printer.println(details);
@@ -313,14 +314,14 @@ export class ConsoleReporter implements ListensToDomainEvents {
 
                 this.artifacts.clear();
             })
-            .when(TestRunFinished, (e: TestRunFinished) => {
+            .when(TestRunFinished, (_: TestRunFinished) => {
                 this.printer.println(this.theme.separator('='));
 
                 this.printer.print(this.summaryFormatter.format(this.summary.aggregated()));
 
                 this.printer.println(this.theme.separator('='));
             })
-            .else((e: DomainEvent) => {
+            .else((_: DomainEvent) => {
                 return void 0;
             });
     }

@@ -15,7 +15,7 @@ export class TestRunnerDetector {
     static jasmineNodeOpts = 'jasmineNodeOpts';
     static mochaOpts = 'mochaOpts';
 
-    static protractorCliOptions() {
+    static protractorCliOptions(): string[] {
         return [
             TestRunnerDetector.cucumberOpts,
             TestRunnerDetector.jasmineNodeOpts,
@@ -77,7 +77,7 @@ export class TestRunnerDetector {
     }
 
     private mergedConfigFor<K extends keyof ProtractorConfig>(config: ProtractorConfig = {}, key: K): ProtractorConfig[K] {
-        // tslint:disable-next-line:prefer-object-spread
+
         return Object.assign(
             {},
             config[key],

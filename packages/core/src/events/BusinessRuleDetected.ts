@@ -1,6 +1,6 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
-import { BusinessRule, CorrelationId, Description, Name, ScenarioDetails, ScenarioParameters, Timestamp } from '../model';
+import { BusinessRule, CorrelationId, ScenarioDetails, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 /**
@@ -11,7 +11,7 @@ import { DomainEvent } from './DomainEvent';
  * @extends {DomainEvent}
  */
 export class BusinessRuleDetected extends DomainEvent {
-    public static fromJSON(o: JSONObject) {
+    public static fromJSON(o: JSONObject): BusinessRuleDetected {
         return new BusinessRuleDetected(
             CorrelationId.fromJSON(o.sceneId as string),
             ScenarioDetails.fromJSON(o.details as JSONObject),

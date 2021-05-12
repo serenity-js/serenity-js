@@ -1,4 +1,5 @@
 import { Writable } from 'stream';
+
 import { DomainEvent } from '../../../events';
 import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
@@ -53,12 +54,12 @@ export class StreamReporter implements StageCrewMember {
      * @param {stream~Writable} output
      *  A Writable stream that should receive the output
      *
-     * @param {Stage} [stage=null]
+     * @param {Stage} [stage]
      *  The stage this {@link StageCrewMember} should be assigned to
      */
     constructor(
         private readonly output: Writable = process.stdout,
-        private readonly stage: Stage = null,
+        private readonly stage?: Stage,
     ) {
     }
 

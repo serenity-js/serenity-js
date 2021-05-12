@@ -1,4 +1,5 @@
 import { ensure, isDefined, TinyType } from 'tiny-types';
+
 import { Timestamp } from '../model';
 
 export abstract class DomainEvent extends TinyType {

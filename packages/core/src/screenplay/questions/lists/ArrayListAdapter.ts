@@ -1,12 +1,13 @@
 import { ensure, isArray, isNumber } from 'tiny-types';
-import { ListAdapter } from './ListAdapter';
-import { Answerable } from '../../Answerable';
-import { AnswersQuestions, UsesAbilities } from '../../actor';
+
 import { formatted } from '../../../io';
-import { MetaQuestion } from '../MetaQuestion';
-import { Expectation } from '../Expectation';
+import { AnswersQuestions, UsesAbilities } from '../../actor';
+import { Answerable } from '../../Answerable';
 import { Question } from '../../Question';
+import { Expectation } from '../Expectation';
 import { ExpectationMet } from '../expectations';
+import { MetaQuestion } from '../MetaQuestion';
+import { ListAdapter } from './ListAdapter';
 
 /**
  * @desc
@@ -116,7 +117,7 @@ export class ArrayListAdapter<Item_Type> implements ListAdapter<Item_Type, Item_
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return formatted `${ this.array }`
     }
 

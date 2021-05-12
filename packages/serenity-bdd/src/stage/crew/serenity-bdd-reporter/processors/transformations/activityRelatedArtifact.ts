@@ -3,12 +3,13 @@ import { Artifact, AssertionReport, CorrelationId, HTTPRequestResponse, JSONData
 import { createHash } from 'crypto';
 import { match } from 'tiny-types';
 import { inspect } from 'util';
+
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package
  */
-export function activityRelatedArtifact<Context extends SerenityBDDReportContext>(activityId: CorrelationId, name: Name, artifact: Artifact, timestamp: Timestamp) {
+export function activityRelatedArtifact<Context extends SerenityBDDReportContext>(activityId: CorrelationId, name: Name, artifact: Artifact, timestamp: Timestamp): (context: Context) => Context {
     const differ = new AssertionReportDiffer({
         expected: line => `+ ${ line }`,
         actual:   line => `- ${ line }`,
@@ -52,34 +53,34 @@ export function activityRelatedArtifact<Context extends SerenityBDDReportContext
                 report.with(arbitraryData(
                     activityId,
                     name,
-                    artifact.map(value => JSON.stringify(value, null, 4)),
+                    artifact.map(value => JSON.stringify(value, undefined, 4)),
                     timestamp
                 ))
             )
             .else(_ => report)
 }
 
+function mapToString(dictionary: {[key: string]: string}) {
+    return Object.keys(dictionary).map(key => `${key}: ${dictionary[key]}`).join('\n');
+}
+
+function bodyToString(data: any): string {
+    if (data === null || data === undefined) {
+        return '';
+    }
+
+    if (typeof data === 'string') {
+        return data;
+    }
+
+    if (typeof data === 'object') {
+        return JSON.stringify(data, undefined, 4);
+    }
+
+    return inspect(data);
+}
+
 function httpRequestResponse<Context extends SerenityBDDReportContext>(activityId: CorrelationId, requestResponse: RequestAndResponse, timestamp: Timestamp) {
-    function mapToString(dictionary: {[key: string]: string}) {
-        return Object.keys(dictionary).map(key => `${key}: ${dictionary[key]}`).join('\n');
-    }
-
-    function bodyToString(data: any): string {
-        if (data === null || data === undefined) {
-            return '';
-        }
-
-        if (typeof data === 'string') {
-            return data;
-        }
-
-        if (typeof data === 'object') {
-            return JSON.stringify(data, null, 4);
-        }
-
-        return inspect(data);
-    }
-
     return (context: Context): Context => {
 
         if (context.steps.has(activityId.value)) {

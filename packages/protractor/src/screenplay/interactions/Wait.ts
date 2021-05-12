@@ -232,19 +232,17 @@ class WaitUntil<Actual> extends Interaction {
 
         return BrowseTheWeb.as(actor)
             .wait(function () {
-                    return actor.answer(actual)
-                        .then(act => expectation(act))
-                        .then(outcome => {
-                            expectationOutcome = outcome;
+                return actor.answer(actual)
+                    .then(act => expectation(act))
+                    .then(outcome => {
+                        expectationOutcome = outcome;
 
-                            return outcome instanceof ExpectationMet;
-                        });
-                },
-                this.timeout.inMilliseconds(),
-            )
+                        return outcome instanceof ExpectationMet;
+                    });
+            }, this.timeout.inMilliseconds())
             .then(_ => void 0)
             .catch(error => {
-                if (!! expectationOutcome) {
+                if (expectationOutcome) {
                     throw new AssertionError(
                         `Waited ${ this.timeout.toString() } for ${ formatted `${ this.actual }` } to ${ this.expectation.toString() }`,
                         expectationOutcome.expected,

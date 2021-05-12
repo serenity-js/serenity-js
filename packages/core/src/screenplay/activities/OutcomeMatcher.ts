@@ -1,4 +1,5 @@
 import { match } from 'tiny-types';
+
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '../../errors';
 import {
     ExecutionCompromised,
@@ -15,7 +16,8 @@ export class OutcomeMatcher {
             .when(ImplementationPendingError, _ => new ImplementationPending(error))
             .when(TestCompromisedError, _ => new ExecutionCompromised(error))
             .when(AssertionError, _ => new ExecutionFailedWithAssertionError(error))
-            .when(Error, _ => /AssertionError/.test(error.constructor.name) // mocha
+            .when(Error, _ =>
+                /AssertionError/.test(error.constructor.name) // mocha
                     ? new ExecutionFailedWithAssertionError(error)
                     : new ExecutionFailedWithError(error))
             .else(_ => new ExecutionFailedWithError(error));

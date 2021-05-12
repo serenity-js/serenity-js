@@ -4,7 +4,7 @@ import { Capabilities, ProtractorBrowser } from 'protractor';
  * @private
  */
 export class StandardisedCapabilities {
-    static of(currentBrowser: () => ProtractorBrowser) {
+    static of(currentBrowser: () => ProtractorBrowser): StandardisedCapabilities {
         return new StandardisedCapabilities(currentBrowser);
     }
 
@@ -56,11 +56,11 @@ export class StandardisedCapabilities {
         return this.currentBrowser().getCapabilities().then(caps => {
             for (const fetcher of fetchers) {
                 const result = fetcher(caps);
-                if (!! result) {
+                if (result) {
                     return result;
                 }
             }
-            return undefined;
+            return undefined;   // eslint-disable-line unicorn/no-useless-undefined
         });
     }
 }

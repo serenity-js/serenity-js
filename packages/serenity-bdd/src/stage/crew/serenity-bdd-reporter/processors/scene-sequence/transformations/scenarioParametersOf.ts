@@ -1,8 +1,9 @@
 import { ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
+
 import { DataTable, DataTableDataSetDescriptor } from '../../../SerenityBDDJsonSchema';
 import { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 
-export function scenarioParametersOf(scenario: ScenarioDetails, parameters: ScenarioParameters) {
+export function scenarioParametersOf(scenario: ScenarioDetails, parameters: ScenarioParameters): (context: SceneSequenceReportContext) => SceneSequenceReportContext {
 
     function descriptorFor(dataTable: DataTable) {
         const parameterSetDescription = parameters.description && parameters.description.value;

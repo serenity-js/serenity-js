@@ -28,7 +28,7 @@ describe('CallAnApi', () => {
 
         mock[verification](url).reply(200);
 
-        return expect(callAnApi.request({ method, url })).to.be.fulfilled; // tslint:disable-line:no-unused-expression
+        return expect(callAnApi.request({ method, url })).to.be.fulfilled;
     });
 
     /**
@@ -181,6 +181,7 @@ describe('CallAnApi', () => {
         });
     });
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     function mockedAxiosInstance() {
         const
             axiosInstance = axios.create(),

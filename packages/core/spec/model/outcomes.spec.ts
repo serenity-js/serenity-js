@@ -1,4 +1,6 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
+
 import { given } from 'mocha-testdata';
 
 import { ImplementationPendingError, TestCompromisedError } from '../../src/errors';
@@ -65,8 +67,8 @@ describe('Outcome', () => {
     function assertionError() {
         try {
             expect(true).to.equal(false);
-        } catch (e) {
-            return e;
+        } catch (error) {
+            return error;
         }
     }
 });

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-function-scoping,unicorn/prevent-abbreviations */
 import chaiModule = require('chai');
 
 import chaiAsPromised = require('chai-as-promised');
@@ -21,7 +22,7 @@ chaiModule.use(function (chai, utils) {
                 );
 
             } else {
-                _super.apply(this, arguments);
+                Reflect.apply(_super, this, arguments); // eslint-disable-line prefer-rest-params
             }
         };
     }

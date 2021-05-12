@@ -1,12 +1,12 @@
 import * as cuid from 'cuid';
-import { TinyType, TinyTypeOf } from 'tiny-types';
+import { TinyTypeOf } from 'tiny-types';
 
 export class CorrelationId extends TinyTypeOf<string>() {
-    static fromJSON(v: string) {
+    static fromJSON(v: string): CorrelationId {
         return new CorrelationId(v);
     }
 
-    static create() {
+    static create(): CorrelationId {
         return new CorrelationId(cuid());
     }
 }

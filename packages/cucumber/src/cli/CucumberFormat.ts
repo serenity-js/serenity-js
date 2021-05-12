@@ -1,4 +1,4 @@
-import { ensure, isString, isNotBlank } from 'tiny-types';
+import { ensure, isNotBlank,isString } from 'tiny-types';
 
 /**
  * @desc
@@ -26,10 +26,6 @@ export class CucumberFormat {
      * @private {string[]}
      */
     private static split(format: string): [string, string] {
-        function partNeedsRecombined(i: number): boolean {
-            return i % 2 === 0;
-        }
-
         const parts = format.split(/([^A-Z]):(?!\\)/);
 
         const result = parts.reduce((memo: string[], part: string, i: number) => {
@@ -46,4 +42,11 @@ export class CucumberFormat {
 
         return result as [string, string];
     }
+}
+
+/**]
+ * @private
+ */
+function partNeedsRecombined(i: number): boolean {
+    return i % 2 === 0;
 }

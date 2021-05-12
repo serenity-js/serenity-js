@@ -2,13 +2,14 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { Task } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { GetRequest, LastResponse, Send } from '@serenity-js/rest';
+
 import { Checksum } from '../questions';
 
 /**
  * @package
  */
 export const VerifyChecksum = {
-    at: (checksumUrl: string) => ({
+    at: (checksumUrl: string) => ({             // eslint-disable-line  @typescript-eslint/explicit-module-boundary-types
         against: (downloadedFile: Path) => ({
             calculatedUsing: (hashingAlgorithm: string) =>
                 Task.where(`#actor verifies checksum at ${ checksumUrl } against ${ downloadedFile.value }`,

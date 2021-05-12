@@ -22,7 +22,7 @@ class And<Actual> extends Expectation<any, Actual> {
                         match(outcome)
                             .when(ExpectationNotMet, o => o)
                             .else(_ => current.answeredBy(actor)(actual)),
-                ),
+                    ),
                 Promise.resolve(void 0),
             );
     }

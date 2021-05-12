@@ -7,6 +7,7 @@ import {
     ExecutionSuccessful,
     ImplementationPending,
 } from '@serenity-js/core/lib/model';
+
 import { AggregatedCategories, AggregatedCategory } from './Summary';
 import { TerminalTheme } from './themes';
 
@@ -28,7 +29,7 @@ export class SummaryFormatter {
             '',
             ...categoryNames.map(categoryName => {
                 const displayName = (categoryName.length > maxCategoryNameLengthAllowed
-                    ? categoryName.substring(0, maxCategoryNameLengthAllowed - 4) + `...:`
+                    ? categoryName.slice(0, maxCategoryNameLengthAllowed - 4) + `...:`
                     : `${ categoryName }:`).padEnd(maxCategoryNameLengthAllowed + 1);
 
                 return `${ this.theme.heading(displayName) } ${ this.formatTotalsFor(aggregatedCategories.categories[categoryName]) }`;

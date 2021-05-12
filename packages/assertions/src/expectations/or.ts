@@ -24,7 +24,7 @@ class Or<Actual> extends Expectation<any, Actual> {
                     previous.then((outcomesSoFar: Array<ExpectationOutcome<any, Actual>>) =>
                         current.answeredBy(actor)(actual)
                             .then(outcome => outcomesSoFar.concat(outcome)),        // todo: should stop on the first met expectation
-                        ),
+                    ),
                 Promise.resolve([]),
             ).
             then((outcomes: Array<ExpectationOutcome<any, Actual>>) => {

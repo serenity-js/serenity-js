@@ -20,7 +20,7 @@ export interface Collection<T> {
  */
 export class Pick<Item_Type, Collection_Type extends Collection<Item_Type> = Collection<Item_Type>> {
 
-    static from<IT, CT extends Collection<IT> = Collection<IT>>(collection: Question<CT> | CT) {
+    static from<IT, CT extends Collection<IT> = Collection<IT>>(collection: Question<CT> | CT): Pick<IT, CT> {
         return new Pick<IT, CT>(collection);
     }
 
@@ -97,7 +97,8 @@ class Filters<Item_Type, Collection_Type extends Collection<Item_Type>>
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): (ct: Collection_Type) => Collection_Type {
         return (collection: Collection_Type) =>
-            this.filters.reduce((filteredCollection, filter) =>
+            this.filters.reduce(
+                (filteredCollection, filter) =>
                     filter.answeredBy(actor)(filteredCollection),
                 collection,
             );
@@ -292,15 +293,15 @@ class LastMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutColle
 class NthMatchingItem<IT, CT extends Collection<IT>> extends QuestionAboutCollectionItems<IT, CT, IT> {
     private static ordinalSuffixOf(index: number) {
         const
-            j = index % 10,
-            k = index % 100;
+            lastDigit = index % 10,
+            lastTwoDigits = index % 100;
 
         switch (true) {
-            case (j === 1 && k !== 11):
+            case (lastDigit === 1 && lastTwoDigits !== 11):
                 return index + 'st';
-            case (j === 2 && k !== 12):
+            case (lastDigit === 2 && lastTwoDigits !== 12):
                 return index + 'nd';
-            case (j === 3 && k !== 13):
+            case (lastDigit === 3 && lastTwoDigits !== 13):
                 return index + 'rd';
             default:
                 return index + 'th';

@@ -1,6 +1,8 @@
+/* eslint-disable unicorn/filename-case */
 import { equals } from '@serenity-js/assertions';
 import { AnswersQuestions, Check, PerformsActivities, Question, Task, UsesAbilities } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
+
 import { Spawn } from '../interactions';
 import { TerminateFlow } from '../interactions/TerminateFlow';
 import { FileExists, JavaExecutable } from '../questions';
@@ -9,19 +11,18 @@ import { FileExists, JavaExecutable } from '../questions';
  * @package
  */
 export class InvokeSerenityBDD extends Task {
-    static at(pathToArtifact: Path) {
+    static at(pathToArtifact: Path): InvokeSerenityBDD {
         return new InvokeSerenityBDD(pathToArtifact);
     }
 
-    withArguments(args: Question<string[]>) {
+    withArguments(args: Question<string[]>): InvokeSerenityBDD {
         return new InvokeSerenityBDD(this.pathToArtifact, args, this.props);
     }
 
-    withProperties(properties: Question<string[]>) {
+    withProperties(properties: Question<string[]>): InvokeSerenityBDD {
         return new InvokeSerenityBDD(this.pathToArtifact, this.args, properties);
     }
 
-    // tslint:disable-next-line:member-ordering
     constructor(
         private readonly pathToArtifact: Path,
         private readonly args: Question<string[]>  = Question.about(`no arguments`, actor => []),
@@ -46,20 +47,20 @@ export class InvokeSerenityBDD extends Task {
     performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): PromiseLike<void> | PromiseLike<any> {
 
         return Promise.all([
-                actor.answer(this.args),
-                actor.answer(this.props),
-            ])
-            .then(([ args, props ]) =>
-                actor.attemptsTo(
-                    Check
-                        .whether(FileExists.at(this.pathToArtifact), equals(false))
-                        .andIfSo(TerminateFlow.because(
-                            `I couldn't access the Serenity BDD CLI at ${ this.pathToArtifact.value }. ` +
-                            `Did you remember to run \`serenity-bdd update\`?`,
-                        )),
-                    // todo: check if reports exist before invoking the jar?
-                    Spawn.the(new JavaExecutable(), ...props, '-jar', this.pathToArtifact.value, ...args),
-                ),
+            actor.answer(this.args),
+            actor.answer(this.props),
+        ]).
+        then(([ args, props ]) =>
+            actor.attemptsTo(
+                Check
+                    .whether(FileExists.at(this.pathToArtifact), equals(false))
+                    .andIfSo(TerminateFlow.because(
+                        `I couldn't access the Serenity BDD CLI at ${ this.pathToArtifact.value }. ` +
+                        `Did you remember to run \`serenity-bdd update\`?`,
+                    )),
+                // todo: check if reports exist before invoking the jar?
+                Spawn.the(new JavaExecutable(), ...props, '-jar', this.pathToArtifact.value, ...args),
+            ),
         );
     }
 

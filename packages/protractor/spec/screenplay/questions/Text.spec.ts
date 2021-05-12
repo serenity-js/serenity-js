@@ -70,7 +70,7 @@ describe('Text', () => {
                     `)),
 
                     Ensure.that(
-                        Text.of(Header).map(trim()).map(actor => value => new Date(value)),
+                        Text.of(Header).map(trim()).map(actor => value => new Date(value)), // eslint-disable-line unicorn/consistent-function-scoping
                         equals(new Date('2020-09-11T19:53:18.160Z'))
                     ),
                 ));

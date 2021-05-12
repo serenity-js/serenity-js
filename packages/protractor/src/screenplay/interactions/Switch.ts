@@ -1,4 +1,4 @@
-import { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Question, Task, UsesAbilities } from '@serenity-js/core';
+import { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Task, UsesAbilities } from '@serenity-js/core';
 import { ElementFinder } from 'protractor';
 import { BrowseTheWeb } from '../abilities';
 
@@ -169,7 +169,7 @@ export class Switch {
      *  **Please note** that this behaviour might vary in some browsers if there are more than two windows opened
      *  at the same time.
      *
-     * @returns {SwitchToWindow}
+     * @returns {SwitchToNewWindow}
      */
     static toNewWindow(): SwitchToNewWindow {
         return new SwitchToNewWindow();
@@ -184,9 +184,9 @@ export class Switch {
      *  **Please note** that this behaviour might vary in some browsers if there are more than two windows opened
      *  at the same time, as window handles might be ordered alphabetically instead of the order in which they were created.
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @returns {SwitchToOriginalWindow}
      */
-    static toOriginalWindow() {
+    static toOriginalWindow(): SwitchToOriginalWindow {
         return new SwitchToOriginalWindow();
     }
 }

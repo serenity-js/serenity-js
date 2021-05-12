@@ -1,4 +1,5 @@
 import { ensure, isGreaterThan, property } from 'tiny-types';
+
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -70,12 +71,12 @@ export class ArtifactArchiver implements StageCrewMember {
 
     /**
      * @param {FileSystem} fileSystem
-     * @param {Stage} [stage=null]
+     * @param {Stage} [stage]
      *  The stage this {@link StageCrewMember} should be assigned to
      */
     constructor(
         private readonly fileSystem: FileSystem,
-        private readonly stage: Stage = null,
+        private readonly stage?: Stage,
     ) {
     }
 
@@ -137,16 +138,12 @@ export class ArtifactArchiver implements StageCrewMember {
     private fileNameFor(prefix: string, artifactName: Name, artifact: Artifact, extension: string): Path {
         const hash = Hash.of(artifact.base64EncodedValue).short();
 
-        const urlFriendly = (name: string) =>
-            name.toLocaleLowerCase()
-                .replace(/[^a-z0-9.-]/g, '-');
-
         return Path.fromSanitisedString(
             // Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems
             // note: we can't do that in the Path constructor as the Path can be used to join other paths,
             // so restricting the length of the _path_ itself would not be correct.
-            `${ prefix.substring(0, 10) }-${ urlFriendly(artifactName.value).substring(0, 64) }-${ hash }.${ extension }`.replace(/-+/g, '-'),
-            // characters:     10        1         64                                          1    10   1    4                                 < 100
+            `${ prefix.slice(0, 10) }-${ urlFriendly(artifactName.value).slice(0, 64) }-${ hash }.${ extension }`.replace(/-+/g, '-'),
+            // characters:     10    1         64                                      1    10   1    4                                 < 100
         );
     }
 
@@ -172,24 +169,33 @@ export class ArtifactArchiver implements StageCrewMember {
             });
     }
 
-    private archivisationAnnouncement(evt: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path) {
+    private archivisationAnnouncement(event: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path) {
         return (absolutePath: Path) => {
-            if (evt instanceof ActivityRelatedArtifactGenerated) {
+            if (event instanceof ActivityRelatedArtifactGenerated) {
                 this.stage.announce(new ActivityRelatedArtifactArchived(
-                    evt.sceneId,
-                    evt.activityId,
-                    evt.name,
-                    evt.artifact.constructor as ArtifactType,
+                    event.sceneId,
+                    event.activityId,
+                    event.name,
+                    event.artifact.constructor as ArtifactType,
                     relativePathToArtifact,
                 ));
-            } else if (evt instanceof ArtifactGenerated) {
+            } else if (event instanceof ArtifactGenerated) {
                 this.stage.announce(new ArtifactArchived(
-                    evt.sceneId,
-                    evt.name,
-                    evt.artifact.constructor as ArtifactType,
+                    event.sceneId,
+                    event.name,
+                    event.artifact.constructor as ArtifactType,
                     relativePathToArtifact,
                 ));
             }
         };
     }
+}
+
+/**
+ * @private
+ * @param {string} name
+ */
+function urlFriendly(name: string): string {
+    return name.toLocaleLowerCase()
+        .replace(/[^\d.a-z-]/g, '-');
 }

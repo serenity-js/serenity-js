@@ -62,7 +62,7 @@ export interface CucumberConfig {
      * @type {object|string}
      * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options
      */
-    formatOptions?: object | string;
+    formatOptions?: object | string;    // eslint-disable-line @typescript-eslint/ban-types
 
     /**
      * @desc
@@ -91,7 +91,6 @@ export interface CucumberConfig {
      * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles
      */
     profile?: string[];
-
 
     /**
      * @desc
@@ -191,5 +190,5 @@ export interface CucumberConfig {
      * @type {object | string}
      * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters
      */
-    worldParameters?: object | string;
+    worldParameters?: object | string;  // eslint-disable-line @typescript-eslint/ban-types
 }

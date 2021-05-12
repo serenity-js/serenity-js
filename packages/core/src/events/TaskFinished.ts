@@ -4,7 +4,7 @@ import { ActivityDetails, CorrelationId, Outcome, SerialisedOutcome, Timestamp }
 import { ActivityFinished } from './ActivityFinished';
 
 export class TaskFinished extends ActivityFinished {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): TaskFinished {
         return new TaskFinished(
             CorrelationId.fromJSON(o.sceneId as string),
             CorrelationId.fromJSON(o.activityId as string),

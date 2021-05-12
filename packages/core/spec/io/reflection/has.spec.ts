@@ -1,7 +1,10 @@
+/* eslint-disable unicorn/no-null */
 import 'mocha';
+
 import { given } from 'mocha-testdata';
-import { expect } from '../../expect';
+
 import { has } from '../../../src/io';
+import { expect } from '../../expect';
 
 /** @test {has} */
 describe('has', () => {

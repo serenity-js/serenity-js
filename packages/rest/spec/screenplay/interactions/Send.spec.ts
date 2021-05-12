@@ -1,14 +1,13 @@
 import 'mocha';
 
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-
 import { EventRecorder } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
 import { HTTPRequestResponse } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 import { GetRequest, LastResponse, Send } from '../../../src';
 import { actorUsingAMockedAxiosInstance, APIActors } from '../../actors';

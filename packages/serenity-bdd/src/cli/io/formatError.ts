@@ -3,7 +3,7 @@ import { RuntimeError } from '@serenity-js/core';
 /**
  * @package
  */
-export function formatError(error: RuntimeError | Error) {
+export function formatError(error: RuntimeError | Error): string {
 
     const learnMore = `Learn more at https://serenity-js.org/modules/serenity-bdd`;
 
@@ -44,6 +44,6 @@ function messages(error: RuntimeError | Error, acc: string[] = []): string[] {
         : acc.concat(error.message || `${ error }`);
 }
 
-function lines(...entries: string[]) {
+function lines(...entries: string[]): string {
     return entries.filter(line => line !== void 0).join('\n');
 }

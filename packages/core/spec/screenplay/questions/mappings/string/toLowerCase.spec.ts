@@ -1,8 +1,10 @@
+/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null,unicorn/no-useless-undefined */
 import 'mocha';
 
 import { given } from 'mocha-testdata';
+
 import { actorCalled } from '../../../../../src';
-import { toLowerCase, Question } from '../../../../../src/screenplay';
+import { Question,toLowerCase } from '../../../../../src/screenplay';
 import { expect } from '../../../../expect';
 
 /** @test {toLowerCase} */

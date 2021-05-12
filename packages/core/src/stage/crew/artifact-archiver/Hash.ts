@@ -19,6 +19,6 @@ export class Hash extends TinyType {
     }
 
     short(): string {
-        return this.value.substring(0, 10);
+        return this.value.slice(0, 10);
     }
 }

@@ -1,11 +1,12 @@
+/* eslint-disable unicorn/filename-case */
 import { Path } from '@serenity-js/core/lib/io';
-import { ensure, isDefined, isInRange, isInteger, matches, Predicate, property, TinyType } from 'tiny-types';
+import { ensure, isDefined, isInRange, isInteger, matches, property, TinyType } from 'tiny-types';
 
 /**
  * @package
  */
 export class GAV extends TinyType {
-    static fromString(gav: string) {
+    static fromString(gav: string): GAV {
         const parts = gav.split(':');
 
         ensure('GAV segments', parts, property('length', isInteger(), isInRange(3, 5)));
@@ -25,8 +26,8 @@ export class GAV extends TinyType {
         public readonly classifier?: string,
     ) {
         super();
-        ensure('groupId', groupId, isDefined(), matches(/^[a-z][a-z0-9_-]+(?:\.[a-z0-9_-]+)+[0-9a-z_-]$/));
-        ensure('artifactId', artifactId, isDefined(), matches(/^[a-z0-9_-]+$/));
+        ensure('groupId', groupId, isDefined(), matches(/^[a-z][\d_a-z-]+(?:\.[\d_a-z-]+)+[\d_a-z-]$/));
+        ensure('artifactId', artifactId, isDefined(), matches(/^[\d_a-z-]+$/));
         ensure('version', version, isDefined(), matches(/^(?:\d+\.?){3}$/));
         ensure('extension', extension, isDefined(), matches(/^[a-z]+$/));
     }

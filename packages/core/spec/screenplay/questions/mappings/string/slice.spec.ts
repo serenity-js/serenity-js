@@ -1,8 +1,10 @@
+/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null,unicorn/no-useless-undefined */
 import 'mocha';
 
 import { given } from 'mocha-testdata';
+
 import { actorCalled } from '../../../../../src';
-import { slice, Question } from '../../../../../src/screenplay';
+import { Question,slice } from '../../../../../src/screenplay';
 import { expect } from '../../../../expect';
 
 /** @test {slice} */
@@ -44,22 +46,22 @@ describe('slice', () => {
     });
 
     given([
-        { value: NaN,               expected: 'startIndex should be an integer' },
+        { value: Number.NaN,        expected: 'startIndex should be an integer' },
         { value: null,              expected: 'startIndex should be defined'    },
         { value: undefined,         expected: 'startIndex should be defined'    },
         { value: '',                expected: 'startIndex should be an integer' },
         { value: { },               expected: 'startIndex should be an integer' },
-        { value: p(NaN),            expected: 'startIndex should be an integer' },
+        { value: p(Number.NaN),     expected: 'startIndex should be an integer' },
         { value: p(null),           expected: 'startIndex should be defined'    },
         { value: p(undefined),      expected: 'startIndex should be defined'    },
         { value: p(''),             expected: 'startIndex should be an integer' },
         { value: p({ }),            expected: 'startIndex should be an integer' },
-        { value: q(NaN),            expected: 'startIndex should be an integer' },
+        { value: q(Number.NaN),     expected: 'startIndex should be an integer' },
         { value: q(null),           expected: 'startIndex should be defined'    },
         { value: q(undefined),      expected: 'startIndex should be defined'    },
         { value: q(''),             expected: 'startIndex should be an integer' },
         { value: q({ }),            expected: 'startIndex should be an integer' },
-        { value: q(p(NaN)),         expected: 'startIndex should be an integer' },
+        { value: q(p(Number.NaN)),  expected: 'startIndex should be an integer' },
         { value: q(p(null)),        expected: 'startIndex should be defined'    },
         { value: q(p(undefined)),   expected: 'startIndex should be defined'    },
         { value: q(p('')),          expected: 'startIndex should be an integer' },
@@ -74,19 +76,19 @@ describe('slice', () => {
     });
 
     given([
-        { value: NaN,               expected: 'endIndex should be an integer'   },
+        { value: Number.NaN,        expected: 'endIndex should be an integer'   },
         { value: null,              expected: 'endIndex should be an integer'   },
         { value: '',                expected: 'endIndex should be an integer'   },
         { value: { },               expected: 'endIndex should be an integer'   },
-        { value: p(NaN),            expected: 'endIndex should be an integer'   },
+        { value: p(Number.NaN),     expected: 'endIndex should be an integer'   },
         { value: p(null),           expected: 'endIndex should be an integer'   },
         { value: p(''),             expected: 'endIndex should be an integer'   },
         { value: p({ }),            expected: 'endIndex should be an integer'   },
-        { value: q(NaN),            expected: 'endIndex should be an integer'   },
+        { value: q(Number.NaN),     expected: 'endIndex should be an integer'   },
         { value: q(null),           expected: 'endIndex should be an integer'   },
         { value: q(''),             expected: 'endIndex should be an integer'   },
         { value: q({ }),            expected: 'endIndex should be an integer'   },
-        { value: q(p(NaN)),         expected: 'endIndex should be an integer'   },
+        { value: q(p(Number.NaN)),  expected: 'endIndex should be an integer'   },
         { value: q(p(null)),        expected: 'endIndex should be an integer'   },
         { value: q(p('')),          expected: 'endIndex should be an integer'   },
         { value: q(p({ })),         expected: 'endIndex should be an integer'   },

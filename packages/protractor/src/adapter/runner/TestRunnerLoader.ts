@@ -1,5 +1,6 @@
+/* eslint-disable unicorn/prevent-abbreviations,@typescript-eslint/ban-types */
 import { Config, FileFinder, FileSystem, ModuleLoader, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
-import { CucumberConfig } from '@serenity-js/cucumber/lib/cli'; // tslint:disable-line:no-submodule-imports
+import { CucumberConfig } from '@serenity-js/cucumber/lib/cli';
 import { CucumberAdapterConfig } from './CucumberAdapterConfig';
 
 /**

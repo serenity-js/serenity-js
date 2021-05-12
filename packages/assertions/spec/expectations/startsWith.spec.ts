@@ -2,6 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+
 import { Ensure, startsWith } from '../../src';
 
 describe('startsWith', () => {

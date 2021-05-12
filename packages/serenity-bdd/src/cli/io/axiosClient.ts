@@ -1,12 +1,13 @@
 import { ConfigurationError } from '@serenity-js/core';
 import axios, { AxiosInstance, AxiosProxyConfig, AxiosRequestConfig } from 'axios';
-import { httpAdapter } from 'axios/lib/adapters/http'; // tslint:disable-line:no-submodule-imports
+import { httpAdapter } from 'axios/lib/adapters/http';
 import * as fs from 'fs';
-import { URL } from 'url';
 import * as https from 'https';
+import { URL } from 'url';
+
 import { Credentials } from '../model';
 
-const HttpsProxyAgent = require('https-proxy-agent'); // tslint:disable-line:no-var-requires ignore problematic type definitions
+const HttpsProxyAgent = require('https-proxy-agent');   // eslint-disable-line @typescript-eslint/no-var-requires
 
 /**
  * @package
@@ -73,7 +74,7 @@ export function shouldProxy(url: URL, configuredProxy: EnvVar, configuredNoProxy
             return true;
         }
 
-        if (noProxyDomain[0] === '.' && url.hostname.substr(url.hostname.length - noProxyDomain.length) === noProxyDomain) {
+        if (noProxyDomain[0] === '.' && url.hostname.slice(url.hostname.length - noProxyDomain.length) === noProxyDomain) {
             return true;
         }
 
@@ -92,7 +93,7 @@ function proxyConfigFrom(proxyUrl: EnvVar): AxiosProxyConfig | undefined {
     try {
         parsed = new URL(proxyUrl.value);
     } catch (error) {
-        throw new ConfigurationError(`Env variable ${ proxyUrl.name }=${ proxyUrl.value } should specify a valid URL`);
+        throw new ConfigurationError(`Env variable ${ proxyUrl.name }=${ proxyUrl.value } should specify a valid URL`, error);
     }
 
     if (! isSupportedProtocol(parsed.protocol)) {
@@ -104,8 +105,8 @@ function proxyConfigFrom(proxyUrl: EnvVar): AxiosProxyConfig | undefined {
         host: parsed.hostname,
 
         port: parsed.port
-            ? parseInt(parsed.port, 10)
-            : isHttps(parsed.protocol) ? 443 : 80,
+            ? Number.parseInt(parsed.port, 10)
+            : (isHttps(parsed.protocol) ? 443 : 80),
 
         auth: (parsed.password || parsed.username) ? {
             password: parsed.password,
@@ -145,7 +146,7 @@ function certificationAuthority(env: { [key: string]: string }): string | undefi
     return undefined;
 }
 
-type EnvVar = { name?: string, value?: string };
+type EnvVar = { name?: string, value?: string };    // eslint-disable-line unicorn/prevent-abbreviations
 
 function firstNonEmpty(env: { [key: string]: string }, ...candidateVariables: string[]): EnvVar {
     const found = candidateVariables.find(value => !! env[value]);

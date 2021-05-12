@@ -1,7 +1,9 @@
 import 'mocha';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { InteractionFinished, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TaskFinished, TaskStarts } from '@serenity-js/core/lib/events';
 import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', () => {
@@ -17,10 +19,10 @@ describe('CucumberMessagesListener', () => {
                 './examples/features/hooks.feature',
             )
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(0);
+            .then(result => {
+                expect(result.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     // before all
                     .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in BeforeAll')))
                     .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in BeforeAll')))

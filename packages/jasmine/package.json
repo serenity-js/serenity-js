@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/jasmine",
-  "version": "2.27.1",
+  "version": "2.28.0",
   "description": "Serenity/JS adapter for the Jasmine test runner",
   "author": {
     "name": "Jan Molak",
@@ -27,7 +27,7 @@
   ],
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
-    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js .",
     "test": "nyc --report-dir ../../target/coverage/jasmine mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
@@ -40,11 +40,11 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^10 || ^12 || ^14",
+    "node": "^12 || ^14 || ^16",
     "npm": "^6 || ^7"
   },
   "dependencies": {
-    "@serenity-js/core": "2.27.1"
+    "@serenity-js/core": "2.28.0"
   },
   "peerDependencies": {
     "jasmine": "^3.7.0"

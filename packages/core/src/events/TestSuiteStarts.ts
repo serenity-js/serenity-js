@@ -4,7 +4,7 @@ import { TestSuiteDetails, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 export class TestSuiteStarts extends DomainEvent {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): TestSuiteStarts {
         return new TestSuiteStarts(
             TestSuiteDetails.fromJSON(o.details as JSONObject),
             Timestamp.fromJSON(o.timestamp as string),

@@ -3,7 +3,7 @@ import { PlayAChord } from '../interactions';
 import { MusicSheet } from '../MusicSheet';
 
 export class PlayASong extends Task {
-    static from(musicSheet: MusicSheet) {
+    static from(musicSheet: MusicSheet): PlayASong {
         return new PlayASong(musicSheet);
     }
 

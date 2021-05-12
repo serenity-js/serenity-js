@@ -8,20 +8,20 @@ import {
     ImplementationPending,
     Outcome,
 } from '@serenity-js/core/lib/model';
+
 import { AmbiguousStepDefinitionError } from '../../../errors';
 
 /**
  * @package
  */
 export class ResultMapper {
-    outcomeFor(status: string, maybeError: Error | string | undefined) {
+    outcomeFor(status: string, maybeError: Error | string | undefined): Outcome {
         const error = this.errorFrom(maybeError);
 
         if (error && /timed out/.test(error.message)) {
             return new ExecutionFailedWithError(error);
         }
 
-        // tslint:disable:switch-default
         switch (true) {
             case status === 'undefined':
                 return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
@@ -50,7 +50,7 @@ export class ResultMapper {
             case status === 'skipped':
                 return new ExecutionSkipped();
         }
-        // tslint:enable:switch-default
+
     }
 
     errorFrom(error: Error | string | undefined): Error | undefined {

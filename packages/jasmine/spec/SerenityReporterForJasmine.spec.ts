@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 import 'mocha';
 
 import { expect, PickEvent } from '@integration/testing-tools';
@@ -25,6 +26,7 @@ import {
     TestSuiteDetails,
     Timestamp,
 } from '@serenity-js/core/lib/model';
+
 import { SerenityReporterForJasmine } from '../src/SerenityReporterForJasmine';
 
 /** @test {SerenityReporterForJasmine} */

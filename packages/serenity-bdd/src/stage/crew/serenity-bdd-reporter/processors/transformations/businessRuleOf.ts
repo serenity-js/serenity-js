@@ -1,10 +1,11 @@
-import { BusinessRule, Description, Name } from '@serenity-js/core/lib/model';
+import { BusinessRule } from '@serenity-js/core/lib/model';
+
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package
  */
-export function businessRuleOf<Context extends SerenityBDDReportContext>(rule: BusinessRule) {
+export function businessRuleOf<Context extends SerenityBDDReportContext>(rule: BusinessRule): (context: Context) => Context {
     return (context: Context): Context => {
 
         context.report.rule = {

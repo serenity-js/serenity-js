@@ -14,7 +14,7 @@ export class FeatureFileParser {
     parse(uri: Path): Promise<GherkinDocument> {
         return new Promise((resolve, reject) => {
             fs.readFile(uri.value, (error: NodeJS.ErrnoException | undefined, data: Buffer) => {
-                if (!! error) {
+                if (error) {
                     return reject(
                         new UnableToReadFeatureFileError(`Could not read feature file at "${ uri.value }"`, error),
                     );

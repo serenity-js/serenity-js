@@ -1,4 +1,3 @@
-import { match } from 'tiny-types';
 import {
     ActivityFinished,
     ActivityRelatedArtifactArchived,
@@ -17,6 +16,7 @@ import {
     SceneTemplateDetected,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
+import { match } from 'tiny-types';
 
 import { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
 import { EventQueue } from '../EventQueue';
@@ -40,6 +40,7 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
 
     process(queue: EventQueue): SerenityBDDReport {
         return queue.reduce((context, event) =>
+            // eslint-disable-next-line @typescript-eslint/indent
             match<DomainEvent, SceneSequenceReportContext>(event)
                 .when(SceneSequenceDetected,            this.onSceneSequenceDetected(context))
                 .when(SceneStarts,                      this.onSceneStarts(context))
@@ -56,9 +57,8 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
                 .when(ActivityRelatedArtifactGenerated, this.onActivityRelatedArtifactGenerated(context))
                 .when(ActivityRelatedArtifactArchived,  this.onActivityRelatedArtifactArchived(context))
                 .when(SceneFinished,                    this.onSceneFinished(context))
-                .else(() => context)
-            ,
-            new SceneSequenceReportContext()
+                .else(() => context),
+            new SceneSequenceReportContext()    // eslint-disable-line @typescript-eslint/indent
         ).build();
     }
 

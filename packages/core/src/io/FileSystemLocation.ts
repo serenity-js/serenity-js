@@ -1,12 +1,15 @@
 import { JSONObject, TinyType } from 'tiny-types';
+
 import { Path } from './Path';
 
 export class FileSystemLocation extends TinyType {
-    static fromJSON = (o: JSONObject) => new FileSystemLocation(
-        Path.fromJSON(o.path as string),
-        o.line as number,
-        o.column as number,
-    )
+    static fromJSON(o: JSONObject): FileSystemLocation {
+        return new FileSystemLocation(
+            Path.fromJSON(o.path as string),
+            o.line as number,
+            o.column as number,
+        );
+    }
 
     constructor(
         public readonly path: Path,

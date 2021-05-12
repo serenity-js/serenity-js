@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
@@ -29,12 +30,12 @@ describe('Switch', () => {
             `);
 
     const pageWithIframe =
-        (header: string, iframeSrc: string) =>
+        (header: string, iframeSource: string) =>
             pageFromTemplate(`
                 <html>
                     <body>
                         <h1>${ header }</h1>
-                        <iframe name="example-iframe" src="${ iframeSrc.replace(/"/g, '&quot;') }" />
+                        <iframe name="example-iframe" src="${ iframeSource.replace(/"/g, '&quot;') }" />
                     </body>
                 </html>
             `);

@@ -17,7 +17,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib target",
-    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js",
     "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "verify": "npm test",
@@ -32,7 +32,7 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^10 || ^12 || ^14",
+    "node": "^12 || ^14 || ^16",
     "npm": "^6 || ^7"
   },
   "devDependencies": {

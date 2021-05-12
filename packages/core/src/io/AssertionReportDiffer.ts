@@ -19,15 +19,20 @@ export class AssertionReportDiffer {
 
     private markChanges(change: Change): string {
 
-        return !! change.added
+        return change.added
             ? this.eachLineOf(change.value, this.mappers.expected)
-            : change.removed
+            : (change.removed
                 ? this.eachLineOf(change.value, this.mappers.actual)
-                : this.eachLineOf(change.value, this.mappers.matching);
+                : this.eachLineOf(change.value, this.mappers.matching));
     }
 
     private eachLineOf(lines: string, mapper: (line: string) => string): string {
-        return lines.split('\n').map(line => !! line.trim() ? mapper(line) : line).join('\n');
+        return lines.split('\n').map(
+            line =>
+                line.trim()
+                    ? mapper(line)
+                    : line
+        ).join('\n');
     }
 }
 

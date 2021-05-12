@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/serenity-bdd",
-  "version": "2.27.1",
+  "version": "2.28.0",
   "description": "Serenity BDD reporter for Serenity/JS",
   "author": {
     "name": "Jan Molak",
@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
-    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js .",
     "test": "nyc --report-dir ../../target/coverage/serenity-bdd mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
@@ -42,13 +42,13 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^10 || ^12 || ^14",
+    "node": "^12 || ^14 || ^16",
     "npm": "^6 || ^7"
   },
   "dependencies": {
-    "@serenity-js/assertions": "2.27.1",
-    "@serenity-js/core": "2.27.1",
-    "@serenity-js/rest": "2.27.1",
+    "@serenity-js/assertions": "2.28.0",
+    "@serenity-js/core": "2.28.0",
+    "@serenity-js/rest": "2.28.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.1",
     "find-java-home": "^1.2.0",

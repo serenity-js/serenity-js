@@ -1,4 +1,5 @@
 import { TinyType } from 'tiny-types';
+
 import { UnableToRetrieveFeatureFileMap } from './errors';
 
 /**

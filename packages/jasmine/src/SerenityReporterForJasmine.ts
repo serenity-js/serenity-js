@@ -31,6 +31,7 @@ import {
     ScenarioDetails,
     TestSuiteDetails,
 } from '@serenity-js/core/lib/model';
+
 import { Expectation, JasmineDoneInfo, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';
 
 /**
@@ -45,28 +46,28 @@ export class SerenityReporterForJasmine {
     private static readonly errorMessagePattern = /^([^\s:]*Error):\s(.*)$/;
     private describes: SuiteResult[] = [];
 
-    private currentSceneId: CorrelationId = null;
+    private currentSceneId: CorrelationId = undefined;
 
     constructor(private readonly serenity: Serenity) {
     }
 
-    jasmineStarted(info: JasmineStartedInfo) {
+    jasmineStarted(info: JasmineStartedInfo): void {
         this.emit(new TestRunStarts(this.serenity.currentTime()));
     }
 
-    suiteStarted(result: SuiteResult) {
+    suiteStarted(result: SuiteResult): void {
         this.describes.push(result);
 
         this.emit(new TestSuiteStarts(this.testSuiteDetailsOf(result), this.serenity.currentTime()));
     }
 
-    suiteDone(result: SuiteResult) {
+    suiteDone(result: SuiteResult): void {
         this.describes = this.describes.filter(suite => suite.id !== result.id);
 
         this.emit(new TestSuiteFinished(this.testSuiteDetailsOf(result), this.outcomeFrom(result), this.serenity.currentTime()));
     }
 
-    specStarted(result: SpecResult) {
+    specStarted(result: SpecResult): void {
         this.currentSceneId = this.serenity.assignNewSceneId();
 
         const details = this.scenarioDetailsOf(result);
@@ -132,7 +133,7 @@ export class SerenityReporterForJasmine {
     /**
      * @param {JasmineDoneInfo} suiteInfo
      */
-    jasmineDone(suiteInfo: JasmineDoneInfo) {
+    jasmineDone(suiteInfo: JasmineDoneInfo): Promise<void> {
         this.emit(new TestRunFinishes(this.serenity.currentTime()));
 
         return this.serenity.waitForNextCue()
@@ -180,7 +181,7 @@ export class SerenityReporterForJasmine {
      * @returns {string}
      */
     private currentFeatureName(): string {
-        return !! this.describes[0]
+        return this.describes[0]
             ? this.describes[0].description
             : 'Unknown feature';
     }
@@ -191,9 +192,10 @@ export class SerenityReporterForJasmine {
      * @returns {string}
      */
     private currentScenarioNameFor(itBlockDescription: string): string {
-        const [ topSuite, ...rest ] = this.describes;
+        const [ topSuite_, ...rest ] = this.describes;
 
-        return rest.reverse().reduce((acc, current) => `${ current.description } ${ acc }`, itBlockDescription);
+        return rest.reverse()
+            .reduce((name, current) => `${ current.description } ${ name }`, itBlockDescription);
     }
 
     /**
@@ -233,7 +235,7 @@ export class SerenityReporterForJasmine {
             return new ExecutionCompromised(error);
         }
 
-        if (!! failure.matcherName) {                       // the presence of a non-empty matcherName property indicates a Jasmine-specific assertion error
+        if (failure.matcherName) {                       // the presence of a non-empty matcherName property indicates a Jasmine-specific assertion error
             return new ExecutionFailedWithAssertionError(
                 new AssertionError(failure.message, failure.expected, failure.actual, error),
             );

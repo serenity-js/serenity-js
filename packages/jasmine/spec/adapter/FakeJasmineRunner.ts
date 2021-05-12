@@ -19,11 +19,11 @@ export class FakeJasmineRunner {
         FakeJasmineRunner.instance = this;
     }
 
-    onComplete(callback: (passed: boolean) => void) {
+    onComplete(callback: (passed: boolean) => void): void {
         this.callback = callback;
     }
 
-    complete(passed: boolean) {
+    complete(passed: boolean): void {
         this.callback(passed);
     }
 }

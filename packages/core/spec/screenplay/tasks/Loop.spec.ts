@@ -1,11 +1,13 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
+
 import { given } from 'mocha-testdata';
 
 import { Serenity } from '../../../src';
-import { Cast } from '../../../src/stage';
-import { Actor, Question } from '../../../src/screenplay';
 import { TaskFinished, TaskStarts } from '../../../src/events';
+import { Actor, Question } from '../../../src/screenplay';
 import { Loop } from '../../../src/screenplay/tasks';
+import { Cast } from '../../../src/stage';
 import { expect } from '../../expect';
 import { Recorder } from '../../Recorder';
 import { Spy } from './Spy';

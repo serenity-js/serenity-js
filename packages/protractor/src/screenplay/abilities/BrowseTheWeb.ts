@@ -1,7 +1,5 @@
-// tslint:disable:member-ordering
-
 import { Ability, ConfigurationError, LogicError, UsesAbilities } from '@serenity-js/core';
-import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
+import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options, WebElement } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
 
@@ -239,7 +237,7 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<void>}
      */
     switchToOriginalWindow(): Promise<void> {
-        return !! this.originalWindowHandle
+        return this.originalWindowHandle
             ? promiseOf(this.browser.switchTo().window(this.originalWindowHandle))
             : Promise.resolve();
     }
@@ -389,7 +387,7 @@ export class BrowseTheWeb implements Ability {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeScript(description: string, script: string | Function, ...args: any[]): Promise<any> {        // tslint:disable-line:ban-types
+    executeScript(description: string, script: string | Function, ...args: any[]): Promise<any> {   // eslint-disable-line @typescript-eslint/ban-types
         return promiseOf(this.browser.executeScriptWithDescription(script, description, ...args))
             .then(result => {
                 this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
@@ -451,7 +449,7 @@ export class BrowseTheWeb implements Ability {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeAsyncScript(script: string | Function, ...args: any[]): Promise<any> {   // tslint:disable-line:ban-types
+    executeAsyncScript(script: string | Function, ...args: any[]): Promise<any> {   // eslint-disable-line @typescript-eslint/ban-types
         return promiseOf(this.browser.executeAsyncScript(script, ...args))
             .then(result => {
                 this.lastScriptExecutionSummary = new LastScriptExecutionSummary(

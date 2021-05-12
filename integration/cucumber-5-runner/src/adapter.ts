@@ -1,4 +1,4 @@
-import { CucumberCLIAdapter, CucumberConfig, TempFileOutput } from '@serenity-js/cucumber/lib/cli'; // tslint:disable-line:no-submodule-imports
+import { CucumberCLIAdapter, CucumberConfig, TempFileOutput } from '@serenity-js/cucumber/lib/cli';
 import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import * as path from 'path';
 

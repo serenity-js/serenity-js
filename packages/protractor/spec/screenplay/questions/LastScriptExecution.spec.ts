@@ -55,7 +55,7 @@ describe('LastScriptExecution', function () {
                 /* do nothing */
             `),
 
-            Ensure.that(LastScriptExecution.result<null>(), equals(null)),
+            Ensure.that(LastScriptExecution.result<null>(), equals(null)),  // eslint-disable-line unicorn/no-null
         ));
     });
 
@@ -89,7 +89,7 @@ describe('LastScriptExecution', function () {
                 callback();
             `),
 
-            Ensure.that(LastScriptExecution.result<null>(), equals(null)),
+            Ensure.that(LastScriptExecution.result<null>(), equals(null)),  // eslint-disable-line unicorn/no-null
         ));
     });
 

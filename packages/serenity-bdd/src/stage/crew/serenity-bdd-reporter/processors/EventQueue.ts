@@ -22,7 +22,7 @@ export class EventQueue {
         return this.queue[0];
     }
 
-    enqueue(event: DomainEvent & { sceneId: CorrelationId }) {
+    enqueue(event: DomainEvent & { sceneId: CorrelationId }): void {
         this.queue.push(event);
     }
 

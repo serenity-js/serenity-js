@@ -1,10 +1,9 @@
 import { JSONObject, TinyType } from 'tiny-types';
 
-import { CorrelationId } from './CorrelationId';
 import { Name } from './Name';
 
 export class ActivityDetails extends TinyType {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): ActivityDetails {
         return new ActivityDetails(
             Name.fromJSON(o.name as string),
         );
@@ -16,7 +15,7 @@ export class ActivityDetails extends TinyType {
         super();
     }
 
-    toJSON() {
+    toJSON(): { name: string } {
         return {
             name: this.name.value,
         }

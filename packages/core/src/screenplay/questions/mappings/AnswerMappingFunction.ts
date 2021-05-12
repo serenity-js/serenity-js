@@ -10,5 +10,4 @@ import { AnswersQuestions } from '../../actor';
  * @typedef {function(actor: AnswersQuestions) => MappingFunction<V,O>} AnswerMappingFunction<V, O>
  */
 export type AnswerMappingFunction<V, O> =
-    (actor: AnswersQuestions) =>
-        MappingFunction<V, Promise<O> | O>
+    (actor: AnswersQuestions) => MappingFunction<V, Promise<O> | O>

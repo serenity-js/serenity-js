@@ -1,10 +1,10 @@
-import { ArrayListAdapter, ListAdapter } from './lists';
-import { Answerable } from '../Answerable';
-import { Question } from '../Question';
-import { MetaQuestion } from './MetaQuestion';
-import { Expectation } from './Expectation';
 import { formatted } from '../../io';
 import { AnswersQuestions, UsesAbilities } from '../actor';
+import { Answerable } from '../Answerable';
+import { Question } from '../Question';
+import { Expectation } from './Expectation';
+import { ArrayListAdapter, ListAdapter } from './lists';
+import { MetaQuestion } from './MetaQuestion';
 
 /**
  * @desc
@@ -78,7 +78,7 @@ export class List<
      *
      * @returns {List<ArrayListAdapter<Item_Type>, Item_Type, Item_Type[], Promise<Item_Type>, Promise<Item_Type[]>>}
      */
-    static of<Item_Type>(items: Answerable<Item_Type[]>) {
+    static of<Item_Type>(items: Answerable<Item_Type[]>): List<ArrayListAdapter<Item_Type>, Item_Type, Item_Type[], Promise<Item_Type>, Promise<Item_Type[]>> {
         return new List<ArrayListAdapter<Item_Type>, Item_Type, Item_Type[], Promise<Item_Type>, Promise<Item_Type[]>>(
             new ArrayListAdapter(items)
         );
@@ -241,17 +241,17 @@ export class List<
         return this.collection.items(actor);
     }
 
-    private static ordinalSuffixOf(index: number) {
+    private static ordinalSuffixOf(index: number): string {
         const
-            j = index % 10,
-            k = index % 100;
+            lastDigit = index % 10,
+            lastTwoDigits = index % 100;
 
         switch (true) {
-            case (j === 1 && k !== 11):
+            case (lastDigit === 1 && lastTwoDigits !== 11):
                 return index + 'st';
-            case (j === 2 && k !== 12):
+            case (lastDigit === 2 && lastTwoDigits !== 12):
                 return index + 'nd';
-            case (j === 3 && k !== 13):
+            case (lastDigit === 3 && lastTwoDigits !== 13):
                 return index + 'rd';
             default:
                 return index + 'th';

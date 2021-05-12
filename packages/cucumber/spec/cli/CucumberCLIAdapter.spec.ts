@@ -1,9 +1,8 @@
+/* eslint-disable unicorn/filename-case,unicorn/prevent-abbreviations */
 import 'mocha';
 
-import { configure } from '@serenity-js/core';
-import { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import * as path from 'path';
+import { configure } from '@serenity-js/core';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -16,11 +15,14 @@ import {
     TestRunnerDetected,
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
+import { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
 import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
+import * as path from 'path';   // eslint-disable-line unicorn/import-style
+
 import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';
 
-const { stdout } = require('test-console'); // tslint:disable-line:no-var-requires  no type defs available
+const { stdout } = require('test-console'); // eslint-disable-line @typescript-eslint/no-var-requires
 
 /** @test {CucumberCLIAdapter} */
 describe('CucumberCLIAdapter', function () {
@@ -81,7 +83,7 @@ describe('CucumberCLIAdapter', function () {
                         .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
                     ;
                 })
-            );
+        );
 
         given<Example>([ {
             description: 'no custom formats => no output',
@@ -129,6 +131,7 @@ describe('CucumberCLIAdapter', function () {
         }
     }
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     function clearRequireCache(pattern: string) {
         Object.keys(require.cache)
             .filter(key => key.includes(pattern))
@@ -141,12 +144,9 @@ describe('CucumberCLIAdapter', function () {
         clearRequireCache('steps.ts');
 
         const adapter = new CucumberCLIAdapter({
-                ...config,
-                require: [ path.resolve(__dirname, 'features/step_definitions/steps.ts') ],
-            },
-            new LocalModuleLoader(rootDir.value),
-            output,
-        );
+            ...config,
+            require: [ path.resolve(__dirname, 'features/step_definitions/steps.ts') ],
+        }, new LocalModuleLoader(rootDir.value), output);
 
         const inspect = stdout.inspect();
 

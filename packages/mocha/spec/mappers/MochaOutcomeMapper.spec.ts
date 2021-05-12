@@ -13,13 +13,14 @@ import {
     ProblemIndication,
 } from '@serenity-js/core/lib/model';
 import { strictEqual } from 'assert';
-import { Test } from 'mocha'; // tslint:disable-line:no-duplicate-imports
+import { Test } from 'mocha';
+
 import { MochaOutcomeMapper } from '../../src/mappers';
 
 describe('MochaTestMapper', () => {
 
     const mapper = new MochaOutcomeMapper();
-    const someScenario = () => void 0;
+    const someScenario = () => void 0;  // eslint-disable-line unicorn/consistent-function-scoping
 
     it('recognises passing tests', () => {
 

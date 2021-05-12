@@ -1,6 +1,7 @@
 import { BrowserTag, CapabilityTag, ContextTag, ExecutionRetriedTag, FeatureTag, IssueTag, ManualTag, PlatformTag, Tag, ThemeTag } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
-import { equal } from 'tiny-types/lib/objects'; // tslint:disable-line:no-submodule-imports
+import { equal } from 'tiny-types/lib/objects';
+
 import * as serenitybdd from '../../SerenityBDDJsonSchema';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import { reportIdIncluding } from './reportIdIncluding';
@@ -8,7 +9,7 @@ import { reportIdIncluding } from './reportIdIncluding';
 /**
  * @package
  */
-export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag) {
+export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag): (context: Context) => Context {
     return (context: Context): Context =>
         match<Tag, Context>(tag)
             .when(ManualTag, _ => {
@@ -108,7 +109,8 @@ export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag) {
 
 function concatIfNotPresent<T>(items: T[], item: T) {
     const currentTags = items || [];
-    return !! currentTags.find(current => equal(current, item))
+
+    return currentTags.some(current => equal(current, item))
         ? currentTags
         : currentTags.concat(item);
 }

@@ -1,4 +1,5 @@
 import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
+
 import { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import { ScenarioParametersDescriptor } from './ScenarioParametersDescriptor';

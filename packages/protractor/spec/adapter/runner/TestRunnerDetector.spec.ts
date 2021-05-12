@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { CucumberConfig } from '@serenity-js/cucumber/lib/cli'; // tslint:disable-line:no-submodule-imports
+import { CucumberConfig } from '@serenity-js/cucumber/lib/cli';
 import * as sinon from 'sinon';
 import { CucumberAdapterConfig, TestRunnerDetector, TestRunnerLoader } from '../../../src/adapter/runner';
 import { Photographer, TakePhotosOfFailures } from '../../../src';
@@ -26,7 +26,7 @@ describe('TestRunnerDetector', () => {
                 defaultAdapterConfig: CucumberAdapterConfig = { useStandardOutput: false, uniqueFormatterOutputs: false };
 
             it(`uses the configured runner`, () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     serenity: {
                         runner: 'cucumber',
                     },
@@ -36,7 +36,7 @@ describe('TestRunnerDetector', () => {
             });
 
             it('uses the configured runner even when configuration for other runners is present as well', () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     serenity: {
                         runner: 'cucumber',
                     },
@@ -49,7 +49,7 @@ describe('TestRunnerDetector', () => {
             });
 
             it('uses Cucumber test runner when cucumberOpts are present in config', () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     cucumberOpts: {},
                 });
 
@@ -57,7 +57,7 @@ describe('TestRunnerDetector', () => {
             });
 
             it('merges cucumberOpts present in capabilities with root config', () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     cucumberOpts: {
                         tags: ['@wip'],
                         name: 'example scenario',
@@ -78,7 +78,7 @@ describe('TestRunnerDetector', () => {
                 describe('to take over standard output when the config', () => {
 
                     it('defines serenity.crew and there is no cucumberOpts.format specified', () => {
-                        const runner = detector.runnerFor({
+                        const runner_ = detector.runnerFor({
                             serenity: {
                                 runner: 'cucumber',
                                 crew: [ Photographer.whoWill(TakePhotosOfFailures) ]
@@ -89,7 +89,7 @@ describe('TestRunnerDetector', () => {
                     });
 
                     it('defines serenity.crew and there is a cucumberOpts.format specified', () => {
-                        const runner = detector.runnerFor({
+                        const runner_ = detector.runnerFor({
                             serenity: {
                                 runner: 'cucumber',
                                 crew: [ Photographer.whoWill(TakePhotosOfFailures) ]
@@ -106,7 +106,7 @@ describe('TestRunnerDetector', () => {
                 describe('to redirect output to a temp file when the config', () => {
 
                     it('does not specify serenity.crew and there are is no cucumberOpts.format specified either', () => {
-                        const runner = detector.runnerFor({
+                        const runner_ = detector.runnerFor({
                             serenity: {
                                 runner: 'cucumber',
                             }
@@ -116,7 +116,7 @@ describe('TestRunnerDetector', () => {
                     });
 
                     it('does not specify serenity.crew, but there is a cucumberOpts.format specified', () => {
-                        const runner = detector.runnerFor({
+                        const runner_ = detector.runnerFor({
                             serenity: {
                                 runner: 'cucumber',
                                 crew: [],
@@ -133,7 +133,7 @@ describe('TestRunnerDetector', () => {
                 describe('make the formatter output files unique when the config', () => {
 
                     it('specifies multiCapabilities', () => {
-                        const runner = detector.runnerFor({
+                        const runner_ = detector.runnerFor({
                             cucumberOpts: {
                                 format: [
                                     'json:results.json'
@@ -149,7 +149,7 @@ describe('TestRunnerDetector', () => {
                     });
 
                     it('specifies shardTestFiles', () => {
-                        const runner = detector.runnerFor({
+                        const runner_ = detector.runnerFor({
                             cucumberOpts: {
                                 format: [
                                     'json:results.json'
@@ -169,13 +169,13 @@ describe('TestRunnerDetector', () => {
         describe('Jasmine', () => {
 
             it('uses Jasmine TestRunnerAdapter when no other runners are specified', () => {
-                const runner = detector.runnerFor({});
+                const runner_ = detector.runnerFor({});
 
                 expect(testRunnerLoader.forJasmine).to.have.been.calledWith({});
             });
 
             it(`uses the configured runner`, () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     serenity: {
                         runner: 'jasmine',
                     },
@@ -185,7 +185,7 @@ describe('TestRunnerDetector', () => {
             });
 
             it('uses the configured runner even when configuration for other runners is present as well', () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     serenity: {
                         runner: 'jasmine',
                     },
@@ -198,7 +198,7 @@ describe('TestRunnerDetector', () => {
             });
 
             it('uses Jasmine test runner when jasmineNodeOpts are present in config', () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     jasmineNodeOpts: {},
                 });
 
@@ -206,7 +206,7 @@ describe('TestRunnerDetector', () => {
             });
 
             it('merges jasmineNodeOpts present in capabilities with root config', () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     jasmineNodeOpts: {
                         defaultTimeoutInterval: 5,
                     },
@@ -225,7 +225,7 @@ describe('TestRunnerDetector', () => {
         describe('Mocha', () => {
 
             it(`uses the configured runner`, () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     serenity: {
                         runner: 'mocha',
                     },
@@ -235,7 +235,7 @@ describe('TestRunnerDetector', () => {
             });
 
             it('uses the configured runner even when configuration for other runners is present as well', () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     serenity: {
                         runner: 'mocha',
                     },
@@ -248,7 +248,7 @@ describe('TestRunnerDetector', () => {
             });
 
             it('uses Mocha test runner when jasmineNodeOpts are present in config', () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     mochaOpts: {},
                 });
 
@@ -256,7 +256,7 @@ describe('TestRunnerDetector', () => {
             });
 
             it('merges mochaOpts present in capabilities with root config', () => {
-                const runner = detector.runnerFor({
+                const runner_ = detector.runnerFor({
                     mochaOpts: {
                         timeout: 5,
                     },

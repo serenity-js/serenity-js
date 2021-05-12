@@ -1,5 +1,5 @@
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ArbitraryTag, Description, Name, ScenarioParameters, Tag, Tags } from '@serenity-js/core/lib/model';
+import { Description, Name, ScenarioParameters, Tag, Tags } from '@serenity-js/core/lib/model';
 
 import { Background, Feature, Scenario, ScenarioOutline, Step } from '../model';
 import * as nodes from '../nodes';
@@ -55,7 +55,7 @@ export class FeatureFileMapper {
 
                     break;
 
-                case 'ScenarioOutline':
+                case 'ScenarioOutline': {
 
                     const
                         outline = scenarioDefinition as nodes.ScenarioOutline,
@@ -96,7 +96,7 @@ export class FeatureFileMapper {
                             const scenarioParameters = variableCells
                                 .map((cell, i) => ({ [cell.value]: valueCells[i].value }))
                                 .reduce((acc, current) => {
-                                    // tslint:disable-next-line:prefer-object-spread Esdoc doesn't understand object spreads
+                                    // ESDoc doesn't understand object spreads
                                     return Object.assign(
                                         {},
                                         acc,
@@ -142,6 +142,7 @@ export class FeatureFileMapper {
                     )).onLine(scenarioDefinition.location.line);
 
                     break;
+                }
             }
         });
 
@@ -175,10 +176,6 @@ export class FeatureFileMapper {
     }
 
     private tagsFrom(...listsOfTags: nodes.Tag[][]): Tag[] {
-        function flattened<T>(listsOfLists: T[][]): T[] {
-            return listsOfLists.reduce((acc, list) => acc.concat(list), []);
-        }
-
         return flattened(
             flattened(listsOfTags).map(tag => Tags.from(tag.name)),
         );
@@ -213,4 +210,11 @@ export class FeatureFileMapper {
         });
         return text;
     }
+}
+
+/**
+ * @private
+ */
+function flattened<T>(listsOfLists: T[][]): T[] {
+    return listsOfLists.reduce((acc, list) => acc.concat(list), []);
 }

@@ -1,5 +1,6 @@
 import { Answerable } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
+
 import { HTTPRequest } from './HTTPRequest';
 
 /**

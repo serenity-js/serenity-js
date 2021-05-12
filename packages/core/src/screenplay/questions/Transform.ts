@@ -6,7 +6,7 @@ import { Question } from '../Question';
  * @experimental
  */
 export class Transform<Answer_Type extends any, Output_Type> extends Question<Promise<Output_Type>> {
-    static the<AT extends any, OT>(questions: Answerable<AT> | Array<Answerable<AT>>, transformation: (...answers: AT[]) => OT) {
+    static the<AT extends any, OT>(questions: Answerable<AT> | Array<Answerable<AT>>, transformation: (...answers: AT[]) => OT): Transform<AT, OT> {
         return new Transform<AT, OT>([].concat(questions), transformation);
     }
 

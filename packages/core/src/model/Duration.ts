@@ -8,12 +8,12 @@ export class Duration extends TinyType {
     private static msPerDay    = Duration.msPerHour * 24;
     private static msPerYear   = Duration.msPerDay * 365;
 
-    static ofMilliseconds   = (milliseconds: number) => new Duration(milliseconds);
-    static ofSeconds        = (seconds: number)      => Duration.ofMilliseconds(seconds  * Duration.msPerSecond);
-    static ofMinutes        = (minutes: number)      => Duration.ofMilliseconds(minutes  * Duration.msPerMinute);
-    static ofHours          = (hours: number)        => Duration.ofMilliseconds(hours    * Duration.msPerHour);
-    static ofDays           = (days: number)         => Duration.ofMilliseconds(days     * Duration.msPerDay);
-    static ofYears          = (years: number)        => Duration.ofMilliseconds(years    * Duration.msPerYear);
+    static ofMilliseconds   = (milliseconds: number): Duration => new Duration(milliseconds);
+    static ofSeconds        = (seconds: number): Duration      => Duration.ofMilliseconds(seconds  * Duration.msPerSecond);
+    static ofMinutes        = (minutes: number): Duration      => Duration.ofMilliseconds(minutes  * Duration.msPerMinute);
+    static ofHours          = (hours: number): Duration        => Duration.ofMilliseconds(hours    * Duration.msPerHour);
+    static ofDays           = (days: number): Duration         => Duration.ofMilliseconds(days     * Duration.msPerDay);
+    static ofYears          = (years: number): Duration        => Duration.ofMilliseconds(years    * Duration.msPerYear);
 
     constructor(private readonly milliseconds: number) {
         super();
@@ -35,7 +35,7 @@ export class Duration extends TinyType {
         return this.milliseconds >= another.milliseconds;
     }
 
-    plus(another: Duration) {
+    plus(another: Duration): Duration {
         return new Duration(this.milliseconds + another.milliseconds);
     }
 
@@ -43,10 +43,9 @@ export class Duration extends TinyType {
         return this.milliseconds;
     }
 
-    toString() {
+    toString(): string {
         const ms = this.milliseconds;
 
-        // tslint:disable:space-within-parens
         const levels = [
             [ Math.floor(   ms / Duration.msPerYear), 'y'],
             [ Math.floor(  (ms % Duration.msPerYear) / Duration.msPerDay), 'd'],
@@ -55,7 +54,6 @@ export class Duration extends TinyType {
             [ Math.floor((((ms % Duration.msPerYear) % Duration.msPerDay) % Duration.msPerHour) % Duration.msPerMinute / Duration.msPerSecond), 's'],
             [ (((ms % Duration.msPerYear) % Duration.msPerDay) % Duration.msPerHour) % Duration.msPerMinute % Duration.msPerSecond, 'ms'],
         ];
-        // tslint:enable:space-within-parens
 
         return levels.reduce((acc, l, i) => l[0] > 0 || i === levels.length
             ? `${ acc } ${ l[0] }${ l[1] }`

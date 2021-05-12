@@ -4,7 +4,7 @@ import { ActivityDetails, CorrelationId, Timestamp } from '../model';
 import { ActivityStarts } from './ActivityStarts';
 
 export class InteractionStarts extends ActivityStarts {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): InteractionStarts {
         return new InteractionStarts(
             CorrelationId.fromJSON(o.sceneId as string),
             CorrelationId.fromJSON(o.activityId as string),

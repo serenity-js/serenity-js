@@ -1,4 +1,5 @@
 import 'mocha';
+
 import { DeleteRequest } from '../../src/model';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
@@ -22,17 +23,17 @@ describe('DeleteRequest', () => {
      */
     it('allows for additional request properties to be specified', () =>
         expect(actor.answer(DeleteRequest.to('/products/2').using({
-                headers: {
-                    Authorization: 'token',
-                },
-            })))
-            .to.eventually.deep.equal({
-                method: 'DELETE',
-                url: '/products/2',
-                headers: {
-                    Authorization: 'token',
-                },
-            }));
+            headers: {
+                Authorization: 'token',
+            },
+        }))).
+        to.eventually.deep.equal({
+            method: 'DELETE',
+            url: '/products/2',
+            headers: {
+                Authorization: 'token',
+            },
+        }));
 
     /** @test {DeleteRequest#toString} */
     it('provides a sensible description of the interaction being performed', () => {

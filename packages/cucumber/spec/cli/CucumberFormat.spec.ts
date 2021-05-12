@@ -1,6 +1,8 @@
 import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { given } from 'mocha-testdata';
+
 import { CucumberFormat } from '../../src/cli';
 
 /** @test {CucumberFormat} */

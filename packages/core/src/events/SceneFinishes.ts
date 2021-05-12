@@ -4,7 +4,7 @@ import { CorrelationId, Outcome, ScenarioDetails, SerialisedOutcome, Timestamp }
 import { DomainEvent } from './DomainEvent';
 
 export class SceneFinishes extends DomainEvent {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): SceneFinishes {
         return new SceneFinishes(
             CorrelationId.fromJSON(o.sceneId as string),
             ScenarioDetails.fromJSON(o.details as JSONObject),

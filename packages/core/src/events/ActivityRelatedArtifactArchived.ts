@@ -8,7 +8,7 @@ import { ArtifactArchived } from './ArtifactArchived';
 //  - ActivityArtifactGenerated
 //  - SceneArtifactGenerated
 export class ActivityRelatedArtifactArchived extends ArtifactArchived {
-    static fromJSON<E>(o: JSONObject) {
+    static fromJSON(o: JSONObject): ActivityRelatedArtifactArchived {
         return new ActivityRelatedArtifactArchived(
             CorrelationId.fromJSON(o.sceneId as string),
             CorrelationId.fromJSON(o.activityId as string),

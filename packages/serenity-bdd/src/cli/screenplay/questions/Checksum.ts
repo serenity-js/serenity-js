@@ -1,13 +1,14 @@
 import { Question } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { createHash } from 'crypto';
+
 import { UseFileSystem } from '../abilities';
 
 /**
  * @package
  */
 export const Checksum = {
-    of: (destination: Path) => ({
+    of: (destination: Path) => ({   // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         calculatedUsing: (hashingAlgorithm: string) =>
             Question.about<Promise<string>>(`checksum of ${ destination.value }`, actor => {
                 const hash = createHash(hashingAlgorithm);

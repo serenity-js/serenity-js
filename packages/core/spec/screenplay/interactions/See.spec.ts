@@ -1,3 +1,6 @@
+/* eslint-disable unicorn/consistent-function-scoping */
+import 'mocha';
+
 import { AssertionError } from 'chai';
 
 import sinon = require('sinon');

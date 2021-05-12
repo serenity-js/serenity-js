@@ -1,10 +1,11 @@
 import { JSONObject, TinyType } from 'tiny-types';
+
 import { FileSystemLocation } from '../io';
 import { CorrelationId } from './CorrelationId';
 import { Name } from './Name';
 
 export class TestSuiteDetails extends TinyType {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): TestSuiteDetails {
         return new TestSuiteDetails(
             Name.fromJSON(o.name as string),
             FileSystemLocation.fromJSON(o.location as JSONObject),

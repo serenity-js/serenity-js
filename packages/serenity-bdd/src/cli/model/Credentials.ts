@@ -15,8 +15,8 @@ export class Credentials extends TinyType {
         const index = value.indexOf(':');
 
         return new Credentials(
-            value.substring(0, index),
-            value.substring(index + 1)
+            value.slice(0, index),
+            value.slice(index + 1)
         )
     }
 

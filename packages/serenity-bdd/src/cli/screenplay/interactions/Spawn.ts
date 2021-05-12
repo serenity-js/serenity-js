@@ -1,13 +1,14 @@
 import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted, Path } from '@serenity-js/core/lib/io';
 import { spawn } from 'child_process';
+
 import { Complaint, ExecutionError, Notification } from '../../model';
 
 /**
  * @package
  */
 export class Spawn extends Interaction {
-    static the(pathToExecutable: Answerable<Path>, ...args: string[]) {
+    static the(pathToExecutable: Answerable<Path>, ...args: string[]): Spawn {
         return new Spawn(pathToExecutable, args);
     }
 

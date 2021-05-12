@@ -1,7 +1,7 @@
 import { ensure, isDefined, TinyType } from 'tiny-types';
 
 export class Category extends TinyType {
-    static fromJSON(v: string) {
+    static fromJSON(v: string): Category {
         return new Category(v);
     }
 
