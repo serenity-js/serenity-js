@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.28.0](https://github.com/serenity-js/serenity-js/compare/v2.27.1...v2.28.0) (2021-05-12)
+
+
+### Bug Fixes
+
+* **deps:** migrated from TSLint to ESLint ([0c7580b](https://github.com/serenity-js/serenity-js/commit/0c7580b5fa06f9fa1796f0e9e19da45190940dfd)), closes [#842](https://github.com/serenity-js/serenity-js/issues/842)
+
+
+### Features
+
+* **node:** introduced support for Node.js 16.x, dropped support for Node.js 10.x ([0f67dcc](https://github.com/serenity-js/serenity-js/commit/0f67dcc63f904a4df48e331d12a37f40f6814cee)), closes [#842](https://github.com/serenity-js/serenity-js/issues/842)
+
+
+
+
+
 ## [2.27.1](https://github.com/serenity-js/serenity-js/compare/v2.27.0...v2.27.1) (2021-05-04)
 
 
