@@ -138,7 +138,7 @@
 <span class="hljs-keyword">import</span> { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
 
 <span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ serenity, notifier, resultMapper, loader, cache }: Dependencies</span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
         <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'BeforeFeatures'</span>, <span class="hljs-function">() =&gt;</span> {
             notifier.testRunStarts();
         });
@@ -239,7 +239,7 @@
         : <span class="hljs-built_in">object</span>[property];
 
     <span class="hljs-keyword">return</span> ({
-        <span class="hljs-attr">as</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (v: <span class="hljs-built_in">any</span>) =&gt; T</span>): <span class="hljs-title">T</span> </span>{  <span class="hljs-comment">// tslint:disable-line:object-literal-shorthand esdoc doesn't understand generic anonymous functions</span>
+        <span class="hljs-attr">as</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (v: <span class="hljs-built_in">any</span>) =&gt; T</span>): <span class="hljs-title">T</span> </span>{  <span class="hljs-comment">// ESDoc doesn't understand generic anonymous functions</span>
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">type</span>(value);
         },
         <span class="hljs-attr">value</span>: <span class="hljs-function">() =&gt;</span> value,
@@ -276,9 +276,9 @@
 
     <span class="hljs-keyword">return</span> ambiguousStepDefinitions
         .map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ get(step, <span class="hljs-string">'pattern'</span>).value().toString() }</span> - <span class="hljs-subst">${ get(step, <span class="hljs-string">'uri'</span>).value() }</span>:<span class="hljs-subst">${ get(step, <span class="hljs-string">'line'</span>).value() }</span>`</span>)
-        .reduce(<span class="hljs-function">(<span class="hljs-params">err: <span class="hljs-built_in">Error</span>, issue</span>) =&gt;</span> {
-            err.message += <span class="hljs-string">`\n<span class="hljs-subst">${issue}</span>`</span>;
-            <span class="hljs-keyword">return</span> err;
+        .reduce(<span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span>, issue</span>) =&gt;</span> {
+            error.message += <span class="hljs-string">`\n<span class="hljs-subst">${issue}</span>`</span>;
+            <span class="hljs-keyword">return</span> error;
         }, <span class="hljs-keyword">new</span> AmbiguousStepDefinitionError(<span class="hljs-string">'Multiple step definitions match:'</span>));
 }
 

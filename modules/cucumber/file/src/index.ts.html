@@ -140,11 +140,9 @@
     ? loader.versionOf(<span class="hljs-string">'@cucumber/cucumber'</span>)
     : loader.versionOf(<span class="hljs-string">'cucumber'</span>);
 
-<span class="hljs-comment">// tslint:disable:no-var-requires</span>
 <span class="hljs-keyword">export</span> = version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))
-    ? <span class="hljs-built_in">require</span>(<span class="hljs-string">'./listeners/messages'</span>).createListener(serenity, loader)
-    : <span class="hljs-built_in">require</span>(<span class="hljs-string">'./listeners/legacy'</span>).createListener(serenity, loader)
-<span class="hljs-comment">// tslint:enable:no-var-requires</span>
+    ? <span class="hljs-built_in">require</span>(<span class="hljs-string">'./listeners/messages'</span>).createListener(serenity, loader)  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+    : <span class="hljs-built_in">require</span>(<span class="hljs-string">'./listeners/legacy'</span>).createListener(serenity, loader)    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 </code></pre>
 
 </article>

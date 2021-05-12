@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 3490,
+  "end": 3598,
   "loc": {
     "start": {
       "line": 1,
@@ -16,7 +16,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 3490,
+    "end": 3598,
     "loc": {
       "start": {
         "line": 1,
@@ -388,7 +388,7 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 1429,
-        "end": 3489,
+        "end": 3597,
         "loc": {
           "start": {
             "line": 56,
@@ -439,7 +439,7 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 1436,
-          "end": 3489,
+          "end": 3597,
           "loc": {
             "start": {
               "line": 56,
@@ -471,7 +471,7 @@
           "body": {
             "type": "ClassBody",
             "start": 1451,
-            "end": 3489,
+            "end": 3597,
             "loc": {
               "start": {
                 "line": 56,
@@ -486,7 +486,7 @@
               {
                 "type": "ClassMethod",
                 "start": 2287,
-                "end": 2448,
+                "end": 2502,
                 "loc": {
                   "start": {
                     "line": 92,
@@ -535,8 +535,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {WithPropertiesAsMetaQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2449,
-                    "end": 2586,
+                    "start": 2503,
+                    "end": 2640,
                     "loc": {
                       "start": {
                         "line": 95,
@@ -551,8 +551,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn any of its properties into {@link MetaQuestion}s\n     *  to be used when filtering a {@link List},\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(response.environments)\n     *              .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n     *              .first(),\n     *          equals(response.environments[0])\n     *      )\n     *  )\n     *\n     * @returns {Proxy<Subject>}\n     ",
-                    "start": 2593,
-                    "end": 3348,
+                    "start": 2647,
+                    "end": 3402,
                     "loc": {
                       "start": {
                         "line": 109,
@@ -850,7 +850,7 @@
                 "body": {
                   "type": "BlockStatement",
                   "start": 2387,
-                  "end": 2448,
+                  "end": 2502,
                   "loc": {
                     "start": {
                       "line": 92,
@@ -864,8 +864,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 2397,
-                      "end": 2442,
+                      "start": 2451,
+                      "end": 2496,
                       "loc": {
                         "start": {
                           "line": 93,
@@ -876,10 +876,28 @@
                           "column": 53
                         }
                       },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " eslint-disable-line @typescript-eslint/ban-types",
+                          "start": 2391,
+                          "end": 2442,
+                          "loc": {
+                            "start": {
+                              "line": 92,
+                              "column": 108
+                            },
+                            "end": {
+                              "line": 92,
+                              "column": 159
+                            }
+                          }
+                        }
+                      ],
                       "argument": {
                         "type": "CallExpression",
-                        "start": 2404,
-                        "end": 2441,
+                        "start": 2458,
+                        "end": 2495,
                         "loc": {
                           "start": {
                             "line": 93,
@@ -892,8 +910,8 @@
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 2404,
-                          "end": 2423,
+                          "start": 2458,
+                          "end": 2477,
                           "loc": {
                             "start": {
                               "line": 93,
@@ -910,8 +928,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 2433,
-                            "end": 2440,
+                            "start": 2487,
+                            "end": 2494,
                             "loc": {
                               "start": {
                                 "line": 93,
@@ -928,8 +946,8 @@
                         ],
                         "typeParameters": {
                           "type": "TSTypeParameterInstantiation",
-                          "start": 2423,
-                          "end": 2432,
+                          "start": 2477,
+                          "end": 2486,
                           "loc": {
                             "start": {
                               "line": 93,
@@ -943,8 +961,8 @@
                           "params": [
                             {
                               "type": "TSTypeReference",
-                              "start": 2424,
-                              "end": 2431,
+                              "start": 2478,
+                              "end": 2485,
                               "loc": {
                                 "start": {
                                   "line": 93,
@@ -957,8 +975,8 @@
                               },
                               "typeName": {
                                 "type": "Identifier",
-                                "start": 2424,
-                                "end": 2431,
+                                "start": 2478,
+                                "end": 2485,
                                 "loc": {
                                   "start": {
                                     "line": 93,
@@ -983,8 +1001,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 3353,
-                "end": 3487,
+                "start": 3407,
+                "end": 3595,
                 "loc": {
                   "start": {
                     "line": 130,
@@ -999,8 +1017,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {WithPropertiesAsMetaQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2449,
-                    "end": 2586,
+                    "start": 2503,
+                    "end": 2640,
                     "loc": {
                       "start": {
                         "line": 95,
@@ -1015,8 +1033,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn any of its properties into {@link MetaQuestion}s\n     *  to be used when filtering a {@link List},\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(response.environments)\n     *              .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n     *              .first(),\n     *          equals(response.environments[0])\n     *      )\n     *  )\n     *\n     * @returns {Proxy<Subject>}\n     ",
-                    "start": 2593,
-                    "end": 3348,
+                    "start": 2647,
+                    "end": 3402,
                     "loc": {
                       "start": {
                         "line": 109,
@@ -1032,8 +1050,8 @@
                 "static": true,
                 "key": {
                   "type": "Identifier",
-                  "start": 3360,
-                  "end": 3362,
+                  "start": 3414,
+                  "end": 3416,
                   "loc": {
                     "start": {
                       "line": 130,
@@ -1051,8 +1069,8 @@
                 "kind": "method",
                 "typeParameters": {
                   "type": "TSTypeParameterDeclaration",
-                  "start": 3362,
-                  "end": 3386,
+                  "start": 3416,
+                  "end": 3440,
                   "loc": {
                     "start": {
                       "line": 130,
@@ -1066,8 +1084,8 @@
                   "params": [
                     {
                       "type": "TSTypeParameter",
-                      "start": 3363,
-                      "end": 3385,
+                      "start": 3417,
+                      "end": 3439,
                       "loc": {
                         "start": {
                           "line": 130,
@@ -1081,8 +1099,8 @@
                       "name": "Subject",
                       "constraint": {
                         "type": "TSObjectKeyword",
-                        "start": 3379,
-                        "end": 3385,
+                        "start": 3433,
+                        "end": 3439,
                         "loc": {
                           "start": {
                             "line": 130,
@@ -1103,8 +1121,8 @@
                 "params": [],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 3388,
-                  "end": 3428,
+                  "start": 3442,
+                  "end": 3482,
                   "loc": {
                     "start": {
                       "line": 130,
@@ -1117,8 +1135,8 @@
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 3390,
-                    "end": 3428,
+                    "start": 3444,
+                    "end": 3482,
                     "loc": {
                       "start": {
                         "line": 130,
@@ -1131,8 +1149,8 @@
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 3390,
-                      "end": 3419,
+                      "start": 3444,
+                      "end": 3473,
                       "loc": {
                         "start": {
                           "line": 130,
@@ -1148,8 +1166,8 @@
                     },
                     "typeParameters": {
                       "type": "TSTypeParameterInstantiation",
-                      "start": 3419,
-                      "end": 3428,
+                      "start": 3473,
+                      "end": 3482,
                       "loc": {
                         "start": {
                           "line": 130,
@@ -1163,8 +1181,8 @@
                       "params": [
                         {
                           "type": "TSTypeReference",
-                          "start": 3420,
-                          "end": 3427,
+                          "start": 3474,
+                          "end": 3481,
                           "loc": {
                             "start": {
                               "line": 130,
@@ -1177,8 +1195,8 @@
                           },
                           "typeName": {
                             "type": "Identifier",
-                            "start": 3420,
-                            "end": 3427,
+                            "start": 3474,
+                            "end": 3481,
                             "loc": {
                               "start": {
                                 "line": 130,
@@ -1199,8 +1217,8 @@
                 },
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3429,
-                  "end": 3487,
+                  "start": 3483,
+                  "end": 3595,
                   "loc": {
                     "start": {
                       "line": 130,
@@ -1214,8 +1232,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 3439,
-                      "end": 3481,
+                      "start": 3547,
+                      "end": 3589,
                       "loc": {
                         "start": {
                           "line": 131,
@@ -1226,10 +1244,28 @@
                           "column": 50
                         }
                       },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " eslint-disable-line @typescript-eslint/ban-types",
+                          "start": 3487,
+                          "end": 3538,
+                          "loc": {
+                            "start": {
+                              "line": 130,
+                              "column": 84
+                            },
+                            "end": {
+                              "line": 130,
+                              "column": 135
+                            }
+                          }
+                        }
+                      ],
                       "argument": {
                         "type": "CallExpression",
-                        "start": 3446,
-                        "end": 3480,
+                        "start": 3554,
+                        "end": 3588,
                         "loc": {
                           "start": {
                             "line": 131,
@@ -1242,8 +1278,8 @@
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 3446,
-                          "end": 3469,
+                          "start": 3554,
+                          "end": 3577,
                           "loc": {
                             "start": {
                               "line": 131,
@@ -1260,8 +1296,8 @@
                         "arguments": [],
                         "typeParameters": {
                           "type": "TSTypeParameterInstantiation",
-                          "start": 3469,
-                          "end": 3478,
+                          "start": 3577,
+                          "end": 3586,
                           "loc": {
                             "start": {
                               "line": 131,
@@ -1275,8 +1311,8 @@
                           "params": [
                             {
                               "type": "TSTypeReference",
-                              "start": 3470,
-                              "end": 3477,
+                              "start": 3578,
+                              "end": 3585,
                               "loc": {
                                 "start": {
                                   "line": 131,
@@ -1289,8 +1325,8 @@
                               },
                               "typeName": {
                                 "type": "Identifier",
-                                "start": 3470,
-                                "end": 3477,
+                                "start": 3578,
+                                "end": 3585,
                                 "loc": {
                                   "start": {
                                     "line": 131,
@@ -1421,10 +1457,26 @@
       }
     },
     {
+      "type": "CommentLine",
+      "value": " eslint-disable-line @typescript-eslint/ban-types",
+      "start": 2391,
+      "end": 2442,
+      "loc": {
+        "start": {
+          "line": 92,
+          "column": 108
+        },
+        "end": {
+          "line": 92,
+          "column": 159
+        }
+      }
+    },
+    {
       "type": "CommentBlock",
       "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {WithPropertiesAsMetaQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-      "start": 2449,
-      "end": 2586,
+      "start": 2503,
+      "end": 2640,
       "loc": {
         "start": {
           "line": 95,
@@ -1439,8 +1491,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn any of its properties into {@link MetaQuestion}s\n     *  to be used when filtering a {@link List},\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(response.environments)\n     *              .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n     *              .first(),\n     *          equals(response.environments[0])\n     *      )\n     *  )\n     *\n     * @returns {Proxy<Subject>}\n     ",
-      "start": 2593,
-      "end": 3348,
+      "start": 2647,
+      "end": 3402,
       "loc": {
         "start": {
           "line": 109,
@@ -1449,6 +1501,22 @@
         "end": {
           "line": 129,
           "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentLine",
+      "value": " eslint-disable-line @typescript-eslint/ban-types",
+      "start": 3487,
+      "end": 3538,
+      "loc": {
+        "start": {
+          "line": 130,
+          "column": 84
+        },
+        "end": {
+          "line": 130,
+          "column": 135
         }
       }
     }

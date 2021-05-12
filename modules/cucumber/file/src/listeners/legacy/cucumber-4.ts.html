@@ -134,6 +134,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { cucumberEventProtocolAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberEventProtocolAdapter'</span>;
 <span class="hljs-keyword">import</span> { Dependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
 
+<span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types</span>
 <span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dependencies: Dependencies</span>) </span>{
     <span class="hljs-keyword">const</span> { BeforeAll, After, AfterAll } = dependencies.cucumber;
 

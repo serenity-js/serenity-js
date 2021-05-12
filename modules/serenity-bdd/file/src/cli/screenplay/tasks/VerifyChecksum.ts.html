@@ -119,7 +119,8 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html">ErrorDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -131,13 +132,14 @@
 <span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+
 <span class="hljs-keyword">import</span> { Checksum } <span class="hljs-keyword">from</span> <span class="hljs-string">'../questions'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> VerifyChecksum = {
-    <span class="hljs-attr">at</span>: <span class="hljs-function">(<span class="hljs-params">checksumUrl: <span class="hljs-built_in">string</span></span>) =&gt;</span> ({
+    <span class="hljs-attr">at</span>: <span class="hljs-function">(<span class="hljs-params">checksumUrl: <span class="hljs-built_in">string</span></span>) =&gt;</span> ({             <span class="hljs-comment">// eslint-disable-line  @typescript-eslint/explicit-module-boundary-types</span>
         <span class="hljs-attr">against</span>: <span class="hljs-function">(<span class="hljs-params">downloadedFile: Path</span>) =&gt;</span> ({
             <span class="hljs-attr">calculatedUsing</span>: <span class="hljs-function">(<span class="hljs-params">hashingAlgorithm: <span class="hljs-built_in">string</span></span>) =&gt;</span>
                 Task.where(<span class="hljs-string">`#actor verifies checksum at <span class="hljs-subst">${ checksumUrl }</span> against <span class="hljs-subst">${ downloadedFile.value }</span>`</span>,

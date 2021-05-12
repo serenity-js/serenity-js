@@ -138,7 +138,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/HTTPRequest.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
@@ -183,27 +184,27 @@
      */</span>
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;AxiosRequestConfig&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-                <span class="hljs-built_in">this</span>.resourceUri ? actor.answer(<span class="hljs-built_in">this</span>.resourceUri)   : <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
-                <span class="hljs-built_in">this</span>.config      ? actor.answer(<span class="hljs-built_in">this</span>.config)        : <span class="hljs-built_in">Promise</span>.resolve({}),
-                <span class="hljs-built_in">this</span>.data        ? actor.answer(<span class="hljs-built_in">this</span>.data)          : <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
-            ])
-            .then(<span class="hljs-function">(<span class="hljs-params">[url, config, data]</span>) =&gt;</span>
-                <span class="hljs-comment">// tslint:disable-next-line:prefer-object-spread</span>
-                <span class="hljs-built_in">Object</span>.assign(
-                    {},
-                    { url, data },
-                    config,
-                    { <span class="hljs-attr">method</span>: <span class="hljs-built_in">this</span>.httpMethodName() },
-                ),
-            )
-            .then(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span>
-                <span class="hljs-built_in">Object</span>.keys(config).reduce(<span class="hljs-function">(<span class="hljs-params">acc, key</span>) =&gt;</span> {
-                    <span class="hljs-keyword">if</span> (!! config[key]) {
-                        acc[key] = config[key];
-                    }
-                    <span class="hljs-keyword">return</span> acc;
-                }, {})
-            );
+            <span class="hljs-built_in">this</span>.resourceUri ? actor.answer(<span class="hljs-built_in">this</span>.resourceUri)   : <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
+            <span class="hljs-built_in">this</span>.config      ? actor.answer(<span class="hljs-built_in">this</span>.config)        : <span class="hljs-built_in">Promise</span>.resolve({}),
+            <span class="hljs-built_in">this</span>.data        ? actor.answer(<span class="hljs-built_in">this</span>.data)          : <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
+        ]).
+        then(<span class="hljs-function">(<span class="hljs-params">[url, config, data]</span>) =&gt;</span>
+
+            <span class="hljs-built_in">Object</span>.assign(
+                {},
+                { url, data },
+                config,
+                { <span class="hljs-attr">method</span>: <span class="hljs-built_in">this</span>.httpMethodName() },
+            ),
+        ).
+        then(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span>
+            <span class="hljs-built_in">Object</span>.keys(config).reduce(<span class="hljs-function">(<span class="hljs-params">acc, key</span>) =&gt;</span> {
+                <span class="hljs-keyword">if</span> (config[key]) {
+                    acc[key] = config[key];
+                }
+                <span class="hljs-keyword">return</span> acc;
+            }, {})
+        );
     }
 
     <span class="hljs-comment">/**

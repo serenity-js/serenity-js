@@ -151,6 +151,7 @@
 <span class="hljs-keyword">import</span> { ActivityRelatedArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
+
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
 <span class="hljs-keyword">import</span> { isIdenticalTo, p, q } <span class="hljs-keyword">from</span> <span class="hljs-string">'./fixtures'</span>;
 
@@ -185,13 +186,13 @@ describe(<span class="hljs-string">'Ensure'</span>, <span class="hljs-function">
         })).toString()).to.equal(<span class="hljs-string">`#actor ensures that { "person": { "name": "Jan" } } does equal { "person": { "name": "Jan" } }`</span>);
     });
 
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Ensure.that}</span> </span>*/</span>
     given&lt;Answerable&lt;<span class="hljs-built_in">number</span>&gt;&gt;(
         <span class="hljs-number">42</span>,
         p(<span class="hljs-number">42</span>),
         q(<span class="hljs-number">42</span>),
         q(p(<span class="hljs-number">42</span>)),
     ).
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Ensure.that}</span> </span>*/</span>
     it(<span class="hljs-string">'allows for the actual to be a Answerable&lt;T&gt; as it compares its value'</span>, <span class="hljs-function">(<span class="hljs-params">actual: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>) =&gt;</span> {
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(
             Ensure.that(actual, isIdenticalTo(<span class="hljs-number">42</span>)),
@@ -206,7 +207,7 @@ describe(<span class="hljs-string">'Ensure'</span>, <span class="hljs-function">
             }
 
             answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt; {
-                <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-literal">null</span>);
+                <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-literal">null</span>);   <span class="hljs-comment">// eslint-disable-line unicorn/no-null</span>
             }
         }
 
@@ -257,33 +258,35 @@ describe(<span class="hljs-string">'Ensure'</span>, <span class="hljs-function">
             <span class="hljs-attr">actual</span>: Question.about(<span class="hljs-string">'some value'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-literal">false</span>),
             <span class="hljs-attr">artifact</span>: { <span class="hljs-attr">expected</span>: <span class="hljs-string">'true'</span>, <span class="hljs-attr">actual</span>: <span class="hljs-string">'false'</span> },
         }]).
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Ensure.that}</span> </span>*/</span>
-            it(<span class="hljs-string">'emits an artifact describing the actual and expected values'</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected, artifact }</span>) =&gt;</span> {
+        it(<span class="hljs-string">'emits an artifact describing the actual and expected values'</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected, artifact }</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(
-                    Ensure.that(actual, equals(expected)),  <span class="hljs-comment">// we don't care about the expectation itself in this test</span>
-                )).to.be.rejected.then(<span class="hljs-function">() =&gt;</span>
-                    PickEvent.from(recorder.events)
-                        .next(ActivityRelatedArtifactGenerated, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e.artifact.map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
-                            expect(value.expected).to.equal(artifact.expected);
-                            expect(value.actual).to.equal(artifact.actual);
-                        })),
-                );
-            });
+            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(
+                Ensure.that(actual, equals(expected)),  <span class="hljs-comment">// we don't care about the expectation itself in this test</span>
+            )).
+            to.be.rejected.then(<span class="hljs-function">() =&gt;</span>
+                PickEvent.from(recorder.events)
+                    .next(ActivityRelatedArtifactGenerated, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e.artifact.map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
+                        expect(value.expected).to.equal(artifact.expected);
+                        expect(value.actual).to.equal(artifact.actual);
+                    })),
+            );
+        });
     });
 
     describe(<span class="hljs-string">'custom errors'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'allows the actor to fail the flow with a custom RuntimeError, embedding the original error'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(
+        it(<span class="hljs-string">'allows the actor to fail the flow with a custom RuntimeError, embedding the original error'</span>, <span class="hljs-function">() =&gt;</span>
+            expect(
+                actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(
                     Ensure.that(<span class="hljs-number">503</span>, equals(<span class="hljs-number">200</span>)).otherwiseFailWith(TestCompromisedError),
-                ))
+                ),
+            )
                 .to.be.rejectedWith(TestCompromisedError, <span class="hljs-string">'Expected 503 to equal 200'</span>)
                 .then(<span class="hljs-function">(<span class="hljs-params">error: RuntimeError</span>) =&gt;</span> {
                     expect(error.cause).to.be.instanceOf(AssertionError);
                     expect(error.cause.message).to.be.equal(<span class="hljs-string">'Expected 503 to equal 200'</span>);
-                });
-        });
+                }),
+        );
 
         it(<span class="hljs-string">'allows the actor to fail the flow with a custom RuntimeError with a custom error message'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(

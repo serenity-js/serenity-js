@@ -131,9 +131,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberCLIAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file covered in integration tests */</span>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="hljs-comment">/* istanbul ignore file covered in integration tests */</span>
 <span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { ExecutionIgnored, ImplementationPending, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberConfig'</span>;
 <span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberOptions'</span>;
 <span class="hljs-keyword">import</span> { OutputDescriptor, SerenityFormatterOutput } <span class="hljs-keyword">from</span> <span class="hljs-string">'./output'</span>;
@@ -275,7 +277,7 @@
         <span class="hljs-keyword">return</span> output.cleanUp()
             .then(<span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">throw</span> error;
-            }, <span class="hljs-function"><span class="hljs-params">ignored</span> =&gt;</span> {
+            }, <span class="hljs-function"><span class="hljs-params">ignoredError</span> =&gt;</span> {
                 <span class="hljs-keyword">throw</span> error;
             });
     }

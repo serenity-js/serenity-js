@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -186,7 +187,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/override.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/ban-types,unicorn/prevent-abbreviations */</span>
+
+<span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  * <span class="hljs-doctag">@param <span class="hljs-variable">obj</span></span>
  * <span class="hljs-doctag">@param <span class="hljs-variable">name</span></span> - name of the method or field to override
@@ -194,10 +197,10 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">override</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">object</span>, <span class="hljs-title">K</span> <span class="hljs-title">extends</span> <span class="hljs-title">keyof</span> <span class="hljs-title">T</span>&gt;(<span class="hljs-params">obj: T, name: K, implementation: T[K]</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>&lt;T&gt;(obj, {
-        <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params">o: T, prop: <span class="hljs-built_in">string</span> | symbol</span>)</span> {
-            <span class="hljs-keyword">return</span> prop === name
+        <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params">o: T, property: <span class="hljs-built_in">string</span> | symbol</span>)</span> {
+            <span class="hljs-keyword">return</span> property === name
                 ? implementation
-                : obj[prop];
+                : obj[property];
         },
     });
 }

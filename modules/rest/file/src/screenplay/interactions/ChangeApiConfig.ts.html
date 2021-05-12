@@ -138,8 +138,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/ChangeApiConfig.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, Log, LogicError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, LogicError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { URL } <span class="hljs-keyword">from</span> <span class="hljs-string">'url'</span>;
+
 <span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
@@ -276,7 +277,7 @@
             .then(<span class="hljs-function"><span class="hljs-params">newApiUrl</span> =&gt;</span> CallAnApi.as(actor).modifyConfig(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> config.baseURL = newApiUrl));
     }
 
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor changes API URL configuration to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.newApiUrl }</span>`</span>;
     }
 }
@@ -301,13 +302,13 @@
                     newUrl.port = <span class="hljs-string">`<span class="hljs-subst">${ newPort }</span>`</span>;
                     config.baseURL = newUrl.toString();
                 }
-                <span class="hljs-keyword">catch</span> (e) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Could not change the API port`</span>, e);
+                <span class="hljs-keyword">catch</span> (error) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Could not change the API port`</span>, error);
                 }
             }));
     }
 
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor changes API port configuration to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.newPort }</span>`</span>;
     }
 }
@@ -345,7 +346,7 @@
         });
     }
 
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor changes API URL and sets header "<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span>" to "<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.value }</span>"`</span>;
     }
 }

@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -191,8 +192,15 @@
 <span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../withAnswerOf'</span>;
 
+<span class="hljs-comment">// todo: it might be better to swap the order of arguments</span>
+<span class="hljs-comment">//  - Attribute.called('href').of(link) to make it work with ArrayListFilter</span>
+
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Attribute</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt;&gt; </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">of</span>(<span class="hljs-params">target: Question&lt;ElementFinder&gt; | ElementFinder</span>)</span> {
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">target</span></span>
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{AttributeBuilder}</span></span>
+     */</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(target: Question&lt;ElementFinder&gt; | ElementFinder): AttributeBuilder {
         <span class="hljs-keyword">return</span> {
             <span class="hljs-attr">called</span>: <span class="hljs-function">(<span class="hljs-params">name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>) =&gt;</span> <span class="hljs-keyword">new</span> Attribute(target, name),
         };
@@ -221,6 +229,10 @@
         <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.name)
             .then(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function"><span class="hljs-params">elf</span> =&gt;</span> elf.getAttribute(name)));
     }
+}
+
+<span class="hljs-keyword">interface</span> AttributeBuilder {
+    called(name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;): Attribute;
 }
 </code></pre>
 

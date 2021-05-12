@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -353,7 +354,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/errors/AssertionError.ts~AssertionError.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(message: <span>string</span>, expected: <span>any</span>, actual: <span>any</span>, cause: <span>Error</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/errors/AssertionError.ts~AssertionError.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(message: <span>string</span>, expected: <span>unknown</span>, actual: <span>unknown</span>, cause: <span>Error</span>)</span>
         </p>
       </div>
       <div>
@@ -478,7 +479,7 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(message: <span>string</span>, expected: <span>any</span>, actual: <span>any</span>, cause: <span>Error</span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(message: <span>string</span>, expected: <span>unknown</span>, actual: <span>unknown</span>, cause: <span>Error</span>)</span>
     <span class="right-info">
       
       
@@ -510,14 +511,14 @@
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">expected</td>
-      <td data-ice="type" class="code"><span>any</span></td>
+      <td data-ice="type" class="code"><span>unknown</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The value that was expected</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">actual</td>
-      <td data-ice="type" class="code"><span>any</span></td>
+      <td data-ice="type" class="code"><span>unknown</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The value that was received instead of the expected one</p>
 </td>

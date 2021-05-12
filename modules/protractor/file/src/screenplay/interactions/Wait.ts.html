@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -420,19 +421,17 @@
 
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor)
             .wait(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-                    <span class="hljs-keyword">return</span> actor.answer(actual)
-                        .then(<span class="hljs-function"><span class="hljs-params">act</span> =&gt;</span> expectation(act))
-                        .then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
-                            expectationOutcome = outcome;
+                <span class="hljs-keyword">return</span> actor.answer(actual)
+                    .then(<span class="hljs-function"><span class="hljs-params">act</span> =&gt;</span> expectation(act))
+                    .then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
+                        expectationOutcome = outcome;
 
-                            <span class="hljs-keyword">return</span> outcome <span class="hljs-keyword">instanceof</span> ExpectationMet;
-                        });
-                },
-                <span class="hljs-built_in">this</span>.timeout.inMilliseconds(),
-            )
+                        <span class="hljs-keyword">return</span> outcome <span class="hljs-keyword">instanceof</span> ExpectationMet;
+                    });
+            }, <span class="hljs-built_in">this</span>.timeout.inMilliseconds())
             .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
             .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                <span class="hljs-keyword">if</span> (!! expectationOutcome) {
+                <span class="hljs-keyword">if</span> (expectationOutcome) {
                     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AssertionError(
                         <span class="hljs-string">`Waited <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.timeout.toString() }</span> for <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.actual }</span>`</span> }</span> to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.expectation.toString() }</span>`</span>,
                         expectationOutcome.expected,

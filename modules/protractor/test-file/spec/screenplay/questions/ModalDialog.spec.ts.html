@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -191,7 +192,7 @@
 <span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals, isFalse, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> { actorCalled, configure, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { AsyncOperationCompleted, AsyncOperationFailed, InteractionFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { AsyncOperationCompleted, InteractionFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> { Accept, Click, Dismiss, Enter, ModalDialog, Navigate, Photographer, TakePhotosOfInteractions, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
@@ -427,9 +428,10 @@ describe(<span class="hljs-string">'ModalDialog,'</span>, <span class="hljs-func
         );
 
     });
+});
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sandboxWith</span>(<span class="hljs-params">script: <span class="hljs-built_in">string</span></span>) </span>{
-        <span class="hljs-keyword">return</span> pageFromTemplate(<span class="hljs-string">`
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sandboxWith</span>(<span class="hljs-params">script: <span class="hljs-built_in">string</span></span>) </span>{
+    <span class="hljs-keyword">return</span> pageFromTemplate(<span class="hljs-string">`
                 &lt;html&gt;
                 &lt;body&gt;
                     &lt;button id="trigger" onclick="trigger()"&gt;Trigger Alert&lt;/button&gt;
@@ -442,8 +444,7 @@ describe(<span class="hljs-string">'ModalDialog,'</span>, <span class="hljs-func
                 &lt;/body&gt;
                 &lt;/html&gt;
             `</span>)
-    }
-});
+}
 </code></pre>
 
 </article>

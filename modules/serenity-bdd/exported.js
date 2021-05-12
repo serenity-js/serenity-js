@@ -1,1 +1,2 @@
+/** @external {@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter~ErrorDetails} /modules/serenity/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html */
 /** @external {@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter~SerenityBDDReporter} /modules/serenity/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html */

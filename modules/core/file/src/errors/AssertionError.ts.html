@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -305,11 +306,11 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">message</span></span> - Human-readable description of the error
-     * <span class="hljs-doctag">@param <span class="hljs-type">{any}</span> <span class="hljs-variable">expected</span></span> - The value that was expected
-     * <span class="hljs-doctag">@param <span class="hljs-type">{any}</span> <span class="hljs-variable">actual</span></span> - The value that was received instead of the expected one
+     * <span class="hljs-doctag">@param <span class="hljs-type">{unknown}</span> <span class="hljs-variable">expected</span></span> - The value that was expected
+     * <span class="hljs-doctag">@param <span class="hljs-type">{unknown}</span> <span class="hljs-variable">actual</span></span> - The value that was received instead of the expected one
      * <span class="hljs-doctag">@param <span class="hljs-type">{Error}</span> </span>[cause] - The root cause of this {<span class="hljs-doctag">@link </span>RuntimeError}, if any
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> expected: <span class="hljs-built_in">any</span>, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> actual: <span class="hljs-built_in">any</span>, cause?: <span class="hljs-built_in">Error</span></span>)</span> {
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> expected: unknown, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> actual: unknown, cause?: <span class="hljs-built_in">Error</span></span>)</span> {
         <span class="hljs-built_in">super</span>(AssertionError, message, cause);
     }
 }

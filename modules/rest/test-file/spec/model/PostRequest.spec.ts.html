@@ -139,6 +139,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/model/PostRequest.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+
 <span class="hljs-keyword">import</span> { PostRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
 <span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actors'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
@@ -159,25 +160,27 @@ describe(<span class="hljs-string">'PostRequest'</span>, <span class="hljs-funct
     it(<span class="hljs-string">'can have a request body'</span>, <span class="hljs-function">() =&gt;</span>
         expect(actor.answer(PostRequest.to(<span class="hljs-string">'/products/2'</span>).with({ <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> })))
             .to.eventually.deep.equal({
-            <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
-            <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
-            <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> },
-        }));
+                <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+                <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
+                <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> },
+            })
+    );
 
     it(<span class="hljs-string">'allows for additional request properties to be specified'</span>, <span class="hljs-function">() =&gt;</span>
         expect(actor.answer(PostRequest.to(<span class="hljs-string">'/products/2'</span>).with({ <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> }).using({
-                <span class="hljs-attr">headers</span>: {
-                    <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
-                },
-            })))
-            .to.eventually.deep.equal({
-                <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
-                <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
-                <span class="hljs-attr">headers</span>: {
-                    <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
-                },
-                <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> },
-            }));
+            <span class="hljs-attr">headers</span>: {
+                <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
+            },
+        }))).
+        to.eventually.deep.equal({
+            <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+            <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
+            <span class="hljs-attr">headers</span>: {
+                <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
+            },
+            <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> },
+        })
+    );
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{PostRequest#toString}</span> </span>*/</span>
     it(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {

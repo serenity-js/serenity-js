@@ -145,7 +145,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/contain.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { equal } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types/lib/objects'</span>; <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
+<span class="hljs-keyword">import</span> { equal } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types/lib/objects'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">contain</span>&lt;<span class="hljs-title">Item</span>&gt;(<span class="hljs-params">expected: Answerable&lt;Item&gt;</span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">Item</span>, <span class="hljs-title">Item</span>[]&gt; </span>{
     <span class="hljs-keyword">return</span> Expectation.thatActualShould&lt;Item, Item[]&gt;(<span class="hljs-string">'contain'</span>, expected)

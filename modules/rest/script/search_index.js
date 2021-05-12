@@ -786,6 +786,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model~serialisedoutcome",
+    "/modules/core/class/src/model/outcomes.ts~SerialisedOutcome.html",
+    "@serenity-js/core/lib/model~SerialisedOutcome",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model~testsuitedetails",
     "/modules/core/class/src/model/TestSuiteDetails.ts~TestSuiteDetails.html",
     "@serenity-js/core/lib/model~TestSuiteDetails",
@@ -1273,91 +1279,91 @@ window.esdocSearchIndex = [
   ],
   [
     "changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber12",
     "ChangeApiConfig",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber17",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber19",
     "ChangeApiConfig when changing the API URL",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.seturlto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.seturlto,changeapiconfig.seturlto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber32",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber34",
     "ChangeApiConfig when changing the API URL changes the base URL used by any subsequent requests",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber42",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber44",
     "ChangeApiConfig when changing the API port",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber57",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber59",
     "ChangeApiConfig when changing the API port changes the base URL used by any subsequent requests",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber71",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber73",
     "ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber81",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber83",
     "ChangeApiConfig when changing the API port complains if the url to be changed is invalid",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber88",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber90",
     "ChangeApiConfig when setting a request header",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setheader src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader,changeapiconfig.setheader",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber121",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber123",
     "ChangeApiConfig when setting a request header complains if the name of the header is empty",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setheader src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader,changeapiconfig.setheader",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber130",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber132",
     "ChangeApiConfig when setting a request header complains if the name of the header is undefined",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setheader src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader,changeapiconfig.setheader",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber107",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber109",
     "ChangeApiConfig when setting a request header sets a header to be used by any subsequent requests",
     "test"
   ],
   [
     "deleterequest src/model/deleterequest.ts~deleterequest,deleterequest",
-    "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber7",
+    "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber8",
     "DeleteRequest",
     "test"
   ],
   [
     "deleterequest.to deleterequest#using src/model/deleterequest.ts~deleterequest.to,deleterequest.to src/model/deleterequest.ts~deleterequest#using,deleterequest#using",
-    "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber23",
+    "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber24",
     "DeleteRequest allows for additional request properties to be specified",
     "test"
   ],
   [
     "deleterequest#tostring deleterequest#tostring,deleterequest#tostring",
-    "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber38",
+    "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber39",
     "DeleteRequest provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "deleterequest.to src/model/deleterequest.ts~deleterequest.to,deleterequest.to",
-    "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber12",
+    "test-file/spec/model/DeleteRequest.spec.ts.html#lineNumber13",
     "DeleteRequest represents an Axios request",
     "test"
   ],
@@ -1375,175 +1381,175 @@ window.esdocSearchIndex = [
   ],
   [
     "getrequest src/model/getrequest.ts~getrequest,getrequest",
-    "test-file/spec/model/GetRequest.spec.ts.html#lineNumber7",
+    "test-file/spec/model/GetRequest.spec.ts.html#lineNumber8",
     "GetRequest",
     "test"
   ],
   [
     "getrequest.to getrequest#using src/model/getrequest.ts~getrequest.to,getrequest.to src/model/getrequest.ts~getrequest#using,getrequest#using",
-    "test-file/spec/model/GetRequest.spec.ts.html#lineNumber23",
+    "test-file/spec/model/GetRequest.spec.ts.html#lineNumber24",
     "GetRequest allows for additional request properties to be specified",
     "test"
   ],
   [
     "getrequest#tostring getrequest#tostring,getrequest#tostring",
-    "test-file/spec/model/GetRequest.spec.ts.html#lineNumber38",
+    "test-file/spec/model/GetRequest.spec.ts.html#lineNumber39",
     "GetRequest provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "getrequest.to src/model/getrequest.ts~getrequest.to,getrequest.to",
-    "test-file/spec/model/GetRequest.spec.ts.html#lineNumber12",
+    "test-file/spec/model/GetRequest.spec.ts.html#lineNumber13",
     "GetRequest represents an Axios request",
     "test"
   ],
   [
     "headrequest src/model/headrequest.ts~headrequest,headrequest",
-    "test-file/spec/model/HeadRequest.spec.ts.html#lineNumber7",
+    "test-file/spec/model/HeadRequest.spec.ts.html#lineNumber8",
     "HeadRequest",
     "test"
   ],
   [
     "headrequest.to headrequest#using src/model/headrequest.ts~headrequest.to,headrequest.to src/model/headrequest.ts~headrequest#using,headrequest#using",
-    "test-file/spec/model/HeadRequest.spec.ts.html#lineNumber23",
+    "test-file/spec/model/HeadRequest.spec.ts.html#lineNumber24",
     "HeadRequest allows for additional request properties to be specified",
     "test"
   ],
   [
     "headrequest#tostring headrequest#tostring,headrequest#tostring",
-    "test-file/spec/model/HeadRequest.spec.ts.html#lineNumber38",
+    "test-file/spec/model/HeadRequest.spec.ts.html#lineNumber39",
     "HeadRequest provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "headrequest.to src/model/headrequest.ts~headrequest.to,headrequest.to",
-    "test-file/spec/model/HeadRequest.spec.ts.html#lineNumber12",
+    "test-file/spec/model/HeadRequest.spec.ts.html#lineNumber13",
     "HeadRequest represents an Axios request",
     "test"
   ],
   [
     "lastresponse src/screenplay/questions/lastresponse.ts~lastresponse,lastresponse",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber11",
     "LastResponse",
     "test"
   ],
   [
     "callanapi.maplastresponse src/screenplay/abilities/callanapi.ts~callanapi#maplastresponse,callanapi.maplastresponse",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber99",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber100",
     "LastResponse complains if the last response is attempted to be retrieved without making a request first",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber16",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber17",
     "LastResponse when asserting on the response to the last HTTP request",
     "test"
   ],
   [
     "lastresponse lastresponse.header src/screenplay/questions/lastresponse.ts~lastresponse,lastresponse src/screenplay/questions/lastresponse.ts~lastresponse.header,lastresponse.header",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber81",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber82",
     "LastResponse when asserting on the response to the last HTTP request enables access to a specific response header",
     "test"
   ],
   [
     "lastresponse lastresponse.headers src/screenplay/questions/lastresponse.ts~lastresponse,lastresponse src/screenplay/questions/lastresponse.ts~lastresponse.headers,lastresponse.headers",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber90",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber91",
     "LastResponse when asserting on the response to the last HTTP request enables access to all response headers",
     "test"
   ],
   [
     "lastresponse lastresponse.body src/screenplay/questions/lastresponse.ts~lastresponse,lastresponse src/screenplay/questions/lastresponse.ts~lastresponse.body,lastresponse.body",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber72",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber73",
     "LastResponse when asserting on the response to the last HTTP request enables access to the response body",
     "test"
   ],
   [
     "lastresponse lastresponse.status src/screenplay/questions/lastresponse.ts~lastresponse,lastresponse src/screenplay/questions/lastresponse.ts~lastresponse.status,lastresponse.status",
-    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber63",
+    "test-file/spec/screenplay/questions/LastResponse.spec.ts.html#lineNumber64",
     "LastResponse when asserting on the response to the last HTTP request enables access to the response status",
     "test"
   ],
   [
     "optionsrequest src/model/optionsrequest.ts~optionsrequest,optionsrequest",
-    "test-file/spec/model/OptionsRequest.spec.ts.html#lineNumber7",
+    "test-file/spec/model/OptionsRequest.spec.ts.html#lineNumber8",
     "OptionsRequest",
     "test"
   ],
   [
     "optionsrequest.to optionsrequest#using src/model/optionsrequest.ts~optionsrequest.to,optionsrequest.to src/model/optionsrequest.ts~optionsrequest#using,optionsrequest#using",
-    "test-file/spec/model/OptionsRequest.spec.ts.html#lineNumber23",
+    "test-file/spec/model/OptionsRequest.spec.ts.html#lineNumber24",
     "OptionsRequest allows for additional request properties to be specified",
     "test"
   ],
   [
     "options#tostring options#tostring,options#tostring",
-    "test-file/spec/model/OptionsRequest.spec.ts.html#lineNumber38",
+    "test-file/spec/model/OptionsRequest.spec.ts.html#lineNumber39",
     "OptionsRequest provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "optionsrequest.to src/model/optionsrequest.ts~optionsrequest.to,optionsrequest.to",
-    "test-file/spec/model/OptionsRequest.spec.ts.html#lineNumber12",
+    "test-file/spec/model/OptionsRequest.spec.ts.html#lineNumber13",
     "OptionsRequest represents an Axios request",
     "test"
   ],
   [
     "patchrequest src/model/patchrequest.ts~patchrequest,patchrequest",
-    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber7",
+    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber8",
     "PatchRequest",
     "test"
   ],
   [
     "patchrequest.to patchrequest#with patchrequest#using src/model/patchrequest.ts~patchrequest.to,patchrequest.to src/model/patchrequest.ts~patchrequest#with,patchrequest#with src/model/patchrequest.ts~patchrequest#using,patchrequest#using",
-    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber36",
+    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber38",
     "PatchRequest allows for additional request properties to be specified",
     "test"
   ],
   [
     "patchrequest.to patchrequest#with src/model/patchrequest.ts~patchrequest.to,patchrequest.to src/model/patchrequest.ts~patchrequest#with,patchrequest#with",
-    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber23",
+    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber24",
     "PatchRequest can have a request body",
     "test"
   ],
   [
     "patchrequest#tostring patchrequest#tostring,patchrequest#tostring",
-    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber52",
+    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber55",
     "PatchRequest provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "patchrequest.to src/model/patchrequest.ts~patchrequest.to,patchrequest.to",
-    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber12",
+    "test-file/spec/model/PatchRequest.spec.ts.html#lineNumber13",
     "PatchRequest represents an Axios request",
     "test"
   ],
   [
     "postrequest src/model/postrequest.ts~postrequest,postrequest",
-    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber7",
+    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber8",
     "PostRequest",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber27",
+    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber29",
     "PostRequest allows for additional request properties to be specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber19",
+    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber20",
     "PostRequest can have a request body",
     "test"
   ],
   [
     "postrequest#tostring postrequest#tostring,postrequest#tostring",
-    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber43",
+    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber46",
     "PostRequest provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "postrequest.to src/model/postrequest.ts~postrequest.to,postrequest.to",
-    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber12",
+    "test-file/spec/model/PostRequest.spec.ts.html#lineNumber13",
     "PostRequest represents an Axios request",
     "test"
   ],
@@ -1561,55 +1567,55 @@ window.esdocSearchIndex = [
   ],
   [
     "putrequest src/model/putrequest.ts~putrequest,putrequest",
-    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber7",
+    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber8",
     "PutRequest",
     "test"
   ],
   [
     "putrequest.to putrequest#with putrequest#using src/model/putrequest.ts~putrequest.to,putrequest.to src/model/putrequest.ts~putrequest#with,putrequest#with src/model/putrequest.ts~putrequest#using,putrequest#using",
-    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber36",
+    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber38",
     "PutRequest allows for additional request properties to be specified",
     "test"
   ],
   [
     "putrequest.to putrequest#with src/model/putrequest.ts~putrequest.to,putrequest.to src/model/putrequest.ts~putrequest#with,putrequest#with",
-    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber23",
+    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber24",
     "PutRequest can have a request body",
     "test"
   ],
   [
     "putrequest#tostring putrequest#tostring,putrequest#tostring",
-    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber52",
+    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber55",
     "PutRequest provides a sensible description of the interaction being performed",
     "test"
   ],
   [
     "putrequest.to src/model/putrequest.ts~putrequest.to,putrequest.to",
-    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber12",
+    "test-file/spec/model/PutRequest.spec.ts.html#lineNumber13",
     "PutRequest represents an Axios request",
     "test"
   ],
   [
     "send src/screenplay/interactions/send.ts~send,send",
-    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber18",
+    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber17",
     "Send",
     "test"
   ],
   [
     "send.a httprequest getrequest.to src/screenplay/interactions/send.ts~send.a,send.a src/model/httprequest.ts~httprequest,httprequest src/model/getrequest.ts~getrequest.to,getrequest.to",
-    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber92",
+    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber91",
     "Send emits the events so that the details of the HTTP interaction can be reported",
     "test"
   ],
   [
     "send.a httprequest getrequest.to lastresponse.status lastresponse.body src/screenplay/interactions/send.ts~send.a,send.a src/model/httprequest.ts~httprequest,httprequest src/model/getrequest.ts~getrequest.to,getrequest.to src/screenplay/questions/lastresponse.ts~lastresponse.status,lastresponse.status src/screenplay/questions/lastresponse.ts~lastresponse.body,lastresponse.body",
-    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber49",
+    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber48",
     "Send enables the actor to send a HTTPRequest",
     "test"
   ],
   [
     "send.a httprequest getrequest.to lastresponse.status lastresponse.body src/screenplay/interactions/send.ts~send.a,send.a src/model/httprequest.ts~httprequest,httprequest src/model/getrequest.ts~getrequest.to,getrequest.to src/screenplay/questions/lastresponse.ts~lastresponse.status,lastresponse.status src/screenplay/questions/lastresponse.ts~lastresponse.body,lastresponse.body",
-    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber70",
+    "test-file/spec/screenplay/interactions/Send.spec.ts.html#lineNumber69",
     "Send enables the actor to send an Axios Request",
     "test"
   ],

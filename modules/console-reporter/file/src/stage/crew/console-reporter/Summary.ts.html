@@ -149,7 +149,7 @@
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Summary</span> </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> records: SummaryRecord[] = [];
 
-    <span class="hljs-function"><span class="hljs-title">record</span>(<span class="hljs-params">details: ScenarioDetails, outcome: Outcome, duration: Duration</span>)</span> {
+    record(details: ScenarioDetails, <span class="hljs-attr">outcome</span>: Outcome, <span class="hljs-attr">duration</span>: Duration): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.records.push({ details, outcome, duration });
     }
 

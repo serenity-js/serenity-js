@@ -147,7 +147,7 @@
     parse(uri: Path): <span class="hljs-built_in">Promise</span>&lt;GherkinDocument&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
             fs.readFile(uri.value, <span class="hljs-function">(<span class="hljs-params">error: NodeJS.ErrnoException | <span class="hljs-literal">undefined</span>, data: Buffer</span>) =&gt;</span> {
-                <span class="hljs-keyword">if</span> (!! error) {
+                <span class="hljs-keyword">if</span> (error) {
                     <span class="hljs-keyword">return</span> reject(
                         <span class="hljs-keyword">new</span> UnableToReadFeatureFileError(<span class="hljs-string">`Could not read feature file at "<span class="hljs-subst">${ uri.value }</span>"`</span>, error),
                     );

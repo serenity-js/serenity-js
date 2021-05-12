@@ -130,7 +130,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/monkeyPatched.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+
+<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 <span class="hljs-keyword">import</span> serenityReporterForJasmine = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../src'</span>);
@@ -213,7 +215,7 @@ describe(<span class="hljs-string">'@serenity-js/jasmine'</span>, <span class="h
 
                 serenityReporterForJasmine(jasmine);
 
-                <span class="hljs-keyword">const</span> spec = <span class="hljs-keyword">new</span> jasmine.Spec(attrs);
+                <span class="hljs-keyword">const</span> spec_ = <span class="hljs-keyword">new</span> jasmine.Spec(attrs);
 
                 <span class="hljs-keyword">const</span> result = attrs.expectationResultFactory({ <span class="hljs-attr">passing</span>: <span class="hljs-literal">false</span>, error });
 
@@ -245,7 +247,7 @@ describe(<span class="hljs-string">'@serenity-js/jasmine'</span>, <span class="h
 
                 serenityReporterForJasmine(jasmine);
 
-                <span class="hljs-keyword">const</span> suite = <span class="hljs-keyword">new</span> jasmine.Suite(attrs);
+                <span class="hljs-keyword">const</span> suite_ = <span class="hljs-keyword">new</span> jasmine.Suite(attrs);
 
                 <span class="hljs-keyword">const</span> result = attrs.expectationResultFactory({ <span class="hljs-attr">passing</span>: <span class="hljs-literal">false</span>, error });
 

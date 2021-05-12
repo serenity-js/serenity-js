@@ -119,7 +119,8 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html">ErrorDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -140,7 +141,7 @@
 <span class="hljs-keyword">import</span> { DownloadArtifact, FileExists, Notify } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
 <span class="hljs-keyword">import</span> { NotificationReporter, ProgressReporter, UpdateCommandActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../stage'</span>;
 
-<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>); <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
+<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>); <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
 <span class="hljs-keyword">export</span> = {
     <span class="hljs-attr">command</span>: <span class="hljs-string">'update'</span>,
@@ -167,7 +168,7 @@
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`The GAV identifier of the Serenity BDD CLI artifact to use; You're best off with the default option unless you want to experiment.`</span>,
         },
     },
-    <span class="hljs-attr">handler</span>: <span class="hljs-function">(<span class="hljs-params">argv: Argv</span>) =&gt;</span> {
+    <span class="hljs-attr">handler</span>: (argv: Argv): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; =&gt; {
 
         <span class="hljs-keyword">const</span>
             printer         = <span class="hljs-keyword">new</span> Printer(process.stdout, process.stderr),
@@ -186,7 +187,8 @@
             ],
         });
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve().then(<span class="hljs-function">() =&gt;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
+            .then(<span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Serenity/JS Updater'</span>).attemptsTo(
                     Check.whether(FileExists.at(pathToArtifact), isTrue())
                         .andIfSo(

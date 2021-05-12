@@ -131,15 +131,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/messages/CucumberMessagesListener.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">// import { Formatter, formatterHelpers } from '@cucumber/cucumber';</span>
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">// import type { Formatter, formatterHelpers } from '@cucumber/cucumber';</span>
 <span class="hljs-keyword">import</span> { IdGenerator, messages } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
 <span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { DomainEvent, TestRunFinished, TestRunFinishes, TestRunStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { ModuleLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+
 <span class="hljs-keyword">import</span> { CucumberMessagesParser } <span class="hljs-keyword">from</span> <span class="hljs-string">'./parser/CucumberMessagesParser'</span>;
 <span class="hljs-keyword">import</span> { IParsedTestStep } <span class="hljs-keyword">from</span> <span class="hljs-string">'./types/cucumber'</span>;
 
-<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">serenity: Serenity, moduleLoader: ModuleLoader</span>) </span>{
+<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">serenity: Serenity, moduleLoader: ModuleLoader</span>) </span>{    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
 
     <span class="hljs-keyword">const</span>
         { Formatter, formatterHelpers } = moduleLoader.require(<span class="hljs-string">'@cucumber/cucumber'</span>),

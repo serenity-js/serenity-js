@@ -128,8 +128,10 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/OutcomeRecorder.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { ExecutionSuccessful } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { MochaOutcomeMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/mappers'</span>;
 <span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/OutcomeRecorder'</span>;
 <span class="hljs-keyword">import</span> { exampleTest } <span class="hljs-keyword">from</span> <span class="hljs-string">'./exampleTest'</span>;
@@ -147,10 +149,10 @@ describe(<span class="hljs-string">'OutcomeRecorder'</span>, <span class="hljs-f
     });
 
     it(<span class="hljs-string">'returns an outcome recorded for a given test'</span>, <span class="hljs-function">() =&gt;</span> {
-       recorder.started(exampleTest);
-       recorder.finished(exampleTest, mapper.outcomeOf(exampleTest));
+        recorder.started(exampleTest);
+        recorder.finished(exampleTest, mapper.outcomeOf(exampleTest));
 
-       expect(recorder.outcomeOf(exampleTest)).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
+        expect(recorder.outcomeOf(exampleTest)).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
     });
 
     it(<span class="hljs-string">'allows for a recorded outcome to be erased'</span>, <span class="hljs-function">() =&gt;</span> {

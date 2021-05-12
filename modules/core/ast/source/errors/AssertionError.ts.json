@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 728,
+  "end": 744,
   "loc": {
     "start": {
       "line": 1,
@@ -16,7 +16,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 728,
+    "end": 744,
     "loc": {
       "start": {
         "line": 1,
@@ -154,7 +154,7 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 194,
-        "end": 727,
+        "end": 743,
         "loc": {
           "start": {
             "line": 16,
@@ -205,7 +205,7 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 201,
-          "end": 727,
+          "end": 743,
           "loc": {
             "start": {
               "line": 16,
@@ -253,7 +253,7 @@
           "body": {
             "type": "ClassBody",
             "start": 243,
-            "end": 727,
+            "end": 743,
             "loc": {
               "start": {
                 "line": 16,
@@ -267,8 +267,8 @@
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 567,
-                "end": 725,
+                "start": 575,
+                "end": 741,
                 "loc": {
                   "start": {
                     "line": 24,
@@ -282,9 +282,9 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {any} expected - The value that was expected\n     * @param {any} actual - The value that was received instead of the expected one\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
+                    "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {unknown} expected - The value that was expected\n     * @param {unknown} actual - The value that was received instead of the expected one\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
                     "start": 250,
-                    "end": 562,
+                    "end": 570,
                     "loc": {
                       "start": {
                         "line": 18,
@@ -300,8 +300,8 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 567,
-                  "end": 578,
+                  "start": 575,
+                  "end": 586,
                   "loc": {
                     "start": {
                       "line": 24,
@@ -323,8 +323,8 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 579,
-                    "end": 594,
+                    "start": 587,
+                    "end": 602,
                     "loc": {
                       "start": {
                         "line": 24,
@@ -339,8 +339,8 @@
                     "name": "message",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 586,
-                      "end": 594,
+                      "start": 594,
+                      "end": 602,
                       "loc": {
                         "start": {
                           "line": 24,
@@ -353,8 +353,8 @@
                       },
                       "typeAnnotation": {
                         "type": "TSStringKeyword",
-                        "start": 588,
-                        "end": 594,
+                        "start": 596,
+                        "end": 602,
                         "loc": {
                           "start": {
                             "line": 24,
@@ -370,8 +370,8 @@
                   },
                   {
                     "type": "TSParameterProperty",
-                    "start": 596,
-                    "end": 625,
+                    "start": 604,
+                    "end": 637,
                     "loc": {
                       "start": {
                         "line": 24,
@@ -379,15 +379,15 @@
                       },
                       "end": {
                         "line": 24,
-                        "column": 62
+                        "column": 66
                       }
                     },
                     "accessibility": "public",
                     "readonly": true,
                     "parameter": {
                       "type": "Identifier",
-                      "start": 612,
-                      "end": 625,
+                      "start": 620,
+                      "end": 637,
                       "loc": {
                         "start": {
                           "line": 24,
@@ -395,15 +395,15 @@
                         },
                         "end": {
                           "line": 24,
-                          "column": 62
+                          "column": 66
                         },
                         "identifierName": "expected"
                       },
                       "name": "expected",
                       "typeAnnotation": {
                         "type": "TSTypeAnnotation",
-                        "start": 620,
-                        "end": 625,
+                        "start": 628,
+                        "end": 637,
                         "loc": {
                           "start": {
                             "line": 24,
@@ -411,13 +411,13 @@
                           },
                           "end": {
                             "line": 24,
-                            "column": 62
+                            "column": 66
                           }
                         },
                         "typeAnnotation": {
-                          "type": "TSAnyKeyword",
-                          "start": 622,
-                          "end": 625,
+                          "type": "TSUnknownKeyword",
+                          "start": 630,
+                          "end": 637,
                           "loc": {
                             "start": {
                               "line": 24,
@@ -425,7 +425,7 @@
                             },
                             "end": {
                               "line": 24,
-                              "column": 62
+                              "column": 66
                             }
                           }
                         }
@@ -434,62 +434,62 @@
                   },
                   {
                     "type": "TSParameterProperty",
-                    "start": 627,
-                    "end": 654,
+                    "start": 639,
+                    "end": 670,
                     "loc": {
                       "start": {
                         "line": 24,
-                        "column": 64
+                        "column": 68
                       },
                       "end": {
                         "line": 24,
-                        "column": 91
+                        "column": 99
                       }
                     },
                     "accessibility": "public",
                     "readonly": true,
                     "parameter": {
                       "type": "Identifier",
-                      "start": 643,
-                      "end": 654,
+                      "start": 655,
+                      "end": 670,
                       "loc": {
                         "start": {
                           "line": 24,
-                          "column": 80
+                          "column": 84
                         },
                         "end": {
                           "line": 24,
-                          "column": 91
+                          "column": 99
                         },
                         "identifierName": "actual"
                       },
                       "name": "actual",
                       "typeAnnotation": {
                         "type": "TSTypeAnnotation",
-                        "start": 649,
-                        "end": 654,
+                        "start": 661,
+                        "end": 670,
                         "loc": {
                           "start": {
                             "line": 24,
-                            "column": 86
+                            "column": 90
                           },
                           "end": {
                             "line": 24,
-                            "column": 91
+                            "column": 99
                           }
                         },
                         "typeAnnotation": {
-                          "type": "TSAnyKeyword",
-                          "start": 651,
-                          "end": 654,
+                          "type": "TSUnknownKeyword",
+                          "start": 663,
+                          "end": 670,
                           "loc": {
                             "start": {
                               "line": 24,
-                              "column": 88
+                              "column": 92
                             },
                             "end": {
                               "line": 24,
-                              "column": 91
+                              "column": 99
                             }
                           }
                         }
@@ -498,16 +498,16 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 656,
-                    "end": 669,
+                    "start": 672,
+                    "end": 685,
                     "loc": {
                       "start": {
                         "line": 24,
-                        "column": 93
+                        "column": 101
                       },
                       "end": {
                         "line": 24,
-                        "column": 106
+                        "column": 114
                       },
                       "identifierName": "cause"
                     },
@@ -515,44 +515,44 @@
                     "optional": true,
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 662,
-                      "end": 669,
+                      "start": 678,
+                      "end": 685,
                       "loc": {
                         "start": {
                           "line": 24,
-                          "column": 99
+                          "column": 107
                         },
                         "end": {
                           "line": 24,
-                          "column": 106
+                          "column": 114
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 664,
-                        "end": 669,
+                        "start": 680,
+                        "end": 685,
                         "loc": {
                           "start": {
                             "line": 24,
-                            "column": 101
+                            "column": 109
                           },
                           "end": {
                             "line": 24,
-                            "column": 106
+                            "column": 114
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 664,
-                          "end": 669,
+                          "start": 680,
+                          "end": 685,
                           "loc": {
                             "start": {
                               "line": 24,
-                              "column": 101
+                              "column": 109
                             },
                             "end": {
                               "line": 24,
-                              "column": 106
+                              "column": 114
                             },
                             "identifierName": "Error"
                           },
@@ -564,12 +564,12 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 671,
-                  "end": 725,
+                  "start": 687,
+                  "end": 741,
                   "loc": {
                     "start": {
                       "line": 24,
-                      "column": 108
+                      "column": 116
                     },
                     "end": {
                       "line": 26,
@@ -579,8 +579,8 @@
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 681,
-                      "end": 719,
+                      "start": 697,
+                      "end": 735,
                       "loc": {
                         "start": {
                           "line": 25,
@@ -593,8 +593,8 @@
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 681,
-                        "end": 718,
+                        "start": 697,
+                        "end": 734,
                         "loc": {
                           "start": {
                             "line": 25,
@@ -607,8 +607,8 @@
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 681,
-                          "end": 686,
+                          "start": 697,
+                          "end": 702,
                           "loc": {
                             "start": {
                               "line": 25,
@@ -623,8 +623,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 687,
-                            "end": 701,
+                            "start": 703,
+                            "end": 717,
                             "loc": {
                               "start": {
                                 "line": 25,
@@ -640,8 +640,8 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 703,
-                            "end": 710,
+                            "start": 719,
+                            "end": 726,
                             "loc": {
                               "start": {
                                 "line": 25,
@@ -657,8 +657,8 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 712,
-                            "end": 717,
+                            "start": 728,
+                            "end": 733,
                             "loc": {
                               "start": {
                                 "line": 25,
@@ -756,9 +756,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {any} expected - The value that was expected\n     * @param {any} actual - The value that was received instead of the expected one\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
+      "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {unknown} expected - The value that was expected\n     * @param {unknown} actual - The value that was received instead of the expected one\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
       "start": 250,
-      "end": 562,
+      "end": 570,
       "loc": {
         "start": {
           "line": 18,

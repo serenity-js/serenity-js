@@ -133,6 +133,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/StopLocalServer.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+
 <span class="hljs-keyword">import</span> { ManageALocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
@@ -170,13 +171,11 @@
                 <span class="hljs-keyword">return</span> resolve();
             }
 
-            server.shutdown(<span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
-                <span class="hljs-keyword">if</span> (!! error) {
-                    <span class="hljs-keyword">return</span> reject(error);
-                }
-
-                <span class="hljs-keyword">return</span> resolve();
-            });
+            server.shutdown(<span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) =&gt;</span>
+                error
+                    ? reject(error)
+                    : resolve()
+            );
         }));
     }
 
@@ -186,7 +185,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor stops the local server`</span>;
     }
 }

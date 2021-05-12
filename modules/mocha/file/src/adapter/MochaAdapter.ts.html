@@ -128,11 +128,12 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/MochaAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;
 <span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { MochaConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MochaConfig'</span>;
 <span class="hljs-keyword">import</span> { ExecutionIgnored, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
+
+<span class="hljs-keyword">import</span> { MochaConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MochaConfig'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -190,7 +191,7 @@
     }
 
     <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">requireAny</span>(<span class="hljs-params">filesOrModules: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]</span>)</span> {
-        <span class="hljs-keyword">const</span> requires = !! filesOrModules
+        <span class="hljs-keyword">const</span> requires = filesOrModules
             ? [].concat(filesOrModules).filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> !! item)
             : [];
 

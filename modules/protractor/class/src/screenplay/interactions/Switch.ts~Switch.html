@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -317,7 +318,7 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber14">Switch</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber15">Switch</a></span></li>
 </ul>
   </div>
 
@@ -409,7 +410,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toNewWindow">toNewWindow</a></span></span><span class="code" data-ice="signature">(): <span>SwitchToWindow</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toNewWindow">toNewWindow</a></span></span><span class="code" data-ice="signature">(): <span>SwitchToNewWindow</span></span>
         </p>
       </div>
       <div>
@@ -439,7 +440,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toOriginalWindow">toOriginalWindow</a></span></span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html#static-method-toOriginalWindow">toOriginalWindow</a></span></span><span class="code" data-ice="signature">(): <span>SwitchToOriginalWindow</span></span>
         </p>
       </div>
       <div>
@@ -587,8 +588,8 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber177">Switch when working with frames toDefaultContent() should not switch the frame if there are no parent frames</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber188">Switch when working with frames toDefaultContent() should support nested frames</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber178">Switch when working with frames toDefaultContent() should not switch the frame if there are no parent frames</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber189">Switch when working with frames toDefaultContent() should support nested frames</a></span></li>
 </ul>
   </div>
 
@@ -669,11 +670,11 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber67">Switch when working with frames toFrame() </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber74">Switch when working with frames toFrame() should switch to an iframe identified by Question<elementfinder></elementfinder></a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber84">Switch when working with frames toFrame() should switch to an iframe identified by index</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber94">Switch when working with frames toFrame() should switch to an iframe identified by name</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber213">Switch when working with frames toFrame().and() should perform any activities in the context of the frame it switched to</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber68">Switch when working with frames toFrame() </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber75">Switch when working with frames toFrame() should switch to an iframe identified by Question<elementfinder></elementfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber85">Switch when working with frames toFrame() should switch to an iframe identified by index</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber95">Switch when working with frames toFrame() should switch to an iframe identified by name</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber214">Switch when working with frames toFrame().and() should perform any activities in the context of the frame it switched to</a></span></li>
 </ul>
   </div>
 
@@ -690,7 +691,7 @@
     
     
     
-    <span class="code" data-ice="name">toNewWindow</span><span class="code" data-ice="signature">(): <span>SwitchToWindow</span></span>
+    <span class="code" data-ice="name">toNewWindow</span><span class="code" data-ice="signature">(): <span>SwitchToNewWindow</span></span>
     <span class="right-info">
       
       
@@ -717,7 +718,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>SwitchToWindow</span></td>
+          <td class="return-type code" data-ice="returnType"><span>SwitchToNewWindow</span></td>
           
         </tr>
       </tbody>
@@ -740,9 +741,9 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber315">Switch when working with windows  </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber323">Switch when working with windows  should switch to a newly opened window</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber343">Switch when working with windows toNewWindow().and() should perform any activities in the context of the new window it switched to</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber316">Switch when working with windows  </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber324">Switch when working with windows  should switch to a newly opened window</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber344">Switch when working with windows toNewWindow().and() should perform any activities in the context of the new window it switched to</a></span></li>
 </ul>
   </div>
 
@@ -757,11 +758,11 @@
     
     
     
-    <span class="code" data-ice="name">toOriginalWindow</span><span class="code" data-ice="signature">(): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+    <span class="code" data-ice="name">toOriginalWindow</span><span class="code" data-ice="signature">(): <span>SwitchToOriginalWindow</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber276">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber278">source</a></span></span>
     </span>
   </h3>
 
@@ -785,7 +786,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
+          <td class="return-type code" data-ice="returnType"><span>SwitchToOriginalWindow</span></td>
           
         </tr>
       </tbody>
@@ -808,8 +809,8 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber365">Switch when working with windows  </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber374">Switch when working with windows  should switch back from a newly opened window</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber366">Switch when working with windows  </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber375">Switch when working with windows  should switch back from a newly opened window</a></span></li>
 </ul>
   </div>
 
@@ -874,9 +875,9 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber128">Switch when working with frames toParentFrame() should not switch the frame if there are no parent frames</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber138">Switch when working with frames toParentFrame() should switch to the parent hosting an iframe</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber152">Switch when working with frames toParentFrame() should support nested frames</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber129">Switch when working with frames toParentFrame() should not switch the frame if there are no parent frames</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber139">Switch when working with frames toParentFrame() should switch to the parent hosting an iframe</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber153">Switch when working with frames toParentFrame() should support nested frames</a></span></li>
 </ul>
   </div>
 
@@ -958,10 +959,10 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber245">Switch when working with windows toWindow() should switch to a window identified by its index</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber256">Switch when working with windows toWindow() should switch to a window identified by its name</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber267">Switch when working with windows toWindow() </a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber293">Switch when working with windows toWindow().and() should perform any activities in the context of the window it switched to</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber246">Switch when working with windows toWindow() should switch to a window identified by its index</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber257">Switch when working with windows toWindow() should switch to a window identified by its name</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber268">Switch when working with windows toWindow() </a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Switch.spec.ts.html#lineNumber294">Switch when working with windows toWindow().and() should perform any activities in the context of the window it switched to</a></span></li>
 </ul>
   </div>
 

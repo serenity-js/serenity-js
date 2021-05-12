@@ -142,13 +142,14 @@
     ProblemIndication,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { strictEqual } <span class="hljs-keyword">from</span> <span class="hljs-string">'assert'</span>;
-<span class="hljs-keyword">import</span> { Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>; <span class="hljs-comment">// tslint:disable-line:no-duplicate-imports</span>
+<span class="hljs-keyword">import</span> { Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+
 <span class="hljs-keyword">import</span> { MochaOutcomeMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/mappers'</span>;
 
 describe(<span class="hljs-string">'MochaTestMapper'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> MochaOutcomeMapper();
-    <span class="hljs-keyword">const</span> someScenario = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">const</span> someScenario = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;  <span class="hljs-comment">// eslint-disable-line unicorn/consistent-function-scoping</span>
 
     it(<span class="hljs-string">'recognises passing tests'</span>, <span class="hljs-function">() =&gt;</span> {
 

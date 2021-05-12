@@ -137,6 +137,7 @@
 <span class="hljs-keyword">import</span> { BusinessRuleDetected, FeatureNarrativeDetected, SceneDescriptionDetected, SceneFinished, SceneFinishes, SceneStarts, SceneTagged } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { BusinessRule, Description, ExecutionSuccessful, FeatureTag, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { cucumber7 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./bin/cucumber-7'</span>;
 
 describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -151,8 +152,8 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                 <span class="hljs-string">'./examples/features/rules.feature'</span>,
             )
             .then(ifExitCodeIsOtherThan(<span class="hljs-number">0</span>, logOutput))
-            .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
-                expect(res.exitCode).to.equal(<span class="hljs-number">0</span>);
+            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                expect(result.exitCode).to.equal(<span class="hljs-number">0</span>);
 
                 <span class="hljs-keyword">const</span> expectedFeatureNarrative = <span class="hljs-keyword">new</span> Description(trimmed <span class="hljs-string">`
                     | As a Frequent Flyer Member
@@ -170,7 +171,7 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                     <span class="hljs-keyword">new</span> Description(<span class="hljs-string">``</span>),    <span class="hljs-comment">// no description represented as empty description</span>
                 );
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     <span class="hljs-comment">// Rule 1, Example 1</span>
                     .next(SceneStarts,              <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                         expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Transfer points between existing members'</span>))

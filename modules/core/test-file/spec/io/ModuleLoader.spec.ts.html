@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -304,7 +305,7 @@ describe(<span class="hljs-string">'ModuleLoader'</span>, <span class="hljs-func
     it(<span class="hljs-string">'returns the version number of a given package'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(__dirname);
 
-        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../package.json'</span>).version;
+        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../package.json'</span>).version;  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
         expect(loader.versionOf(<span class="hljs-string">'../../'</span>)).to.equal(<span class="hljs-keyword">new</span> Version(expectedVersion));
     });
@@ -312,7 +313,7 @@ describe(<span class="hljs-string">'ModuleLoader'</span>, <span class="hljs-func
     it(<span class="hljs-string">'returns the version of the npm-resolved package if the local package could not be found'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(path.join(__dirname, <span class="hljs-string">'non-existent'</span>, <span class="hljs-string">'local'</span>, <span class="hljs-string">'directory'</span>));
 
-        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tiny-types/package.json'</span>).version;                             <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
+        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tiny-types/package.json'</span>).version; <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
         expect(loader.versionOf(<span class="hljs-string">'tiny-types'</span>)).to.equal(<span class="hljs-keyword">new</span> Version(expectedVersion));
     });

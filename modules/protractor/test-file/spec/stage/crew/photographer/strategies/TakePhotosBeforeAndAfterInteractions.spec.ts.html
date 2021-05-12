@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -334,20 +335,20 @@ describe(<span class="hljs-string">'Photographer'</span>, <span class="hljs-func
                         expect(event.artifact, events).to.be.instanceof(Photo);
                     });
             })));
-
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringified</span>(<span class="hljs-params">events: DomainEvent[]</span>): <span class="hljs-title">string</span> </span>{
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(events.map(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event.toJSON()), <span class="hljs-literal">null</span>, <span class="hljs-number">4</span>);
-        }
-
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withCorrelationIdOf</span>(<span class="hljs-params">cid: CorrelationId</span>) </span>{
-            <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">event: DomainEvent</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> activityId = (event <span class="hljs-keyword">as</span> ActivityRelatedArtifactGenerated | ActivityStarts | ActivityFinished).activityId;
-
-                <span class="hljs-keyword">return</span> activityId &amp;&amp; cid.equals(activityId);
-            };
-        }
     });
 });
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringified</span>(<span class="hljs-params">events: DomainEvent[]</span>): <span class="hljs-title">string</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(events.map(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event.toJSON()), <span class="hljs-literal">undefined</span>, <span class="hljs-number">4</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withCorrelationIdOf</span>(<span class="hljs-params">cid: CorrelationId</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">event: DomainEvent</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> activityId = (event <span class="hljs-keyword">as</span> ActivityRelatedArtifactGenerated | ActivityStarts | ActivityFinished).activityId;
+
+        <span class="hljs-keyword">return</span> activityId &amp;&amp; cid.equals(activityId);
+    };
+}
 </code></pre>
 
 </article>

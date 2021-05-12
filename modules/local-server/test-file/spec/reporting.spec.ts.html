@@ -224,6 +224,7 @@ describe(<span class="hljs-string">'@serenity-js/local-server'</span>, <span cla
         ]));
     });
 
+    <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasName</span>(<span class="hljs-params">expectedName: <span class="hljs-built_in">string</span></span>) </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">e: ActivityStarts | ActivityFinished</span>) =&gt;</span> expect(e.details.name.value).equals(expectedName);
     }

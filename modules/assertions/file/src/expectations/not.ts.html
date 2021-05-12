@@ -157,7 +157,7 @@
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Not</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span>&gt; </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> flipped(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> message.startsWith(<span class="hljs-string">'not '</span>)
-            ? message.substring(<span class="hljs-number">4</span>)
+            ? message.slice(<span class="hljs-number">4</span>)
             : <span class="hljs-string">`not <span class="hljs-subst">${ message }</span>`</span>;
     }
 

@@ -144,8 +144,8 @@
  * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MochaOutcomeMapper</span> </span>{
-    <span class="hljs-keyword">public</span> outcomeOf(test: Test, err?: <span class="hljs-built_in">Error</span>): Outcome {
-        <span class="hljs-keyword">const</span> error = err || test.err;
+    <span class="hljs-keyword">public</span> outcomeOf(test: Test, maybeError?: <span class="hljs-built_in">Error</span>): Outcome {
+        <span class="hljs-keyword">const</span> error = maybeError || test.err;
 
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
             <span class="hljs-keyword">case</span> !! error &amp;&amp; <span class="hljs-built_in">this</span>.isGoingToBeRetried(test):
@@ -184,9 +184,9 @@
     }
 
     <span class="hljs-keyword">private</span> looksLikeAnAssertionError(error: <span class="hljs-built_in">Error</span>): error is AssertionError {
-        <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^AssertionError/</span>.test(error.name)
-            &amp;&amp; error.hasOwnProperty(<span class="hljs-string">'expected'</span>)
-            &amp;&amp; error.hasOwnProperty(<span class="hljs-string">'actual'</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^AssertionError/</span>.test(error.name)   <span class="hljs-comment">// eslint-disable-line unicorn/prefer-string-starts-ends-with</span>
+            &amp;&amp; <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(error, <span class="hljs-string">'expected'</span>)
+            &amp;&amp; <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(error, <span class="hljs-string">'actual'</span>)
     }
 }
 </code></pre>

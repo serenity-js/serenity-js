@@ -138,10 +138,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/ChangeAPIConfig.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+
 <span class="hljs-keyword">import</span> { ChangeApiConfig, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actors'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
@@ -210,7 +212,7 @@ describe(<span class="hljs-string">'ChangeApiConfig'</span>, <span class="hljs-f
          */</span>
         it(<span class="hljs-string">'complains if the url has not been set prior to attempted port change'</span>, <span class="hljs-function">() =&gt;</span>
             expect(actor.attemptsTo(
-                ChangeApiConfig.setUrlTo(<span class="hljs-literal">undefined</span>),
+                ChangeApiConfig.setUrlTo(<span class="hljs-literal">undefined</span>),    <span class="hljs-comment">// eslint-disable-line unicorn/no-useless-undefined</span>
                 ChangeApiConfig.setPortTo(<span class="hljs-number">8080</span>),
             )).to.be.rejectedWith(LogicError, <span class="hljs-string">`Can't change the port of a baseURL that has not been set.`</span>));
 

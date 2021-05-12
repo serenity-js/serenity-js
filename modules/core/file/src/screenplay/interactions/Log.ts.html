@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -326,7 +327,7 @@
      *  The items to be logged
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Interaction}</span></span>
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">the</span>(<span class="hljs-params">...items: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt;</span>)</span> {
+    <span class="hljs-keyword">static</span> the(...items: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt;): Interaction {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Log(items);
     }
 
@@ -354,9 +355,8 @@
      * <span class="hljs-doctag">@see <span class="hljs-type">{@link CollectsArtifacts}</span></span>
      */</span>
     performAs(actor: UsesAbilities &amp; AnswersQuestions &amp; CollectsArtifacts): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(
-                <span class="hljs-built_in">this</span>.items.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> actor.answer(item)),
-            )
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>
+            .all(<span class="hljs-built_in">this</span>.items.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> actor.answer(item)))
             .then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span>
                 items.forEach(<span class="hljs-function">(<span class="hljs-params">item, i</span>) =&gt;</span>
                     actor.collect(LogEntry.fromJSON({ <span class="hljs-attr">data</span>: inspected(item) }), <span class="hljs-keyword">new</span> Name(inspected(<span class="hljs-built_in">this</span>.items[i]))),
@@ -370,7 +370,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor logs: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.items.join(<span class="hljs-string">', '</span>) }</span>`</span>;
     }
 }

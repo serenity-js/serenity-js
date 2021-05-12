@@ -624,6 +624,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model~serialisedoutcome",
+    "/modules/core/class/src/model/outcomes.ts~SerialisedOutcome.html",
+    "@serenity-js/core/lib/model~SerialisedOutcome",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model~testsuitedetails",
     "/modules/core/class/src/model/TestSuiteDetails.ts~TestSuiteDetails.html",
     "@serenity-js/core/lib/model~TestSuiteDetails",
@@ -1009,61 +1015,61 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber6",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber8",
     "@serenity-js/jasmine",
     "test"
   ],
   [
     "",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber45",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber47",
     "@serenity-js/jasmine monkey-patches Jasmine",
     "test"
   ],
   [
     "",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber47",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber49",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Spec",
     "test"
   ],
   [
     "",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber90",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber92",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Spec correctly reports the stacktrace of an error",
     "test"
   ],
   [
     "bootstrap monkeypatched src/bootstrap.ts~bootstrap,bootstrap src/monkeypatched.ts~monkeypatched,monkeypatched",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber53",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber55",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Spec defaults to an unknown location if the real one could not be determined",
     "test"
   ],
   [
     "bootstrap monkeypatched src/bootstrap.ts~bootstrap,bootstrap src/monkeypatched.ts~monkeypatched,monkeypatched",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber68",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber70",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Spec has all the static members of the original constructor function",
     "test"
   ],
   [
     "bootstrap monkeypatched src/bootstrap.ts~bootstrap,bootstrap src/monkeypatched.ts~monkeypatched,monkeypatched",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber81",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber83",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Spec has all the static members of the original constructor function",
     "test"
   ],
   [
     "",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber105",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber107",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Suite",
     "test"
   ],
   [
     "",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber122",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber124",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Suite correctly reports the stacktrace of an error",
     "test"
   ],
   [
     "bootstrap monkeypatched src/bootstrap.ts~bootstrap,bootstrap src/monkeypatched.ts~monkeypatched,monkeypatched",
-    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber111",
+    "test-file/spec/monkeyPatched.spec.ts.html#lineNumber113",
     "@serenity-js/jasmine monkey-patches Jasmine so that the Suite defaults to an unknown location if the real one could not be determined",
     "test"
   ],
@@ -1111,19 +1117,19 @@ window.esdocSearchIndex = [
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber8",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber9",
     "JasmineAdapter",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber62",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber63",
     "JasmineAdapter configures the default timeout interval if required",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber42",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber43",
     "JasmineAdapter defaults to running tests sequentially rather than in a random order",
     "test"
   ],
@@ -1141,157 +1147,157 @@ window.esdocSearchIndex = [
   ],
   [
     "serenityreporterforjasmine src/serenityreporterforjasmine.ts~serenityreporterforjasmine,serenityreporterforjasmine",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber31",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber33",
     "SerenityReporterForJasmine",
     "test"
   ],
   [
     "",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber47",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber49",
     "SerenityReporterForJasmine notifies Serenity when",
     "test"
   ],
   [
     "",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber678",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber680",
     "SerenityReporterForJasmine notifies Serenity when the `it` block is not nested within a `describe` block and",
     "test"
   ],
   [
     "serenityreporterforjasmine#specstarted serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specstarted,serenityreporterforjasmine#specstarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber734",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber736",
     "SerenityReporterForJasmine notifies Serenity when the `it` block is not nested within a `describe` block and correctly derives the name of the spec",
     "test"
   ],
   [
     "serenityreporterforjasmine#specstarted serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specstarted,serenityreporterforjasmine#specstarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber725",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber727",
     "SerenityReporterForJasmine notifies Serenity when the `it` block is not nested within a `describe` block and tags the feature as \"unknown\"",
     "test"
   ],
   [
     "",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber49",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber51",
     "SerenityReporterForJasmine notifies Serenity when the test run",
     "test"
   ],
   [
     "serenityreporterforjasmine#jasminedone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#jasminedone,serenityreporterforjasmine#jasminedone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber66",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber68",
     "SerenityReporterForJasmine notifies Serenity when the test run ends",
     "test"
   ],
   [
     "serenityreporterforjasmine#jasminestarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#jasminestarted,serenityreporterforjasmine#jasminestarted",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber51",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber53",
     "SerenityReporterForJasmine notifies Serenity when the test run starts",
     "test"
   ],
   [
     "",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber281",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber283",
     "SerenityReporterForJasmine notifies Serenity when the test spec",
     "test"
   ],
   [
     "",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber419",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber421",
     "SerenityReporterForJasmine notifies Serenity when the test spec ends and",
     "test"
   ],
   [
     "",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber513",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber515",
     "SerenityReporterForJasmine notifies Serenity when the test spec ends and as compromised",
     "test"
   ],
   [
     "serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber438",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber440",
     "SerenityReporterForJasmine notifies Serenity when the test spec ends and has been excluded",
     "test"
   ],
   [
     "serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber577",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber579",
     "SerenityReporterForJasmine notifies Serenity when the test spec ends and has failed with an assertion error",
     "test"
   ],
   [
     "serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber484",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber486",
     "SerenityReporterForJasmine notifies Serenity when the test spec ends and has failed with an error",
     "test"
   ],
   [
     "serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber611",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber613",
     "SerenityReporterForJasmine notifies Serenity when the test spec ends and has failed with multiple errors",
     "test"
   ],
   [
     "serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber545",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber547",
     "SerenityReporterForJasmine notifies Serenity when the test spec ends and has failed with no stack trace",
     "test"
   ],
   [
     "serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber459",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber461",
     "SerenityReporterForJasmine notifies Serenity when the test spec ends and is marked as pending",
     "test"
   ],
   [
     "",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber283",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber285",
     "SerenityReporterForJasmine notifies Serenity when the test spec starts and",
     "test"
   ],
   [
     "serenityreporterforjasmine#suitestarted serenityreporterforjasmine#suitedone serenityreporterforjasmine#specstarted serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitestarted,serenityreporterforjasmine#suitestarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitedone,serenityreporterforjasmine#suitedone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specstarted,serenityreporterforjasmine#specstarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber402",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber404",
     "SerenityReporterForJasmine notifies Serenity when the test spec starts and derives the name of the feature from the outer-most `describe` block",
     "test"
   ],
   [
     "serenityreporterforjasmine#suitestarted serenityreporterforjasmine#suitedone serenityreporterforjasmine#specstarted serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitestarted,serenityreporterforjasmine#suitestarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitedone,serenityreporterforjasmine#suitedone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specstarted,serenityreporterforjasmine#specstarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber390",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber392",
     "SerenityReporterForJasmine notifies Serenity when the test spec starts and derives the name of the scenario from the nested `describe` blocks",
     "test"
   ],
   [
     "serenityreporterforjasmine#suitestarted serenityreporterforjasmine#suitedone serenityreporterforjasmine#specstarted serenityreporterforjasmine#specdone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitestarted,serenityreporterforjasmine#suitestarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitedone,serenityreporterforjasmine#suitedone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specstarted,serenityreporterforjasmine#specstarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#specdone,serenityreporterforjasmine#specdone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber413",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber415",
     "SerenityReporterForJasmine notifies Serenity when the test spec starts and detects the test runner",
     "test"
   ],
   [
     "",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber84",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber86",
     "SerenityReporterForJasmine notifies Serenity when the test suite",
     "test"
   ],
   [
     "serenityreporterforjasmine#suitestarted serenityreporterforjasmine#suitedone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitestarted,serenityreporterforjasmine#suitestarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitedone,serenityreporterforjasmine#suitedone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber122",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber124",
     "SerenityReporterForJasmine notifies Serenity when the test suite ends",
     "test"
   ],
   [
     "serenityreporterforjasmine#suitestarted serenityreporterforjasmine#suitedone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitestarted,serenityreporterforjasmine#suitestarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitedone,serenityreporterforjasmine#suitedone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber175",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber177",
     "SerenityReporterForJasmine notifies Serenity when the test suite ends with an error, reporting the first error that has occurred",
     "test"
   ],
   [
     "serenityreporterforjasmine#suitestarted serenityreporterforjasmine#suitedone src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitestarted,serenityreporterforjasmine#suitestarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitedone,serenityreporterforjasmine#suitedone",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber240",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber242",
     "SerenityReporterForJasmine notifies Serenity when the test suite is pending",
     "test"
   ],
   [
     "serenityreporterforjasmine#suitestarted src/serenityreporterforjasmine.ts~serenityreporterforjasmine#suitestarted,serenityreporterforjasmine#suitestarted",
-    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber87",
+    "test-file/spec/SerenityReporterForJasmine.spec.ts.html#lineNumber89",
     "SerenityReporterForJasmine notifies Serenity when the test suite starts",
     "test"
   ],

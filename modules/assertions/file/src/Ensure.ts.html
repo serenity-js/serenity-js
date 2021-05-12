@@ -246,10 +246,9 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
             actor.answer(<span class="hljs-built_in">this</span>.actual),
             actor.answer(<span class="hljs-built_in">this</span>.expectation),
-        ]).
-        then(<span class="hljs-function">(<span class="hljs-params">[ actual, expectation ]</span>) =&gt;</span>
+        ]).then(<span class="hljs-function">(<span class="hljs-params">[ actual, expectation ]</span>) =&gt;</span>
             expectation(actual).then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span>
-                match&lt;ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;, <span class="hljs-built_in">void</span>&gt;(outcome)
+                match&lt;ExpectationOutcome&lt;unknown, Actual&gt;, <span class="hljs-built_in">void</span>&gt;(outcome)
                     .when(ExpectationNotMet, <span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> {
                         actor.collect(<span class="hljs-built_in">this</span>.artifactFrom(o.expected, o.actual), <span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Assertion Report`</span>));
 
@@ -259,8 +258,8 @@
                     .else(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> {
                         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(formatted <span class="hljs-string">`An Expectation should return an instance of an ExpectationOutcome, not <span class="hljs-subst">${ o }</span>`</span>);
                     }),
-                ),
-            );
+            ),
+        );
     }
 
     <span class="hljs-comment">/**

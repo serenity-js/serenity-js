@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -293,13 +294,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/List.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ArrayListAdapter, ListAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./lists'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../io'</span>;
+<span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actor'</span>;
 <span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
 <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
-<span class="hljs-keyword">import</span> { MetaQuestion } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MetaQuestion'</span>;
 <span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../io'</span>;
-<span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actor'</span>;
+<span class="hljs-keyword">import</span> { ArrayListAdapter, ListAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./lists'</span>;
+<span class="hljs-keyword">import</span> { MetaQuestion } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MetaQuestion'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -373,7 +374,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{List&lt;ArrayListAdapter&lt;Item_Type&gt;, Item_Type, Item_Type[], Promise&lt;Item_Type&gt;, Promise&lt;Item_Type[]&gt;&gt;}</span></span>
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;Item_Type&gt;(items: Answerable&lt;Item_Type[]&gt;) {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;Item_Type&gt;(items: Answerable&lt;Item_Type[]&gt;): List&lt;ArrayListAdapter&lt;Item_Type&gt;, Item_Type, Item_Type[], <span class="hljs-built_in">Promise</span>&lt;Item_Type&gt;, <span class="hljs-built_in">Promise</span>&lt;Item_Type[]&gt;&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> List&lt;ArrayListAdapter&lt;Item_Type&gt;, Item_Type, Item_Type[], <span class="hljs-built_in">Promise</span>&lt;Item_Type&gt;, <span class="hljs-built_in">Promise</span>&lt;Item_Type[]&gt;&gt;(
             <span class="hljs-keyword">new</span> ArrayListAdapter(items)
         );
@@ -536,17 +537,17 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collection.items(actor);
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">ordinalSuffixOf</span>(<span class="hljs-params">index: <span class="hljs-built_in">number</span></span>)</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ordinalSuffixOf(index: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span>
-            j = index % <span class="hljs-number">10</span>,
-            k = index % <span class="hljs-number">100</span>;
+            lastDigit = index % <span class="hljs-number">10</span>,
+            lastTwoDigits = index % <span class="hljs-number">100</span>;
 
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> (j === <span class="hljs-number">1</span> &amp;&amp; k !== <span class="hljs-number">11</span>):
+            <span class="hljs-keyword">case</span> (lastDigit === <span class="hljs-number">1</span> &amp;&amp; lastTwoDigits !== <span class="hljs-number">11</span>):
                 <span class="hljs-keyword">return</span> index + <span class="hljs-string">'st'</span>;
-            <span class="hljs-keyword">case</span> (j === <span class="hljs-number">2</span> &amp;&amp; k !== <span class="hljs-number">12</span>):
+            <span class="hljs-keyword">case</span> (lastDigit === <span class="hljs-number">2</span> &amp;&amp; lastTwoDigits !== <span class="hljs-number">12</span>):
                 <span class="hljs-keyword">return</span> index + <span class="hljs-string">'nd'</span>;
-            <span class="hljs-keyword">case</span> (j === <span class="hljs-number">3</span> &amp;&amp; k !== <span class="hljs-number">13</span>):
+            <span class="hljs-keyword">case</span> (lastDigit === <span class="hljs-number">3</span> &amp;&amp; lastTwoDigits !== <span class="hljs-number">13</span>):
                 <span class="hljs-keyword">return</span> index + <span class="hljs-string">'rd'</span>;
             <span class="hljs-keyword">default</span>:
                 <span class="hljs-keyword">return</span> index + <span class="hljs-string">'th'</span>;

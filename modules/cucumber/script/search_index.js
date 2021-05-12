@@ -630,6 +630,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model~serialisedoutcome",
+    "/modules/core/class/src/model/outcomes.ts~SerialisedOutcome.html",
+    "@serenity-js/core/lib/model~SerialisedOutcome",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model~testsuitedetails",
     "/modules/core/class/src/model/TestSuiteDetails.ts~TestSuiteDetails.html",
     "@serenity-js/core/lib/model~TestSuiteDetails",
@@ -1075,97 +1081,97 @@ window.esdocSearchIndex = [
   ],
   [
     "cucumbercliadapter src/cli/cucumbercliadapter.ts~cucumbercliadapter,cucumbercliadapter",
-    "test-file/spec/cli/CucumberCLIAdapter.spec.ts.html#lineNumber26",
+    "test-file/spec/cli/CucumberCLIAdapter.spec.ts.html#lineNumber28",
     "CucumberCLIAdapter",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberCLIAdapter.spec.ts.html#lineNumber42",
+    "test-file/spec/cli/CucumberCLIAdapter.spec.ts.html#lineNumber44",
     "CucumberCLIAdapter registers @serenity-js/cucumber and",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber15",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber16",
     "CucumberEventProtocolAdapter",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber324",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber327",
     "CucumberEventProtocolAdapter considers a scenario with no steps and no hooks to be pending implementation",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber65",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber67",
     "CucumberEventProtocolAdapter correctly recognises Cucumber Event Protocol events",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber184",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber186",
     "CucumberEventProtocolAdapter correctly recognises ambiguous steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber231",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber233",
     "CucumberEventProtocolAdapter correctly recognises errors thrown in steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber144",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber146",
     "CucumberEventProtocolAdapter correctly recognises pending steps",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber276",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber278",
     "CucumberEventProtocolAdapter correctly recognises scenario outlines",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber104",
+    "test-file/spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts.html#lineNumber106",
     "CucumberEventProtocolAdapter correctly recognises undefined steps",
     "test"
   ],
   [
     "cucumberformat src/cli/cucumberformat.ts~cucumberformat,cucumberformat",
-    "test-file/spec/cli/CucumberFormat.spec.ts.html#lineNumber7",
+    "test-file/spec/cli/CucumberFormat.spec.ts.html#lineNumber9",
     "CucumberFormat",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber9",
+    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber9",
+    "test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
   ],
@@ -1177,37 +1183,37 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber9",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber16",
+    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber17",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber9",
+    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber11",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber9",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
   ],
@@ -1219,67 +1225,67 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber19",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber21",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber7",
+    "test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber9",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber17",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber20",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber8",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber19",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber20",
     "CucumberMessagesListener",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber11",
+    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber12",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber12",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber12",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber12",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber11",
+    "test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber12",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
@@ -1291,37 +1297,37 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber11",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber12",
+    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber14",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber18",
+    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber19",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber11",
+    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber13",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber11",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber12",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
@@ -1333,121 +1339,121 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber10",
+    "test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber12",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber21",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber23",
     "CucumberMessagesListener when working with Cucumber 7",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber9",
-    "CucumberMessagesListener when working with Cucumber 7",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber19",
-    "CucumberMessagesListener when working with Cucumber 7",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber10",
-    "CucumberMessagesListener when working with Cucumber 7",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber23",
-    "CucumberMessagesListener when working with Cucumber 7",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber13",
-    "CucumberMessagesListener when working with Cucumber 7 ",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber12",
-    "CucumberMessagesListener when working with Cucumber 7 ",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber13",
-    "CucumberMessagesListener when working with Cucumber 7 ",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber12",
-    "CucumberMessagesListener when working with Cucumber 7 ",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber37",
-    "CucumberMessagesListener when working with Cucumber 7 ",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber12",
-    "CucumberMessagesListener when working with Cucumber 7 recognises Screenplay activities in any part of a Cucumber scenario",
     "test"
   ],
   [
     "",
     "test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber11",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber22",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber12",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber24",
+    "CucumberMessagesListener when working with Cucumber 7",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber14",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/skipped_scenarios.spec.ts.html#lineNumber14",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/snippets.spec.ts.html#lineNumber14",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber14",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber39",
+    "CucumberMessagesListener when working with Cucumber 7 ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/screenplay_scenario.spec.ts.html#lineNumber14",
     "CucumberMessagesListener when working with Cucumber 7 recognises Screenplay activities in any part of a Cucumber scenario",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber13",
+    "test-file/spec/listeners/messages/hooks.spec.ts.html#lineNumber13",
+    "CucumberMessagesListener when working with Cucumber 7 recognises Screenplay activities in any part of a Cucumber scenario",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber15",
     "CucumberMessagesListener when working with Cucumber 7 recognises a scenario failing due to an assertion error",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber12",
+    "test-file/spec/listeners/messages/data_table.spec.ts.html#lineNumber14",
     "CucumberMessagesListener when working with Cucumber 7 recognises a scenario with a Data Table step",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber12",
+    "test-file/spec/listeners/messages/doc_string.spec.ts.html#lineNumber14",
     "CucumberMessagesListener when working with Cucumber 7 recognises a scenario with a DocString step",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber14",
+    "test-file/spec/listeners/messages/timed_out_scenario.spec.ts.html#lineNumber16",
     "CucumberMessagesListener when working with Cucumber 7 recognises a timed out scenario",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber12",
+    "test-file/spec/listeners/messages/capabilities.spec.ts.html#lineNumber13",
     "CucumberMessagesListener when working with Cucumber 7 recognises directories that features are grouped in as capabilities",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber12",
+    "test-file/spec/listeners/messages/themes.spec.ts.html#lineNumber13",
     "CucumberMessagesListener when working with Cucumber 7 recognises directories that group capabilities as themes",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber21",
+    "test-file/spec/listeners/messages/passing_scenario.spec.ts.html#lineNumber24",
     "CucumberMessagesListener when working with Cucumber 7 recognises passing scenarios",
     "test"
   ],
@@ -1459,19 +1465,19 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber12",
+    "test-file/spec/listeners/messages/scenario_outlines.spec.ts.html#lineNumber14",
     "CucumberMessagesListener when working with Cucumber 7 recognises scenario outlines as sequences of scenes",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber23",
+    "test-file/spec/listeners/messages/failing_scenario.spec.ts.html#lineNumber25",
     "CucumberMessagesListener when working with Cucumber 7 recognises scenarios failing due to a generic error",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber20",
+    "test-file/spec/listeners/messages/ambiguous_steps.spec.ts.html#lineNumber21",
     "CucumberMessagesListener when working with Cucumber 7 recognises scenarios with ambiguous steps",
     "test"
   ],
@@ -1489,73 +1495,73 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber87",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber88",
     "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and failed",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber25",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber26",
     "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and succeeded",
     "test"
   ],
   [
     "cucumberoptions cucumberoptions,cucumberoptions",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber9",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber11",
     "CucumberOptions",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber11",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber13",
     "CucumberOptions strict mode",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber75",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber77",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber218",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber220",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI camelCase to kebab-case",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber237",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber239",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI empty values",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber149",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber151",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI flags",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber255",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber257",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI objects",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber200",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber202",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI other options",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber90",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber92",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI tags",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber134",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber136",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI tags passes the tags individually to Cucumber 1.x",
     "test"
   ],
@@ -1627,25 +1633,25 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber328",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber333",
     "FeatureFileMapper when mapping a tagged scenario",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber330",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber335",
     "FeatureFileMapper when mapping a tagged scenario detects all the applicable tags",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber317",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber322",
     "FeatureFileMapper when mapping an empty feature file",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber319",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber324",
     "FeatureFileMapper when mapping an empty feature file returns an empty map",
     "test"
   ],
@@ -1675,67 +1681,67 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber217",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber218",
     "FeatureFileMapper when mapping scenario outlines with multiple sets of examples",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber218",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber219",
     "FeatureFileMapper when mapping scenario outlines with multiple sets of examples recognises the different names and descriptions of example sets",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber153",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber154",
     "FeatureFileMapper when mapping scenario outlines with one set of examples",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber184",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber185",
     "FeatureFileMapper when mapping scenario outlines with one set of examples maps the interpolated scenario",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber154",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber155",
     "FeatureFileMapper when mapping scenario outlines with one set of examples maps the scenario template",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber257",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber262",
     "FeatureFileMapper when mapping scenario outlines with special step arguments",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber281",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber286",
     "FeatureFileMapper when mapping scenario outlines with special step arguments recognises and interpolates DataTable arguments",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber258",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber263",
     "FeatureFileMapper when mapping scenario outlines with special step arguments recognises and interpolates DocString arguments",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber128",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber129",
     "FeatureFileMapper when mapping scenario with special step arguments",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber141",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber142",
     "FeatureFileMapper when mapping scenario with special step arguments recognises DataTable argument",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber130",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber131",
     "FeatureFileMapper when mapping scenario with special step arguments recognises DocString argument",
     "test"
   ],
@@ -1747,7 +1753,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber112",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts.html#lineNumber113",
     "FeatureFileMapper when mapping scenarios with backgrounds associates the background steps with the scenarios",
     "test"
   ],
@@ -1789,13 +1795,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber59",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber58",
     "FeatureFileParser complains if the feature file could not be parsed",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber52",
+    "test-file/spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts.html#lineNumber51",
     "FeatureFileParser complains if the feature file does not exist",
     "test"
   ],

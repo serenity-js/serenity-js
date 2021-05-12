@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -294,16 +295,16 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/Timestamp.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">'moment'</span>;
-<span class="hljs-keyword">import</span> { ensure, isDefined, Predicate, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<span class="hljs-keyword">import</span> { ensure, isDefined, isInstanceOf, Predicate, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
 <span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Duration'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Timestamp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">v: <span class="hljs-built_in">string</span></span>)</span> {
+    <span class="hljs-keyword">static</span> fromJSON(v: <span class="hljs-built_in">string</span>): Timestamp {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(ensure(Timestamp.name, v, isSerialisedISO8601Date())));
     }
 
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromMillisecondTimestamp</span>(<span class="hljs-params">v: <span class="hljs-built_in">number</span></span>)</span> {
+    <span class="hljs-keyword">static</span> fromMillisecondTimestamp(v: <span class="hljs-built_in">number</span>): Timestamp {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(moment(v).toDate());
     }
 
@@ -340,11 +341,6 @@
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSerialisedISO8601Date</span>(<span class="hljs-params"></span>): <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">string</span>&gt; </span>{
     <span class="hljs-keyword">return</span> Predicate.to(<span class="hljs-string">`be an ISO-8601-compliant date`</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span>
         moment(value, moment.ISO_8601, <span class="hljs-literal">true</span>).isValid());
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isInstanceOf</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">Function</span> &amp; (<span class="hljs-keyword">new</span> (...args: <span class="hljs-built_in">any</span>[]) =&gt; T)</span>): <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">T</span>&gt; </span>{                                           <span class="hljs-comment">// tslint:disable-line:ban-types</span>
-    <span class="hljs-keyword">return</span> Predicate.to(<span class="hljs-string">`be an instance of <span class="hljs-subst">${ <span class="hljs-keyword">type</span>.name }</span>`</span>, <span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span>
-        value <span class="hljs-keyword">instanceof</span> <span class="hljs-keyword">type</span>);
 }
 </code></pre>
 

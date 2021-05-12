@@ -139,10 +139,10 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestStepFormatter</span> </span>{
 
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">format</span>(<span class="hljs-params">keyword: <span class="hljs-built_in">string</span>, text: <span class="hljs-built_in">string</span> = <span class="hljs-string">''</span>, argument?: {
+    <span class="hljs-keyword">public</span> format(keyword: <span class="hljs-built_in">string</span>, text = <span class="hljs-string">''</span>, argument?: {
         docString?: messages.GherkinDocument.Feature.Step.IDocString,
         dataTable?: messages.GherkinDocument.Feature.Step.IDataTable,
-    }</span>)</span> {
+    }): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> [
             keyword,
             text,

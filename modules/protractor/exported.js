@@ -26,6 +26,7 @@
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Press} /modules/protractor/class/src/screenplay/interactions/Press.ts~Press.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~PressBuilder} /modules/protractor/class/src/screenplay/interactions/PressBuilder.ts~PressBuilder.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~ResizeBrowserWindow} /modules/protractor/class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html */
+/** @external {@serenity-js/protractor/lib/screenplay/interactions~RightClick} /modules/protractor/class/src/screenplay/interactions/RightClick.ts~RightClick.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Scroll} /modules/protractor/class/src/screenplay/interactions/Scroll.ts~Scroll.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~Select} /modules/protractor/class/src/screenplay/interactions/Select.ts~Select.html */
 /** @external {@serenity-js/protractor/lib/screenplay/interactions~SelectBuilder} /modules/protractor/class/src/screenplay/interactions/SelectBuilder.ts~SelectBuilder.html */

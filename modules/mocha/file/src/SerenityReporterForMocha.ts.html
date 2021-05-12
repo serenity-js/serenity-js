@@ -146,6 +146,7 @@
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, TestSuiteDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { MochaOptions, reporters, Runnable, Runner, Suite, Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+
 <span class="hljs-keyword">import</span> { MochaOutcomeMapper, MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mappers'</span>;
 <span class="hljs-keyword">import</span> { OutcomeRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutcomeRecorder'</span>;
 
@@ -160,16 +161,17 @@
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> recorder: OutcomeRecorder = <span class="hljs-keyword">new</span> OutcomeRecorder();
 
     <span class="hljs-keyword">private</span> suiteIds: CorrelationId[] = [];
-    <span class="hljs-keyword">private</span> currentSceneId: CorrelationId = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">private</span> currentSceneId: CorrelationId = <span class="hljs-literal">undefined</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@param <span class="hljs-type">{Serenity}</span> <span class="hljs-variable">serenity</span></span>
      * <span class="hljs-doctag">@param <span class="hljs-type">{mocha~Runner}</span> <span class="hljs-variable">runner</span></span>
      * <span class="hljs-doctag">@param <span class="hljs-type">{mocha~MochaOptions}</span> <span class="hljs-variable">options</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity,
-                runner: Runner,
-                options?: MochaOptions,
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity,
+        runner: Runner,
+        options?: MochaOptions,
     </span>)</span> {
         <span class="hljs-built_in">super</span>(runner, options);
 
@@ -209,25 +211,31 @@
             <span class="hljs-function">(<span class="hljs-params">test: Test</span>) =&gt;</span> {
                 <span class="hljs-built_in">this</span>.announceRetryIfNeeded(test);
 
-                <span class="hljs-built_in">this</span>.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test))
+                <span class="hljs-built_in">this</span>.recorder.finished(
+                    test.ctx ? test.ctx.currentTest : test,
+                    <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test)
+                );
             },
         );
 
         runner.on(Runner.constants.EVENT_TEST_FAIL,
-            <span class="hljs-function">(<span class="hljs-params">test: Test, err: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
+            <span class="hljs-function">(<span class="hljs-params">test: Test, error: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
                 <span class="hljs-built_in">this</span>.announceRetryIfNeeded(test);
 
-                <span class="hljs-built_in">this</span>.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test, err))
+                <span class="hljs-built_in">this</span>.recorder.finished(
+                    test.ctx ? test.ctx.currentTest : test,
+                    <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test, error)
+                );
             },
         );
 
         runner.on(Runner.constants.EVENT_TEST_RETRY,
-            <span class="hljs-function">(<span class="hljs-params">test: Test, err: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
+            <span class="hljs-function">(<span class="hljs-params">test: Test, error: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
                 <span class="hljs-built_in">this</span>.announceRetryIfNeeded(test);
 
                 <span class="hljs-built_in">this</span>.recorder.finished(
                     !! test.ctx &amp;&amp; test.ctx.currentTest ? test.ctx.currentTest : test,
-                    <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test, err),
+                    <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test, error),
                 );
             },
         );
@@ -272,6 +280,7 @@
 
         <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> TestSuiteDetails(
             <span class="hljs-keyword">new</span> Name(suite.title),
+            <span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/no-non-null-assertion</span>
             <span class="hljs-keyword">new</span> FileSystemLocation(Path.from(suite.file!)), <span class="hljs-comment">// all suites except for the root suite should have .file property set</span>
             suiteId,
         );
@@ -284,6 +293,7 @@
     <span class="hljs-keyword">private</span> announceSuiteFinishedFor(suite: Suite): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> TestSuiteDetails(
             <span class="hljs-keyword">new</span> Name(suite.title),
+            <span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/no-non-null-assertion</span>
             <span class="hljs-keyword">new</span> FileSystemLocation(Path.from(suite.file!)), <span class="hljs-comment">// all suites except for the root suite should have .file property set</span>
             <span class="hljs-built_in">this</span>.suiteIds.pop(),
         );
@@ -292,10 +302,11 @@
             <span class="hljs-built_in">this</span>.recorder.outcomeOf(test) || <span class="hljs-built_in">this</span>.outcomeMapper.outcomeOf(test)
         );
 
-        <span class="hljs-keyword">const</span> worstOutcome = outcomes.reduce(<span class="hljs-function">(<span class="hljs-params">worstSoFar, outcome</span>) =&gt;</span>
-            outcome.isWorseThan(worstSoFar)
-                ? outcome
-                : worstSoFar,
+        <span class="hljs-keyword">const</span> worstOutcome = outcomes.reduce(
+            <span class="hljs-function">(<span class="hljs-params">worstSoFar, outcome</span>) =&gt;</span>
+                outcome.isWorseThan(worstSoFar)
+                    ? outcome
+                    : worstSoFar,
             <span class="hljs-keyword">new</span> ExecutionSuccessful()
         );
 

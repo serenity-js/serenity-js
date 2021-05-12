@@ -175,6 +175,7 @@
     Tags,
     ThemeTag,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { EventDataCollector, IParsedTestStep, ITestCaseAttempt } <span class="hljs-keyword">from</span> <span class="hljs-string">'../types/cucumber'</span>;
 <span class="hljs-keyword">import</span> { TestStepFormatter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TestStepFormatter'</span>;
 <span class="hljs-keyword">import</span> { ExtractedScenario, ExtractedScenarioOutline } <span class="hljs-keyword">from</span> <span class="hljs-string">'./types'</span>;
@@ -195,7 +196,7 @@
 
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> formatterHelpers: <span class="hljs-built_in">any</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> formatterHelpers: <span class="hljs-built_in">any</span>,     <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
         formatterOptionsAndDependencies: {
             cwd: <span class="hljs-built_in">string</span>,
             eventDataCollector: EventDataCollector,
@@ -432,22 +433,23 @@
             <span class="hljs-keyword">case</span> Status.SKIPPED:
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
 
-            <span class="hljs-keyword">case</span> Status.UNDEFINED:
+            <span class="hljs-keyword">case</span> Status.UNDEFINED: {
                 <span class="hljs-keyword">const</span> snippets = steps
                     .filter(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> step.result.status === Status.UNDEFINED)
                     .map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> step.snippet);
 
                 <span class="hljs-keyword">const</span> message = snippets.length &gt; <span class="hljs-number">0</span>
-                    ? [ <span class="hljs-string">'Step implementation missing:'</span>, ...snippets ].join(<span class="hljs-string">'\n\n'</span>)
+                    ? [<span class="hljs-string">'Step implementation missing:'</span>, ...snippets].join(<span class="hljs-string">'\n\n'</span>)
                     : <span class="hljs-string">'Step implementation missing'</span>;
 
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(message));
+            }
 
             <span class="hljs-keyword">case</span> Status.PENDING:
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step implementation pending'</span>));
 
             <span class="hljs-keyword">case</span> Status.AMBIGUOUS:
-            <span class="hljs-keyword">case</span> Status.FAILED:
+            <span class="hljs-keyword">case</span> Status.FAILED: {
                 <span class="hljs-keyword">const</span> error = ErrorSerialiser.deserialiseFromStackTrace(worstResult.message);
                 <span class="hljs-keyword">if</span> (error <span class="hljs-keyword">instanceof</span> AssertionError) {
                     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(error);
@@ -456,10 +458,11 @@
                     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionCompromised(error);
                 }
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
+            }
 
             <span class="hljs-keyword">case</span> Status.UNKNOWN:
                 <span class="hljs-comment">// ignore</span>
-            <span class="hljs-keyword">case</span> Status.PASSED:
+            <span class="hljs-keyword">case</span> Status.PASSED: <span class="hljs-comment">// eslint-disable-line no-fallthrough</span>
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSuccessful();
         }
     }

@@ -141,20 +141,20 @@
     ImplementationPending,
     Outcome,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../errors'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultMapper</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">outcomeFor</span>(<span class="hljs-params">status: <span class="hljs-built_in">string</span>, maybeError: <span class="hljs-built_in">Error</span> | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span></span>)</span> {
+    outcomeFor(status: <span class="hljs-built_in">string</span>, <span class="hljs-attr">maybeError</span>: <span class="hljs-built_in">Error</span> | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): Outcome {
         <span class="hljs-keyword">const</span> error = <span class="hljs-built_in">this</span>.errorFrom(maybeError);
 
         <span class="hljs-keyword">if</span> (error &amp;&amp; <span class="hljs-regexp">/timed out/</span>.test(error.message)) {
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
         }
 
-        <span class="hljs-comment">// tslint:disable:switch-default</span>
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
             <span class="hljs-keyword">case</span> status === <span class="hljs-string">'undefined'</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step not implemented'</span>));
@@ -183,7 +183,7 @@
             <span class="hljs-keyword">case</span> status === <span class="hljs-string">'skipped'</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
         }
-        <span class="hljs-comment">// tslint:enable:switch-default</span>
+
     }
 
     errorFrom(error: <span class="hljs-built_in">Error</span> | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): <span class="hljs-built_in">Error</span> | <span class="hljs-literal">undefined</span> {

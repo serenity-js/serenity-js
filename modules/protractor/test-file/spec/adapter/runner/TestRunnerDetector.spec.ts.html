@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -189,7 +190,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>; <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
+<span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 <span class="hljs-keyword">import</span> { CucumberAdapterConfig, TestRunnerDetector, TestRunnerLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/adapter/runner'</span>;
 <span class="hljs-keyword">import</span> { Photographer, TakePhotosOfFailures } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
@@ -214,7 +215,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
                 <span class="hljs-attr">defaultAdapterConfig</span>: CucumberAdapterConfig = { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">false</span> };
 
             it(<span class="hljs-string">`uses the configured runner`</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">serenity</span>: {
                         <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
                     },
@@ -224,7 +225,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
             });
 
             it(<span class="hljs-string">'uses the configured runner even when configuration for other runners is present as well'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">serenity</span>: {
                         <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
                     },
@@ -237,7 +238,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
             });
 
             it(<span class="hljs-string">'uses Cucumber test runner when cucumberOpts are present in config'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">cucumberOpts</span>: {},
                 });
 
@@ -245,7 +246,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
             });
 
             it(<span class="hljs-string">'merges cucumberOpts present in capabilities with root config'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">cucumberOpts</span>: {
                         <span class="hljs-attr">tags</span>: [<span class="hljs-string">'@wip'</span>],
                         <span class="hljs-attr">name</span>: <span class="hljs-string">'example scenario'</span>,
@@ -266,7 +267,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
                 describe(<span class="hljs-string">'to take over standard output when the config'</span>, <span class="hljs-function">() =&gt;</span> {
 
                     it(<span class="hljs-string">'defines serenity.crew and there is no cucumberOpts.format specified'</span>, <span class="hljs-function">() =&gt;</span> {
-                        <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                        <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                             <span class="hljs-attr">serenity</span>: {
                                 <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
                                 <span class="hljs-attr">crew</span>: [ Photographer.whoWill(TakePhotosOfFailures) ]
@@ -277,7 +278,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
                     });
 
                     it(<span class="hljs-string">'defines serenity.crew and there is a cucumberOpts.format specified'</span>, <span class="hljs-function">() =&gt;</span> {
-                        <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                        <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                             <span class="hljs-attr">serenity</span>: {
                                 <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
                                 <span class="hljs-attr">crew</span>: [ Photographer.whoWill(TakePhotosOfFailures) ]
@@ -294,7 +295,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
                 describe(<span class="hljs-string">'to redirect output to a temp file when the config'</span>, <span class="hljs-function">() =&gt;</span> {
 
                     it(<span class="hljs-string">'does not specify serenity.crew and there are is no cucumberOpts.format specified either'</span>, <span class="hljs-function">() =&gt;</span> {
-                        <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                        <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                             <span class="hljs-attr">serenity</span>: {
                                 <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
                             }
@@ -304,7 +305,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
                     });
 
                     it(<span class="hljs-string">'does not specify serenity.crew, but there is a cucumberOpts.format specified'</span>, <span class="hljs-function">() =&gt;</span> {
-                        <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                        <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                             <span class="hljs-attr">serenity</span>: {
                                 <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
                                 <span class="hljs-attr">crew</span>: [],
@@ -321,7 +322,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
                 describe(<span class="hljs-string">'make the formatter output files unique when the config'</span>, <span class="hljs-function">() =&gt;</span> {
 
                     it(<span class="hljs-string">'specifies multiCapabilities'</span>, <span class="hljs-function">() =&gt;</span> {
-                        <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                        <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                             <span class="hljs-attr">cucumberOpts</span>: {
                                 <span class="hljs-attr">format</span>: [
                                     <span class="hljs-string">'json:results.json'</span>
@@ -337,7 +338,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
                     });
 
                     it(<span class="hljs-string">'specifies shardTestFiles'</span>, <span class="hljs-function">() =&gt;</span> {
-                        <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                        <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                             <span class="hljs-attr">cucumberOpts</span>: {
                                 <span class="hljs-attr">format</span>: [
                                     <span class="hljs-string">'json:results.json'</span>
@@ -357,13 +358,13 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
         describe(<span class="hljs-string">'Jasmine'</span>, <span class="hljs-function">() =&gt;</span> {
 
             it(<span class="hljs-string">'uses Jasmine TestRunnerAdapter when no other runners are specified'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({});
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({});
 
                 expect(testRunnerLoader.forJasmine).to.have.been.calledWith({});
             });
 
             it(<span class="hljs-string">`uses the configured runner`</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">serenity</span>: {
                         <span class="hljs-attr">runner</span>: <span class="hljs-string">'jasmine'</span>,
                     },
@@ -373,7 +374,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
             });
 
             it(<span class="hljs-string">'uses the configured runner even when configuration for other runners is present as well'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">serenity</span>: {
                         <span class="hljs-attr">runner</span>: <span class="hljs-string">'jasmine'</span>,
                     },
@@ -386,7 +387,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
             });
 
             it(<span class="hljs-string">'uses Jasmine test runner when jasmineNodeOpts are present in config'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">jasmineNodeOpts</span>: {},
                 });
 
@@ -394,7 +395,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
             });
 
             it(<span class="hljs-string">'merges jasmineNodeOpts present in capabilities with root config'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">jasmineNodeOpts</span>: {
                         <span class="hljs-attr">defaultTimeoutInterval</span>: <span class="hljs-number">5</span>,
                     },
@@ -413,7 +414,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
         describe(<span class="hljs-string">'Mocha'</span>, <span class="hljs-function">() =&gt;</span> {
 
             it(<span class="hljs-string">`uses the configured runner`</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">serenity</span>: {
                         <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,
                     },
@@ -423,7 +424,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
             });
 
             it(<span class="hljs-string">'uses the configured runner even when configuration for other runners is present as well'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">serenity</span>: {
                         <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,
                     },
@@ -436,7 +437,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
             });
 
             it(<span class="hljs-string">'uses Mocha test runner when jasmineNodeOpts are present in config'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">mochaOpts</span>: {},
                 });
 
@@ -444,7 +445,7 @@ describe(<span class="hljs-string">'TestRunnerDetector'</span>, <span class="hlj
             });
 
             it(<span class="hljs-string">'merges mochaOpts present in capabilities with root config'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> runner = detector.runnerFor({
+                <span class="hljs-keyword">const</span> runner_ = detector.runnerFor({
                     <span class="hljs-attr">mochaOpts</span>: {
                         <span class="hljs-attr">timeout</span>: <span class="hljs-number">5</span>,
                     },

@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -295,7 +296,7 @@
     }
 
     <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">capitaliseFirstLetter</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-keyword">return</span> text.charAt(<span class="hljs-number">0</span>).toUpperCase() + text.substring(<span class="hljs-number">1</span>);
+        <span class="hljs-keyword">return</span> text.charAt(<span class="hljs-number">0</span>).toUpperCase() + text.slice(<span class="hljs-number">1</span>);
     }
 
     <span class="hljs-keyword">private</span> removeCharactersFrom(elf: ElementFinder, <span class="hljs-attr">numberOfCharacters</span>: <span class="hljs-built_in">number</span>): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
@@ -307,8 +308,8 @@
             );
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">times</span>(<span class="hljs-params">n: <span class="hljs-built_in">number</span>, key: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(n)).map(<span class="hljs-function">() =&gt;</span> key);
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">times</span>(<span class="hljs-params">length: <span class="hljs-built_in">number</span>, key: <span class="hljs-built_in">string</span></span>)</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from({ length }).map(<span class="hljs-function">() =&gt;</span> key);
     }
 }
 </code></pre>

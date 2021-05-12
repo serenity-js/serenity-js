@@ -168,7 +168,7 @@
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity</span>)</span> {
     }
 
-    <span class="hljs-function"><span class="hljs-title">testRunStarts</span>(<span class="hljs-params"></span>)</span> {
+    testRunStarts(): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> TestRunStarts(<span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
@@ -240,7 +240,7 @@
         <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.detailsOf(scenario, feature), outcome);
     }
 
-    <span class="hljs-function"><span class="hljs-title">currentScenarioFinishes</span>(<span class="hljs-params">outcome: Outcome</span>)</span> {
+    currentScenarioFinishes(outcome: Outcome): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.currentScenario, outcome);
     }
 
@@ -257,19 +257,19 @@
         );
     }
 
-    <span class="hljs-function"><span class="hljs-title">testRunFinishes</span>(<span class="hljs-params"></span>)</span> {
+    testRunFinishes(): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
     }
 
-    <span class="hljs-function"><span class="hljs-title">testRunFinished</span>(<span class="hljs-params"></span>)</span> {
+    testRunFinished(): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-built_in">this</span>.serenity.currentTime()),
         );
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">emitSceneFinishes</span>(<span class="hljs-params">details: ScenarioDetails, outcome: Outcome</span>)</span> {
+    <span class="hljs-keyword">private</span> emitSceneFinishes(details: ScenarioDetails, <span class="hljs-attr">outcome</span>: Outcome): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.emit(
             <span class="hljs-keyword">new</span> SceneFinishes(
                 <span class="hljs-built_in">this</span>.currentSceneId,

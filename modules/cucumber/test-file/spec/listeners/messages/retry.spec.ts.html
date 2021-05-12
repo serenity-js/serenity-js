@@ -147,6 +147,7 @@
     TestRunStarts,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { cucumber7 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./bin/cucumber-7'</span>;
 
 describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
@@ -165,12 +166,12 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                 <span class="hljs-string">'./examples/features/retry.feature'</span>,
             )
             .then(ifExitCodeIsOtherThan(<span class="hljs-number">0</span>, logOutput))
-            .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
-                expect(res.exitCode).to.equal(<span class="hljs-number">0</span>);
+            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                expect(result.exitCode).to.equal(<span class="hljs-number">0</span>);
 
                 <span class="hljs-keyword">let</span> sceneId: CorrelationId;
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(TestRunStarts,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.be.instanceof(Timestamp))
 
                     .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
@@ -212,7 +213,7 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                     .next(TestRunFinished,     <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.be.instanceof(Timestamp))
                 ;
 
-                <span class="hljs-keyword">const</span> retryableSceneDetectedEvents = res.events.filter(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event <span class="hljs-keyword">instanceof</span> RetryableSceneDetected)
+                <span class="hljs-keyword">const</span> retryableSceneDetectedEvents = result.events.filter(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event <span class="hljs-keyword">instanceof</span> RetryableSceneDetected)
 
                 expect(retryableSceneDetectedEvents).to.have.lengthOf(<span class="hljs-number">2</span>);
             }));
@@ -227,12 +228,12 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                 <span class="hljs-string">'./examples/features/retry.feature'</span>,
             )
             .then(ifExitCodeIsOtherThan(<span class="hljs-number">1</span>, logOutput))
-            .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
-                expect(res.exitCode).to.equal(<span class="hljs-number">1</span>);
+            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                expect(result.exitCode).to.equal(<span class="hljs-number">1</span>);
 
                 <span class="hljs-keyword">let</span> sceneId: CorrelationId;
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                         expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'An eventually passing scenario'</span>))
                         sceneId = event.sceneId;
@@ -261,7 +262,7 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                     .next(TestRunFinished,     <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event).to.be.instanceOf(TestRunFinished))
                 ;
 
-                <span class="hljs-keyword">const</span> retryableSceneDetectedEvents = res.events.filter(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event <span class="hljs-keyword">instanceof</span> RetryableSceneDetected)
+                <span class="hljs-keyword">const</span> retryableSceneDetectedEvents = result.events.filter(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event <span class="hljs-keyword">instanceof</span> RetryableSceneDetected)
 
                 expect(retryableSceneDetectedEvents).to.have.lengthOf(<span class="hljs-number">1</span>);
             }));

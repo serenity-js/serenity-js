@@ -141,6 +141,7 @@
     ExecutionSuccessful,
     ImplementationPending,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { AggregatedCategories, AggregatedCategory } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Summary'</span>;
 <span class="hljs-keyword">import</span> { TerminalTheme } <span class="hljs-keyword">from</span> <span class="hljs-string">'./themes'</span>;
 
@@ -162,7 +163,7 @@
             <span class="hljs-string">''</span>,
             ...categoryNames.map(<span class="hljs-function"><span class="hljs-params">categoryName</span> =&gt;</span> {
                 <span class="hljs-keyword">const</span> displayName = (categoryName.length &gt; maxCategoryNameLengthAllowed
-                    ? categoryName.substring(<span class="hljs-number">0</span>, maxCategoryNameLengthAllowed - <span class="hljs-number">4</span>) + <span class="hljs-string">`...:`</span>
+                    ? categoryName.slice(<span class="hljs-number">0</span>, maxCategoryNameLengthAllowed - <span class="hljs-number">4</span>) + <span class="hljs-string">`...:`</span>
                     : <span class="hljs-string">`<span class="hljs-subst">${ categoryName }</span>:`</span>).padEnd(maxCategoryNameLengthAllowed + <span class="hljs-number">1</span>);
 
                 <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.heading(displayName) }</span> <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.formatTotalsFor(aggregatedCategories.categories[categoryName]) }</span>`</span>;

@@ -131,7 +131,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/feature-files/FeatureFileMap.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Constructor } <span class="hljs-keyword">from</span> <span class="hljs-string">'../constructables'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/ban-types */</span>
+
+<span class="hljs-keyword">import</span> { Constructor } <span class="hljs-keyword">from</span> <span class="hljs-string">'../constructables'</span>;
 <span class="hljs-keyword">import</span> { ItemNotFoundError } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
 
 <span class="hljs-comment">/**
@@ -142,7 +144,7 @@
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> map: { [line: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">object</span> } = {}</span>)</span> {
     }
 
-    <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">item: <span class="hljs-built_in">object</span></span>)</span> {
+    <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">item: <span class="hljs-built_in">object</span></span>)</span> {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
         <span class="hljs-keyword">return</span> ({
             <span class="hljs-attr">onLine</span>: (line: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">FeatureFileMap</span> =&gt;</span> {
                 <span class="hljs-built_in">this</span>.map[line] = item;
@@ -152,7 +154,7 @@
         });
     }
 
-    get&lt;T&gt;(<span class="hljs-keyword">type</span>: Constructor&lt;T&gt;) {
+    get&lt;T&gt;(<span class="hljs-keyword">type</span>: Constructor&lt;T&gt;) {  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
         <span class="hljs-keyword">return</span> ({
             <span class="hljs-attr">onLine</span>: (line: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">T</span> =&gt;</span> {
                 <span class="hljs-keyword">const</span> found = <span class="hljs-built_in">this</span>.map[line];
@@ -184,7 +186,7 @@
         <span class="hljs-keyword">return</span> found;
     }
 
-    <span class="hljs-function"><span class="hljs-title">size</span>(<span class="hljs-params"></span>)</span> {
+    size(): <span class="hljs-built_in">number</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.map).length;
     }
 }

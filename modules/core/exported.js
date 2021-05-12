@@ -86,6 +86,7 @@
 /** @external {@serenity-js/core/lib/model/artifacts~Photo} /modules/core/class/src/model/artifacts/Photo.ts~Photo.html */
 /** @external {@serenity-js/core/lib/model/artifacts~TestReport} /modules/core/class/src/model/artifacts/TestReport.ts~TestReport.html */
 /** @external {@serenity-js/core/lib/model/artifacts~TextData} /modules/core/class/src/model/artifacts/TextData.ts~TextData.html */
+/** @external {@serenity-js/core/lib/model~SerialisedOutcome} /modules/core/class/src/model/outcomes.ts~SerialisedOutcome.html */
 /** @external {@serenity-js/core/lib/model~Outcome} /modules/core/class/src/model/outcomes.ts~Outcome.html */
 /** @external {@serenity-js/core/lib/model~ProblemIndication} /modules/core/class/src/model/outcomes.ts~ProblemIndication.html */
 /** @external {@serenity-js/core/lib/model~ExecutionCompromised} /modules/core/class/src/model/outcomes.ts~ExecutionCompromised.html */

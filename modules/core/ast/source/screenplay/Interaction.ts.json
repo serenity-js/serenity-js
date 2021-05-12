@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2628,
+  "end": 2661,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 143,
+      "line": 145,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2628,
+    "end": 2661,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 143,
+        "line": 145,
         "column": 0
       }
     },
@@ -1486,14 +1486,14 @@
       {
         "type": "ClassDeclaration",
         "start": 1526,
-        "end": 2627,
+        "end": 2660,
         "loc": {
           "start": {
             "line": 85,
             "column": 0
           },
           "end": {
-            "line": 142,
+            "line": 144,
             "column": 1
           }
         },
@@ -1568,14 +1568,14 @@
         "body": {
           "type": "ClassBody",
           "start": 1584,
-          "end": 2627,
+          "end": 2660,
           "loc": {
             "start": {
               "line": 85,
               "column": 58
             },
             "end": {
-              "line": 142,
+              "line": 144,
               "column": 1
             }
           },
@@ -2155,16 +2155,16 @@
               "trailingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 71 \n * @public \n * \\TRUE \n ",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 71 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
                   "start": 2358,
-                  "end": 2425,
+                  "end": 2450,
                   "loc": {
                     "start": {
                       "line": 123,
                       "column": 0
                     },
                     "end": {
-                      "line": 130,
+                      "line": 132,
                       "column": 3
                     }
                   }
@@ -2172,15 +2172,15 @@
                 {
                   "type": "CommentBlock",
                   "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
-                  "start": 2432,
-                  "end": 2569,
+                  "start": 2457,
+                  "end": 2594,
                   "loc": {
                     "start": {
-                      "line": 133,
+                      "line": 135,
                       "column": 4
                     },
                     "end": {
-                      "line": 138,
+                      "line": 140,
                       "column": 7
                     }
                   }
@@ -2722,31 +2722,31 @@
             },
             {
               "type": "ClassMethod",
-              "start": 2574,
-              "end": 2625,
+              "start": 2599,
+              "end": 2658,
               "loc": {
                 "start": {
-                  "line": 139,
+                  "line": 141,
                   "column": 4
                 },
                 "end": {
-                  "line": 141,
+                  "line": 143,
                   "column": 5
                 }
               },
               "leadingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 71 \n * @public \n * \\TRUE \n ",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 71 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
                   "start": 2358,
-                  "end": 2425,
+                  "end": 2450,
                   "loc": {
                     "start": {
                       "line": 123,
                       "column": 0
                     },
                     "end": {
-                      "line": 130,
+                      "line": 132,
                       "column": 3
                     }
                   }
@@ -2754,15 +2754,15 @@
                 {
                   "type": "CommentBlock",
                   "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
-                  "start": 2432,
-                  "end": 2569,
+                  "start": 2457,
+                  "end": 2594,
                   "loc": {
                     "start": {
-                      "line": 133,
+                      "line": 135,
                       "column": 4
                     },
                     "end": {
-                      "line": 138,
+                      "line": 140,
                       "column": 7
                     }
                   }
@@ -2771,15 +2771,15 @@
               "static": false,
               "key": {
                 "type": "Identifier",
-                "start": 2574,
-                "end": 2582,
+                "start": 2599,
+                "end": 2607,
                 "loc": {
                   "start": {
-                    "line": 139,
+                    "line": 141,
                     "column": 4
                   },
                   "end": {
-                    "line": 139,
+                    "line": 141,
                     "column": 12
                   },
                   "identifierName": "toString"
@@ -2792,60 +2792,90 @@
               "generator": false,
               "async": false,
               "params": [],
-              "body": {
-                "type": "BlockStatement",
-                "start": 2585,
-                "end": 2625,
+              "returnType": {
+                "type": "TSTypeAnnotation",
+                "start": 2609,
+                "end": 2617,
                 "loc": {
                   "start": {
-                    "line": 139,
-                    "column": 15
+                    "line": 141,
+                    "column": 14
                   },
                   "end": {
                     "line": 141,
+                    "column": 22
+                  }
+                },
+                "typeAnnotation": {
+                  "type": "TSStringKeyword",
+                  "start": 2611,
+                  "end": 2617,
+                  "loc": {
+                    "start": {
+                      "line": 141,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 141,
+                      "column": 22
+                    }
+                  }
+                }
+              },
+              "body": {
+                "type": "BlockStatement",
+                "start": 2618,
+                "end": 2658,
+                "loc": {
+                  "start": {
+                    "line": 141,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 143,
                     "column": 5
                   }
                 },
                 "body": [
                   {
                     "type": "ReturnStatement",
-                    "start": 2595,
-                    "end": 2619,
+                    "start": 2628,
+                    "end": 2652,
                     "loc": {
                       "start": {
-                        "line": 140,
+                        "line": 142,
                         "column": 8
                       },
                       "end": {
-                        "line": 140,
+                        "line": 142,
                         "column": 32
                       }
                     },
                     "argument": {
                       "type": "MemberExpression",
-                      "start": 2602,
-                      "end": 2618,
+                      "start": 2635,
+                      "end": 2651,
                       "loc": {
                         "start": {
-                          "line": 140,
+                          "line": 142,
                           "column": 15
                         },
                         "end": {
-                          "line": 140,
+                          "line": 142,
                           "column": 31
                         }
                       },
                       "object": {
                         "type": "ThisExpression",
-                        "start": 2602,
-                        "end": 2606,
+                        "start": 2635,
+                        "end": 2639,
                         "loc": {
                           "start": {
-                            "line": 140,
+                            "line": 142,
                             "column": 15
                           },
                           "end": {
-                            "line": 140,
+                            "line": 142,
                             "column": 19
                           }
                         }
@@ -2853,15 +2883,15 @@
                       "computed": false,
                       "property": {
                         "type": "Identifier",
-                        "start": 2607,
-                        "end": 2618,
+                        "start": 2640,
+                        "end": 2651,
                         "loc": {
                           "start": {
-                            "line": 140,
+                            "line": 142,
                             "column": 20
                           },
                           "end": {
-                            "line": 140,
+                            "line": 142,
                             "column": 31
                           },
                           "identifierName": "description"
@@ -3027,16 +3057,16 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 71 \n * @public \n * \\TRUE \n ",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 71 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
       "start": 2358,
-      "end": 2425,
+      "end": 2450,
       "loc": {
         "start": {
           "line": 123,
           "column": 0
         },
         "end": {
-          "line": 130,
+          "line": 132,
           "column": 3
         }
       }
@@ -3044,15 +3074,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
-      "start": 2432,
-      "end": 2569,
+      "start": 2457,
+      "end": 2594,
       "loc": {
         "start": {
-          "line": 133,
+          "line": 135,
           "column": 4
         },
         "end": {
-          "line": 138,
+          "line": 140,
           "column": 7
         }
       }

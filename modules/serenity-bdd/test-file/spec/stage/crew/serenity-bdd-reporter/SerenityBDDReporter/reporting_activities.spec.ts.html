@@ -119,7 +119,8 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html">ErrorDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -127,7 +128,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/reporting_activities.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case, @typescript-eslint/indent */</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
@@ -320,7 +322,7 @@ describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hl
                     <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                     <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment),
                         <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'make a payment message'</span>), JSONData.fromJSON({ <span class="hljs-attr">amount</span>: <span class="hljs-string">'£42'</span> })),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'make a payment message'</span>), JSONData, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'target/site/serenity/make-a-payment-message-md5hash.json'</span>)),   <span class="hljs-comment">// tslint:disable-line:max-line-length</span>
+                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'make a payment message'</span>), JSONData, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'target/site/serenity/make-a-payment-message-md5hash.json'</span>)),
                         <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'server log'</span>), TextData.fromJSON({ <span class="hljs-attr">contentType</span>: <span class="hljs-string">'text/plain'</span>, <span class="hljs-attr">data</span>: <span class="hljs-string">'received payment request'</span> })),
                     <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
                 <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
@@ -337,7 +339,7 @@ describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hl
             expect(report.testSteps[<span class="hljs-number">1</span>].number).to.equal(<span class="hljs-number">2</span>);
 
             expect(report.testSteps[<span class="hljs-number">1</span>].reportData[<span class="hljs-number">0</span>].title).to.equal(<span class="hljs-string">'make a payment message'</span>);
-            expect(report.testSteps[<span class="hljs-number">1</span>].reportData[<span class="hljs-number">0</span>].contents).to.deep.equal(<span class="hljs-string">'{\n    \"amount\": \"£42\"\n}'</span>);
+            expect(report.testSteps[<span class="hljs-number">1</span>].reportData[<span class="hljs-number">0</span>].contents).to.deep.equal(<span class="hljs-string">'{\n    "amount": "£42"\n}'</span>);
 
             expect(report.testSteps[<span class="hljs-number">1</span>].reportData[<span class="hljs-number">1</span>].title).to.equal(<span class="hljs-string">'server log'</span>);
             expect(report.testSteps[<span class="hljs-number">1</span>].reportData[<span class="hljs-number">1</span>].contents).to.deep.equal(<span class="hljs-string">'received payment request'</span>);

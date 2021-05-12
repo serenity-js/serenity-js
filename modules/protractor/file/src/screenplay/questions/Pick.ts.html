@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -208,7 +209,7 @@ export interface Collection&lt;T&gt; {
  */
 export class Pick&lt;Item_Type, Collection_Type extends Collection&lt;Item_Type&gt; = Collection&lt;Item_Type&gt;&gt; {
 
-    static from&lt;IT, CT extends Collection&lt;IT&gt; = Collection&lt;IT&gt;&gt;(collection: Question&lt;CT&gt; | CT) {
+    static from&lt;IT, CT extends Collection&lt;IT&gt; = Collection&lt;IT&gt;&gt;(collection: Question&lt;CT&gt; | CT): Pick&lt;IT, CT&gt; {
         return new Pick&lt;IT, CT&gt;(collection);
     }
 
@@ -285,7 +286,8 @@ class Filters&lt;Item_Type, Collection_Type extends Collection&lt;Item_Type&gt;&
      */
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): (ct: Collection_Type) =&gt; Collection_Type {
         return (collection: Collection_Type) =&gt;
-            this.filters.reduce((filteredCollection, filter) =&gt;
+            this.filters.reduce(
+                (filteredCollection, filter) =&gt;
                     filter.answeredBy(actor)(filteredCollection),
                 collection,
             );
@@ -480,15 +482,15 @@ class LastMatchingItem&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends Questi
 class NthMatchingItem&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends QuestionAboutCollectionItems&lt;IT, CT, IT&gt; {
     private static ordinalSuffixOf(index: number) {
         const
-            j = index % 10,
-            k = index % 100;
+            lastDigit = index % 10,
+            lastTwoDigits = index % 100;
 
         switch (true) {
-            case (j === 1 &amp;&amp; k !== 11):
+            case (lastDigit === 1 &amp;&amp; lastTwoDigits !== 11):
                 return index + 'st';
-            case (j === 2 &amp;&amp; k !== 12):
+            case (lastDigit === 2 &amp;&amp; lastTwoDigits !== 12):
                 return index + 'nd';
-            case (j === 3 &amp;&amp; k !== 13):
+            case (lastDigit === 3 &amp;&amp; lastTwoDigits !== 13):
                 return index + 'rd';
             default:
                 return index + 'th';

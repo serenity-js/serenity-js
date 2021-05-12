@@ -119,7 +119,8 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html">ErrorDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -127,9 +128,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/tasks/InvokeSerenityBDD.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> { AnswersQuestions, Check, PerformsActivities, Question, Task, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+
 <span class="hljs-keyword">import</span> { Spawn } <span class="hljs-keyword">from</span> <span class="hljs-string">'../interactions'</span>;
 <span class="hljs-keyword">import</span> { TerminateFlow } <span class="hljs-keyword">from</span> <span class="hljs-string">'../interactions/TerminateFlow'</span>;
 <span class="hljs-keyword">import</span> { FileExists, JavaExecutable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../questions'</span>;
@@ -138,19 +141,18 @@
  * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvokeSerenityBDD</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">at</span>(<span class="hljs-params">pathToArtifact: Path</span>)</span> {
+    <span class="hljs-keyword">static</span> at(pathToArtifact: Path): InvokeSerenityBDD {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InvokeSerenityBDD(pathToArtifact);
     }
 
-    <span class="hljs-function"><span class="hljs-title">withArguments</span>(<span class="hljs-params">args: Question&lt;<span class="hljs-built_in">string</span>[]&gt;</span>)</span> {
+    withArguments(args: Question&lt;<span class="hljs-built_in">string</span>[]&gt;): InvokeSerenityBDD {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InvokeSerenityBDD(<span class="hljs-built_in">this</span>.pathToArtifact, args, <span class="hljs-built_in">this</span>.props);
     }
 
-    <span class="hljs-function"><span class="hljs-title">withProperties</span>(<span class="hljs-params">properties: Question&lt;<span class="hljs-built_in">string</span>[]&gt;</span>)</span> {
+    withProperties(properties: Question&lt;<span class="hljs-built_in">string</span>[]&gt;): InvokeSerenityBDD {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> InvokeSerenityBDD(<span class="hljs-built_in">this</span>.pathToArtifact, <span class="hljs-built_in">this</span>.args, properties);
     }
 
-    <span class="hljs-comment">// tslint:disable-next-line:member-ordering</span>
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> pathToArtifact: Path,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> args: Question&lt;<span class="hljs-built_in">string</span>[]&gt;  = Question.about(<span class="hljs-string">`no arguments`</span>, actor =&gt; []),
@@ -175,20 +177,20 @@
     performAs(actor: PerformsActivities &amp; UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; | PromiseLike&lt;<span class="hljs-built_in">any</span>&gt; {
 
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-                actor.answer(<span class="hljs-built_in">this</span>.args),
-                actor.answer(<span class="hljs-built_in">this</span>.props),
-            ])
-            .then(<span class="hljs-function">(<span class="hljs-params">[ args, props ]</span>) =&gt;</span>
-                actor.attemptsTo(
-                    Check
-                        .whether(FileExists.at(<span class="hljs-built_in">this</span>.pathToArtifact), equals(<span class="hljs-literal">false</span>))
-                        .andIfSo(TerminateFlow.because(
-                            <span class="hljs-string">`I couldn't access the Serenity BDD CLI at <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.pathToArtifact.value }</span>. `</span> +
-                            <span class="hljs-string">`Did you remember to run \`serenity-bdd update\`?`</span>,
-                        )),
-                    <span class="hljs-comment">// todo: check if reports exist before invoking the jar?</span>
-                    Spawn.the(<span class="hljs-keyword">new</span> JavaExecutable(), ...props, <span class="hljs-string">'-jar'</span>, <span class="hljs-built_in">this</span>.pathToArtifact.value, ...args),
-                ),
+            actor.answer(<span class="hljs-built_in">this</span>.args),
+            actor.answer(<span class="hljs-built_in">this</span>.props),
+        ]).
+        then(<span class="hljs-function">(<span class="hljs-params">[ args, props ]</span>) =&gt;</span>
+            actor.attemptsTo(
+                Check
+                    .whether(FileExists.at(<span class="hljs-built_in">this</span>.pathToArtifact), equals(<span class="hljs-literal">false</span>))
+                    .andIfSo(TerminateFlow.because(
+                        <span class="hljs-string">`I couldn't access the Serenity BDD CLI at <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.pathToArtifact.value }</span>. `</span> +
+                        <span class="hljs-string">`Did you remember to run \`serenity-bdd update\`?`</span>,
+                    )),
+                <span class="hljs-comment">// todo: check if reports exist before invoking the jar?</span>
+                Spawn.the(<span class="hljs-keyword">new</span> JavaExecutable(), ...props, <span class="hljs-string">'-jar'</span>, <span class="hljs-built_in">this</span>.pathToArtifact.value, ...args),
+            ),
         );
     }
 

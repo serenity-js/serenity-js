@@ -168,7 +168,7 @@
                         match(outcome)
                             .when(ExpectationNotMet, <span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> o)
                             .else(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> current.answeredBy(actor)(actual)),
-                ),
+                    ),
                 <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
             );
     }

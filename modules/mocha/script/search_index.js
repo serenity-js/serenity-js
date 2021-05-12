@@ -606,6 +606,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model~serialisedoutcome",
+    "/modules/core/class/src/model/outcomes.ts~SerialisedOutcome.html",
+    "@serenity-js/core/lib/model~SerialisedOutcome",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model~testsuitedetails",
     "/modules/core/class/src/model/TestSuiteDetails.ts~TestSuiteDetails.html",
     "@serenity-js/core/lib/model~TestSuiteDetails",
@@ -1039,7 +1045,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber19",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber20",
     "MochaTestMapper",
     "test"
   ],
@@ -1051,43 +1057,43 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber54",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber55",
     "MochaTestMapper recognises compromised tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber24",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber25",
     "MochaTestMapper recognises passing tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber34",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber35",
     "MochaTestMapper recognises pending tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber44",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber45",
     "MochaTestMapper recognises skipped tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber68",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber69",
     "MochaTestMapper recognises tests that failed with a Serenity/JS AssertionError",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber82",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber83",
     "MochaTestMapper recognises tests that failed with a generic AssertionError",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber100",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber101",
     "MochaTestMapper recognises tests that failed with an Error",
     "test"
   ],
@@ -1099,55 +1105,55 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber114",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber115",
     "MochaTestMapper when working with retryable tests",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber118",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber119",
     "MochaTestMapper when working with retryable tests ignores the failure as long as execution is going to be retried",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber134",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber135",
     "MochaTestMapper when working with retryable tests when there are no retries left",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber135",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber136",
     "MochaTestMapper when working with retryable tests when there are no retries left ",
     "test"
   ],
   [
     "",
-    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber151",
+    "test-file/spec/mappers/MochaOutcomeMapper.spec.ts.html#lineNumber152",
     "MochaTestMapper when working with retryable tests when there are no retries left ",
     "test"
   ],
   [
     "",
-    "test-file/spec/OutcomeRecorder.spec.ts.html#lineNumber8",
+    "test-file/spec/OutcomeRecorder.spec.ts.html#lineNumber10",
     "OutcomeRecorder",
     "test"
   ],
   [
     "",
-    "test-file/spec/OutcomeRecorder.spec.ts.html#lineNumber27",
+    "test-file/spec/OutcomeRecorder.spec.ts.html#lineNumber29",
     "OutcomeRecorder allows for a recorded outcome to be erased",
     "test"
   ],
   [
     "",
-    "test-file/spec/OutcomeRecorder.spec.ts.html#lineNumber20",
+    "test-file/spec/OutcomeRecorder.spec.ts.html#lineNumber22",
     "OutcomeRecorder returns an outcome recorded for a given test",
     "test"
   ],
   [
     "",
-    "test-file/spec/OutcomeRecorder.spec.ts.html#lineNumber16",
+    "test-file/spec/OutcomeRecorder.spec.ts.html#lineNumber18",
     "OutcomeRecorder returns no outcome if no outcome was recorded",
     "test"
   ],

@@ -648,6 +648,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/core/lib/model~serialisedoutcome",
+    "class/src/model/outcomes.ts~SerialisedOutcome.html",
+    "<span>SerialisedOutcome</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/model</span>",
+    "class"
+  ],
+  [
     "@serenity-js/core/lib/stage~stage",
     "class/src/stage/Stage.ts~Stage.html",
     "<span>Stage</span> <span class=\"search-result-import-path\">@serenity-js/core/lib/stage</span>",
@@ -1087,127 +1093,127 @@ window.esdocSearchIndex = [
   ],
   [
     "arraylistadapter src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter,arraylistadapter",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber12",
     "ArrayListAdapter",
     "test"
   ],
   [
     "arraylistadapter#count src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#count,arraylistadapter#count",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber102",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber105",
     "ArrayListAdapter count()",
     "test"
   ],
   [
     "arraylistadapter#first src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#first,arraylistadapter#first",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber134",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber137",
     "ArrayListAdapter first()",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber148",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber151",
     "ArrayListAdapter first() ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber149",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber152",
     "ArrayListAdapter first()  ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber154",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber157",
     "ArrayListAdapter first()  ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber159",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber162",
     "ArrayListAdapter first()  ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber164",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber167",
     "ArrayListAdapter first()  ",
     "test"
   ],
   [
     "arraylistadapter#get src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#get,arraylistadapter#get",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber210",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber213",
     "ArrayListAdapter get(index)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber224",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber227",
     "ArrayListAdapter get(index) ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber227",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber230",
     "ArrayListAdapter get(index)  ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber232",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber235",
     "ArrayListAdapter get(index)  ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber237",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber240",
     "ArrayListAdapter get(index)  ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber242",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber245",
     "ArrayListAdapter get(index)  ",
     "test"
   ],
   [
     "arraylistadapter#items src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#items,arraylistadapter#items",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber118",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber121",
     "ArrayListAdapter items()",
     "test"
   ],
   [
     "arraylistadapter#last src/screenplay/questions/lists/arraylistadapter.ts~arraylistadapter#last,arraylistadapter#last",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber172",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber175",
     "ArrayListAdapter last()",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber186",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber189",
     "ArrayListAdapter last() ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber187",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber190",
     "ArrayListAdapter last()  ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber192",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber195",
     "ArrayListAdapter last()  ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber197",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber200",
     "ArrayListAdapter last()  ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber202",
+    "test-file/spec/screenplay/questions/lists/ArrayListAdapter.spec.ts.html#lineNumber205",
     "ArrayListAdapter last()  ",
     "test"
   ],
@@ -1381,229 +1387,229 @@ window.esdocSearchIndex = [
   ],
   [
     "check src/screenplay/questions/check.ts~check,check",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber11",
     "Check",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber16",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber19",
     "Check (if branch)",
     "test"
   ],
   [
     "check#andifso check#andifso,check#andifso",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber20",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber23",
     "Check (if branch) makes the actor execute the activities when the expectation is met",
     "test"
   ],
   [
     "check#andifso check#andifso,check#andifso",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber35",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber38",
     "Check (if branch) makes the actor ignore the activities when the expectation is not met",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber48",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber51",
     "Check (if/else branches)",
     "test"
   ],
   [
     "check#otherwise src/screenplay/questions/check.ts~check#otherwise,check#otherwise",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber52",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber55",
     "Check (if/else branches) makes the actor execute the activities when the expectation is met",
     "test"
   ],
   [
     "check#otherwise src/screenplay/questions/check.ts~check#otherwise,check#otherwise",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber70",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber73",
     "Check (if/else branches) makes the actor execute the alternative activities when the expectation is not met",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber86",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber89",
     "Check reporting",
     "test"
   ],
   [
     "check#whether check#whether,check#whether",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber90",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber93",
     "Check reporting provides a description of the check",
     "test"
   ],
   [
     "check#whether check#whether,check#whether",
-    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber96",
+    "test-file/spec/screenplay/questions/Check.spec.ts.html#lineNumber99",
     "Check reporting provides a description of the check while correctly cleaning the output from new line characters",
     "test"
   ],
   [
     "config src/io/config.ts~config,config",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber6",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber7",
     "Config",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber114",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber115",
     "Config when extracting the configuration object",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber123",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber124",
     "Config when extracting the configuration object applies any transformations",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber116",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber117",
     "Config when extracting the configuration object returns the value equal to the underlying config object, when no transformations are used",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber40",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber41",
     "Config when transforming the values",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber51",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber52",
     "Config when transforming the values conditionally",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber60",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber61",
     "Config when transforming the values conditionally does not transform the value when a condition is not met",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber53",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber54",
     "Config when transforming the values conditionally transforms a value when a condition is met",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber68",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber69",
     "Config when transforming the values getAsList",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber90",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber91",
     "Config when transforming the values getAsList returns a list when the value",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber92",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber93",
     "Config when transforming the values getAsList returns a list when the value is already a list",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber98",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber99",
     "Config when transforming the values getAsList returns a list when the value is not a list",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber104",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber105",
     "Config when transforming the values getAsList returns a list when the value respects the transformation function, if it is defined",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber69",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber70",
     "Config when transforming the values getAsList returns an empty list when the value",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber83",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber84",
     "Config when transforming the values getAsList returns an empty list when the value ",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber77",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber78",
     "Config when transforming the values getAsList returns an empty list when the value is null",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber71",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber72",
     "Config when transforming the values getAsList returns an empty list when the value is undefined",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber42",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber43",
     "Config when transforming the values transforms values using transformation functions provided for each field",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber8",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber9",
     "Config when wrapping a plain-old configuration object",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber27",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber28",
     "Config when wrapping a plain-old configuration object ",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber33",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber34",
     "Config when wrapping a plain-old configuration object ",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber15",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber16",
     "Config when wrapping a plain-old configuration object enables access to its fields",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Config.spec.ts.html#lineNumber21",
+    "test-file/spec/io/Config.spec.ts.html#lineNumber22",
     "Config when wrapping a plain-old configuration object tells if a given field exists, but is undefined",
     "test"
   ],
   [
     "duration src/model/duration.ts~duration,duration",
-    "test-file/spec/model/Duration.spec.ts.html#lineNumber8",
+    "test-file/spec/model/Duration.spec.ts.html#lineNumber9",
     "Duration",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/Duration.spec.ts.html#lineNumber10",
+    "test-file/spec/model/Duration.spec.ts.html#lineNumber11",
     "Duration represents a duration of time that",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/Duration.spec.ts.html#lineNumber47",
+    "test-file/spec/model/Duration.spec.ts.html#lineNumber48",
     "Duration when comparing",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/Duration.spec.ts.html#lineNumber36",
+    "test-file/spec/model/Duration.spec.ts.html#lineNumber37",
     "Duration when performing computations",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/Duration.spec.ts.html#lineNumber41",
+    "test-file/spec/model/Duration.spec.ts.html#lineNumber42",
     "Duration when performing computations allows for durations to be added",
     "test"
   ],
@@ -1663,79 +1669,79 @@ window.esdocSearchIndex = [
   ],
   [
     "expectation src/screenplay/questions/expectation.ts~expectation,expectation",
-    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber11",
     "Expectation",
     "test"
   ],
   [
     "expectation.thatactualshould src/screenplay/questions/expectation.ts~expectation.thatactualshould,expectation.thatactualshould",
-    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber20",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber22",
     "Expectation thatActualShould()",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber24",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber26",
     "Expectation thatActualShould() provides a way to easily create custom expectation that",
     "test"
   ],
   [
     "expectation.to src/screenplay/questions/expectation.ts~expectation.to,expectation.to",
-    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber73",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber75",
     "Expectation to()",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber81",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber83",
     "Expectation to() provides a way to alias and compose expectations",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber83",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber85",
     "Expectation to() provides a way to alias and compose expectations resolves to ExpectationMet when the expectation is met and the message alias",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber95",
+    "test-file/spec/screenplay/questions/Expectation.spec.ts.html#lineNumber97",
     "Expectation to() provides a way to alias and compose expectations resolves with ExpectationNotMet when the expectation is not met and the original message for any unmet expectations",
     "test"
   ],
   [
     "filefinder src/io/filefinder.ts~filefinder,filefinder",
-    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber8",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber9",
     "FileFinder",
     "test"
   ],
   [
     "filefinder src/io/filefinder.ts~filefinder,filefinder",
-    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber26",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber27",
     "FileFinder ",
     "test"
   ],
   [
     "filefinder src/io/filefinder.ts~filefinder,filefinder",
-    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber31",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber32",
     "FileFinder returns a list with an exact match",
     "test"
   ],
   [
     "filefinder src/io/filefinder.ts~filefinder,filefinder",
-    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber39",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber40",
     "FileFinder returns a list with exact matches",
     "test"
   ],
   [
     "filefinder src/io/filefinder.ts~filefinder,filefinder",
-    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber48",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber49",
     "FileFinder supports glob patterns",
     "test"
   ],
   [
     "filefinder src/io/filefinder.ts~filefinder,filefinder",
-    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber57",
+    "test-file/spec/io/FileFinder.spec.ts.html#lineNumber58",
     "FileFinder supports globstar patterns",
     "test"
   ],
@@ -1759,7 +1765,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber172",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber171",
     "FileSystem when generating temp file paths allows for the suffix to be overridden",
     "test"
   ],
@@ -1849,163 +1855,163 @@ window.esdocSearchIndex = [
   ],
   [
     "filesystemlocation src/io/filesystemlocation.ts~filesystemlocation,filesystemlocation",
-    "test-file/spec/io/FileSystemLocation.spec.ts.html#lineNumber9",
+    "test-file/spec/io/FileSystemLocation.spec.ts.html#lineNumber10",
     "FileSystemLocation",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber12",
     "Interaction",
     "test"
   ],
   [
     "interaction src/screenplay/interaction.ts~interaction,interaction",
-    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber88",
+    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber89",
     "Interaction can optionally emit an artifact to be attached to the report or stored",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber27",
+    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber28",
     "Interaction when defining an interaction",
     "test"
   ],
   [
     "interaction src/screenplay/interaction.ts~interaction,interaction",
-    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber47",
+    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber48",
     "Interaction when defining an interaction provides a convenient factory method for asynchronous interactions",
     "test"
   ],
   [
     "interaction src/screenplay/interaction.ts~interaction,interaction",
-    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber30",
+    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber31",
     "Interaction when defining an interaction provides a convenient factory method for synchronous interactions",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber66",
+    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber67",
     "Interaction when handling errors",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber69",
+    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber70",
     "Interaction when handling errors rejects the promise when the interaction function rejects a promise",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber77",
+    "test-file/spec/screenplay/Interaction.spec.ts.html#lineNumber78",
     "Interaction when handling errors rejects the promise when the interaction function throws an error",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber8",
+    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber11",
     "Interactions",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber13",
     "Interactions See",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber14",
+    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber17",
     "Interactions See when used with async questions",
     "test"
   ],
   [
     "see src/screenplay/interactions/see.ts~see,see",
-    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber18",
+    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber21",
     "Interactions See when used with async questions allows the actor to verify a condition",
     "test"
   ],
   [
     "see src/screenplay/interactions/see.ts~see,see",
-    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber27",
+    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber30",
     "Interactions See when used with async questions rejects the promise if the condition is not met",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber36",
+    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber39",
     "Interactions See when used with sync questions",
     "test"
   ],
   [
     "see src/screenplay/interactions/see.ts~see,see",
-    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber40",
+    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber43",
     "Interactions See when used with sync questions allows the actor to verify a condition",
     "test"
   ],
   [
     "see src/screenplay/interactions/see.ts~see,see",
-    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber49",
+    "test-file/spec/screenplay/interactions/See.spec.ts.html#lineNumber52",
     "Interactions See when used with sync questions rejects the promise if the condition is not met",
     "test"
   ],
   [
     "list src/screenplay/questions/list.ts~list,list",
-    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber12",
     "List",
     "test"
   ],
   [
     "list#of list#of,list#of",
-    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber25",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber27",
     "List when wrapping an Array",
     "test"
   ],
   [
     "list#where src/screenplay/questions/list.ts~list#where,list#where",
-    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber295",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber297",
     "List when wrapping an Array and using filters",
     "test"
   ],
   [
     "list#of list#of,list#of",
-    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber450",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber452",
     "List when wrapping an Array and using filters describes the filters applied",
     "test"
   ],
   [
     "list#of list#of,list#of",
-    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber439",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber441",
     "List when wrapping an Array and using filters lets you narrow down the list of items to those that match several filters",
     "test"
   ],
   [
     "list#of list#of,list#of",
-    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber419",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber421",
     "List when wrapping an Array and using filters lets you narrow down the list of items to those that match the filter",
     "test"
   ],
   [
     "list#of list#of,list#of",
-    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber429",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber431",
     "List when wrapping an Array and using filters lets you narrow down the list of items to those that match the filter",
     "test"
   ],
   [
     "list#tostring src/screenplay/question.ts~question#tostring,list#tostring",
-    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber133",
+    "test-file/spec/screenplay/questions/lists/List.spec.ts.html#lineNumber135",
     "List when wrapping an Array provides a sensible description when it",
     "test"
   ],
   [
     "loop src/screenplay/tasks/loop.ts~loop,loop",
-    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber14",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber16",
     "Loop",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber94",
+    "test-file/spec/screenplay/tasks/Loop.spec.ts.html#lineNumber96",
     "Loop ",
     "test"
   ],
@@ -2053,199 +2059,199 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber12",
     "Note",
     "test"
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber67",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber64",
     "Note complains if no answer on a given subject has ever been remembered",
     "test"
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber58",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber55",
     "Note complains if no answer to a given question has ever been remembered",
     "test"
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber48",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber45",
     "Note enables the actor to recall the answer on a given subject",
     "test"
   ],
   [
     "takenotes note src/screenplay/abilities/takenotes.ts~takenotes,takenotes src/screenplay/questions/note.ts~note,note",
-    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber38",
+    "test-file/spec/screenplay/questions/Note.spec.ts.html#lineNumber35",
     "Note enables the actor to recall the answer to a given question",
     "test"
   ],
   [
     "outcome src/model/outcomes.ts~outcome,outcome",
-    "test-file/spec/model/outcomes.spec.ts.html#lineNumber19",
+    "test-file/spec/model/outcomes.spec.ts.html#lineNumber21",
     "Outcome",
     "test"
   ],
   [
     "executionskipped executionignored implementationpending executionsuccessful src/model/outcomes.ts~executionskipped,executionskipped src/model/outcomes.ts~executionignored,executionignored src/model/outcomes.ts~implementationpending,implementationpending src/model/outcomes.ts~executionsuccessful,executionsuccessful",
-    "test-file/spec/model/outcomes.spec.ts.html#lineNumber27",
+    "test-file/spec/model/outcomes.spec.ts.html#lineNumber29",
     "Outcome non-error outcome",
     "test"
   ],
   [
     "executioncompromised executionfailedwitherror executionfailedwithassertionerror src/model/outcomes.ts~executioncompromised,executioncompromised src/model/outcomes.ts~executionfailedwitherror,executionfailedwitherror src/model/outcomes.ts~executionfailedwithassertionerror,executionfailedwithassertionerror",
-    "test-file/spec/model/outcomes.spec.ts.html#lineNumber45",
+    "test-file/spec/model/outcomes.spec.ts.html#lineNumber47",
     "Outcome outcome indicating an error",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber7",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber8",
     "Path",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber96",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber97",
     "Path ",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber61",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber62",
     "Path can be instantiated from path segments",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber36",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber37",
     "Path can be serialised and deserialised",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber43",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber44",
     "Path can join path components into a single path",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber82",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber83",
     "Path can resolve two paths",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber75",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber76",
     "Path can split a relative path",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber68",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber69",
     "Path can split an absolute path",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber91",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber92",
     "Path knows the root directory",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber9",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber10",
     "Path when used across different operating systems",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber19",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber20",
     "Path when used across different operating systems exposes the normalised path string",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber14",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber15",
     "Path when used across different operating systems produces the same result no matter what path it's instantiated with",
     "test"
   ],
   [
     "path src/io/path.ts~path,path",
-    "test-file/spec/io/Path.spec.ts.html#lineNumber25",
+    "test-file/spec/io/Path.spec.ts.html#lineNumber26",
     "Path when used across different operating systems splits the same",
     "test"
   ],
   [
     "property src/screenplay/questions/property.ts~property,property",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber8",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber11",
     "Property",
     "test"
   ],
   [
     "property.of property.at property list src/screenplay/questions/property.ts~property.of,property.of src/screenplay/questions/property.ts~property.at,property.at src/screenplay/questions/property.ts~property,property src/screenplay/questions/list.ts~list,list",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber393",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber396",
     "Property helps to filter lists of objects",
     "test"
   ],
   [
     "property.at src/screenplay/questions/property.ts~property.at,property.at",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber269",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber272",
     "Property when generating MetaQuestions",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber347",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber350",
     "Property when generating MetaQuestions ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber355",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber358",
     "Property when generating MetaQuestions complains when the property",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber357",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber360",
     "Property when generating MetaQuestions complains when the property ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber371",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber374",
     "Property when generating MetaQuestions complains when the property ",
     "test"
   ],
   [
     "property.of src/screenplay/questions/property.ts~property.of,property.of",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber131",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber134",
     "Property when wrapping an Answerable<object>",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber228",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber231",
     "Property when wrapping an Answerable<object> ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber236",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber239",
     "Property when wrapping an Answerable<object> complains when the property",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber238",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber241",
     "Property when wrapping an Answerable<object> complains when the property ",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber252",
+    "test-file/spec/screenplay/questions/Property.spec.ts.html#lineNumber255",
     "Property when wrapping an Answerable<object> complains when the property ",
     "test"
   ],
@@ -2263,73 +2269,73 @@ window.esdocSearchIndex = [
   ],
   [
     "question src/screenplay/question.ts~question,question",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber11",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber12",
     "Question",
     "test"
   ],
   [
     "question#describedas src/screenplay/question.ts~question#describedas,question#describedas",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber47",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber48",
     "Question allows for a custom description to override the default one",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber14",
     "Question provides a convenient way to define a custom question that",
     "test"
   ],
   [
     "question#tostring src/screenplay/question.ts~question#tostring,question#tostring",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber37",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber38",
     "Question provides a convenient way to define a custom question that has a description",
     "test"
   ],
   [
     "question.about src/screenplay/question.ts~question.about,question.about",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber26",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber27",
     "Question provides a convenient way to define a custom question that returns a Promise of a value",
     "test"
   ],
   [
     "question.about src/screenplay/question.ts~question.about,question.about",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber16",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber17",
     "Question provides a convenient way to define a custom question that returns a static value",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber55",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber56",
     "Question when mapping the answer",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber127",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber128",
     "Question when mapping the answer works with a mappable collection (Array, ElementArrayFinder, etc.)",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber75",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber76",
     "Question when mapping the answer works with a promise",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber109",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber110",
     "Question when mapping the answer works with a promised list",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber91",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber92",
     "Question when mapping the answer works with a static list of values",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber59",
+    "test-file/spec/screenplay/Question.spec.ts.html#lineNumber60",
     "Question when mapping the answer works with a static value",
     "test"
   ],
@@ -2400,50 +2406,50 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber14",
+    "serenity src/serenity.ts~serenity,serenity",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber16",
     "Serenity",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber183",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber185",
     "Serenity ",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber239",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber242",
     "Serenity allows for external parties, such as test runner adapters, to announce DomainEvents",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber16",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber18",
     "Serenity when constructing a Stage",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber130",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber132",
     "Serenity when constructing a Stage ",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber17",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber19",
     "Serenity when constructing a Stage connects it with a provided Cast",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber61",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber63",
     "Serenity when constructing a Stage connects it with provided StageCrewMembers",
     "test"
   ],
   [
     "",
-    "test-file/spec/Serenity.spec.ts.html#lineNumber90",
+    "test-file/spec/Serenity.spec.ts.html#lineNumber92",
     "Serenity when constructing a Stage injects dependencies into StageCrewMemberBuilders",
     "test"
   ],
@@ -2617,31 +2623,31 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber10",
+    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber9",
     "StageManager",
     "test"
   ],
   [
     "stagemanager src/stage/stagemanager.ts~stagemanager,stagemanager",
-    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber28",
+    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber27",
     "StageManager broadcasts the domain event it receives to all the registered subscribers",
     "test"
   ],
   [
     "stagemanager asyncoperationattempted asyncoperationcompleted src/stage/stagemanager.ts~stagemanager,stagemanager src/events/asyncoperationattempted.ts~asyncoperationattempted,asyncoperationattempted src/events/asyncoperationcompleted.ts~asyncoperationcompleted,asyncoperationcompleted",
-    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber49",
+    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber48",
     "StageManager keeps track of the work in progress",
     "test"
   ],
   [
     "stagemanager asyncoperationattempted src/stage/stagemanager.ts~stagemanager,stagemanager src/events/asyncoperationattempted.ts~asyncoperationattempted,asyncoperationattempted",
-    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber71",
+    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber70",
     "StageManager provides details should the work in progress fail to complete",
     "test"
   ],
   [
     "stagemanager asyncoperationattempted asyncoperationfailed src/stage/stagemanager.ts~stagemanager,stagemanager src/events/asyncoperationattempted.ts~asyncoperationattempted,asyncoperationattempted src/events/asyncoperationfailed.ts~asyncoperationfailed,asyncoperationfailed",
-    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber101",
+    "test-file/spec/stage/StageManager.spec.ts.html#lineNumber100",
     "StageManager provides details should the work in progress fail with an error",
     "test"
   ],
@@ -2659,7 +2665,7 @@ window.esdocSearchIndex = [
   ],
   [
     "tag arbitrarytag browsertag capabilitytag contexttag featuretag src/model/tags/tag.ts~tag,tag src/model/tags/arbitrarytag.ts~arbitrarytag,arbitrarytag src/model/tags/browsertag.ts~browsertag,browsertag src/model/tags/capabilitytag.ts~capabilitytag,capabilitytag src/model/tags/contexttag.ts~contexttag,contexttag src/model/tags/featuretag.ts~featuretag,featuretag",
-    "test-file/spec/model/Tag.spec.ts.html#lineNumber15",
+    "test-file/spec/model/Tag.spec.ts.html#lineNumber16",
     "Tag",
     "test"
   ],
@@ -2725,133 +2731,133 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/Task.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/Task.spec.ts.html#lineNumber12",
     "Task",
     "test"
   ],
   [
     "task src/screenplay/task.ts~task,task",
-    "test-file/spec/screenplay/Task.spec.ts.html#lineNumber51",
+    "test-file/spec/screenplay/Task.spec.ts.html#lineNumber53",
     "Task generates a pending task if no activities are provided",
     "test"
   ],
   [
     "task src/screenplay/task.ts~task,task",
-    "test-file/spec/screenplay/Task.spec.ts.html#lineNumber38",
+    "test-file/spec/screenplay/Task.spec.ts.html#lineNumber40",
     "Task provides a convenient factory method for defining tasks",
     "test"
   ],
   [
     "task src/screenplay/task.ts~task,task",
-    "test-file/spec/screenplay/Task.spec.ts.html#lineNumber46",
+    "test-file/spec/screenplay/Task.spec.ts.html#lineNumber48",
     "Task provides a way to describe a collection of activities",
     "test"
   ],
   [
     "timestamp src/model/timestamp.ts~timestamp,timestamp",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber8",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber9",
     "Timestamp",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber62",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber63",
     "Timestamp arithmetic",
     "test"
   ],
   [
     "timestamp src/model/timestamp.ts~timestamp,timestamp",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber65",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber66",
     "Timestamp arithmetic allows for calculating a difference between two timestamps",
     "test"
   ],
   [
     "timestamp src/model/timestamp.ts~timestamp,timestamp",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber74",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber75",
     "Timestamp arithmetic allows for computing another timestamp, relative to the original one",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber84",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber85",
     "Timestamp conversion",
     "test"
   ],
   [
     "timestamp src/model/timestamp.ts~timestamp,timestamp",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber87",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber88",
     "Timestamp conversion can be converted to a numeric unix timestamp",
     "test"
   ],
   [
     "timestamp src/model/timestamp.ts~timestamp,timestamp",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber92",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber93",
     "Timestamp conversion can be created from a numeric unix timestamp",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber15",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber16",
     "Timestamp instantiation",
     "test"
   ],
   [
     "timestamp src/model/timestamp.ts~timestamp,timestamp",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber18",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber19",
     "Timestamp instantiation can be instantiated with an arbitrary Date",
     "test"
   ],
   [
     "timestamp src/model/timestamp.ts~timestamp,timestamp",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber23",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber24",
     "Timestamp instantiation defaults to current time if no argument is provided",
     "test"
   ],
   [
     "",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber37",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber38",
     "Timestamp serialisation",
     "test"
   ],
   [
     "timestamp src/model/timestamp.ts~timestamp,timestamp",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber45",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber46",
     "Timestamp serialisation can be deserialised from an ISO-8601-compliant string",
     "test"
   ],
   [
     "timestamp src/model/timestamp.ts~timestamp,timestamp",
-    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber40",
+    "test-file/spec/model/Timestamp.spec.ts.html#lineNumber41",
     "Timestamp serialisation is serialised to an ISO-8601-compliant string",
     "test"
   ],
   [
     "transformanswer transformanswer,transformanswer",
-    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber9",
+    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber12",
     "TransformAnswer",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber60",
+    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber66",
     "TransformAnswer allows for the default description to be changed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber56",
+    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber62",
     "TransformAnswer provides a sensible default description",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber40",
+    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber44",
     "TransformAnswer transforms answers to Array<Answerable<T>> to another type",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber48",
+    "test-file/spec/screenplay/questions/Transform.spec.ts.html#lineNumber53",
     "TransformAnswer transforms answers to questions of different types to another type",
     "test"
   ],
@@ -2881,13 +2887,13 @@ window.esdocSearchIndex = [
   ],
   [
     "formatted src/io/formatted.ts~formatted,formatted",
-    "test-file/spec/io/formatted.spec.ts.html#lineNumber10",
+    "test-file/spec/io/formatted.spec.ts.html#lineNumber12",
     "`formatted` tag function",
     "test"
   ],
   [
     "formatted src/io/formatted.ts~formatted,formatted",
-    "test-file/spec/io/formatted.spec.ts.html#lineNumber49",
+    "test-file/spec/io/formatted.spec.ts.html#lineNumber51",
     "`formatted` tag function produces a human-readable description when given a template with multiple parameters",
     "test"
   ],
@@ -2917,193 +2923,193 @@ window.esdocSearchIndex = [
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber12",
     "append",
     "test"
   ],
   [
     "append src/screenplay/questions/mappings/string/append.ts~append,append",
-    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber57",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber59",
     "append allows for a Promise<string> to be appended to the original answer",
     "test"
   ],
   [
     "append src/screenplay/questions/mappings/string/append.ts~append,append",
-    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber77",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber79",
     "append allows for a Question<Promise<string>> to be appended to the original answer",
     "test"
   ],
   [
     "append src/screenplay/questions/mappings/string/append.ts~append,append",
-    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber67",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber69",
     "append allows for a Question<string> to be appended to the original answer",
     "test"
   ],
   [
     "append src/screenplay/questions/mappings/string/append.ts~append,append",
-    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber47",
+    "test-file/spec/screenplay/questions/mappings/string/append.spec.ts.html#lineNumber49",
     "append allows for a string to be appended to the original answer",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/commaSeparated.spec.ts.html#lineNumber7",
+    "test-file/spec/io/commaSeparated.spec.ts.html#lineNumber8",
     "commaSeparated",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/commaSeparated.spec.ts.html#lineNumber14",
+    "test-file/spec/io/commaSeparated.spec.ts.html#lineNumber10",
     "commaSeparated returns an empty string for an empty list",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber7",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber9",
     "cycle",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber40",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber42",
     "cycle when used with acyclic objects",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber58",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber60",
     "cycle when used with acyclic objects parse",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber42",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber44",
     "cycle when used with acyclic objects stringify",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber76",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber78",
     "cycle when used with cyclic objects",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber78",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber80",
     "cycle when used with cyclic objects JSON.stringify",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber80",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber82",
     "cycle when used with cyclic objects JSON.stringify should fail because of a circular reference in a round robin list",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber90",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber92",
     "cycle when used with cyclic objects JSON.stringify should fail because of a circular reference in complex nested object",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber85",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber87",
     "cycle when used with cyclic objects JSON.stringify should fail because of a circular reference in simple nested object",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber95",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber97",
     "cycle when used with cyclic objects JSON.stringify should fail because of a cycles in object with parallel references",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber123",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber125",
     "cycle when used with cyclic objects parse",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber135",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber137",
     "cycle when used with cyclic objects parse should deserialise a complex nested object",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber125",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber127",
     "cycle when used with cyclic objects parse should deserialise a round robin list data structure",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber130",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber132",
     "cycle when used with cyclic objects parse should deserialise a simple nested object",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber140",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber142",
     "cycle when used with cyclic objects parse should deserialise an object with parallel references",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber101",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber103",
     "cycle when used with cyclic objects stringify",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber112",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber114",
     "cycle when used with cyclic objects stringify should serialise a complex nested object",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber102",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber104",
     "cycle when used with cyclic objects stringify should serialise a round robin list data structure",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber107",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber109",
     "cycle when used with cyclic objects stringify should serialise a simple nested object",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber117",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber119",
     "cycle when used with cyclic objects stringify should serialise an object with parallel references",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber9",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber11",
     "cycle when used with primitives",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber25",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber27",
     "cycle when used with primitives parse",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber11",
+    "test-file/spec/io/json/cycle.spec.ts.html#lineNumber13",
     "cycle when used with primitives stringify",
     "test"
   ],
   [
     "has src/io/config.ts~config#has,has",
-    "test-file/spec/io/reflection/has.spec.ts.html#lineNumber7",
+    "test-file/spec/io/reflection/has.spec.ts.html#lineNumber10",
     "has",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/normalize.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/normalize.spec.ts.html#lineNumber12",
     "normalize",
     "test"
   ],
@@ -3121,37 +3127,37 @@ window.esdocSearchIndex = [
   ],
   [
     "q src/screenplay/questions/q.ts~q,q",
-    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber11",
     "q",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber83",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber84",
     "q ",
     "test"
   ],
   [
     "q src/screenplay/questions/q.ts~q,q",
-    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber101",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber102",
     "q can have the default description overridden",
     "test"
   ],
   [
     "q src/screenplay/questions/q.ts~q,q",
-    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber94",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber95",
     "q provides a sensible description of the question being asked",
     "test"
   ],
   [
     "q src/screenplay/questions/q.ts~q,q",
-    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber53",
+    "test-file/spec/screenplay/questions/q.spec.ts.html#lineNumber54",
     "q returns the original string value if no parameters are provided",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/replace.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/replace.spec.ts.html#lineNumber12",
     "replace",
     "test"
   ],
@@ -3205,13 +3211,13 @@ window.esdocSearchIndex = [
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/slice.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/slice.spec.ts.html#lineNumber12",
     "slice",
     "test"
   ],
   [
     "slice src/screenplay/questions/mappings/string/slice.ts~slice,slice",
-    "test-file/spec/screenplay/questions/mappings/string/slice.spec.ts.html#lineNumber115",
+    "test-file/spec/screenplay/questions/mappings/string/slice.spec.ts.html#lineNumber117",
     "slice extracts the part of the string from `startIndex` to `endIndex`",
     "test"
   ],
@@ -3517,13 +3523,13 @@ window.esdocSearchIndex = [
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/split.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/split.spec.ts.html#lineNumber12",
     "split",
     "test"
   ],
   [
     "split src/io/path.ts~path#split,split",
-    "test-file/spec/screenplay/questions/mappings/string/split.spec.ts.html#lineNumber80",
+    "test-file/spec/screenplay/questions/mappings/string/split.spec.ts.html#lineNumber82",
     "split can limit the number of substrings returned",
     "test"
   ],
@@ -4525,9 +4531,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/io/filesystemlocation.ts~filesystemlocation.fromjson",
-    "class/src/io/FileSystemLocation.ts~FileSystemLocation.html#static-member-fromJSON",
+    "class/src/io/FileSystemLocation.ts~FileSystemLocation.html#static-method-fromJSON",
     "src/io/FileSystemLocation.ts~FileSystemLocation.fromJSON",
-    "member"
+    "method"
   ],
   [
     "src/io/moduleloader.ts",
@@ -5458,6 +5464,18 @@ window.esdocSearchIndex = [
     "class/src/model/outcomes.ts~ProblemIndication.html#instance-method-toJSON",
     "src/model/outcomes.ts~ProblemIndication#toJSON",
     "method"
+  ],
+  [
+    "src/model/outcomes.ts~serialisedoutcome#code",
+    "class/src/model/outcomes.ts~SerialisedOutcome.html#instance-member-code",
+    "src/model/outcomes.ts~SerialisedOutcome#code",
+    "member"
+  ],
+  [
+    "src/model/outcomes.ts~serialisedoutcome#error",
+    "class/src/model/outcomes.ts~SerialisedOutcome.html#instance-member-error",
+    "src/model/outcomes.ts~SerialisedOutcome#error",
+    "member"
   ],
   [
     "src/model/tags/arbitrarytag.ts",
@@ -6943,31 +6961,31 @@ window.esdocSearchIndex = [
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/toLocaleLowerCase.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/toLocaleLowerCase.spec.ts.html#lineNumber12",
     "toLocaleLowerCase",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/toLocaleUpperCase.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/toLocaleUpperCase.spec.ts.html#lineNumber12",
     "toLocaleUpperCase",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/toLowerCase.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/toLowerCase.spec.ts.html#lineNumber12",
     "toLowerCase",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/toUpperCase.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/toUpperCase.spec.ts.html#lineNumber12",
     "toUpperCase",
     "test"
   ],
   [
     "question#map src/screenplay/question.ts~question#map,question#map",
-    "test-file/spec/screenplay/questions/mappings/string/trim.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/questions/mappings/string/trim.spec.ts.html#lineNumber12",
     "trim",
     "test"
   ]

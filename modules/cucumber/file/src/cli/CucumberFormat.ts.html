@@ -131,7 +131,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberFormat.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isString, isNotBlank } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isNotBlank,isString } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -159,10 +159,6 @@
      * <span class="hljs-doctag">@private <span class="hljs-type">{string[]}</span></span>
      */</span>
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> split(format: <span class="hljs-built_in">string</span>): [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>] {
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">partNeedsRecombined</span>(<span class="hljs-params">i: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">boolean</span> </span>{
-            <span class="hljs-keyword">return</span> i % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
-        }
-
         <span class="hljs-keyword">const</span> parts = format.split(<span class="hljs-regexp">/([^A-Z]):(?!\\)/</span>);
 
         <span class="hljs-keyword">const</span> result = parts.reduce(<span class="hljs-function">(<span class="hljs-params">memo: <span class="hljs-built_in">string</span>[], part: <span class="hljs-built_in">string</span>, i: <span class="hljs-built_in">number</span></span>) =&gt;</span> {
@@ -179,6 +175,13 @@
 
         <span class="hljs-keyword">return</span> result <span class="hljs-keyword">as</span> [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>];
     }
+}
+
+<span class="hljs-comment">/**]
+ * <span class="hljs-doctag">@private</span>
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">partNeedsRecombined</span>(<span class="hljs-params">i: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">boolean</span> </span>{
+    <span class="hljs-keyword">return</span> i % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
 }
 </code></pre>
 

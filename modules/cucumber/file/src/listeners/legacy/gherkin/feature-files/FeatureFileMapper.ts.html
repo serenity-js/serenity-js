@@ -132,7 +132,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/feature-files/FeatureFileMapper.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, Description, Name, ScenarioParameters, Tag, Tags } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { Description, Name, ScenarioParameters, Tag, Tags } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
 <span class="hljs-keyword">import</span> { Background, Feature, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodes <span class="hljs-keyword">from</span> <span class="hljs-string">'../nodes'</span>;
@@ -188,7 +188,7 @@
 
                     <span class="hljs-keyword">break</span>;
 
-                <span class="hljs-keyword">case</span> <span class="hljs-string">'ScenarioOutline'</span>:
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'ScenarioOutline'</span>: {
 
                     <span class="hljs-keyword">const</span>
                         outline = scenarioDefinition <span class="hljs-keyword">as</span> nodes.ScenarioOutline,
@@ -229,7 +229,7 @@
                             <span class="hljs-keyword">const</span> scenarioParameters = variableCells
                                 .map(<span class="hljs-function">(<span class="hljs-params">cell, i</span>) =&gt;</span> ({ [cell.value]: valueCells[i].value }))
                                 .reduce(<span class="hljs-function">(<span class="hljs-params">acc, current</span>) =&gt;</span> {
-                                    <span class="hljs-comment">// tslint:disable-next-line:prefer-object-spread Esdoc doesn't understand object spreads</span>
+                                    <span class="hljs-comment">// ESDoc doesn't understand object spreads</span>
                                     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign(
                                         {},
                                         acc,
@@ -275,6 +275,7 @@
                     )).onLine(scenarioDefinition.location.line);
 
                     <span class="hljs-keyword">break</span>;
+                }
             }
         });
 
@@ -308,10 +309,6 @@
     }
 
     <span class="hljs-keyword">private</span> tagsFrom(...listsOfTags: nodes.Tag[][]): Tag[] {
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flattened</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">listsOfLists: T[][]</span>): <span class="hljs-title">T</span>[] </span>{
-            <span class="hljs-keyword">return</span> listsOfLists.reduce(<span class="hljs-function">(<span class="hljs-params">acc, list</span>) =&gt;</span> acc.concat(list), []);
-        }
-
         <span class="hljs-keyword">return</span> flattened(
             flattened(listsOfTags).map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> Tags.from(tag.name)),
         );
@@ -346,6 +343,13 @@
         });
         <span class="hljs-keyword">return</span> text;
     }
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@private</span>
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flattened</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">listsOfLists: T[][]</span>): <span class="hljs-title">T</span>[] </span>{
+    <span class="hljs-keyword">return</span> listsOfLists.reduce(<span class="hljs-function">(<span class="hljs-params">acc, list</span>) =&gt;</span> acc.concat(list), []);
 }
 </code></pre>
 

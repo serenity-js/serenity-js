@@ -163,8 +163,9 @@
     ProblemIndication,
     Timestamp,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { Instance <span class="hljs-keyword">as</span> ChalkInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'chalk'</span>;
+<span class="hljs-keyword">import</span> { Instance <span class="hljs-keyword">as</span> ChalkInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'chalk'</span>;  <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
 <span class="hljs-keyword">import</span> { ensure, isDefined, match } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+
 <span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Printer'</span>;
 <span class="hljs-keyword">import</span> { Summary } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Summary'</span>;
 <span class="hljs-keyword">import</span> { SummaryFormatter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SummaryFormatter'</span>;
@@ -287,7 +288,7 @@
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> printer: Printer,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage?: Stage,
     </span>)</span> {
         ensure(<span class="hljs-string">'printer'</span>, printer, isDefined());
         ensure(<span class="hljs-string">'theme'</span>, theme, isDefined());
@@ -321,7 +322,7 @@
                 <span class="hljs-built_in">this</span>.printer.println();
             })
 
-            <span class="hljs-comment">// todo: add SceneTagged ...</span>
+        <span class="hljs-comment">// todo: add SceneTagged ...</span>
 
             .when(TaskStarts, <span class="hljs-function">(<span class="hljs-params">e: TaskStarts</span>) =&gt;</span> {
 
@@ -352,21 +353,21 @@
                     }
                 }
 
-                <span class="hljs-keyword">const</span> artifacts = <span class="hljs-built_in">this</span>.artifacts.recordedFor(e.activityId);
+                <span class="hljs-keyword">const</span> artifactGeneratedEvents = <span class="hljs-built_in">this</span>.artifacts.recordedFor(e.activityId);
 
-                <span class="hljs-keyword">if</span> (artifacts.filter(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a <span class="hljs-keyword">instanceof</span> AssertionReport || a <span class="hljs-keyword">instanceof</span> LogEntry).length &gt; <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">if</span> (artifactGeneratedEvents.filter(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a <span class="hljs-keyword">instanceof</span> AssertionReport || a <span class="hljs-keyword">instanceof</span> LogEntry).length &gt; <span class="hljs-number">0</span>) {
                     <span class="hljs-built_in">this</span>.printer.println();
                 }
 
-                artifacts.forEach(<span class="hljs-function"><span class="hljs-params">evt</span> =&gt;</span> {
-                    <span class="hljs-keyword">if</span> (evt.artifact <span class="hljs-keyword">instanceof</span> AssertionReport) {
-                        <span class="hljs-keyword">const</span> details = evt.artifact.map(
+                artifactGeneratedEvents.forEach(<span class="hljs-function"><span class="hljs-params">artifactGenerated</span> =&gt;</span> {
+                    <span class="hljs-keyword">if</span> (artifactGenerated.artifact <span class="hljs-keyword">instanceof</span> AssertionReport) {
+                        <span class="hljs-keyword">const</span> details = artifactGenerated.artifact.map(
                             <span class="hljs-function">(<span class="hljs-params">artifactContents: { expected: <span class="hljs-built_in">string</span>, actual: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
                                 <span class="hljs-built_in">this</span>.theme.diff(
                                     artifactContents.expected,
                                     artifactContents.actual,
                                 ),
-                            );
+                        );
 
                         <span class="hljs-built_in">this</span>.printer.println();
 
@@ -375,11 +376,11 @@
                         <span class="hljs-built_in">this</span>.printer.println();
                     }
 
-                    <span class="hljs-keyword">if</span> (evt.artifact <span class="hljs-keyword">instanceof</span> LogEntry) {
-                        <span class="hljs-keyword">const</span> details = evt.artifact.map(<span class="hljs-function">(<span class="hljs-params">artifactContents: { data: <span class="hljs-built_in">string</span> }</span>) =&gt;</span> artifactContents.data);
+                    <span class="hljs-keyword">if</span> (artifactGenerated.artifact <span class="hljs-keyword">instanceof</span> LogEntry) {
+                        <span class="hljs-keyword">const</span> details = artifactGenerated.artifact.map(<span class="hljs-function">(<span class="hljs-params">artifactContents: { data: <span class="hljs-built_in">string</span> }</span>) =&gt;</span> artifactContents.data);
 
-                        <span class="hljs-keyword">if</span> (evt.name.value !== details) {
-                            <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.log(evt.name.value, <span class="hljs-string">':'</span>));
+                        <span class="hljs-keyword">if</span> (artifactGenerated.name.value !== details) {
+                            <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.log(artifactGenerated.name.value, <span class="hljs-string">':'</span>));
                         }
 
                         <span class="hljs-built_in">this</span>.printer.println(details);
@@ -447,14 +448,14 @@
 
                 <span class="hljs-built_in">this</span>.artifacts.clear();
             })
-            .when(TestRunFinished, <span class="hljs-function">(<span class="hljs-params">e: TestRunFinished</span>) =&gt;</span> {
+            .when(TestRunFinished, <span class="hljs-function">(<span class="hljs-params">_: TestRunFinished</span>) =&gt;</span> {
                 <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">'='</span>));
 
                 <span class="hljs-built_in">this</span>.printer.print(<span class="hljs-built_in">this</span>.summaryFormatter.format(<span class="hljs-built_in">this</span>.summary.aggregated()));
 
                 <span class="hljs-built_in">this</span>.printer.println(<span class="hljs-built_in">this</span>.theme.separator(<span class="hljs-string">'='</span>));
             })
-            .else(<span class="hljs-function">(<span class="hljs-params">e: DomainEvent</span>) =&gt;</span> {
+            .else(<span class="hljs-function">(<span class="hljs-params">_: DomainEvent</span>) =&gt;</span> {
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
             });
     }

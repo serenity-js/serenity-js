@@ -138,13 +138,15 @@
 <span class="hljs-keyword">import</span> { Ensure, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> { Actor, actorCalled, actorInTheSpotlight, Cast, configure, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
-
 <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> https <span class="hljs-keyword">from</span> <span class="hljs-string">'https'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
-<span class="hljs-keyword">import</span> { satisfies } <span class="hljs-keyword">from</span> <span class="hljs-string">'semver'</span>; <span class="hljs-comment">// tslint:disable-line:no-implicit-dependencies</span>
+<span class="hljs-keyword">import</span> { satisfies } <span class="hljs-keyword">from</span> <span class="hljs-string">'semver'</span>;
+
 <span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
 <span class="hljs-keyword">import</span> servers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./servers'</span>);
+
+<span class="hljs-comment">/* eslint-disable @typescript-eslint/no-var-requires */</span>
 
 describe(<span class="hljs-string">'ManageALocalServer'</span>, <span class="hljs-function">() =&gt;</span> {
 
@@ -176,7 +178,7 @@ describe(<span class="hljs-string">'ManageALocalServer'</span>, <span class="hlj
                 Send.a(GetRequest.to(LocalServer.url())),
                 Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
                 Ensure.that(LastResponse.body&lt;<span class="hljs-built_in">string</span>&gt;(), equals(<span class="hljs-string">'Hello World!'</span>)),
-            )).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+            )).to.be.fulfilled;
         });
 
         given(servers).
@@ -251,7 +253,7 @@ describe(<span class="hljs-string">'ManageALocalServer'</span>, <span class="hlj
                 <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
             });
 
-            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(...testHttpsServer)).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(...testHttpsServer)).to.be.fulfilled;
         });
 
         it(<span class="hljs-string">'allows the Actor to start, stop and access the location of a HTTPS Hapi app'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
@@ -288,7 +290,7 @@ describe(<span class="hljs-string">'ManageALocalServer'</span>, <span class="hlj
                 <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
             });
 
-            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(...testHttpsServer)).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(...testHttpsServer)).to.be.fulfilled;
         });
 
         it(<span class="hljs-string">'allows the Actor to start, stop and access the location of a Restify app'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
@@ -321,7 +323,7 @@ describe(<span class="hljs-string">'ManageALocalServer'</span>, <span class="hlj
                 <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
             });
 
-            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(...testHttpsServer)).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(...testHttpsServer)).to.be.fulfilled;
         });
     });
 

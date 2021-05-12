@@ -119,7 +119,8 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html">ErrorDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -127,11 +128,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, Stage, StageManager, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, StageManager, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> {
@@ -151,6 +152,7 @@
     TestReport,
     Timestamp,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
 <span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage'</span>;
 <span class="hljs-keyword">import</span> { SerenityBDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span>;
@@ -192,15 +194,13 @@ describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hl
         ),
     );
 
-    <span class="hljs-keyword">let</span> stage: Stage,
-        <span class="hljs-attr">stageManager</span>: sinon.SinonStubbedInstance&lt;StageManager&gt;,
+    <span class="hljs-keyword">let</span> stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
         reporter: SerenityBDDReporter;
 
     beforeEach(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> env = create();
 
         stageManager    = env.stageManager;
-        stage           = env.stage;
         reporter        = env.reporter;
     });
 
@@ -509,14 +509,14 @@ describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hl
              * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionCompromised}</span></span>
              */</span>
             it(<span class="hljs-string">'has been compromised'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> dbError = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Could not connect to the database`</span>);
-                dbError.stack = [
+                <span class="hljs-keyword">const</span> databaseError = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Could not connect to the database`</span>);
+                databaseError.stack = [
                     <span class="hljs-string">'Error: Could not connect to the database'</span>,
                     <span class="hljs-string">'    at callFn (/fake/path/node_modules/db-module/index.js:56:78)'</span>,
                     <span class="hljs-comment">// and so on</span>
                 ].join(<span class="hljs-string">'\n'</span>);
 
-                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">`Test database not deployed, no point running the test`</span>, dbError);
+                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">`Test database not deployed, no point running the test`</span>, databaseError);
                 error.stack = [
                     <span class="hljs-string">'TestCompromisedError: Test database not deployed, no point running the test'</span>,
                     <span class="hljs-string">'    at callFn (/fake/path/my-test/index.js:12:34)'</span>,

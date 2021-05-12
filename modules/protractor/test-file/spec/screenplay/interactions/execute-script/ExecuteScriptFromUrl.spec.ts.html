@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -251,21 +252,21 @@ describe(<span class="hljs-string">'ExecuteScriptFromUrl'</span>, <span class="h
         expect(ExecuteScript.from(pathToScript).toString())
             .to.equal(<span class="hljs-string">`#actor executes a script from <span class="hljs-subst">${ pathToScript }</span>`</span>);
     });
-
-    <span class="hljs-comment">// based on https://github.com/sindresorhus/file-url/blob/main/index.js</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fileUrl</span>(<span class="hljs-params">filePath: <span class="hljs-built_in">string</span></span>) </span>{
-        <span class="hljs-keyword">let</span> pathName = filePath.replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);
-
-        <span class="hljs-comment">// Windows drive letter must be prefixed with a slash</span>
-        <span class="hljs-keyword">if</span> (pathName[<span class="hljs-number">0</span>] !== <span class="hljs-string">'/'</span>) {
-            pathName = <span class="hljs-string">`/<span class="hljs-subst">${pathName}</span>`</span>;
-        }
-
-        <span class="hljs-comment">// Escape required characters for path components</span>
-        <span class="hljs-comment">// See: https://tools.ietf.org/html/rfc3986#section-3.3</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">encodeURI</span>(<span class="hljs-string">`file://<span class="hljs-subst">${pathName}</span>`</span>).replace(<span class="hljs-regexp">/[?#]/g</span>, <span class="hljs-built_in">encodeURIComponent</span>);
-    }
 });
+
+<span class="hljs-comment">// based on https://github.com/sindresorhus/file-url/blob/main/index.js</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fileUrl</span>(<span class="hljs-params">filePath: <span class="hljs-built_in">string</span></span>) </span>{
+    <span class="hljs-keyword">let</span> pathName = filePath.replace(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">'/'</span>);
+
+    <span class="hljs-comment">// Windows drive letter must be prefixed with a slash</span>
+    <span class="hljs-keyword">if</span> (pathName[<span class="hljs-number">0</span>] !== <span class="hljs-string">'/'</span>) {
+        pathName = <span class="hljs-string">`/<span class="hljs-subst">${pathName}</span>`</span>;
+    }
+
+    <span class="hljs-comment">// Escape required characters for path components</span>
+    <span class="hljs-comment">// See: https://tools.ietf.org/html/rfc3986#section-3.3</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">encodeURI</span>(<span class="hljs-string">`file://<span class="hljs-subst">${pathName}</span>`</span>).replace(<span class="hljs-regexp">/[#?]/g</span>, <span class="hljs-built_in">encodeURIComponent</span>);
+}
 </code></pre>
 
 </article>

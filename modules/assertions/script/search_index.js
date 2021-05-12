@@ -708,6 +708,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model~serialisedoutcome",
+    "/modules/core/class/src/model/outcomes.ts~SerialisedOutcome.html",
+    "@serenity-js/core/lib/model~SerialisedOutcome",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model~testsuitedetails",
     "/modules/core/class/src/model/TestSuiteDetails.ts~TestSuiteDetails.html",
     "@serenity-js/core/lib/model~TestSuiteDetails",
@@ -1135,121 +1141,121 @@ window.esdocSearchIndex = [
   ],
   [
     "ensure src/ensure.ts~ensure,ensure",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber12",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber13",
     "Ensure",
     "test"
   ],
   [
     "ensure.that src/ensure.ts~ensure.that,ensure.that",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber15",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber16",
     "Ensure allows the actor to make an assertion",
     "test"
   ],
   [
     "ensure.that src/ensure.ts~ensure.that,ensure.that",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber56",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber57",
     "Ensure complains when given an Expectation that doesn't conform to the interface",
     "test"
   ],
   [
     "",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber149",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber150",
     "Ensure custom errors",
     "test"
   ],
   [
     "",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber162",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber165",
     "Ensure custom errors allows the actor to fail the flow with a custom RuntimeError with a custom error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber151",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber152",
     "Ensure custom errors allows the actor to fail the flow with a custom RuntimeError, embedding the original error",
     "test"
   ],
   [
     "ensure.that src/ensure.ts~ensure.that,ensure.that",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber22",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber23",
     "Ensure fails the actor flow when the assertion is not met",
     "test"
   ],
   [
     "ensure.that src/ensure.ts~ensure.that,ensure.that",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber29",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber30",
     "Ensure provides a description of the assertion being made",
     "test"
   ],
   [
     "ensure.that src/ensure.ts~ensure.that,ensure.that",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber34",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber35",
     "Ensure provides a description of the assertion being made, while correctly cleaning the output from new line characters",
     "test"
   ],
   [
     "",
-    "test-file/spec/Ensure.spec.ts.html#lineNumber92",
+    "test-file/spec/Ensure.spec.ts.html#lineNumber93",
     "Ensure when emitting an artifact",
     "test"
   ],
   [
     "expectation @serenity-js/core/lib/screenplay/questions~expectation,expectation",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber10",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber11",
     "Expectation",
     "test"
   ],
   [
     "",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber47",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber48",
     "Expectation allows to alias an expectation, so that the alias",
     "test"
   ],
   [
     "expectation.to expectation.to,expectation.to",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber70",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber72",
     "Expectation allows to alias an expectation, so that the alias contributes to a human-readable description",
     "test"
   ],
   [
     "expectation.to expectation.to,expectation.to",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber76",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber78",
     "Expectation allows to alias an expectation, so that the alias provides a precise failure message when the expectation is not met",
     "test"
   ],
   [
     "",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber12",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber13",
     "Expectation allows to easily define an assertion, which",
     "test"
   ],
   [
     "expectation.that ensure.that expectation.that,expectation.that src/ensure.ts~ensure.that,ensure.that",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber18",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber19",
     "Expectation allows to easily define an assertion, which allows the actor flow to continue when the assertion passes",
     "test"
   ],
   [
     "expectation.that ensure.that expectation.that,expectation.that src/ensure.ts~ensure.that,ensure.that",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber28",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber29",
     "Expectation allows to easily define an assertion, which stops the actor flow when the assertion fails",
     "test"
   ],
   [
     "",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber83",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber85",
     "Expectation allows to override the description of an expectation, so that the new version",
     "test"
   ],
   [
     "expectation.to expectation.to,expectation.to",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber110",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber113",
     "Expectation allows to override the description of an expectation, so that the new version provides a precise failure message when the expectation is not met",
     "test"
   ],
   [
     "expectation.to expectation.to,expectation.to",
-    "test-file/spec/Expectation.spec.ts.html#lineNumber104",
+    "test-file/spec/Expectation.spec.ts.html#lineNumber107",
     "Expectation allows to override the description of an expectation, so that the new version replaces the old description",
     "test"
   ],
@@ -1267,679 +1273,679 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/expectations/and.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/and.spec.ts.html#lineNumber8",
     "and",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/and.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/and.spec.ts.html#lineNumber11",
     "and allows for the actor flow to continue when the \"actual\" meets all the expectations",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/and.spec.ts.html#lineNumber16",
+    "test-file/spec/expectations/and.spec.ts.html#lineNumber17",
     "and breaks the actor flow when \"actual\"",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/and.spec.ts.html#lineNumber19",
+    "test-file/spec/expectations/and.spec.ts.html#lineNumber20",
     "and breaks the actor flow when \"actual\" does not meet the first expectation",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/and.spec.ts.html#lineNumber30",
+    "test-file/spec/expectations/and.spec.ts.html#lineNumber31",
     "and breaks the actor flow when \"actual\" does not meet the second expectation",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/and.spec.ts.html#lineNumber42",
+    "test-file/spec/expectations/and.spec.ts.html#lineNumber43",
     "and contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/contain.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/contain.spec.ts.html#lineNumber8",
     "contain",
     "test"
   ],
   [
     "contain src/expectations/contain.ts~contain,contain",
-    "test-file/spec/expectations/contain.spec.ts.html#lineNumber9",
+    "test-file/spec/expectations/contain.spec.ts.html#lineNumber10",
     "contain allows for the actor flow to continue when the \"actual\" contains the \"expected\" text",
     "test"
   ],
   [
     "contain src/expectations/contain.ts~contain,contain",
-    "test-file/spec/expectations/contain.spec.ts.html#lineNumber16",
+    "test-file/spec/expectations/contain.spec.ts.html#lineNumber17",
     "contain breaks the actor flow when \"actual\" does not contain the \"expected\" text",
     "test"
   ],
   [
     "contain src/expectations/contain.ts~contain,contain",
-    "test-file/spec/expectations/contain.spec.ts.html#lineNumber27",
+    "test-file/spec/expectations/contain.spec.ts.html#lineNumber28",
     "contain contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber8",
     "containAtLeastOneItemThat",
     "test"
   ],
   [
     "containatleastoneitemthat src/expectations/containatleastoneitemthat.ts~containatleastoneitemthat,containatleastoneitemthat",
-    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber11",
     "containAtLeastOneItemThat allows for the actor flow to continue when the \"actual\" includes at least one item that meets the expectation",
     "test"
   ],
   [
     "containatleastoneitemthat src/expectations/containatleastoneitemthat.ts~containatleastoneitemthat,containatleastoneitemthat",
-    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber18",
     "containAtLeastOneItemThat breaks the actor flow when \"actual\" does not include at least one item that meets the expectation",
     "test"
   ],
   [
     "containatleastoneitemthat src/expectations/containatleastoneitemthat.ts~containatleastoneitemthat,containatleastoneitemthat",
-    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber29",
     "containAtLeastOneItemThat breaks the actor flow when \"actual\" is an empty list",
     "test"
   ],
   [
     "atleastone atleastone,atleastone",
-    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber39",
+    "test-file/spec/expectations/containAtLeastOneItemThat.spec.ts.html#lineNumber40",
     "containAtLeastOneItemThat contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber8",
     "containItemsWhereEachItem",
     "test"
   ],
   [
     "containitemswhereeachitem src/expectations/containitemswhereeachitem.ts~containitemswhereeachitem,containitemswhereeachitem",
-    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber11",
     "containItemsWhereEachItem allows for the actor flow to continue when the \"actual\" includes only those items that meet the expectation",
     "test"
   ],
   [
     "containitemswhereeachitem src/expectations/containitemswhereeachitem.ts~containitemswhereeachitem,containitemswhereeachitem",
-    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber18",
     "containItemsWhereEachItem breaks the actor flow when \"actual\" contains at least one item that does not meet the expectation",
     "test"
   ],
   [
     "containitemswhereeachitem src/expectations/containitemswhereeachitem.ts~containitemswhereeachitem,containitemswhereeachitem",
-    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber29",
     "containItemsWhereEachItem breaks the actor flow when \"actual\" is an empty list",
     "test"
   ],
   [
     "atleastone atleastone,atleastone",
-    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber39",
+    "test-file/spec/expectations/containItemsWhereEachItem.spec.ts.html#lineNumber40",
     "containItemsWhereEachItem contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/endsWith.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/endsWith.spec.ts.html#lineNumber8",
     "endsWith",
     "test"
   ],
   [
     "endswith src/expectations/endswith.ts~endswith,endswith",
-    "test-file/spec/expectations/endsWith.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/endsWith.spec.ts.html#lineNumber11",
     "endsWith allows for the actor flow to continue when the \"actual\" ends with \"expected\"",
     "test"
   ],
   [
     "endswith src/expectations/endswith.ts~endswith,endswith",
-    "test-file/spec/expectations/endsWith.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/endsWith.spec.ts.html#lineNumber18",
     "endsWith breaks the actor flow when \"actual\" does not end with \"expected\"",
     "test"
   ],
   [
     "endswith src/expectations/endswith.ts~endswith,endswith",
-    "test-file/spec/expectations/endsWith.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/endsWith.spec.ts.html#lineNumber29",
     "endsWith contributes to a human-readable description",
     "test"
   ],
   [
     "equals src/expectations/equals.ts~equals,equals",
-    "test-file/spec/expectations/equals.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/equals.spec.ts.html#lineNumber11",
     "equals",
     "test"
   ],
   [
     "equals src/expectations/equals.ts~equals,equals",
-    "test-file/spec/expectations/equals.spec.ts.html#lineNumber37",
+    "test-file/spec/expectations/equals.spec.ts.html#lineNumber38",
     "equals breaks the actor flow when the values of \"actual\" and \"expected\" don't match",
     "test"
   ],
   [
     "equals src/expectations/equals.ts~equals,equals",
-    "test-file/spec/expectations/equals.spec.ts.html#lineNumber48",
+    "test-file/spec/expectations/equals.spec.ts.html#lineNumber49",
     "equals contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/property.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/property.spec.ts.html#lineNumber8",
     "hasProperty",
     "test"
   ],
   [
     "hasproperty hasproperty,hasproperty",
-    "test-file/spec/expectations/property.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/property.spec.ts.html#lineNumber11",
     "hasProperty allows for the actor flow to continue when the \"actual\" has a property that meets the expectation",
     "test"
   ],
   [
     "hasproperty hasproperty,hasproperty",
-    "test-file/spec/expectations/property.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/property.spec.ts.html#lineNumber18",
     "hasProperty breaks the actor flow when \"actual\" does not have a property that meets the expectation",
     "test"
   ],
   [
     "hasproperty hasproperty,hasproperty",
-    "test-file/spec/expectations/property.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/property.spec.ts.html#lineNumber29",
     "hasProperty contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/includes.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/includes.spec.ts.html#lineNumber8",
     "includes",
     "test"
   ],
   [
     "includes src/expectations/includes.ts~includes,includes",
-    "test-file/spec/expectations/includes.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/includes.spec.ts.html#lineNumber11",
     "includes allows for the actor flow to continue when the \"actual\" includes the \"expected\" text",
     "test"
   ],
   [
     "includes src/expectations/includes.ts~includes,includes",
-    "test-file/spec/expectations/includes.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/includes.spec.ts.html#lineNumber18",
     "includes breaks the actor flow when \"actual\" does not include the \"expected\" text",
     "test"
   ],
   [
     "includes src/expectations/includes.ts~includes,includes",
-    "test-file/spec/expectations/includes.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/includes.spec.ts.html#lineNumber29",
     "includes contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isAfter.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/isAfter.spec.ts.html#lineNumber8",
     "isAfter",
     "test"
   ],
   [
     "isafter src/expectations/isafter.ts~isafter,isafter",
-    "test-file/spec/expectations/isAfter.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/isAfter.spec.ts.html#lineNumber11",
     "isAfter allows for the actor flow to continue when the \"actual\" is after the \"expected\"",
     "test"
   ],
   [
     "isafter src/expectations/isafter.ts~isafter,isafter",
-    "test-file/spec/expectations/isAfter.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/isAfter.spec.ts.html#lineNumber18",
     "isAfter breaks the actor flow when \"actual\" is not after the \"expected\"",
     "test"
   ],
   [
     "isafter src/expectations/isafter.ts~isafter,isafter",
-    "test-file/spec/expectations/isAfter.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/isAfter.spec.ts.html#lineNumber29",
     "isAfter contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isBefore.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/isBefore.spec.ts.html#lineNumber8",
     "isBefore",
     "test"
   ],
   [
     "isbefore src/expectations/isbefore.ts~isbefore,isbefore",
-    "test-file/spec/expectations/isBefore.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/isBefore.spec.ts.html#lineNumber11",
     "isBefore allows for the actor flow to continue when the \"actual\" is before the \"expected\"",
     "test"
   ],
   [
     "isbefore src/expectations/isbefore.ts~isbefore,isbefore",
-    "test-file/spec/expectations/isBefore.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/isBefore.spec.ts.html#lineNumber18",
     "isBefore breaks the actor flow when \"actual\" is not before the \"expected\"",
     "test"
   ],
   [
     "isbefore src/expectations/isbefore.ts~isbefore,isbefore",
-    "test-file/spec/expectations/isBefore.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/isBefore.spec.ts.html#lineNumber29",
     "isBefore contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isFalse.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/isFalse.spec.ts.html#lineNumber8",
     "isFalse",
     "test"
   ],
   [
     "isfalse src/expectations/isfalse.ts~isfalse,isfalse",
-    "test-file/spec/expectations/isFalse.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/isFalse.spec.ts.html#lineNumber11",
     "isFalse allows for the actor flow to continue when the \"actual\" is false",
     "test"
   ],
   [
     "isfalse src/expectations/isfalse.ts~isfalse,isfalse",
-    "test-file/spec/expectations/isFalse.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/isFalse.spec.ts.html#lineNumber18",
     "isFalse breaks the actor flow when \"actual\" is not false",
     "test"
   ],
   [
     "isfalse src/expectations/isfalse.ts~isfalse,isfalse",
-    "test-file/spec/expectations/isFalse.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/isFalse.spec.ts.html#lineNumber29",
     "isFalse contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isGreaterThan.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/isGreaterThan.spec.ts.html#lineNumber8",
     "isGreaterThan",
     "test"
   ],
   [
     "isgreaterthan src/expectations/isgreaterthan.ts~isgreaterthan,isgreaterthan",
-    "test-file/spec/expectations/isGreaterThan.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/isGreaterThan.spec.ts.html#lineNumber11",
     "isGreaterThan allows for the actor flow to continue when the \"actual\" is greater than \"expected\"",
     "test"
   ],
   [
     "isgreaterthan src/expectations/isgreaterthan.ts~isgreaterthan,isgreaterthan",
-    "test-file/spec/expectations/isGreaterThan.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/isGreaterThan.spec.ts.html#lineNumber18",
     "isGreaterThan breaks the actor flow when \"actual\" is not greater than \"expected\"",
     "test"
   ],
   [
     "isgreaterthan src/expectations/isgreaterthan.ts~isgreaterthan,isgreaterthan",
-    "test-file/spec/expectations/isGreaterThan.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/isGreaterThan.spec.ts.html#lineNumber29",
     "isGreaterThan contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isLessThan.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/isLessThan.spec.ts.html#lineNumber8",
     "isLessThan",
     "test"
   ],
   [
     "islessthan src/expectations/islessthan.ts~islessthan,islessthan",
-    "test-file/spec/expectations/isLessThan.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/isLessThan.spec.ts.html#lineNumber11",
     "isLessThan allows for the actor flow to continue when the \"actual\" is less than \"expected\"",
     "test"
   ],
   [
     "islessthan src/expectations/islessthan.ts~islessthan,islessthan",
-    "test-file/spec/expectations/isLessThan.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/isLessThan.spec.ts.html#lineNumber18",
     "isLessThan breaks the actor flow when \"actual\" is not less than \"expected\"",
     "test"
   ],
   [
     "islessthan src/expectations/islessthan.ts~islessthan,islessthan",
-    "test-file/spec/expectations/isLessThan.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/isLessThan.spec.ts.html#lineNumber29",
     "isLessThan contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/isTrue.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/isTrue.spec.ts.html#lineNumber8",
     "isTrue",
     "test"
   ],
   [
     "istrue src/expectations/istrue.ts~istrue,istrue",
-    "test-file/spec/expectations/isTrue.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/isTrue.spec.ts.html#lineNumber11",
     "isTrue allows for the actor flow to continue when the \"actual\" is true",
     "test"
   ],
   [
     "istrue src/expectations/istrue.ts~istrue,istrue",
-    "test-file/spec/expectations/isTrue.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/isTrue.spec.ts.html#lineNumber18",
     "isTrue breaks the actor flow when \"actual\" is not true",
     "test"
   ],
   [
     "istrue src/expectations/istrue.ts~istrue,istrue",
-    "test-file/spec/expectations/isTrue.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/isTrue.spec.ts.html#lineNumber29",
     "isTrue contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/matches.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/matches.spec.ts.html#lineNumber8",
     "matches",
     "test"
   ],
   [
     "matches src/expectations/matches.ts~matches,matches",
-    "test-file/spec/expectations/matches.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/matches.spec.ts.html#lineNumber11",
     "matches allows for the actor flow to continue when the \"actual\" matches the \"expected\"",
     "test"
   ],
   [
     "matches src/expectations/matches.ts~matches,matches",
-    "test-file/spec/expectations/matches.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/matches.spec.ts.html#lineNumber18",
     "matches breaks the actor flow when \"actual\" does not match the \"expected\"",
     "test"
   ],
   [
     "matches src/expectations/matches.ts~matches,matches",
-    "test-file/spec/expectations/matches.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/matches.spec.ts.html#lineNumber29",
     "matches contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber22",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber23",
     "not",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber25",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber26",
     "not allows for the actor flow to continue when the \"actual\" meets the expectation",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber32",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber33",
     "not breaks the actor flow when \"actual\" does not meet the expectation",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber43",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber44",
     "not contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber56",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber61",
     "not double negative",
     "test"
   ],
   [
     "not src/expectations/not.ts~not,not",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber58",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber63",
     "not double negative contributes to a human-readable description",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber48",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber49",
     "not flips the outcome of an assertion, but doesn't hide any errors that might have happened while making it",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber64",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber69",
     "not when combined with other assertions, such as",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber66",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber71",
     "not when combined with other assertions, such as and,",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber82",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber87",
     "not when combined with other assertions, such as and, contributes to a human-readable description",
     "test"
   ],
   [
     "and src/expectations/and.ts~and,and",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber70",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber75",
     "not when combined with other assertions, such as and, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber110",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber116",
     "not when combined with other assertions, such as containAtLeastOneItemThat,",
     "test"
   ],
   [
     "containatleastoneitemthat src/expectations/containatleastoneitemthat.ts~containatleastoneitemthat,containatleastoneitemthat",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber126",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber133",
     "not when combined with other assertions, such as containAtLeastOneItemThat, contributes to a human-readable description",
     "test"
   ],
   [
     "containatleastoneitemthat src/expectations/containatleastoneitemthat.ts~containatleastoneitemthat,containatleastoneitemthat",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber114",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber120",
     "not when combined with other assertions, such as containAtLeastOneItemThat, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber88",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber93",
     "not when combined with other assertions, such as contains,",
     "test"
   ],
   [
     "contains contains,contains",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber104",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber110",
     "not when combined with other assertions, such as contains, contributes to a human-readable description",
     "test"
   ],
   [
     "contains contains,contains",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber92",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber97",
     "not when combined with other assertions, such as contains, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber132",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber139",
     "not when combined with other assertions, such as endsWith,",
     "test"
   ],
   [
     "endswith src/expectations/endswith.ts~endswith,endswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber148",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber155",
     "not when combined with other assertions, such as endsWith, contributes to a human-readable description",
     "test"
   ],
   [
     "endswith src/expectations/endswith.ts~endswith,endswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber136",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber143",
     "not when combined with other assertions, such as endsWith, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber154",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber161",
     "not when combined with other assertions, such as equals,",
     "test"
   ],
   [
     "equals src/expectations/equals.ts~equals,equals",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber170",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber177",
     "not when combined with other assertions, such as equals, contributes to a human-readable description",
     "test"
   ],
   [
     "equals src/expectations/equals.ts~equals,equals",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber158",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber165",
     "not when combined with other assertions, such as equals, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber220",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber227",
     "not when combined with other assertions, such as includes,",
     "test"
   ],
   [
     "includes src/expectations/includes.ts~includes,includes",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber236",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber243",
     "not when combined with other assertions, such as includes, contributes to a human-readable description",
     "test"
   ],
   [
     "includes src/expectations/includes.ts~includes,includes",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber224",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber231",
     "not when combined with other assertions, such as includes, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber198",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber205",
     "not when combined with other assertions, such as isFalse,",
     "test"
   ],
   [
     "isfalse src/expectations/isfalse.ts~isfalse,isfalse",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber214",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber221",
     "not when combined with other assertions, such as isFalse, contributes to a human-readable description",
     "test"
   ],
   [
     "isfalse src/expectations/isfalse.ts~isfalse,isfalse",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber202",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber209",
     "not when combined with other assertions, such as isFalse, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber242",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber249",
     "not when combined with other assertions, such as isGreaterThan,",
     "test"
   ],
   [
     "isgreaterthan src/expectations/isgreaterthan.ts~isgreaterthan,isgreaterthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber258",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber265",
     "not when combined with other assertions, such as isGreaterThan, contributes to a human-readable description",
     "test"
   ],
   [
     "isgreaterthan src/expectations/isgreaterthan.ts~isgreaterthan,isgreaterthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber246",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber253",
     "not when combined with other assertions, such as isGreaterThan, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber264",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber271",
     "not when combined with other assertions, such as isLessThan,",
     "test"
   ],
   [
     "islessthan src/expectations/islessthan.ts~islessthan,islessthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber280",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber287",
     "not when combined with other assertions, such as isLessThan, contributes to a human-readable description",
     "test"
   ],
   [
     "islessthan src/expectations/islessthan.ts~islessthan,islessthan",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber268",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber275",
     "not when combined with other assertions, such as isLessThan, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber176",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber183",
     "not when combined with other assertions, such as isTrue,",
     "test"
   ],
   [
     "istrue src/expectations/istrue.ts~istrue,istrue",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber192",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber199",
     "not when combined with other assertions, such as isTrue, contributes to a human-readable description",
     "test"
   ],
   [
     "istrue src/expectations/istrue.ts~istrue,istrue",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber180",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber187",
     "not when combined with other assertions, such as isTrue, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber286",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber293",
     "not when combined with other assertions, such as or,",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber302",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber309",
     "not when combined with other assertions, such as or, contributes to a human-readable description",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber290",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber297",
     "not when combined with other assertions, such as or, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber308",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber315",
     "not when combined with other assertions, such as startsWith,",
     "test"
   ],
   [
     "startswith src/expectations/startswith.ts~startswith,startswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber324",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber331",
     "not when combined with other assertions, such as startsWith, contributes to a human-readable description",
     "test"
   ],
   [
     "startswith src/expectations/startswith.ts~startswith,startswith",
-    "test-file/spec/expectations/not.spec.ts.html#lineNumber312",
+    "test-file/spec/expectations/not.spec.ts.html#lineNumber319",
     "not when combined with other assertions, such as startsWith, produces a sensible error message",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/or.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/or.spec.ts.html#lineNumber8",
     "or",
     "test"
   ],
   [
     "",
-    "test-file/spec/expectations/or.spec.ts.html#lineNumber9",
+    "test-file/spec/expectations/or.spec.ts.html#lineNumber10",
     "or allows for the actor flow to continue when the \"actual\"",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/or.spec.ts.html#lineNumber12",
+    "test-file/spec/expectations/or.spec.ts.html#lineNumber13",
     "or allows for the actor flow to continue when the \"actual\" meets all the expectations",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/or.spec.ts.html#lineNumber19",
+    "test-file/spec/expectations/or.spec.ts.html#lineNumber20",
     "or allows for the actor flow to continue when the \"actual\" meets at least one expectation",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/or.spec.ts.html#lineNumber27",
+    "test-file/spec/expectations/or.spec.ts.html#lineNumber28",
     "or breaks the actor flow when \"actual\" does meets none of the expectations",
     "test"
   ],
   [
     "or src/expectations/or.ts~or,or",
-    "test-file/spec/expectations/or.spec.ts.html#lineNumber38",
+    "test-file/spec/expectations/or.spec.ts.html#lineNumber39",
     "or contributes to a human-readable description",
     "test"
   ],
@@ -2299,25 +2305,25 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/expectations/startsWith.spec.ts.html#lineNumber7",
+    "test-file/spec/expectations/startsWith.spec.ts.html#lineNumber8",
     "startsWith",
     "test"
   ],
   [
     "startswith src/expectations/startswith.ts~startswith,startswith",
-    "test-file/spec/expectations/startsWith.spec.ts.html#lineNumber10",
+    "test-file/spec/expectations/startsWith.spec.ts.html#lineNumber11",
     "startsWith allows for the actor flow to continue when the \"actual\" starts with \"expected\"",
     "test"
   ],
   [
     "startswith src/expectations/startswith.ts~startswith,startswith",
-    "test-file/spec/expectations/startsWith.spec.ts.html#lineNumber17",
+    "test-file/spec/expectations/startsWith.spec.ts.html#lineNumber18",
     "startsWith breaks the actor flow when \"actual\" does not start with \"expected\"",
     "test"
   ],
   [
     "startswith src/expectations/startswith.ts~startswith,startswith",
-    "test-file/spec/expectations/startsWith.spec.ts.html#lineNumber28",
+    "test-file/spec/expectations/startsWith.spec.ts.html#lineNumber29",
     "startsWith contributes to a human-readable description",
     "test"
   ],

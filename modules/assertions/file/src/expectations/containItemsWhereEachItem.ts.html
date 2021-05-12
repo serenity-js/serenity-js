@@ -162,7 +162,7 @@ class ContainItemsWhereEachItemMeetsExpectation&lt;Expected, Actual&gt; extends 
     answeredBy(actor: AnswersQuestions): (actual: Actual[]) =&gt; Promise&lt;ExpectationOutcome&lt;Expected, Actual[]&gt;&gt; {
         return (actual: Actual[]) =&gt;
             actual.length === 0
-                ? Promise.resolve(new ExpectationNotMet(this.toString(), null, actual))
+                ? Promise.resolve(new ExpectationNotMet(this.toString(), undefined, actual))
                 : Promise.all(actual.map(item =&gt; this.expectation.answeredBy(actor)(item)))
                     .then(results =&gt; results.every(result =&gt; result instanceof ExpectationMet)
                         ? new ExpectationMet(this.toString(), results[0].expected, actual)

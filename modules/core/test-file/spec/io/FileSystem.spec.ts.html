@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -329,10 +330,10 @@ describe (<span class="hljs-string">'FileSystem'</span>, <span class="hljs-funct
                     [ processCWD.value ]: FakeFS.Empty_Directory,
                 }),
                 out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs),
-                dest = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/some.json'</span>);
+                destination = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/some.json'</span>);
 
-            <span class="hljs-keyword">return</span> expect(out.store(dest, <span class="hljs-built_in">JSON</span>.stringify(originalJSON))).to.be.fulfilled.
-                then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> expect(result.equals(processCWD.resolve(dest))));
+            <span class="hljs-keyword">return</span> expect(out.store(destination, <span class="hljs-built_in">JSON</span>.stringify(originalJSON))).to.be.fulfilled.
+                then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> expect(result.equals(processCWD.resolve(destination))));
         });
 
         it (<span class="hljs-string">`complains when the file can't be written`</span>, <span class="hljs-function">() =&gt;</span> {
@@ -370,10 +371,10 @@ describe (<span class="hljs-string">'FileSystem'</span>, <span class="hljs-funct
                     [ processCWD.value ]: FakeFS.Empty_Directory,
                 }),
                 out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs),
-                dest = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/some.png'</span>);
+                destination = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/some.png'</span>);
 
-            <span class="hljs-keyword">return</span> expect(out.store(dest, imageBuffer)).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span> expected = processCWD.join(dest).value;
+            <span class="hljs-keyword">return</span> expect(out.store(destination, imageBuffer)).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
+                <span class="hljs-keyword">const</span> expected = processCWD.join(destination).value;
                 expect(absolutePath.value).to.match(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'([A-Z]:)?'</span> + expected + <span class="hljs-string">'$'</span>));
             });
         });
@@ -455,29 +456,28 @@ describe (<span class="hljs-string">'FileSystem'</span>, <span class="hljs-funct
 
         it(<span class="hljs-string">'uses a randomly generated file name and .tmp suffix'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            expect(out.tempFilePath().value).to.match(<span class="hljs-regexp">/\/var\/tmp\/[a-z0-9]+\.tmp/</span>);
+            expect(out.tempFilePath().value).to.match(<span class="hljs-regexp">/\/var\/tmp\/[\da-z]+\.tmp/</span>);
         });
 
         it(<span class="hljs-string">'allows for the prefix to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            expect(out.tempFilePath(<span class="hljs-string">'serenity-'</span>).value).to.match(<span class="hljs-regexp">/\/var\/tmp\/serenity-[a-z0-9]+\.tmp/</span>);
+            expect(out.tempFilePath(<span class="hljs-string">'serenity-'</span>).value).to.match(<span class="hljs-regexp">/\/var\/tmp\/serenity-[\da-z]+\.tmp/</span>);
         });
-
 
         it(<span class="hljs-string">'allows for the suffix to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            expect(out.tempFilePath(<span class="hljs-string">'serenity-'</span>, <span class="hljs-string">'.out'</span>).value).to.match(<span class="hljs-regexp">/\/var\/tmp\/serenity-[a-z0-9]+\.out/</span>);
+            expect(out.tempFilePath(<span class="hljs-string">'serenity-'</span>, <span class="hljs-string">'.out'</span>).value).to.match(<span class="hljs-regexp">/\/var\/tmp\/serenity-[\da-z]+\.out/</span>);
         });
     });
-
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonFrom</span>(<span class="hljs-params">file: Buffer</span>) </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(file.toString(<span class="hljs-string">'ascii'</span>));
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pictureAt</span>(<span class="hljs-params">file: Buffer</span>) </span>{
-        <span class="hljs-keyword">return</span> Buffer.from(file).toString(<span class="hljs-string">'base64'</span>);
-    }
 });
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonFrom</span>(<span class="hljs-params">file: Buffer</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(file.toString(<span class="hljs-string">'ascii'</span>));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pictureAt</span>(<span class="hljs-params">file: Buffer</span>) </span>{
+    <span class="hljs-keyword">return</span> Buffer.from(file).toString(<span class="hljs-string">'base64'</span>);
+}
 </code></pre>
 
 </article>

@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -302,17 +303,17 @@
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> Separator = <span class="hljs-string">'/'</span>;
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">string</span>;
 
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromJSON</span>(<span class="hljs-params">v: <span class="hljs-built_in">string</span></span>)</span> {
+    <span class="hljs-keyword">static</span> fromJSON(v: <span class="hljs-built_in">string</span>): Path {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(v);
-    };
+    }
 
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">from</span>(<span class="hljs-params">...segments: <span class="hljs-built_in">string</span>[]</span>)</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">from</span>(...segments: <span class="hljs-built_in">string</span>[]): Path {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(path.joinSafe(...segments));
     }
 
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">fromSanitisedString</span>(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>)</span> {
+    <span class="hljs-keyword">static</span> fromSanitisedString(value: <span class="hljs-built_in">string</span>): Path {
         <span class="hljs-keyword">const</span>
-            normalised = path.normalize(value).replace(<span class="hljs-regexp">/[\/\\"':]/gi</span>, <span class="hljs-string">''</span>),
+            normalised = path.normalize(value).replace(<span class="hljs-regexp">/["'/:\\]/gi</span>, <span class="hljs-string">''</span>),
             extension  = path.extname(normalised),
             basename   = path.basename(normalised, extension),
             filename   = filenamify(basename, { <span class="hljs-attr">replacement</span>: <span class="hljs-string">'-'</span>, <span class="hljs-attr">maxLength</span>: <span class="hljs-number">250</span> })
@@ -332,7 +333,7 @@
         <span class="hljs-built_in">this</span>.value = path.normalize(value);
     }
 
-    <span class="hljs-function"><span class="hljs-title">join</span>(<span class="hljs-params">another: Path</span>)</span> {
+    join(another: Path): Path {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(path.join(<span class="hljs-built_in">this</span>.value, another.value));
     }
 
@@ -342,11 +343,11 @@
             .filter(<span class="hljs-function"><span class="hljs-params">segment</span> =&gt;</span> !! segment); <span class="hljs-comment">// so that we ignore the trailing path separator in absolute paths</span>
     }
 
-    <span class="hljs-function"><span class="hljs-title">resolve</span>(<span class="hljs-params">another: Path</span>)</span> {
+    resolve(another: Path): Path {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(path.resolve(<span class="hljs-built_in">this</span>.value, another.value));
     }
 
-    <span class="hljs-function"><span class="hljs-title">directory</span>(<span class="hljs-params"></span>)</span> {
+    directory(): Path {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(path.dirname(<span class="hljs-built_in">this</span>.value));
     }
 

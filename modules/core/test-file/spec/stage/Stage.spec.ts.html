@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -358,7 +359,7 @@ describe(<span class="hljs-string">'Stage'</span>, <span class="hljs-function">(
             <span class="hljs-keyword">const</span> a2 = stage.actor(name);
 
             expect((actors.prepare <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).getCall(<span class="hljs-number">0</span>).args[<span class="hljs-number">0</span>].name).to.equal(name);
-            expect(actors.prepare).to.have.been.calledOnce;                    <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+            expect(actors.prepare).to.have.been.calledOnce;
 
             expect(a1).to.equal(a2);
         });
@@ -438,7 +439,7 @@ describe(<span class="hljs-string">'Stage'</span>, <span class="hljs-function">(
                 <span class="hljs-keyword">new</span> FileSystemLocation(
                     <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'payments/checkout.feature'</span>),
                 ),
-        );
+            );
 
         <span class="hljs-keyword">let</span> manager: StageManager;
 
@@ -456,7 +457,7 @@ describe(<span class="hljs-string">'Stage'</span>, <span class="hljs-function">(
 
                 stage.announce(<span class="hljs-keyword">new</span> SceneFinishes(sceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
 
-                expect(actor.dismiss).to.have.been.calledOnce;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+                expect(actor.dismiss).to.have.been.calledOnce;
 
                 stage.announce(<span class="hljs-keyword">new</span> SceneFinished(sceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
 
@@ -466,7 +467,7 @@ describe(<span class="hljs-string">'Stage'</span>, <span class="hljs-function">(
                 <span class="hljs-keyword">await</span> stage.waitForNextCue()
 
                 <span class="hljs-comment">// make sure it's not called again</span>
-                expect(actor.dismiss).to.have.been.calledOnce;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+                expect(actor.dismiss).to.have.been.calledOnce;
             });
 
             it(<span class="hljs-string">'re-instantiates actors dismissed when the SceneFinished'</span>, <span class="hljs-keyword">async</span> () =&gt; {
@@ -507,7 +508,7 @@ describe(<span class="hljs-string">'Stage'</span>, <span class="hljs-function">(
                 stage.announce(<span class="hljs-keyword">new</span> SceneStarts(sceneId, scenario));
                 stage.announce(<span class="hljs-keyword">new</span> SceneFinishes(sceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
 
-                expect(actor.dismiss).to.have.not.been.called;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+                expect(actor.dismiss).to.have.not.been.called;
 
                 stage.announce(<span class="hljs-keyword">new</span> SceneFinished(sceneId, scenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()));
 
@@ -517,7 +518,7 @@ describe(<span class="hljs-string">'Stage'</span>, <span class="hljs-function">(
                 <span class="hljs-keyword">await</span> stage.waitForNextCue()
 
                 <span class="hljs-comment">// make sure it's called</span>
-                expect(actor.dismiss).to.have.been.calledOnce;  <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+                expect(actor.dismiss).to.have.been.calledOnce;
             });
 
             it(<span class="hljs-string">'retains instances of actors instantiated before the SceneStarts'</span>, <span class="hljs-keyword">async</span> () =&gt; {
@@ -596,13 +597,13 @@ describe(<span class="hljs-string">'Stage'</span>, <span class="hljs-function">(
 
         it(<span class="hljs-string">'complains when instantiated with no Cast'</span>, <span class="hljs-function">() =&gt;</span> {
             expect(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-literal">null</span>, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
+                <span class="hljs-keyword">const</span> stage_ = <span class="hljs-keyword">new</span> Stage(<span class="hljs-literal">undefined</span>, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
             }).to.throw(<span class="hljs-built_in">Error</span>, <span class="hljs-string">'Cast should be defined'</span>);
         });
 
         it(<span class="hljs-string">'complains when instantiated with no StageManager'</span>, <span class="hljs-function">() =&gt;</span> {
             expect(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), <span class="hljs-literal">null</span>);
+                <span class="hljs-keyword">const</span> stage_ = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), <span class="hljs-literal">undefined</span>);
             }).to.throw(<span class="hljs-built_in">Error</span>, <span class="hljs-string">'StageManager should be defined'</span>);
         });
 
@@ -611,7 +612,7 @@ describe(<span class="hljs-string">'Stage'</span>, <span class="hljs-function">(
             <span class="hljs-keyword">const</span>
                 name   = <span class="hljs-string">'Alice'</span>,
                 <span class="hljs-attr">actors</span>: Cast = {
-                    <span class="hljs-attr">prepare</span>: <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-literal">undefined</span>,
+                    <span class="hljs-attr">prepare</span>: <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-literal">undefined</span>,   <span class="hljs-comment">// eslint-disable-line unicorn/no-useless-undefined</span>
                 },
                 stage  = <span class="hljs-keyword">new</span> Stage(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
 

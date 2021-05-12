@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2911,
+  "end": 2912,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 101,
+      "line": 102,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2911,
+    "end": 2912,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 101,
+        "line": 102,
         "column": 0
       }
     },
@@ -206,31 +206,31 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 92,
-        "end": 136,
+        "start": 93,
+        "end": 137,
         "loc": {
           "start": {
-            "line": 3,
+            "line": 4,
             "column": 0
           },
           "end": {
-            "line": 3,
+            "line": 4,
             "column": 44
           }
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
-            "start": 137,
-            "end": 182,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n ",
+            "start": 138,
+            "end": 183,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 5,
                 "column": 0
               },
               "end": {
-                "line": 9,
+                "line": 10,
                 "column": 3
               }
             }
@@ -238,15 +238,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  The OPTIONS method requests information about the communication\n *  options available for the target resource, at either the origin\n *  server or an intervening intermediary.  This method allows a client\n *  to determine the options and/or requirements associated with a\n *  resource, or the capabilities of a server, without implying a\n *  resource action.\n *\n * @example <caption>File download test</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, OptionsRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(OptionsRequest.to('/downloads/my-test-document.pdf')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Allow'), equals('OPTIONS, GET, HEAD')),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.7\n *\n * @extends {HTTPRequest}\n ",
-            "start": 185,
-            "end": 1305,
+            "start": 186,
+            "end": 1306,
             "loc": {
               "start": {
-                "line": 12,
+                "line": 13,
                 "column": 0
               },
               "end": {
-                "line": 38,
+                "line": 39,
                 "column": 3
               }
             }
@@ -256,29 +256,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 101,
-            "end": 112,
+            "start": 102,
+            "end": 113,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 4,
                 "column": 9
               },
               "end": {
-                "line": 3,
+                "line": 4,
                 "column": 20
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 101,
-              "end": 112,
+              "start": 102,
+              "end": 113,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 4,
                   "column": 20
                 },
                 "identifierName": "HTTPRequest"
@@ -287,15 +287,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 101,
-              "end": 112,
+              "start": 102,
+              "end": 113,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 4,
                   "column": 20
                 },
                 "identifierName": "HTTPRequest"
@@ -306,15 +306,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 120,
-          "end": 135,
+          "start": 121,
+          "end": 136,
           "loc": {
             "start": {
-              "line": 3,
+              "line": 4,
               "column": 28
             },
             "end": {
-              "line": 3,
+              "line": 4,
               "column": 43
             }
           },
@@ -327,31 +327,31 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 1306,
-        "end": 2910,
+        "start": 1307,
+        "end": 2911,
         "loc": {
           "start": {
-            "line": 39,
+            "line": 40,
             "column": 0
           },
           "end": {
-            "line": 100,
+            "line": 101,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
-            "start": 137,
-            "end": 182,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n ",
+            "start": 138,
+            "end": 183,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 5,
                 "column": 0
               },
               "end": {
-                "line": 9,
+                "line": 10,
                 "column": 3
               }
             }
@@ -359,15 +359,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  The OPTIONS method requests information about the communication\n *  options available for the target resource, at either the origin\n *  server or an intervening intermediary.  This method allows a client\n *  to determine the options and/or requirements associated with a\n *  resource, or the capabilities of a server, without implying a\n *  resource action.\n *\n * @example <caption>File download test</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, OptionsRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(OptionsRequest.to('/downloads/my-test-document.pdf')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Allow'), equals('OPTIONS, GET, HEAD')),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.7\n *\n * @extends {HTTPRequest}\n ",
-            "start": 185,
-            "end": 1305,
+            "start": 186,
+            "end": 1306,
             "loc": {
               "start": {
-                "line": 12,
+                "line": 13,
                 "column": 0
               },
               "end": {
-                "line": 38,
+                "line": 39,
                 "column": 3
               }
             }
@@ -378,29 +378,29 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 1313,
-          "end": 2910,
+          "start": 1314,
+          "end": 2911,
           "loc": {
             "start": {
-              "line": 39,
+              "line": 40,
               "column": 7
             },
             "end": {
-              "line": 100,
+              "line": 101,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 1319,
-            "end": 1333,
+            "start": 1320,
+            "end": 1334,
             "loc": {
               "start": {
-                "line": 39,
+                "line": 40,
                 "column": 13
               },
               "end": {
-                "line": 39,
+                "line": 40,
                 "column": 27
               },
               "identifierName": "OptionsRequest"
@@ -409,15 +409,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 1342,
-            "end": 1353,
+            "start": 1343,
+            "end": 1354,
             "loc": {
               "start": {
-                "line": 39,
+                "line": 40,
                 "column": 36
               },
               "end": {
-                "line": 39,
+                "line": 40,
                 "column": 47
               },
               "identifierName": "HTTPRequest"
@@ -426,46 +426,46 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 1354,
-            "end": 2910,
+            "start": 1355,
+            "end": 2911,
             "loc": {
               "start": {
-                "line": 39,
+                "line": 40,
                 "column": 48
               },
               "end": {
-                "line": 100,
+                "line": 101,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 2136,
-                "end": 2250,
+                "start": 2137,
+                "end": 2251,
                 "loc": {
                   "start": {
-                    "line": 70,
+                    "line": 71,
                     "column": 4
                   },
                   "end": {
-                    "line": 72,
+                    "line": 73,
                     "column": 5
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n * @param \n * {Answerable} resourceUri \n * @return \n * {OptionsRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1356,
-                    "end": 1518,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @param \n * {Answerable} resourceUri \n * @return \n * {OptionsRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1357,
+                    "end": 1519,
                     "loc": {
                       "start": {
-                        "line": 40,
+                        "line": 41,
                         "column": 0
                       },
                       "end": {
-                        "line": 53,
+                        "line": 54,
                         "column": 3
                       }
                     }
@@ -473,15 +473,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {OptionsRequest}\n     ",
-                    "start": 1525,
-                    "end": 2131,
+                    "start": 1526,
+                    "end": 2132,
                     "loc": {
                       "start": {
-                        "line": 56,
+                        "line": 57,
                         "column": 4
                       },
                       "end": {
-                        "line": 69,
+                        "line": 70,
                         "column": 7
                       }
                     }
@@ -490,16 +490,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {Answerable} config \n * @return \n * {OptionsRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 2251,
-                    "end": 2386,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {Answerable} config \n * @return \n * {OptionsRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 2252,
+                    "end": 2387,
                     "loc": {
                       "start": {
-                        "line": 73,
+                        "line": 74,
                         "column": 0
                       },
                       "end": {
-                        "line": 84,
+                        "line": 85,
                         "column": 3
                       }
                     }
@@ -507,15 +507,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {OptionsRequest}\n     ",
-                    "start": 2393,
-                    "end": 2762,
+                    "start": 2394,
+                    "end": 2763,
                     "loc": {
                       "start": {
-                        "line": 87,
+                        "line": 88,
                         "column": 4
                       },
                       "end": {
-                        "line": 96,
+                        "line": 97,
                         "column": 7
                       }
                     }
@@ -524,15 +524,15 @@
                 "static": true,
                 "key": {
                   "type": "Identifier",
-                  "start": 2143,
-                  "end": 2145,
+                  "start": 2144,
+                  "end": 2146,
                   "loc": {
                     "start": {
-                      "line": 70,
+                      "line": 71,
                       "column": 11
                     },
                     "end": {
-                      "line": 70,
+                      "line": 71,
                       "column": 13
                     },
                     "identifierName": "to"
@@ -547,15 +547,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 2146,
-                    "end": 2177,
+                    "start": 2147,
+                    "end": 2178,
                     "loc": {
                       "start": {
-                        "line": 70,
+                        "line": 71,
                         "column": 14
                       },
                       "end": {
-                        "line": 70,
+                        "line": 71,
                         "column": 45
                       },
                       "identifierName": "resourceUri"
@@ -563,43 +563,43 @@
                     "name": "resourceUri",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 2157,
-                      "end": 2177,
+                      "start": 2158,
+                      "end": 2178,
                       "loc": {
                         "start": {
-                          "line": 70,
+                          "line": 71,
                           "column": 25
                         },
                         "end": {
-                          "line": 70,
+                          "line": 71,
                           "column": 45
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 2159,
-                        "end": 2177,
+                        "start": 2160,
+                        "end": 2178,
                         "loc": {
                           "start": {
-                            "line": 70,
+                            "line": 71,
                             "column": 27
                           },
                           "end": {
-                            "line": 70,
+                            "line": 71,
                             "column": 45
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 2159,
-                          "end": 2169,
+                          "start": 2160,
+                          "end": 2170,
                           "loc": {
                             "start": {
-                              "line": 70,
+                              "line": 71,
                               "column": 27
                             },
                             "end": {
-                              "line": 70,
+                              "line": 71,
                               "column": 37
                             },
                             "identifierName": "Answerable"
@@ -608,30 +608,30 @@
                         },
                         "typeParameters": {
                           "type": "TSTypeParameterInstantiation",
-                          "start": 2169,
-                          "end": 2177,
+                          "start": 2170,
+                          "end": 2178,
                           "loc": {
                             "start": {
-                              "line": 70,
+                              "line": 71,
                               "column": 37
                             },
                             "end": {
-                              "line": 70,
+                              "line": 71,
                               "column": 45
                             }
                           },
                           "params": [
                             {
                               "type": "TSStringKeyword",
-                              "start": 2170,
-                              "end": 2176,
+                              "start": 2171,
+                              "end": 2177,
                               "loc": {
                                 "start": {
-                                  "line": 70,
+                                  "line": 71,
                                   "column": 38
                                 },
                                 "end": {
-                                  "line": 70,
+                                  "line": 71,
                                   "column": 44
                                 }
                               }
@@ -644,43 +644,43 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 2178,
-                  "end": 2194,
+                  "start": 2179,
+                  "end": 2195,
                   "loc": {
                     "start": {
-                      "line": 70,
+                      "line": 71,
                       "column": 46
                     },
                     "end": {
-                      "line": 70,
+                      "line": 71,
                       "column": 62
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 2180,
-                    "end": 2194,
+                    "start": 2181,
+                    "end": 2195,
                     "loc": {
                       "start": {
-                        "line": 70,
+                        "line": 71,
                         "column": 48
                       },
                       "end": {
-                        "line": 70,
+                        "line": 71,
                         "column": 62
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 2180,
-                      "end": 2194,
+                      "start": 2181,
+                      "end": 2195,
                       "loc": {
                         "start": {
-                          "line": 70,
+                          "line": 71,
                           "column": 48
                         },
                         "end": {
-                          "line": 70,
+                          "line": 71,
                           "column": 62
                         },
                         "identifierName": "OptionsRequest"
@@ -691,58 +691,58 @@
                 },
                 "body": {
                   "type": "BlockStatement",
-                  "start": 2195,
-                  "end": 2250,
+                  "start": 2196,
+                  "end": 2251,
                   "loc": {
                     "start": {
-                      "line": 70,
+                      "line": 71,
                       "column": 63
                     },
                     "end": {
-                      "line": 72,
+                      "line": 73,
                       "column": 5
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 2205,
-                      "end": 2244,
+                      "start": 2206,
+                      "end": 2245,
                       "loc": {
                         "start": {
-                          "line": 71,
+                          "line": 72,
                           "column": 8
                         },
                         "end": {
-                          "line": 71,
+                          "line": 72,
                           "column": 47
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 2212,
-                        "end": 2243,
+                        "start": 2213,
+                        "end": 2244,
                         "loc": {
                           "start": {
-                            "line": 71,
+                            "line": 72,
                             "column": 15
                           },
                           "end": {
-                            "line": 71,
+                            "line": 72,
                             "column": 46
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 2216,
-                          "end": 2230,
+                          "start": 2217,
+                          "end": 2231,
                           "loc": {
                             "start": {
-                              "line": 71,
+                              "line": 72,
                               "column": 19
                             },
                             "end": {
-                              "line": 71,
+                              "line": 72,
                               "column": 33
                             },
                             "identifierName": "OptionsRequest"
@@ -752,15 +752,15 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 2231,
-                            "end": 2242,
+                            "start": 2232,
+                            "end": 2243,
                             "loc": {
                               "start": {
-                                "line": 71,
+                                "line": 72,
                                 "column": 34
                               },
                               "end": {
-                                "line": 71,
+                                "line": 72,
                                 "column": 45
                               },
                               "identifierName": "resourceUri"
@@ -776,31 +776,31 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 2767,
-                "end": 2908,
+                "start": 2768,
+                "end": 2909,
                 "loc": {
                   "start": {
-                    "line": 97,
+                    "line": 98,
                     "column": 4
                   },
                   "end": {
-                    "line": 99,
+                    "line": 100,
                     "column": 5
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {Answerable} config \n * @return \n * {OptionsRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 2251,
-                    "end": 2386,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {Answerable} config \n * @return \n * {OptionsRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 2252,
+                    "end": 2387,
                     "loc": {
                       "start": {
-                        "line": 73,
+                        "line": 74,
                         "column": 0
                       },
                       "end": {
-                        "line": 84,
+                        "line": 85,
                         "column": 3
                       }
                     }
@@ -808,15 +808,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {OptionsRequest}\n     ",
-                    "start": 2393,
-                    "end": 2762,
+                    "start": 2394,
+                    "end": 2763,
                     "loc": {
                       "start": {
-                        "line": 87,
+                        "line": 88,
                         "column": 4
                       },
                       "end": {
-                        "line": 96,
+                        "line": 97,
                         "column": 7
                       }
                     }
@@ -825,15 +825,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2767,
-                  "end": 2772,
+                  "start": 2768,
+                  "end": 2773,
                   "loc": {
                     "start": {
-                      "line": 97,
+                      "line": 98,
                       "column": 4
                     },
                     "end": {
-                      "line": 97,
+                      "line": 98,
                       "column": 9
                     },
                     "identifierName": "using"
@@ -848,15 +848,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 2773,
-                    "end": 2811,
+                    "start": 2774,
+                    "end": 2812,
                     "loc": {
                       "start": {
-                        "line": 97,
+                        "line": 98,
                         "column": 10
                       },
                       "end": {
-                        "line": 97,
+                        "line": 98,
                         "column": 48
                       },
                       "identifierName": "config"
@@ -864,43 +864,43 @@
                     "name": "config",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 2779,
-                      "end": 2811,
+                      "start": 2780,
+                      "end": 2812,
                       "loc": {
                         "start": {
-                          "line": 97,
+                          "line": 98,
                           "column": 16
                         },
                         "end": {
-                          "line": 97,
+                          "line": 98,
                           "column": 48
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 2781,
-                        "end": 2811,
+                        "start": 2782,
+                        "end": 2812,
                         "loc": {
                           "start": {
-                            "line": 97,
+                            "line": 98,
                             "column": 18
                           },
                           "end": {
-                            "line": 97,
+                            "line": 98,
                             "column": 48
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 2781,
-                          "end": 2791,
+                          "start": 2782,
+                          "end": 2792,
                           "loc": {
                             "start": {
-                              "line": 97,
+                              "line": 98,
                               "column": 18
                             },
                             "end": {
-                              "line": 97,
+                              "line": 98,
                               "column": 28
                             },
                             "identifierName": "Answerable"
@@ -909,44 +909,44 @@
                         },
                         "typeParameters": {
                           "type": "TSTypeParameterInstantiation",
-                          "start": 2791,
-                          "end": 2811,
+                          "start": 2792,
+                          "end": 2812,
                           "loc": {
                             "start": {
-                              "line": 97,
+                              "line": 98,
                               "column": 28
                             },
                             "end": {
-                              "line": 97,
+                              "line": 98,
                               "column": 48
                             }
                           },
                           "params": [
                             {
                               "type": "TSTypeReference",
-                              "start": 2792,
-                              "end": 2810,
+                              "start": 2793,
+                              "end": 2811,
                               "loc": {
                                 "start": {
-                                  "line": 97,
+                                  "line": 98,
                                   "column": 29
                                 },
                                 "end": {
-                                  "line": 97,
+                                  "line": 98,
                                   "column": 47
                                 }
                               },
                               "typeName": {
                                 "type": "Identifier",
-                                "start": 2792,
-                                "end": 2810,
+                                "start": 2793,
+                                "end": 2811,
                                 "loc": {
                                   "start": {
-                                    "line": 97,
+                                    "line": 98,
                                     "column": 29
                                   },
                                   "end": {
-                                    "line": 97,
+                                    "line": 98,
                                     "column": 47
                                   },
                                   "identifierName": "AxiosRequestConfig"
@@ -962,43 +962,43 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 2812,
-                  "end": 2828,
+                  "start": 2813,
+                  "end": 2829,
                   "loc": {
                     "start": {
-                      "line": 97,
+                      "line": 98,
                       "column": 49
                     },
                     "end": {
-                      "line": 97,
+                      "line": 98,
                       "column": 65
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 2814,
-                    "end": 2828,
+                    "start": 2815,
+                    "end": 2829,
                     "loc": {
                       "start": {
-                        "line": 97,
+                        "line": 98,
                         "column": 51
                       },
                       "end": {
-                        "line": 97,
+                        "line": 98,
                         "column": 65
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 2814,
-                      "end": 2828,
+                      "start": 2815,
+                      "end": 2829,
                       "loc": {
                         "start": {
-                          "line": 97,
+                          "line": 98,
                           "column": 51
                         },
                         "end": {
-                          "line": 97,
+                          "line": 98,
                           "column": 65
                         },
                         "identifierName": "OptionsRequest"
@@ -1009,58 +1009,58 @@
                 },
                 "body": {
                   "type": "BlockStatement",
-                  "start": 2829,
-                  "end": 2908,
+                  "start": 2830,
+                  "end": 2909,
                   "loc": {
                     "start": {
-                      "line": 97,
+                      "line": 98,
                       "column": 66
                     },
                     "end": {
-                      "line": 99,
+                      "line": 100,
                       "column": 5
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 2839,
-                      "end": 2902,
+                      "start": 2840,
+                      "end": 2903,
                       "loc": {
                         "start": {
-                          "line": 98,
+                          "line": 99,
                           "column": 8
                         },
                         "end": {
-                          "line": 98,
+                          "line": 99,
                           "column": 71
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 2846,
-                        "end": 2901,
+                        "start": 2847,
+                        "end": 2902,
                         "loc": {
                           "start": {
-                            "line": 98,
+                            "line": 99,
                             "column": 15
                           },
                           "end": {
-                            "line": 98,
+                            "line": 99,
                             "column": 70
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 2850,
-                          "end": 2864,
+                          "start": 2851,
+                          "end": 2865,
                           "loc": {
                             "start": {
-                              "line": 98,
+                              "line": 99,
                               "column": 19
                             },
                             "end": {
-                              "line": 98,
+                              "line": 99,
                               "column": 33
                             },
                             "identifierName": "OptionsRequest"
@@ -1070,29 +1070,29 @@
                         "arguments": [
                           {
                             "type": "MemberExpression",
-                            "start": 2865,
-                            "end": 2881,
+                            "start": 2866,
+                            "end": 2882,
                             "loc": {
                               "start": {
-                                "line": 98,
+                                "line": 99,
                                 "column": 34
                               },
                               "end": {
-                                "line": 98,
+                                "line": 99,
                                 "column": 50
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 2865,
-                              "end": 2869,
+                              "start": 2866,
+                              "end": 2870,
                               "loc": {
                                 "start": {
-                                  "line": 98,
+                                  "line": 99,
                                   "column": 34
                                 },
                                 "end": {
-                                  "line": 98,
+                                  "line": 99,
                                   "column": 38
                                 }
                               }
@@ -1100,15 +1100,15 @@
                             "computed": false,
                             "property": {
                               "type": "Identifier",
-                              "start": 2870,
-                              "end": 2881,
+                              "start": 2871,
+                              "end": 2882,
                               "loc": {
                                 "start": {
-                                  "line": 98,
+                                  "line": 99,
                                   "column": 39
                                 },
                                 "end": {
-                                  "line": 98,
+                                  "line": 99,
                                   "column": 50
                                 },
                                 "identifierName": "resourceUri"
@@ -1118,15 +1118,15 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 2883,
-                            "end": 2892,
+                            "start": 2884,
+                            "end": 2893,
                             "loc": {
                               "start": {
-                                "line": 98,
+                                "line": 99,
                                 "column": 52
                               },
                               "end": {
-                                "line": 98,
+                                "line": 99,
                                 "column": 61
                               },
                               "identifierName": "undefined"
@@ -1135,15 +1135,15 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 2894,
-                            "end": 2900,
+                            "start": 2895,
+                            "end": 2901,
                             "loc": {
                               "start": {
-                                "line": 98,
+                                "line": 99,
                                 "column": 63
                               },
                               "end": {
-                                "line": 98,
+                                "line": 99,
                                 "column": 69
                               },
                               "identifierName": "config"
@@ -1162,16 +1162,16 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
-              "start": 137,
-              "end": 182,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n ",
+              "start": 138,
+              "end": 183,
               "loc": {
                 "start": {
-                  "line": 4,
+                  "line": 5,
                   "column": 0
                 },
                 "end": {
-                  "line": 9,
+                  "line": 10,
                   "column": 3
                 }
               }
@@ -1179,15 +1179,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc\n *  The OPTIONS method requests information about the communication\n *  options available for the target resource, at either the origin\n *  server or an intervening intermediary.  This method allows a client\n *  to determine the options and/or requirements associated with a\n *  resource, or the capabilities of a server, without implying a\n *  resource action.\n *\n * @example <caption>File download test</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, OptionsRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(OptionsRequest.to('/downloads/my-test-document.pdf')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Allow'), equals('OPTIONS, GET, HEAD')),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.7\n *\n * @extends {HTTPRequest}\n ",
-              "start": 185,
-              "end": 1305,
+              "start": 186,
+              "end": 1306,
               "loc": {
                 "start": {
-                  "line": 12,
+                  "line": 13,
                   "column": 0
                 },
                 "end": {
-                  "line": 38,
+                  "line": 39,
                   "column": 3
                 }
               }
@@ -1202,16 +1202,16 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
-      "start": 137,
-      "end": 182,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n ",
+      "start": 138,
+      "end": 183,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 5,
           "column": 0
         },
         "end": {
-          "line": 9,
+          "line": 10,
           "column": 3
         }
       }
@@ -1219,31 +1219,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc\n *  The OPTIONS method requests information about the communication\n *  options available for the target resource, at either the origin\n *  server or an intervening intermediary.  This method allows a client\n *  to determine the options and/or requirements associated with a\n *  resource, or the capabilities of a server, without implying a\n *  resource action.\n *\n * @example <caption>File download test</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, OptionsRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(OptionsRequest.to('/downloads/my-test-document.pdf')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Allow'), equals('OPTIONS, GET, HEAD')),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.7\n *\n * @extends {HTTPRequest}\n ",
-      "start": 185,
-      "end": 1305,
+      "start": 186,
+      "end": 1306,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 13,
           "column": 0
         },
         "end": {
-          "line": 38,
+          "line": 39,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n * @param \n * {Answerable} resourceUri \n * @return \n * {OptionsRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-      "start": 1356,
-      "end": 1518,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @param \n * {Answerable} resourceUri \n * @return \n * {OptionsRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+      "start": 1357,
+      "end": 1519,
       "loc": {
         "start": {
-          "line": 40,
+          "line": 41,
           "column": 0
         },
         "end": {
-          "line": 53,
+          "line": 54,
           "column": 3
         }
       }
@@ -1251,31 +1251,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {OptionsRequest}\n     ",
-      "start": 1525,
-      "end": 2131,
+      "start": 1526,
+      "end": 2132,
       "loc": {
         "start": {
-          "line": 56,
+          "line": 57,
           "column": 4
         },
         "end": {
-          "line": 69,
+          "line": 70,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {Answerable} config \n * @return \n * {OptionsRequest} \n * @public \n * \\TRUE \n ",
-      "start": 2251,
-      "end": 2386,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {Answerable} config \n * @return \n * {OptionsRequest} \n * @public \n * \\TRUE \n ",
+      "start": 2252,
+      "end": 2387,
       "loc": {
         "start": {
-          "line": 73,
+          "line": 74,
           "column": 0
         },
         "end": {
-          "line": 84,
+          "line": 85,
           "column": 3
         }
       }
@@ -1283,15 +1283,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {OptionsRequest}\n     ",
-      "start": 2393,
-      "end": 2762,
+      "start": 2394,
+      "end": 2763,
       "loc": {
         "start": {
-          "line": 87,
+          "line": 88,
           "column": 4
         },
         "end": {
-          "line": 96,
+          "line": 97,
           "column": 7
         }
       }

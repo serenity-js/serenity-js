@@ -131,12 +131,11 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/cli/CucumberCLIAdapter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case,unicorn/prevent-abbreviations */</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { FileSystem, ModuleLoader, Path, trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;
+<span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
     ActivityFinished,
     ActivityStarts,
@@ -149,11 +148,14 @@
     TestRunnerDetected,
     TestRunStarts,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { FileSystem, ModuleLoader, Path, trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { ExecutionSuccessful, FeatureTag, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
+
 <span class="hljs-keyword">import</span> { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/cli'</span>;
 
-<span class="hljs-keyword">const</span> { stdout } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'test-console'</span>); <span class="hljs-comment">// tslint:disable-line:no-var-requires  no type defs available</span>
+<span class="hljs-keyword">const</span> { stdout } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'test-console'</span>); <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
 <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CucumberCLIAdapter}</span> </span>*/</span>
 describe(<span class="hljs-string">'CucumberCLIAdapter'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
@@ -214,7 +216,7 @@ describe(<span class="hljs-string">'CucumberCLIAdapter'</span>, <span class="hlj
                         .next(TestRunFinished,     <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.be.instanceof(Timestamp))
                     ;
                 })
-            );
+        );
 
         given&lt;Example&gt;([ {
             <span class="hljs-attr">description</span>: <span class="hljs-string">'no custom formats =&gt; no output'</span>,
@@ -262,6 +264,7 @@ describe(<span class="hljs-string">'CucumberCLIAdapter'</span>, <span class="hlj
         }
     }
 
+    <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clearRequireCache</span>(<span class="hljs-params">pattern: <span class="hljs-built_in">string</span></span>) </span>{
         <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">require</span>.cache)
             .filter(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> key.includes(pattern))
@@ -274,12 +277,9 @@ describe(<span class="hljs-string">'CucumberCLIAdapter'</span>, <span class="hlj
         clearRequireCache(<span class="hljs-string">'steps.ts'</span>);
 
         <span class="hljs-keyword">const</span> adapter = <span class="hljs-keyword">new</span> CucumberCLIAdapter({
-                ...config,
-                <span class="hljs-attr">require</span>: [ path.resolve(__dirname, <span class="hljs-string">'features/step_definitions/steps.ts'</span>) ],
-            },
-            <span class="hljs-keyword">new</span> LocalModuleLoader(rootDir.value),
-            output,
-        );
+            ...config,
+            <span class="hljs-attr">require</span>: [ path.resolve(__dirname, <span class="hljs-string">'features/step_definitions/steps.ts'</span>) ],
+        }, <span class="hljs-keyword">new</span> LocalModuleLoader(rootDir.value), output);
 
         <span class="hljs-keyword">const</span> inspect = stdout.inspect();
 

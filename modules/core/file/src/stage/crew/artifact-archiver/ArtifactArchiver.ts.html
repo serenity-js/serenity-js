@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -294,6 +295,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/artifact-archiver/ArtifactArchiver.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isGreaterThan, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+
 <span class="hljs-keyword">import</span> {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -365,12 +367,12 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@param <span class="hljs-type">{FileSystem}</span> <span class="hljs-variable">fileSystem</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Stage}</span> </span>[stage=null]
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Stage}</span> </span>[stage]
      *  The stage this {<span class="hljs-doctag">@link </span>StageCrewMember} should be assigned to
      */</span>
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage: Stage = <span class="hljs-literal">null</span>,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage?: Stage,
     </span>)</span> {
     }
 
@@ -432,16 +434,12 @@
     <span class="hljs-keyword">private</span> fileNameFor(prefix: <span class="hljs-built_in">string</span>, <span class="hljs-attr">artifactName</span>: Name, <span class="hljs-attr">artifact</span>: Artifact, <span class="hljs-attr">extension</span>: <span class="hljs-built_in">string</span>): Path {
         <span class="hljs-keyword">const</span> hash = Hash.of(artifact.base64EncodedValue).short();
 
-        <span class="hljs-keyword">const</span> urlFriendly = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-            name.toLocaleLowerCase()
-                .replace(<span class="hljs-regexp">/[^a-z0-9.-]/g</span>, <span class="hljs-string">'-'</span>);
-
         <span class="hljs-keyword">return</span> Path.fromSanitisedString(
             <span class="hljs-comment">// Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems</span>
             <span class="hljs-comment">// note: we can't do that in the Path constructor as the Path can be used to join other paths,</span>
             <span class="hljs-comment">// so restricting the length of the _path_ itself would not be correct.</span>
-            <span class="hljs-string">`<span class="hljs-subst">${ prefix.substring(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>) }</span>-<span class="hljs-subst">${ urlFriendly(artifactName.value).substring(<span class="hljs-number">0</span>, <span class="hljs-number">64</span>) }</span>-<span class="hljs-subst">${ hash }</span>.<span class="hljs-subst">${ extension }</span>`</span>.replace(<span class="hljs-regexp">/-+/g</span>, <span class="hljs-string">'-'</span>),
-            <span class="hljs-comment">// characters:     10        1         64                                          1    10   1    4                                 &lt; 100</span>
+            <span class="hljs-string">`<span class="hljs-subst">${ prefix.slice(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>) }</span>-<span class="hljs-subst">${ urlFriendly(artifactName.value).slice(<span class="hljs-number">0</span>, <span class="hljs-number">64</span>) }</span>-<span class="hljs-subst">${ hash }</span>.<span class="hljs-subst">${ extension }</span>`</span>.replace(<span class="hljs-regexp">/-+/g</span>, <span class="hljs-string">'-'</span>),
+            <span class="hljs-comment">// characters:     10    1         64                                      1    10   1    4                                 &lt; 100</span>
         );
     }
 
@@ -467,26 +465,35 @@
             });
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">archivisationAnnouncement</span>(<span class="hljs-params">evt: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path</span>)</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">archivisationAnnouncement</span>(<span class="hljs-params">event: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path</span>)</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">absolutePath: Path</span>) =&gt;</span> {
-            <span class="hljs-keyword">if</span> (evt <span class="hljs-keyword">instanceof</span> ActivityRelatedArtifactGenerated) {
+            <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> ActivityRelatedArtifactGenerated) {
                 <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(
-                    evt.sceneId,
-                    evt.activityId,
-                    evt.name,
-                    evt.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
+                    event.sceneId,
+                    event.activityId,
+                    event.name,
+                    event.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
                     relativePathToArtifact,
                 ));
-            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (evt <span class="hljs-keyword">instanceof</span> ArtifactGenerated) {
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> ArtifactGenerated) {
                 <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> ArtifactArchived(
-                    evt.sceneId,
-                    evt.name,
-                    evt.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
+                    event.sceneId,
+                    event.name,
+                    event.artifact.constructor <span class="hljs-keyword">as</span> ArtifactType,
                     relativePathToArtifact,
                 ));
             }
         };
     }
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@private</span>
+ * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">name</span></span>
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">urlFriendly</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">string</span> </span>{
+    <span class="hljs-keyword">return</span> name.toLocaleLowerCase()
+        .replace(<span class="hljs-regexp">/[^\d.a-z-]/g</span>, <span class="hljs-string">'-'</span>);
 }
 </code></pre>
 

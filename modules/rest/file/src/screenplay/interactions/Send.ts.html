@@ -141,6 +141,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { Artifact, HTTPRequestResponse, Name, RequestAndResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { AxiosRequestConfig, AxiosResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+
 <span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
@@ -212,7 +213,8 @@
                         <span class="hljs-built_in">this</span>.responseToArtifact(resolvedUrl, response),
                         <span class="hljs-built_in">this</span>.requestToArtifactName(response.config.method, resolvedUrl),
                     );
-            }));
+                })
+            );
     }
 
     <span class="hljs-comment">/**
@@ -221,7 +223,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor sends <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.request.toString() }</span>`</span>;
     }
 

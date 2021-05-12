@@ -131,23 +131,25 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/no-var-requires */</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { ImplementationPendingError, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { FileSystemLocation, ModuleLoader, Path, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { Category, ExecutionFailedWithError, ExecutionSkipped, ExecutionSuccessful, FeatureTag, ImplementationPending, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-
 <span class="hljs-keyword">import</span> { EventEmitter } <span class="hljs-keyword">from</span> <span class="hljs-string">'events'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 <span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+
 <span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/errors'</span>;
 <span class="hljs-keyword">import</span> { createListener } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/listeners/legacy'</span>;
 
 describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">type</span> CucumberHook = <span class="hljs-function">(<span class="hljs-params">event?: <span class="hljs-built_in">object</span></span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
+    <span class="hljs-keyword">type</span> CucumberHook = <span class="hljs-function">(<span class="hljs-params">event?: <span class="hljs-built_in">object</span></span>) =&gt;</span>     <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+    <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
 
     <span class="hljs-keyword">let</span> afterHook: CucumberHook;
 
@@ -185,7 +187,7 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
 
         <span class="hljs-keyword">const</span> listener = createListener(serenity, moduleLoader);
 
-        adapter = <span class="hljs-keyword">new</span> listener({ eventBroadcaster, log });
+        adapter = <span class="hljs-keyword">new</span> listener({ eventBroadcaster, log });  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-unused-vars</span>
     });
 
     it(<span class="hljs-string">'correctly recognises Cucumber Event Protocol events'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -410,6 +412,7 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
 
         emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-outline.json'</span>));
 
+        <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
         <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-function">(<span class="hljs-params">line: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-keyword">new</span> ScenarioDetails(
             <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The things I like'</span>),
             <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Event Protocol'</span>),
@@ -487,7 +490,7 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">emitAllFrom</span>(<span class="hljs-params">events: JSONObject[]</span>): <span class="hljs-title">void</span> </span>{
         events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
             <span class="hljs-comment">// I can't use the convenient { type, ...body } construct because ESDoc/Babylon doesn't understand it; falling back to es5:</span>
-            <span class="hljs-keyword">const</span> emitted = <span class="hljs-built_in">Object</span>.assign({}, event);   <span class="hljs-comment">// tslint:disable-line:prefer-object-spread</span>
+            <span class="hljs-keyword">const</span> emitted = <span class="hljs-built_in">Object</span>.assign({}, event);
             <span class="hljs-keyword">delete</span> emitted.type;
             eventBroadcaster.emit(event.type <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>, emitted);
         });

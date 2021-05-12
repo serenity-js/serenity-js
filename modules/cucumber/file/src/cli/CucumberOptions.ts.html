@@ -132,6 +132,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberOptions.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+
 <span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberConfig'</span>;
 
 <span class="hljs-comment">/**
@@ -170,16 +171,13 @@
             <span class="hljs-keyword">case</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'boolean'</span>:
                 <span class="hljs-keyword">return</span> listOf(<span class="hljs-built_in">this</span>.flagToArg(cliOption, value <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>));
             <span class="hljs-keyword">case</span> <span class="hljs-built_in">this</span>.isObject(value):
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, <span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">null</span>, <span class="hljs-number">0</span>));
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, <span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">undefined</span>, <span class="hljs-number">0</span>));
             <span class="hljs-keyword">default</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]));
         }
     }
 
     <span class="hljs-keyword">private</span> asBoolean&lt;K <span class="hljs-keyword">extends</span> keyof CucumberConfig&gt;(key: K, <span class="hljs-attr">defaultValue</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-comment">// this method will need to be smarter if it was to be public, i.e. to avoid double negatives like noStrict=false</span>
-        <span class="hljs-keyword">const</span> negated = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-string">'no'</span> + name.charAt(<span class="hljs-number">0</span>).toUpperCase() + name.slice(<span class="hljs-number">1</span>);
-
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span>.config[key] === <span class="hljs-string">'boolean'</span>) {
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.config[key] <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>;
         }
@@ -191,7 +189,7 @@
         <span class="hljs-keyword">return</span> defaultValue;
     }
 
-    <span class="hljs-keyword">private</span> isObject(value: <span class="hljs-built_in">any</span>): value is <span class="hljs-built_in">object</span> {
+    <span class="hljs-keyword">private</span> isObject(value: <span class="hljs-built_in">any</span>): value is <span class="hljs-built_in">object</span> { <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'object'</span>
             &amp;&amp; <span class="hljs-built_in">Array</span>.isArray(value) === <span class="hljs-literal">false</span>
             &amp;&amp; <span class="hljs-built_in">Object</span>.prototype.toString.call(value) === <span class="hljs-string">'[object Object]'</span>;
@@ -208,7 +206,7 @@
      */</span>
     <span class="hljs-keyword">private</span> asCliOptionName(option: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> option
-            .replace(<span class="hljs-regexp">/([a-z0-9]|(?=[A-Z]))([A-Z])/g</span>, <span class="hljs-string">'$1-$2'</span>)
+            .replace(<span class="hljs-regexp">/([\da-z]|(?=[A-Z]))([A-Z])/g</span>, <span class="hljs-string">'$1-$2'</span>)
             .toLowerCase();
     }
 
@@ -219,8 +217,6 @@
     }
 
     <span class="hljs-keyword">private</span> flagToArg(option: <span class="hljs-built_in">string</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> isNegated = <span class="hljs-function">(<span class="hljs-params">optionName: <span class="hljs-built_in">string</span></span>) =&gt;</span> optionName.startsWith(<span class="hljs-string">'no-'</span>);
-
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
             <span class="hljs-keyword">case</span> !! value:
                 <span class="hljs-keyword">return</span> <span class="hljs-string">`--<span class="hljs-subst">${ option }</span>`</span>;
@@ -236,6 +232,15 @@
             .map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> [ <span class="hljs-string">`--<span class="hljs-subst">${ option }</span>`</span>, value])
             .reduce(<span class="hljs-function">(<span class="hljs-params">acc, tuple</span>) =&gt;</span> acc.concat(tuple), []);
     }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNegated</span>(<span class="hljs-params">optionName: <span class="hljs-built_in">string</span></span>) </span>{
+    <span class="hljs-keyword">return</span> optionName.startsWith(<span class="hljs-string">'no-'</span>);
+}
+
+<span class="hljs-comment">// this method will need to be smarter if it was to be public, i.e. to avoid double negatives like noStrict=false</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">negated</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'no'</span> + name.charAt(<span class="hljs-number">0</span>).toUpperCase() + name.slice(<span class="hljs-number">1</span>);
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNotEmpty</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">boolean</span> </span>{

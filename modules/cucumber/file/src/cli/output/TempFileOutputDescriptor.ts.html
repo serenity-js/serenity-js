@@ -131,7 +131,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/output/TempFileOutputDescriptor.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystem, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/prevent-abbreviations */</span>
+<span class="hljs-keyword">import</span> { FileSystem, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+
 <span class="hljs-keyword">import</span> { OutputDescriptor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
 
 <span class="hljs-comment">/**
@@ -144,7 +146,7 @@
  *
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TempFileOutputDescriptor</span> <span class="hljs-title">implements</span> <span class="hljs-title">OutputDescriptor</span></span>{
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TempFileOutputDescriptor</span> <span class="hljs-title">implements</span> <span class="hljs-title">OutputDescriptor</span> </span>{  <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> path: Path;
 
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem</span>)</span> {

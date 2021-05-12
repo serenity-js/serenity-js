@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -189,7 +190,7 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { CucumberFormat, StandardOutput, TempFileOutput } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>; <span class="hljs-comment">// tslint:disable-line:no-submodule-imports</span>
+<span class="hljs-keyword">import</span> { CucumberFormat, StandardOutput, TempFileOutput } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 <span class="hljs-keyword">import</span> { TestRunnerLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/adapter'</span>;
@@ -211,7 +212,7 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
 
             it(<span class="hljs-string">'passes the configuration to the adapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> jasmineNodeOpts = {
+                <span class="hljs-keyword">const</span> jasmineNodeOpts = {   <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
                     <span class="hljs-attr">requires</span>: [
                         <span class="hljs-string">'ts-node/register'</span>,
                     ],
@@ -225,7 +226,7 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
                 <span class="hljs-keyword">const</span> JasmineAdapter = sinon.spy();
                 moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/jasmine/lib/adapter'</span>).returns({ JasmineAdapter })
 
-                <span class="hljs-keyword">const</span> runner = testRunnerLoader.forJasmine(jasmineNodeOpts);
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forJasmine(jasmineNodeOpts);
 
                 expect(JasmineAdapter).to.have.been.calledWith(jasmineNodeOpts);
             });
@@ -235,7 +236,7 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
 
             it(<span class="hljs-string">'passes the configuration to the adapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> mochaOpts = {
+                <span class="hljs-keyword">const</span> mochaOpts = {   <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
                     <span class="hljs-attr">require</span>: [
                         <span class="hljs-string">'ts-node/register'</span>,
                     ],
@@ -247,7 +248,7 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
                 <span class="hljs-keyword">const</span> MochaAdapter = sinon.spy();
                 moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/mocha/lib/adapter'</span>).returns({ MochaAdapter })
 
-                <span class="hljs-keyword">const</span> runner = testRunnerLoader.forMocha(mochaOpts);
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forMocha(mochaOpts);
 
                 expect(MochaAdapter).to.have.been.calledWith(mochaOpts);
             });
@@ -273,13 +274,14 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
                 <span class="hljs-keyword">const</span> CucumberCLIAdapter = sinon.spy();
                 moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>).returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
 
-                <span class="hljs-keyword">const</span> runner = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
 
                 expect(CucumberCLIAdapter).to.have.been.calledWith(cucumberOpts, moduleLoader, sinon.match.instanceOf(expectedOutput));
             });
 
             it(<span class="hljs-string">'resolves glob patterns in `require` to absolute paths'</span>, <span class="hljs-function">() =&gt;</span> {
 
+                <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
                 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">absolutePathTo</span>(<span class="hljs-params">relativePath: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">string</span> </span>{
                     <span class="hljs-keyword">return</span> Path.from(__dirname, relativePath).value;
                 }
@@ -289,13 +291,13 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
                 <span class="hljs-keyword">const</span> CucumberCLIAdapter = sinon.spy();
                 moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>).returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
 
-                <span class="hljs-keyword">const</span> cucumberOpts = {
+                <span class="hljs-keyword">const</span> cucumberOpts = {    <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
                     <span class="hljs-attr">require</span>: [
                         <span class="hljs-string">'features/**/*.steps.ts'</span>,
                     ]
                 };
 
-                <span class="hljs-keyword">const</span> runner = testRunnerLoader.forCucumber(cucumberOpts, { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">false</span> });
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forCucumber(cucumberOpts, { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">false</span> });
 
                 expect(CucumberCLIAdapter).to.have.been.calledWith({
                     <span class="hljs-attr">require</span>: [
@@ -366,7 +368,7 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
                 <span class="hljs-keyword">const</span> CucumberCLIAdapter = sinon.spy();
                 moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>).returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
 
-                <span class="hljs-keyword">const</span> runner = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
 
                 expect(CucumberCLIAdapter).to.have.been.calledWith(expectedCucumberOpts, moduleLoader, sinon.match.instanceOf(expectedOutput));
             });

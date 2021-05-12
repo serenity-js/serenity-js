@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -293,10 +294,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/FileSystem.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodeFS <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodeOS <span class="hljs-keyword">from</span> <span class="hljs-string">'os'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuid <span class="hljs-keyword">from</span> <span class="hljs-string">'cuid'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodeFS <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> gracefulFS <span class="hljs-keyword">from</span> <span class="hljs-string">'graceful-fs'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> cuid <span class="hljs-keyword">from</span> <span class="hljs-string">'cuid'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodeOS <span class="hljs-keyword">from</span> <span class="hljs-string">'os'</span>;
 <span class="hljs-keyword">import</span> { promisify } <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
 
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Path'</span>;
@@ -307,11 +308,11 @@
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> root: Path,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fs: <span class="hljs-keyword">typeof</span> nodeFS = gracefulFS,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> os: <span class="hljs-keyword">typeof</span> nodeOS = nodeOS,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> directoryMode = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'0777'</span>, <span class="hljs-number">8</span>) &amp; (~process.umask()),
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> directoryMode = <span class="hljs-built_in">Number</span>.<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'0777'</span>, <span class="hljs-number">8</span>) &amp; (~process.umask()),
     </span>)</span> {
     }
 
-    <span class="hljs-keyword">public</span> store(relativeOrAbsolutePathToFile: Path, <span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span>, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
+    <span class="hljs-keyword">public</span> store(relativeOrAbsolutePathToFile: Path, <span class="hljs-attr">data</span>: <span class="hljs-built_in">string</span> | NodeJS.ArrayBufferView, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
             .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory()))
             .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.write(<span class="hljs-built_in">this</span>.root.resolve(relativeOrAbsolutePathToFile), data, encoding));
@@ -342,14 +343,15 @@
 
         <span class="hljs-keyword">return</span> stat(absolutePath.value)
             .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span>
-                    result.isFile()
-                        ? unlink(absolutePath.value)
-                        : readdir(absolutePath.value).then(<span class="hljs-function"><span class="hljs-params">entries</span> =&gt;</span>
+                result.isFile()
+                    ? unlink(absolutePath.value)
+                    : readdir(absolutePath.value)
+                        .then(<span class="hljs-function"><span class="hljs-params">entries</span> =&gt;</span>
                             <span class="hljs-built_in">Promise</span>.all(entries.map(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span>
                                 <span class="hljs-built_in">this</span>.remove(absolutePath.join(<span class="hljs-keyword">new</span> Path(entry)))),
                             ).then(<span class="hljs-function">() =&gt;</span> rmdir(absolutePath.value)),
                         ),
-                )
+            )
             .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
             .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
                 <span class="hljs-keyword">if</span> (error?.code === <span class="hljs-string">'ENOENT'</span>) {
@@ -377,8 +379,8 @@
                         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`EACCES: permission denied, mkdir '<span class="hljs-subst">${ parent.value }</span>'`</span>);
                     }
 
-                    <span class="hljs-keyword">const</span> caughtErr = !! ~[<span class="hljs-string">'EACCES'</span>, <span class="hljs-string">'EPERM'</span>, <span class="hljs-string">'EISDIR'</span>].indexOf(error.code);
-                    <span class="hljs-keyword">if</span> (! caughtErr || (caughtErr &amp;&amp; current.equals(relativeOrAbsolutePathToDirectory))) {
+                    <span class="hljs-keyword">const</span> caughtError = !! ~[<span class="hljs-string">'EACCES'</span>, <span class="hljs-string">'EPERM'</span>, <span class="hljs-string">'EISDIR'</span>].indexOf(error.code);
+                    <span class="hljs-keyword">if</span> (! caughtError || (caughtError &amp;&amp; current.equals(relativeOrAbsolutePathToDirectory))) {
                         <span class="hljs-keyword">throw</span> error; <span class="hljs-comment">// Throw if it's just the last created dir.</span>
                     }
 
@@ -394,11 +396,11 @@
         <span class="hljs-keyword">return</span> rename(source.value, destination.value);
     }
 
-    <span class="hljs-keyword">public</span> tempFilePath(prefix: <span class="hljs-built_in">string</span> = <span class="hljs-string">''</span>, <span class="hljs-attr">suffix</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">'.tmp'</span>): Path {
+    <span class="hljs-keyword">public</span> tempFilePath(prefix = <span class="hljs-string">''</span>, suffix = <span class="hljs-string">'.tmp'</span>): Path {
         <span class="hljs-keyword">return</span> Path.from(<span class="hljs-built_in">this</span>.fs.realpathSync(<span class="hljs-built_in">this</span>.os.tmpdir()), <span class="hljs-string">`<span class="hljs-subst">${ prefix }</span><span class="hljs-subst">${ cuid() }</span><span class="hljs-subst">${ suffix }</span>`</span>);
     }
 
-    <span class="hljs-keyword">private</span> write(path: Path, <span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span>, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
+    <span class="hljs-keyword">private</span> write(path: Path, <span class="hljs-attr">data</span>: <span class="hljs-built_in">string</span> | NodeJS.ArrayBufferView, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
             <span class="hljs-built_in">this</span>.fs.writeFile(
                 path.value,

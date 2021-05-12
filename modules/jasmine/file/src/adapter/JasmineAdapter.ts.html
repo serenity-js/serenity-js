@@ -132,8 +132,9 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/JasmineAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> reporter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../index'</span>);
-<span class="hljs-keyword">import</span> { JasmineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./JasmineConfig'</span>;
 <span class="hljs-keyword">import</span> { ExecutionIgnored, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
+<span class="hljs-keyword">import</span> { JasmineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./JasmineConfig'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -169,7 +170,7 @@
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      */</span>
     run(pathsToScenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
             <span class="hljs-keyword">const</span>
                 JasmineRunner   = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">'jasmine'</span>),
                 runner          = <span class="hljs-keyword">new</span> JasmineRunner({           <span class="hljs-comment">// instantiating the JasmineRunner has a side-effect...</span>
@@ -183,7 +184,6 @@
 
             runner.clearReporters();
 
-            <span class="hljs-comment">// tslint:disable-next-line:prefer-object-spread</span>
             runner.loadConfig(<span class="hljs-built_in">Object</span>.assign(
                 {
                     <span class="hljs-comment">/*

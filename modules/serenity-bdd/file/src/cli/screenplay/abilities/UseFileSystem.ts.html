@@ -119,7 +119,8 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html">ErrorDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -135,7 +136,7 @@
  * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UseFileSystem</span> <span class="hljs-title">implements</span> <span class="hljs-title">Ability</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">at</span>(<span class="hljs-params">root: Path</span>)</span> {
+    <span class="hljs-keyword">static</span> at(root: Path): UseFileSystem {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> UseFileSystem(<span class="hljs-keyword">new</span> FileSystem(root));
     }
 
@@ -154,7 +155,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fileSystem.createWriteStreamTo(relativePathToFile);
     }
 
-    <span class="hljs-function"><span class="hljs-title">createDirectory</span>(<span class="hljs-params">relativePathToDirectory: Path</span>)</span> {
+    createDirectory(relativePathToDirectory: Path): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fileSystem.ensureDirectoryExistsAt(relativePathToDirectory);
     }
 

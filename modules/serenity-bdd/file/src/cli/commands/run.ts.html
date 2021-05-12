@@ -119,7 +119,8 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html">ErrorDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -129,7 +130,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/commands/run.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { actorCalled, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
 
 <span class="hljs-keyword">import</span> { Argv } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Argv'</span>;
 <span class="hljs-keyword">import</span> { defaults } <span class="hljs-keyword">from</span> <span class="hljs-string">'../defaults'</span>;
@@ -139,7 +140,7 @@
 <span class="hljs-keyword">import</span> { InvokeSerenityBDD, SerenityBDDArguments, SystemProperties } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
 <span class="hljs-keyword">import</span> { NotificationReporter, ProgressReporter, RunCommandActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../stage'</span>;
 
-<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>); <span class="hljs-comment">// tslint:disable-line:no-var-requires</span>
+<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>); <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
 <span class="hljs-keyword">export</span> = {
     <span class="hljs-attr">command</span>: <span class="hljs-string">'run'</span>,
@@ -189,7 +190,7 @@
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`A Logback log level to pass to the Serenity BDD CLI jar`</span>,
         },
     },
-    <span class="hljs-attr">handler</span>: <span class="hljs-function">(<span class="hljs-params">argv: Argv</span>) =&gt;</span> {
+    <span class="hljs-attr">handler</span>: (argv: Argv): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; =&gt; {
 
         <span class="hljs-keyword">const</span>
             printer         = <span class="hljs-keyword">new</span> Printer(process.stdout, process.stderr),
@@ -205,7 +206,8 @@
             ],
         });
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve().then(<span class="hljs-function">() =&gt;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
+            .then(<span class="hljs-function">() =&gt;</span>
                 actorCalled(<span class="hljs-string">'Serenity/JS Updater'</span>).attemptsTo(
                     InvokeSerenityBDD.at(pathToArtifact)
                         .withProperties(SystemProperties.of({

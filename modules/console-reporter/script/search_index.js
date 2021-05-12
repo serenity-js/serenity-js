@@ -636,6 +636,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model~serialisedoutcome",
+    "/modules/core/class/src/model/outcomes.ts~SerialisedOutcome.html",
+    "@serenity-js/core/lib/model~SerialisedOutcome",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model~testsuitedetails",
     "/modules/core/class/src/model/TestSuiteDetails.ts~TestSuiteDetails.html",
     "@serenity-js/core/lib/model~TestSuiteDetails",
@@ -1051,79 +1057,79 @@ window.esdocSearchIndex = [
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber11",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber12",
     "ConsoleReporter",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber29",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber30",
     "ConsoleReporter when instantiated",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber31",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber32",
     "ConsoleReporter when instantiated ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber36",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber37",
     "ConsoleReporter when instantiated ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber292",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber293",
     "ConsoleReporter when the developer logs arbitrary data",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber295",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber296",
     "ConsoleReporter when the developer logs arbitrary data ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber81",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber82",
     "ConsoleReporter when the scenario fails with an error",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber225",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber226",
     "ConsoleReporter when the scenario fails with an error pinpoints exactly where the failure happened",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber125",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber126",
     "ConsoleReporter when the scenario fails with an error prints any steps that were skipped as a result of the failure",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber167",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber168",
     "ConsoleReporter when the scenario fails with an error prints the details of the failed assertion",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber84",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber85",
     "ConsoleReporter when the scenario fails with an error prints the error message next to the step that has failed, and a full stack trace at the bottom",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber42",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber43",
     "ConsoleReporter when the scenario passes",
     "test"
   ],
   [
     "consolereporter src/stage/crew/console-reporter/consolereporter.ts~consolereporter,consolereporter",
-    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber45",
+    "test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html#lineNumber46",
     "ConsoleReporter when the scenario passes prints the passing steps and the scenario summary",
     "test"
   ],
@@ -1153,37 +1159,37 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber11",
+    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber12",
     "SummaryFormatter",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber67",
+    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber68",
     "SummaryFormatter aggregates results per category",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber83",
+    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber84",
     "SummaryFormatter caps the category name at 30 characters",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber96",
+    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber97",
     "SummaryFormatter keeps the padding consistent between longer and shorter category names",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber42",
+    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber43",
     "SummaryFormatter provides an empty description if no tests are recorded",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber53",
+    "test-file/spec/stage/crew/console-reporter/SummaryFormatter.spec.ts.html#lineNumber54",
     "SummaryFormatter provides summary of a single successful category",
     "test"
   ],

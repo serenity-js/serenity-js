@@ -151,34 +151,33 @@ describe(<span class="hljs-string">'FeatureFileParser'</span>, <span class="hljs
         <span class="hljs-keyword">return</span> loader.parse(sampleFeature)
             .then(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> {
                 expect(<span class="hljs-built_in">document</span>).to.deep.equal({
-                        <span class="hljs-attr">type</span>: <span class="hljs-string">'GherkinDocument'</span>,
-                        <span class="hljs-attr">feature</span>: {
-                            <span class="hljs-attr">type</span>: <span class="hljs-string">'Feature'</span>,
+                    <span class="hljs-attr">type</span>: <span class="hljs-string">'GherkinDocument'</span>,
+                    <span class="hljs-attr">feature</span>: {
+                        <span class="hljs-attr">type</span>: <span class="hljs-string">'Feature'</span>,
+                        <span class="hljs-attr">tags</span>: [],
+                        <span class="hljs-attr">location</span>: { <span class="hljs-attr">line</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">1</span> },
+                        <span class="hljs-attr">language</span>: <span class="hljs-string">'en'</span>,
+                        <span class="hljs-attr">keyword</span>: <span class="hljs-string">'Feature'</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">'Sample feature'</span>,
+                        <span class="hljs-attr">description</span>: <span class="hljs-string">'  Description of the feature'</span>,
+                        <span class="hljs-attr">children</span>: [ {
+                            <span class="hljs-attr">type</span>: <span class="hljs-string">'Scenario'</span>,
                             <span class="hljs-attr">tags</span>: [],
-                            <span class="hljs-attr">location</span>: { <span class="hljs-attr">line</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">1</span> },
-                            <span class="hljs-attr">language</span>: <span class="hljs-string">'en'</span>,
-                            <span class="hljs-attr">keyword</span>: <span class="hljs-string">'Feature'</span>,
-                            <span class="hljs-attr">name</span>: <span class="hljs-string">'Sample feature'</span>,
-                            <span class="hljs-attr">description</span>: <span class="hljs-string">'  Description of the feature'</span>,
-                            <span class="hljs-attr">children</span>: [ {
-                                <span class="hljs-attr">type</span>: <span class="hljs-string">'Scenario'</span>,
-                                <span class="hljs-attr">tags</span>: [],
-                                <span class="hljs-attr">location</span>: { <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">3</span> },
-                                <span class="hljs-attr">keyword</span>: <span class="hljs-string">'Scenario'</span>,
-                                <span class="hljs-attr">name</span>: <span class="hljs-string">'Sample scenario'</span>,
-                                <span class="hljs-attr">description</span>: <span class="hljs-string">'    Description of a scenario'</span>,
-                                <span class="hljs-attr">steps</span>: [ {
-                                    <span class="hljs-attr">argument</span>: <span class="hljs-literal">undefined</span>,
-                                    <span class="hljs-attr">type</span>: <span class="hljs-string">'Step'</span>,
-                                    <span class="hljs-attr">location</span>: { <span class="hljs-attr">line</span>: <span class="hljs-number">9</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">5</span> },
-                                    <span class="hljs-attr">keyword</span>: <span class="hljs-string">'Given '</span>,
-                                    <span class="hljs-attr">text</span>: <span class="hljs-string">'some step'</span>,
-                                } ],
+                            <span class="hljs-attr">location</span>: { <span class="hljs-attr">line</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">3</span> },
+                            <span class="hljs-attr">keyword</span>: <span class="hljs-string">'Scenario'</span>,
+                            <span class="hljs-attr">name</span>: <span class="hljs-string">'Sample scenario'</span>,
+                            <span class="hljs-attr">description</span>: <span class="hljs-string">'    Description of a scenario'</span>,
+                            <span class="hljs-attr">steps</span>: [ {
+                                <span class="hljs-attr">argument</span>: <span class="hljs-literal">undefined</span>,
+                                <span class="hljs-attr">type</span>: <span class="hljs-string">'Step'</span>,
+                                <span class="hljs-attr">location</span>: { <span class="hljs-attr">line</span>: <span class="hljs-number">9</span>, <span class="hljs-attr">column</span>: <span class="hljs-number">5</span> },
+                                <span class="hljs-attr">keyword</span>: <span class="hljs-string">'Given '</span>,
+                                <span class="hljs-attr">text</span>: <span class="hljs-string">'some step'</span>,
                             } ],
-                        },
-                        <span class="hljs-attr">comments</span>: [],
+                        } ],
                     },
-                );
+                    <span class="hljs-attr">comments</span>: [],
+                });
             });
     });
 

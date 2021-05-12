@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 764,
+  "end": 822,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 28,
+      "line": 30,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 764,
+    "end": 822,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 28,
+        "line": 30,
         "column": 0
       }
     },
@@ -32,45 +32,63 @@
     "body": [
       {
         "type": "ImportDeclaration",
-        "start": 0,
-        "end": 57,
+        "start": 57,
+        "end": 114,
         "loc": {
           "start": {
-            "line": 1,
+            "line": 2,
             "column": 0
           },
           "end": {
-            "line": 1,
+            "line": 2,
             "column": 57
           }
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " eslint-disable unicorn/consistent-function-scoping ",
+            "start": 0,
+            "end": 56,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 56
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 9,
-            "end": 15,
+            "start": 66,
+            "end": 72,
             "loc": {
               "start": {
-                "line": 1,
+                "line": 2,
                 "column": 9
               },
               "end": {
-                "line": 1,
+                "line": 2,
                 "column": 15
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 9,
-              "end": 15,
+              "start": 66,
+              "end": 72,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 2,
                   "column": 9
                 },
                 "end": {
-                  "line": 1,
+                  "line": 2,
                   "column": 15
                 },
                 "identifierName": "ensure"
@@ -79,15 +97,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 9,
-              "end": 15,
+              "start": 66,
+              "end": 72,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 2,
                   "column": 9
                 },
                 "end": {
-                  "line": 1,
+                  "line": 2,
                   "column": 15
                 },
                 "identifierName": "ensure"
@@ -97,29 +115,29 @@
           },
           {
             "type": "ImportSpecifier",
-            "start": 17,
-            "end": 26,
+            "start": 74,
+            "end": 83,
             "loc": {
               "start": {
-                "line": 1,
+                "line": 2,
                 "column": 17
               },
               "end": {
-                "line": 1,
+                "line": 2,
                 "column": 26
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 17,
-              "end": 26,
+              "start": 74,
+              "end": 83,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 2,
                   "column": 17
                 },
                 "end": {
-                  "line": 1,
+                  "line": 2,
                   "column": 26
                 },
                 "identifierName": "isDefined"
@@ -128,15 +146,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 17,
-              "end": 26,
+              "start": 74,
+              "end": 83,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 2,
                   "column": 17
                 },
                 "end": {
-                  "line": 1,
+                  "line": 2,
                   "column": 26
                 },
                 "identifierName": "isDefined"
@@ -146,29 +164,29 @@
           },
           {
             "type": "ImportSpecifier",
-            "start": 28,
-            "end": 36,
+            "start": 85,
+            "end": 93,
             "loc": {
               "start": {
-                "line": 1,
+                "line": 2,
                 "column": 28
               },
               "end": {
-                "line": 1,
+                "line": 2,
                 "column": 36
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 28,
-              "end": 36,
+              "start": 85,
+              "end": 93,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 2,
                   "column": 28
                 },
                 "end": {
-                  "line": 1,
+                  "line": 2,
                   "column": 36
                 },
                 "identifierName": "isString"
@@ -177,15 +195,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 28,
-              "end": 36,
+              "start": 85,
+              "end": 93,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 2,
                   "column": 28
                 },
                 "end": {
-                  "line": 1,
+                  "line": 2,
                   "column": 36
                 },
                 "identifierName": "isString"
@@ -196,15 +214,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 44,
-          "end": 56,
+          "start": 101,
+          "end": 113,
           "loc": {
             "start": {
-              "line": 1,
+              "line": 2,
               "column": 44
             },
             "end": {
-              "line": 1,
+              "line": 2,
               "column": 56
             }
           },
@@ -217,15 +235,15 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 58,
-        "end": 108,
+        "start": 116,
+        "end": 166,
         "loc": {
           "start": {
-            "line": 2,
+            "line": 4,
             "column": 0
           },
           "end": {
-            "line": 2,
+            "line": 4,
             "column": 50
           }
         },
@@ -233,29 +251,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 67,
-            "end": 83,
+            "start": 125,
+            "end": 141,
             "loc": {
               "start": {
-                "line": 2,
+                "line": 4,
                 "column": 9
               },
               "end": {
-                "line": 2,
+                "line": 4,
                 "column": 25
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 67,
-              "end": 83,
+              "start": 125,
+              "end": 141,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 2,
+                  "line": 4,
                   "column": 25
                 },
                 "identifierName": "AnswersQuestions"
@@ -264,15 +282,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 67,
-              "end": 83,
+              "start": 125,
+              "end": 141,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 2,
+                  "line": 4,
                   "column": 25
                 },
                 "identifierName": "AnswersQuestions"
@@ -283,15 +301,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 91,
-          "end": 107,
+          "start": 149,
+          "end": 165,
           "loc": {
             "start": {
-              "line": 2,
+              "line": 4,
               "column": 33
             },
             "end": {
-              "line": 2,
+              "line": 4,
               "column": 49
             }
           },
@@ -304,31 +322,31 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 109,
-        "end": 174,
+        "start": 167,
+        "end": 232,
         "loc": {
           "start": {
-            "line": 3,
+            "line": 5,
             "column": 0
           },
           "end": {
-            "line": 3,
+            "line": 5,
             "column": 65
           }
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 175,
-            "end": 260,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 233,
+            "end": 318,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 6,
                 "column": 0
               },
               "end": {
-                "line": 11,
+                "line": 13,
                 "column": 3
               }
             }
@@ -336,15 +354,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  Converts all the alphabetic characters in a string to lowercase.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase\n ",
-            "start": 263,
-            "end": 514,
+            "start": 321,
+            "end": 572,
             "loc": {
               "start": {
-                "line": 14,
+                "line": 16,
                 "column": 0
               },
               "end": {
-                "line": 21,
+                "line": 23,
                 "column": 3
               }
             }
@@ -354,29 +372,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 118,
-            "end": 139,
+            "start": 176,
+            "end": 197,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 5,
                 "column": 9
               },
               "end": {
-                "line": 3,
+                "line": 5,
                 "column": 30
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 118,
-              "end": 139,
+              "start": 176,
+              "end": 197,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 5,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 5,
                   "column": 30
                 },
                 "identifierName": "AnswerMappingFunction"
@@ -385,15 +403,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 118,
-              "end": 139,
+              "start": 176,
+              "end": 197,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 5,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 5,
                   "column": 30
                 },
                 "identifierName": "AnswerMappingFunction"
@@ -404,15 +422,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 147,
-          "end": 173,
+          "start": 205,
+          "end": 231,
           "loc": {
             "start": {
-              "line": 3,
+              "line": 5,
               "column": 38
             },
             "end": {
-              "line": 3,
+              "line": 5,
               "column": 64
             }
           },
@@ -425,31 +443,31 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 515,
-        "end": 763,
+        "start": 573,
+        "end": 821,
         "loc": {
           "start": {
-            "line": 22,
+            "line": 24,
             "column": 0
           },
           "end": {
-            "line": 27,
+            "line": 29,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 175,
-            "end": 260,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 233,
+            "end": 318,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 6,
                 "column": 0
               },
               "end": {
-                "line": 11,
+                "line": 13,
                 "column": 3
               }
             }
@@ -457,15 +475,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  Converts all the alphabetic characters in a string to lowercase.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase\n ",
-            "start": 263,
-            "end": 514,
+            "start": 321,
+            "end": 572,
             "loc": {
               "start": {
-                "line": 14,
+                "line": 16,
                 "column": 0
               },
               "end": {
-                "line": 21,
+                "line": 23,
                 "column": 3
               }
             }
@@ -476,29 +494,29 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 522,
-          "end": 763,
+          "start": 580,
+          "end": 821,
           "loc": {
             "start": {
-              "line": 22,
+              "line": 24,
               "column": 7
             },
             "end": {
-              "line": 27,
+              "line": 29,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 531,
-            "end": 542,
+            "start": 589,
+            "end": 600,
             "loc": {
               "start": {
-                "line": 22,
+                "line": 24,
                 "column": 16
               },
               "end": {
-                "line": 22,
+                "line": 24,
                 "column": 27
               },
               "identifierName": "toLowerCase"
@@ -510,43 +528,43 @@
           "params": [],
           "returnType": {
             "type": "TSTypeAnnotation",
-            "start": 544,
-            "end": 583,
+            "start": 602,
+            "end": 641,
             "loc": {
               "start": {
-                "line": 22,
+                "line": 24,
                 "column": 29
               },
               "end": {
-                "line": 22,
+                "line": 24,
                 "column": 68
               }
             },
             "typeAnnotation": {
               "type": "TSTypeReference",
-              "start": 546,
-              "end": 583,
+              "start": 604,
+              "end": 641,
               "loc": {
                 "start": {
-                  "line": 22,
+                  "line": 24,
                   "column": 31
                 },
                 "end": {
-                  "line": 22,
+                  "line": 24,
                   "column": 68
                 }
               },
               "typeName": {
                 "type": "Identifier",
-                "start": 546,
-                "end": 567,
+                "start": 604,
+                "end": 625,
                 "loc": {
                   "start": {
-                    "line": 22,
+                    "line": 24,
                     "column": 31
                   },
                   "end": {
-                    "line": 22,
+                    "line": 24,
                     "column": 52
                   },
                   "identifierName": "AnswerMappingFunction"
@@ -555,45 +573,45 @@
               },
               "typeParameters": {
                 "type": "TSTypeParameterInstantiation",
-                "start": 567,
-                "end": 583,
+                "start": 625,
+                "end": 641,
                 "loc": {
                   "start": {
-                    "line": 22,
+                    "line": 24,
                     "column": 52
                   },
                   "end": {
-                    "line": 22,
+                    "line": 24,
                     "column": 68
                   }
                 },
                 "params": [
                   {
                     "type": "TSStringKeyword",
-                    "start": 568,
-                    "end": 574,
+                    "start": 626,
+                    "end": 632,
                     "loc": {
                       "start": {
-                        "line": 22,
+                        "line": 24,
                         "column": 53
                       },
                       "end": {
-                        "line": 22,
+                        "line": 24,
                         "column": 59
                       }
                     }
                   },
                   {
                     "type": "TSStringKeyword",
-                    "start": 576,
-                    "end": 582,
+                    "start": 634,
+                    "end": 640,
                     "loc": {
                       "start": {
-                        "line": 22,
+                        "line": 24,
                         "column": 61
                       },
                       "end": {
-                        "line": 22,
+                        "line": 24,
                         "column": 67
                       }
                     }
@@ -604,44 +622,44 @@
           },
           "body": {
             "type": "BlockStatement",
-            "start": 584,
-            "end": 763,
+            "start": 642,
+            "end": 821,
             "loc": {
               "start": {
-                "line": 22,
+                "line": 24,
                 "column": 69
               },
               "end": {
-                "line": 27,
+                "line": 29,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 590,
-                "end": 761,
+                "start": 648,
+                "end": 819,
                 "loc": {
                   "start": {
-                    "line": 23,
+                    "line": 25,
                     "column": 4
                   },
                   "end": {
-                    "line": 26,
+                    "line": 28,
                     "column": 31
                   }
                 },
                 "argument": {
                   "type": "ArrowFunctionExpression",
-                  "start": 597,
-                  "end": 760,
+                  "start": 655,
+                  "end": 818,
                   "loc": {
                     "start": {
-                      "line": 23,
+                      "line": 25,
                       "column": 11
                     },
                     "end": {
-                      "line": 26,
+                      "line": 28,
                       "column": 30
                     }
                   },
@@ -651,15 +669,15 @@
                   "params": [
                     {
                       "type": "Identifier",
-                      "start": 598,
-                      "end": 621,
+                      "start": 656,
+                      "end": 679,
                       "loc": {
                         "start": {
-                          "line": 23,
+                          "line": 25,
                           "column": 12
                         },
                         "end": {
-                          "line": 23,
+                          "line": 25,
                           "column": 35
                         },
                         "identifierName": "actor"
@@ -667,43 +685,43 @@
                       "name": "actor",
                       "typeAnnotation": {
                         "type": "TSTypeAnnotation",
-                        "start": 603,
-                        "end": 621,
+                        "start": 661,
+                        "end": 679,
                         "loc": {
                           "start": {
-                            "line": 23,
+                            "line": 25,
                             "column": 17
                           },
                           "end": {
-                            "line": 23,
+                            "line": 25,
                             "column": 35
                           }
                         },
                         "typeAnnotation": {
                           "type": "TSTypeReference",
-                          "start": 605,
-                          "end": 621,
+                          "start": 663,
+                          "end": 679,
                           "loc": {
                             "start": {
-                              "line": 23,
+                              "line": 25,
                               "column": 19
                             },
                             "end": {
-                              "line": 23,
+                              "line": 25,
                               "column": 35
                             }
                           },
                           "typeName": {
                             "type": "Identifier",
-                            "start": 605,
-                            "end": 621,
+                            "start": 663,
+                            "end": 679,
                             "loc": {
                               "start": {
-                                "line": 23,
+                                "line": 25,
                                 "column": 19
                               },
                               "end": {
-                                "line": 23,
+                                "line": 25,
                                 "column": 35
                               },
                               "identifierName": "AnswersQuestions"
@@ -716,15 +734,15 @@
                   ],
                   "body": {
                     "type": "ArrowFunctionExpression",
-                    "start": 634,
-                    "end": 760,
+                    "start": 692,
+                    "end": 818,
                     "loc": {
                       "start": {
-                        "line": 24,
+                        "line": 26,
                         "column": 8
                       },
                       "end": {
-                        "line": 26,
+                        "line": 28,
                         "column": 30
                       }
                     },
@@ -734,15 +752,15 @@
                     "params": [
                       {
                         "type": "Identifier",
-                        "start": 635,
-                        "end": 648,
+                        "start": 693,
+                        "end": 706,
                         "loc": {
                           "start": {
-                            "line": 24,
+                            "line": 26,
                             "column": 9
                           },
                           "end": {
-                            "line": 24,
+                            "line": 26,
                             "column": 22
                           },
                           "identifierName": "value"
@@ -750,29 +768,29 @@
                         "name": "value",
                         "typeAnnotation": {
                           "type": "TSTypeAnnotation",
-                          "start": 640,
-                          "end": 648,
+                          "start": 698,
+                          "end": 706,
                           "loc": {
                             "start": {
-                              "line": 24,
+                              "line": 26,
                               "column": 14
                             },
                             "end": {
-                              "line": 24,
+                              "line": 26,
                               "column": 22
                             }
                           },
                           "typeAnnotation": {
                             "type": "TSStringKeyword",
-                            "start": 642,
-                            "end": 648,
+                            "start": 700,
+                            "end": 706,
                             "loc": {
                               "start": {
-                                "line": 24,
+                                "line": 26,
                                 "column": 16
                               },
                               "end": {
-                                "line": 24,
+                                "line": 26,
                                 "column": 22
                               }
                             }
@@ -782,57 +800,57 @@
                     ],
                     "body": {
                       "type": "CallExpression",
-                      "start": 665,
-                      "end": 760,
+                      "start": 723,
+                      "end": 818,
                       "loc": {
                         "start": {
-                          "line": 25,
+                          "line": 27,
                           "column": 12
                         },
                         "end": {
-                          "line": 26,
+                          "line": 28,
                           "column": 30
                         }
                       },
                       "callee": {
                         "type": "MemberExpression",
-                        "start": 665,
-                        "end": 758,
+                        "start": 723,
+                        "end": 816,
                         "loc": {
                           "start": {
-                            "line": 25,
+                            "line": 27,
                             "column": 12
                           },
                           "end": {
-                            "line": 26,
+                            "line": 28,
                             "column": 28
                           }
                         },
                         "object": {
                           "type": "CallExpression",
-                          "start": 665,
-                          "end": 729,
+                          "start": 723,
+                          "end": 787,
                           "loc": {
                             "start": {
-                              "line": 25,
+                              "line": 27,
                               "column": 12
                             },
                             "end": {
-                              "line": 25,
+                              "line": 27,
                               "column": 76
                             }
                           },
                           "callee": {
                             "type": "Identifier",
-                            "start": 665,
-                            "end": 671,
+                            "start": 723,
+                            "end": 729,
                             "loc": {
                               "start": {
-                                "line": 25,
+                                "line": 27,
                                 "column": 12
                               },
                               "end": {
-                                "line": 25,
+                                "line": 27,
                                 "column": 18
                               },
                               "identifierName": "ensure"
@@ -842,15 +860,15 @@
                           "arguments": [
                             {
                               "type": "StringLiteral",
-                              "start": 672,
-                              "end": 696,
+                              "start": 730,
+                              "end": 754,
                               "loc": {
                                 "start": {
-                                  "line": 25,
+                                  "line": 27,
                                   "column": 19
                                 },
                                 "end": {
-                                  "line": 25,
+                                  "line": 27,
                                   "column": 43
                                 }
                               },
@@ -862,15 +880,15 @@
                             },
                             {
                               "type": "Identifier",
-                              "start": 698,
-                              "end": 703,
+                              "start": 756,
+                              "end": 761,
                               "loc": {
                                 "start": {
-                                  "line": 25,
+                                  "line": 27,
                                   "column": 45
                                 },
                                 "end": {
-                                  "line": 25,
+                                  "line": 27,
                                   "column": 50
                                 },
                                 "identifierName": "value"
@@ -879,29 +897,29 @@
                             },
                             {
                               "type": "CallExpression",
-                              "start": 705,
-                              "end": 716,
+                              "start": 763,
+                              "end": 774,
                               "loc": {
                                 "start": {
-                                  "line": 25,
+                                  "line": 27,
                                   "column": 52
                                 },
                                 "end": {
-                                  "line": 25,
+                                  "line": 27,
                                   "column": 63
                                 }
                               },
                               "callee": {
                                 "type": "Identifier",
-                                "start": 705,
-                                "end": 714,
+                                "start": 763,
+                                "end": 772,
                                 "loc": {
                                   "start": {
-                                    "line": 25,
+                                    "line": 27,
                                     "column": 52
                                   },
                                   "end": {
-                                    "line": 25,
+                                    "line": 27,
                                     "column": 61
                                   },
                                   "identifierName": "isDefined"
@@ -912,29 +930,29 @@
                             },
                             {
                               "type": "CallExpression",
-                              "start": 718,
-                              "end": 728,
+                              "start": 776,
+                              "end": 786,
                               "loc": {
                                 "start": {
-                                  "line": 25,
+                                  "line": 27,
                                   "column": 65
                                 },
                                 "end": {
-                                  "line": 25,
+                                  "line": 27,
                                   "column": 75
                                 }
                               },
                               "callee": {
                                 "type": "Identifier",
-                                "start": 718,
-                                "end": 726,
+                                "start": 776,
+                                "end": 784,
                                 "loc": {
                                   "start": {
-                                    "line": 25,
+                                    "line": 27,
                                     "column": 65
                                   },
                                   "end": {
-                                    "line": 25,
+                                    "line": 27,
                                     "column": 73
                                   },
                                   "identifierName": "isString"
@@ -948,15 +966,15 @@
                         "computed": false,
                         "property": {
                           "type": "Identifier",
-                          "start": 747,
-                          "end": 758,
+                          "start": 805,
+                          "end": 816,
                           "loc": {
                             "start": {
-                              "line": 26,
+                              "line": 28,
                               "column": 17
                             },
                             "end": {
-                              "line": 26,
+                              "line": 28,
                               "column": 28
                             },
                             "identifierName": "toLowerCase"
@@ -975,16 +993,16 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @return \n * {AnswerMappingFunction} \n ",
-              "start": 175,
-              "end": 260,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {AnswerMappingFunction} \n ",
+              "start": 233,
+              "end": 318,
               "loc": {
                 "start": {
-                  "line": 4,
+                  "line": 6,
                   "column": 0
                 },
                 "end": {
-                  "line": 11,
+                  "line": 13,
                   "column": 3
                 }
               }
@@ -992,15 +1010,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc\n *  Converts all the alphabetic characters in a string to lowercase.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase\n ",
-              "start": 263,
-              "end": 514,
+              "start": 321,
+              "end": 572,
               "loc": {
                 "start": {
-                  "line": 14,
+                  "line": 16,
                   "column": 0
                 },
                 "end": {
-                  "line": 21,
+                  "line": 23,
                   "column": 3
                 }
               }
@@ -1015,16 +1033,32 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @return \n * {AnswerMappingFunction} \n ",
-      "start": 175,
-      "end": 260,
+      "value": " eslint-disable unicorn/consistent-function-scoping ",
+      "start": 0,
+      "end": 56,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 1,
           "column": 0
         },
         "end": {
-          "line": 11,
+          "line": 1,
+          "column": 56
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {AnswerMappingFunction} \n ",
+      "start": 233,
+      "end": 318,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 0
+        },
+        "end": {
+          "line": 13,
           "column": 3
         }
       }
@@ -1032,15 +1066,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc\n *  Converts all the alphabetic characters in a string to lowercase.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase\n ",
-      "start": 263,
-      "end": 514,
+      "start": 321,
+      "end": 572,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 16,
           "column": 0
         },
         "end": {
-          "line": 21,
+          "line": 23,
           "column": 3
         }
       }

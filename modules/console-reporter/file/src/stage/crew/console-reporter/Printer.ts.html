@@ -161,7 +161,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">println</span>(<span class="hljs-params">...args: <span class="hljs-built_in">any</span>[]</span>)</span> {
+    println(...args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.print(...args, <span class="hljs-string">'\n'</span>);
     }
 
@@ -174,7 +174,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">print</span>(<span class="hljs-params">...args: <span class="hljs-built_in">any</span>[]</span>)</span> {
+    print(...args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.stdout.write(
             <span class="hljs-built_in">this</span>.indentation.indented(<span class="hljs-string">`<span class="hljs-subst">${ args.map(<span class="hljs-built_in">String</span>).join(<span class="hljs-string">''</span>) }</span>`</span>),
         );
@@ -186,7 +186,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">indent</span>(<span class="hljs-params"></span>)</span> {
+    indent(): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.indentation.increase();
     }
 
@@ -196,7 +196,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">outdent</span>(<span class="hljs-params"></span>)</span> {
+    outdent(): <span class="hljs-built_in">void</span> {
         <span class="hljs-built_in">this</span>.indentation.decrease();
     }
 }
@@ -223,7 +223,10 @@
     <span class="hljs-function"><span class="hljs-title">indented</span>(<span class="hljs-params">...fragments: <span class="hljs-built_in">string</span>[]</span>)</span> {
         <span class="hljs-keyword">return</span> fragments.join(<span class="hljs-string">''</span>)
             .split(<span class="hljs-string">'\n'</span>)
-            .map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> !! line ? <span class="hljs-string">' '</span>.repeat(<span class="hljs-built_in">this</span>.current) + line : <span class="hljs-string">''</span>)
+            .map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line
+                ? <span class="hljs-string">' '</span>.repeat(<span class="hljs-built_in">this</span>.current) + line
+                : <span class="hljs-string">''</span>
+            )
             .join(<span class="hljs-string">'\n'</span>);
     }
 }

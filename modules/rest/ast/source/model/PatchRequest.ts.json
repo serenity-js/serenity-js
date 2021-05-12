@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 3135,
+  "end": 3136,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 124,
+      "line": 125,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 3135,
+    "end": 3136,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 124,
+        "line": 125,
         "column": 0
       }
     },
@@ -206,31 +206,31 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 92,
-        "end": 136,
+        "start": 93,
+        "end": 137,
         "loc": {
           "start": {
-            "line": 3,
+            "line": 4,
             "column": 0
           },
           "end": {
-            "line": 3,
+            "line": 4,
             "column": 44
           }
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
-            "start": 137,
-            "end": 182,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n ",
+            "start": 138,
+            "end": 183,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 5,
                 "column": 0
               },
               "end": {
-                "line": 9,
+                "line": 10,
                 "column": 3
               }
             }
@@ -238,15 +238,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  The PATCH method requests that a set of changes described in the\n *  request entity be applied to the resource identified by the `resourceUri`.\n *\n * @example <caption>Add new resource to a collection</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, LastResponse, PatchRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(PatchRequest.to('/books/0-688-00230-7').with({\n *          lastReadOn: '2016-06-16',\n *      })),\n *      Ensure.that(LastResponse.status(), equals(204)),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH\n * @see https://tools.ietf.org/html/rfc5789\n *\n * @extends {HTTPRequest}\n ",
-            "start": 185,
-            "end": 1049,
+            "start": 186,
+            "end": 1050,
             "loc": {
               "start": {
-                "line": 12,
+                "line": 13,
                 "column": 0
               },
               "end": {
-                "line": 35,
+                "line": 36,
                 "column": 3
               }
             }
@@ -256,29 +256,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 101,
-            "end": 112,
+            "start": 102,
+            "end": 113,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 4,
                 "column": 9
               },
               "end": {
-                "line": 3,
+                "line": 4,
                 "column": 20
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 101,
-              "end": 112,
+              "start": 102,
+              "end": 113,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 4,
                   "column": 20
                 },
                 "identifierName": "HTTPRequest"
@@ -287,15 +287,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 101,
-              "end": 112,
+              "start": 102,
+              "end": 113,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 4,
                   "column": 20
                 },
                 "identifierName": "HTTPRequest"
@@ -306,15 +306,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 120,
-          "end": 135,
+          "start": 121,
+          "end": 136,
           "loc": {
             "start": {
-              "line": 3,
+              "line": 4,
               "column": 28
             },
             "end": {
-              "line": 3,
+              "line": 4,
               "column": 43
             }
           },
@@ -327,31 +327,31 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 1050,
-        "end": 3134,
+        "start": 1051,
+        "end": 3135,
         "loc": {
           "start": {
-            "line": 36,
+            "line": 37,
             "column": 0
           },
           "end": {
-            "line": 123,
+            "line": 124,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
-            "start": 137,
-            "end": 182,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n ",
+            "start": 138,
+            "end": 183,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 5,
                 "column": 0
               },
               "end": {
-                "line": 9,
+                "line": 10,
                 "column": 3
               }
             }
@@ -359,15 +359,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  The PATCH method requests that a set of changes described in the\n *  request entity be applied to the resource identified by the `resourceUri`.\n *\n * @example <caption>Add new resource to a collection</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, LastResponse, PatchRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(PatchRequest.to('/books/0-688-00230-7').with({\n *          lastReadOn: '2016-06-16',\n *      })),\n *      Ensure.that(LastResponse.status(), equals(204)),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH\n * @see https://tools.ietf.org/html/rfc5789\n *\n * @extends {HTTPRequest}\n ",
-            "start": 185,
-            "end": 1049,
+            "start": 186,
+            "end": 1050,
             "loc": {
               "start": {
-                "line": 12,
+                "line": 13,
                 "column": 0
               },
               "end": {
-                "line": 35,
+                "line": 36,
                 "column": 3
               }
             }
@@ -378,29 +378,29 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 1057,
-          "end": 3134,
+          "start": 1058,
+          "end": 3135,
           "loc": {
             "start": {
-              "line": 36,
+              "line": 37,
               "column": 7
             },
             "end": {
-              "line": 123,
+              "line": 124,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 1063,
-            "end": 1075,
+            "start": 1064,
+            "end": 1076,
             "loc": {
               "start": {
-                "line": 36,
+                "line": 37,
                 "column": 13
               },
               "end": {
-                "line": 36,
+                "line": 37,
                 "column": 25
               },
               "identifierName": "PatchRequest"
@@ -409,15 +409,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 1084,
-            "end": 1095,
+            "start": 1085,
+            "end": 1096,
             "loc": {
               "start": {
-                "line": 36,
+                "line": 37,
                 "column": 34
               },
               "end": {
-                "line": 36,
+                "line": 37,
                 "column": 45
               },
               "identifierName": "HTTPRequest"
@@ -426,46 +426,46 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 1096,
-            "end": 3134,
+            "start": 1097,
+            "end": 3135,
             "loc": {
               "start": {
-                "line": 36,
+                "line": 37,
                 "column": 46
               },
               "end": {
-                "line": 123,
+                "line": 124,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 1874,
-                "end": 1984,
+                "start": 1875,
+                "end": 1985,
                 "loc": {
                   "start": {
-                    "line": 67,
+                    "line": 68,
                     "column": 4
                   },
                   "end": {
-                    "line": 69,
+                    "line": 70,
                     "column": 5
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n * @param \n * {Answerable} resourceUri \n * @return \n * {PatchRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1098,
-                    "end": 1258,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 46 \n * @param \n * {Answerable} resourceUri \n * @return \n * {PatchRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1099,
+                    "end": 1259,
                     "loc": {
                       "start": {
-                        "line": 37,
+                        "line": 38,
                         "column": 0
                       },
                       "end": {
-                        "line": 50,
+                        "line": 51,
                         "column": 3
                       }
                     }
@@ -473,15 +473,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {PatchRequest}\n     ",
-                    "start": 1265,
-                    "end": 1869,
+                    "start": 1266,
+                    "end": 1870,
                     "loc": {
                       "start": {
-                        "line": 53,
+                        "line": 54,
                         "column": 4
                       },
                       "end": {
-                        "line": 66,
+                        "line": 67,
                         "column": 7
                       }
                     }
@@ -490,16 +490,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 58 \n * @param \n * {Answerable} data \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 1985,
-                    "end": 2116,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 59 \n * @param \n * {Answerable} data \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 1986,
+                    "end": 2117,
                     "loc": {
                       "start": {
-                        "line": 70,
+                        "line": 71,
                         "column": 0
                       },
                       "end": {
-                        "line": 81,
+                        "line": 82,
                         "column": 3
                       }
                     }
@@ -507,15 +507,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Configures the object with a request body.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} data\n     *  Data to be sent to the `resourceUri`\n     *\n     * @returns {PatchRequest}\n     ",
-                    "start": 2123,
-                    "end": 2358,
+                    "start": 2124,
+                    "end": 2359,
                     "loc": {
                       "start": {
-                        "line": 84,
+                        "line": 85,
                         "column": 4
                       },
                       "end": {
-                        "line": 92,
+                        "line": 93,
                         "column": 7
                       }
                     }
@@ -524,15 +524,15 @@
                 "static": true,
                 "key": {
                   "type": "Identifier",
-                  "start": 1881,
-                  "end": 1883,
+                  "start": 1882,
+                  "end": 1884,
                   "loc": {
                     "start": {
-                      "line": 67,
+                      "line": 68,
                       "column": 11
                     },
                     "end": {
-                      "line": 67,
+                      "line": 68,
                       "column": 13
                     },
                     "identifierName": "to"
@@ -547,15 +547,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 1884,
-                    "end": 1915,
+                    "start": 1885,
+                    "end": 1916,
                     "loc": {
                       "start": {
-                        "line": 67,
+                        "line": 68,
                         "column": 14
                       },
                       "end": {
-                        "line": 67,
+                        "line": 68,
                         "column": 45
                       },
                       "identifierName": "resourceUri"
@@ -563,43 +563,43 @@
                     "name": "resourceUri",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 1895,
-                      "end": 1915,
+                      "start": 1896,
+                      "end": 1916,
                       "loc": {
                         "start": {
-                          "line": 67,
+                          "line": 68,
                           "column": 25
                         },
                         "end": {
-                          "line": 67,
+                          "line": 68,
                           "column": 45
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 1897,
-                        "end": 1915,
+                        "start": 1898,
+                        "end": 1916,
                         "loc": {
                           "start": {
-                            "line": 67,
+                            "line": 68,
                             "column": 27
                           },
                           "end": {
-                            "line": 67,
+                            "line": 68,
                             "column": 45
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 1897,
-                          "end": 1907,
+                          "start": 1898,
+                          "end": 1908,
                           "loc": {
                             "start": {
-                              "line": 67,
+                              "line": 68,
                               "column": 27
                             },
                             "end": {
-                              "line": 67,
+                              "line": 68,
                               "column": 37
                             },
                             "identifierName": "Answerable"
@@ -608,30 +608,30 @@
                         },
                         "typeParameters": {
                           "type": "TSTypeParameterInstantiation",
-                          "start": 1907,
-                          "end": 1915,
+                          "start": 1908,
+                          "end": 1916,
                           "loc": {
                             "start": {
-                              "line": 67,
+                              "line": 68,
                               "column": 37
                             },
                             "end": {
-                              "line": 67,
+                              "line": 68,
                               "column": 45
                             }
                           },
                           "params": [
                             {
                               "type": "TSStringKeyword",
-                              "start": 1908,
-                              "end": 1914,
+                              "start": 1909,
+                              "end": 1915,
                               "loc": {
                                 "start": {
-                                  "line": 67,
+                                  "line": 68,
                                   "column": 38
                                 },
                                 "end": {
-                                  "line": 67,
+                                  "line": 68,
                                   "column": 44
                                 }
                               }
@@ -644,43 +644,43 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 1916,
-                  "end": 1930,
+                  "start": 1917,
+                  "end": 1931,
                   "loc": {
                     "start": {
-                      "line": 67,
+                      "line": 68,
                       "column": 46
                     },
                     "end": {
-                      "line": 67,
+                      "line": 68,
                       "column": 60
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 1918,
-                    "end": 1930,
+                    "start": 1919,
+                    "end": 1931,
                     "loc": {
                       "start": {
-                        "line": 67,
+                        "line": 68,
                         "column": 48
                       },
                       "end": {
-                        "line": 67,
+                        "line": 68,
                         "column": 60
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 1918,
-                      "end": 1930,
+                      "start": 1919,
+                      "end": 1931,
                       "loc": {
                         "start": {
-                          "line": 67,
+                          "line": 68,
                           "column": 48
                         },
                         "end": {
-                          "line": 67,
+                          "line": 68,
                           "column": 60
                         },
                         "identifierName": "PatchRequest"
@@ -691,58 +691,58 @@
                 },
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1931,
-                  "end": 1984,
+                  "start": 1932,
+                  "end": 1985,
                   "loc": {
                     "start": {
-                      "line": 67,
+                      "line": 68,
                       "column": 61
                     },
                     "end": {
-                      "line": 69,
+                      "line": 70,
                       "column": 5
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 1941,
-                      "end": 1978,
+                      "start": 1942,
+                      "end": 1979,
                       "loc": {
                         "start": {
-                          "line": 68,
+                          "line": 69,
                           "column": 8
                         },
                         "end": {
-                          "line": 68,
+                          "line": 69,
                           "column": 45
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 1948,
-                        "end": 1977,
+                        "start": 1949,
+                        "end": 1978,
                         "loc": {
                           "start": {
-                            "line": 68,
+                            "line": 69,
                             "column": 15
                           },
                           "end": {
-                            "line": 68,
+                            "line": 69,
                             "column": 44
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 1952,
-                          "end": 1964,
+                          "start": 1953,
+                          "end": 1965,
                           "loc": {
                             "start": {
-                              "line": 68,
+                              "line": 69,
                               "column": 19
                             },
                             "end": {
-                              "line": 68,
+                              "line": 69,
                               "column": 31
                             },
                             "identifierName": "PatchRequest"
@@ -752,15 +752,15 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 1965,
-                            "end": 1976,
+                            "start": 1966,
+                            "end": 1977,
                             "loc": {
                               "start": {
-                                "line": 68,
+                                "line": 69,
                                 "column": 32
                               },
                               "end": {
-                                "line": 68,
+                                "line": 69,
                                 "column": 43
                               },
                               "identifierName": "resourceUri"
@@ -776,31 +776,31 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 2363,
-                "end": 2482,
+                "start": 2364,
+                "end": 2483,
                 "loc": {
                   "start": {
-                    "line": 93,
+                    "line": 94,
                     "column": 4
                   },
                   "end": {
-                    "line": 95,
+                    "line": 96,
                     "column": 5
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 58 \n * @param \n * {Answerable} data \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 1985,
-                    "end": 2116,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 59 \n * @param \n * {Answerable} data \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 1986,
+                    "end": 2117,
                     "loc": {
                       "start": {
-                        "line": 70,
+                        "line": 71,
                         "column": 0
                       },
                       "end": {
-                        "line": 81,
+                        "line": 82,
                         "column": 3
                       }
                     }
@@ -808,15 +808,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Configures the object with a request body.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} data\n     *  Data to be sent to the `resourceUri`\n     *\n     * @returns {PatchRequest}\n     ",
-                    "start": 2123,
-                    "end": 2358,
+                    "start": 2124,
+                    "end": 2359,
                     "loc": {
                       "start": {
-                        "line": 84,
+                        "line": 85,
                         "column": 4
                       },
                       "end": {
-                        "line": 92,
+                        "line": 93,
                         "column": 7
                       }
                     }
@@ -825,16 +825,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 72 \n * @param \n * {Answerable} config \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 2483,
-                    "end": 2616,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {Answerable} config \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 2484,
+                    "end": 2617,
                     "loc": {
                       "start": {
-                        "line": 96,
+                        "line": 97,
                         "column": 0
                       },
                       "end": {
-                        "line": 107,
+                        "line": 108,
                         "column": 3
                       }
                     }
@@ -842,15 +842,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {PatchRequest}\n     ",
-                    "start": 2623,
-                    "end": 2990,
+                    "start": 2624,
+                    "end": 2991,
                     "loc": {
                       "start": {
-                        "line": 110,
+                        "line": 111,
                         "column": 4
                       },
                       "end": {
-                        "line": 119,
+                        "line": 120,
                         "column": 7
                       }
                     }
@@ -859,15 +859,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2363,
-                  "end": 2367,
+                  "start": 2364,
+                  "end": 2368,
                   "loc": {
                     "start": {
-                      "line": 93,
+                      "line": 94,
                       "column": 4
                     },
                     "end": {
-                      "line": 93,
+                      "line": 94,
                       "column": 8
                     },
                     "identifierName": "with"
@@ -882,15 +882,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 2368,
-                    "end": 2389,
+                    "start": 2369,
+                    "end": 2390,
                     "loc": {
                       "start": {
-                        "line": 93,
+                        "line": 94,
                         "column": 9
                       },
                       "end": {
-                        "line": 93,
+                        "line": 94,
                         "column": 30
                       },
                       "identifierName": "data"
@@ -898,43 +898,43 @@
                     "name": "data",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 2372,
-                      "end": 2389,
+                      "start": 2373,
+                      "end": 2390,
                       "loc": {
                         "start": {
-                          "line": 93,
+                          "line": 94,
                           "column": 13
                         },
                         "end": {
-                          "line": 93,
+                          "line": 94,
                           "column": 30
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 2374,
-                        "end": 2389,
+                        "start": 2375,
+                        "end": 2390,
                         "loc": {
                           "start": {
-                            "line": 93,
+                            "line": 94,
                             "column": 15
                           },
                           "end": {
-                            "line": 93,
+                            "line": 94,
                             "column": 30
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 2374,
-                          "end": 2384,
+                          "start": 2375,
+                          "end": 2385,
                           "loc": {
                             "start": {
-                              "line": 93,
+                              "line": 94,
                               "column": 15
                             },
                             "end": {
-                              "line": 93,
+                              "line": 94,
                               "column": 25
                             },
                             "identifierName": "Answerable"
@@ -943,30 +943,30 @@
                         },
                         "typeParameters": {
                           "type": "TSTypeParameterInstantiation",
-                          "start": 2384,
-                          "end": 2389,
+                          "start": 2385,
+                          "end": 2390,
                           "loc": {
                             "start": {
-                              "line": 93,
+                              "line": 94,
                               "column": 25
                             },
                             "end": {
-                              "line": 93,
+                              "line": 94,
                               "column": 30
                             }
                           },
                           "params": [
                             {
                               "type": "TSAnyKeyword",
-                              "start": 2385,
-                              "end": 2388,
+                              "start": 2386,
+                              "end": 2389,
                               "loc": {
                                 "start": {
-                                  "line": 93,
+                                  "line": 94,
                                   "column": 26
                                 },
                                 "end": {
-                                  "line": 93,
+                                  "line": 94,
                                   "column": 29
                                 }
                               }
@@ -979,43 +979,43 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 2390,
-                  "end": 2404,
+                  "start": 2391,
+                  "end": 2405,
                   "loc": {
                     "start": {
-                      "line": 93,
+                      "line": 94,
                       "column": 31
                     },
                     "end": {
-                      "line": 93,
+                      "line": 94,
                       "column": 45
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 2392,
-                    "end": 2404,
+                    "start": 2393,
+                    "end": 2405,
                     "loc": {
                       "start": {
-                        "line": 93,
+                        "line": 94,
                         "column": 33
                       },
                       "end": {
-                        "line": 93,
+                        "line": 94,
                         "column": 45
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 2392,
-                      "end": 2404,
+                      "start": 2393,
+                      "end": 2405,
                       "loc": {
                         "start": {
-                          "line": 93,
+                          "line": 94,
                           "column": 33
                         },
                         "end": {
-                          "line": 93,
+                          "line": 94,
                           "column": 45
                         },
                         "identifierName": "PatchRequest"
@@ -1026,58 +1026,58 @@
                 },
                 "body": {
                   "type": "BlockStatement",
-                  "start": 2405,
-                  "end": 2482,
+                  "start": 2406,
+                  "end": 2483,
                   "loc": {
                     "start": {
-                      "line": 93,
+                      "line": 94,
                       "column": 46
                     },
                     "end": {
-                      "line": 95,
+                      "line": 96,
                       "column": 5
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 2415,
-                      "end": 2476,
+                      "start": 2416,
+                      "end": 2477,
                       "loc": {
                         "start": {
-                          "line": 94,
+                          "line": 95,
                           "column": 8
                         },
                         "end": {
-                          "line": 94,
+                          "line": 95,
                           "column": 69
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 2422,
-                        "end": 2475,
+                        "start": 2423,
+                        "end": 2476,
                         "loc": {
                           "start": {
-                            "line": 94,
+                            "line": 95,
                             "column": 15
                           },
                           "end": {
-                            "line": 94,
+                            "line": 95,
                             "column": 68
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 2426,
-                          "end": 2438,
+                          "start": 2427,
+                          "end": 2439,
                           "loc": {
                             "start": {
-                              "line": 94,
+                              "line": 95,
                               "column": 19
                             },
                             "end": {
-                              "line": 94,
+                              "line": 95,
                               "column": 31
                             },
                             "identifierName": "PatchRequest"
@@ -1087,29 +1087,29 @@
                         "arguments": [
                           {
                             "type": "MemberExpression",
-                            "start": 2439,
-                            "end": 2455,
+                            "start": 2440,
+                            "end": 2456,
                             "loc": {
                               "start": {
-                                "line": 94,
+                                "line": 95,
                                 "column": 32
                               },
                               "end": {
-                                "line": 94,
+                                "line": 95,
                                 "column": 48
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 2439,
-                              "end": 2443,
+                              "start": 2440,
+                              "end": 2444,
                               "loc": {
                                 "start": {
-                                  "line": 94,
+                                  "line": 95,
                                   "column": 32
                                 },
                                 "end": {
-                                  "line": 94,
+                                  "line": 95,
                                   "column": 36
                                 }
                               }
@@ -1117,15 +1117,15 @@
                             "computed": false,
                             "property": {
                               "type": "Identifier",
-                              "start": 2444,
-                              "end": 2455,
+                              "start": 2445,
+                              "end": 2456,
                               "loc": {
                                 "start": {
-                                  "line": 94,
+                                  "line": 95,
                                   "column": 37
                                 },
                                 "end": {
-                                  "line": 94,
+                                  "line": 95,
                                   "column": 48
                                 },
                                 "identifierName": "resourceUri"
@@ -1135,15 +1135,15 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 2457,
-                            "end": 2461,
+                            "start": 2458,
+                            "end": 2462,
                             "loc": {
                               "start": {
-                                "line": 94,
+                                "line": 95,
                                 "column": 50
                               },
                               "end": {
-                                "line": 94,
+                                "line": 95,
                                 "column": 54
                               },
                               "identifierName": "data"
@@ -1152,29 +1152,29 @@
                           },
                           {
                             "type": "MemberExpression",
-                            "start": 2463,
-                            "end": 2474,
+                            "start": 2464,
+                            "end": 2475,
                             "loc": {
                               "start": {
-                                "line": 94,
+                                "line": 95,
                                 "column": 56
                               },
                               "end": {
-                                "line": 94,
+                                "line": 95,
                                 "column": 67
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 2463,
-                              "end": 2467,
+                              "start": 2464,
+                              "end": 2468,
                               "loc": {
                                 "start": {
-                                  "line": 94,
+                                  "line": 95,
                                   "column": 56
                                 },
                                 "end": {
-                                  "line": 94,
+                                  "line": 95,
                                   "column": 60
                                 }
                               }
@@ -1182,15 +1182,15 @@
                             "computed": false,
                             "property": {
                               "type": "Identifier",
-                              "start": 2468,
-                              "end": 2474,
+                              "start": 2469,
+                              "end": 2475,
                               "loc": {
                                 "start": {
-                                  "line": 94,
+                                  "line": 95,
                                   "column": 61
                                 },
                                 "end": {
-                                  "line": 94,
+                                  "line": 95,
                                   "column": 67
                                 },
                                 "identifierName": "config"
@@ -1207,31 +1207,31 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 2995,
-                "end": 3132,
+                "start": 2996,
+                "end": 3133,
                 "loc": {
                   "start": {
-                    "line": 120,
+                    "line": 121,
                     "column": 4
                   },
                   "end": {
-                    "line": 122,
+                    "line": 123,
                     "column": 5
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 72 \n * @param \n * {Answerable} config \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 2483,
-                    "end": 2616,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {Answerable} config \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 2484,
+                    "end": 2617,
                     "loc": {
                       "start": {
-                        "line": 96,
+                        "line": 97,
                         "column": 0
                       },
                       "end": {
-                        "line": 107,
+                        "line": 108,
                         "column": 3
                       }
                     }
@@ -1239,15 +1239,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {PatchRequest}\n     ",
-                    "start": 2623,
-                    "end": 2990,
+                    "start": 2624,
+                    "end": 2991,
                     "loc": {
                       "start": {
-                        "line": 110,
+                        "line": 111,
                         "column": 4
                       },
                       "end": {
-                        "line": 119,
+                        "line": 120,
                         "column": 7
                       }
                     }
@@ -1256,15 +1256,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2995,
-                  "end": 3000,
+                  "start": 2996,
+                  "end": 3001,
                   "loc": {
                     "start": {
-                      "line": 120,
+                      "line": 121,
                       "column": 4
                     },
                     "end": {
-                      "line": 120,
+                      "line": 121,
                       "column": 9
                     },
                     "identifierName": "using"
@@ -1279,15 +1279,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 3001,
-                    "end": 3039,
+                    "start": 3002,
+                    "end": 3040,
                     "loc": {
                       "start": {
-                        "line": 120,
+                        "line": 121,
                         "column": 10
                       },
                       "end": {
-                        "line": 120,
+                        "line": 121,
                         "column": 48
                       },
                       "identifierName": "config"
@@ -1295,43 +1295,43 @@
                     "name": "config",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 3007,
-                      "end": 3039,
+                      "start": 3008,
+                      "end": 3040,
                       "loc": {
                         "start": {
-                          "line": 120,
+                          "line": 121,
                           "column": 16
                         },
                         "end": {
-                          "line": 120,
+                          "line": 121,
                           "column": 48
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 3009,
-                        "end": 3039,
+                        "start": 3010,
+                        "end": 3040,
                         "loc": {
                           "start": {
-                            "line": 120,
+                            "line": 121,
                             "column": 18
                           },
                           "end": {
-                            "line": 120,
+                            "line": 121,
                             "column": 48
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 3009,
-                          "end": 3019,
+                          "start": 3010,
+                          "end": 3020,
                           "loc": {
                             "start": {
-                              "line": 120,
+                              "line": 121,
                               "column": 18
                             },
                             "end": {
-                              "line": 120,
+                              "line": 121,
                               "column": 28
                             },
                             "identifierName": "Answerable"
@@ -1340,44 +1340,44 @@
                         },
                         "typeParameters": {
                           "type": "TSTypeParameterInstantiation",
-                          "start": 3019,
-                          "end": 3039,
+                          "start": 3020,
+                          "end": 3040,
                           "loc": {
                             "start": {
-                              "line": 120,
+                              "line": 121,
                               "column": 28
                             },
                             "end": {
-                              "line": 120,
+                              "line": 121,
                               "column": 48
                             }
                           },
                           "params": [
                             {
                               "type": "TSTypeReference",
-                              "start": 3020,
-                              "end": 3038,
+                              "start": 3021,
+                              "end": 3039,
                               "loc": {
                                 "start": {
-                                  "line": 120,
+                                  "line": 121,
                                   "column": 29
                                 },
                                 "end": {
-                                  "line": 120,
+                                  "line": 121,
                                   "column": 47
                                 }
                               },
                               "typeName": {
                                 "type": "Identifier",
-                                "start": 3020,
-                                "end": 3038,
+                                "start": 3021,
+                                "end": 3039,
                                 "loc": {
                                   "start": {
-                                    "line": 120,
+                                    "line": 121,
                                     "column": 29
                                   },
                                   "end": {
-                                    "line": 120,
+                                    "line": 121,
                                     "column": 47
                                   },
                                   "identifierName": "AxiosRequestConfig"
@@ -1393,43 +1393,43 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 3040,
-                  "end": 3054,
+                  "start": 3041,
+                  "end": 3055,
                   "loc": {
                     "start": {
-                      "line": 120,
+                      "line": 121,
                       "column": 49
                     },
                     "end": {
-                      "line": 120,
+                      "line": 121,
                       "column": 63
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSTypeReference",
-                    "start": 3042,
-                    "end": 3054,
+                    "start": 3043,
+                    "end": 3055,
                     "loc": {
                       "start": {
-                        "line": 120,
+                        "line": 121,
                         "column": 51
                       },
                       "end": {
-                        "line": 120,
+                        "line": 121,
                         "column": 63
                       }
                     },
                     "typeName": {
                       "type": "Identifier",
-                      "start": 3042,
-                      "end": 3054,
+                      "start": 3043,
+                      "end": 3055,
                       "loc": {
                         "start": {
-                          "line": 120,
+                          "line": 121,
                           "column": 51
                         },
                         "end": {
-                          "line": 120,
+                          "line": 121,
                           "column": 63
                         },
                         "identifierName": "PatchRequest"
@@ -1440,58 +1440,58 @@
                 },
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3055,
-                  "end": 3132,
+                  "start": 3056,
+                  "end": 3133,
                   "loc": {
                     "start": {
-                      "line": 120,
+                      "line": 121,
                       "column": 64
                     },
                     "end": {
-                      "line": 122,
+                      "line": 123,
                       "column": 5
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 3065,
-                      "end": 3126,
+                      "start": 3066,
+                      "end": 3127,
                       "loc": {
                         "start": {
-                          "line": 121,
+                          "line": 122,
                           "column": 8
                         },
                         "end": {
-                          "line": 121,
+                          "line": 122,
                           "column": 69
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 3072,
-                        "end": 3125,
+                        "start": 3073,
+                        "end": 3126,
                         "loc": {
                           "start": {
-                            "line": 121,
+                            "line": 122,
                             "column": 15
                           },
                           "end": {
-                            "line": 121,
+                            "line": 122,
                             "column": 68
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 3076,
-                          "end": 3088,
+                          "start": 3077,
+                          "end": 3089,
                           "loc": {
                             "start": {
-                              "line": 121,
+                              "line": 122,
                               "column": 19
                             },
                             "end": {
-                              "line": 121,
+                              "line": 122,
                               "column": 31
                             },
                             "identifierName": "PatchRequest"
@@ -1501,29 +1501,29 @@
                         "arguments": [
                           {
                             "type": "MemberExpression",
-                            "start": 3089,
-                            "end": 3105,
+                            "start": 3090,
+                            "end": 3106,
                             "loc": {
                               "start": {
-                                "line": 121,
+                                "line": 122,
                                 "column": 32
                               },
                               "end": {
-                                "line": 121,
+                                "line": 122,
                                 "column": 48
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 3089,
-                              "end": 3093,
+                              "start": 3090,
+                              "end": 3094,
                               "loc": {
                                 "start": {
-                                  "line": 121,
+                                  "line": 122,
                                   "column": 32
                                 },
                                 "end": {
-                                  "line": 121,
+                                  "line": 122,
                                   "column": 36
                                 }
                               }
@@ -1531,15 +1531,15 @@
                             "computed": false,
                             "property": {
                               "type": "Identifier",
-                              "start": 3094,
-                              "end": 3105,
+                              "start": 3095,
+                              "end": 3106,
                               "loc": {
                                 "start": {
-                                  "line": 121,
+                                  "line": 122,
                                   "column": 37
                                 },
                                 "end": {
-                                  "line": 121,
+                                  "line": 122,
                                   "column": 48
                                 },
                                 "identifierName": "resourceUri"
@@ -1549,29 +1549,29 @@
                           },
                           {
                             "type": "MemberExpression",
-                            "start": 3107,
-                            "end": 3116,
+                            "start": 3108,
+                            "end": 3117,
                             "loc": {
                               "start": {
-                                "line": 121,
+                                "line": 122,
                                 "column": 50
                               },
                               "end": {
-                                "line": 121,
+                                "line": 122,
                                 "column": 59
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 3107,
-                              "end": 3111,
+                              "start": 3108,
+                              "end": 3112,
                               "loc": {
                                 "start": {
-                                  "line": 121,
+                                  "line": 122,
                                   "column": 50
                                 },
                                 "end": {
-                                  "line": 121,
+                                  "line": 122,
                                   "column": 54
                                 }
                               }
@@ -1579,15 +1579,15 @@
                             "computed": false,
                             "property": {
                               "type": "Identifier",
-                              "start": 3112,
-                              "end": 3116,
+                              "start": 3113,
+                              "end": 3117,
                               "loc": {
                                 "start": {
-                                  "line": 121,
+                                  "line": 122,
                                   "column": 55
                                 },
                                 "end": {
-                                  "line": 121,
+                                  "line": 122,
                                   "column": 59
                                 },
                                 "identifierName": "data"
@@ -1597,15 +1597,15 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 3118,
-                            "end": 3124,
+                            "start": 3119,
+                            "end": 3125,
                             "loc": {
                               "start": {
-                                "line": 121,
+                                "line": 122,
                                 "column": 61
                               },
                               "end": {
-                                "line": 121,
+                                "line": 122,
                                 "column": 67
                               },
                               "identifierName": "config"
@@ -1624,16 +1624,16 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
-              "start": 137,
-              "end": 182,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n ",
+              "start": 138,
+              "end": 183,
               "loc": {
                 "start": {
-                  "line": 4,
+                  "line": 5,
                   "column": 0
                 },
                 "end": {
-                  "line": 9,
+                  "line": 10,
                   "column": 3
                 }
               }
@@ -1641,15 +1641,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc\n *  The PATCH method requests that a set of changes described in the\n *  request entity be applied to the resource identified by the `resourceUri`.\n *\n * @example <caption>Add new resource to a collection</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, LastResponse, PatchRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(PatchRequest.to('/books/0-688-00230-7').with({\n *          lastReadOn: '2016-06-16',\n *      })),\n *      Ensure.that(LastResponse.status(), equals(204)),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH\n * @see https://tools.ietf.org/html/rfc5789\n *\n * @extends {HTTPRequest}\n ",
-              "start": 185,
-              "end": 1049,
+              "start": 186,
+              "end": 1050,
               "loc": {
                 "start": {
-                  "line": 12,
+                  "line": 13,
                   "column": 0
                 },
                 "end": {
-                  "line": 35,
+                  "line": 36,
                   "column": 3
                 }
               }
@@ -1664,16 +1664,16 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n ",
-      "start": 137,
-      "end": 182,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n ",
+      "start": 138,
+      "end": 183,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 5,
           "column": 0
         },
         "end": {
-          "line": 9,
+          "line": 10,
           "column": 3
         }
       }
@@ -1681,31 +1681,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc\n *  The PATCH method requests that a set of changes described in the\n *  request entity be applied to the resource identified by the `resourceUri`.\n *\n * @example <caption>Add new resource to a collection</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, LastResponse, PatchRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(PatchRequest.to('/books/0-688-00230-7').with({\n *          lastReadOn: '2016-06-16',\n *      })),\n *      Ensure.that(LastResponse.status(), equals(204)),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH\n * @see https://tools.ietf.org/html/rfc5789\n *\n * @extends {HTTPRequest}\n ",
-      "start": 185,
-      "end": 1049,
+      "start": 186,
+      "end": 1050,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 13,
           "column": 0
         },
         "end": {
-          "line": 35,
+          "line": 36,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n * @param \n * {Answerable} resourceUri \n * @return \n * {PatchRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-      "start": 1098,
-      "end": 1258,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 46 \n * @param \n * {Answerable} resourceUri \n * @return \n * {PatchRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+      "start": 1099,
+      "end": 1259,
       "loc": {
         "start": {
-          "line": 37,
+          "line": 38,
           "column": 0
         },
         "end": {
-          "line": 50,
+          "line": 51,
           "column": 3
         }
       }
@@ -1713,31 +1713,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {PatchRequest}\n     ",
-      "start": 1265,
-      "end": 1869,
+      "start": 1266,
+      "end": 1870,
       "loc": {
         "start": {
-          "line": 53,
+          "line": 54,
           "column": 4
         },
         "end": {
-          "line": 66,
+          "line": 67,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 58 \n * @param \n * {Answerable} data \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
-      "start": 1985,
-      "end": 2116,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 59 \n * @param \n * {Answerable} data \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
+      "start": 1986,
+      "end": 2117,
       "loc": {
         "start": {
-          "line": 70,
+          "line": 71,
           "column": 0
         },
         "end": {
-          "line": 81,
+          "line": 82,
           "column": 3
         }
       }
@@ -1745,31 +1745,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Configures the object with a request body.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} data\n     *  Data to be sent to the `resourceUri`\n     *\n     * @returns {PatchRequest}\n     ",
-      "start": 2123,
-      "end": 2358,
+      "start": 2124,
+      "end": 2359,
       "loc": {
         "start": {
-          "line": 84,
+          "line": 85,
           "column": 4
         },
         "end": {
-          "line": 92,
+          "line": 93,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 72 \n * @param \n * {Answerable} config \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
-      "start": 2483,
-      "end": 2616,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {Answerable} config \n * @return \n * {PatchRequest} \n * @public \n * \\TRUE \n ",
+      "start": 2484,
+      "end": 2617,
       "loc": {
         "start": {
-          "line": 96,
+          "line": 97,
           "column": 0
         },
         "end": {
-          "line": 107,
+          "line": 108,
           "column": 3
         }
       }
@@ -1777,15 +1777,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {PatchRequest}\n     ",
-      "start": 2623,
-      "end": 2990,
+      "start": 2624,
+      "end": 2991,
       "loc": {
         "start": {
-          "line": 110,
+          "line": 111,
           "column": 4
         },
         "end": {
-          "line": 119,
+          "line": 120,
           "column": 7
         }
       }

@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -289,7 +290,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor presses <span class="hljs-subst">${ describeSequenceOf(<span class="hljs-built_in">this</span>.keys) }</span> in <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.field.toString() }</span>`</span>;
     }
 }
@@ -311,7 +312,7 @@
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nameOf</span>(<span class="hljs-params">key: <span class="hljs-built_in">string</span></span>) </span>{
 
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> candidate <span class="hljs-keyword">in</span> Key) {
-        <span class="hljs-keyword">if</span> (Key.hasOwnProperty(candidate) &amp;&amp; Key[ candidate ] === key) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(Key, candidate) &amp;&amp; Key[ candidate ] === key) {
             <span class="hljs-keyword">return</span> candidate;
         }
     }

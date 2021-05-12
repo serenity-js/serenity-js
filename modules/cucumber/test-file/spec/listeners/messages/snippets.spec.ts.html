@@ -137,6 +137,7 @@
 <span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { FeatureTag, ImplementationPending, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { cucumber7 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./bin/cucumber-7'</span>;
 
 describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -153,10 +154,10 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                 <span class="hljs-string">'./examples/features/snippets.feature'</span>,
             )
             .then(ifExitCodeIsOtherThan(<span class="hljs-number">1</span>, logOutput))
-            .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
-                expect(res.exitCode).to.equal(<span class="hljs-number">1</span>);
+            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                expect(result.exitCode).to.equal(<span class="hljs-number">1</span>);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'A scenario with steps that have not been implemented yet'</span>)))
                     .next(TestRunnerDetected,  <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Serenity/JS suggest implementation snippets'</span>)))

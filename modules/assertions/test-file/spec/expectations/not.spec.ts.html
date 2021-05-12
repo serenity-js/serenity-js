@@ -148,6 +148,7 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { actorCalled, AssertionError, Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+
 <span class="hljs-keyword">import</span> {
     and,
     contain,
@@ -192,7 +193,11 @@ describe(<span class="hljs-string">'not'</span>, <span class="hljs-function">() 
     });
 
     it(<span class="hljs-string">'flips the outcome of an assertion, but doesn\'t hide any errors that might have happened while making it'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> blowsUp = <span class="hljs-function">() =&gt;</span> Expectation.thatActualShould(<span class="hljs-string">'blow up'</span>, <span class="hljs-string">'expected'</span>).soThat(<span class="hljs-function">(<span class="hljs-params">actual, expected</span>) =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'boom'</span>); });
+        <span class="hljs-keyword">const</span> blowsUp = <span class="hljs-function">() =&gt;</span>
+            Expectation.thatActualShould(<span class="hljs-string">'blow up'</span>, <span class="hljs-string">'expected'</span>)
+                .soThat(<span class="hljs-function">(<span class="hljs-params">actual, expected</span>) =&gt;</span> {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'boom'</span>);
+                });
 
         <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
             Ensure.that(<span class="hljs-string">'Hello World!'</span>, not(blowsUp())),
@@ -235,15 +240,16 @@ describe(<span class="hljs-string">'not'</span>, <span class="hljs-function">() 
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{not}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{contains}</span> </span>*/</span>
-            it(<span class="hljs-string">'produces a sensible error message'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
-                    Ensure.that([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ], not(contain(<span class="hljs-number">2</span>)),
-                ))).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ 1, 2, 3 ] to not contain 2`</span>)
-                    .then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
-                        expect(error.expected).to.equal(<span class="hljs-number">2</span>);
-                        expect(error.actual).to.deep.equal([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ]);
-                    });
-            });
+            it(<span class="hljs-string">'produces a sensible error message'</span>, <span class="hljs-function">() =&gt;</span>
+                expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
+                    Ensure.that([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ], not(contain(<span class="hljs-number">2</span>))),
+                )).
+                to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ 1, 2, 3 ] to not contain 2`</span>).
+                then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
+                    expect(error.expected).to.equal(<span class="hljs-number">2</span>);
+                    expect(error.actual).to.deep.equal([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ]);
+                })
+            );
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{not}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{contains}</span> </span>*/</span>
@@ -257,15 +263,16 @@ describe(<span class="hljs-string">'not'</span>, <span class="hljs-function">() 
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{not}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{containAtLeastOneItemThat}</span> </span>*/</span>
-            it(<span class="hljs-string">'produces a sensible error message'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
-                    Ensure.that([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ], not(containAtLeastOneItemThat(equals(<span class="hljs-number">2</span>))),
-                ))).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2`</span>)
-                    .then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
-                        expect(error.expected).to.equal(<span class="hljs-number">2</span>);
-                        expect(error.actual).to.deep.equal([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ]);
-                    });
-            });
+            it(<span class="hljs-string">'produces a sensible error message'</span>, <span class="hljs-function">() =&gt;</span>
+                expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
+                    Ensure.that([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ], not(containAtLeastOneItemThat(equals(<span class="hljs-number">2</span>)))),
+                )).
+                to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2`</span>).
+                then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
+                    expect(error.expected).to.equal(<span class="hljs-number">2</span>);
+                    expect(error.actual).to.deep.equal([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ]);
+                })
+            );
 
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{not}</span> </span>*/</span>
             <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{containAtLeastOneItemThat}</span> </span>*/</span>

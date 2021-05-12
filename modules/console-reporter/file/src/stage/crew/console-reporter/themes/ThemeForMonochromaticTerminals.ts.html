@@ -134,6 +134,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/themes/ThemeForMonochromaticTerminals.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionReportDiffer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { TerminalTheme } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TerminalTheme'</span>;
 
 <span class="hljs-comment">/**
@@ -221,7 +222,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    log(...parts): <span class="hljs-built_in">string</span> {
+    log(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.joined(parts);
     }
 }

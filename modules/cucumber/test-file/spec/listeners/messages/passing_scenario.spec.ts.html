@@ -131,7 +131,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/listeners/messages/passing_scenario.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+
 <span class="hljs-keyword">import</span> { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> {
     ActivityFinished,
@@ -145,6 +147,7 @@
     TestRunStarts,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { ExecutionSuccessful, FeatureTag, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { cucumber7 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./bin/cucumber-7'</span>;
 
 describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -160,10 +163,10 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                 <span class="hljs-string">'./examples/features/passing_scenario.feature'</span>,
             )
             .then(ifExitCodeIsOtherThan(<span class="hljs-number">0</span>, logOutput))
-            .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
-                expect(res.exitCode).to.equal(<span class="hljs-number">0</span>);
+            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                expect(result.exitCode).to.equal(<span class="hljs-number">0</span>);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(TestRunStarts,       <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.be.instanceof(Timestamp))
                     .next(SceneStarts,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
                         expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'A passing scenario'</span>))

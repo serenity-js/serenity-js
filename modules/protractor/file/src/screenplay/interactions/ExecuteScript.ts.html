@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -277,7 +278,7 @@
      *
      * <span class="hljs-doctag">@see <span class="hljs-type">{@link LastScriptExecution.result}</span></span>
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span>(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {                <span class="hljs-comment">// tslint:disable-line:ban-types</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span>(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteAsynchronousScript(script);
     }
 
@@ -308,7 +309,7 @@
      *
      * <span class="hljs-doctag">@see <span class="hljs-type">{@link LastScriptExecution.result}</span></span>
      */</span>
-    <span class="hljs-keyword">static</span> sync(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {                  <span class="hljs-comment">// tslint:disable-line:ban-types</span>
+    <span class="hljs-keyword">static</span> sync(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>): ExecuteScriptWithArguments {    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecuteSynchronousScript(script);
     }
 }
@@ -336,7 +337,7 @@
      *  Arguments to parametrise the script with
      */</span>
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>,                                   <span class="hljs-comment">// tslint:disable-line:ban-types</span>
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>,           <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt; = [],
     </span>)</span> {
         <span class="hljs-built_in">super</span>();
@@ -394,7 +395,7 @@
                     ? arg.answeredBy(actor)
                     : arg;
 
-                <span class="hljs-keyword">const</span> maybePromise = !! maybeElementFinder.getWebElement
+                <span class="hljs-keyword">const</span> maybePromise = maybeElementFinder.getWebElement
                     ? maybeElementFinder.getWebElement()
                     : maybeElementFinder;
 
@@ -416,7 +417,6 @@
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-built_in">this</span>.script, ...args);
     }
 
-    <span class="hljs-comment">// tslint:disable-next-line:member-ordering</span>
     toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.args.length &gt; <span class="hljs-number">0</span>
             ? formatted <span class="hljs-string">`#actor executes an asynchronous script with arguments: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.args }</span>`</span>
@@ -448,34 +448,38 @@
      * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
      */</span>
     performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">any</span>&gt; {
-        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
-            var src = arguments[0];
-            var callback = arguments[arguments.length - 1];
-
-            var alreadyLoadedScripts = Array.prototype.slice
-                .call(document.getElementsByTagName('script'))
-                .map(script =&gt; script.src);
-
-            if (!! ~ alreadyLoadedScripts.indexOf(src)) {
-                return callback("Script from " + src + " has already been loaded");
-            }
-
-            var script = document.createElement('script');
-            script.onload = function () {
-                return callback();
-            };
-            script.onerror = function () {
-                return callback("Couldn't load script from " + this.src);
-            };
-
-            script.src = src;
-            script.async = true;
-            document.head.appendChild(script);
-        `</span>, <span class="hljs-built_in">this</span>.sourceUrl).then(<span class="hljs-function"><span class="hljs-params">errorMessage</span> =&gt;</span> {
-            <span class="hljs-keyword">if</span> (!! errorMessage) {
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(errorMessage);
-            }
-        });
+        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor)
+            .executeAsyncScript(
+                <span class="hljs-string">`   var src = arguments[0];
+                    var callback = arguments[arguments.length - 1];
+        
+                    var alreadyLoadedScripts = Array.prototype.slice
+                        .call(document.getElementsByTagName('script'))
+                        .map(script =&gt; script.src);
+        
+                    if (!! ~ alreadyLoadedScripts.indexOf(src)) {
+                        return callback("Script from " + src + " has already been loaded");
+                    }
+        
+                    var script = document.createElement('script');
+                    script.onload = function () {
+                        return callback();
+                    };
+                    script.onerror = function () {
+                        return callback("Couldn't load script from " + this.src);
+                    };
+        
+                    script.src = src;
+                    script.async = true;
+                    document.head.appendChild(script);
+                `</span>,
+                <span class="hljs-built_in">this</span>.sourceUrl
+            )
+            .then(<span class="hljs-function"><span class="hljs-params">errorMessage</span> =&gt;</span> {
+                <span class="hljs-keyword">if</span> (errorMessage) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(errorMessage);
+                }
+            });
     }
 
     <span class="hljs-comment">/**
@@ -502,7 +506,6 @@
         <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).executeScript(<span class="hljs-built_in">this</span>.toString(), <span class="hljs-built_in">this</span>.script, ...args);
     }
 
-    <span class="hljs-comment">// tslint:disable-next-line:member-ordering</span>
     toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.args.length &gt; <span class="hljs-number">0</span>
             ? formatted <span class="hljs-string">`#actor executes a synchronous script with arguments: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.args }</span>`</span>

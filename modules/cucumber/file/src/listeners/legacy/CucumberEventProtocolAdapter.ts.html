@@ -163,7 +163,7 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cucumberEventProtocolAdapter</span>(<span class="hljs-params">{ serenity, notifier, mapper, cache }: Dependencies</span>) </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cucumberEventProtocolAdapter</span>(<span class="hljs-params">{ serenity, notifier, mapper, cache }: Dependencies</span>) </span>{ <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
     <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CucumberEventProtocolAdapter</span> </span>{
 
         <span class="hljs-comment">// note: exported class expression can't have private properties</span>
@@ -192,7 +192,7 @@
                     map = cache.get(path),
                     scenario = map.get(Scenario).onLine(sourceLocation.line);
 
-                <span class="hljs-keyword">if</span> (!! scenario.outline) {
+                <span class="hljs-keyword">if</span> (scenario.outline) {
                     <span class="hljs-keyword">const</span> outline = map.get(ScenarioOutline).onLine(scenario.outline.line);
 
                     map.set(<span class="hljs-keyword">new</span> ScenarioOutline(
@@ -214,22 +214,6 @@
                 )).onLine(sourceLocation.line);
             });
 
-            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">interleaveStepsAndHooks</span>(<span class="hljs-params">steps: Step[], stepsLocations: StepLocations[]</span>): <span class="hljs-title">Array</span>&lt;<span class="hljs-title">Step</span> | <span class="hljs-title">Hook</span>&gt; </span>{
-                <span class="hljs-keyword">const</span>
-                    isAHook = <span class="hljs-function">(<span class="hljs-params">stepLocations: StepLocations</span>) =&gt;</span>
-                        stepLocations.actionLocation &amp;&amp; ! stepLocations.sourceLocation,
-                    matching  = <span class="hljs-function">(<span class="hljs-params">location: StepLocations</span>) =&gt;</span>
-                        <span class="hljs-function">(<span class="hljs-params">step: Step</span>) =&gt;</span>
-                            step.location.path.equals(<span class="hljs-keyword">new</span> Path(location.sourceLocation.uri)) &amp;&amp;
-                            step.location.line === location.sourceLocation.line;
-
-                <span class="hljs-keyword">return</span> stepsLocations.map(<span class="hljs-function"><span class="hljs-params">location</span> =&gt;</span>
-                    isAHook(location)
-                        ?   <span class="hljs-keyword">new</span> Hook(<span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(location.actionLocation.uri), location.actionLocation.line), <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Setup'</span>))
-                        :   steps.find(matching(location)),
-                );
-            }
-
             eventBroadcaster.on(<span class="hljs-string">'test-case-started'</span>, <span class="hljs-function">(<span class="hljs-params">{ sourceLocation }</span>) =&gt;</span> {
                 ensure(<span class="hljs-string">'test-case-started :: sourceLocation'</span>, sourceLocation, isDefined());
 
@@ -238,7 +222,7 @@
                     scenario = map.get(Scenario).onLine(sourceLocation.line),
                     sceneId = serenity.assignNewSceneId();
 
-                <span class="hljs-keyword">if</span> (!! scenario.outline) {
+                <span class="hljs-keyword">if</span> (scenario.outline) {
                     <span class="hljs-keyword">const</span> outline = map.get(ScenarioOutline).onLine(scenario.outline.line);
                     notifier.outlineDetected(sceneId, scenario, outline, map.getFirst(Feature));
                 }
@@ -298,7 +282,6 @@
         outcomeFrom(result: { <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">exception</span>: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Error</span>, <span class="hljs-attr">status</span>: <span class="hljs-built_in">string</span> }): Outcome {
             <span class="hljs-keyword">const</span> error = !! result.exception &amp;&amp; <span class="hljs-built_in">this</span>.errorFrom(result.exception);
 
-            <span class="hljs-comment">// tslint:disable:switch-default</span>
             <span class="hljs-keyword">switch</span> (result.status) {
                 <span class="hljs-keyword">case</span> <span class="hljs-string">'undefined'</span>:
                     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step not implemented'</span>));
@@ -320,7 +303,7 @@
                 <span class="hljs-keyword">case</span> <span class="hljs-string">'skipped'</span>:
                     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
             }
-            <span class="hljs-comment">// tslint:enable:switch-default</span>
+
         }
 
         errorFrom(exception: <span class="hljs-built_in">Error</span> | <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Error</span> {
@@ -334,6 +317,25 @@
             }
         }
     };
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@private</span>
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">interleaveStepsAndHooks</span>(<span class="hljs-params">steps: Step[], stepsLocations: StepLocations[]</span>): <span class="hljs-title">Array</span>&lt;<span class="hljs-title">Step</span> | <span class="hljs-title">Hook</span>&gt; </span>{
+    <span class="hljs-keyword">const</span>
+        isAHook = <span class="hljs-function">(<span class="hljs-params">stepLocations: StepLocations</span>) =&gt;</span>
+            stepLocations.actionLocation &amp;&amp; ! stepLocations.sourceLocation,
+        matching  = <span class="hljs-function">(<span class="hljs-params">location: StepLocations</span>) =&gt;</span>
+            <span class="hljs-function">(<span class="hljs-params">step: Step</span>) =&gt;</span>
+                step.location.path.equals(<span class="hljs-keyword">new</span> Path(location.sourceLocation.uri)) &amp;&amp;
+                step.location.line === location.sourceLocation.line;
+
+    <span class="hljs-keyword">return</span> stepsLocations.map(<span class="hljs-function"><span class="hljs-params">location</span> =&gt;</span>
+        isAHook(location)
+            ?   <span class="hljs-keyword">new</span> Hook(<span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(location.actionLocation.uri), location.actionLocation.line), <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Setup'</span>))
+            :   steps.find(matching(location)),
+    );
 }
 </code></pre>
 

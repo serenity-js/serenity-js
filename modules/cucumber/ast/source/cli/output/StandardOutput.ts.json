@@ -33,7 +33,7 @@
       {
         "type": "ImportDeclaration",
         "start": 0,
-        "end": 68,
+        "end": 54,
         "loc": {
           "start": {
             "line": 1,
@@ -41,7 +41,7 @@
           },
           "end": {
             "line": 1,
-            "column": 68
+            "column": 54
           }
         },
         "importKind": "value",
@@ -49,7 +49,7 @@
           {
             "type": "ImportSpecifier",
             "start": 9,
-            "end": 32,
+            "end": 25,
             "loc": {
               "start": {
                 "line": 1,
@@ -57,13 +57,13 @@
               },
               "end": {
                 "line": 1,
-                "column": 32
+                "column": 25
               }
             },
             "imported": {
               "type": "Identifier",
               "start": 9,
-              "end": 32,
+              "end": 25,
               "loc": {
                 "start": {
                   "line": 1,
@@ -71,6 +71,93 @@
                 },
                 "end": {
                   "line": 1,
+                  "column": 25
+                },
+                "identifierName": "OutputDescriptor"
+              },
+              "name": "OutputDescriptor"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 25,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 25
+                },
+                "identifierName": "OutputDescriptor"
+              },
+              "name": "OutputDescriptor"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 33,
+          "end": 53,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 33
+            },
+            "end": {
+              "line": 1,
+              "column": 53
+            }
+          },
+          "extra": {
+            "rawValue": "./OutputDescriptor",
+            "raw": "'./OutputDescriptor'"
+          },
+          "value": "./OutputDescriptor"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 55,
+        "end": 123,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 68
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 64,
+            "end": 87,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 32
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 64,
+              "end": 87,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
                   "column": 32
                 },
                 "identifierName": "SerenityFormatterOutput"
@@ -79,15 +166,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 9,
-              "end": 32,
+              "start": 64,
+              "end": 87,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 2,
                   "column": 9
                 },
                 "end": {
-                  "line": 1,
+                  "line": 2,
                   "column": 32
                 },
                 "identifierName": "SerenityFormatterOutput"
@@ -98,15 +185,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 40,
-          "end": 67,
+          "start": 95,
+          "end": 122,
           "loc": {
             "start": {
-              "line": 1,
+              "line": 2,
               "column": 40
             },
             "end": {
-              "line": 1,
+              "line": 2,
               "column": 67
             }
           },
@@ -119,94 +206,7 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 69,
-        "end": 139,
-        "loc": {
-          "start": {
-            "line": 2,
-            "column": 0
-          },
-          "end": {
-            "line": 2,
-            "column": 70
-          }
-        },
-        "importKind": "value",
-        "specifiers": [
-          {
-            "type": "ImportSpecifier",
-            "start": 78,
-            "end": 102,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 9
-              },
-              "end": {
-                "line": 2,
-                "column": 33
-              }
-            },
-            "imported": {
-              "type": "Identifier",
-              "start": 78,
-              "end": 102,
-              "loc": {
-                "start": {
-                  "line": 2,
-                  "column": 9
-                },
-                "end": {
-                  "line": 2,
-                  "column": 33
-                },
-                "identifierName": "StandardOutputDescriptor"
-              },
-              "name": "StandardOutputDescriptor"
-            },
-            "local": {
-              "type": "Identifier",
-              "start": 78,
-              "end": 102,
-              "loc": {
-                "start": {
-                  "line": 2,
-                  "column": 9
-                },
-                "end": {
-                  "line": 2,
-                  "column": 33
-                },
-                "identifierName": "StandardOutputDescriptor"
-              },
-              "name": "StandardOutputDescriptor"
-            }
-          }
-        ],
-        "source": {
-          "type": "StringLiteral",
-          "start": 110,
-          "end": 138,
-          "loc": {
-            "start": {
-              "line": 2,
-              "column": 41
-            },
-            "end": {
-              "line": 2,
-              "column": 69
-            }
-          },
-          "extra": {
-            "rawValue": "./StandardOutputDescriptor",
-            "raw": "'./StandardOutputDescriptor'"
-          },
-          "value": "./StandardOutputDescriptor"
-        }
-      },
-      {
-        "type": "ImportDeclaration",
-        "start": 140,
+        "start": 124,
         "end": 194,
         "loc": {
           "start": {
@@ -215,7 +215,7 @@
           },
           "end": {
             "line": 3,
-            "column": 54
+            "column": 70
           }
         },
         "trailingComments": [
@@ -256,8 +256,8 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 149,
-            "end": 165,
+            "start": 133,
+            "end": 157,
             "loc": {
               "start": {
                 "line": 3,
@@ -265,13 +265,13 @@
               },
               "end": {
                 "line": 3,
-                "column": 25
+                "column": 33
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 149,
-              "end": 165,
+              "start": 133,
+              "end": 157,
               "loc": {
                 "start": {
                   "line": 3,
@@ -279,16 +279,16 @@
                 },
                 "end": {
                   "line": 3,
-                  "column": 25
+                  "column": 33
                 },
-                "identifierName": "OutputDescriptor"
+                "identifierName": "StandardOutputDescriptor"
               },
-              "name": "OutputDescriptor"
+              "name": "StandardOutputDescriptor"
             },
             "local": {
               "type": "Identifier",
-              "start": 149,
-              "end": 165,
+              "start": 133,
+              "end": 157,
               "loc": {
                 "start": {
                   "line": 3,
@@ -296,33 +296,33 @@
                 },
                 "end": {
                   "line": 3,
-                  "column": 25
+                  "column": 33
                 },
-                "identifierName": "OutputDescriptor"
+                "identifierName": "StandardOutputDescriptor"
               },
-              "name": "OutputDescriptor"
+              "name": "StandardOutputDescriptor"
             }
           }
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 173,
+          "start": 165,
           "end": 193,
           "loc": {
             "start": {
               "line": 3,
-              "column": 33
+              "column": 41
             },
             "end": {
               "line": 3,
-              "column": 53
+              "column": 69
             }
           },
           "extra": {
-            "rawValue": "./OutputDescriptor",
-            "raw": "'./OutputDescriptor'"
+            "rawValue": "./StandardOutputDescriptor",
+            "raw": "'./StandardOutputDescriptor'"
           },
-          "value": "./OutputDescriptor"
+          "value": "./StandardOutputDescriptor"
         }
       },
       {

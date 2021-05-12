@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -186,7 +187,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/Cookie.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-useless-undefined */</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { certificates, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { Ensure, equals, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
@@ -203,20 +205,20 @@ describe(<span class="hljs-string">'Cookie'</span>, <span class="hljs-function">
 
     <span class="hljs-comment">// a tiny express server, setting response cookies</span>
     <span class="hljs-keyword">const</span> cookieCutterApp = express().
-        get(<span class="hljs-string">'/cookie'</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request &amp; { query: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> }}, res: express.Response</span>) =&gt;</span> {
-            res.cookie(req.query.name, req.query.value, {
+        get(<span class="hljs-string">'/cookie'</span>, <span class="hljs-function">(<span class="hljs-params">request: express.Request &amp; { query: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> }}, response: express.Response</span>) =&gt;</span> {
+            response.cookie(request.query.name, request.query.value, {
                 <span class="hljs-attr">path</span>:       <span class="hljs-string">'/cookie'</span>,
-                <span class="hljs-attr">domain</span>:     req.query.domain,
-                <span class="hljs-attr">httpOnly</span>:   !! req.query.httpOnly,
-                <span class="hljs-attr">secure</span>:     !! req.query.secure,
-                <span class="hljs-attr">expires</span>:    req.query.expires &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(req.query.expires),
+                <span class="hljs-attr">domain</span>:     request.query.domain,
+                <span class="hljs-attr">httpOnly</span>:   !! request.query.httpOnly,
+                <span class="hljs-attr">secure</span>:     !! request.query.secure,
+                <span class="hljs-attr">expires</span>:    request.query.expires &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(request.query.expires),
                 <span class="hljs-comment">// https://www.chromestatus.com/feature/5633521622188032</span>
-                <span class="hljs-comment">// sameSite:   !! req.query.secure ? 'None' : undefined,</span>
+                <span class="hljs-comment">// sameSite:   !! request.query.secure ? 'None' : undefined,</span>
             }).status(<span class="hljs-number">200</span>).send();
         });
 
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cookieCutterURLFor</span>(<span class="hljs-params">path: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">Question</span>&lt;<span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt;&gt; </span>{
-        <span class="hljs-keyword">return</span> Transform.the(LocalServer.url(), <span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ url }</span><span class="hljs-subst">${ path }</span>`</span>);
+        <span class="hljs-keyword">return</span> LocalServer.url().map(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ url }</span><span class="hljs-subst">${ path }</span>`</span>);
     }
 
     beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));

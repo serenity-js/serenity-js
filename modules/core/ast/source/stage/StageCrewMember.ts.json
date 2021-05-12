@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 1276,
+  "end": 1188,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 49,
+      "line": 47,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 1276,
+    "end": 1188,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 49,
+        "line": 47,
         "column": 0
       }
     },
@@ -33,7 +33,7 @@
       {
         "type": "ImportDeclaration",
         "start": 0,
-        "end": 40,
+        "end": 64,
         "loc": {
           "start": {
             "line": 1,
@@ -41,93 +41,6 @@
           },
           "end": {
             "line": 1,
-            "column": 40
-          }
-        },
-        "importKind": "value",
-        "specifiers": [
-          {
-            "type": "ImportSpecifier",
-            "start": 9,
-            "end": 20,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 9
-              },
-              "end": {
-                "line": 1,
-                "column": 20
-              }
-            },
-            "imported": {
-              "type": "Identifier",
-              "start": 9,
-              "end": 20,
-              "loc": {
-                "start": {
-                  "line": 1,
-                  "column": 9
-                },
-                "end": {
-                  "line": 1,
-                  "column": 20
-                },
-                "identifierName": "DomainEvent"
-              },
-              "name": "DomainEvent"
-            },
-            "local": {
-              "type": "Identifier",
-              "start": 9,
-              "end": 20,
-              "loc": {
-                "start": {
-                  "line": 1,
-                  "column": 9
-                },
-                "end": {
-                  "line": 1,
-                  "column": 20
-                },
-                "identifierName": "DomainEvent"
-              },
-              "name": "DomainEvent"
-            }
-          }
-        ],
-        "source": {
-          "type": "StringLiteral",
-          "start": 28,
-          "end": 39,
-          "loc": {
-            "start": {
-              "line": 1,
-              "column": 28
-            },
-            "end": {
-              "line": 1,
-              "column": 39
-            }
-          },
-          "extra": {
-            "rawValue": "../events",
-            "raw": "'../events'"
-          },
-          "value": "../events"
-        }
-      },
-      {
-        "type": "ImportDeclaration",
-        "start": 41,
-        "end": 105,
-        "loc": {
-          "start": {
-            "line": 2,
-            "column": 0
-          },
-          "end": {
-            "line": 2,
             "column": 64
           }
         },
@@ -135,29 +48,29 @@
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 50,
-            "end": 71,
+            "start": 9,
+            "end": 30,
             "loc": {
               "start": {
-                "line": 2,
+                "line": 1,
                 "column": 9
               },
               "end": {
-                "line": 2,
+                "line": 1,
                 "column": 30
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 50,
-              "end": 71,
+              "start": 9,
+              "end": 30,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 1,
                   "column": 9
                 },
                 "end": {
-                  "line": 2,
+                  "line": 1,
                   "column": 30
                 },
                 "identifierName": "ListensToDomainEvents"
@@ -166,15 +79,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 50,
-              "end": 71,
+              "start": 9,
+              "end": 30,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 1,
                   "column": 9
                 },
                 "end": {
-                  "line": 2,
+                  "line": 1,
                   "column": 30
                 },
                 "identifierName": "ListensToDomainEvents"
@@ -185,15 +98,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 79,
-          "end": 104,
+          "start": 38,
+          "end": 63,
           "loc": {
             "start": {
-              "line": 2,
+              "line": 1,
               "column": 38
             },
             "end": {
-              "line": 2,
+              "line": 1,
               "column": 63
             }
           },
@@ -206,45 +119,79 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 106,
-        "end": 138,
+        "start": 65,
+        "end": 97,
         "loc": {
           "start": {
-            "line": 3,
+            "line": 2,
             "column": 0
           },
           "end": {
-            "line": 3,
+            "line": 2,
             "column": 32
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
+            "start": 98,
+            "end": 143,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  You can think of the {@link StageCrewMember} as an in-memory micro-service that reacts to {@link DomainEvent}s\n *  from the {@link StageManager}.\n *\n *  Every {@link StageCrewMember} receives a reference to the {@link Stage},\n *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.\n *\n *  Useful when you're interested in implementing [custom reporters](/handbook/reporting/index.html).\n *\n * @extends {ListensToDomainEvents}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link SerenityConfig#crew}\n * @interface ",
+            "start": 146,
+            "end": 726,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 16
+              }
+            }
+          }
+        ],
         "importKind": "value",
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 115,
-            "end": 120,
+            "start": 74,
+            "end": 79,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 2,
                 "column": 9
               },
               "end": {
-                "line": 3,
+                "line": 2,
                 "column": 14
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 115,
-              "end": 120,
+              "start": 74,
+              "end": 79,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 2,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 2,
                   "column": 14
                 },
                 "identifierName": "Stage"
@@ -253,15 +200,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 115,
-              "end": 120,
+              "start": 74,
+              "end": 79,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 2,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 2,
                   "column": 14
                 },
                 "identifierName": "Stage"
@@ -272,15 +219,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 128,
-          "end": 137,
+          "start": 87,
+          "end": 96,
           "loc": {
             "start": {
-              "line": 3,
+              "line": 2,
               "column": 22
             },
             "end": {
-              "line": 3,
+              "line": 2,
               "column": 31
             }
           },
@@ -292,153 +239,32 @@
         }
       },
       {
-        "type": "ImportDeclaration",
-        "start": 139,
-        "end": 185,
-        "loc": {
-          "start": {
-            "line": 4,
-            "column": 0
-          },
-          "end": {
-            "line": 4,
-            "column": 46
-          }
-        },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n ",
-            "start": 186,
-            "end": 231,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  You can think of the {@link StageCrewMember} as an in-memory micro-service that reacts to {@link DomainEvent}s\n *  from the {@link StageManager}.\n *\n *  Every {@link StageCrewMember} receives a reference to the {@link Stage},\n *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.\n *\n *  Useful when you're interested in implementing [custom reporters](/handbook/reporting/index.html).\n *\n * @extends {ListensToDomainEvents}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link SerenityConfig#crew}\n * @interface ",
-            "start": 234,
-            "end": 814,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 26,
-                "column": 16
-              }
-            }
-          }
-        ],
-        "importKind": "value",
-        "specifiers": [
-          {
-            "type": "ImportSpecifier",
-            "start": 148,
-            "end": 160,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 9
-              },
-              "end": {
-                "line": 4,
-                "column": 21
-              }
-            },
-            "imported": {
-              "type": "Identifier",
-              "start": 148,
-              "end": 160,
-              "loc": {
-                "start": {
-                  "line": 4,
-                  "column": 9
-                },
-                "end": {
-                  "line": 4,
-                  "column": 21
-                },
-                "identifierName": "StageManager"
-              },
-              "name": "StageManager"
-            },
-            "local": {
-              "type": "Identifier",
-              "start": 148,
-              "end": 160,
-              "loc": {
-                "start": {
-                  "line": 4,
-                  "column": 9
-                },
-                "end": {
-                  "line": 4,
-                  "column": 21
-                },
-                "identifierName": "StageManager"
-              },
-              "name": "StageManager"
-            }
-          }
-        ],
-        "source": {
-          "type": "StringLiteral",
-          "start": 168,
-          "end": 184,
-          "loc": {
-            "start": {
-              "line": 4,
-              "column": 29
-            },
-            "end": {
-              "line": 4,
-              "column": 45
-            }
-          },
-          "extra": {
-            "rawValue": "./StageManager",
-            "raw": "'./StageManager'"
-          },
-          "value": "./StageManager"
-        }
-      },
-      {
         "type": "ExportNamedDeclaration",
-        "start": 815,
-        "end": 1275,
+        "start": 727,
+        "end": 1187,
         "loc": {
           "start": {
-            "line": 27,
+            "line": 25,
             "column": 0
           },
           "end": {
-            "line": 48,
+            "line": 46,
             "column": 1
           }
         },
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n ",
-            "start": 186,
-            "end": 231,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
+            "start": 98,
+            "end": 143,
             "loc": {
               "start": {
-                "line": 5,
+                "line": 3,
                 "column": 0
               },
               "end": {
-                "line": 10,
+                "line": 8,
                 "column": 3
               }
             }
@@ -446,15 +272,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  You can think of the {@link StageCrewMember} as an in-memory micro-service that reacts to {@link DomainEvent}s\n *  from the {@link StageManager}.\n *\n *  Every {@link StageCrewMember} receives a reference to the {@link Stage},\n *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.\n *\n *  Useful when you're interested in implementing [custom reporters](/handbook/reporting/index.html).\n *\n * @extends {ListensToDomainEvents}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link SerenityConfig#crew}\n * @interface ",
-            "start": 234,
-            "end": 814,
+            "start": 146,
+            "end": 726,
             "loc": {
               "start": {
-                "line": 13,
+                "line": 11,
                 "column": 0
               },
               "end": {
-                "line": 26,
+                "line": 24,
                 "column": 16
               }
             }
@@ -465,30 +291,30 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 822,
-          "end": 1275,
+          "start": 734,
+          "end": 1187,
           "loc": {
             "start": {
-              "line": 27,
+              "line": 25,
               "column": 7
             },
             "end": {
-              "line": 48,
+              "line": 46,
               "column": 1
             }
           },
           "abstract": true,
           "id": {
             "type": "Identifier",
-            "start": 837,
-            "end": 852,
+            "start": 749,
+            "end": 764,
             "loc": {
               "start": {
-                "line": 27,
+                "line": 25,
                 "column": 22
               },
               "end": {
-                "line": 27,
+                "line": 25,
                 "column": 37
               },
               "identifierName": "StageCrewMember"
@@ -497,15 +323,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 861,
-            "end": 882,
+            "start": 773,
+            "end": 794,
             "loc": {
               "start": {
-                "line": 27,
+                "line": 25,
                 "column": 46
               },
               "end": {
-                "line": 27,
+                "line": 25,
                 "column": 67
               },
               "identifierName": "ListensToDomainEvents"
@@ -514,46 +340,46 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 883,
-            "end": 1275,
+            "start": 795,
+            "end": 1187,
             "loc": {
               "start": {
-                "line": 27,
+                "line": 25,
                 "column": 68
               },
               "end": {
-                "line": 48,
+                "line": 46,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassProperty",
-                "start": 1227,
-                "end": 1273,
+                "start": 1139,
+                "end": 1185,
                 "loc": {
                   "start": {
-                    "line": 47,
+                    "line": 45,
                     "column": 4
                   },
                   "end": {
-                    "line": 47,
+                    "line": 45,
                     "column": 50
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 885,
-                    "end": 977,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 797,
+                    "end": 889,
                     "loc": {
                       "start": {
-                        "line": 28,
+                        "line": 26,
                         "column": 0
                       },
                       "end": {
-                        "line": 37,
+                        "line": 35,
                         "column": 3
                       }
                     }
@@ -561,15 +387,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *  Assigns a {@link Stage} to this {@link StageCrewMember}\n     *\n     * @type {function(stage: Stage): StageCrewMember}\n     *  An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     ",
-                    "start": 984,
-                    "end": 1222,
+                    "start": 896,
+                    "end": 1134,
                     "loc": {
                       "start": {
-                        "line": 40,
+                        "line": 38,
                         "column": 4
                       },
                       "end": {
-                        "line": 46,
+                        "line": 44,
                         "column": 7
                       }
                     }
@@ -578,15 +404,15 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1227,
-                  "end": 1237,
+                  "start": 1139,
+                  "end": 1149,
                   "loc": {
                     "start": {
-                      "line": 47,
+                      "line": 45,
                       "column": 4
                     },
                     "end": {
-                      "line": 47,
+                      "line": 45,
                       "column": 14
                     },
                     "identifierName": "assignedTo"
@@ -596,44 +422,44 @@
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 1237,
-                  "end": 1272,
+                  "start": 1149,
+                  "end": 1184,
                   "loc": {
                     "start": {
-                      "line": 47,
+                      "line": 45,
                       "column": 14
                     },
                     "end": {
-                      "line": 47,
+                      "line": 45,
                       "column": 49
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSFunctionType",
-                    "start": 1239,
-                    "end": 1272,
+                    "start": 1151,
+                    "end": 1184,
                     "loc": {
                       "start": {
-                        "line": 47,
+                        "line": 45,
                         "column": 16
                       },
                       "end": {
-                        "line": 47,
+                        "line": 45,
                         "column": 49
                       }
                     },
                     "parameters": [
                       {
                         "type": "Identifier",
-                        "start": 1240,
-                        "end": 1252,
+                        "start": 1152,
+                        "end": 1164,
                         "loc": {
                           "start": {
-                            "line": 47,
+                            "line": 45,
                             "column": 17
                           },
                           "end": {
-                            "line": 47,
+                            "line": 45,
                             "column": 29
                           },
                           "identifierName": "stage"
@@ -641,43 +467,43 @@
                         "name": "stage",
                         "typeAnnotation": {
                           "type": "TSTypeAnnotation",
-                          "start": 1245,
-                          "end": 1252,
+                          "start": 1157,
+                          "end": 1164,
                           "loc": {
                             "start": {
-                              "line": 47,
+                              "line": 45,
                               "column": 22
                             },
                             "end": {
-                              "line": 47,
+                              "line": 45,
                               "column": 29
                             }
                           },
                           "typeAnnotation": {
                             "type": "TSTypeReference",
-                            "start": 1247,
-                            "end": 1252,
+                            "start": 1159,
+                            "end": 1164,
                             "loc": {
                               "start": {
-                                "line": 47,
+                                "line": 45,
                                 "column": 24
                               },
                               "end": {
-                                "line": 47,
+                                "line": 45,
                                 "column": 29
                               }
                             },
                             "typeName": {
                               "type": "Identifier",
-                              "start": 1247,
-                              "end": 1252,
+                              "start": 1159,
+                              "end": 1164,
                               "loc": {
                                 "start": {
-                                  "line": 47,
+                                  "line": 45,
                                   "column": 24
                                 },
                                 "end": {
-                                  "line": 47,
+                                  "line": 45,
                                   "column": 29
                                 },
                                 "identifierName": "Stage"
@@ -690,43 +516,43 @@
                     ],
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 1254,
-                      "end": 1272,
+                      "start": 1166,
+                      "end": 1184,
                       "loc": {
                         "start": {
-                          "line": 47,
+                          "line": 45,
                           "column": 31
                         },
                         "end": {
-                          "line": 47,
+                          "line": 45,
                           "column": 49
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 1257,
-                        "end": 1272,
+                        "start": 1169,
+                        "end": 1184,
                         "loc": {
                           "start": {
-                            "line": 47,
+                            "line": 45,
                             "column": 34
                           },
                           "end": {
-                            "line": 47,
+                            "line": 45,
                             "column": 49
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 1257,
-                          "end": 1272,
+                          "start": 1169,
+                          "end": 1184,
                           "loc": {
                             "start": {
-                              "line": 47,
+                              "line": 45,
                               "column": 34
                             },
                             "end": {
-                              "line": 47,
+                              "line": 45,
                               "column": 49
                             },
                             "identifierName": "StageCrewMember"
@@ -744,16 +570,16 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n ",
-              "start": 186,
-              "end": 231,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
+              "start": 98,
+              "end": 143,
               "loc": {
                 "start": {
-                  "line": 5,
+                  "line": 3,
                   "column": 0
                 },
                 "end": {
-                  "line": 10,
+                  "line": 8,
                   "column": 3
                 }
               }
@@ -761,15 +587,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @desc\n *  You can think of the {@link StageCrewMember} as an in-memory micro-service that reacts to {@link DomainEvent}s\n *  from the {@link StageManager}.\n *\n *  Every {@link StageCrewMember} receives a reference to the {@link Stage},\n *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.\n *\n *  Useful when you're interested in implementing [custom reporters](/handbook/reporting/index.html).\n *\n * @extends {ListensToDomainEvents}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link SerenityConfig#crew}\n * @interface ",
-              "start": 234,
-              "end": 814,
+              "start": 146,
+              "end": 726,
               "loc": {
                 "start": {
-                  "line": 13,
+                  "line": 11,
                   "column": 0
                 },
                 "end": {
-                  "line": 26,
+                  "line": 24,
                   "column": 16
                 }
               }
@@ -784,16 +610,16 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n ",
-      "start": 186,
-      "end": 231,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
+      "start": 98,
+      "end": 143,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 3,
           "column": 0
         },
         "end": {
-          "line": 10,
+          "line": 8,
           "column": 3
         }
       }
@@ -801,31 +627,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @desc\n *  You can think of the {@link StageCrewMember} as an in-memory micro-service that reacts to {@link DomainEvent}s\n *  from the {@link StageManager}.\n *\n *  Every {@link StageCrewMember} receives a reference to the {@link Stage},\n *  and therefore {@link StageManager} as well, which enables them to emit {@link DomainEvent}s back.\n *\n *  Useful when you're interested in implementing [custom reporters](/handbook/reporting/index.html).\n *\n * @extends {ListensToDomainEvents}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link SerenityConfig#crew}\n * @interface ",
-      "start": 234,
-      "end": 814,
+      "start": 146,
+      "end": 726,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 11,
           "column": 0
         },
         "end": {
-          "line": 26,
+          "line": 24,
           "column": 16
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-      "start": 885,
-      "end": 977,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+      "start": 797,
+      "end": 889,
       "loc": {
         "start": {
-          "line": 28,
+          "line": 26,
           "column": 0
         },
         "end": {
-          "line": 37,
+          "line": 35,
           "column": 3
         }
       }
@@ -833,15 +659,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Assigns a {@link Stage} to this {@link StageCrewMember}\n     *\n     * @type {function(stage: Stage): StageCrewMember}\n     *  An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     ",
-      "start": 984,
-      "end": 1222,
+      "start": 896,
+      "end": 1134,
       "loc": {
         "start": {
-          "line": 40,
+          "line": 38,
           "column": 4
         },
         "end": {
-          "line": 46,
+          "line": 44,
           "column": 7
         }
       }

@@ -119,7 +119,8 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html">ErrorDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -128,9 +129,11 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { inspect } <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
+
 <span class="hljs-keyword">import</span> { errorReportFrom } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../../src/stage/crew/serenity-bdd-reporter/processors/mappers'</span>;
 
 describe(<span class="hljs-string">'errorReportFrom'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -170,7 +173,7 @@ describe(<span class="hljs-string">'errorReportFrom'</span>, <span class="hljs-f
     describe(<span class="hljs-string">'when representing non-Error "throwables" as Serenity BDD-standard JSON reports'</span>, <span class="hljs-function">() =&gt;</span> {
 
         it(<span class="hljs-string">'supports null'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = errorReportFrom(<span class="hljs-literal">null</span>);
+            <span class="hljs-keyword">const</span> report = errorReportFrom(<span class="hljs-literal">null</span>);   <span class="hljs-comment">// eslint-disable-line unicorn/no-null</span>
 
             expect(report).to.deep.equal({
                 <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'null'</span>,
@@ -180,7 +183,7 @@ describe(<span class="hljs-string">'errorReportFrom'</span>, <span class="hljs-f
         });
 
         it(<span class="hljs-string">'supports undefined'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = errorReportFrom(<span class="hljs-literal">undefined</span>);
+            <span class="hljs-keyword">const</span> report = errorReportFrom(<span class="hljs-literal">undefined</span>);  <span class="hljs-comment">// eslint-disable-line unicorn/no-useless-undefined</span>
 
             expect(report).to.deep.equal({
                 <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'undefined'</span>,
@@ -246,8 +249,8 @@ describe(<span class="hljs-string">'errorReportFrom'</span>, <span class="hljs-f
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thrown</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (...args: <span class="hljs-built_in">any</span>[]) =&gt; T, ...args: <span class="hljs-built_in">any</span>[]</span>): <span class="hljs-title">T</span> </span>{
     <span class="hljs-keyword">try</span> {
         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">type</span>(...args);
-    } <span class="hljs-keyword">catch</span> (e) {
-        <span class="hljs-keyword">return</span> e;
+    } <span class="hljs-keyword">catch</span> (error) {
+        <span class="hljs-keyword">return</span> error;
     }
 }
 

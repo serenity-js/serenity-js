@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -303,12 +304,12 @@
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerDay    = Duration.msPerHour * <span class="hljs-number">24</span>;
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerYear   = Duration.msPerDay * <span class="hljs-number">365</span>;
 
-    <span class="hljs-keyword">static</span> ofMilliseconds   = <span class="hljs-function">(<span class="hljs-params">milliseconds: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-keyword">new</span> Duration(milliseconds);
-    <span class="hljs-keyword">static</span> ofSeconds        = <span class="hljs-function">(<span class="hljs-params">seconds: <span class="hljs-built_in">number</span></span>)      =&gt;</span> Duration.ofMilliseconds(seconds  * Duration.msPerSecond);
-    <span class="hljs-keyword">static</span> ofMinutes        = <span class="hljs-function">(<span class="hljs-params">minutes: <span class="hljs-built_in">number</span></span>)      =&gt;</span> Duration.ofMilliseconds(minutes  * Duration.msPerMinute);
-    <span class="hljs-keyword">static</span> ofHours          = <span class="hljs-function">(<span class="hljs-params">hours: <span class="hljs-built_in">number</span></span>)        =&gt;</span> Duration.ofMilliseconds(hours    * Duration.msPerHour);
-    <span class="hljs-keyword">static</span> ofDays           = <span class="hljs-function">(<span class="hljs-params">days: <span class="hljs-built_in">number</span></span>)         =&gt;</span> Duration.ofMilliseconds(days     * Duration.msPerDay);
-    <span class="hljs-keyword">static</span> ofYears          = <span class="hljs-function">(<span class="hljs-params">years: <span class="hljs-built_in">number</span></span>)        =&gt;</span> Duration.ofMilliseconds(years    * Duration.msPerYear);
+    <span class="hljs-keyword">static</span> ofMilliseconds   = (milliseconds: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span> =&gt;</span> <span class="hljs-keyword">new</span> Duration(milliseconds);
+    <span class="hljs-keyword">static</span> ofSeconds        = (seconds: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>      =&gt;</span> Duration.ofMilliseconds(seconds  * Duration.msPerSecond);
+    <span class="hljs-keyword">static</span> ofMinutes        = (minutes: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>      =&gt;</span> Duration.ofMilliseconds(minutes  * Duration.msPerMinute);
+    <span class="hljs-keyword">static</span> ofHours          = (hours: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>        =&gt;</span> Duration.ofMilliseconds(hours    * Duration.msPerHour);
+    <span class="hljs-keyword">static</span> ofDays           = (days: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>         =&gt;</span> Duration.ofMilliseconds(days     * Duration.msPerDay);
+    <span class="hljs-keyword">static</span> ofYears          = (years: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>        =&gt;</span> Duration.ofMilliseconds(years    * Duration.msPerYear);
 
     <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> milliseconds: <span class="hljs-built_in">number</span></span>)</span> {
         <span class="hljs-built_in">super</span>();
@@ -330,7 +331,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.milliseconds &gt;= another.milliseconds;
     }
 
-    <span class="hljs-function"><span class="hljs-title">plus</span>(<span class="hljs-params">another: Duration</span>)</span> {
+    plus(another: Duration): Duration {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Duration(<span class="hljs-built_in">this</span>.milliseconds + another.milliseconds);
     }
 
@@ -338,10 +339,9 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.milliseconds;
     }
 
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span> ms = <span class="hljs-built_in">this</span>.milliseconds;
 
-        <span class="hljs-comment">// tslint:disable:space-within-parens</span>
         <span class="hljs-keyword">const</span> levels = [
             [ <span class="hljs-built_in">Math</span>.floor(   ms / Duration.msPerYear), <span class="hljs-string">'y'</span>],
             [ <span class="hljs-built_in">Math</span>.floor(  (ms % Duration.msPerYear) / Duration.msPerDay), <span class="hljs-string">'d'</span>],
@@ -350,7 +350,6 @@
             [ <span class="hljs-built_in">Math</span>.floor((((ms % Duration.msPerYear) % Duration.msPerDay) % Duration.msPerHour) % Duration.msPerMinute / Duration.msPerSecond), <span class="hljs-string">'s'</span>],
             [ (((ms % Duration.msPerYear) % Duration.msPerDay) % Duration.msPerHour) % Duration.msPerMinute % Duration.msPerSecond, <span class="hljs-string">'ms'</span>],
         ];
-        <span class="hljs-comment">// tslint:enable:space-within-parens</span>
 
         <span class="hljs-keyword">return</span> levels.reduce(<span class="hljs-function">(<span class="hljs-params">acc, l, i</span>) =&gt;</span> l[<span class="hljs-number">0</span>] &gt; <span class="hljs-number">0</span> || i === levels.length
             ? <span class="hljs-string">`<span class="hljs-subst">${ acc }</span> <span class="hljs-subst">${ l[<span class="hljs-number">0</span>] }</span><span class="hljs-subst">${ l[<span class="hljs-number">1</span>] }</span>`</span>

@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -192,7 +193,7 @@
  * <span class="hljs-doctag">@private</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StandardisedCapabilities</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">of</span>(<span class="hljs-params">currentBrowser: () =&gt; ProtractorBrowser</span>)</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(currentBrowser: <span class="hljs-function">() =&gt;</span> ProtractorBrowser): StandardisedCapabilities {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StandardisedCapabilities(currentBrowser);
     }
 
@@ -244,11 +245,11 @@
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.currentBrowser().getCapabilities().then(<span class="hljs-function"><span class="hljs-params">caps</span> =&gt;</span> {
             <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> fetcher <span class="hljs-keyword">of</span> fetchers) {
                 <span class="hljs-keyword">const</span> result = fetcher(caps);
-                <span class="hljs-keyword">if</span> (!! result) {
+                <span class="hljs-keyword">if</span> (result) {
                     <span class="hljs-keyword">return</span> result;
                 }
             }
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/no-useless-undefined</span>
         });
     }
 }

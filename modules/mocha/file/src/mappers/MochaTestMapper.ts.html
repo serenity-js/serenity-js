@@ -168,14 +168,14 @@
     }
 
     <span class="hljs-keyword">private</span> fullNameOf(scenario: Test | Suite): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> !! scenario.parent
+        <span class="hljs-keyword">return</span> scenario.parent
             ? <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.fullNameOf(scenario.parent) }</span> <span class="hljs-subst">${ scenario.title }</span>`</span>.trim()
             : scenario.title;
     }
 
     <span class="hljs-keyword">private</span> nameOf(scenario: Test | Suite): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fullNameOf(scenario)
-            .substring(<span class="hljs-built_in">this</span>.featureNameFor(scenario).length)
+            .slice(<span class="hljs-built_in">this</span>.featureNameFor(scenario).length)
             .trim();
     }
 }

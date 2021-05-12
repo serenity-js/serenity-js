@@ -134,6 +134,8 @@
 
 <span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">new</span> ErrorStackParser();
 
+<span class="hljs-comment">/* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/ban-types */</span>
+
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Monkey-patches Jasmine domain model constructors so that they
@@ -169,6 +171,8 @@
     <span class="hljs-keyword">return</span> result;
 }
 
+<span class="hljs-comment">// eslint-enable</span>
+
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Retrieves the file system location of the caller function.
@@ -176,11 +180,11 @@
  * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callerLocation</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">const</span> callers = parser.parse(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>())
+    <span class="hljs-keyword">const</span> found = parser.parse(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'fake error'</span>))
         .filter(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> ! <span class="hljs-regexp">/(node_modules)/</span>.test(frame.fileName))
-        .filter(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> <span class="hljs-regexp">/^(Suite|Object)/</span>.test(frame.functionName));
+        .find(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> <span class="hljs-regexp">/^(Suite|Object)/</span>.test(frame.functionName));
 
-    <span class="hljs-keyword">const</span> caller = callers[<span class="hljs-number">0</span>] || { <span class="hljs-attr">fileName</span>: <span class="hljs-string">'unknown'</span>, <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">columnNumber</span>: <span class="hljs-number">0</span> };
+    <span class="hljs-keyword">const</span> caller = found || { <span class="hljs-attr">fileName</span>: <span class="hljs-string">'unknown'</span>, <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">columnNumber</span>: <span class="hljs-number">0</span> };
 
     <span class="hljs-keyword">return</span> {
         <span class="hljs-attr">path</span>: caller.fileName,

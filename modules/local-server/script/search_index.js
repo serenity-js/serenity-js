@@ -732,6 +732,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@serenity-js/core/lib/model~serialisedoutcome",
+    "/modules/core/class/src/model/outcomes.ts~SerialisedOutcome.html",
+    "@serenity-js/core/lib/model~SerialisedOutcome",
+    "external"
+  ],
+  [
     "@serenity-js/core/lib/model~testsuitedetails",
     "/modules/core/class/src/model/TestSuiteDetails.ts~TestSuiteDetails.html",
     "@serenity-js/core/lib/model~TestSuiteDetails",
@@ -1267,43 +1273,43 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/restarting.spec.ts.html#lineNumber13",
+    "test-file/spec/restarting.spec.ts.html#lineNumber14",
     "ManageALocalServer",
     "test"
   ],
   [
     "",
-    "test-file/spec/servers.spec.ts.html#lineNumber15",
+    "test-file/spec/servers.spec.ts.html#lineNumber17",
     "ManageALocalServer",
     "test"
   ],
   [
     "managealocalserver src/screenplay/abilities/managealocalserver.ts~managealocalserver,managealocalserver",
-    "test-file/spec/restarting.spec.ts.html#lineNumber16",
+    "test-file/spec/restarting.spec.ts.html#lineNumber17",
     "ManageALocalServer restarting",
     "test"
   ],
   [
     "managealocalserver src/screenplay/abilities/managealocalserver.ts~managealocalserver,managealocalserver",
-    "test-file/spec/servers.spec.ts.html#lineNumber18",
+    "test-file/spec/servers.spec.ts.html#lineNumber20",
     "ManageALocalServer when working with HTTP",
     "test"
   ],
   [
     "managealocalserver src/screenplay/abilities/managealocalserver.ts~managealocalserver,managealocalserver",
-    "test-file/spec/servers.spec.ts.html#lineNumber115",
+    "test-file/spec/servers.spec.ts.html#lineNumber117",
     "ManageALocalServer when working with HTTPS",
     "test"
   ],
   [
     "",
-    "test-file/spec/servers.spec.ts.html#lineNumber183",
+    "test-file/spec/servers.spec.ts.html#lineNumber185",
     "ManageALocalServer when working with HTTPS allows the Actor to start, stop and access the location of a HTTPS Hapi app",
     "test"
   ],
   [
     "",
-    "test-file/spec/servers.spec.ts.html#lineNumber240",
+    "test-file/spec/servers.spec.ts.html#lineNumber242",
     "ManageALocalServer when working with HTTPS allows the Actor to start, stop and access the location of a Restify app",
     "test"
   ],

@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -293,7 +294,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/Transform.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/consistent-function-scoping */</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+
+<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
 <span class="hljs-keyword">import</span> { Actor, Answerable, Question, Transform } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/screenplay'</span>;
@@ -321,9 +325,10 @@ describe(<span class="hljs-string">'TransformAnswer'</span>, <span class="hljs-f
         q(p(expectedAnswer)),
     ]).
     it(<span class="hljs-string">'transforms an answer to Answerable&lt;T&gt; to another type'</span>, <span class="hljs-function">(<span class="hljs-params">answerable: Answerable&lt;EA&gt;</span>) =&gt;</span>
-       expect(
-           Transform.the(answerable, <span class="hljs-function"><span class="hljs-params">complexObject</span> =&gt;</span> complexObject.headers.header).answeredBy(actor),
-       ).to.eventually.equal(expectedAnswer.headers.header));
+        expect(
+            Transform.the(answerable, <span class="hljs-function"><span class="hljs-params">complexObject</span> =&gt;</span> complexObject.headers.header).answeredBy(actor),
+        ).to.eventually.equal(expectedAnswer.headers.header)
+    );
 
     it(<span class="hljs-string">'transforms answers to Array&lt;Answerable&lt;T&gt;&gt; to another type'</span>, <span class="hljs-function">() =&gt;</span>
         expect(
@@ -331,7 +336,8 @@ describe(<span class="hljs-string">'TransformAnswer'</span>, <span class="hljs-f
                 [ q(p(expectedAnswer)), q(expectedAnswer), expectedAnswer],
                 <span class="hljs-function">(<span class="hljs-params">ea1: EA, ea2: EA, ea3: EA</span>) =&gt;</span> ea1.headers.header + ea2.body + <span class="hljs-built_in">Object</span>.keys(ea3).length,
             ).answeredBy(actor),
-        ).to.eventually.equal(expectedAnswer.headers.header + expectedAnswer.body + <span class="hljs-built_in">Object</span>.keys(expectedAnswer).length));
+        ).to.eventually.equal(expectedAnswer.headers.header + expectedAnswer.body + <span class="hljs-built_in">Object</span>.keys(expectedAnswer).length)
+    );
 
     it(<span class="hljs-string">'transforms answers to questions of different types to another type'</span>, <span class="hljs-function">() =&gt;</span>
         expect(
@@ -339,7 +345,8 @@ describe(<span class="hljs-string">'TransformAnswer'</span>, <span class="hljs-f
                 [ q(<span class="hljs-string">'the answer to life the universe and everything'</span>), q(p(<span class="hljs-number">42</span>)) ],
                 <span class="hljs-function">(<span class="hljs-params">a1: <span class="hljs-built_in">string</span>, a2: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ a1 }</span> is <span class="hljs-subst">${ a2 }</span>`</span>,
             ).answeredBy(actor),
-        ).to.eventually.equal(<span class="hljs-string">`the answer to life the universe and everything is 42`</span>));
+        ).to.eventually.equal(<span class="hljs-string">`the answer to life the universe and everything is 42`</span>)
+    );
 
     it(<span class="hljs-string">'provides a sensible default description'</span>, <span class="hljs-function">() =&gt;</span> {
         expect(Transform.the(expectedAnswer, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).toString()).to.equal(<span class="hljs-string">'a transformed answer'</span>);

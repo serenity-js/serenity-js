@@ -208,14 +208,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ImplementationPending.html">ImplementationPending</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~Outcome.html">Outcome</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~ProblemIndication.html">ProblemIndication</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/outcomes.ts~SerialisedOutcome.html">SerialisedOutcome</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-artifacts">model/artifacts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/AssertionReport.ts~AssertionReport.html">AssertionReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.html">HTTPRequestResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/JSONData.ts~JSONData.html">JSONData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/LogEntry.ts~LogEntry.html">LogEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/Photo.ts~Photo.html">Photo</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TestReport.ts~TestReport.html">TestReport</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/artifacts/TextData.ts~TextData.html">TextData</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/model/artifacts/HTTPRequestResponse.ts~RequestAndResponse.html">RequestAndResponse</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#model-tags">model/tags</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/ArbitraryTag.ts~ArbitraryTag.html">ArbitraryTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/BrowserTag.ts~BrowserTag.html">BrowserTag</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/model/tags/CapabilityTag.ts~CapabilityTag.html">CapabilityTag</a></span></span></li>
@@ -295,18 +296,18 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/Serenity.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isInstanceOf, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
+<span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
 <span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'./events'</span>;
+<span class="hljs-keyword">import</span> { formatted, has, OutputStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'./io'</span>;
 <span class="hljs-keyword">import</span> { CorrelationId, Duration, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'./model'</span>;
 <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./screenplay/actor/Actor'</span>;
 <span class="hljs-keyword">import</span> { SerenityConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityConfig'</span>;
+<span class="hljs-keyword">import</span> { StageCrewMember, StageCrewMemberBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage'</span>;
 <span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Cast'</span>;
 <span class="hljs-keyword">import</span> { Clock } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Clock'</span>;
+<span class="hljs-keyword">import</span> { Extras } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Extras'</span>;
 <span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Stage'</span>;
 <span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/StageManager'</span>;
-<span class="hljs-keyword">import</span> { Extras } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Extras'</span>;
-<span class="hljs-keyword">import</span> { formatted, has, OutputStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'./io'</span>;
-<span class="hljs-keyword">import</span> { StageCrewMember, StageCrewMemberBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage'</span>;
-<span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Serenity</span> </span>{
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> defaultCueTimeout    = Duration.ofSeconds(<span class="hljs-number">5</span>);
@@ -339,7 +340,7 @@
         <span class="hljs-keyword">const</span> looksLikeBuilder          = has&lt;StageCrewMemberBuilder&gt;({ <span class="hljs-attr">build</span>: <span class="hljs-string">'function'</span> });
         <span class="hljs-keyword">const</span> looksLikeStageCrewMember  = has&lt;StageCrewMember&gt;({ <span class="hljs-attr">assignedTo</span>: <span class="hljs-string">'function'</span>, <span class="hljs-attr">notifyOf</span>: <span class="hljs-string">'function'</span> });
 
-        <span class="hljs-keyword">const</span> cueTimeout = !! config.cueTimeout
+        <span class="hljs-keyword">const</span> cueTimeout = config.cueTimeout
             ? ensure(<span class="hljs-string">'cueTimeout'</span>, config.cueTimeout, isInstanceOf(Duration))
             : Serenity.defaultCueTimeout;
 
@@ -352,7 +353,7 @@
             <span class="hljs-keyword">new</span> StageManager(cueTimeout, <span class="hljs-built_in">this</span>.clock),
         );
 
-        <span class="hljs-keyword">if</span> (!! config.actors) {
+        <span class="hljs-keyword">if</span> (config.actors) {
             <span class="hljs-built_in">this</span>.engage(config.actors);
         }
 
@@ -368,7 +369,7 @@
                     }
 
                     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(
-                        formatted <span class="hljs-string">`Entries under \`crew\` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, <span class="hljs-subst">${ stageCrewMember }</span> found at index <span class="hljs-subst">${ i }</span>`</span>
+                        formatted <span class="hljs-string">`Entries under \`crew\` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, \`<span class="hljs-subst">${ stageCrewMember }</span>\` found at index <span class="hljs-subst">${ i }</span>`</span>
                     );
                 }),
             );

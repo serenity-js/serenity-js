@@ -239,7 +239,8 @@ describe(<span class="hljs-string">'FeatureFileMapper'</span>, <span class="hljs
                             <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a prerequisite'</span>),
                         ),
                     ],
-            ));
+                )
+            );
         }));
 
         it(<span class="hljs-string">'associates the background steps with the scenarios'</span>, parse(<span class="hljs-string">'backgrounds.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
@@ -351,39 +352,43 @@ describe(<span class="hljs-string">'FeatureFileMapper'</span>, <span class="hljs
         it(<span class="hljs-string">'recognises the different names and descriptions of example sets'</span>, parse(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> path = fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'scenario_outlines.feature'</span>));
 
-            expect(map.get(ScenarioOutline).onLine(<span class="hljs-number">17</span>)).to.equal(<span class="hljs-keyword">new</span> ScenarioOutline(
-                <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">17</span>, <span class="hljs-number">3</span>),
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with more examples'</span>),
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the scenario with more examples'</span>),
-                [
-                    <span class="hljs-keyword">new</span> Step(
-                        <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">21</span>, <span class="hljs-number">5</span>),
-                        <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given step with a &lt;parameter&gt;'</span>),
-                    ),
-                ],
-                {
-                    <span class="hljs-number">28</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the first set of examples'</span>),
-                            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the first set of examples'</span>),
-                            { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value one'</span> },
+            <span class="hljs-comment">/* eslint-disable @typescript-eslint/indent */</span>
+            expect(map.get(ScenarioOutline).onLine(<span class="hljs-number">17</span>)).to.equal(
+                <span class="hljs-keyword">new</span> ScenarioOutline(
+                    <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">17</span>, <span class="hljs-number">3</span>),
+                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with more examples'</span>),
+                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the scenario with more examples'</span>),
+                    [
+                        <span class="hljs-keyword">new</span> Step(
+                            <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">21</span>, <span class="hljs-number">5</span>),
+                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given step with a &lt;parameter&gt;'</span>),
                         ),
-                    <span class="hljs-number">29</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the first set of examples'</span>),
-                            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the first set of examples'</span>),
-                            { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value two'</span> },
-                        ),
-                    <span class="hljs-number">36</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the second set of examples'</span>),
-                            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the second set of examples'</span>),
-                            { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value three'</span> },
-                        ),
-                    <span class="hljs-number">37</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the second set of examples'</span>),
-                            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the second set of examples'</span>),
-                            { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value four'</span> },
-                        ),
-                },
-            ));
+                    ],
+                    {
+                        <span class="hljs-number">28</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
+                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the first set of examples'</span>),
+                                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the first set of examples'</span>),
+                                { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value one'</span> },
+                            ),
+                        <span class="hljs-number">29</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
+                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the first set of examples'</span>),
+                                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the first set of examples'</span>),
+                                { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value two'</span> },
+                            ),
+                        <span class="hljs-number">36</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
+                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the second set of examples'</span>),
+                                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the second set of examples'</span>),
+                                { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value three'</span> },
+                            ),
+                        <span class="hljs-number">37</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
+                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the second set of examples'</span>),
+                                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the second set of examples'</span>),
+                                { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value four'</span> },
+                            ),
+                    },
+                )
+            );
+            <span class="hljs-comment">/* eslint-enable */</span>
         }));
     });
 

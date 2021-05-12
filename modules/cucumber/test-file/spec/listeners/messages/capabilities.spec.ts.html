@@ -136,6 +136,7 @@
 <span class="hljs-keyword">import</span> { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { SceneTagged } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { CapabilityTag, FeatureTag } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
 <span class="hljs-keyword">import</span> { cucumber7 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./bin/cucumber-7'</span>;
 
 describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
@@ -151,10 +152,10 @@ describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span clas
                 <span class="hljs-string">'./examples/features/capability/example.feature'</span>,
             )
             .then(ifExitCodeIsOtherThan(<span class="hljs-number">0</span>, logOutput))
-            .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
-                expect(res.exitCode).to.equal(<span class="hljs-number">0</span>);
+            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                expect(result.exitCode).to.equal(<span class="hljs-number">0</span>);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">'capability'</span>)))
                     .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Serenity/JS recognises capabilities'</span>)))
                 ;

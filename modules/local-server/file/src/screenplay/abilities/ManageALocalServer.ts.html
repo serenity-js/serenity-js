@@ -187,7 +187,7 @@
      * <span class="hljs-doctag">@param <span class="hljs-type">{RequestListener | net~Server}</span> <span class="hljs-variable">listener</span></span>
      * <span class="hljs-doctag">@returns <span class="hljs-type">{ManageALocalServer}</span></span>
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">runningAHttpListener</span>(<span class="hljs-params">listener: RequestListener | net.Server</span>)</span> {
+    <span class="hljs-keyword">static</span> runningAHttpListener(listener: RequestListener | net.Server): ManageALocalServer {
         <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">'function'</span>
             ? http.createServer(listener)
             : listener;
@@ -205,7 +205,7 @@
      *
      * <span class="hljs-doctag">@see </span>https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">runningAHttpsListener</span>(<span class="hljs-params">listener: RequestListener | https.Server, options: https.ServerOptions = {}</span>)</span> {
+    <span class="hljs-keyword">static</span> runningAHttpsListener(listener: RequestListener | https.Server, <span class="hljs-attr">options</span>: https.ServerOptions = {}): ManageALocalServer {
         <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">'function'</span>
             ? https.createServer(options, listener)
             : listener;
@@ -249,7 +249,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
      */</span>
-    listen(preferredPort: <span class="hljs-built_in">number</span> = <span class="hljs-number">8000</span>, <span class="hljs-attr">highestPort</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">65535</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    listen(preferredPort = <span class="hljs-number">8000</span>, highestPort = <span class="hljs-number">65535</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> getPortPromise({ <span class="hljs-attr">port</span>: preferredPort, <span class="hljs-attr">stopPort</span>: highestPort })
             .then(<span class="hljs-function"><span class="hljs-params">port</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
                 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">errorHandler</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span> &amp; {code: <span class="hljs-built_in">string</span>}</span>) </span>{

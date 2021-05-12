@@ -119,7 +119,8 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-serenity-bdd-reporter">stage/crew/serenity-bdd-reporter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html">ErrorDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html">SerenityBDDReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -131,6 +132,7 @@
 <span class="hljs-keyword">import</span> { formatted, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
 <span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+
 <span class="hljs-keyword">import</span> { DownloadProgressReport, Notification } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
 <span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
@@ -139,7 +141,7 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StreamResponse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
 
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">to</span>(<span class="hljs-params">request: Answerable&lt;AxiosRequestConfig&gt;</span>)</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">to</span>(<span class="hljs-params">request: Answerable&lt;AxiosRequestConfig&gt;</span>)</span> {    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
         <span class="hljs-keyword">return</span> {
             <span class="hljs-attr">to</span>: <span class="hljs-function">(<span class="hljs-params">destination: Path</span>) =&gt;</span> <span class="hljs-keyword">new</span> StreamResponse(request, destination),
         };
@@ -183,7 +185,7 @@
                 actor.collect(Notification.fromJSON({ <span class="hljs-attr">message</span>: <span class="hljs-string">`Downloading <span class="hljs-subst">${ config.url }</span> to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.destination.value }</span>`</span> }));
 
                 <span class="hljs-keyword">const</span>
-                    totalBytes  = <span class="hljs-built_in">parseInt</span>(response.headers[<span class="hljs-string">'content-length'</span>], <span class="hljs-number">10</span>),
+                    totalBytes  = <span class="hljs-built_in">Number</span>.parseInt(response.headers[<span class="hljs-string">'content-length'</span>], <span class="hljs-number">10</span>),
                     output      = UseFileSystem.as(actor).createWriteStreamTo(<span class="hljs-built_in">this</span>.destination);
 
                 <span class="hljs-keyword">let</span> totalDownloadedBytes  = <span class="hljs-number">0</span>;
@@ -216,7 +218,7 @@
      *
      * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> {
+    toString(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor saves response to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.request }</span> in <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.destination.value }</span>`</span>;
     }
 }

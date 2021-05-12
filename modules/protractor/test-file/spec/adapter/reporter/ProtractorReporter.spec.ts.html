@@ -144,6 +144,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Navigate.ts~Navigate.html">Navigate</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Press.ts~Press.html">Press</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/ResizeBrowserWindow.ts~ResizeBrowserWindow.html">ResizeBrowserWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/RightClick.ts~RightClick.html">RightClick</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html">Scroll</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Select.ts~Select.html">Select</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/screenplay/interactions/Switch.ts~Switch.html">Switch</a></span></span></li>
@@ -239,16 +240,10 @@ describe(<span class="hljs-string">'ProtractorReporter'</span>, <span class="hlj
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thrown</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">Error</span>&gt;(<span class="hljs-params">error: T</span>): <span class="hljs-title">T</span> </span>{
         <span class="hljs-keyword">try</span> {
             <span class="hljs-keyword">throw</span> error;
-        } <span class="hljs-keyword">catch</span> (e) {
-            <span class="hljs-keyword">return</span> e;
+        } <span class="hljs-keyword">catch</span> (thrownError) {
+            <span class="hljs-keyword">return</span> thrownError;
         }
     }
-
-    <span class="hljs-keyword">let</span> runner: sinon.SinonStubbedInstance&lt;Runner&gt;;
-
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        runner = sinon.createStubInstance(Runner);
-    });
 
     describe(<span class="hljs-string">'with default threshold'</span>, <span class="hljs-function">() =&gt;</span> {
 

@@ -148,6 +148,7 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { actorCalled, AssertionError, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+
 <span class="hljs-keyword">import</span> { containItemsWhereEachItem, Ensure, equals, isGreaterThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src'</span>;
 
 describe(<span class="hljs-string">'containItemsWhereEachItem'</span>, <span class="hljs-function">() =&gt;</span> {
@@ -176,14 +177,16 @@ describe(<span class="hljs-string">'containItemsWhereEachItem'</span>, <span cla
             Ensure.that([], containItemsWhereEachItem(equals(<span class="hljs-number">42</span>))),
         )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected [ ] to contain items where each item does equal 42`</span>)
             .then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
-                expect(error.expected).to.equal(<span class="hljs-literal">null</span>);
+                expect(error.expected).to.equal(<span class="hljs-literal">undefined</span>);
                 expect(error.actual).to.deep.equal([]);
             });
     });
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{atLeastOne}</span> </span>*/</span>
     it(<span class="hljs-string">'contributes to a human-readable description'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> numbers = <span class="hljs-function">() =&gt;</span> Question.about(<span class="hljs-string">'list of numbers'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ]);
+        <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
+        <span class="hljs-keyword">const</span> numbers = <span class="hljs-function">() =&gt;</span>
+            Question.about(<span class="hljs-string">'list of numbers'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ]);
 
         expect(Ensure.that(numbers(), containItemsWhereEachItem(isGreaterThan(<span class="hljs-number">1</span>))).toString())
             .to.equal(<span class="hljs-string">`#actor ensures that list of numbers does contain items where each item does have value greater than 1`</span>);

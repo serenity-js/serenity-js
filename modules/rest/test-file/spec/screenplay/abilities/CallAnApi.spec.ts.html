@@ -168,7 +168,7 @@ describe(<span class="hljs-string">'CallAnApi'</span>, <span class="hljs-functio
 
         mock[verification](url).reply(<span class="hljs-number">200</span>);
 
-        <span class="hljs-keyword">return</span> expect(callAnApi.request({ method, url })).to.be.fulfilled; <span class="hljs-comment">// tslint:disable-line:no-unused-expression</span>
+        <span class="hljs-keyword">return</span> expect(callAnApi.request({ method, url })).to.be.fulfilled;
     });
 
     <span class="hljs-comment">/**
@@ -321,6 +321,7 @@ describe(<span class="hljs-string">'CallAnApi'</span>, <span class="hljs-functio
         });
     });
 
+    <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mockedAxiosInstance</span>(<span class="hljs-params"></span>) </span>{
         <span class="hljs-keyword">const</span>
             axiosInstance = axios.create(),
