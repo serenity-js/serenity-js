@@ -24,19 +24,13 @@ describe('RightClick', () => {
           <html>
             <body>
               <form>
-                <input type="text" id="field" oncontextmenu="update()" value="Test for right click." />
+                <input type="text" id="field" oncontextmenu="update(); return false;" value="Test for right click." />
                 <div id="result" />
               </form>
-              <script>
-                let el = document.getElementById('field');
-                el.addEventListener('contextmenu', function (ev) {
-                  ev.preventDefault();
-                  return false;
-                }, false);
+              <script>                
                 function update() {
                   document.getElementById("result").textContent = document.getElementById("field").value;
-                  return false;
-                };
+                }
               </script>
             </body>
           </html>

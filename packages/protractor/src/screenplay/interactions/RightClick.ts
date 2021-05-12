@@ -8,14 +8,25 @@ import { withAnswerOf } from '../withAnswerOf';
  * @desc
  *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
  *  perfom a right click on a given Web element.
- *  This is typically used to open a [custom context menu](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) on a given Web element.
- *  It is not possible to interact with the standard context menu offered by your browser
+ *
+ *  This is typically used to open a [custom context menu](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)
+ *  on a given Web element, since it's not possible to interact with the standard context menu offered by your browser
  *
  * @example <caption>Example widget</caption>
- *    <form>
- *      <input type="text" id="field" oncontextmenu="update()" value="Test for right click." />
- *      <div id="context-menu" />
- *    </form>
+ *  <form>
+ *    <input type="text" id="field"
+ *      oncontextmenu="showMenu(); return false;" />
+ *
+ *    <div id="context-menu" style="display:none">
+ *      Custom context menu
+ *    </div>
+ *  </form>
+ *
+ *  <script>
+ *    function showMenu() {
+ *      document.getElementById("context-menu").style.display = 'block';
+ *    }
+ *  </script>
  *
  * @example <caption>Lean Page Object describing the widget</caption>
  *  import { Target } from '@serenity-js/protractor';
@@ -28,7 +39,7 @@ import { withAnswerOf } from '../withAnswerOf';
  *          .located(by.id('context-menu'));
  *  }
  *
- * @example <caption>Right click on an element</caption>
+ * @example <caption>Right-click on an element</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { BrowseTheWeb, RightClick, isVisible } from '@serenity-js/protractor';
  *  import { Ensure } from '@serenity-js/assertions';
