@@ -1,4 +1,5 @@
 import { Question } from '@serenity-js/core';
+
 import { CallAnApi } from '../abilities';
 
 /**
@@ -122,10 +123,10 @@ export class LastResponse {
      *  Enables asserting on all of the {@link LastResponse}'s headers,
      *  returned as an object where the keys represent header names.
      *
-     * @returns {@serenity-js/core/lib/screenplay~Question<object>}
+     * @returns {@serenity-js/core/lib/screenplay~Question<Record<string, string>>}
      */
-    static headers() {
-        return Question.about<{ [header: string ]: string }>(`the headers or the last response`, actor => {
+    static headers(): Question<Record<string, string>> {
+        return Question.about<Record<string, string>>(`the headers or the last response`, actor => {
             return CallAnApi.as(actor).mapLastResponse(response => response.headers);
         });
     }

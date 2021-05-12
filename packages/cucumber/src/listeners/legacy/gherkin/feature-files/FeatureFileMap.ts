@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 import { Constructor } from '../constructables';
 import { ItemNotFoundError } from './errors';
 
@@ -9,7 +11,7 @@ export class FeatureFileMap {
     constructor(private readonly map: { [line: number]: object } = {}) {
     }
 
-    set(item: object) {
+    set(item: object) {   // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         return ({
             onLine: (line: number): FeatureFileMap => {
                 this.map[line] = item;
@@ -19,7 +21,7 @@ export class FeatureFileMap {
         });
     }
 
-    get<T>(type: Constructor<T>) {
+    get<T>(type: Constructor<T>) {  // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         return ({
             onLine: (line: number): T => {
                 const found = this.map[line];
@@ -51,7 +53,7 @@ export class FeatureFileMap {
         return found;
     }
 
-    size() {
+    size(): number {
         return Object.keys(this.map).length;
     }
 }

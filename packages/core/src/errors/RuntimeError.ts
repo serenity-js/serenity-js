@@ -45,7 +45,7 @@ export abstract class RuntimeError extends Error {
 
         Error.captureStackTrace(this, type);
 
-        if (!! cause) {
+        if (cause) {
             this.stack = `${ this.stack }\nCaused by: ${ cause.stack }`;
         }
     }
@@ -54,7 +54,7 @@ export abstract class RuntimeError extends Error {
      * @desc
      *  Human-readable description
      */
-    toString() {
+    toString(): string {
         return `${ this.constructor.name }: ${ this.message }`;
     }
 }

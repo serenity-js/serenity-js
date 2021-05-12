@@ -1,5 +1,5 @@
 import { spawner, SpawnResult } from '@integration/testing-tools';
-import { CucumberConfig } from '@serenity-js/cucumber/lib/cli'; // tslint:disable-line:no-submodule-imports
+import { CucumberConfig } from '@serenity-js/cucumber/lib/cli';
 import * as path from 'path';
 
 export function invoke(runnerVersion: string, configuration: CucumberConfig, pathToScenario: string): Promise<SpawnResult> {

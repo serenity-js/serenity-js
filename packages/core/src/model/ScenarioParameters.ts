@@ -4,7 +4,7 @@ import { Description } from './Description';
 import { Name } from './Name';
 
 export class ScenarioParameters extends TinyType {
-    public static fromJSON(o: JSONObject) {
+    public static fromJSON(o: JSONObject): ScenarioParameters {
         return new ScenarioParameters(
             Name.fromJSON(o.name as string),
             Description.fromJSON(o.description as string),

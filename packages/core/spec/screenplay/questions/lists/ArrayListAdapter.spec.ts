@@ -1,9 +1,12 @@
+/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null,unicorn/no-useless-undefined */
 import 'mocha';
+
 import { given } from 'mocha-testdata';
-import { expect } from '../../../expect';
-import { ArrayListAdapter } from '../../../../src/screenplay/questions/lists';
+
 import { actorCalled, Answerable, Question } from '../../../../src';
 import { formatted } from '../../../../src/io';
+import { ArrayListAdapter } from '../../../../src/screenplay/questions/lists';
+import { expect } from '../../../expect';
 
 /** @test {ArrayListAdapter} */
 describe('ArrayListAdapter', () => {

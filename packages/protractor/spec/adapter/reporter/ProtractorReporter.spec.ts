@@ -51,16 +51,10 @@ describe('ProtractorReporter', () => {
     function thrown<T extends Error>(error: T): T {
         try {
             throw error;
-        } catch (e) {
-            return e;
+        } catch (thrownError) {
+            return thrownError;
         }
     }
-
-    let runner: sinon.SinonStubbedInstance<Runner>;
-
-    beforeEach(() => {
-        runner = sinon.createStubInstance(Runner);
-    });
 
     describe('with default threshold', () => {
 

@@ -1,14 +1,14 @@
 import * as moment from 'moment';
-import { ensure, isDefined, Predicate, TinyType } from 'tiny-types';
+import { ensure, isDefined, isInstanceOf, Predicate, TinyType } from 'tiny-types';
 
 import { Duration } from './Duration';
 
 export class Timestamp extends TinyType {
-    static fromJSON(v: string) {
+    static fromJSON(v: string): Timestamp {
         return new Timestamp(new Date(ensure(Timestamp.name, v, isSerialisedISO8601Date())));
     }
 
-    static fromMillisecondTimestamp(v: number) {
+    static fromMillisecondTimestamp(v: number): Timestamp {
         return new Timestamp(moment(v).toDate());
     }
 
@@ -45,9 +45,4 @@ export class Timestamp extends TinyType {
 function isSerialisedISO8601Date(): Predicate<string> {
     return Predicate.to(`be an ISO-8601-compliant date`, (value: string) =>
         moment(value, moment.ISO_8601, true).isValid());
-}
-
-function isInstanceOf<T>(type: Function & (new (...args: any[]) => T)): Predicate<T> {                                           // tslint:disable-line:ban-types
-    return Predicate.to(`be an instance of ${ type.name }`, (value: T) =>
-        value instanceof type);
 }

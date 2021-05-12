@@ -1,4 +1,5 @@
 import { CorrelationId } from '@serenity-js/core/lib/model';
+
 import { TestStep } from '../SerenityBDDJsonSchema';
 
 /**

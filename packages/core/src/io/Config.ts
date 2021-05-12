@@ -1,7 +1,7 @@
 /**
  * @experimental
  */
-export class Config<T extends object> {
+export class Config<T extends object> { // eslint-disable-line @typescript-eslint/ban-types
     private readonly transformations = new Map();
 
     constructor(private readonly config: T) {

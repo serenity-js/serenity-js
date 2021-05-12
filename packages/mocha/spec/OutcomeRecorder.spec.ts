@@ -1,6 +1,8 @@
 import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
+
 import { MochaOutcomeMapper } from '../src/mappers';
 import { OutcomeRecorder } from '../src/OutcomeRecorder';
 import { exampleTest } from './exampleTest';
@@ -18,10 +20,10 @@ describe('OutcomeRecorder', () => {
     });
 
     it('returns an outcome recorded for a given test', () => {
-       recorder.started(exampleTest);
-       recorder.finished(exampleTest, mapper.outcomeOf(exampleTest));
+        recorder.started(exampleTest);
+        recorder.finished(exampleTest, mapper.outcomeOf(exampleTest));
 
-       expect(recorder.outcomeOf(exampleTest)).to.equal(new ExecutionSuccessful());
+        expect(recorder.outcomeOf(exampleTest)).to.equal(new ExecutionSuccessful());
     });
 
     it('allows for a recorded outcome to be erased', () => {

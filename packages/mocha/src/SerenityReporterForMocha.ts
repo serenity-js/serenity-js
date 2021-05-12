@@ -17,6 +17,7 @@ import {
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, TestSuiteDetails } from '@serenity-js/core/lib/model';
 import { MochaOptions, reporters, Runnable, Runner, Suite, Test } from 'mocha';
+
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
 import { OutcomeRecorder } from './OutcomeRecorder';
 
@@ -31,16 +32,17 @@ export class SerenityReporterForMocha extends reporters.Base {
     private readonly recorder: OutcomeRecorder = new OutcomeRecorder();
 
     private suiteIds: CorrelationId[] = [];
-    private currentSceneId: CorrelationId = null;
+    private currentSceneId: CorrelationId = undefined;
 
     /**
      * @param {Serenity} serenity
      * @param {mocha~Runner} runner
      * @param {mocha~MochaOptions} options
      */
-    constructor(private readonly serenity: Serenity,
-                runner: Runner,
-                options?: MochaOptions,
+    constructor(
+        private readonly serenity: Serenity,
+        runner: Runner,
+        options?: MochaOptions,
     ) {
         super(runner, options);
 
@@ -80,25 +82,31 @@ export class SerenityReporterForMocha extends reporters.Base {
             (test: Test) => {
                 this.announceRetryIfNeeded(test);
 
-                this.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, this.outcomeMapper.outcomeOf(test))
+                this.recorder.finished(
+                    test.ctx ? test.ctx.currentTest : test,
+                    this.outcomeMapper.outcomeOf(test)
+                );
             },
         );
 
         runner.on(Runner.constants.EVENT_TEST_FAIL,
-            (test: Test, err: Error) => {
+            (test: Test, error: Error) => {
                 this.announceRetryIfNeeded(test);
 
-                this.recorder.finished(!! test.ctx ? test.ctx.currentTest : test, this.outcomeMapper.outcomeOf(test, err))
+                this.recorder.finished(
+                    test.ctx ? test.ctx.currentTest : test,
+                    this.outcomeMapper.outcomeOf(test, error)
+                );
             },
         );
 
         runner.on(Runner.constants.EVENT_TEST_RETRY,
-            (test: Test, err: Error) => {
+            (test: Test, error: Error) => {
                 this.announceRetryIfNeeded(test);
 
                 this.recorder.finished(
                     !! test.ctx && test.ctx.currentTest ? test.ctx.currentTest : test,
-                    this.outcomeMapper.outcomeOf(test, err),
+                    this.outcomeMapper.outcomeOf(test, error),
                 );
             },
         );
@@ -143,6 +151,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         const details = new TestSuiteDetails(
             new Name(suite.title),
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             new FileSystemLocation(Path.from(suite.file!)), // all suites except for the root suite should have .file property set
             suiteId,
         );
@@ -155,6 +164,7 @@ export class SerenityReporterForMocha extends reporters.Base {
     private announceSuiteFinishedFor(suite: Suite): void {
         const details = new TestSuiteDetails(
             new Name(suite.title),
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             new FileSystemLocation(Path.from(suite.file!)), // all suites except for the root suite should have .file property set
             this.suiteIds.pop(),
         );
@@ -163,10 +173,11 @@ export class SerenityReporterForMocha extends reporters.Base {
             this.recorder.outcomeOf(test) || this.outcomeMapper.outcomeOf(test)
         );
 
-        const worstOutcome = outcomes.reduce((worstSoFar, outcome) =>
-            outcome.isWorseThan(worstSoFar)
-                ? outcome
-                : worstSoFar,
+        const worstOutcome = outcomes.reduce(
+            (worstSoFar, outcome) =>
+                outcome.isWorseThan(worstSoFar)
+                    ? outcome
+                    : worstSoFar,
             new ExecutionSuccessful()
         );
 

@@ -1,5 +1,6 @@
 import { DomainEvent, SceneSequenceDetected, SceneStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, ScenarioDetails } from '@serenity-js/core/lib/model';
+
 import { EventQueue } from './EventQueue';
 
 /**
@@ -12,7 +13,7 @@ export class EventQueues {
     private readonly queues: Map<symbol, EventQueue> = new Map();
     private readonly holdingBay = new EventQueue();
 
-    enqueue(event: DomainEvent & { sceneId: CorrelationId }) {
+    enqueue(event: DomainEvent & { sceneId: CorrelationId }): void {
 
         if (this.shouldStartNewQueueFor(event)) {
             this.queues.set(this.queueIdFor(event), new EventQueue(event, ...this.holdingBay.drain()));
@@ -27,7 +28,7 @@ export class EventQueues {
         }
     }
 
-    forEach<T>(callback: (queue: EventQueue) => void): void {
+    forEach(callback: (queue: EventQueue) => void): void {
         this.queues.forEach(callback);
     }
 

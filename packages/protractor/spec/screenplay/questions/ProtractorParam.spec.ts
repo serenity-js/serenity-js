@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 import 'mocha';
 import { expect } from '@integration/testing-tools';
 

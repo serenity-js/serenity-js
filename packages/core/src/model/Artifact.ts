@@ -14,7 +14,7 @@ export type ArtifactType = new (base64EncodedValue: string) => Artifact;
  * @extends {tiny-types~TinyType}
  */
 export abstract class Artifact extends TinyType {
-    static fromJSON(o: SerialisedArtifact) {
+    static fromJSON(o: SerialisedArtifact): Artifact {
         const
             recognisedTypes = Object.keys(artifacts),
             type            = Artifact.ofType(o.type);
@@ -54,7 +54,7 @@ export abstract class Artifact extends TinyType {
 }
 
 function looksLikeBase64Encoded(): Predicate<string> {
-    const regex = /^[A-Za-z0-9+/=]+$/;
+    const regex = /^[\d+/=A-Za-z]+$/;
 
     return Predicate.to(`be base64-encoded`, (value: string) => regex.test(value));
 }

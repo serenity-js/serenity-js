@@ -6,7 +6,7 @@ export class PickEvent {
     constructor(private events: DomainEvent[]) {
     }
 
-    // tslint:disable-next-line:ban-types
+
     next<T extends DomainEvent>(type: Function & { prototype: T }, assertion: (event: T) => void) {
 
         const foundIndex = this.events.findIndex(event => event instanceof type);

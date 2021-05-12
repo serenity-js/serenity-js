@@ -3,8 +3,8 @@ import { Artifact, CorrelationId, Name, TestReport } from '@serenity-js/core/lib
 
 import { SerenityBDDReport } from '../SerenityBDDJsonSchema';
 import { EventQueues } from './EventQueues';
-import { SingleSceneEventQueueProcessor } from './single-scene';
 import { SceneSequenceEventQueueProcessor } from './scene-sequence';
+import { SingleSceneEventQueueProcessor } from './single-scene';
 
 /**
  * @package

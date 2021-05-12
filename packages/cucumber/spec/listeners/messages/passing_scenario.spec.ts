@@ -1,4 +1,6 @@
+/* eslint-disable unicorn/filename-case */
 import 'mocha';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import {
     ActivityFinished,
@@ -12,6 +14,7 @@ import {
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', () => {
@@ -27,10 +30,10 @@ describe('CucumberMessagesListener', () => {
                 './examples/features/passing_scenario.feature',
             )
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(0);
+            .then(result => {
+                expect(result.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('A passing scenario'))

@@ -15,8 +15,8 @@ import { Test } from 'mocha';
  * @package
  */
 export class MochaOutcomeMapper {
-    public outcomeOf(test: Test, err?: Error): Outcome {
-        const error = err || test.err;
+    public outcomeOf(test: Test, maybeError?: Error): Outcome {
+        const error = maybeError || test.err;
 
         switch (true) {
             case !! error && this.isGoingToBeRetried(test):
@@ -55,8 +55,8 @@ export class MochaOutcomeMapper {
     }
 
     private looksLikeAnAssertionError(error: Error): error is AssertionError {
-        return /^AssertionError/.test(error.name)
-            && error.hasOwnProperty('expected')
-            && error.hasOwnProperty('actual')
+        return /^AssertionError/.test(error.name)   // eslint-disable-line unicorn/prefer-string-starts-ends-with
+            && Object.prototype.hasOwnProperty.call(error, 'expected')
+            && Object.prototype.hasOwnProperty.call(error, 'actual')
     }
 }

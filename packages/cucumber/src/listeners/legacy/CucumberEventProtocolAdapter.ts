@@ -30,7 +30,7 @@ interface StepLocations {
 /**
  * @private
  */
-export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache }: Dependencies) {
+export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache }: Dependencies) { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
     return class CucumberEventProtocolAdapter {
 
         // note: exported class expression can't have private properties
@@ -59,7 +59,7 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
                     map = cache.get(path),
                     scenario = map.get(Scenario).onLine(sourceLocation.line);
 
-                if (!! scenario.outline) {
+                if (scenario.outline) {
                     const outline = map.get(ScenarioOutline).onLine(scenario.outline.line);
 
                     map.set(new ScenarioOutline(
@@ -81,22 +81,6 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
                 )).onLine(sourceLocation.line);
             });
 
-            function interleaveStepsAndHooks(steps: Step[], stepsLocations: StepLocations[]): Array<Step | Hook> {
-                const
-                    isAHook = (stepLocations: StepLocations) =>
-                        stepLocations.actionLocation && ! stepLocations.sourceLocation,
-                    matching  = (location: StepLocations) =>
-                        (step: Step) =>
-                            step.location.path.equals(new Path(location.sourceLocation.uri)) &&
-                            step.location.line === location.sourceLocation.line;
-
-                return stepsLocations.map(location =>
-                    isAHook(location)
-                        ?   new Hook(new FileSystemLocation(new Path(location.actionLocation.uri), location.actionLocation.line), new Name('Setup'))
-                        :   steps.find(matching(location)),
-                );
-            }
-
             eventBroadcaster.on('test-case-started', ({ sourceLocation }) => {
                 ensure('test-case-started :: sourceLocation', sourceLocation, isDefined());
 
@@ -105,7 +89,7 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
                     scenario = map.get(Scenario).onLine(sourceLocation.line),
                     sceneId = serenity.assignNewSceneId();
 
-                if (!! scenario.outline) {
+                if (scenario.outline) {
                     const outline = map.get(ScenarioOutline).onLine(scenario.outline.line);
                     notifier.outlineDetected(sceneId, scenario, outline, map.getFirst(Feature));
                 }
@@ -165,7 +149,6 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
         outcomeFrom(result: { duration: number, exception: string | Error, status: string }): Outcome {
             const error = !! result.exception && this.errorFrom(result.exception);
 
-            // tslint:disable:switch-default
             switch (result.status) {
                 case 'undefined':
                     return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
@@ -187,7 +170,7 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
                 case 'skipped':
                     return new ExecutionSkipped();
             }
-            // tslint:enable:switch-default
+
         }
 
         errorFrom(exception: Error | string): Error {
@@ -201,4 +184,23 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
             }
         }
     };
+}
+
+/**
+ * @private
+ */
+function interleaveStepsAndHooks(steps: Step[], stepsLocations: StepLocations[]): Array<Step | Hook> {
+    const
+        isAHook = (stepLocations: StepLocations) =>
+            stepLocations.actionLocation && ! stepLocations.sourceLocation,
+        matching  = (location: StepLocations) =>
+            (step: Step) =>
+                step.location.path.equals(new Path(location.sourceLocation.uri)) &&
+                step.location.line === location.sourceLocation.line;
+
+    return stepsLocations.map(location =>
+        isAHook(location)
+            ?   new Hook(new FileSystemLocation(new Path(location.actionLocation.uri), location.actionLocation.line), new Name('Setup'))
+            :   steps.find(matching(location)),
+    );
 }

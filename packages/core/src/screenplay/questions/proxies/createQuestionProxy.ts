@@ -1,9 +1,10 @@
-import { Answerable } from '../../Answerable';
-import { key } from './key';
-import { Question } from '../../Question';
+/* eslint-disable @typescript-eslint/ban-types */
 import { formatted } from '../../../io';
-import { PropertyPathKey } from './PropertyPathKey';
+import { Answerable } from '../../Answerable';
+import { Question } from '../../Question';
 import { describePath } from './describePath';
+import { key } from './key';
+import { PropertyPathKey } from './PropertyPathKey';
 
 /**
  * @package

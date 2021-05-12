@@ -1,8 +1,8 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { contain, Ensure, equals, isGreaterThan, startsWith } from '@serenity-js/assertions';
-import { actorCalled, engage, Question, toNumber } from '@serenity-js/core';
+import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
+import { actorCalled, engage, Question } from '@serenity-js/core';
 import { by, ElementFinder } from 'protractor';
 import { Click, CSSClasses, Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
@@ -728,15 +728,16 @@ describe('Target', () => {
 
         describe('and interacting with elements on screen', () => {
 
-            const ItemCalled = (name: string) =>
+            const ItemCalled = (name: string) =>    // eslint-disable-line unicorn/consistent-function-scoping
                 AdvancedShoppingList.Items
                     .where(Text.of(AdvancedShoppingList.Item_Name), equals(name))
                     .first();
 
-            const ItemsLeftToBuy = () =>
+            const ItemsLeftToBuy = () =>            // eslint-disable-line unicorn/consistent-function-scoping
                 AdvancedShoppingList.Items
                     .where(CSSClasses, contain('buy'));
 
+            // eslint-disable-next-line unicorn/consistent-function-scoping
             const LinkTo = (item: Question<ElementFinder> | ElementFinder) =>
                 Target.the('link to element').of(item).located(by.css('a'));
 

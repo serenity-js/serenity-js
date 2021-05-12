@@ -53,7 +53,7 @@ export class ManageALocalServer implements Ability {
      * @param {RequestListener | net~Server} listener
      * @returns {ManageALocalServer}
      */
-    static runningAHttpListener(listener: RequestListener | net.Server) {
+    static runningAHttpListener(listener: RequestListener | net.Server): ManageALocalServer {
         const server = typeof listener === 'function'
             ? http.createServer(listener)
             : listener;
@@ -71,7 +71,7 @@ export class ManageALocalServer implements Ability {
      *
      * @see https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
      */
-    static runningAHttpsListener(listener: RequestListener | https.Server, options: https.ServerOptions = {}) {
+    static runningAHttpsListener(listener: RequestListener | https.Server, options: https.ServerOptions = {}): ManageALocalServer {
         const server = typeof listener === 'function'
             ? https.createServer(options, listener)
             : listener;
@@ -115,7 +115,7 @@ export class ManageALocalServer implements Ability {
      *
      * @returns {Promise<void>}
      */
-    listen(preferredPort: number = 8000, highestPort: number = 65535): Promise<void> {
+    listen(preferredPort = 8000, highestPort = 65535): Promise<void> {
         return getPortPromise({ port: preferredPort, stopPort: highestPort })
             .then(port => new Promise<void>((resolve, reject) => {
                 function errorHandler(error: Error & {code: string}) {

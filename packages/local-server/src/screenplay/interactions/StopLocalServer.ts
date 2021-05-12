@@ -1,4 +1,5 @@
 import { AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
+
 import { ManageALocalServer } from '../abilities';
 
 /**
@@ -36,13 +37,11 @@ export class StopLocalServer extends Interaction {
                 return resolve();
             }
 
-            server.shutdown((error: Error) => {
-                if (!! error) {
-                    return reject(error);
-                }
-
-                return resolve();
-            });
+            server.shutdown((error: Error) =>
+                error
+                    ? reject(error)
+                    : resolve()
+            );
         }));
     }
 
@@ -52,7 +51,7 @@ export class StopLocalServer extends Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return `#actor stops the local server`;
     }
 }

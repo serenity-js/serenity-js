@@ -1,6 +1,4 @@
 import { ListensToDomainEvents } from './ListensToDomainEvents';
-import { Stage } from './Stage';
-import { OutputStream } from '../io';
 import { StageCrewMemberBuilderDependencies } from './StageCrewMemberBuilderDependencies';
 
 /**

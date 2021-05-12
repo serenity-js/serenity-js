@@ -21,8 +21,7 @@ export interface Mappable<Item> {
      *
      * @type {function<U>(callback: (item?: Item, index?: number) => U): PromiseLike<U[]> | U[]}
      */
-    map: <U>(callback: (item?: Item, index?: number) => U) =>
-        PromiseLike<U[]> | U[];
+    map: <U>(callback: (item?: Item, index?: number) => U) => PromiseLike<U[]> | U[];
 }
 
 /**

@@ -1,14 +1,15 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Path } from '@serenity-js/core/lib/io';
 
-import { Credentials, GAV } from '../../../src/cli/model';
+import { Credentials } from '../../../src/cli/model';
 
 describe('Credentials', () => {
 
+    // eslint-disable unicorn/no-useless-undefined
+
     it('defaults to "no credentials" if the credentials are not specified', () => {
-        const credentials = Credentials.fromString(undefined);
+        const credentials = Credentials.fromString(undefined);  // eslint-disable-line unicorn/no-useless-undefined
 
         expect(credentials.username).to.equal(undefined);
         expect(credentials.password).to.equal(undefined);
@@ -20,6 +21,8 @@ describe('Credentials', () => {
         expect(credentials.username).to.equal(undefined);
         expect(credentials.password).to.equal(undefined);
     });
+
+    // eslint-enable: unicorn/no-useless-undefined
 
     it('complains if the credentials string does not follow the <username>:<password> template', () => {
 

@@ -1,7 +1,9 @@
 import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { ConfigurationError } from '@serenity-js/core';
 import { inspect } from 'util';
+
 import { errorReportFrom } from '../../../../../../src/stage/crew/serenity-bdd-reporter/processors/mappers';
 
 describe('errorReportFrom', () => {
@@ -41,7 +43,7 @@ describe('errorReportFrom', () => {
     describe('when representing non-Error "throwables" as Serenity BDD-standard JSON reports', () => {
 
         it('supports null', () => {
-            const report = errorReportFrom(null);
+            const report = errorReportFrom(null);   // eslint-disable-line unicorn/no-null
 
             expect(report).to.deep.equal({
                 'errorType': 'null',
@@ -51,7 +53,7 @@ describe('errorReportFrom', () => {
         });
 
         it('supports undefined', () => {
-            const report = errorReportFrom(undefined);
+            const report = errorReportFrom(undefined);  // eslint-disable-line unicorn/no-useless-undefined
 
             expect(report).to.deep.equal({
                 'errorType': 'undefined',
@@ -117,8 +119,8 @@ describe('errorReportFrom', () => {
 function thrown<T>(type: new (...args: any[]) => T, ...args: any[]): T {
     try {
         throw new type(...args);
-    } catch (e) {
-        return e;
+    } catch (error) {
+        return error;
     }
 }
 

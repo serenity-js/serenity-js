@@ -13,7 +13,7 @@ export class APIActors implements Cast {
     }
 }
 
-export function actorUsingAMockedAxiosInstance(config: AxiosRequestConfig = {}) {
+export function actorUsingAMockedAxiosInstance(config: AxiosRequestConfig = {}): { mock: MockAdapter, actor: Actor } {
     const
         axiosInstance = axios.create(config),
         mock = new MockAdapter(axiosInstance);

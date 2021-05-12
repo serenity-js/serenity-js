@@ -7,15 +7,13 @@ import { DomainEvent } from './DomainEvent';
  *  and it's time for any last-minute reporting to take place.
  */
 export class TestRunFinishes extends DomainEvent {
-    static fromJSON(v: string) {
+    static fromJSON(v: string): TestRunFinishes {
         return new TestRunFinishes(
             Timestamp.fromJSON(v as string),
         );
     }
 
-    constructor(
-        timestamp?: Timestamp,
-    ) {
+    constructor(timestamp?: Timestamp) {
         super(timestamp);
     }
 }

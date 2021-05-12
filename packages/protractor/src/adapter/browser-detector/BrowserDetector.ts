@@ -2,8 +2,6 @@ import { Stage } from '@serenity-js/core';
 import { AsyncOperationAttempted, AsyncOperationCompleted, DomainEvent, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, CorrelationId, Description, PlatformTag } from '@serenity-js/core/lib/model';
 import { StageCrewMember } from '@serenity-js/core/lib/stage';
-import { platform } from 'os';
-import { protractor } from 'protractor';
 import { StandardisedCapabilities } from './StandardisedCapabilities';
 
 /**
@@ -15,13 +13,13 @@ import { StandardisedCapabilities } from './StandardisedCapabilities';
  */
 export class BrowserDetector implements StageCrewMember {
 
-    static with(capabilities: StandardisedCapabilities) {
+    static with(capabilities: StandardisedCapabilities): BrowserDetector {
         return new BrowserDetector(capabilities);
     }
 
     constructor(
         private readonly capabilities: StandardisedCapabilities,
-        private readonly stage: Stage = null,
+        private stage?: Stage,
     ) {
     }
 

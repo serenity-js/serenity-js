@@ -21,7 +21,7 @@ export class Value
      * @param {Question<ElementFinder> | ElementFinder} target
      * @returns {Value}
      */
-    static of(target: Question<ElementFinder> | ElementFinder) {
+    static of(target: Question<ElementFinder> | ElementFinder): Value {
         return new Value(target);
     }
 

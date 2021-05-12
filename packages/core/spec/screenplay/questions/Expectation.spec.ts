@@ -1,7 +1,9 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
 
-import { actorCalled, Expectation, ExpectationMet, ExpectationNotMet, Question } from '../../../src';
 import { given } from 'mocha-testdata';
+
+import { actorCalled, Expectation, ExpectationMet, ExpectationNotMet, Question } from '../../../src';
 import { expect } from '../../expect';
 import { isIdenticalTo } from '../../isIdenticalTo';
 

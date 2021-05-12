@@ -2,6 +2,7 @@ import { Answerable, AnswersQuestions, CollectsArtifacts, ConfigurationError, In
 import { formatted, Path } from '@serenity-js/core/lib/io';
 import { CallAnApi } from '@serenity-js/rest';
 import { AxiosRequestConfig } from 'axios';
+
 import { DownloadProgressReport, Notification } from '../../model';
 import { UseFileSystem } from '../abilities';
 
@@ -10,7 +11,7 @@ import { UseFileSystem } from '../abilities';
  */
 export class StreamResponse extends Interaction {
 
-    static to(request: Answerable<AxiosRequestConfig>) {
+    static to(request: Answerable<AxiosRequestConfig>) {    // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         return {
             to: (destination: Path) => new StreamResponse(request, destination),
         };
@@ -54,7 +55,7 @@ export class StreamResponse extends Interaction {
                 actor.collect(Notification.fromJSON({ message: `Downloading ${ config.url } to ${ this.destination.value }` }));
 
                 const
-                    totalBytes  = parseInt(response.headers['content-length'], 10),
+                    totalBytes  = Number.parseInt(response.headers['content-length'], 10),
                     output      = UseFileSystem.as(actor).createWriteStreamTo(this.destination);
 
                 let totalDownloadedBytes  = 0;
@@ -87,7 +88,7 @@ export class StreamResponse extends Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return formatted `#actor saves response to ${ this.request } in ${ this.destination.value }`;
     }
 }

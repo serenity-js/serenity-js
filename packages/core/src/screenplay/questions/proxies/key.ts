@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types,@typescript-eslint/explicit-module-boundary-types */
 import { PropertyPathKey } from './PropertyPathKey';
 
 /**

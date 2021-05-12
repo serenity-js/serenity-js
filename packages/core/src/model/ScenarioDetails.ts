@@ -5,7 +5,7 @@ import { Category } from './Category';
 import { Name } from './Name';
 
 export class ScenarioDetails extends TinyType {
-    static fromJSON(o: JSONObject) {
+    static fromJSON(o: JSONObject): ScenarioDetails {
         return new ScenarioDetails(
             Name.fromJSON(o.name as string),
             Category.fromJSON(o.category as string),

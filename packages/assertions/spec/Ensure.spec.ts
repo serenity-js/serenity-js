@@ -5,6 +5,7 @@ import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, E
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
+
 import { Ensure, equals } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
@@ -39,13 +40,13 @@ describe('Ensure', () => {
         })).toString()).to.equal(`#actor ensures that { "person": { "name": "Jan" } } does equal { "person": { "name": "Jan" } }`);
     });
 
+    /** @test {Ensure.that} */
     given<Answerable<number>>(
         42,
         p(42),
         q(42),
         q(p(42)),
     ).
-    /** @test {Ensure.that} */
     it('allows for the actual to be a Answerable<T> as it compares its value', (actual: Answerable<number>) => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(actual, isIdenticalTo(42)),
@@ -60,7 +61,7 @@ describe('Ensure', () => {
             }
 
             answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<any, Actual>> {
-                return (actual: Actual) => Promise.resolve(null);
+                return (actual: Actual) => Promise.resolve(null);   // eslint-disable-line unicorn/no-null
             }
         }
 
@@ -111,33 +112,35 @@ describe('Ensure', () => {
             actual: Question.about('some value', actor => false),
             artifact: { expected: 'true', actual: 'false' },
         }]).
-            /** @test {Ensure.that} */
-            it('emits an artifact describing the actual and expected values', ({ actual, expected, artifact }) => {
+        it('emits an artifact describing the actual and expected values', ({ actual, expected, artifact }) => {
 
-                return expect(actorCalled('Enrique').attemptsTo(
-                    Ensure.that(actual, equals(expected)),  // we don't care about the expectation itself in this test
-                )).to.be.rejected.then(() =>
-                    PickEvent.from(recorder.events)
-                        .next(ActivityRelatedArtifactGenerated, e => e.artifact.map(value => {
-                            expect(value.expected).to.equal(artifact.expected);
-                            expect(value.actual).to.equal(artifact.actual);
-                        })),
-                );
-            });
+            return expect(actorCalled('Enrique').attemptsTo(
+                Ensure.that(actual, equals(expected)),  // we don't care about the expectation itself in this test
+            )).
+            to.be.rejected.then(() =>
+                PickEvent.from(recorder.events)
+                    .next(ActivityRelatedArtifactGenerated, e => e.artifact.map(value => {
+                        expect(value.expected).to.equal(artifact.expected);
+                        expect(value.actual).to.equal(artifact.actual);
+                    })),
+            );
+        });
     });
 
     describe('custom errors', () => {
 
-        it('allows the actor to fail the flow with a custom RuntimeError, embedding the original error', () => {
-            return expect(actorCalled('Enrique').attemptsTo(
+        it('allows the actor to fail the flow with a custom RuntimeError, embedding the original error', () =>
+            expect(
+                actorCalled('Enrique').attemptsTo(
                     Ensure.that(503, equals(200)).otherwiseFailWith(TestCompromisedError),
-                ))
+                ),
+            )
                 .to.be.rejectedWith(TestCompromisedError, 'Expected 503 to equal 200')
                 .then((error: RuntimeError) => {
                     expect(error.cause).to.be.instanceOf(AssertionError);
                     expect(error.cause.message).to.be.equal('Expected 503 to equal 200');
-                });
-        });
+                }),
+        );
 
         it('allows the actor to fail the flow with a custom RuntimeError with a custom error message', () => {
             return expect(actorCalled('Enrique').attemptsTo(

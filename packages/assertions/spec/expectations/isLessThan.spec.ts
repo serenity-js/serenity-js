@@ -2,6 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+
 import { Ensure, isLessThan } from '../../src';
 
 describe('isLessThan', () => {

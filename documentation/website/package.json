@@ -32,7 +32,7 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^10 || ^12 || ^14",
+    "node": "^12 || ^14 || ^16",
     "npm": "^6 || ^7"
   },
   "devDependencies": {
@@ -46,6 +46,7 @@
     "@serenity-js/protractor": "^2.0.0",
     "@serenity-js/rest": "^2.0.0",
     "@serenity-js/serenity-bdd": "^2.0.0",
+    "async": "^3.2.0",
     "cheerio": "^1.0.0-rc.6",
     "clean-css": "^5.1.2",
     "glob": "^7.1.6",
@@ -56,7 +57,6 @@
     "metalsmith": "^2.3.0",
     "metalsmith-autotoc": "^0.1.5",
     "metalsmith-browser-sync": "^1.1.1",
-    "metalsmith-clean-css": "^6.1.3",
     "metalsmith-discover-helpers": "^0.1.1",
     "metalsmith-discover-partials": "^0.1.2",
     "metalsmith-filemetadata": "^2.1.0",
@@ -66,9 +66,10 @@
     "metalsmith-path": "^0.3.1",
     "metalsmith-regex-replace": "^1.2.0",
     "metalsmith-rename": "^1.0.0",
-    "metalsmith-sass": "^1.7.0",
     "metalsmith-sitemap": "^1.2.2",
     "metalsmith-uglify": "^2.3.4",
+    "minimatch": "^3.0.4",
+    "node-sass": "^6.0.0",
     "yaml": "^1.10.2"
   }
 }

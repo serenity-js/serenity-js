@@ -5,7 +5,7 @@ import { Dependencies } from './Dependencies';
 import { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } from './gherkin';
 
 export = function ({ serenity, notifier, resultMapper, loader, cache }: Dependencies) {
-    return function () {
+    return function (): void {
         this.registerHandler('BeforeFeatures', () => {
             notifier.testRunStarts();
         });
@@ -106,7 +106,7 @@ function get(object, property) {
         : object[property];
 
     return ({
-        as: function<T>(type: new (v: any) => T): T {  // tslint:disable-line:object-literal-shorthand esdoc doesn't understand generic anonymous functions
+        as: function<T>(type: new (v: any) => T): T {  // ESDoc doesn't understand generic anonymous functions
             return new type(value);
         },
         value: () => value,
@@ -143,9 +143,9 @@ function ambiguousStepsDetectedIn(result): Error | undefined {
 
     return ambiguousStepDefinitions
         .map(step => `${ get(step, 'pattern').value().toString() } - ${ get(step, 'uri').value() }:${ get(step, 'line').value() }`)
-        .reduce((err: Error, issue) => {
-            err.message += `\n${issue}`;
-            return err;
+        .reduce((error: Error, issue) => {
+            error.message += `\n${issue}`;
+            return error;
         }, new AmbiguousStepDefinitionError('Multiple step definitions match:'));
 }
 

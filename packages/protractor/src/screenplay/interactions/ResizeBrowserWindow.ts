@@ -105,7 +105,7 @@ class MaximiseBrowserWindow implements Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return `#actor maximises the browser window`;
     }
 }
@@ -141,7 +141,7 @@ class SetBrowserWindowSize implements Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return `#actor sets the size of the browser window to ${this.width} x ${this.height}`;
     }
 }

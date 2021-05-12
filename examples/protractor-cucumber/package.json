@@ -17,7 +17,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf target",
-    "lint": "tslint --project tsconfig-lint.json --config ../../tslint.json --format stylish",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "protractor ./protractor.conf.js",
     "test:report": "serenity-bdd run",
@@ -32,7 +32,7 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^10 || ^12 || ^14",
+    "node": "^12 || ^14 || ^16",
     "npm": "^6 || ^7"
   },
   "devDependencies": {

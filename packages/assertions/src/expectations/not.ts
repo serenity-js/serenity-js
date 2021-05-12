@@ -11,7 +11,7 @@ export function not<Expected, Actual>(assertion: Expectation<Expected, Actual>):
 class Not<Expected, Actual> extends Expectation<Expected, Actual> {
     private static flipped(message: string): string {
         return message.startsWith('not ')
-            ? message.substring(4)
+            ? message.slice(4)
             : `not ${ message }`;
     }
 

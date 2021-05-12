@@ -3,7 +3,7 @@ import { ensure, isDefined, TinyType } from 'tiny-types';
 export class Description extends TinyType {
     public readonly value: string;
 
-    static fromJSON(v: string) {
+    static fromJSON(v: string): Description {
         return new Description(v);
     }
 

@@ -87,8 +87,8 @@ export class Enter extends Interaction {
      */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return actor.answer(this.value)
-            .then(value => withAnswerOf(actor, this.field, (el: ElementFinder | AlertPromise) =>
-                el.sendKeys(`${ value }`))
+            .then(value => withAnswerOf(actor, this.field, (elf: ElementFinder | AlertPromise) =>
+                elf.sendKeys(`${ value }`))
             );
     }
 

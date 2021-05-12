@@ -1,4 +1,5 @@
 import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
+
 import { CallAnApi } from '../abilities';
 
 /**
@@ -90,7 +91,7 @@ export class ChangeApiUrl extends Interaction {
      *
      * @returns {string}
      */
-    toString() {
+    toString(): string {
         return `#actor changes the API URL to ${ this.newApiUrl.toString() }`;
     }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-useless-undefined */
 import 'mocha';
 
 import { certificates, expect } from '@integration/testing-tools';
@@ -15,20 +16,20 @@ describe('Cookie', () => {
 
     // a tiny express server, setting response cookies
     const cookieCutterApp = express().
-        get('/cookie', (req: express.Request & { query: { [key: string]: string }}, res: express.Response) => {
-            res.cookie(req.query.name, req.query.value, {
+        get('/cookie', (request: express.Request & { query: { [key: string]: string }}, response: express.Response) => {
+            response.cookie(request.query.name, request.query.value, {
                 path:       '/cookie',
-                domain:     req.query.domain,
-                httpOnly:   !! req.query.httpOnly,
-                secure:     !! req.query.secure,
-                expires:    req.query.expires && new Date(req.query.expires),
+                domain:     request.query.domain,
+                httpOnly:   !! request.query.httpOnly,
+                secure:     !! request.query.secure,
+                expires:    request.query.expires && new Date(request.query.expires),
                 // https://www.chromestatus.com/feature/5633521622188032
-                // sameSite:   !! req.query.secure ? 'None' : undefined,
+                // sameSite:   !! request.query.secure ? 'None' : undefined,
             }).status(200).send();
         });
 
     function cookieCutterURLFor(path: string): Question<Promise<string>> {
-        return Transform.the(LocalServer.url(), url => `${ url }${ path }`);
+        return LocalServer.url().map(actor => url => `${ url }${ path }`);
     }
 
     beforeEach(() => engage(new UIActors()));

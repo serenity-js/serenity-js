@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
+
 import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', () => {
@@ -20,10 +21,10 @@ describe('CucumberMessagesListener', () => {
                 './examples/features/snippets.feature',
             )
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(1);
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario with steps that have not been implemented yet')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS suggest implementation snippets')))
