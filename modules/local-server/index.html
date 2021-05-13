@@ -199,7 +199,7 @@ satisfy the above test.</p>
 </code></pre>
 <p><a href="https://expressjs.com/">Learn more about Express</a>.</p>
 <h4 id="hapi">HAPI</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
-<span class="hljs-keyword">const</span> hapi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'hapi'</span>);
+<span class="hljs-keyword">const</span> hapi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@hapi/hapi'</span>);
 
 <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> hapi.Server();
 server.route({ <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">'/'</span>, <span class="hljs-attr">handler</span>: <span class="hljs-function">(<span class="hljs-params">req, h</span>) =&gt;</span> <span class="hljs-string">'Hello World!'</span> })
