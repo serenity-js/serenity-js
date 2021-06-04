@@ -60,13 +60,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: apt-get update
-        run: sudo apt-get update
-        continue-on-error: true
-      - name: Update Chrome
-        run: |
-          sudo apt-get --only-upgrade install google-chrome-stable
-          google-chrome --version
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -77,6 +70,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
+      - uses: saucelabs/sauce-connect-action@v1
+        with:
+          username: ${{ secrets.SAUCE_USERNAME }}
+          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+          tunnelIdentifier: github-serenity-js-test-linux-node-${{ matrix.node-version }}-tunnel
 
       - name: Test
         run: make test
@@ -113,6 +111,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
+      - uses: saucelabs/sauce-connect-action@v1
+        with:
+          username: ${{ secrets.SAUCE_USERNAME }}
+          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+          tunnelIdentifier: github-serenity-js-test-windows-node-${{ matrix.node-version }}-tunnel
       - name: Test
         run: make test
 
@@ -129,13 +132,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: apt-get update
-        run: sudo apt-get update
-        continue-on-error: true
-      - name: Update Chrome
-        run: |
-          sudo apt-get --only-upgrade install google-chrome-stable
-          google-chrome --version
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
