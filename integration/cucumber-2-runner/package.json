@@ -20,7 +20,8 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js .",
+    "lint:fix": "npm run lint -- --fix",
     "test": "exit 0",
     "compile": "tsc --project tsconfig.json"
   },

@@ -21,7 +21,8 @@
   ],
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js .",
+    "lint:fix": "npm run lint -- --fix",
     "compile": "tsc --project tsconfig.json"
   },
   "repository": {

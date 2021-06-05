@@ -17,7 +17,8 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js .",
+    "lint:fix": "npm run lint -- --fix",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "jasmine --reporter='@serenity-js/jasmine'",
     "test:report": "serenity-bdd run",
