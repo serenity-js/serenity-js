@@ -1,12 +1,7 @@
 const { Actors } = require('./Actors');
 
 exports.config = {
-    chromeDriver: require('chromedriver/lib/chromedriver').path,
-    SELENIUM_PROMISE_MANAGER: false,
-
-    directConnect: true,
-
-    allScriptsTimeout: 11000,
+    ...require('../../../protractor.conf'),
 
     specs: [ 'features/*.feature', ],
 
@@ -23,23 +18,5 @@ exports.config = {
         require: [
             'features/step_definitions/**/*.js',
         ],
-    },
-
-    onPrepare: function() {
-        return browser.waitForAngularEnabled(false);
-    },
-
-    capabilities: {
-        browserName: 'chrome',
-
-        chromeOptions: {
-            args: [
-                '--disable-infobars',
-                '--no-sandbox',
-                '--disable-gpu',
-                '--window-size=1024x768',
-                '--headless',
-            ],
-        },
     },
 };

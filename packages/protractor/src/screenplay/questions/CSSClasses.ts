@@ -108,11 +108,14 @@ export class CSSClasses
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         return Attribute.of(this.target).called('class').answeredBy(actor)
-            .then(attribute => attribute
-                .replace(/\s+/, ' ')
-                .trim()
-                .split(' ')
-                .filter(cssClass => !! cssClass),
-            );
+            .then(value => {
+                return typeof value !== 'string'
+                    ? []
+                    : value
+                        .replace(/\s+/, ' ')
+                        .trim()
+                        .split(' ')
+                        .filter(cssClass => !!cssClass);
+            });
     }
 }

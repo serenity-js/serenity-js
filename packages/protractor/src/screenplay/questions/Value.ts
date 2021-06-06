@@ -1,9 +1,9 @@
 import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
-
-import { Attribute } from './Attribute';
 import { TargetNestedElement } from './targets';
+import { withAnswerOf } from '../withAnswerOf';
+import { BrowseTheWeb } from '../abilities';
 
 /**
  * @desc
@@ -15,8 +15,7 @@ import { TargetNestedElement } from './targets';
  */
 export class Value
     extends Question<Promise<string>>
-    implements MetaQuestion<Question<ElementFinder> | ElementFinder, Promise<string>>
-{
+    implements MetaQuestion<Question<ElementFinder> | ElementFinder, Promise<string>> {
     /**
      * @param {Question<ElementFinder> | ElementFinder} target
      * @returns {Value}
@@ -29,7 +28,7 @@ export class Value
      * @param {Question<ElementFinder> | ElementFinder} target
      */
     constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
-        super(formatted `the value of ${ target}`);
+        super(formatted`the value of ${ target }`);
     }
 
     /**
@@ -60,6 +59,14 @@ export class Value
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        return Attribute.of(this.target).called('value').answeredBy(actor);
+        return withAnswerOf(actor, this.target, (elf: ElementFinder) =>
+            BrowseTheWeb.as(actor).executeFunction(
+                /* istanbul ignore next */
+                function getValue(webElement) {
+                    return webElement.value;
+                },
+                elf.getWebElement(),
+            ),
+        );
     }
 }

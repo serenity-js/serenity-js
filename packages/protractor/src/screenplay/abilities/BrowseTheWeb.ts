@@ -397,6 +397,10 @@ export class BrowseTheWeb implements Ability {
             });
     }
 
+    executeFunction<F extends (...args: any[]) => any>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
+        return promiseOf(this.browser.executeScriptWithDescription(fn, fn.name, ...args));
+    }
+
     /**
      * @desc
      *  Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
