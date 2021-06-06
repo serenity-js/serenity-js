@@ -1,17 +1,10 @@
 const
     { ConsoleReporter } = require('@serenity-js/console-reporter'),
-    { ArtifactArchiver, StreamReporter } = require('@serenity-js/core'),
+    { ArtifactArchiver } = require('@serenity-js/core'),
     { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
 exports.config = {
-    chromeDriver: require('chromedriver/lib/chromedriver').path,
-    SELENIUM_PROMISE_MANAGER: false,
-
-    // restartBrowserBetweenTests: true,
-
-    directConnect: true,
-
-    allScriptsTimeout: 11000,
+    ...require('../../protractor.conf'),
 
     specs: [ 'features/*.feature', ],
 
@@ -33,19 +26,5 @@ exports.config = {
             'features/support/setup.ts',
         ],
         'require-module': ['ts-node/register'],
-    },
-
-    capabilities: {
-        browserName: 'chrome',
-
-        chromeOptions: {
-            args: [
-                '--disable-infobars',
-                '--no-sandbox',
-                '--disable-gpu',
-                '--window-size=1024x768',
-                '--headless',
-            ],
-        },
     },
 };

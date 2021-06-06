@@ -3,7 +3,7 @@ import { TableDefinition } from 'cucumber';
 
 type Callback = (error?: Error, pending?: string) => void;
 
-export = function (): void {
+export = function () {
     this.Given(/^.*step .* passes$/, function (done: Callback) {
         done();
     });

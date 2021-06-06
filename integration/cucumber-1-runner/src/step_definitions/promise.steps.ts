@@ -1,7 +1,7 @@
 import { AssertionError } from '@serenity-js/core';
 import { TableDefinition } from 'cucumber';
 
-export = function (): void {
+export = function () {
     this.Given(/^.*step .* passes$/, function () {
         return Promise.resolve();
     });

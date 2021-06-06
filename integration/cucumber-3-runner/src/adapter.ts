@@ -1,19 +1,19 @@
 import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import { CucumberCLIAdapter, CucumberConfig, TempFileOutput } from '@serenity-js/cucumber/lib/cli';
-import path from 'path';
+import * as path from 'path';
 
-export = function (cucumberConfig: CucumberConfig, pathToScenario: Path): Promise<void> {
-    const runnerRootDirectory = path.resolve(__dirname, '..');
+export = function (cucumberConfig: CucumberConfig, pathToScenario: Path) {
+    const runnerRootDir = path.resolve(__dirname, '..');
 
     const adapter = new CucumberCLIAdapter({
         ...cucumberConfig,
         require: [
-            path.join(runnerRootDirectory, 'lib/step_definitions/synchronous.steps.js'),
-            path.join(runnerRootDirectory, 'lib/support/configure_serenity.js'),
+            path.join(runnerRootDir, 'lib/step_definitions/synchronous.steps.js'),
+            path.join(runnerRootDir, 'lib/support/configure_serenity.js'),
         ]
     },
-    new ModuleLoader(runnerRootDirectory),
-    new TempFileOutput(new FileSystem(Path.from(runnerRootDirectory))),
+    new ModuleLoader(runnerRootDir),
+    new TempFileOutput(new FileSystem(Path.from(runnerRootDir))),
     );
 
     return adapter.run([ pathToScenario.value ]);

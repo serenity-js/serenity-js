@@ -1,9 +1,9 @@
 import express = require('express');
 
 export const app = express()
-    .get('/:id', (request: express.Request, response: express.Response) => {
+    .get('/:id', (request: express.Request, res: express.Response) => {
 
-        response.send(`<!DOCTYPE html>
+        res.send(`<!DOCTYPE html>
             <html>
             <head>
                 <meta charset="UTF-8">
@@ -13,9 +13,9 @@ export const app = express()
             </html>
         `);
     })
-    .get('/', (request: express.Request, response: express.Response) => {
+    .get('/', (request: express.Request, res: express.Response) => {
 
-        response.send(`<!DOCTYPE html>
+        res.send(`<!DOCTYPE html>
             <html>
             <head>
                 <meta charset="UTF-8">

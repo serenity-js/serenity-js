@@ -4,6 +4,7 @@ import { ElementFinder } from 'protractor';
 
 import { promiseOf } from '../../promiseOf';
 import { withAnswerOf } from '../withAnswerOf';
+import { Value } from './Value';
 
 /**
  * @desc
@@ -212,7 +213,7 @@ class SelectedValue extends Question<Promise<string>> {
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         const value = withAnswerOf(actor, this.target, (element: ElementFinder) =>
-            element.$('option:checked').getAttribute('value')
+            Value.of(element.$('option:checked')).answeredBy(actor)
         );
 
         return promiseOf(value);
@@ -232,7 +233,7 @@ class SelectedValues extends Question<Promise<string[]>> {
         const options = withAnswerOf(actor, this.target, (element: ElementFinder) => element.$$('option')
             .filter(option => option.isSelected()));
 
-        return promiseOf(options.map(option => option.getAttribute('value')));
+        return promiseOf(options.map(option => Value.of(option).answeredBy(actor)));
     }
 }
 

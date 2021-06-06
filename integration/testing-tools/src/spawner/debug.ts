@@ -1,8 +1,6 @@
 import { SpawnResult } from './SpawnResult';
 
-const prefixWith = (prefix: string, multiLineText: string) => multiLineText.split('\n').map(line => `[${ prefix }] ${ line }`).join('\n');
-
-export function ifExitCodeIsOtherThan(expectedExitCode: number, fn: (result: SpawnResult) => SpawnResult): (result: SpawnResult) => SpawnResult {
+export function ifExitCodeIsOtherThan(expectedExitCode: number, fn: (res: SpawnResult) => SpawnResult) {
     return (result: SpawnResult) => {
         return result.exitCode !== expectedExitCode
             ? fn(result)
@@ -10,14 +8,16 @@ export function ifExitCodeIsOtherThan(expectedExitCode: number, fn: (result: Spa
     };
 }
 
-export function logOutput(result: SpawnResult): SpawnResult {
-    if (result.stdout) {
-        console.info(prefixWith('out', result.stdout));
+export function logOutput(res: SpawnResult): SpawnResult {
+    const prefixWith = (prefix: string, multiLineText: string) => multiLineText.split('\n').map(line => `[${ prefix }] ${ line }`).join('\n');
+
+    if (res.stdout) {
+        console.info(prefixWith('out', res.stdout));
     }
 
-    if (result.stderr) {
-        console.error(prefixWith('err', result.stderr));
+    if (res.stderr) {
+        console.error(prefixWith('err', res.stderr));
     }
 
-    return result;
+    return res;
 }
