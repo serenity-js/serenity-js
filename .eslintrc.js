@@ -28,7 +28,7 @@ module.exports = {
         'simple-import-sort/exports': 'error',
         'sort-imports': 'off',
         'import/order': 'off',
-        "unused-imports/no-unused-imports": "error",
+        'unused-imports/no-unused-imports': 'error',
 
         'no-multiple-empty-lines': ['warn', {
             'max': 1,

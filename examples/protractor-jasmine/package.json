@@ -19,7 +19,6 @@
     "clean": "rimraf target",
     "lint": "eslint --ext ts --config ../../.eslintrc.js .",
     "lint:fix": "npm run lint -- --fix",
-    "lint:fix": "npm run lint -- --fix",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "protractor ./protractor.conf.js",
     "test:report": "serenity-bdd run",
