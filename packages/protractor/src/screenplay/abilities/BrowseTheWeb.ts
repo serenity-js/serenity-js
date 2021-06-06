@@ -400,6 +400,19 @@ export class BrowseTheWeb implements Ability {
 
     /**
      * @desc
+     *  A simplified version of {@link BrowseTheWeb#executeScript} that doesn't affect {@link LastScriptExecution.result()}.
+     *
+     * @param {Function} fn
+     * @param {Parameters<fn>} args
+     *
+     * @returns {Promise<ReturnType<fn>>}
+     */
+    executeFunction<F extends (...args: any[]) => any>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
+        return promiseOf(this.browser.executeScriptWithDescription(fn, fn.name, ...args));
+    }
+
+    /**
+     * @desc
      *  Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
      *  The script fragment will be executed as the body of an anonymous function.
      *  If the script is provided as a function object, that function will be converted to a string for injection

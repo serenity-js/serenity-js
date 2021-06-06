@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.29.0](https://github.com/serenity-js/serenity-js/compare/v2.28.1...v2.29.0) (2021-06-06)
+
+
+### Bug Fixes
+
+* **protractor:** bumped peer dependencies ([b47783d](https://github.com/serenity-js/serenity-js/commit/b47783d007db14580e59affca2b21aa20c77ac49))
+
+
+### Features
+
+* **protractor:** support for Chrome 91 ([ac108c8](https://github.com/serenity-js/serenity-js/commit/ac108c8e0237875e69245c54855668354da02d5a)), closes [angular/protractor#5519](https://github.com/angular/protractor/issues/5519)
+
+
+
+
+
 ## [2.28.1](https://github.com/serenity-js/serenity-js/compare/v2.28.0...v2.28.1) (2021-05-13)
 
 
