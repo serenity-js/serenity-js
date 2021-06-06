@@ -77,11 +77,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
-      - uses: saucelabs/sauce-connect-action@v1
-        with:
-          username: ${{ secrets.SAUCE_USERNAME }}
-          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-          tunnelIdentifier: github-serenity-js-test-linux-node-${{ matrix.node-version }}-tunnel
 
       - name: Test
         run: make test
@@ -118,11 +113,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
-      - uses: saucelabs/sauce-connect-action@v1
-        with:
-          username: ${{ secrets.SAUCE_USERNAME }}
-          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-          tunnelIdentifier: github-serenity-js-test-windows-node-${{ matrix.node-version }}-tunnel
       - name: Test
         run: make test
 
