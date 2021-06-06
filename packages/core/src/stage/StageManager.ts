@@ -177,7 +177,7 @@ class WIP {
             }
         }
 
-        return undefined;   // eslint:disable-line:unicorn/no-useless-undefined
+        return undefined;   // eslint-disable-line unicorn/no-useless-undefined
     }
 }
 
