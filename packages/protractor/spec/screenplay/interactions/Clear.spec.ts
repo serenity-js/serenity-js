@@ -19,7 +19,7 @@ describe('Clear', () => {
 
     /** @test {Clear} */
     /** @test {Clear.theValueOf} */
-    it('allows the actor to clear the value of an empty input field', () => actorCalled('Bernie').attemptsTo(
+    it('allows the actor to clear the value of an empty input with no "value" attribute', () => actorCalled('Bernie').attemptsTo(
         Navigate.to(pageFromTemplate(`
             <html>
                 <body>
