@@ -10,9 +10,8 @@ const localChromeConfig = {
             browser: 'INFO',
         },
 
-        // This is needed for ChromeDriver, as of ChromeDriver 75
-        // it is W3C by default. Protractor doesn't support this.
-        'goog:chromeOptions':{
+        'goog:chromeOptions': {
+            // As of version 75, ChromeDriver is W3C by default, which Protractor does not fully support.
             w3c: false,
             args: [
                 '--disable-web-security',
