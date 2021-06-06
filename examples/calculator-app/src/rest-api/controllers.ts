@@ -13,10 +13,10 @@ import {
 } from '../';
 import { Expression } from './model';
 
-export function controllers(api: express.Application, calculator: Calculator) {
+export function controllers(api: express.Application, calculator: Calculator): express.Application {
 
     // curl -X POST -H "Content-Type: text/plain" --data "2+2" http://localhost:3000/api/calculations
-    api.post('/api/calculations', bodyParser.text(), (request: express.Request, res: express.Response) => {
+    api.post('/api/calculations', bodyParser.text(), (request: express.Request, response: express.Response) => {
 
         const
             calculation = Expression.fromString(request.body),
@@ -28,10 +28,10 @@ export function controllers(api: express.Application, calculator: Calculator) {
             .else(_ => void 0),
         );
 
-        res.status(201).location(`/api/calculations/${ calculationId.value }`).send();
+        response.status(201).location(`/api/calculations/${ calculationId.value }`).send();
     });
 
-    api.get('/api/calculations/:calculation_id', (request: express.Request, res: express.Response) => {
+    api.get('/api/calculations/:calculation_id', (request: express.Request, response: express.Response) => {
 
         const
             calculationId = new CalculationId(request.params.calculation_id),
@@ -39,7 +39,7 @@ export function controllers(api: express.Application, calculator: Calculator) {
 
         const result = calculator.submit(query);
 
-        res.status(200).send({
+        response.status(200).send({
             result,
         });
     });

@@ -2,8 +2,8 @@ import { AnswersQuestions, Interaction, LogicError, Question, UsesAbilities } fr
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder, protractor } from 'protractor';
 
-import { withAnswerOf } from '../withAnswerOf';
 import { Value } from '../questions';
+import { withAnswerOf } from '../withAnswerOf';
 
 /**
  * @desc

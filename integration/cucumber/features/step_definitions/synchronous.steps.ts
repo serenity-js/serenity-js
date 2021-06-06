@@ -1,6 +1,6 @@
 import { TableDefinition } from 'cucumber';
 
-export = function () {
+export = function (): void {
     this.Given(/^.*step .* passes$/, function () {
         return void 0;
     });
