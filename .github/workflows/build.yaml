@@ -60,6 +60,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: apt-get update
+        run: sudo apt-get update
+        continue-on-error: true
+      - name: Update Chrome
+        run: |
+          sudo apt-get --only-upgrade install google-chrome-stable
+          google-chrome --version
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -132,6 +139,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: apt-get update
+        run: sudo apt-get update
+        continue-on-error: true
+      - name: Update Chrome
+        run: |
+          sudo apt-get --only-upgrade install google-chrome-stable
+          google-chrome --version
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
