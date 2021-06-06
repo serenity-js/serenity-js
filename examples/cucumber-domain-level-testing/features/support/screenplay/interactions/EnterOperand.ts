@@ -1,9 +1,10 @@
-import { EnterOperandCommand, Operand } from '@serenity-js-examples/calculator-app';
 import { Actor, Interaction } from '@serenity-js/core';
 import { JSONData } from '@serenity-js/core/lib/model';
+import { EnterOperandCommand, Operand } from '@serenity-js-examples/calculator-app';
+
 import { InteractDirectly } from '../abilities';
 
-export const EnterOperand = (operand: Operand) =>
+export const EnterOperand = (operand: Operand): Interaction =>
     Interaction.where(`#actor enters an operand of ${operand.value}`,
         (actor: Actor) => {
             const ability = InteractDirectly.as(actor);
@@ -18,4 +19,4 @@ export const EnterOperand = (operand: Operand) =>
             );
 
             actor.collect(JSONData.fromJSON(command.toJSON()), command.constructor.name);
-    });
+        });

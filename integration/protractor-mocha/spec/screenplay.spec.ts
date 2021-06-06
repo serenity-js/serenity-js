@@ -3,6 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { InteractionStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+
 import { protractor } from '../src/protractor';
 
 describe('@serenity-js/mocha', function () {
@@ -15,11 +16,11 @@ describe('@serenity-js/mocha', function () {
             '--specs=examples/screenplay.spec.js',
         )
         .then(ifExitCodeIsOtherThan(0, logOutput))
-        .then(res => {
+        .then(result => {
 
-            expect(res.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(res.events)
+            PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario passes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))

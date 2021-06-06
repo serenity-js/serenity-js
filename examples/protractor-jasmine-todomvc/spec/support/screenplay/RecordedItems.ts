@@ -1,4 +1,5 @@
-import { Text } from '@serenity-js/protractor';
-import { TodoList } from './ui';
+import {Text} from '@serenity-js/protractor';
 
-export const RecordedItems = () => Text.ofAll(TodoList.items);
+import {TodoList} from './ui';
+
+export const RecordedItems = (): any => Text.ofAll(TodoList.items);

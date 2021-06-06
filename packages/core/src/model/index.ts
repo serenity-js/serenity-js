@@ -1,6 +1,6 @@
 export * from './ActivityDetails';
-export * from './artifacts';
 export * from './Artifact';
+export * from './artifacts';
 export * from './BusinessRule';
 export * from './Category';
 export * from './CorrelationId';
@@ -10,6 +10,6 @@ export * from './Name';
 export * from './outcomes';
 export * from './ScenarioDetails';
 export * from './ScenarioParameters';
-export * from './TestSuiteDetails';
 export * from './tags';
+export * from './TestSuiteDetails';
 export * from './Timestamp';

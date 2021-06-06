@@ -1,4 +1,5 @@
 import 'mocha';
+
 import { given } from 'mocha-testdata';
 
 import {
@@ -9,7 +10,6 @@ import {
     RightParenthesisOperator,
     SubtractionOperator,
 } from '../../../src';
-
 import { expect } from '../../expect';
 
 describe('Operator', () => {

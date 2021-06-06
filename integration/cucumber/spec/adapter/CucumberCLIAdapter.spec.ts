@@ -1,7 +1,6 @@
+/* eslint-disable unicorn/filename-case */
 import 'mocha';
-import { given } from 'mocha-testdata';
-import { invoke } from '../../src/invoke';
-import { trimmed } from '@serenity-js/core/lib/io';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import {
     ActivityFinished,
@@ -15,7 +14,11 @@ import {
     TestRunnerDetected,
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+import { given } from 'mocha-testdata';
+
+import { invoke } from '../../src/invoke';
 
 describe('@serenity-js/cucumber', function () {
 
@@ -55,12 +58,12 @@ describe('@serenity-js/cucumber', function () {
         it('works', ({ runner, config, expectedOutput }) =>
             invoke(runner, config, 'features/passing_scenario.feature').
                 then(ifExitCodeIsOtherThan(0, logOutput)).
-                then(res => {
-                    expect(res.exitCode).to.equal(0);
+                then(result => {
+                    expect(result.exitCode).to.equal(0);
 
-                    expect(res.stdout).to.include(expectedOutput);
+                    expect(result.stdout).to.include(expectedOutput);
 
-                    PickEvent.from(res.events)
+                    PickEvent.from(result.events)
                         .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A passing scenario')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))

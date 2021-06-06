@@ -12,8 +12,9 @@ import {
     RightParenthesisOperator,
     SubtractionOperator,
 } from '../model';
-
 import { QueryHandler } from './QueryHandler';
+
+const peek = <T>(list: T[]): T => list[list.length - 1];
 
 export class ResultCalculator implements QueryHandler<Operand> {
 
@@ -47,8 +48,6 @@ export class ResultCalculator implements QueryHandler<Operand> {
             [MultiplicationOperator.Symbol]: 2,
             [DivisionOperator.Symbol]: 2,
         };
-
-        const peek = <T>(list: T[]): T => list[list.length - 1];
 
         const stack: Array<Operator | Operand> = [];
 

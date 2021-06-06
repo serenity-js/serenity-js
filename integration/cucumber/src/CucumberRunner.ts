@@ -15,6 +15,7 @@ export class CucumberRunner {
 
     run(): Promise<SpawnResult> {
         const runnerModule = `@integration/cucumber-${ this.version }-runner`;
+        /* eslint-disable-next-line @typescript-eslint/no-var-requires */
         const cucumberCli = require(runnerModule);
 
         const runnerSpecificRequires = this.requiredFiles

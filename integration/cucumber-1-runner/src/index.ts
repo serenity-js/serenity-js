@@ -1,5 +1,5 @@
 import { spawner, SpawnResult } from '@integration/testing-tools';
-import * as path from 'path';
+import path from 'path';
 
 const cucumberExecutable = path.resolve(
     require.resolve('cucumber/package.json'),

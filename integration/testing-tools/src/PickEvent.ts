@@ -1,13 +1,13 @@
 import { DomainEvent } from '@serenity-js/core/lib/events';
 
 export class PickEvent {
-    static from = (events: DomainEvent[]) => new PickEvent(events);
+    static from = (events: DomainEvent[]): PickEvent => new PickEvent(events);
 
     constructor(private events: DomainEvent[]) {
     }
 
-
-    next<T extends DomainEvent>(type: Function & { prototype: T }, assertion: (event: T) => void) {
+    /* eslint-disable-next-line @typescript-eslint/ban-types */
+    next<T extends DomainEvent>(type: Function & { prototype: T }, assertion: (event: T) => void): any {
 
         const foundIndex = this.events.findIndex(event => event instanceof type);
 

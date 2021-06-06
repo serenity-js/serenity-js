@@ -1,4 +1,5 @@
 import { match } from 'tiny-types';
+
 import {
     CalculatorCommand,
     CalculatorEvent,
@@ -25,7 +26,7 @@ export class Calculator {
     }
 
     submit(query: GetCalculationResult): number;
-    submit(query: CalculatorQuery) {
+    submit(query: CalculatorQuery): number {
         return match(query)
             .when(GetCalculationResult, ({ calculationId }) => {
                 return new ResultCalculator().process(

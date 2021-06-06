@@ -1,26 +1,23 @@
 import { TinyType } from 'tiny-types';
 
-export function equals(chai: any, utils: any) {
+function tinyTypeEquals(_super) {
+    return function assertTinyTypes(another: TinyType) {
+
+        const object = this._obj;
+        return object && object instanceof TinyType ? this.assert(
+            object.equals(another),
+            `expected #{this} to equal #{exp} but got #{act}`,
+            `expected #{this} to not equal #{exp} but got #{act}`,
+            another.toString(),
+            object.toString(),
+            /* eslint-disable-next-line prefer-rest-params */
+        ) : Reflect.apply(_super, this, arguments);
+    };
+}
+
+/* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
+export function equals(chai, utils): void {
     const Assertion = chai.Assertion;
-
-    function tinyTypeEquals(_super) {
-        return function assertTinyTypes(another: TinyType) {
-
-            const obj = this._obj;
-            if (obj && obj instanceof TinyType) {
-                return this.assert(
-                    obj.equals(another),
-                    `expected #{this} to equal #{exp} but got #{act}`,
-                    `expected #{this} to not equal #{exp} but got #{act}`,
-                    another.toString(),
-                    obj.toString(),
-                );
-
-            } else {
-                return _super.apply(this, arguments);
-            }
-        };
-    }
 
     Assertion.overwriteMethod('equal',  tinyTypeEquals);
     Assertion.overwriteMethod('equals', tinyTypeEquals);

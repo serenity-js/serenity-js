@@ -1,4 +1,5 @@
 import 'mocha';
+
 import { given } from 'mocha-testdata';
 
 import { Calculator } from '../src';
@@ -17,7 +18,6 @@ import {
     SubtractionOperator,
     UseOperatorCommand,
 } from '../src/domain';
-
 import { expect } from './expect';
 
 describe('Calculator', () => {
@@ -177,6 +177,7 @@ describe('Calculator', () => {
 
     describe('when dealing with invalid input', () => {
 
+        // eslint-disable-next-line @typescript-eslint/ban-types
         class UnsuportedCommand extends CalculatorCommand<object> {
             constructor() {
                 super({}, CalculationId.create());
@@ -184,7 +185,7 @@ describe('Calculator', () => {
         }
 
         given(
-            null, undefined,
+            undefined, undefined,
             {}, 'string', 1, false,
             new UnsuportedCommand(),
         ).
@@ -201,7 +202,7 @@ describe('Calculator', () => {
         }
 
         given(
-            null, undefined,
+            undefined, undefined,
             {}, 'string', 1, false,
             new UnsuportedQuery(),
         ).

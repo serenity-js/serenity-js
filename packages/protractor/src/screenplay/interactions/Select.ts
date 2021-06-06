@@ -4,6 +4,7 @@ import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 import { by, ElementFinder } from 'protractor';
 import { promise } from 'selenium-webdriver';
+
 import { promiseOf } from '../../promiseOf';
 import { withAnswerOf } from '../withAnswerOf';
 import { SelectBuilder } from './SelectBuilder';

@@ -1,9 +1,10 @@
+import 'mocha';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
 import { ArbitraryTag, FeatureTag } from '@serenity-js/core/lib/model';
-
-import 'mocha';
 import { given } from 'mocha-testdata';
+
 import { CucumberRunner, cucumberVersions } from '../../src';
 
 describe('@serenity-js/cucumber', function () {
@@ -30,10 +31,10 @@ describe('@serenity-js/cucumber', function () {
     ]).
     it('recognises tags on a scenario', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
-        then(res => {
-            expect(res.exitCode).to.equal(0);
+        then(result => {
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(res.events)
+            PickEvent.from(result.events)
                 .next(SceneStarts,  event => expect(event.details.name.value).to.equal('A tagged scenario'))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('feature-tag')))
@@ -62,10 +63,10 @@ describe('@serenity-js/cucumber', function () {
     ]).
     it('recognises tags on a scenario outline and its examples', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
-        then(res => {
-            expect(res.exitCode).to.equal(0);
+        then(result => {
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(res.events)
+            PickEvent.from(result.events)
                 .next(SceneStarts,  event => expect(event.details.name.value).to.equal('More tagged scenarios'))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))
                 .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('feature-tag')))

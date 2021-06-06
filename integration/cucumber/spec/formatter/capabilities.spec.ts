@@ -1,9 +1,10 @@
+import 'mocha';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneTagged } from '@serenity-js/core/lib/events';
 import { CapabilityTag, FeatureTag } from '@serenity-js/core/lib/model';
-
-import 'mocha';
 import { given } from 'mocha-testdata';
+
 import { CucumberRunner, cucumberVersions } from '../../src';
 
 describe('@serenity-js/cucumber', function () {
@@ -29,10 +30,10 @@ describe('@serenity-js/cucumber', function () {
     ]).
     it('recognises directories features are grouped in as capabilities', (runner: CucumberRunner) => runner.run().
         then(ifExitCodeIsOtherThan(0, logOutput)).
-        then(res => {
-            expect(res.exitCode).to.equal(0);
+        then(result => {
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(res.events)
+            PickEvent.from(result.events)
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('example_capability')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises capabilities')))
             ;

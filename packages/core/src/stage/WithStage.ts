@@ -12,7 +12,7 @@ import { Stage } from './Stage';
  * @see https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters
  *
  * @example <caption>Usage with Cucumber.js</caption>
- * // features/support/configure_serenity.ts
+ * // features/support/configure-serenity.ts
  * import { WithStage } from '@serenity-js/core';
  * import { setWorldConstructor } from 'cucumber';
  *

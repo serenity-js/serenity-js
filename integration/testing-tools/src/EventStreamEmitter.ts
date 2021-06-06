@@ -13,15 +13,15 @@ export class EventStreamEmitter {
             .map((line, index) => {
                 try {
                     return JSON.parse(line.trim());
-                } catch (e) {
-                    throw new ConfigurationError(`Couldn't parse line ${ index + 1 }: ${line.trim()}`, e);
+                } catch (error) {
+                    throw new ConfigurationError(`Couldn't parse line ${ index + 1 }: ${line.trim()}`, error);
                 }
             })
             .map((entry, index) => {
                 try {
                     return events[ entry.type ].fromJSON(entry.event);
-                } catch (e) {
-                    throw new ConfigurationError(`Couldn't parse line ${ index + 1 }: ${JSON.stringify(entry)}`, e);
+                } catch (error) {
+                    throw new ConfigurationError(`Couldn't parse line ${ index + 1 }: ${JSON.stringify(entry)}`, error);
                 }
             });
 

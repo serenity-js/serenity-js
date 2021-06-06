@@ -10,19 +10,19 @@ export class CucumberRunnerBuilder {
     constructor(private readonly versions: number[]) {
     }
 
-    thatRequires(...requiredFiles: string[]) {
+    thatRequires(...requiredFiles: string[]): CucumberRunnerBuilder {
         this.requiredFiles = requiredFiles;
 
         return this;
     }
 
-    withArgs(...args: string[]) {
+    withArgs(...args: string[]): CucumberRunnerBuilder {
         this.args = args;
 
         return this;
     }
 
-    withStepDefsIn(...stepDefs: string[]) {
+    withStepDefsIn(...stepDefs: string[]): CucumberRunnerBuilder {
         this.stepDefs = stepDefs;
 
         return this;

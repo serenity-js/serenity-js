@@ -1,3 +1,4 @@
+import { Ability, Actor } from '@serenity-js/core';
 import {
     CalculationId,
     Calculator,
@@ -5,7 +6,6 @@ import {
     CalculatorQuery,
     GetCalculationResult,
 } from '@serenity-js-examples/calculator-app';
-import { Ability, Actor } from '@serenity-js/core';
 
 export class InteractDirectly implements Ability {
     /**
@@ -17,11 +17,11 @@ export class InteractDirectly implements Ability {
      */
     private calculationId: CalculationId;
 
-    static with(calculator: Calculator) {
+    static with(calculator: Calculator): InteractDirectly {
         return new InteractDirectly(calculator);
     }
 
-    static as(actor: Actor) {
+    static as(actor: Actor): any {
         return actor.abilityTo(InteractDirectly);
     }
 

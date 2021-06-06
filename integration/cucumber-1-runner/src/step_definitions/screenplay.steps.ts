@@ -7,7 +7,7 @@ const
     Loose           = () => Interaction.where(`#actor releases the bowstring`, actor => void 0),
     RetrieveArrow   = () => Interaction.where(`#actor retrieves the arrow from the target`, actor => void 0);
 
-export = function () {
+export = function (): void {
     this.Before(() =>
         serenity.theActorCalled('Lara').attemptsTo(
             MakeAnArrow(),

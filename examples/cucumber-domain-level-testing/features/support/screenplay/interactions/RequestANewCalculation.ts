@@ -1,7 +1,8 @@
 import { Actor, Interaction } from '@serenity-js/core';
+
 import { InteractDirectly } from '../abilities';
 
-export const RequestANewCalculation = () =>
+export const RequestANewCalculation = (): Interaction =>
     Interaction.where(`#actor requests a new calculation`,
         (actor: Actor) => {
             InteractDirectly.as(actor).requestANewCalculationId();

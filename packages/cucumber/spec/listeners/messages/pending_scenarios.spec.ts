@@ -41,7 +41,7 @@ describe('CucumberMessagesListener', () => {
                 '--format', '../../../src',
                 '--require', './examples/support/serenity.config.ts',
                 '--require', './examples/step_definitions/common.steps.ts',
-                '--require', './examples/step_definitions/wip_hook.ts',
+                '--require', './examples/step_definitions/wip-hook.ts',
                 '--name', 'A scenario which tag marks it as pending',
                 '--no-strict',  // considered only when steps are explicitly marked as 'pending'
                 './examples/features/pending_scenarios.feature',

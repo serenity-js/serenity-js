@@ -1,28 +1,28 @@
 import { AssertionError } from '@serenity-js/core';
 import { TableDefinition } from 'cucumber';
 
-export = function () {
-    this.Given(/^.*step (?:.*) passes$/, function () {
+export = function (): void {
+    this.Given(/^.*step .* passes$/, function () {
         return Promise.resolve();
     });
 
-    this.Given(/^.*step (?:.*) fails with generic error$/, function () {
+    this.Given(/^.*step .* fails with generic error$/, function () {
         return Promise.reject(new Error(`Something's wrong`));
     });
 
-    this.Given(/^.*step (?:.*) fails with assertion error$/, function () {
+    this.Given(/^.*step .* fails with assertion error$/, function () {
         return Promise.reject(new AssertionError(`Expected false to equal true`, false, true));
     });
 
-    this.Given(/^.*step (?:.*) marked as pending/, function () {
+    this.Given(/^.*step .* marked as pending/, function () {
         return Promise.resolve('pending');
     });
 
-    this.Given(/^.*step (?:.*) receives a table:$/, function (data: TableDefinition) {
+    this.Given(/^.*step .* receives a table:$/, function (data: TableDefinition) {
         return Promise.resolve();
     });
 
-    this.Given(/^.*step (?:.*) receives a doc string:$/, function (docstring: string) {
+    this.Given(/^.*step .* receives a doc string:$/, function (docstring: string) {
         return Promise.resolve();
     });
 
