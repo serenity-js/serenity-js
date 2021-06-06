@@ -397,6 +397,15 @@ export class BrowseTheWeb implements Ability {
             });
     }
 
+    /**
+     * @desc
+     *  A simplified version of {@link BrowseTheWeb#executeScript} that doesn't affect {@link LastScriptExecution.result()}.
+     *
+     * @param {Function} fn
+     * @param {Parameters<fn>} args
+     *
+     * @returns {Promise<ReturnType<fn>>}
+     */
     executeFunction<F extends (...args: any[]) => any>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
         return promiseOf(this.browser.executeScriptWithDescription(fn, fn.name, ...args));
     }
