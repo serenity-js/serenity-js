@@ -1,5 +1,6 @@
 import { ChildProcessReporter } from '@integration/testing-tools';
 import { serenity, StreamReporter } from '@serenity-js/core';
+
 import { Actors } from './Actors';
 
 export = function () {

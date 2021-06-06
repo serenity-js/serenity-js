@@ -1,7 +1,5 @@
 import 'mocha';
-import { given } from 'mocha-testdata';
-import { invoke } from '../../src/invoke';
-import { trimmed } from '@serenity-js/core/lib/io';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import {
     ActivityFinished,
@@ -15,7 +13,11 @@ import {
     TestRunnerDetected,
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+import { given } from 'mocha-testdata';
+
+import { invoke } from '../../src/invoke';
 
 describe('@serenity-js/cucumber', function () {
 

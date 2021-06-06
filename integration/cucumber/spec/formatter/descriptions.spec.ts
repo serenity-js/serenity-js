@@ -1,9 +1,10 @@
+import 'mocha';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { FeatureNarrativeDetected, SceneDescriptionDetected, SceneStarts } from '@serenity-js/core/lib/events';
 import { Description, Name } from '@serenity-js/core/lib/model';
-
-import 'mocha';
 import { given } from 'mocha-testdata';
+
 import { CucumberRunner, cucumberVersions } from '../../src';
 
 describe('@serenity-js/cucumber', function () {

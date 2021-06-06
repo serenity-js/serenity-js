@@ -1,6 +1,7 @@
 import { Task } from '@serenity-js/core';
 import { Clear, DoubleClick, Enter, Press } from '@serenity-js/protractor';
 import { protractor } from 'protractor';
+
 import { TodoList, TodoListItem } from './ui';
 
 export class RenameItem {

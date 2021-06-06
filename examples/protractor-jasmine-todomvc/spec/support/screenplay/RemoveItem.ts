@@ -1,5 +1,6 @@
 import { Task } from '@serenity-js/core';
 import { Click, Hover } from '@serenity-js/protractor';
+
 import { TodoList } from './ui';
 import { TodoListItem } from './ui/TodoListItem';
 

@@ -6,7 +6,6 @@ export class PickEvent {
     constructor(private events: DomainEvent[]) {
     }
 
-
     next<T extends DomainEvent>(type: Function & { prototype: T }, assertion: (event: T) => void) {
 
         const foundIndex = this.events.findIndex(event => event instanceof type);

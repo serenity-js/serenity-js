@@ -1,4 +1,5 @@
 import 'mocha';
+
 import { given } from 'mocha-testdata';
 
 import {
@@ -11,7 +12,6 @@ import {
     SubtractionOperator,
 } from '../../../src/domain/model';
 import { Expression } from '../../../src/rest-api/model';
-
 import { expect } from '../../expect';
 
 describe('Expression', () => {

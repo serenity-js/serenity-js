@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
+
 import { CucumberRunner, cucumberVersions } from '../../src';
 
 describe('@serenity-js/cucumber', function () {
@@ -40,9 +41,9 @@ describe('@serenity-js/cucumber', function () {
                 .next(ActivityFinished, event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
 
-                    const err = (event.outcome as ExecutionFailedWithError).error;
+                    const error = (event.outcome as ExecutionFailedWithError).error;
 
-                    const lines = err.message.split('\n');
+                    const lines = error.message.split('\n');
 
                     expect(lines[0]).to.equal('Multiple step definitions match:');
                     expect(lines[1]).to.contain('/^.*step (?:.*) passes$/');
@@ -53,16 +54,16 @@ describe('@serenity-js/cucumber', function () {
                 .next(SceneFinishes, event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
 
-                    const err = (event.outcome as ExecutionFailedWithError).error;
+                    const error = (event.outcome as ExecutionFailedWithError).error;
 
-                    expect(err.message).to.match(/^Multiple step definitions match/);
+                    expect(error.message).to.match(/^Multiple step definitions match/);
                 })
                 .next(SceneFinished, event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
 
-                    const err = (event.outcome as ExecutionFailedWithError).error;
+                    const error = (event.outcome as ExecutionFailedWithError).error;
 
-                    expect(err.message).to.match(/^Multiple step definitions match/);
+                    expect(error.message).to.match(/^Multiple step definitions match/);
                 })
             ;
         }));

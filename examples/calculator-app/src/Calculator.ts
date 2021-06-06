@@ -1,4 +1,5 @@
 import { match } from 'tiny-types';
+
 import {
     CalculatorCommand,
     CalculatorEvent,

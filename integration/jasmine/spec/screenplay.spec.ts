@@ -3,6 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionSuccessful, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+
 import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/Jasmine', function () {
@@ -75,7 +76,7 @@ describe('@serenity-js/Jasmine', function () {
                             const message = outcome.error.message.split('\n');
 
                             expect(message[0]).to.equal('1 async operation has failed to complete within a 50ms cue timeout:');
-                            expect(message[1]).to.match(/[\d]+ms - \[Stage] Dismissing Donald\.\.\./);
+                            expect(message[1]).to.match(/\d+ms - \[Stage] Dismissing Donald\.\.\./);
                         })
                     ;
                 }));

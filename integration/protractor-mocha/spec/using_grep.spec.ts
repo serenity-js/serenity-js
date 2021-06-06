@@ -2,6 +2,7 @@ import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput } from '@integration/testing-tools';
 import { TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
+
 import { protractor } from '../src/protractor';
 
 describe('@serenity-js/mocha', function () {

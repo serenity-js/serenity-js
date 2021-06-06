@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
+
 import { CucumberRunner, cucumberVersions } from '../../src';
 
 describe('@serenity-js/cucumber', function () {

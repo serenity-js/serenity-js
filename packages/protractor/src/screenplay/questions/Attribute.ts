@@ -1,6 +1,7 @@
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
+
 import { withAnswerOf } from '../withAnswerOf';
 
 // todo: it might be better to swap the order of arguments

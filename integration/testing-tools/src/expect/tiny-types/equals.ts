@@ -6,19 +6,14 @@ export function equals(chai: any, utils: any) {
     function tinyTypeEquals(_super) {
         return function assertTinyTypes(another: TinyType) {
 
-            const obj = this._obj;
-            if (obj && obj instanceof TinyType) {
-                return this.assert(
-                    obj.equals(another),
-                    `expected #{this} to equal #{exp} but got #{act}`,
-                    `expected #{this} to not equal #{exp} but got #{act}`,
-                    another.toString(),
-                    obj.toString(),
-                );
-
-            } else {
-                return _super.apply(this, arguments);
-            }
+            const object = this._obj;
+            return object && object instanceof TinyType ? this.assert(
+                object.equals(another),
+                `expected #{this} to equal #{exp} but got #{act}`,
+                `expected #{this} to not equal #{exp} but got #{act}`,
+                another.toString(),
+                object.toString(),
+            ) : Reflect.apply(_super, this, arguments);
         };
     }
 

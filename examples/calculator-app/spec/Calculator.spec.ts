@@ -1,4 +1,5 @@
 import 'mocha';
+
 import { given } from 'mocha-testdata';
 
 import { Calculator } from '../src';
@@ -17,7 +18,6 @@ import {
     SubtractionOperator,
     UseOperatorCommand,
 } from '../src/domain';
-
 import { expect } from './expect';
 
 describe('Calculator', () => {

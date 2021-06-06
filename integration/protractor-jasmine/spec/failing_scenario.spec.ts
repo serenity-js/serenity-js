@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { AssertionError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithAssertionError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+
 import { protractor } from '../src/protractor';
 
 describe('@serenity-js/jasmine', function () {

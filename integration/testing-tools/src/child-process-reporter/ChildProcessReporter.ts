@@ -1,6 +1,7 @@
 import { DomainEvent } from '@serenity-js/core/lib/events';
 import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { JSONObject } from 'tiny-types';
+
 import { DTO } from './DTO';
 
 export class ChildProcessReporter implements StageCrewMember {

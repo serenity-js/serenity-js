@@ -3,6 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionSkipped, FeatureTag, Name } from '@serenity-js/core/lib/model';
+
 import { protractor } from '../src/protractor';
 
 describe('@serenity-js/jasmine', function () {

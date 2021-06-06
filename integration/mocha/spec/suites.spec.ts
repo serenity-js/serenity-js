@@ -14,6 +14,7 @@ import {
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithAssertionError, ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+
 import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {

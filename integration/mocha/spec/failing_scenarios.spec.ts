@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { AssertionError, TestCompromisedError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+
 import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
@@ -68,7 +69,6 @@ describe('@serenity-js/mocha', function () {
                     })
                 ;
             }));
-
 
         it('fails because of a failing assertion', () => mocha('examples/failing/failing-assertion.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))

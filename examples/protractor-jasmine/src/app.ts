@@ -1,7 +1,7 @@
 import express = require('express');
 
 export const app = express()
-    .get('/', (req: express.Request, res: express.Response) => {
+    .get('/', (request: express.Request, res: express.Response) => {
 
         res.send(`<!DOCTYPE html>
             <html>

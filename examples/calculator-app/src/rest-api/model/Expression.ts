@@ -1,4 +1,5 @@
 import { ensure, isDefined, isGreaterThan, property, TinyType } from 'tiny-types';
+
 import { Operand, Operator } from '../../domain/model';
 
 export class Expression extends TinyType {

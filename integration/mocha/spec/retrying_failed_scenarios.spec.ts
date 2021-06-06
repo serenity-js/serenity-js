@@ -3,6 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { RetryableSceneDetected, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
 import { ArbitraryTag, CorrelationId, ExecutionIgnored, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
+
 import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {

@@ -1,6 +1,7 @@
-import { Operator, UseOperatorCommand } from '@serenity-js-examples/calculator-app';
 import { Actor, Interaction } from '@serenity-js/core';
 import { JSONData } from '@serenity-js/core/lib/model';
+import { Operator, UseOperatorCommand } from '@serenity-js-examples/calculator-app';
+
 import { InteractDirectly } from '../abilities';
 
 export const UseOperator = (operator: Operator) => Interaction.where(`#actor uses the ${ operator.constructor.name }`,

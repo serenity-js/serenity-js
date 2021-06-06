@@ -12,7 +12,6 @@ import {
     RightParenthesisOperator,
     SubtractionOperator,
 } from '../model';
-
 import { QueryHandler } from './QueryHandler';
 
 export class ResultCalculator implements QueryHandler<Operand> {

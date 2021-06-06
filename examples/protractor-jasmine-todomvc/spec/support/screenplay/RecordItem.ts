@@ -1,6 +1,7 @@
 import { Task } from '@serenity-js/core';
 import { Enter, Press } from '@serenity-js/protractor';
 import { protractor } from 'protractor';
+
 import { TodoList } from './ui';
 
 export class RecordItem {
