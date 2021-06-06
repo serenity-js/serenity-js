@@ -2,19 +2,11 @@ const
     path = require('path'),
     { ConsoleReporter } = require('@serenity-js/console-reporter'),
     { ArtifactArchiver } = require('@serenity-js/core'),
-    { Photographer, TakePhotosOfInteractions, TakePhotosOfFailures } = require('@serenity-js/protractor'),
+    { Photographer, TakePhotosOfFailures } = require('@serenity-js/protractor'),
     { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
 exports.config = {
-    chromeDriver: require('chromedriver/lib/chromedriver').path,
-    SELENIUM_PROMISE_MANAGER: false,
-    // restartBrowserBetweenTests: false,
-
-    directConnect: true,
-
-    // seleniumAddress: 'http://localhost:9515',
-
-    allScriptsTimeout: 11000,
+    ...require('../../protractor.conf'),
 
     specs: [ 'spec/**/*.spec.ts', ],
 
@@ -39,19 +31,5 @@ exports.config = {
         helpers: [
             'spec/config/*.ts'
         ]
-    },
-
-    capabilities: {
-        browserName: 'chrome',
-
-        chromeOptions: {
-            args: [
-                '--disable-infobars',
-                '--no-sandbox',
-                '--disable-gpu',
-                '--window-size=800,600',
-                // '--headless',
-            ],
-        },
     },
 };

@@ -7,6 +7,7 @@ import { promise } from 'selenium-webdriver';
 import { promiseOf } from '../../promiseOf';
 import { withAnswerOf } from '../withAnswerOf';
 import { SelectBuilder } from './SelectBuilder';
+import { Value } from '../questions';
 
 /**
  * @desc
@@ -288,7 +289,7 @@ class SelectValues implements Interaction {
 
                 const
                     hasRequiredValue = (option: ElementFinder) =>
-                        option.getAttribute('value').then(value => !! ~values.indexOf(value));
+                        Value.of(option).answeredBy(actor).then(value => !! ~values.indexOf(value));
 
                 return promiseOf(
                     withAnswerOf(actor, this.target, (element: ElementFinder) =>

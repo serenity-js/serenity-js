@@ -2,6 +2,7 @@ import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { withAnswerOf } from '../withAnswerOf';
+import { BrowseTheWeb } from '../abilities';
 
 // todo: it might be better to swap the order of arguments
 //  - Attribute.called('href').of(link) to make it work with ArrayListFilter
@@ -38,7 +39,25 @@ export class Attribute extends Question<Promise<string>> {
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         return actor.answer(this.name)
-            .then(name => withAnswerOf(actor, this.target, elf => elf.getAttribute(name)));
+            .then(name => withAnswerOf(actor, this.target, (elf: ElementFinder) =>
+                elf.getAttribute(name).then(value => {
+                    return value !== null               // workaround for bug in Chromium 91 - https://bugs.chromium.org/p/chromium/issues/detail?id=1205107&start=300
+                        ? value
+                        : BrowseTheWeb.as(actor).executeFunction(
+                            /* istanbul ignore next */
+                            function getAttribute(webElement, attributeName: string) {
+                                // eslint-disable-next-line no-var
+                                var value = (webElement[attributeName] || webElement.getAttribute(attributeName));
+                                if (value !== null && value !== undefined) {
+                                    return '' + value;
+                                }
+                                return value;
+                            },
+                            elf.getWebElement(),
+                            name
+                        );
+                })
+            ));
     }
 }
 

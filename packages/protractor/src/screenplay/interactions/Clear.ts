@@ -2,6 +2,7 @@ import { AnswersQuestions, Interaction, LogicError, Question, UsesAbilities } fr
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder, protractor } from 'protractor';
 import { withAnswerOf } from '../withAnswerOf';
+import { Value } from '../questions';
 
 /**
  * @desc
@@ -84,16 +85,19 @@ export class Clear extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return withAnswerOf(actor, this.field, (elf: ElementFinder) =>
-            elf.getAttribute('value').then(value => {
-                if (value === null) {
-                    throw new LogicError(
-                        `${ this.capitaliseFirstLetter(this.field.toString()) } doesn't seem to have a 'value' attribute that could be cleared.`,
-                    );
-                }
+        return new Value(this.field).answeredBy(actor).then(value => {
+            if (value === null) {
+                throw new LogicError(
+                    `${ this.capitaliseFirstLetter(this.field.toString()) } doesn't seem to have a 'value' attribute that could be cleared.`,
+                );
+            }
 
-                return this.removeCharactersFrom(elf, value.length);
-            }));
+            if (value !== undefined) {
+                return withAnswerOf(actor, this.field, (elf: ElementFinder) => {
+                    return this.removeCharactersFrom(elf, value.length);
+                });
+            }
+        });
     }
 
     /**
