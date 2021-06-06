@@ -208,7 +208,7 @@ describe(<span class="hljs-string">'Clear'</span>, <span class="hljs-function">(
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
-    it(<span class="hljs-string">'allows the actor to clear the value of an empty input field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+    it(<span class="hljs-string">'allows the actor to clear the value of an empty input with no "value" attribute'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
@@ -226,7 +226,7 @@ describe(<span class="hljs-string">'Clear'</span>, <span class="hljs-function">(
 
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear}</span> </span>*/</span>
     <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Clear.theValueOf}</span> </span>*/</span>
-    it(<span class="hljs-string">'allows the actor to clear the value of an empty input with no "value" attribute'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
+    it(<span class="hljs-string">'does not affect elements with no "value" attribute'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
         Navigate.to(pageFromTemplate(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
@@ -236,6 +236,8 @@ describe(<span class="hljs-string">'Clear'</span>, <span class="hljs-function">(
                 &lt;/body&gt;
             &lt;/html&gt;
         `</span>)),
+
+        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">''</span>)),
 
         Clear.theValueOf(Form.Field),
 

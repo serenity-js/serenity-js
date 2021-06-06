@@ -192,6 +192,7 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { promiseOf } from '../../promiseOf';
 import { withAnswerOf } from '../withAnswerOf';
+import { Value } from './Value';
 
 /**
  * @desc
@@ -400,7 +401,7 @@ class SelectedValue extends Question&lt;Promise&lt;string&gt;&gt; {
 
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string&gt; {
         const value = withAnswerOf(actor, this.target, (element: ElementFinder) =&gt;
-            element.$('option:checked').getAttribute('value')
+            Value.of(element.$('option:checked')).answeredBy(actor)
         );
 
         return promiseOf(value);
@@ -420,7 +421,7 @@ class SelectedValues extends Question&lt;Promise&lt;string[]&gt;&gt; {
         const options = withAnswerOf(actor, this.target, (element: ElementFinder) =&gt; element.$$('option')
             .filter(option =&gt; option.isSelected()));
 
-        return promiseOf(options.map(option =&gt; option.getAttribute('value')));
+        return promiseOf(options.map(option =&gt; Value.of(option).answeredBy(actor)));
     }
 }
 

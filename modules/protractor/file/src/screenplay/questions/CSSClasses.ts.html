@@ -297,12 +297,15 @@ export class CSSClasses
      */
     answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string[]&gt; {
         return Attribute.of(this.target).called('class').answeredBy(actor)
-            .then(attribute =&gt; attribute
-                .replace(/\s+/, ' ')
-                .trim()
-                .split(' ')
-                .filter(cssClass =&gt; !! cssClass),
-            );
+            .then(value =&gt; {
+                return typeof value !== 'string'
+                    ? []
+                    : value
+                        .replace(/\s+/, ' ')
+                        .trim()
+                        .split(' ')
+                        .filter(cssClass =&gt; !!cssClass);
+            });
     }
 }
 </code></pre>

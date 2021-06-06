@@ -522,6 +522,35 @@ tasks to complete before interacting with the browser.</p>
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-executeFunction">executeFunction</a></span></span><span class="code" data-ice="signature">(fn: <span>Function</span>, args: <span>Parameters</span>&lt;<span>fn</span>&gt;): <span>Promise</span>&lt;<span>ReturnType</span>&lt;<span>fn</span>&gt;&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> A simplified version of <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-executeScript">BrowseTheWeb#executeScript</a></span> that doesn't affect {@link LastScriptExecution.result()}.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-executeScript">executeScript</a></span></span><span class="code" data-ice="signature">(description: <span>string</span>, script: <span>string </span> | <span> Function</span>, args: <span><span>any</span><span>[]</span></span>): <span>Promise</span>&lt;<span>any</span>&gt;</span>
         </p>
       </div>
@@ -1654,7 +1683,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber770">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber798">source</a></span></span>
     </span>
   </h3>
 
@@ -1760,6 +1789,84 @@ in protractor configuration:</p>
   <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeAsyncScript">https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeAsyncScript</a></span></li>
 <li><span><a href="https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-">https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-</a></span></li>
 <li><span><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-getLastScriptExecutionResult">BrowseTheWeb#getLastScriptExecutionResult</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-executeFunction">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">executeFunction</span><span class="code" data-ice="signature">(fn: <span>Function</span>, args: <span>Parameters</span>&lt;<span>fn</span>&gt;): <span>Promise</span>&lt;<span>ReturnType</span>&lt;<span>fn</span>&gt;&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber727">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> A simplified version of <span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-executeScript">BrowseTheWeb#executeScript</a></span> that doesn't affect {@link LastScriptExecution.result()}.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">fn</td>
+      <td data-ice="type" class="code"><span>Function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">args</td>
+      <td data-ice="type" class="code"><span>Parameters</span>&lt;<span>fn</span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>ReturnType</span>&lt;<span>fn</span>&gt;&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
   
 </div>
 <div class="detail" data-ice="detail">
@@ -2029,7 +2136,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber873">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber901">source</a></span></span>
     </span>
   </h3>
 
@@ -2089,7 +2196,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber848">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber876">source</a></span></span>
     </span>
   </h3>
 
@@ -2203,7 +2310,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber946">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber974">source</a></span></span>
     </span>
   </h3>
 
@@ -2317,7 +2424,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber827">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber855">source</a></span></span>
     </span>
   </h3>
 
@@ -2629,7 +2736,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber996">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1024">source</a></span></span>
     </span>
   </h3>
 
@@ -2737,7 +2844,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber897">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber925">source</a></span></span>
     </span>
   </h3>
 
@@ -3127,7 +3234,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber804">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber832">source</a></span></span>
     </span>
   </h3>
 
@@ -3191,7 +3298,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber924">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber952">source</a></span></span>
     </span>
   </h3>
 

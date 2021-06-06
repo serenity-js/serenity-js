@@ -1741,49 +1741,49 @@ window.esdocSearchIndex = [
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber94",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber96",
     "Clear allows the actor to clear the value of a date field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber112",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber114",
     "Clear allows the actor to clear the value of an RTL input field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
     "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber22",
-    "Clear allows the actor to clear the value of an empty input field",
-    "test"
-  ],
-  [
-    "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber40",
     "Clear allows the actor to clear the value of an empty input with no \"value\" attribute",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber58",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber60",
     "Clear allows the actor to clear the value of an input field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber76",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber78",
     "Clear allows the actor to clear the value of an number field",
     "test"
   ],
   [
     "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber130",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber132",
     "Clear complains if the element cannot be cleared",
     "test"
   ],
   [
+    "clear.thevalueof src/screenplay/interactions/clear.ts~clear.thevalueof,clear.thevalueof",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber40",
+    "Clear does not affect elements with no \"value\" attribute",
+    "test"
+  ],
+  [
     "clear#tostring src/screenplay/interactions/clear.ts~clear#tostring,clear#tostring",
-    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber143",
+    "test-file/spec/screenplay/interactions/Clear.spec.ts.html#lineNumber145",
     "Clear provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -5331,6 +5331,12 @@ window.esdocSearchIndex = [
     "src/screenplay/abilities/browsetheweb.ts~browsetheweb#executeasyncscript",
     "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-executeAsyncScript",
     "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#executeAsyncScript",
+    "method"
+  ],
+  [
+    "src/screenplay/abilities/browsetheweb.ts~browsetheweb#executefunction",
+    "class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html#instance-method-executeFunction",
+    "src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb#executeFunction",
     "method"
   ],
   [

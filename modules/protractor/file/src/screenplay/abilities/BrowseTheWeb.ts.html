@@ -588,6 +588,19 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
+     *  A simplified version of {<span class="hljs-doctag">@link </span>BrowseTheWeb#executeScript} that doesn't affect {<span class="hljs-doctag">@link </span>LastScriptExecution.result()}.
+     *
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Function}</span> <span class="hljs-variable">fn</span></span>
+     * <span class="hljs-doctag">@param <span class="hljs-type">{Parameters&lt;fn&gt;}</span> <span class="hljs-variable">args</span></span>
+     *
+     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;ReturnType&lt;fn&gt;&gt;}</span></span>
+     */</span>
+    executeFunction&lt;F <span class="hljs-keyword">extends</span> (...args: <span class="hljs-built_in">any</span>[]) =&gt; <span class="hljs-built_in">any</span>&gt;(fn: F, ...args: Parameters&lt;F&gt;): <span class="hljs-built_in">Promise</span>&lt;ReturnType&lt;F&gt;&gt; {
+        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.executeScriptWithDescription(fn, fn.name, ...args));
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
      *  Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
      *  The script fragment will be executed as the body of an anonymous function.
      *  If the script is provided as a function object, that function will be converted to a string for injection

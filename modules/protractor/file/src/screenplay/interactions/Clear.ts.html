@@ -191,6 +191,7 @@
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { ElementFinder, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../withAnswerOf'</span>;
+<span class="hljs-keyword">import</span> { Value } <span class="hljs-keyword">from</span> <span class="hljs-string">'../questions'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -273,16 +274,19 @@
      * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
      */</span>
     performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> withAnswerOf(actor, <span class="hljs-built_in">this</span>.field, <span class="hljs-function">(<span class="hljs-params">elf: ElementFinder</span>) =&gt;</span>
-            elf.getAttribute(<span class="hljs-string">'value'</span>).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
-                <span class="hljs-keyword">if</span> (value === <span class="hljs-literal">null</span>) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(
-                        <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.capitaliseFirstLetter(<span class="hljs-built_in">this</span>.field.toString()) }</span> doesn't seem to have a 'value' attribute that could be cleared.`</span>,
-                    );
-                }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Value(<span class="hljs-built_in">this</span>.field).answeredBy(actor).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
+            <span class="hljs-keyword">if</span> (value === <span class="hljs-literal">null</span>) {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(
+                    <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.capitaliseFirstLetter(<span class="hljs-built_in">this</span>.field.toString()) }</span> doesn't seem to have a 'value' attribute that could be cleared.`</span>,
+                );
+            }
 
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.removeCharactersFrom(elf, value.length);
-            }));
+            <span class="hljs-keyword">if</span> (value !== <span class="hljs-literal">undefined</span>) {
+                <span class="hljs-keyword">return</span> withAnswerOf(actor, <span class="hljs-built_in">this</span>.field, <span class="hljs-function">(<span class="hljs-params">elf: ElementFinder</span>) =&gt;</span> {
+                    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.removeCharactersFrom(elf, value.length);
+                });
+            }
+        });
     }
 
     <span class="hljs-comment">/**

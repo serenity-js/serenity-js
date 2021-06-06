@@ -196,6 +196,7 @@
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../promiseOf'</span>;
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../withAnswerOf'</span>;
 <span class="hljs-keyword">import</span> { SelectBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SelectBuilder'</span>;
+<span class="hljs-keyword">import</span> { Value } <span class="hljs-keyword">from</span> <span class="hljs-string">'../questions'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -477,7 +478,7 @@
 
                 <span class="hljs-keyword">const</span>
                     hasRequiredValue = <span class="hljs-function">(<span class="hljs-params">option: ElementFinder</span>) =&gt;</span>
-                        option.getAttribute(<span class="hljs-string">'value'</span>).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> !! ~values.indexOf(value));
+                        Value.of(option).answeredBy(actor).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> !! ~values.indexOf(value));
 
                 <span class="hljs-keyword">return</span> promiseOf(
                     withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function">(<span class="hljs-params">element: ElementFinder</span>) =&gt;</span>
