@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
+
 import { BrowseTheWeb } from '../abilities';
 
 /**
