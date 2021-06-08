@@ -6,6 +6,7 @@ import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { actorCalled, engage, Question } from '@serenity-js/core';
 import { given } from 'mocha-testdata';
 import { by, ElementArrayFinder, ElementFinder } from 'protractor';
+
 import { Click, CSSClasses, Navigate, Pick, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';

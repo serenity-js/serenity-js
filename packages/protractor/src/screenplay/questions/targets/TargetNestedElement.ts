@@ -1,5 +1,6 @@
 import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementFinder } from 'protractor';
+
 import { withAnswerOf } from '../../withAnswerOf';
 import { override } from './override';
 
@@ -64,7 +65,7 @@ export class TargetNestedElement
             withAnswerOf<ElementFinder, ElementFinder>(actor, this.child, child => override(
                 parent.element(child.locator()),
                 'toString',
-                this.toString.bind(this),
+                TargetNestedElement.prototype.toString.bind(this),
             )));
     }
 }
