@@ -1,8 +1,9 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Answerable, q, Task } from '@serenity-js/core';
-import { DeleteRequest, LastResponse, PostRequest, Send } from '@serenity-js/rest';
-import { Navigate } from '../../src';
 import { LocalServer } from '@serenity-js/local-server';
+import { DeleteRequest, LastResponse, PostRequest, Send } from '@serenity-js/rest';
+
+import { Navigate } from '../../src';
 
 export const CreatePage = (name: Answerable<string>, body: Answerable<string>): Task =>
     Task.where(`#actor creates page called ${ name }`,

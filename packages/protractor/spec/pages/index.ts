@@ -1,2 +1,2 @@
-export * from './tasks';
 export * from './app';
+export * from './tasks';
