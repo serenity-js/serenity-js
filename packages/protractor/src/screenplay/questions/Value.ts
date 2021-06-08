@@ -1,9 +1,10 @@
 import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
-import { TargetNestedElement } from './targets';
-import { withAnswerOf } from '../withAnswerOf';
+
 import { BrowseTheWeb } from '../abilities';
+import { withAnswerOf } from '../withAnswerOf';
+import { TargetNestedElement } from './targets';
 
 /**
  * @desc

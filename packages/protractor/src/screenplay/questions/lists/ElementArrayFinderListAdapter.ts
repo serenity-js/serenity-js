@@ -1,6 +1,6 @@
-import { ListAdapter } from '@serenity-js/core/lib/screenplay/questions/lists';
-import { formatted } from '@serenity-js/core/lib/io';
 import { AnswersQuestions, Expectation, ExpectationMet, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { formatted } from '@serenity-js/core/lib/io';
+import { ListAdapter } from '@serenity-js/core/lib/screenplay/questions/lists';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 
 /**
