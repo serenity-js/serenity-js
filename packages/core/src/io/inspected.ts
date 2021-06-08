@@ -122,7 +122,7 @@ function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
  * @param {Answerable<any>} v
  */
 function isANamedFunction(v: any): v is { name: string } {
-    return {}.toString.call(v) === '[object Function]' && (v as any).name !== '';
+    return Object.prototype.toString.call(v) === '[object Function]' && (v as any).name !== '';
 }
 
 /**

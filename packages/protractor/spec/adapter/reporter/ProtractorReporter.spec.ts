@@ -23,6 +23,7 @@ import {
 import { given } from 'mocha-testdata';
 import { Runner } from 'protractor';
 import * as sinon from 'sinon';
+
 import { ProtractorReporter } from '../../../src/adapter/reporter';
 
 /**

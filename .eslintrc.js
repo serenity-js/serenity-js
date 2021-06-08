@@ -13,7 +13,9 @@ module.exports = {
     },
     plugins: [
         '@typescript-eslint',
+        'import',
         'simple-import-sort',
+        'unused-imports'
     ],
     extends: [
         'eslint:recommended',
@@ -22,7 +24,11 @@ module.exports = {
         'plugin:unicorn/recommended',
     ],
     rules: {
-        // 'simple-import-sort/imports': 'error',
+        'simple-import-sort/imports': 'error',
+        'simple-import-sort/exports': 'error',
+        'sort-imports': 'off',
+        'import/order': 'off',
+        'unused-imports/no-unused-imports': 'error',
 
         'no-multiple-empty-lines': ['warn', {
             'max': 1,

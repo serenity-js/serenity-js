@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/console-reporter",
-  "version": "2.28.1",
+  "version": "2.29.0",
   "description": "Serenity/JS console reporter",
   "author": {
     "name": "Jan Molak",
@@ -27,6 +27,7 @@
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
     "lint": "eslint --ext ts --config ../../.eslintrc.js .",
+    "lint:fix": "npm run lint -- --fix",
     "test": "nyc --report-dir ../../target/coverage/console-reporter mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
@@ -43,7 +44,7 @@
     "npm": "^6 || ^7"
   },
   "dependencies": {
-    "@serenity-js/core": "2.28.1",
+    "@serenity-js/core": "2.29.0",
     "chalk": "^4.1.1",
     "tiny-types": "^1.16.1"
   },
@@ -51,7 +52,7 @@
     "@documentation/esdoc-template": "2.0.0",
     "@integration/testing-tools": "2.0.0",
     "@types/mocha": "^8.2.2",
-    "mocha": "^8.4.0"
+    "mocha": "^9.0.0"
   },
   "nyc": {
     "include": [
