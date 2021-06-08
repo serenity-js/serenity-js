@@ -3,6 +3,7 @@
 import { serenity } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { Runner } from 'protractor';
+
 import { ProtractorFrameworkAdapter } from './ProtractorFrameworkAdapter';
 import { ProtractorReport } from './reporter';
 import { TestRunnerDetector, TestRunnerLoader } from './runner';

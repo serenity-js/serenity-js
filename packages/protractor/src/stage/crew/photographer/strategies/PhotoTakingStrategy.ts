@@ -10,6 +10,7 @@ import {
 } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
 import { error as webdriver } from 'selenium-webdriver';
+
 import { BrowseTheWeb } from '../../../../screenplay';
 
 /**

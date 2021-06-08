@@ -8,6 +8,7 @@ import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } fr
 import express = require('express');
 
 import { protractor } from 'protractor';
+
 import { BrowseTheWeb, DeleteCookies, Navigate } from '../../../src';
 import { Cookie } from '../../../src/screenplay';
 import { UIActors } from '../../UIActors';

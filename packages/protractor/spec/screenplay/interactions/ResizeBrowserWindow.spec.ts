@@ -1,8 +1,9 @@
 import 'mocha';
-import { expect } from '@integration/testing-tools';
 
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage, Note, TakeNote } from '@serenity-js/core';
+
 import { ResizeBrowserWindow, Window } from '../../../src';
 import { UIActors } from '../../UIActors';
 
