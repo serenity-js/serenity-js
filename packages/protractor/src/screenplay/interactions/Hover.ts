@@ -2,6 +2,7 @@ import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenit
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
+
 import { BrowseTheWeb } from '../abilities';
 import { withAnswerOf } from '../withAnswerOf';
 
