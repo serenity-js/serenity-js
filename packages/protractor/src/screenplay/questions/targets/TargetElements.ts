@@ -1,9 +1,10 @@
 import { AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementArrayFinder, ElementFinder, Locator } from 'protractor';
+
 import { BrowseTheWeb } from '../../abilities';
+import { ElementArrayFinderListAdapter } from '../lists';
 import { override } from './override';
 import { TargetNestedElements } from './TargetNestedElements';
-import { ElementArrayFinderListAdapter } from '../lists';
 
 /**
  * @desc
