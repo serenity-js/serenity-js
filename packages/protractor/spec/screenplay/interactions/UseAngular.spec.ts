@@ -3,8 +3,8 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, isTrue } from '@serenity-js/assertions';
 import { actorCalled, engage, Question } from '@serenity-js/core';
-
 import { protractor } from 'protractor';
+
 import { UseAngular } from '../../../src';
 import { promiseOf } from '../../../src/promiseOf';
 import { UIActors } from '../../UIActors';
