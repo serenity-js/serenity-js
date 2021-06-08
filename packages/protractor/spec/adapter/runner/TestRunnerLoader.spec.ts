@@ -1,9 +1,11 @@
 import 'mocha';
+
 import { expect } from '@integration/testing-tools';
 import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import { CucumberFormat, StandardOutput, TempFileOutput } from '@serenity-js/cucumber/lib/cli';
 import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
+
 import { TestRunnerLoader } from '../../../src/adapter';
 
 /** @test {TestRunnerLoader} */
