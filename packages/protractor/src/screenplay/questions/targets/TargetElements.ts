@@ -1,9 +1,10 @@
 import { AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementArrayFinder, ElementFinder, Locator } from 'protractor';
+
 import { BrowseTheWeb } from '../../abilities';
+import { ElementArrayFinderListAdapter } from '../lists';
 import { override } from './override';
 import { TargetNestedElements } from './TargetNestedElements';
-import { ElementArrayFinderListAdapter } from '../lists';
 
 /**
  * @desc
@@ -135,7 +136,7 @@ export class TargetElements
         return override(
             BrowseTheWeb.as(actor).locateAll(this.locator),
             'toString',
-            this.toString.bind(this),
+            TargetElements.prototype.toString.bind(this),
         );
     }
 }

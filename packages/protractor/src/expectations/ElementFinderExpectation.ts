@@ -1,5 +1,6 @@
 import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 import { ElementFinder } from 'protractor';
+
 import { promiseOf } from '../promiseOf';
 
 /**
