@@ -2,8 +2,8 @@ import 'mocha';
 
 import { Ensure, equals, not } from '@serenity-js/assertions';
 import { actorCalled, engage, Loop } from '@serenity-js/core';
-
 import { by, ElementFinder } from 'protractor';
+
 import { Click, isSelected, Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';

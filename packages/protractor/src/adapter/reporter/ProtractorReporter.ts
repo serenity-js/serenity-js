@@ -3,6 +3,7 @@ import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed,
 import { CorrelationId, Description, ExecutionSkipped, Outcome, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
 import { StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Runner } from 'protractor';
+
 import { ProtractorReport } from './ProtractorReport';
 
 /**
