@@ -7,6 +7,6 @@ export * from './FeatureTag';
 export * from './IssueTag';
 export * from './ManualTag';
 export * from './PlatformTag';
-export * from './ThemeTag';
 export * from './Tag';
 export * from './Tags';
+export * from './ThemeTag';
