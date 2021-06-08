@@ -1,5 +1,6 @@
 import { Expectation } from '@serenity-js/core';
 import { ElementFinder } from 'protractor';
+
 import { ElementFinderExpectation } from './ElementFinderExpectation';
 
 /**

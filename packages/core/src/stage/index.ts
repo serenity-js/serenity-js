@@ -1,6 +1,6 @@
-export * from './crew';
 export * from './Cast';
 export * from './Clock';
+export * from './crew';
 export * from './DressingRoom';
 export * from './ListensToDomainEvents';
 export * from './Stage';
