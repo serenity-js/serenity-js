@@ -1,6 +1,7 @@
 import { and } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 import { ElementFinder } from 'protractor';
+
 import { ElementFinderExpectation } from './ElementFinderExpectation';
 import { isPresent } from './isPresent';
 
