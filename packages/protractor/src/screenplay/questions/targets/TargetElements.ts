@@ -136,7 +136,7 @@ export class TargetElements
         return override(
             BrowseTheWeb.as(actor).locateAll(this.locator),
             'toString',
-            this.toString.bind(this),
+            TargetElements.prototype.toString.bind(this),
         );
     }
 }

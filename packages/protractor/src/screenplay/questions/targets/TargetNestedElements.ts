@@ -136,7 +136,7 @@ export class TargetNestedElements
             withAnswerOf<ElementArrayFinder, ElementArrayFinder>(actor, this.children, children => override(
                 parent.all(children.locator()),
                 'toString',
-                this.toString.bind(this),
+                TargetNestedElements.prototype.toString.bind(this),
             )));
     }
 }

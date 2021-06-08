@@ -65,7 +65,7 @@ export class TargetNestedElement
             withAnswerOf<ElementFinder, ElementFinder>(actor, this.child, child => override(
                 parent.element(child.locator()),
                 'toString',
-                this.toString.bind(this),
+                TargetNestedElement.prototype.toString.bind(this),
             )));
     }
 }
